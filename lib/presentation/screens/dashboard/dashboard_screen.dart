@@ -4,6 +4,7 @@ import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
+import 'package:clinic_management_app/presentation/blocs/onboarding/onboarding_state.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_state.dart';
 
@@ -32,9 +33,24 @@ class DashboardScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              AppStrings.welcomeBack,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: colors.textPrimary),
+            BlocBuilder<AuthCubit, AuthState>(
+              builder: (context, authState) {
+                final roleLabel = authState.role == UserRole.doctor ? 'طَبِيب' : 'مُدِير العِيَادَة';
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'مَرْحَباً، ${authState.userName ?? ''}',
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: colors.textPrimary),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      roleLabel,
+                      style: TextStyle(fontSize: 14, color: colors.primary, fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                );
+              },
             ),
             const SizedBox(height: 24),
             _buildStats(context),

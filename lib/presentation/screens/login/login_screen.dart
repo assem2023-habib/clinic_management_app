@@ -4,6 +4,7 @@ import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
+import 'package:clinic_management_app/presentation/blocs/onboarding/onboarding_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -15,6 +16,13 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
+    final onboarding = context.watch<OnboardingCubit>();
+    final role = onboarding.state.selectedRole;
+    final roleLabel = role == null
+        ? 'Admin / Doctor'
+        : role.name == 'admin'
+            ? 'مُدِير العِيَادَة'
+            : 'طَبِيب';
 
     return Scaffold(
       body: SafeArea(
@@ -44,11 +52,28 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    AppStrings.loginSubtitle,
+                    'تَسْجِيلُ الدُّخُولِ بِصِفَةِ',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 14,
                       color: colors.textSecondary,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: colors.primary.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      roleLabel,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: colors.primary,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 40),
@@ -60,9 +85,7 @@ class LoginScreen extends StatelessWidget {
                       prefixIcon: Icon(Icons.email_outlined, color: colors.textSecondary),
                     ),
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter email';
-                      }
+                      if (value == null || value.isEmpty) return 'الرَّجَاء إِدْخَال البَرِيد الإِلِكْتُرُونِيّ';
                       return null;
                     },
                   ),
@@ -75,9 +98,7 @@ class LoginScreen extends StatelessWidget {
                       prefixIcon: Icon(Icons.lock_outlined, color: colors.textSecondary),
                     ),
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter password';
-                      }
+                      if (value == null || value.isEmpty) return 'الرَّجَاء إِدْخَال كَلِمَة المُرُور';
                       return null;
                     },
                   ),
@@ -88,6 +109,7 @@ class LoginScreen extends StatelessWidget {
                         context.read<AuthCubit>().login(
                               _emailController.text,
                               _passwordController.text,
+                              role: onboarding.state.selectedRole,
                             );
                         Navigator.pushReplacementNamed(
                           context,
@@ -101,6 +123,17 @@ class LoginScreen extends StatelessWidget {
                     child: const Text(
                       AppStrings.login,
                       style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  TextButton(
+                    onPressed: () {
+                      context.read<OnboardingCubit>().resetOnboarding();
+                      Navigator.pushReplacementNamed(context, AppRoutes.roleSelection);
+                    },
+                    child: Text(
+                      'العَوْدَةُ لِاخْتِيَارِ الدَّوْرِ',
+                      style: TextStyle(color: colors.textLight, fontSize: 13),
                     ),
                   ),
                 ],
