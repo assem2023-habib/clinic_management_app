@@ -28,6 +28,8 @@ class _PatientsScreenState extends State<PatientsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
+
     return Scaffold(
       appBar: AppBar(title: const Text(AppStrings.patients)),
       body: Column(
@@ -36,7 +38,10 @@ class _PatientsScreenState extends State<PatientsScreen> {
             padding: const EdgeInsets.all(16),
             child: TextField(
               controller: _searchController,
-              decoration: const InputDecoration(hintText: AppStrings.search, prefixIcon: Icon(Icons.search)),
+              decoration: InputDecoration(
+                hintText: AppStrings.search,
+                prefixIcon: Icon(Icons.search, color: colors.textLight),
+              ),
               onChanged: (value) => context.read<PatientBloc>().add(PatientSearch(value)),
             ),
           ),
@@ -45,7 +50,7 @@ class _PatientsScreenState extends State<PatientsScreen> {
               builder: (context, state) {
                 if (state is PatientLoading) return const Center(child: CircularProgressIndicator());
                 if (state is PatientLoaded) {
-                  if (state.patients.isEmpty) return const Center(child: Text(AppStrings.noData));
+                  if (state.patients.isEmpty) return Center(child: Text(AppStrings.noData, style: TextStyle(color: colors.textSecondary)));
                   return ListView.separated(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     itemCount: state.patients.length,
@@ -53,8 +58,8 @@ class _PatientsScreenState extends State<PatientsScreen> {
                     itemBuilder: (context, index) => _buildPatientCard(state.patients[index]),
                   );
                 }
-                if (state is PatientError) return Center(child: Text(state.message));
-                return const Center(child: Text(AppStrings.noData));
+                if (state is PatientError) return Center(child: Text(state.message, style: TextStyle(color: colors.error)));
+                return Center(child: Text(AppStrings.noData, style: TextStyle(color: colors.textSecondary)));
               },
             ),
           ),
@@ -68,10 +73,12 @@ class _PatientsScreenState extends State<PatientsScreen> {
   }
 
   Widget _buildPatientCard(Patient patient) {
+    final colors = AppColors.of(context);
+
     return Card(
       child: ListTile(
         leading: CircleAvatar(
-          backgroundColor: patient.gender == Gender.male ? AppColors.primary : Colors.pink,
+          backgroundColor: patient.gender == Gender.male ? colors.primary : Colors.pink,
           child: Icon(patient.gender == Gender.male ? Icons.male : Icons.female, color: Colors.white),
         ),
         title: Text(patient.name),

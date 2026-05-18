@@ -14,6 +14,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
+
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -25,37 +27,37 @@ class LoginScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.medical_services_rounded,
                     size: 80,
-                    color: AppColors.primary,
+                    color: colors.primary,
                   ),
                   const SizedBox(height: 24),
-                  const Text(
+                  Text(
                     AppStrings.appName,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.textPrimary,
+                      color: colors.textPrimary,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     AppStrings.loginSubtitle,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
-                      color: AppColors.textSecondary,
+                      color: colors.textSecondary,
                     ),
                   ),
                   const SizedBox(height: 40),
                   TextFormField(
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       labelText: AppStrings.email,
-                      prefixIcon: Icon(Icons.email_outlined),
+                      prefixIcon: Icon(Icons.email_outlined, color: colors.textSecondary),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -68,9 +70,9 @@ class LoginScreen extends StatelessWidget {
                   TextFormField(
                     controller: _passwordController,
                     obscureText: true,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       labelText: AppStrings.password,
-                      prefixIcon: Icon(Icons.lock_outlined),
+                      prefixIcon: Icon(Icons.lock_outlined, color: colors.textSecondary),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -98,7 +100,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     child: const Text(
                       AppStrings.login,
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                   ),
                 ],
