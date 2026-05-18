@@ -27,6 +27,8 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
+
     return Scaffold(
       appBar: AppBar(title: const Text(AppStrings.doctors)),
       body: Column(
@@ -35,9 +37,9 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
             padding: const EdgeInsets.all(16),
             child: TextField(
               controller: _searchController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: AppStrings.search,
-                prefixIcon: Icon(Icons.search),
+                prefixIcon: Icon(Icons.search, color: colors.textLight),
               ),
               onChanged: (value) {
                 context.read<DoctorBloc>().add(DoctorSearch(value));
@@ -52,7 +54,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                 }
                 if (state is DoctorLoaded) {
                   if (state.doctors.isEmpty) {
-                    return const Center(child: Text(AppStrings.noData));
+                    return Center(child: Text(AppStrings.noData, style: TextStyle(color: colors.textSecondary)));
                   }
                   return ListView.separated(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -65,9 +67,9 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                   );
                 }
                 if (state is DoctorError) {
-                  return Center(child: Text(state.message));
+                  return Center(child: Text(state.message, style: TextStyle(color: colors.error)));
                 }
-                return const Center(child: Text(AppStrings.noData));
+                return Center(child: Text(AppStrings.noData, style: TextStyle(color: colors.textSecondary)));
               },
             ),
           ),
@@ -81,11 +83,13 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
   }
 
   Widget _buildDoctorCard(Doctor doctor) {
+    final colors = AppColors.of(context);
+
     return Card(
       child: ListTile(
         leading: CircleAvatar(
-          backgroundColor: doctor.isAvailable ? AppColors.secondary : AppColors.textLight,
-          child: Icon(Icons.person, color: Colors.white),
+          backgroundColor: doctor.isAvailable ? colors.secondary : colors.textLight,
+          child: const Icon(Icons.person, color: Colors.white),
         ),
         title: Text(doctor.name),
         subtitle: Text(doctor.specialty),
@@ -96,7 +100,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
               width: 10,
               height: 10,
               decoration: BoxDecoration(
-                color: doctor.isAvailable ? AppColors.success : AppColors.error,
+                color: doctor.isAvailable ? colors.success : colors.error,
                 shape: BoxShape.circle,
               ),
             ),

@@ -88,7 +88,7 @@ class _PatientFormDialogState extends State<PatientFormDialog> {
               TextFormField(controller: _ageController, decoration: const InputDecoration(labelText: 'Age'), keyboardType: TextInputType.number, validator: (v) => v!.isEmpty ? 'Required' : null),
               const SizedBox(height: 12),
               DropdownButtonFormField<Gender>(
-                value: _gender,
+                initialValue: _gender,
                 decoration: const InputDecoration(labelText: 'Gender'),
                 items: const [DropdownMenuItem(value: Gender.male, child: Text('Male')), DropdownMenuItem(value: Gender.female, child: Text('Female'))],
                 onChanged: (v) => setState(() => _gender = v!),

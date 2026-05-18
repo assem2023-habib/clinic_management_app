@@ -4,8 +4,6 @@ import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
-import 'package:clinic_management_app/presentation/blocs/doctor/doctor_bloc.dart';
-import 'package:clinic_management_app/presentation/blocs/patient/patient_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_state.dart';
 
@@ -14,6 +12,8 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(AppStrings.dashboard),
@@ -32,18 +32,18 @@ class DashboardScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               AppStrings.welcomeBack,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: colors.textPrimary),
             ),
             const SizedBox(height: 24),
             _buildStats(context),
             const SizedBox(height: 24),
             _buildQuickActions(context),
             const SizedBox(height: 24),
-            const Text(
+            Text(
               'Recent Appointments',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary),
             ),
             const SizedBox(height: 12),
             _buildRecentAppointments(context),
@@ -54,6 +54,8 @@ class DashboardScreen extends StatelessWidget {
   }
 
   Widget _buildStats(BuildContext context) {
+    final colors = AppColors.of(context);
+
     return GridView.count(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -62,34 +64,10 @@ class DashboardScreen extends StatelessWidget {
       mainAxisSpacing: 12,
       childAspectRatio: 1.5,
       children: [
-        _buildStatCard(
-          context,
-          title: AppStrings.totalDoctors,
-          icon: Icons.medical_services,
-          color: AppColors.primary,
-          bloc: DoctorBloc,
-        ),
-        _buildStatCard(
-          context,
-          title: AppStrings.totalPatients,
-          icon: Icons.people,
-          color: AppColors.secondary,
-          bloc: PatientBloc,
-        ),
-        _buildStatCard(
-          context,
-          title: AppStrings.todayAppointments,
-          icon: Icons.today,
-          color: AppColors.accent,
-          bloc: AppointmentBloc,
-        ),
-        _buildStatCard(
-          context,
-          title: AppStrings.pendingAppointments,
-          icon: Icons.pending_actions,
-          color: AppColors.error,
-          bloc: AppointmentBloc,
-        ),
+        _buildStatCard(context, title: AppStrings.totalDoctors, icon: Icons.medical_services, color: colors.primary),
+        _buildStatCard(context, title: AppStrings.totalPatients, icon: Icons.people, color: colors.secondary),
+        _buildStatCard(context, title: AppStrings.todayAppointments, icon: Icons.today, color: colors.accent),
+        _buildStatCard(context, title: AppStrings.pendingAppointments, icon: Icons.pending_actions, color: colors.error),
       ],
     );
   }
@@ -99,8 +77,9 @@ class DashboardScreen extends StatelessWidget {
     required String title,
     required IconData icon,
     required Color color,
-    required dynamic bloc,
   }) {
+    final colors = AppColors.of(context);
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -112,7 +91,7 @@ class DashboardScreen extends StatelessWidget {
             Text(
               title,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: colors.textPrimary),
             ),
           ],
         ),
@@ -121,34 +100,24 @@ class DashboardScreen extends StatelessWidget {
   }
 
   Widget _buildQuickActions(BuildContext context) {
+    final colors = AppColors.of(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'Quick Actions',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary),
         ),
         const SizedBox(height: 12),
         Row(
           children: [
             Expanded(
-              child: _buildActionButton(
-                context,
-                icon: Icons.person_add,
-                label: AppStrings.addDoctor,
-                color: AppColors.primary,
-                route: AppRoutes.doctors,
-              ),
+              child: _buildActionButton(context, icon: Icons.person_add, label: AppStrings.addDoctor, color: colors.primary, route: AppRoutes.doctors),
             ),
             const SizedBox(width: 12),
             Expanded(
-              child: _buildActionButton(
-                context,
-                icon: Icons.person_add_alt_1,
-                label: AppStrings.addPatient,
-                color: AppColors.secondary,
-                route: AppRoutes.patients,
-              ),
+              child: _buildActionButton(context, icon: Icons.person_add_alt_1, label: AppStrings.addPatient, color: colors.secondary, route: AppRoutes.patients),
             ),
           ],
         ),
@@ -156,23 +125,11 @@ class DashboardScreen extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: _buildActionButton(
-                context,
-                icon: Icons.calendar_today,
-                label: AppStrings.addAppointment,
-                color: AppColors.accent,
-                route: AppRoutes.appointments,
-              ),
+              child: _buildActionButton(context, icon: Icons.calendar_today, label: AppStrings.addAppointment, color: colors.accent, route: AppRoutes.appointments),
             ),
             const SizedBox(width: 12),
             Expanded(
-              child: _buildActionButton(
-                context,
-                icon: Icons.description,
-                label: 'View Records',
-                color: AppColors.primaryDark,
-                route: AppRoutes.medicalRecords,
-              ),
+              child: _buildActionButton(context, icon: Icons.description, label: 'View Records', color: colors.primaryDark, route: AppRoutes.medicalRecords),
             ),
           ],
         ),
@@ -196,15 +153,17 @@ class DashboardScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, size: 20),
+          Icon(icon, size: 20, color: Colors.white),
           const SizedBox(width: 8),
-          Text(label, style: const TextStyle(fontSize: 14)),
+          Text(label, style: const TextStyle(fontSize: 14, color: Colors.white)),
         ],
       ),
     );
   }
 
   Widget _buildRecentAppointments(BuildContext context) {
+    final colors = AppColors.of(context);
+
     return BlocBuilder<AppointmentBloc, AppointmentState>(
       builder: (context, state) {
         if (state is AppointmentLoading) {
@@ -213,7 +172,7 @@ class DashboardScreen extends StatelessWidget {
         if (state is AppointmentLoaded) {
           final recent = state.appointments.take(3).toList();
           if (recent.isEmpty) {
-            return const Center(child: Text('No appointments'));
+            return Center(child: Text('No appointments', style: TextStyle(color: colors.textSecondary)));
           }
           return ListView.separated(
             shrinkWrap: true,
@@ -225,64 +184,64 @@ class DashboardScreen extends StatelessWidget {
               return Card(
                 child: ListTile(
                   leading: CircleAvatar(
-                    backgroundColor: _getStatusColor(appointment.status.name),
-                    child: Icon(Icons.event, color: Colors.white),
+                    backgroundColor: _getStatusColor(colors, appointment.status.name),
+                    child: const Icon(Icons.event, color: Colors.white),
                   ),
                   title: Text(appointment.patientName),
                   subtitle: Text(appointment.doctorName),
-                  trailing: _buildStatusBadge(appointment.status.name),
+                  trailing: _buildStatusBadge(colors, appointment.status.name),
                 ),
               );
             },
           );
         }
-        return const Center(child: Text('No appointments'));
+        return Center(child: Text('No appointments', style: TextStyle(color: colors.textSecondary)));
       },
     );
   }
 
-  Color _getStatusColor(String status) {
+  Color _getStatusColor(AppColorSet colors, String status) {
     switch (status) {
       case 'scheduled':
-        return AppColors.primary;
+        return colors.primary;
       case 'completed':
-        return AppColors.success;
+        return colors.success;
       case 'cancelled':
-        return AppColors.error;
+        return colors.error;
       case 'inProgress':
-        return AppColors.accent;
+        return colors.accent;
       default:
-        return AppColors.textLight;
+        return colors.textLight;
     }
   }
 
-  Widget _buildStatusBadge(String status) {
+  Widget _buildStatusBadge(AppColorSet colors, String status) {
     Color color;
     String label;
     switch (status) {
       case 'scheduled':
-        color = AppColors.primary;
+        color = colors.primary;
         label = 'Scheduled';
       case 'completed':
-        color = AppColors.success;
+        color = colors.success;
         label = 'Completed';
       case 'cancelled':
-        color = AppColors.error;
+        color = colors.error;
         label = 'Cancelled';
       case 'inProgress':
-        color = AppColors.accent;
+        color = colors.accent;
         label = 'In Progress';
       default:
-        color = AppColors.textLight;
+        color = colors.textLight;
         label = status;
     }
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.15),
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Text(label, style: TextStyle(color: color, fontSize: 12)),
+      child: Text(label, style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w500)),
     );
   }
 }

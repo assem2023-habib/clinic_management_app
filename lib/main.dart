@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:clinic_management_app/core/theme/app_theme.dart';
+import 'package:clinic_management_app/core/theme/theme_provider.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/data/repositories/appointment_repository.dart';
 import 'package:clinic_management_app/data/repositories/doctor_repository.dart';
@@ -18,7 +20,14 @@ import 'package:clinic_management_app/presentation/screens/patients/patients_scr
 import 'package:clinic_management_app/presentation/screens/settings/settings_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -39,20 +48,24 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => PatientBloc(RepositoryProvider.of<PatientRepository>(context))),
           BlocProvider(create: (context) => AppointmentBloc(RepositoryProvider.of<AppointmentRepository>(context))),
         ],
-        child: MaterialApp(
-          title: 'Clinic Management',
-          theme: AppTheme.lightTheme,
-          debugShowCheckedModeBanner: false,
-          initialRoute: AppRoutes.login,
-          routes: {
-            AppRoutes.login: (_) => LoginScreen(),
-            AppRoutes.dashboard: (_) => const DashboardScreen(),
-            AppRoutes.doctors: (_) => const DoctorsScreen(),
-            AppRoutes.patients: (_) => const PatientsScreen(),
-            AppRoutes.appointments: (_) => const AppointmentsScreen(),
-            AppRoutes.medicalRecords: (_) => const MedicalRecordsScreen(),
-            AppRoutes.settings: (_) => const SettingsScreen(),
-          },
+        child: Consumer<ThemeProvider>(
+          builder: (context, themeProvider, _) => MaterialApp(
+            title: 'Clinic Management',
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: themeProvider.themeMode,
+            debugShowCheckedModeBanner: false,
+            initialRoute: AppRoutes.login,
+            routes: {
+              AppRoutes.login: (_) => LoginScreen(),
+              AppRoutes.dashboard: (_) => const DashboardScreen(),
+              AppRoutes.doctors: (_) => const DoctorsScreen(),
+              AppRoutes.patients: (_) => const PatientsScreen(),
+              AppRoutes.appointments: (_) => const AppointmentsScreen(),
+              AppRoutes.medicalRecords: (_) => const MedicalRecordsScreen(),
+              AppRoutes.settings: (_) => const SettingsScreen(),
+            },
+          ),
         ),
       ),
     );

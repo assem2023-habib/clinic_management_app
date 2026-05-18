@@ -10,6 +10,7 @@ class MedicalRecordsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final records = MockData.medicalRecords;
+    final colors = AppColors.of(context);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Medical Records')),
@@ -17,15 +18,15 @@ class MedicalRecordsScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         itemCount: records.length,
         separatorBuilder: (_, __) => const SizedBox(height: 12),
-        itemBuilder: (context, index) => _buildRecordCard(context, records[index]),
+        itemBuilder: (context, index) => _buildRecordCard(context, records[index], colors),
       ),
     );
   }
 
-  Widget _buildRecordCard(BuildContext context, MedicalRecord record) {
+  Widget _buildRecordCard(BuildContext context, MedicalRecord record, AppColorSet colors) {
     return Card(
       child: ExpansionTile(
-        leading: const CircleAvatar(child: Icon(Icons.description)),
+        leading: CircleAvatar(child: Icon(Icons.description, color: colors.primary)),
         title: Text(record.patientName),
         subtitle: Text(DateFormat('yyyy-MM-dd').format(record.visitDate)),
         children: [
@@ -34,14 +35,14 @@ class MedicalRecordsScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildInfoRow('Doctor', record.doctorName),
+                _buildInfoRow('Doctor', record.doctorName, colors),
                 const SizedBox(height: 12),
-                _buildInfoRow('Diagnosis', record.diagnosis),
+                _buildInfoRow('Diagnosis', record.diagnosis, colors),
                 const SizedBox(height: 12),
-                _buildInfoRow('Prescription', record.prescription),
+                _buildInfoRow('Prescription', record.prescription, colors),
                 if (record.notes != null) ...[
                   const SizedBox(height: 12),
-                  _buildInfoRow('Notes', record.notes!),
+                  _buildInfoRow('Notes', record.notes!, colors),
                 ],
               ],
             ),
@@ -51,13 +52,13 @@ class MedicalRecordsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoRow(String label, String value) {
+  Widget _buildInfoRow(String label, String value, AppColorSet colors) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(fontSize: 12, color: AppColors.textLight, fontWeight: FontWeight.w500)),
+        Text(label, style: TextStyle(fontSize: 12, color: colors.textLight, fontWeight: FontWeight.w500)),
         const SizedBox(height: 4),
-        Text(value, style: const TextStyle(fontSize: 14, color: AppColors.textPrimary)),
+        Text(value, style: TextStyle(fontSize: 14, color: colors.textPrimary)),
       ],
     );
   }

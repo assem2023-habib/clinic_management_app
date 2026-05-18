@@ -82,7 +82,7 @@ class _AppointmentFormDialogState extends State<AppointmentFormDialog> {
                 builder: (context, state) {
                   if (state is DoctorLoaded) {
                     return DropdownButtonFormField<String>(
-                      value: _selectedDoctorId,
+                      initialValue: _selectedDoctorId,
                       decoration: const InputDecoration(labelText: 'Doctor'),
                       items: state.doctors.map((d) => DropdownMenuItem(value: d.id, child: Text(d.name))).toList(),
                       onChanged: (v) => setState(() => _selectedDoctorId = v),
@@ -97,7 +97,7 @@ class _AppointmentFormDialogState extends State<AppointmentFormDialog> {
                 builder: (context, state) {
                   if (state is PatientLoaded) {
                     return DropdownButtonFormField<String>(
-                      value: _selectedPatientId,
+                      initialValue: _selectedPatientId,
                       decoration: const InputDecoration(labelText: 'Patient'),
                       items: state.patients.map((p) => DropdownMenuItem(value: p.id, child: Text(p.name))).toList(),
                       onChanged: (v) => setState(() => _selectedPatientId = v),
@@ -119,7 +119,7 @@ class _AppointmentFormDialogState extends State<AppointmentFormDialog> {
               ),
               const SizedBox(height: 12),
               DropdownButtonFormField<String>(
-                value: _selectedTime,
+                initialValue: _selectedTime,
                 decoration: const InputDecoration(labelText: 'Time'),
                 items: ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30']
                     .map((t) => DropdownMenuItem(value: t, child: Text(t)))
