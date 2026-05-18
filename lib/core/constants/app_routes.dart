@@ -1,4 +1,6 @@
 class AppRoutes {
+  static const roleSelection = '/role-selection';
+  static const onboarding = '/onboarding';
   static const login = '/login';
   static const dashboard = '/dashboard';
   static const doctors = '/doctors';
