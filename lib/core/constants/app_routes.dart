@@ -1,0 +1,9 @@
+class AppRoutes {
+  static const login = '/login';
+  static const dashboard = '/dashboard';
+  static const doctors = '/doctors';
+  static const patients = '/patients';
+  static const appointments = '/appointments';
+  static const medicalRecords = '/medical-records';
+  static const settings = '/settings';
+}

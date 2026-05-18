@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HealthCare - Onboarding</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Font: Manrope -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#93ecb8",
+                        "on-tertiary-fixed": "#002107",
+                        "surface-tint": "#006d44",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#f9f9ff",
+                        "secondary": "#55615c",
+                        "tertiary": "#00531c",
+                        "surface-container": "#e7eefe",
+                        "inverse-surface": "#2a313d",
+                        "on-background": "#151c27",
+                        "primary-container": "#006d44",
+                        "secondary-fixed-dim": "#bdc9c3",
+                        "on-surface-variant": "#3f4942",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#e2e8f8",
+                        "inverse-primary": "#80d8a6",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#ebf1ff",
+                        "background": "#f9f9ff",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#d6e3dc",
+                        "surface-container-low": "#f0f3ff",
+                        "primary-fixed-dim": "#80d8a6",
+                        "on-secondary-fixed-variant": "#3d4944",
+                        "outline": "#6f7a71",
+                        "surface": "#f9f9ff",
+                        "primary-fixed": "#9cf5c1",
+                        "tertiary-container": "#006e28",
+                        "on-primary-fixed-variant": "#005232",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed": "#d9e5df",
+                        "on-secondary-fixed": "#131e1a",
+                        "surface-variant": "#dce2f3",
+                        "on-tertiary-container": "#68f47f",
+                        "on-tertiary-fixed-variant": "#00531c",
+                        "surface-dim": "#d3daea",
+                        "outline-variant": "#bec9bf",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed": "#002111",
+                        "tertiary-fixed": "#72fe88",
+                        "on-secondary-container": "#596560",
+                        "primary": "#005232",
+                        "surface-container-highest": "#dce2f3",
+                        "tertiary-fixed-dim": "#53e16f",
+                        "on-surface": "#151c27",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter-mobile": "12px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "margin-mobile": "20px",
+                        "unit": "4px",
+                        "xl": "32px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Manrope"],
+                        "label-sm": ["Manrope"],
+                        "headline-lg-mobile": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "display-md": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "display-lg": ["Manrope"],
+                        "body-lg": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                        "label-sm": ["10px", {"lineHeight": "14px", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["18px", {"lineHeight": "26px", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "display-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-mesh-gradient {
+            background: radial-gradient(at 10% 20%, #dcfce7 0%, transparent 50%),
+                        radial-gradient(at 90% 0%, #ecfdf5 0%, transparent 50%),
+                        radial-gradient(at 50% 100%, #f0fdf4 0%, transparent 50%);
+            background-color: #f9f9ff;
+        }
+        .doctor-card-float {
+            box-shadow: 0px 8px 30px rgba(0, 109, 68, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-mesh-gradient min-h-screen text-on-surface font-body-md overflow-x-hidden">
+<!-- Screen Wrapper -->
+<main class="relative flex flex-col min-h-screen max-w-[430px] mx-auto overflow-hidden">
+<!-- Header / Logo Area (Suppressed Nav for Splash) -->
+<header class="pt-xl px-margin-mobile flex justify-between items-center z-20">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary text-[24px]">vital_signs</span>
+</div>
+<span class="font-display-md text-display-md text-primary tracking-tight">CarePoint</span>
+</div>
+<button class="font-label-md text-label-md text-primary bg-primary-fixed/20 px-4 py-2 rounded-full">
+                Skip
+            </button>
+</header>
+<!-- Main Content Area -->
+<section class="flex-1 flex flex-col justify-between pt-lg relative">
+<!-- Headline Section -->
+<div class="px-margin-mobile relative z-20">
+<h1 class="font-display-lg text-display-lg text-primary leading-[1.1] mb-md">
+                    Find Best <span class="relative inline-block">
+                        Doctors
+                        <span class="absolute -bottom-1 left-0 w-full h-1 bg-primary-fixed-dim rounded-full opacity-50"></span>
+</span> Near You!
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-[80%]">
+                    Browse top specialists and trusted doctors anytime, anywhere.
+                </p>
+</div>
+<!-- Visual Asset Section (Asymmetric / Layered) -->
+<div class="relative w-full h-[400px] mt-lg">
+<!-- Background Decorative Circle -->
+<div class="absolute right-[-10%] top-[10%] w-[350px] h-[350px] bg-primary-fixed/30 rounded-full blur-3xl"></div>
+<!-- Main Doctor Image -->
+<div class="absolute bottom-0 right-0 w-[95%] h-full z-10">
+<img alt="A professional female doctor wearing a modern dark grey hijab and a white medical coat, smiling warmly. She stands against a soft, professionally lit clinical background that blends with the app's mint green and white palette. The lighting is high-key and flattering, conveying a sense of trust, expertise, and compassionate care in a contemporary healthcare setting." class="w-full h-full object-contain object-bottom drop-shadow-2xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDHa5Beyc2UUVRivMSO7y8i2XvS66YZnSV2YtBPNPbNqqGfMmjE05T0yWuz-XWGSj-8dVbkTgbB0ueoJkus6PVQZ_fhY63Vi5cSCStN8czrpMsYLSsdr2MoNGcgEovBpdIjhl6VxeneveIXBScAty05HtsT-0vhjpd1UCOlLGqIutF1e86S-kDhkbs_FMWIIQuXizUg9gTnEbIOnNrjzQX8XHyrDZz503pD9sNG_ZSUviOSfqxrN455RSPv_h_IOGQD2tZC5xv1vQ"/>
+</div>
+<!-- Floating Info Card 1 (Dr. Taniya Noor) -->
+<div class="absolute bottom-24 left-margin-mobile z-30 bg-surface/90 backdrop-blur-xl border border-white/40 p-md rounded-[24px] doctor-card-float flex items-center gap-md w-[220px]">
+<div class="relative">
+<img class="w-12 h-12 rounded-full object-cover border-2 border-primary-fixed" data-alt="A close-up professional portrait of a female doctor with a serene expression, used as a thumbnail profile. She is wearing a white lab coat. The image is bright and crisp, maintaining a professional corporate modern aesthetic with soft edges and a clean clinical feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_VIczRX44QQUpxQGoV4dI2mokmeUTqVVEKGzVt6Hqh0KCE95Q3d5j9iuO66n0oTuq27w8hyRYDF9exD7bAMqZ3S-w5V-3B3U2Opbh3dd6lHdgSJVPnF0rvQl5vm9OOfezuc-0-g2RGwf-4R_KuwHFXUpmuP3OgJ3F-QA1WiCeZEOcVzVeKj60W-X-0MA5peS7puvdxKDzANoD86aQORop1JlIJFA8wuHKv_JQFW5fopYZ0cFVI3gUp_lcyBumDFiQZ6BNQ9ZcCcg"/>
+<div class="absolute -bottom-1 -right-1 w-4 h-4 bg-primary rounded-full border-2 border-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[10px] text-on-primary" style="font-variation-settings: 'wght' 700;">check</span>
+</div>
+</div>
+<div>
+<p class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface truncate">Dr. Taniya Noor</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Cardiologist</p>
+</div>
+</div>
+<!-- Floating Indicator (Small heartbeat/stats) -->
+<div class="absolute top-10 right-margin-mobile z-30 bg-primary/10 backdrop-blur-md border border-primary-fixed/30 p-sm rounded-full flex items-center gap-xs px-md">
+<span class="material-symbols-outlined text-primary text-[20px]">favorite</span>
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest">Active Status</span>
+</div>
+</div>
+<!-- Action Area -->
+<div class="px-margin-mobile pb-xl pt-lg relative z-20">
+<div class="flex flex-col gap-md">
+<button class="w-full py-5 bg-primary text-on-primary rounded-full font-headline-lg text-headline-lg flex items-center justify-center gap-md shadow-xl active:scale-95 transition-all duration-200">
+                        Get Started
+                        <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<div class="flex justify-center items-center gap-md pt-sm">
+<div class="h-1.5 w-8 bg-primary rounded-full"></div>
+<div class="h-1.5 w-1.5 bg-primary/20 rounded-full"></div>
+<div class="h-1.5 w-1.5 bg-primary/20 rounded-full"></div>
+</div>
+<p class="text-center font-label-md text-label-md text-on-surface-variant mt-sm">
+                        Already have an account? <a class="text-primary font-bold" href="#">Sign In</a>
+</p>
+</div>
+</div>
+</section>
+<!-- Bottom Safe Area Spacer for Mobile -->
+<div class="h-6 w-full"></div>
+</main>
+<!-- Contextual FAB (Suppressed as per rules for splash screen) -->
+<!-- Bottom Navigation (Suppressed as per rules for splash screen) -->
+</body></html>

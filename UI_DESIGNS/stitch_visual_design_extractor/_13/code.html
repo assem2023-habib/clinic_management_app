@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Doctor Profile - Dr. Samir Mansour</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface": "#00180b",
+            "on-secondary-fixed-variant": "#00522b",
+            "tertiary-fixed": "#ffdad8",
+            "surface-dim": "#00180b",
+            "on-tertiary": "#5c171b",
+            "primary-container": "#006d44",
+            "primary": "#80d8a6",
+            "on-primary-fixed-variant": "#005232",
+            "primary-fixed-dim": "#80d8a6",
+            "inverse-on-surface": "#163725",
+            "tertiary": "#ffb3b1",
+            "secondary-fixed-dim": "#37e187",
+            "on-tertiary-container": "#ffcdcc",
+            "surface-variant": "#1b3b29",
+            "secondary-container": "#00ca73",
+            "inverse-primary": "#006d44",
+            "on-background": "#c6ebd1",
+            "on-primary-fixed": "#002111",
+            "surface-container-low": "#002111",
+            "on-secondary": "#00391c",
+            "surface-container-lowest": "#001207",
+            "error": "#ffb4ab",
+            "background": "#00180b",
+            "surface-tint": "#80d8a6",
+            "surface-container-high": "#0f301f",
+            "on-error": "#690005",
+            "on-secondary-fixed": "#00210e",
+            "primary-fixed": "#9cf5c1",
+            "surface-bright": "#1f402d",
+            "tertiary-fixed-dim": "#ffb3b1",
+            "on-primary": "#003921",
+            "on-tertiary-fixed": "#3f0209",
+            "on-secondary-container": "#004e29",
+            "surface-container": "#032515",
+            "on-surface": "#c6ebd1",
+            "outline-variant": "#3f4942",
+            "on-error-container": "#ffdad6",
+            "outline": "#88938a",
+            "error-container": "#93000a",
+            "tertiary-container": "#984546",
+            "on-tertiary-fixed-variant": "#792e30",
+            "on-surface-variant": "#bec9bf",
+            "on-primary-container": "#93ecb8",
+            "secondary": "#40e78c",
+            "inverse-surface": "#c6ebd1",
+            "secondary-fixed": "#5dffa1",
+            "surface-container-highest": "#1b3b29"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "sm": "12px",
+            "margin-mobile": "16px",
+            "xs": "4px",
+            "gutter": "16px",
+            "base": "8px",
+            "md": "16px",
+            "xl": "32px",
+            "margin-desktop": "64px",
+            "lg": "24px"
+          },
+          "fontFamily": {
+            "headline-lg-mobile": ["manrope"],
+            "body-lg": ["manrope"],
+            "headline-md": ["manrope"],
+            "display-lg": ["manrope"],
+            "body-md": ["manrope"],
+            "label-sm": ["manrope"],
+            "label-md": ["manrope"],
+            "headline-lg": ["manrope"]
+          },
+          "fontSize": {
+            "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+            "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+            "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+            "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+            "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      font-family: 'Manrope', sans-serif;
+      background-color: #00180b;
+      -webkit-font-smoothing: antialiased;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .glass-panel {
+      background: rgba(27, 59, 41, 0.4);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface selection:bg-primary/30">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile h-16 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl">
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-primary-container/20 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile dark:text-on-surface">Doctor's Info</h1>
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-primary-container/20 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+</header>
+<main class="pt-20 pb-32 px-margin-mobile max-w-2xl mx-auto space-y-lg">
+<!-- Header / Identity -->
+<section class="flex flex-col items-center text-center space-y-md">
+<div class="relative group">
+<div class="absolute inset-0 bg-primary/20 blur-xl rounded-full group-hover:bg-primary/30 transition-all"></div>
+<img alt="Dr. Samir Mansour" class="relative w-32 h-32 rounded-full border-4 border-primary-container object-cover shadow-2xl" data-alt="A professional medical headshot of a middle-aged male doctor with a warm and confident expression. He is wearing a clean white lab coat and a stethoscope around his neck. The background is a soft-focus clinical setting with deep green and emerald tones, matching a premium healthcare app aesthetic. The lighting is bright and professional, emphasizing trust and vitality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBU2b0LIAFCWMfmqiqD6u5IzW7t3vF03RXez9rkDpSrx0hRYI5-G7WsY49iH-4Kl2t4m26t4mMWcvRQCpftbvBFOpm8k4pWIcYfzn-LQl5iH_XodXudEhtWb1ulTRWt_y1wBt0s2GM2VF9EG3LTpuI1LKwFjiWfOiLb_ikIiVccXqFCpnBHu1TgKZXFu_sQU9CTbbi6Brn16cW1sBfuHDcT2ePGcYEmsy_J9PvpBCZHpudiW58xqFMpHV0vlLWG0fEjN0FWrMIqvOQ"/>
+<div class="absolute bottom-1 right-1 bg-secondary rounded-full p-1 border-2 border-surface">
+<span class="material-symbols-outlined text-on-secondary text-[16px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<div class="space-y-xs">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Dr. Samir Mansour</h2>
+<p class="font-body-md text-label-md text-primary font-semibold tracking-wide">CONSULTANT CARDIOLOGIST</p>
+</div>
+<div class="flex items-center space-x-md">
+<div class="flex items-center space-x-1">
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-md text-on-surface">4.9</span>
+</div>
+<div class="w-1 h-1 rounded-full bg-outline-variant"></div>
+<div class="flex items-center space-x-1">
+<span class="material-symbols-outlined text-outline text-sm">location_on</span>
+<span class="font-label-md text-on-surface-variant">Riyadh, Medical Excellence Center</span>
+</div>
+</div>
+</section>
+<!-- Stats Row -->
+<section class="grid grid-cols-3 gap-md">
+<div class="glass-panel rounded-xl p-md flex flex-col items-center justify-center text-center space-y-xs">
+<span class="font-headline-md text-secondary">15+</span>
+<span class="font-label-sm text-outline-variant">Exp (Yrs)</span>
+</div>
+<div class="glass-panel rounded-xl p-md flex flex-col items-center justify-center text-center space-y-xs">
+<span class="font-headline-md text-secondary">5k+</span>
+<span class="font-label-sm text-outline-variant">Patients</span>
+</div>
+<div class="glass-panel rounded-xl p-md flex flex-col items-center justify-center text-center space-y-xs">
+<span class="font-headline-md text-secondary">1k+</span>
+<span class="font-label-sm text-outline-variant">Reviews</span>
+</div>
+</section>
+<!-- About Section -->
+<section class="space-y-md">
+<h3 class="font-headline-md text-on-surface">About</h3>
+<div class="glass-panel rounded-2xl p-lg">
+<p class="font-body-md text-on-surface-variant leading-relaxed">
+          Dr. Samir Mansour is a world-class cardiologist with over 15 years of experience in cardiovascular diseases and intervention. His philosophy centers on personalized patient care, combining cutting-edge medical technology with a compassionate, human-centric approach to heart health.
+        </p>
+</div>
+</section>
+<!-- Services Section -->
+<section class="space-y-md">
+<h3 class="font-headline-md text-on-surface">Services</h3>
+<div class="grid grid-cols-1 gap-base">
+<div class="glass-panel flex items-center p-md rounded-xl hover:bg-primary-container/20 transition-all cursor-pointer group">
+<div class="w-10 h-10 rounded-full bg-primary-container/30 flex items-center justify-center mr-md group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary">stethoscope</span>
+</div>
+<span class="font-label-md text-on-surface flex-1">Cardiac Consultation</span>
+<span class="material-symbols-outlined text-outline text-sm">chevron_right</span>
+</div>
+<div class="glass-panel flex items-center p-md rounded-xl hover:bg-primary-container/20 transition-all cursor-pointer group">
+<div class="w-10 h-10 rounded-full bg-primary-container/30 flex items-center justify-center mr-md group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary">ecg_heart</span>
+</div>
+<span class="font-label-md text-on-surface flex-1">ECG / EKG Monitoring</span>
+<span class="material-symbols-outlined text-outline text-sm">chevron_right</span>
+</div>
+<div class="glass-panel flex items-center p-md rounded-xl hover:bg-primary-container/20 transition-all cursor-pointer group">
+<div class="w-10 h-10 rounded-full bg-primary-container/30 flex items-center justify-center mr-md group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary">Cloud</span>
+</div>
+<span class="font-label-md text-on-surface flex-1">Cardiac Ultrasound</span>
+<span class="material-symbols-outlined text-outline text-sm">chevron_right</span>
+</div>
+</div>
+</section>
+<!-- Appointment Slots -->
+<section class="space-y-md">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-md text-on-surface">Appointment Slots</h3>
+<span class="font-label-md text-primary">Oct 2023</span>
+</div>
+<!-- Horizontal Calendar -->
+<div class="flex space-x-md overflow-x-auto hide-scrollbar pb-xs">
+<div class="flex-shrink-0 w-16 h-20 glass-panel rounded-2xl flex flex-col items-center justify-center space-y-1">
+<span class="font-label-sm text-outline">Mon</span>
+<span class="font-headline-md text-on-surface">12</span>
+</div>
+<div class="flex-shrink-0 w-16 h-20 bg-primary rounded-2xl flex flex-col items-center justify-center space-y-1 shadow-lg shadow-primary/20">
+<span class="font-label-sm text-on-primary">Tue</span>
+<span class="font-headline-md text-on-primary">13</span>
+</div>
+<div class="flex-shrink-0 w-16 h-20 glass-panel rounded-2xl flex flex-col items-center justify-center space-y-1">
+<span class="font-label-sm text-outline">Wed</span>
+<span class="font-headline-md text-on-surface">14</span>
+</div>
+<div class="flex-shrink-0 w-16 h-20 glass-panel rounded-2xl flex flex-col items-center justify-center space-y-1">
+<span class="font-label-sm text-outline">Thu</span>
+<span class="font-headline-md text-on-surface">15</span>
+</div>
+<div class="flex-shrink-0 w-16 h-20 glass-panel rounded-2xl flex flex-col items-center justify-center space-y-1 opacity-50">
+<span class="font-label-sm text-outline">Fri</span>
+<span class="font-headline-md text-on-surface">16</span>
+</div>
+</div>
+<!-- Time Slot Grid -->
+<div class="space-y-md pt-base">
+<div class="space-y-sm">
+<p class="font-label-md text-on-surface-variant">Morning</p>
+<div class="grid grid-cols-3 gap-base">
+<button class="glass-panel py-sm rounded-lg font-label-md text-on-surface hover:bg-primary-container/40 transition-colors">09:00 AM</button>
+<button class="bg-secondary-container/20 border border-secondary text-secondary py-sm rounded-lg font-label-md">09:30 AM</button>
+<button class="glass-panel py-sm rounded-lg font-label-md text-on-surface hover:bg-primary-container/40 transition-colors">10:00 AM</button>
+</div>
+</div>
+<div class="space-y-sm">
+<p class="font-label-md text-on-surface-variant">Evening</p>
+<div class="grid grid-cols-3 gap-base">
+<button class="glass-panel py-sm rounded-lg font-label-md text-on-surface hover:bg-primary-container/40 transition-colors">04:00 PM</button>
+<button class="glass-panel py-sm rounded-lg font-label-md text-on-surface hover:bg-primary-container/40 transition-colors">04:30 PM</button>
+<button class="glass-panel py-sm rounded-lg font-label-md text-on-surface hover:bg-primary-container/40 transition-colors">05:00 PM</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Reviews Section -->
+<section class="space-y-md">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-md text-on-surface">Reviews</h3>
+<button class="text-primary font-label-md">See All</button>
+</div>
+<div class="space-y-base">
+<!-- Review 1 -->
+<div class="glass-panel rounded-2xl p-md space-y-base">
+<div class="flex justify-between items-start">
+<div class="flex items-center space-x-md">
+<img alt="Ahmed" class="w-10 h-10 rounded-full" data-alt="A small circular profile avatar of a young Middle Eastern man with a friendly smile, set against a blurred medical clinic background with soft green lighting. The style is modern and high-end, consistent with a premium health application interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMwgu0MVCT2sYlJue7CPJBM4gg_FJ5AWLR1XxgUdMeSVDRiPEspqUUuYaq5GEidrNLGPFU3g93RQC3_B0_aeUsG64yrBtsj9bk_LrqHOWdCG6-eMn8p1epqGRL83F5b6Ux2Q95SBgedKG6907GtgreHP5swVCYVOawDVsS-TxcBUol2jZsgz3UEAHTKNyPu5FaAIxLuKJ118q8Da1PqG5ZYxrReFxzuV9aIwCjHVxbQWXBLTpGY5b1UDPd9Nh80zBMnzHd7CVtZeE"/>
+<div>
+<p class="font-label-md text-on-surface">Ahmed Al-Farsi</p>
+<div class="flex text-secondary scale-75 origin-left">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+</div>
+<span class="font-label-sm text-outline-variant">2 days ago</span>
+</div>
+<p class="font-body-md text-on-surface-variant text-sm">"Dr. Samir is incredibly professional and takes the time to explain everything clearly. Highly recommended."</p>
+</div>
+<!-- Review 2 -->
+<div class="glass-panel rounded-2xl p-md space-y-base">
+<div class="flex justify-between items-start">
+<div class="flex items-center space-x-md">
+<img alt="Sara" class="w-10 h-10 rounded-full" data-alt="A small circular profile avatar of a middle-aged woman wearing a stylish hijab, smiling warmly. The photo is taken with a professional bokeh effect in a bright, modern interior setting. The color palette incorporates soft emerald greens and neutral tones to match a corporate wellness brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpHjaTUfhE-OyaZV91cnWqDh4GtA9ZfUTE45Gk-v7sPJG3FBHxJxIovYiU0JkvEb0IbcOMJ0KudLTutpCtueCTxo6KYoXXURhY3zQ8jTl0ZyZYRxMK8c_7Wtfva6i4fONl27gZu0T72EsUQtTvHCloy5wyw0ycdr0FbCF7n9n9-j9A-7wzyG0HCOXhF3FPCQEbUZfCVRxgOdoZPoP3kxwgPb8V8pKeRYRMAotUBwHi45eoJE8r6B_3KAqlGhsdoIone7TlGn2f0Jw"/>
+<div>
+<p class="font-label-md text-on-surface">Sara Homsi</p>
+<div class="flex text-secondary scale-75 origin-left">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined">star</span>
+</div>
+</div>
+</div>
+<span class="font-label-sm text-outline-variant">1 week ago</span>
+</div>
+<p class="font-body-md text-on-surface-variant text-sm">"Very thorough check-up. The clinic is high-tech and the staff is very welcoming."</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Action Panel -->
+<div class="fixed bottom-0 left-0 w-full p-margin-mobile bg-surface/90 backdrop-blur-2xl border-t border-white/5 z-50">
+<div class="max-w-2xl mx-auto">
+<button class="w-full bg-primary text-on-primary py-md rounded-2xl font-headline-md flex items-center justify-center space-x-md active:scale-95 transition-transform duration-200 shadow-xl shadow-primary/20">
+<span class="material-symbols-outlined mr-base">calendar_add_on</span>
+<span>احجز موعداً</span>
+</button>
+</div>
+</div>
+<!-- Bottom Nav Anchor (Suppressed based on "Back" flow intent, but including visual structure if required) -->
+<!-- We prioritize the 'Book Appointment' action over the global nav for this focused detail screen. -->
+</body></html>

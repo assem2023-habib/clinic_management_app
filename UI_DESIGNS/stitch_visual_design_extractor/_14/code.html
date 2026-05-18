@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html class="dark" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary": "#5c171b",
+                      "secondary": "#40e78c",
+                      "inverse-on-surface": "#163725",
+                      "secondary-container": "#00ca73",
+                      "error": "#ffb4ab",
+                      "surface-container-high": "#0f301f",
+                      "on-primary-container": "#93ecb8",
+                      "secondary-fixed-dim": "#37e187",
+                      "outline-variant": "#3f4942",
+                      "surface-container": "#032515",
+                      "surface-container-low": "#002111",
+                      "on-tertiary-fixed-variant": "#792e30",
+                      "surface-container-highest": "#1b3b29",
+                      "surface-tint": "#80d8a6",
+                      "on-primary-fixed-variant": "#005232",
+                      "on-secondary-container": "#004e29",
+                      "inverse-primary": "#006d44",
+                      "surface-variant": "#1b3b29",
+                      "on-surface": "#c6ebd1",
+                      "inverse-surface": "#c6ebd1",
+                      "surface-dim": "#00180b",
+                      "on-error": "#690005",
+                      "primary-fixed": "#9cf5c1",
+                      "tertiary-container": "#984546",
+                      "on-primary": "#003921",
+                      "tertiary-fixed": "#ffdad8",
+                      "surface-bright": "#1f402d",
+                      "surface-container-lowest": "#001207",
+                      "outline": "#88938a",
+                      "on-surface-variant": "#bec9bf",
+                      "primary": "#80d8a6",
+                      "on-secondary-fixed-variant": "#00522b",
+                      "on-background": "#c6ebd1",
+                      "error-container": "#93000a",
+                      "primary-container": "#006d44",
+                      "tertiary-fixed-dim": "#ffb3b1",
+                      "primary-fixed-dim": "#80d8a6",
+                      "secondary-fixed": "#5dffa1",
+                      "on-secondary": "#00391c",
+                      "surface": "#00180b",
+                      "on-tertiary-fixed": "#3f0209",
+                      "on-tertiary-container": "#ffcdcc",
+                      "background": "#00180b",
+                      "on-error-container": "#ffdad6",
+                      "tertiary": "#ffb3b1",
+                      "on-primary-fixed": "#002111",
+                      "on-secondary-fixed": "#00210e"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sm": "12px",
+                      "margin-desktop": "64px",
+                      "xs": "4px",
+                      "lg": "24px",
+                      "md": "16px",
+                      "gutter": "16px",
+                      "xl": "32px",
+                      "margin-mobile": "16px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "label-sm": ["Manrope"],
+                      "headline-lg": ["Manrope"],
+                      "headline-md": ["Manrope"],
+                      "label-md": ["Manrope"],
+                      "headline-lg-mobile": ["Manrope"],
+                      "display-lg": ["Manrope"],
+                      "body-md": ["Manrope"],
+                      "body-lg": ["Manrope"]
+              },
+              "fontSize": {
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+        body {
+            background-color: #00180b;
+            font-family: 'Manrope', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(3, 37, 21, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface">
+<!-- Top Navigation Placeholder (Simulating TopAppBar structure but without navigation for focus) -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 bg-surface/70 dark:bg-surface-container/40 backdrop-blur-xl shadow-sm">
+<div class="flex items-center gap-base">
+<span class="material-symbols-outlined text-primary" data-icon="arrow_forward">arrow_forward</span>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">تأكيد الموعد</h1>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-variant">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional close-up portrait of a middle-aged man with a friendly expression, set against a soft-focus clinical background. The lighting is warm and professional, reflecting a high-end medical environment with deep green and emerald tones that align with a premium healthcare application's aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXxXpIevCkY7LJqu9XNXuwTCDeezP-XhPmESPVuQc6YBevbSxvMvQ1RkO69e2KzR1QIEY_mZVgzuy4boqasARu_mWOltXupmP0qaeJk2p_Swk60INxDidQJW869544AIdMozr892zUqskhURVhByt2Q_cVjhQCiBjmZ-R24ZNqAbcgV3k5DER-9ih9EEy4sWBkU1fYKEByWBZiM40VJDGYufefm0V61h5P_FjG7oP090VgRmxi-5yah5ELiE4mStUdMnJH6z4TZiQ"/>
+</div>
+</header>
+<main class="min-h-screen pt-24 pb-32 px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto flex flex-col items-center">
+<!-- Success State Section -->
+<section class="flex flex-col items-center text-center mb-xl">
+<div class="w-24 h-24 bg-primary-container rounded-full flex items-center justify-center mb-lg shadow-[0_0_40px_rgba(0,109,68,0.3)]">
+<span class="material-symbols-outlined text-white text-[48px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-xs">تم تأكيد حجزك بنجاح!</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">تم إرسال تفاصيل الموعد إلى بريدك الإلكتروني وهاتفك المحمول.</p>
+</section>
+<!-- Summary Vitality Card (Bento-style detail card) -->
+<div class="w-full max-w-2xl">
+<div class="glass-card rounded-xl p-lg overflow-hidden relative">
+<!-- Decorative background accent -->
+<div class="absolute -top-12 -left-12 w-32 h-32 bg-primary/10 rounded-full blur-3xl"></div>
+<div class="relative z-10 flex flex-col gap-lg">
+<!-- Doctor Info -->
+<div class="flex items-center gap-md border-b border-outline-variant pb-md">
+<div class="w-16 h-16 rounded-lg overflow-hidden border border-primary/20">
+<img alt="Dr. Samir Mansour" class="w-full h-full object-cover" data-alt="A professional medical doctor with a stethoscope, smiling confidently in a clean, modern clinic. The image uses a cool, professional lighting setup with subtle emerald green highlights to match a high-end medical app's branding. The background is a minimalist medical facility with high-key lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYGHtK1iqYcCZlsXePHF8pUevKJKgOxEcaPbenhFSeLEEYNuQE9EpmqF-7UXSol0PZFqd2LmdLmgPrfdFbTC37xMM5098QOfWg_PfXJAtBjwBdxmV_Df0NjSq09yiZJV4QqndCRaUyE8rtiqTSY26RmbHdXA5JSYgKHTPCuA7wsbn-e1yVu7WtM10fBRwColUT4iHEc6i8bgG0SSyC0jQenHgOVkY237qpNp6wGrqaLYU-ZUnSjS7V2d4tPUQGshOnGwjz_px7ygE"/>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">د. سمير منصور</h3>
+<span class="font-label-md text-label-md text-secondary">استشاري جراحة العظام</span>
+</div>
+</div>
+<!-- Details Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="flex items-start gap-sm p-md bg-surface-container-low rounded-lg border border-white/5">
+<span class="material-symbols-outlined text-primary" data-icon="calendar_today">calendar_today</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">التاريخ</span>
+<span class="font-body-md text-body-md text-on-surface">الثلاثاء، 13 أكتوبر 2023</span>
+</div>
+</div>
+<div class="flex items-start gap-sm p-md bg-surface-container-low rounded-lg border border-white/5">
+<span class="material-symbols-outlined text-primary" data-icon="schedule">schedule</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">الوقت</span>
+<span class="font-body-md text-body-md text-on-surface">09:30 صباحاً</span>
+</div>
+</div>
+<div class="flex items-start gap-sm p-md bg-surface-container-low rounded-lg border border-white/5 md:col-span-2">
+<span class="material-symbols-outlined text-primary" data-icon="location_on">location_on</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">الموقع</span>
+<span class="font-body-md text-body-md text-on-surface">مركز الرياض للتميز الطبي</span>
+<span class="font-label-sm text-label-sm text-secondary mt-xs">طريق الملك فهد، الرياض</span>
+</div>
+</div>
+</div>
+<!-- Map/Location Visualization Preview -->
+<div class="w-full h-32 rounded-lg overflow-hidden border border-outline-variant relative">
+<img class="w-full h-full object-cover grayscale brightness-50" data-alt="A stylized digital map showing a medical center location in a clean, dark-themed urban environment. The map uses a palette of deep greens and blacks with glowing primary green markers to indicate the precise destination. The aesthetic is futuristic and high-tech, fitting a premium health monitoring application." data-location="Riyadh" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFKaE1KLjKBvVxfmLRF0_Eqcr4qSaFFPq1HPXMdXfKAz67x__1F7QQQfOExVme796YcX8d675pRQ7f6DgsF4Gy3Vq_QTFYVAHoF7AtPBbpoqYgIjA-kW_DwgGoJ9U8srFhzvpqekD4I1f16UD00c8NSwh9ElAHmn_bBrimhgIRabevigQvVQcVxxQCkxEn9MpxYM-luKCqFPWuKsjz2UYPVkp-6jIkH6hxEqqLOPez5qeVQmP6l1ZP0-US_iM5DibpIkGNN0c5ymQ"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="bg-primary/20 p-2 rounded-full animate-pulse">
+<span class="material-symbols-outlined text-primary" data-icon="pin_drop" style="font-variation-settings: 'FILL' 1;">pin_drop</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Instructions/Next Steps -->
+<div class="mt-xl w-full max-w-2xl px-md">
+<h4 class="font-label-md text-label-md text-on-surface mb-md">تعليمات هامة:</h4>
+<ul class="space-y-sm">
+<li class="flex items-center gap-sm font-body-md text-body-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                    يرجى الحضور قبل الموعد بـ 15 دقيقة لإتمام الإجراءات.
+                </li>
+<li class="flex items-center gap-sm font-body-md text-body-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                    أحضر معك بطاقة الهوية الوطنية أو سجل الأسرة.
+                </li>
+</ul>
+</div>
+</main>
+<!-- Fixed Action Buttons at the Bottom -->
+<footer class="fixed bottom-0 w-full p-lg bg-surface/70 backdrop-blur-xl border-t border-white/10 z-50">
+<div class="max-w-2xl mx-auto flex flex-col md:flex-row gap-md">
+<button class="flex-1 h-12 bg-primary text-on-primary font-label-md text-label-md rounded-lg flex items-center justify-center gap-base active:scale-95 transition-all">
+                الذهاب إلى مواعيدي
+                <span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+</button>
+<button class="flex-1 h-12 glass-card text-primary border border-primary/30 font-label-md text-label-md rounded-lg flex items-center justify-center gap-base active:scale-95 transition-all">
+                إضافة إلى التقويم
+                <span class="material-symbols-outlined" data-icon="calendar_add_on">calendar_add_on</span>
+</button>
+</div>
+</footer>
+</body></html>

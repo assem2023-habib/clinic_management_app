@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html class="dark" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#ffdad6",
+                        "surface-bright": "#1f402d",
+                        "on-tertiary-fixed-variant": "#792e30",
+                        "background": "#00180b",
+                        "primary": "#80d8a6",
+                        "surface-variant": "#1b3b29",
+                        "on-tertiary": "#5c171b",
+                        "on-tertiary-container": "#ffcdcc",
+                        "primary-container": "#006d44",
+                        "error-container": "#93000a",
+                        "on-background": "#c6ebd1",
+                        "tertiary": "#ffb3b1",
+                        "inverse-on-surface": "#163725",
+                        "outline": "#88938a",
+                        "on-secondary": "#00391c",
+                        "on-surface": "#c6ebd1",
+                        "on-primary-fixed-variant": "#005232",
+                        "primary-fixed": "#9cf5c1",
+                        "on-error": "#690005",
+                        "on-surface-variant": "#bec9bf",
+                        "tertiary-fixed": "#ffdad8",
+                        "error": "#ffb4ab",
+                        "surface-container": "#032515",
+                        "surface-tint": "#80d8a6",
+                        "on-tertiary-fixed": "#3f0209",
+                        "on-primary-container": "#93ecb8",
+                        "surface-container-lowest": "#001207",
+                        "on-secondary-fixed-variant": "#00522b",
+                        "outline-variant": "#3f4942",
+                        "on-primary-fixed": "#002111",
+                        "secondary-fixed": "#5dffa1",
+                        "secondary-container": "#00ca73",
+                        "surface": "#00180b",
+                        "secondary-fixed-dim": "#37e187",
+                        "surface-container-low": "#002111",
+                        "on-primary": "#003921",
+                        "surface-container-high": "#0f301f",
+                        "on-secondary-fixed": "#00210e",
+                        "surface-dim": "#00180b",
+                        "secondary": "#40e78c",
+                        "inverse-surface": "#c6ebd1",
+                        "on-secondary-container": "#004e29",
+                        "inverse-primary": "#006d44",
+                        "surface-container-highest": "#1b3b29",
+                        "tertiary-fixed-dim": "#ffb3b1",
+                        "tertiary-container": "#984546",
+                        "primary-fixed-dim": "#80d8a6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "16px",
+                        "sm": "12px",
+                        "xs": "4px",
+                        "xl": "32px",
+                        "lg": "24px",
+                        "md": "16px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "headline-lg-mobile": ["Manrope"],
+                        "label-sm": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "headline-md": ["Manrope"],
+                        "display-lg": ["Manrope"],
+                        "label-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #00180b;
+        }
+        .glass-card {
+            background: rgba(27, 59, 41, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface antialiased">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 bg-surface/70 dark:bg-surface-container/40 backdrop-blur-xl shadow-sm">
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-primary-container/20 transition-colors rounded-full active:scale-95 duration-100">
+<span class="material-symbols-outlined text-primary">arrow_forward</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">التقييمات</h1>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/20">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional close-up portrait of a middle-aged male doctor with a kind expression. The lighting is soft and clinical, set against a blurred modern hospital background with deep green and glass accents. The overall aesthetic is clean, medical, and premium, following a corporate modern style with a dark mode vitality theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrXXE5ToBElGI9LOvVlbP4iYZSDDlt9qw5Lfx_LsswZtmPfY7gQ9G_qlXZ2dH8MQ0bwhU_kPqpPZLdJGS3ZC-LlIq276dfx3x35qvQ_p33V4HX5NY9IskXyq23y_5vASiyCJ8AIvE7Z2VpbwmPPhOkpJLoc-t_mvVMQZcCen9SZ9DrKj4UV9NHQwUJJySnuANSLi9kd6t3CBNhXVBrGsZIxeUzunGp4wSanaU4bBVHiQyjDLA1KCLvim_ewSYdY4E-rCb_xZqMee0"/>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-32 px-margin-mobile md:px-margin-desktop max-w-5xl mx-auto">
+<!-- Summary Stats Section -->
+<section class="mb-xl grid grid-cols-1 md:grid-cols-3 gap-md">
+<!-- Main Rating Card -->
+<div class="md:col-span-2 glass-card p-lg rounded-xl flex items-center justify-between">
+<div>
+<h2 class="font-label-md text-label-md text-on-surface-variant mb-xs">التقييم العام</h2>
+<div class="flex items-baseline gap-base">
+<span class="font-display-lg text-display-lg text-primary">4.9</span>
+<span class="font-label-md text-label-md text-on-surface-variant">من 5.0</span>
+</div>
+<div class="flex gap-xs mt-base text-primary-container">
+<span class="material-symbols-outlined fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined fill-icon" style="font-variation-settings: 'FILL' 1;">star_half</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-md">بناءً على 1,248 مراجعة من المرضى</p>
+</div>
+<div class="hidden sm:flex flex-col gap-xs w-48">
+<!-- Rating Bars -->
+<div class="flex items-center gap-base">
+<span class="font-label-sm text-label-sm w-4">5</span>
+<div class="flex-1 h-1.5 bg-surface-variant rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[92%]"></div>
+</div>
+</div>
+<div class="flex items-center gap-base">
+<span class="font-label-sm text-label-sm w-4">4</span>
+<div class="flex-1 h-1.5 bg-surface-variant rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[6%]"></div>
+</div>
+</div>
+<div class="flex items-center gap-base">
+<span class="font-label-sm text-label-sm w-4">3</span>
+<div class="flex-1 h-1.5 bg-surface-variant rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[1%]"></div>
+</div>
+</div>
+<div class="flex items-center gap-base">
+<span class="font-label-sm text-label-sm w-4">2</span>
+<div class="flex-1 h-1.5 bg-surface-variant rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[0.5%]"></div>
+</div>
+</div>
+<div class="flex items-center gap-base">
+<span class="font-label-sm text-label-sm w-4">1</span>
+<div class="flex-1 h-1.5 bg-surface-variant rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[0.5%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Card -->
+<div class="bg-primary-container p-lg rounded-xl flex flex-col justify-center items-center text-center">
+<div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mb-md">
+<span class="material-symbols-outlined text-primary-fixed text-3xl">rate_review</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-white mb-xs">شاركنا رأيك</h3>
+<p class="font-label-sm text-label-sm text-on-primary-container/80 mb-md">رأيك يساعدنا في تحسين خدماتنا الصحية</p>
+<button class="w-full py-base bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md rounded-full hover:scale-95 transition-transform">كتابة مراجعة</button>
+</div>
+</section>
+<!-- Filters -->
+<div class="flex gap-base mb-lg overflow-x-auto pb-xs">
+<span class="px-md py-xs bg-primary text-on-primary font-label-sm text-label-sm rounded-full cursor-pointer">الأحدث</span>
+<span class="px-md py-xs bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded-full cursor-pointer hover:bg-surface-container-highest transition-colors">الأعلى تقييماً</span>
+<span class="px-md py-xs bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded-full cursor-pointer hover:bg-surface-container-highest transition-colors">مع صور</span>
+<span class="px-md py-xs bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded-full cursor-pointer hover:bg-surface-container-highest transition-colors">الأقل تقييماً</span>
+</div>
+<!-- Review List (Bento-ish Layout) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Review Card 1 -->
+<article class="glass-card p-lg rounded-xl flex flex-col">
+<div class="flex justify-between items-start mb-md">
+<div class="flex items-center gap-base">
+<img alt="Reviewer" class="w-12 h-12 rounded-full object-cover border border-outline-variant" data-alt="A portrait of a young professional woman smiling warmly. She has clear skin and expressive eyes, wearing a modern minimalist outfit. The background is a soft-focus interior of a high-end wellness clinic with emerald green accents and soft, cinematic lighting that highlights the calm and vital atmosphere of the health app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuACPhlrH1hPKgyAOTWhUqL5FN8JL_ZLv0wr_DTzbL6esD58ZnwW0UJ7B8i-YDwUtdbxcY5mF8uvNgrfsqvzY92bHRPsVEcV-DSc_tkHZZ_sHAPJwyQ3j2ptYM8E7y3Ii3sSW6Wbd29WpclfHyHV9caX2qVOROvy76m-gy5cVdLQYn1CQaP0fHd0LFY_bu5WoeLL6kSshxqMta9f-qGm6VbWt05yc6Aa4EWjM0_3NEGc89iewgFscNf8ZPTkzyFQO5eBYV-aO4xHUAg"/>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">سارة العامري</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">قبل يومين</p>
+</div>
+</div>
+<div class="flex text-primary-container">
+<span class="material-symbols-outlined text-[18px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                    تجربة ممتازة جداً! الفريق الطبي محترف للغاية والتعامل راقي. التطبيق سهل الاستخدام وساعدني كثيراً في متابعة حالتي الصحية بدقة. أنصح به الجميع.
+                </p>
+<div class="mt-md flex gap-xs">
+<button class="flex items-center gap-xs px-base py-xs bg-surface-container rounded-lg text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">thumb_up</span>
+<span class="text-xs">24</span>
+</button>
+<button class="flex items-center gap-xs px-base py-xs bg-surface-container rounded-lg text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-sm">flag</span>
+</button>
+</div>
+</article>
+<!-- Review Card 2 -->
+<article class="glass-card p-lg rounded-xl flex flex-col">
+<div class="flex justify-between items-start mb-md">
+<div class="flex items-center gap-base">
+<img alt="Reviewer" class="w-12 h-12 rounded-full object-cover border border-outline-variant" data-alt="A focused headshot of a mature man with a thoughtful expression. He has subtle graying hair and is lit by natural window light that creates soft highlights. The background features a blurred, high-end office environment with deep green tones and professional medical aesthetics, emphasizing trust and stability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvBhvF_9y7NSVyDNgSMEbTNhVbUj0Z4_TbQBw5UKQRNMR93n4AE7MU6QNZNcDsEYjrSRcJjf3dZTnbzAkN763hNJxJApDGj7OfqodulritnDCL0MLmBaJkbQ7dSafwW1t4dYSt1qihH65EmkqstCV7_AG3fX6Ne3Vov2fzkQac-eZzhxxB699dxxKrf4XA9t7cCHjrMhxX9DxhLMIlumTbEBgLZqjyAyeGsi2hoGsxny0uEyAGHC_LF1n06rJS9NF0FreHoYyji7o"/>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">أحمد منصور</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">منذ أسبوع</p>
+</div>
+</div>
+<div class="flex text-primary-container">
+<span class="material-symbols-outlined text-[18px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 0;">star</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                    النظام دقيق والمتابعة مستمرة. ميزة التحليلات الحيوية رائعة جداً وأعطتني نظرة شاملة عن صحتي لم أكن أجدها في تطبيقات أخرى. شكراً للقائمين عليه.
+                </p>
+<div class="mt-md flex gap-xs">
+<button class="flex items-center gap-xs px-base py-xs bg-surface-container rounded-lg text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">thumb_up</span>
+<span class="text-xs">12</span>
+</button>
+<button class="flex items-center gap-xs px-base py-xs bg-surface-container rounded-lg text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-sm">flag</span>
+</button>
+</div>
+</article>
+<!-- Review Card 3 (With Image) -->
+<article class="glass-card p-lg rounded-xl flex flex-col md:col-span-2">
+<div class="flex flex-col md:flex-row gap-lg">
+<div class="flex-1">
+<div class="flex justify-between items-start mb-md">
+<div class="flex items-center gap-base">
+<img alt="Reviewer" class="w-12 h-12 rounded-full object-cover border border-outline-variant" data-alt="A portrait of a serene woman in her late 20s, captured in a bright, modern clinic setting. The lighting is ethereal and high-key, with soft reflections on glass surfaces. Her expression conveys satisfaction and vitality, perfectly matching the deep green and glassmorphic UI design of the health monitoring platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOr8cKyKrutMmrToQvJtOD1i03TrPBiJ9A8GMiAwTrS_EsFUjQpplT1yAhUSh26ZqmOY5zgvFQbcHv8MKqEu9R6rVU91Da5ergIvAm-86FbZ8NIosFjFf4Rrf3oTIBYO1c-FUNPqg7nxFtv4xmAWch3L__6DtBcP7GajAXi5nlDZGbiBdb2__RdM8rj0LQvD5WMmH425445fD27YZ1wjN_JdtbaNpMyyDKfz-ctsVUXb1qqA4U4mVwYuijk3QI_dCvwnDcpL9Gh4U"/>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">ليلى حسن</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">منذ أسبوعين</p>
+</div>
+</div>
+<div class="flex text-primary-container">
+<span class="material-symbols-outlined text-[18px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                            أفضل تطبيق صحي استخدمته على الإطلاق. سرعة الاستجابة من قبل الأطباء مذهلة والتقارير الأسبوعية دقيقة ومفيدة جداً لتحسين نمط حياتي.
+                        </p>
+</div>
+<div class="w-full md:w-64 h-40 rounded-lg overflow-hidden bg-surface-container relative">
+<img alt="Health Device" class="w-full h-full object-cover opacity-80" data-alt="A high-quality lifestyle image of a modern smart medical device placed on a clean wooden table next to a glass of water and a lush green plant. The scene is illuminated with warm, natural sunlight, creating a high-end wellness atmosphere. The color palette features deep forest greens and soft white tones, aligning with the premium healthcare UI design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYxITsZ_B5NlQmIBmO3STFicJtNe0MZHQpr7DyapdcUvRrq6Jnv4upS_J9Uw1cyRfqQBeBpDufJ0Z-SiWjtDVvR2I2P-B6vjPss5pD8FXdVvpjfRZiaU8dNZ0jtkSU0kg1jPOk3kFM3-3R3She9-RkI6LV9B8f4mdI34H6dkLN518fuU-I3IEguv4dBr8Pi5IMnxpf3iYYogkuZ4SspyTbJbcQlEnauA3-D1ZolAgi4agQtkjH0Mq4gw1lQD9TeIM2paHeoXRUrjQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent flex items-end p-base">
+<span class="font-label-sm text-label-sm text-white bg-primary-container/40 px-base py-xs rounded-full backdrop-blur-md">مرفق صورة</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Review Card 4 -->
+<article class="glass-card p-lg rounded-xl flex flex-col">
+<div class="flex justify-between items-start mb-md">
+<div class="flex items-center gap-base">
+<img alt="Reviewer" class="w-12 h-12 rounded-full object-cover border border-outline-variant" data-alt="A portrait of a man with a friendly smile, set in a contemporary office space. The lighting is bright and airy, emphasizing a positive and energetic mood. The background is slightly out of focus, showcasing sleek lines and a professional atmosphere that blends healthcare precision with modern vitality, using deep emerald tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2gLGySYoa6NWXUu677otU8IVlOm3OhYd1kQIvdU1QyLUBhXw06rE0YFksGfFKvkMoKYJzXsLbmhfdgwwPkRFqfWCTMBYRg5BimoFiSu3J0THDMa03mo022C6lh3kBaTTW-BUIxvicXBoSm6nvtYZw_9rrzdc4X5z-MM5azVC8Ib5Usl0Yn9Tsg27vncNnpWo4iAYmm0tPMeBb1G0cXCJl5n0onTuEwAnpIq5IGCz1qTu3Ndc9sfbrIUQa_2Mni-PCzQaNpZ9-3ro"/>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">فيصل الحربي</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">منذ شهر</p>
+</div>
+</div>
+<div class="flex text-primary-container">
+<span class="material-symbols-outlined text-[18px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                    برنامج ممتاز وموثوق. كنت أبحث عن وسيلة سهلة لمراقبة ضغط الدم والسكري، وهذا التطبيق وفر لي كل ما أحتاجه وأكثر بتصميمه المريح.
+                </p>
+</article>
+</div>
+<div class="mt-xl flex justify-center">
+<button class="px-xl py-base border border-primary text-primary font-label-md text-label-md rounded-full hover:bg-primary/10 transition-colors">
+                تحميل المزيد من المراجعات
+            </button>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 bg-surface/70 dark:bg-surface-container/40 backdrop-blur-xl border-t border-white/10 shadow-lg rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant p-2 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm mt-1">الرئيسية</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant p-2 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-sm text-label-sm mt-1">المواعيد</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant p-2 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-sm text-label-sm mt-1">المجتمع</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container dark:bg-primary-fixed dark:text-on-primary-fixed-variant rounded-full px-5 py-1 scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm mt-1">الملف</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Doctor's Info - Dr. Taniya Noor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-primary-container": "#93ecb8",
+            "on-tertiary-fixed": "#002107",
+            "surface-tint": "#006d44",
+            "on-tertiary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "surface-bright": "#f9f9ff",
+            "secondary": "#55615c",
+            "tertiary": "#00531c",
+            "surface-container": "#e7eefe",
+            "inverse-surface": "#2a313d",
+            "on-background": "#151c27",
+            "primary-container": "#006d44",
+            "secondary-fixed-dim": "#bdc9c3",
+            "on-surface-variant": "#3f4942",
+            "on-primary": "#ffffff",
+            "surface-container-high": "#e2e8f8",
+            "inverse-primary": "#80d8a6",
+            "on-secondary": "#ffffff",
+            "inverse-on-surface": "#ebf1ff",
+            "background": "#f9f9ff",
+            "on-error": "#ffffff",
+            "secondary-container": "#d6e3dc",
+            "surface-container-low": "#f0f3ff",
+            "primary-fixed-dim": "#80d8a6",
+            "on-secondary-fixed-variant": "#3d4944",
+            "outline": "#6f7a71",
+            "surface": "#f9f9ff",
+            "primary-fixed": "#9cf5c1",
+            "tertiary-container": "#006e28",
+            "on-primary-fixed-variant": "#005232",
+            "on-error-container": "#93000a",
+            "secondary-fixed": "#d9e5df",
+            "on-secondary-fixed": "#131e1a",
+            "surface-variant": "#dce2f3",
+            "on-tertiary-container": "#68f47f",
+            "on-tertiary-fixed-variant": "#00531c",
+            "surface-dim": "#d3daea",
+            "outline-variant": "#bec9bf",
+            "error": "#ba1a1a",
+            "on-primary-fixed": "#002111",
+            "tertiary-fixed": "#72fe88",
+            "on-secondary-container": "#596560",
+            "primary": "#005232",
+            "surface-container-highest": "#dce2f3",
+            "tertiary-fixed-dim": "#53e16f",
+            "on-surface": "#151c27",
+            "error-container": "#ffdad6"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter-mobile": "12px",
+            "lg": "24px",
+            "xs": "4px",
+            "md": "16px",
+            "margin-mobile": "20px",
+            "unit": "4px",
+            "xl": "32px",
+            "sm": "8px"
+          },
+          "fontFamily": {
+            "headline-lg": ["Manrope"],
+            "label-sm": ["Manrope"],
+            "headline-lg-mobile": ["Manrope"],
+            "body-md": ["Manrope"],
+            "display-md": ["Manrope"],
+            "label-md": ["Manrope"],
+            "display-lg": ["Manrope"],
+            "body-lg": ["Manrope"]
+          },
+          "fontSize": {
+            "headline-lg": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+            "label-sm": ["10px", {"lineHeight": "14px", "fontWeight": "700"}],
+            "headline-lg-mobile": ["18px", {"lineHeight": "26px", "fontWeight": "700"}],
+            "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+            "display-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+            "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+            "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body { font-family: 'Manrope', sans-serif; }
+    .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(241, 245, 249, 1); }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile h-16 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl">
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-primary-container/20 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-on-surface">chevron_left</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile dark:text-on-surface">Doctor's Info</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-primary-container/20 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-on-surface">videocam</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-primary-container/20 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-on-surface">chat_bubble</span>
+</button>
+</div>
+</header>
+<main class="pt-20 px-margin-mobile">
+<!-- Hero Section: Asymmetric Layout -->
+<section class="flex flex-col md:flex-row gap-6 mb-lg">
+<div class="relative w-full aspect-[4/5] rounded-[32px] overflow-hidden shadow-[0px_4px_20px_rgba(0,0,0,0.04)] bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A professional female cardiologist of South Asian descent wearing a white medical coat and a charcoal gray hijab, posing confidently with a stethoscope around her neck. The setting is a clean, minimalist medical studio with soft, bright daylight and a calm, professional atmosphere. The color palette features whites and soft grays, matching the nurturing clarity of the healthcare brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEetGe3QDW2ymh73sbXwuIPD64kxeh2Chi6YNtHG_LBG6NAQUOY-72In6Vzw-MFhmBpqlKHLLpJng8j-usoDQIkAWALQCLUTlzpdTLz8ajm71LsOmp8Hcb-cQ9zKc0nvwB-9sLg-N8xP1jtB5gF-oGnGDBx4Nj7WGicEKtosUB3_vYLPeqLotbfE7CGIQalMN1GMPGUEZ1cCl_cNUk6QHwfg8Y5BZ183xbqub-JrgoM5NX6HiOnhRps1U3CtuCPsTPRr94I2iU9Tw"/>
+<div class="absolute top-4 left-4 glass px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-yellow-500 scale-75" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-md text-label-md">4.9</span>
+</div>
+</div>
+<div class="flex flex-col justify-end">
+<div class="mb-4">
+<h2 class="font-display-md text-display-md text-on-surface flex items-center gap-2">
+            Dr. Taniya Noor
+            <span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</h2>
+<p class="font-body-lg text-primary font-bold">Cardiologist</p>
+<div class="flex items-center gap-2 mt-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+<span class="font-label-md text-label-md">10:00 AM - 5:00 PM</span>
+</div>
+</div>
+<!-- Stats Chips -->
+<div class="grid grid-cols-3 gap-3">
+<div class="bg-surface p-3 rounded-[24px] border border-surface-variant/50 flex flex-col items-center">
+<span class="font-headline-lg-mobile text-on-surface">10y+</span>
+<span class="font-label-sm text-outline-variant uppercase">Experience</span>
+</div>
+<div class="bg-surface p-3 rounded-[24px] border border-surface-variant/50 flex flex-col items-center">
+<span class="font-headline-lg-mobile text-on-surface">$30</span>
+<span class="font-label-sm text-outline-variant uppercase">Session</span>
+</div>
+<div class="bg-surface p-3 rounded-[24px] border border-surface-variant/50 flex flex-col items-center">
+<span class="font-headline-lg-mobile text-on-surface">10k+</span>
+<span class="font-label-sm text-outline-variant uppercase">Patients</span>
+</div>
+</div>
+</div>
+</section>
+<!-- About Section -->
+<section class="mb-lg">
+<div class="flex justify-between items-center mb-sm">
+<h3 class="font-headline-lg-mobile text-on-surface">About</h3>
+<button class="text-primary font-label-md">
+<span class="material-symbols-outlined">expand_more</span>
+</button>
+</div>
+<p class="font-body-md text-on-surface-variant leading-relaxed">
+        Dr. Taniya is a premium digital healthcare platform designer and leading cardiologist with over 10 years of experience. She specializes in non-invasive cardiology and patient-centric care.
+      </p>
+</section>
+<!-- Schedule Section: Bento Grid Influence -->
+<section class="mb-xl">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-headline-lg-mobile text-on-surface">Schedule</h3>
+</div>
+<!-- Horizontal Date Picker -->
+<div class="flex gap-3 overflow-x-auto pb-4 scrollbar-hide">
+<div class="flex-shrink-0 flex flex-col items-center justify-center w-14 h-20 rounded-[20px] bg-surface border border-surface-variant/50">
+<span class="font-label-sm text-outline">Sun</span>
+<span class="font-headline-lg-mobile">10</span>
+</div>
+<div class="flex-shrink-0 flex flex-col items-center justify-center w-14 h-20 rounded-[20px] bg-surface border border-surface-variant/50">
+<span class="font-label-sm text-outline">Mon</span>
+<span class="font-headline-lg-mobile">11</span>
+</div>
+<div class="flex-shrink-0 flex flex-col items-center justify-center w-14 h-20 rounded-[20px] bg-primary text-on-primary shadow-lg shadow-primary/20">
+<span class="font-label-sm opacity-80">Tue</span>
+<span class="font-headline-lg-mobile">12</span>
+</div>
+<div class="flex-shrink-0 flex flex-col items-center justify-center w-14 h-20 rounded-[20px] bg-surface border border-surface-variant/50">
+<span class="font-label-sm text-outline">Wed</span>
+<span class="font-headline-lg-mobile">13</span>
+</div>
+<div class="flex-shrink-0 flex flex-col items-center justify-center w-14 h-20 rounded-[20px] bg-surface border border-surface-variant/50">
+<span class="font-label-sm text-outline">Thu</span>
+<span class="font-headline-lg-mobile">14</span>
+</div>
+<div class="flex-shrink-0 flex flex-col items-center justify-center w-14 h-20 rounded-[20px] bg-surface border border-surface-variant/50">
+<span class="font-label-sm text-outline">Fri</span>
+<span class="font-headline-lg-mobile">15</span>
+</div>
+</div>
+<!-- Time Slots Grid -->
+<div class="grid grid-cols-3 gap-3 mt-md">
+<button class="py-3 px-2 rounded-[16px] bg-surface border border-surface-variant/50 font-label-md text-on-surface-variant hover:bg-secondary-container/30 transition-all">10:00 AM</button>
+<button class="py-3 px-2 rounded-[16px] bg-primary-container/10 border border-primary text-primary font-bold text-label-md">11:00 AM</button>
+<button class="py-3 px-2 rounded-[16px] bg-surface border border-surface-variant/50 font-label-md text-on-surface-variant hover:bg-secondary-container/30 transition-all">12:00 PM</button>
+<button class="py-3 px-2 rounded-[16px] bg-surface border border-surface-variant/50 font-label-md text-on-surface-variant hover:bg-secondary-container/30 transition-all">2:00 PM</button>
+<button class="py-3 px-2 rounded-[16px] bg-surface border border-surface-variant/50 font-label-md text-on-surface-variant hover:bg-secondary-container/30 transition-all">3:00 PM</button>
+<button class="py-3 px-2 rounded-[16px] bg-surface border border-surface-variant/50 font-label-md text-on-surface-variant hover:bg-secondary-container/30 transition-all">4:00 PM</button>
+</div>
+</section>
+</main>
+<!-- Bottom Booking Bar -->
+<footer class="fixed bottom-0 left-0 w-full z-50 bg-surface-container-lowest/90 backdrop-blur-xl px-6 pb-6 pt-3 shadow-[0px_-4px_20px_rgba(0,0,0,0.04)] rounded-t-[32px] flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-outline">Consultant fee</span>
+<div class="flex items-baseline gap-1">
+<span class="font-display-md text-primary">$30</span>
+<span class="font-label-md text-outline">/ Session</span>
+</div>
+</div>
+<button class="bg-primary text-on-primary font-body-lg font-bold py-4 px-10 rounded-full shadow-lg shadow-primary/20 active:scale-95 transition-transform">
+      Book Now
+    </button>
+</footer>
+<!-- Nav Shell (Suppressed as per "Task-Focused" rule for sub-pages) -->
+</body></html>

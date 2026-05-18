@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html class="dark" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#5dffa1",
+                    "primary-fixed-dim": "#80d8a6",
+                    "on-tertiary-fixed-variant": "#792e30",
+                    "tertiary": "#ffb3b1",
+                    "error": "#ffb4ab",
+                    "primary": "#80d8a6",
+                    "on-tertiary-container": "#ffcdcc",
+                    "error-container": "#93000a",
+                    "surface-container-high": "#0f301f",
+                    "on-surface": "#c6ebd1",
+                    "surface": "#00180b",
+                    "on-background": "#c6ebd1",
+                    "on-secondary": "#00391c",
+                    "on-tertiary-fixed": "#3f0209",
+                    "on-error-container": "#ffdad6",
+                    "on-secondary-fixed": "#00210e",
+                    "tertiary-container": "#984546",
+                    "surface-bright": "#1f402d",
+                    "outline-variant": "#3f4942",
+                    "secondary-fixed-dim": "#37e187",
+                    "secondary-container": "#00ca73",
+                    "on-tertiary": "#5c171b",
+                    "on-surface-variant": "#bec9bf",
+                    "surface-container-highest": "#1b3b29",
+                    "surface-container": "#032515",
+                    "on-primary": "#003921",
+                    "background": "#00180b",
+                    "tertiary-fixed-dim": "#ffb3b1",
+                    "on-primary-fixed-variant": "#005232",
+                    "secondary": "#40e78c",
+                    "surface-tint": "#80d8a6",
+                    "surface-container-lowest": "#001207",
+                    "primary-fixed": "#9cf5c1",
+                    "on-secondary-container": "#004e29",
+                    "surface-variant": "#1b3b29",
+                    "inverse-primary": "#006d44",
+                    "tertiary-fixed": "#ffdad8",
+                    "on-primary-container": "#93ecb8",
+                    "surface-container-low": "#002111",
+                    "outline": "#88938a",
+                    "on-primary-fixed": "#002111",
+                    "inverse-surface": "#c6ebd1",
+                    "primary-container": "#006d44",
+                    "on-secondary-fixed-variant": "#00522b",
+                    "inverse-on-surface": "#163725",
+                    "surface-dim": "#00180b",
+                    "on-error": "#690005"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "gutter": "16px",
+                    "base": "8px",
+                    "margin-desktop": "64px",
+                    "xl": "32px",
+                    "xs": "4px",
+                    "lg": "24px",
+                    "md": "16px",
+                    "sm": "12px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Manrope"],
+                    "label-md": ["Manrope"],
+                    "headline-md": ["Manrope"],
+                    "headline-lg": ["Manrope"],
+                    "body-lg": ["Manrope"],
+                    "label-sm": ["Manrope"],
+                    "display-lg": ["Manrope"],
+                    "body-md": ["Manrope"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #00180b;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(1, 43, 23, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-50 bg-background/40 backdrop-blur-md flex items-center justify-between px-margin-mobile h-16 w-full">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary" data-icon="arrow_back">arrow_back</span>
+<h1 class="font-headline-md text-headline-md text-primary">التاريخ الطبي</h1>
+</div>
+<div class="flex items-center">
+<span class="material-symbols-outlined text-primary" data-icon="lock">lock</span>
+</div>
+</header>
+<main class="px-margin-mobile pt-4 space-y-xl">
+<!-- Patient Summary -->
+<section class="glass-card rounded-xl p-lg flex items-center gap-md">
+<div class="relative w-16 h-16 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="Patient Portrait" class="w-full h-full object-cover" data-alt="A professional headshot of a mature woman with a serene expression, set against a soft emerald green background. The lighting is soft and clinical, reflecting a premium healthcare environment with high-end digital aesthetics. Her features are clear and detailed, emphasizing a persona of health and well-being in a dark-mode oriented UI design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB71_TnXdLVtnXrlt-92HQx7bOUNEbIxsylWjJqePqAEIwiWnIrCnAAG8gd-sZ2gn4gz4_2tmC-kTNJ7t3qj8LKA0jzXNM_U7FiahkiOJd75BIbE3Glm6adHxWxwtwoPYyNl1WWL3l8f54RgSIOpbPnhgoG-8PSI-_gebYlW_XuEgx6vSicsgeUO6CdmjXlCJO8lRUTNrXvQSVfhI5MzXUu3mqLLRFUlwARgurCE0J4qSZGbqkfZ74y3X_yt7-1zLIQO7ul2E5GojU"/>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">ريم الفالح</h2>
+<div class="flex gap-md mt-xs">
+<span class="bg-primary-container/20 text-primary-fixed-dim px-2 py-0.5 rounded-lg text-label-sm font-label-sm">فصيلة الدم: O+</span>
+<span class="bg-primary-container/20 text-primary-fixed-dim px-2 py-0.5 rounded-lg text-label-sm font-label-sm">العمر: 32 سنة</span>
+</div>
+</div>
+</section>
+<!-- Section 1: Medical Conditions -->
+<section>
+<div class="flex items-center justify-between mb-md">
+<h3 class="font-headline-md text-headline-md text-on-surface">الحالات الطبية</h3>
+<span class="text-primary text-label-md font-label-md">نشط</span>
+</div>
+<div class="grid grid-cols-2 gap-md">
+<div class="glass-card p-md rounded-xl flex items-center gap-base">
+<div class="w-10 h-10 rounded-lg bg-primary-container/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="monitor_heart">monitor_heart</span>
+</div>
+<div>
+<p class="text-on-surface font-label-md text-label-md">ارتفاع ضغط الدم</p>
+</div>
+</div>
+<div class="glass-card p-md rounded-xl flex items-center gap-base">
+<div class="w-10 h-10 rounded-lg bg-tertiary-container/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary" data-icon="pill">pill</span>
+</div>
+<div>
+<p class="text-on-surface font-label-md text-label-md">نقص فيتامين د</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Current Medications -->
+<section>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-md">الأدوية الحالية</h3>
+<div class="space-y-md">
+<!-- Med Card 1 -->
+<div class="glass-card p-lg rounded-xl flex justify-between items-center">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-secondary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary" data-icon="medication">medication</span>
+</div>
+<div>
+<h4 class="text-on-surface font-label-md text-label-md">ليسينوبريل (Lisinopril)</h4>
+<p class="text-on-surface-variant font-label-sm text-label-sm">10 ملغ • مرة واحدة يومياً</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="chevron_left">chevron_left</span>
+</div>
+<!-- Med Card 2 -->
+<div class="glass-card p-lg rounded-xl flex justify-between items-center">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-secondary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary" data-icon="medication_liquid">medication_liquid</span>
+</div>
+<div>
+<h4 class="text-on-surface font-label-md text-label-md">فيتامين د3 مكمل</h4>
+<p class="text-on-surface-variant font-label-sm text-label-sm">5000 وحدة • أسبوعياً</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="chevron_left">chevron_left</span>
+</div>
+</div>
+</section>
+<!-- Section 3: Past Appointments -->
+<section>
+<div class="flex items-center justify-between mb-md">
+<h3 class="font-headline-md text-headline-md text-on-surface">المواعيد السابقة</h3>
+<button class="text-primary text-label-md font-label-md">عرض الكل</button>
+</div>
+<div class="space-y-md">
+<div class="relative pr-8 border-r border-outline-variant/30 space-y-lg">
+<!-- Timeline Item 1 -->
+<div class="relative">
+<div class="absolute -right-[41px] top-1 w-4 h-4 rounded-full bg-primary border-4 border-background"></div>
+<div class="glass-card p-md rounded-xl">
+<p class="text-primary text-label-sm font-label-sm mb-xs">15 أكتوبر 2023</p>
+<div class="flex justify-between items-center">
+<div>
+<h4 class="text-on-surface font-label-md text-label-md">د. محمد القحطاني</h4>
+<p class="text-on-surface-variant font-label-sm text-label-sm">أخصائي القلب</p>
+</div>
+<span class="bg-surface-variant px-3 py-1 rounded-full text-label-sm text-on-surface-variant">تمت الزيارة</span>
+</div>
+</div>
+</div>
+<!-- Timeline Item 2 -->
+<div class="relative">
+<div class="absolute -right-[41px] top-1 w-4 h-4 rounded-full bg-outline border-4 border-background"></div>
+<div class="glass-card p-md rounded-xl">
+<p class="text-primary text-label-sm font-label-sm mb-xs">02 سبتمبر 2023</p>
+<div class="flex justify-between items-center">
+<div>
+<h4 class="text-on-surface font-label-md text-label-md">د. ليلى السعيد</h4>
+<p class="text-on-surface-variant font-label-sm text-label-sm">طبيب عام</p>
+</div>
+<span class="bg-surface-variant px-3 py-1 rounded-full text-label-sm text-on-surface-variant">تمت الزيارة</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 4: Medical Documents -->
+<section>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-md">الوثائق الطبية</h3>
+<div class="grid grid-cols-2 gap-md">
+<!-- Document 1 -->
+<div class="glass-card p-md rounded-xl space-y-md">
+<div class="h-24 bg-surface-container rounded-lg flex items-center justify-center overflow-hidden">
+<img alt="Laboratory Report Preview" class="w-full h-full object-cover opacity-60" data-alt="A close-up photograph of a professional medical laboratory report with clinical data and charts. The image has a cool, sterile color palette of whites and teals, fitting a high-tech medical environment. The document is presented as a preview in a modern medical application, emphasizing clarity and professionalism." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAzjmOyYwv7gDciymV8m9W8c84CBNxy6Nb37dHaDKCKT15Rh8jZyxwv_mweCCgHF6uriZrGGfXf8nxl3UBlTwjXdA5cCYr4rDl2CXoojUSBCNhnro_TxXqzO3jdCEJ691Eakiad3eDI9DFSl1SwsummHI8OgUhpHlIic-A4SWCkpvtavZmQtnXA5jg711fKrCVnDE-DfR0k_YvudM7JCjHa3gGELXfT_KSyVyrrIZCT39vAivWCpZNNNB-OvjZkkMknlqHGhSVlqw"/>
+</div>
+<div>
+<p class="text-on-surface font-label-md text-label-md truncate">نتائج المختبر - دم</p>
+<p class="text-on-surface-variant font-label-sm text-label-sm">PDF • 1.2 MB</p>
+</div>
+</div>
+<!-- Document 2 -->
+<div class="glass-card p-md rounded-xl space-y-md">
+<div class="h-24 bg-surface-container rounded-lg flex items-center justify-center overflow-hidden">
+<img alt="X-Ray Scan Preview" class="w-full h-full object-cover opacity-60" data-alt="A high-resolution monochrome X-ray image of a human chest, showing skeletal structure and lungs with medical precision. The aesthetic is clinical and sophisticated, with deep shadows and sharp contrast. It is integrated as a document preview within a premium dark-themed healthcare app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeDKszZfhJN9xDSYReuZJ8oL5qDY7ZXgz4dqGyR2nTN0EKso3hs5srZs5wCT3vXHyEeGGKj3r9cY5FEi7eegRxm9DXkpKlIyPntl9SEAaHu3v2rLQezmiJ4G7B3EC6xZ9cRuw6NDwzhgts04HxUrtiMyErnFG8N3oQk8jKhIrfWsQ7sJCBP9cCVFIPK-slnYD0z0l1nTmGQ_HuZVFcHs67rdQydqsJCQVpLzcZYCDm2bUVGYdz_pyBWbbGb-SYijZIChmIqGMrEnI"/>
+</div>
+<div>
+<p class="text-on-surface font-label-md text-label-md truncate">أشعة سينية للصدر</p>
+<p class="text-on-surface-variant font-label-sm text-label-sm">JPG • 4.5 MB</p>
+</div>
+</div>
+</div>
+<!-- Upload Button -->
+<button class="w-full mt-lg border-2 border-dashed border-outline-variant/50 rounded-xl p-lg flex flex-col items-center justify-center gap-xs hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="upload_file">upload_file</span>
+<span class="text-on-surface font-label-md text-label-md">تحميل مستند جديد</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">يدعم PDF, PNG, JPG</span>
+</button>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-surface-container/40 backdrop-blur-md border-t border-outline-variant/10 shadow-md flex justify-around items-center h-20 px-4">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-bright/50 transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm mt-1">الرئيسية</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="history" style="font-variation-settings: 'FILL' 1;">history</span>
+<span class="font-label-sm text-label-sm mt-1">السجل</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-bright/50 transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span class="font-label-sm text-label-sm mt-1">المؤشرات</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-bright/50 transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm mt-1">الملف</span>
+</a>
+</nav>
+</body></html>

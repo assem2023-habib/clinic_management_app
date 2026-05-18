@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html class="dark" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#ffcdcc",
+                        "on-secondary-fixed": "#00210e",
+                        "surface-container": "#032515",
+                        "background": "#00180b",
+                        "tertiary-fixed": "#ffdad8",
+                        "on-secondary": "#00391c",
+                        "surface-variant": "#1b3b29",
+                        "inverse-primary": "#006d44",
+                        "surface-container-lowest": "#001207",
+                        "on-error": "#690005",
+                        "error-container": "#93000a",
+                        "surface-container-low": "#002111",
+                        "on-surface": "#c6ebd1",
+                        "inverse-on-surface": "#163725",
+                        "primary-container": "#006d44",
+                        "secondary-fixed": "#5dffa1",
+                        "surface-container-high": "#0f301f",
+                        "on-background": "#c6ebd1",
+                        "surface-bright": "#1f402d",
+                        "on-primary-fixed": "#002111",
+                        "surface-dim": "#00180b",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed-variant": "#005232",
+                        "secondary-container": "#00ca73",
+                        "primary-fixed-dim": "#80d8a6",
+                        "outline-variant": "#3f4942",
+                        "on-primary": "#003921",
+                        "primary-fixed": "#9cf5c1",
+                        "on-tertiary": "#5c171b",
+                        "on-tertiary-fixed": "#3f0209",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-container": "#984546",
+                        "surface-container-highest": "#1b3b29",
+                        "tertiary": "#ffb3b1",
+                        "primary": "#80d8a6",
+                        "secondary": "#40e78c",
+                        "inverse-surface": "#c6ebd1",
+                        "tertiary-fixed-dim": "#ffb3b1",
+                        "surface": "#00180b",
+                        "outline": "#88938a",
+                        "secondary-fixed-dim": "#37e187",
+                        "on-surface-variant": "#bec9bf",
+                        "on-secondary-fixed-variant": "#00522b",
+                        "on-secondary-container": "#004e29",
+                        "on-tertiary-fixed-variant": "#792e30",
+                        "on-primary-container": "#93ecb8",
+                        "surface-tint": "#80d8a6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "8px",
+                        "xl": "12px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "md": "16px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "64px",
+                        "sm": "12px",
+                        "xs": "4px",
+                        "xl": "32px",
+                        "base": "8px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Manrope"],
+                        "display-lg": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "headline-md": ["Manrope"],
+                        "headline-lg-mobile": ["Manrope"],
+                        "label-sm": ["Manrope"],
+                        "body-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #00180b;
+            font-family: 'Manrope', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(3, 37, 21, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .vitality-gradient {
+            background: linear-gradient(135deg, #006d44 0%, #32de84 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface antialiased pb-32">
+<!-- Top AppBar -->
+<header class="bg-surface/40 dark:bg-surface-container/40 backdrop-blur-xl border-b border-white/10 w-full sticky top-0 z-50 shadow-sm flex items-center justify-between px-margin-mobile py-base">
+<div class="flex items-center gap-md">
+<button class="active:scale-95 transition-transform hover:bg-surface-bright/20 p-2 rounded-full">
+<span class="material-symbols-outlined text-primary">arrow_forward</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface">ملف الطبيب</h1>
+</div>
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary">share</span>
+<span class="material-symbols-outlined text-primary">favorite</span>
+</div>
+</header>
+<main class="px-margin-mobile pt-lg space-y-xl max-w-2xl mx-auto">
+<!-- Hero Profile Section -->
+<section class="flex flex-col items-center text-center space-y-md">
+<div class="relative">
+<div class="w-32 h-32 rounded-full border-4 border-primary/20 p-1">
+<img alt="Dr. Samir Mansour" class="w-full h-full object-cover rounded-full" data-alt="A professional middle-aged male doctor with a warm, confident expression wearing a modern white clinical coat and a stethoscope. He is positioned against a clean, softly lit medical environment with deep emerald and dark green background tones. The lighting is sophisticated and moody, emphasizing a premium healthcare aesthetic. High-quality portrait photography style with a shallow depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpT7JlXD61ko4pEGWbJol_KSI_MlOIJA0xA0uhmk4iCbSZsYPGh9GvK9x3pgDP2BJH22u1l4ua2ntWOIuJp9ZZDOjZDwLtqjbJg0TB_LA9OmzKjUyqb_YDz2lLOYltGzI3XAYuGxfae_BBVW_up-OD3Ql-k99TrHhjmMa9m6JCCehd5PAdiBCiD6vS2tiUEPQVJBWNkbb5AD-k0VVa20DVecuKcOO2p7nsEcWgTxq0ku_szln1QcDKwzKAHxqFfCLO7dQ9SV58PVM"/>
+</div>
+<div class="absolute bottom-0 right-0 bg-secondary-container p-1 rounded-full border-2 border-background">
+<span class="material-symbols-outlined text-on-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">د. سمير منصور</h2>
+<p class="font-label-md text-label-md text-primary mt-xs">استشاري جراحة العظام والمفاصل</p>
+<div class="flex items-center justify-center gap-xs mt-base">
+<span class="material-symbols-outlined text-secondary text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-md text-label-md text-on-surface">4.9 (120 تقييم)</span>
+</div>
+</div>
+</section>
+<!-- Stats Grid (Bento Style) -->
+<div class="grid grid-cols-3 gap-md">
+<div class="glass-card p-md rounded-xl text-center">
+<p class="font-label-sm text-label-sm text-on-surface-variant">الخبرة</p>
+<p class="font-headline-md text-headline-md text-primary">+15</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">عاماً</p>
+</div>
+<div class="glass-card p-md rounded-xl text-center">
+<p class="font-label-sm text-label-sm text-on-surface-variant">المرضى</p>
+<p class="font-headline-md text-headline-md text-primary">+2k</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">سعيد</p>
+</div>
+<div class="glass-card p-md rounded-xl text-center">
+<p class="font-label-sm text-label-sm text-on-surface-variant">عمليات</p>
+<p class="font-headline-md text-headline-md text-primary">850</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">ناجحة</p>
+</div>
+</div>
+<!-- About Section -->
+<section class="space-y-base">
+<h3 class="font-headline-md text-headline-md text-on-surface">نبذة عن الطبيب</h3>
+<div class="glass-card p-lg rounded-xl">
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                    يعد الدكتور سمير منصور من أبرز خبراء جراحة العظام في المنطقة، متخصص في جراحات الركبة والمفاصل المعقدة. يجمع بين الخبرة السريرية الواسعة وأحدث التقنيات الطبية لضمان أفضل نتائج التعافي لمرضاه.
+                </p>
+</div>
+</section>
+<!-- Qualifications -->
+<section class="space-y-base">
+<h3 class="font-headline-md text-headline-md text-on-surface">المؤهلات العلمية</h3>
+<div class="space-y-md">
+<div class="flex gap-md items-start p-md glass-card rounded-xl">
+<div class="bg-primary-container/20 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary">school</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">دكتوراه في جراحة العظام</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">جامعة القاهرة - كلية الطب</p>
+</div>
+</div>
+<div class="flex gap-md items-start p-md glass-card rounded-xl">
+<div class="bg-primary-container/20 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary">workspace_premium</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">زمالة كلية الجراحين الملكية</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">لندن، المملكة المتحدة</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Patient Reviews -->
+<section class="space-y-base">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md text-on-surface">آراء المرضى</h3>
+<button class="text-primary font-label-md">عرض الكل</button>
+</div>
+<div class="space-y-md">
+<div class="glass-card p-lg rounded-xl space-y-md">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-base">
+<div class="w-10 h-10 rounded-full bg-surface-bright flex items-center justify-center font-bold text-primary">أ</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">أحمد السعدني</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">منذ يومين</p>
+</div>
+</div>
+<div class="flex text-secondary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">طبيب ممتاز جداً، شرح لي حالتي بكل تفصيل وكان صبوراً جداً في الإجابة على كل تساؤلاتي. العملية كانت ناجحة والحمد لله.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Action Bar (Contextual FAB replacement/Action Shell) -->
+<div class="fixed bottom-0 w-full z-50 glass-card border-t border-white/10 px-margin-mobile py-lg pb-10 flex gap-md items-center justify-between rounded-t-xl shadow-[0_-4px_12px_rgba(0,0,0,0.3)]">
+<button class="flex-1 vitality-gradient py-4 rounded-xl font-label-md text-white active:scale-95 transition-transform">
+            حجز موعد الآن
+        </button>
+<button class="flex-1 bg-surface-container-high border border-primary/30 py-4 rounded-xl font-label-md text-primary active:scale-95 transition-transform">
+            المواعيد المتاحة
+        </button>
+</div>
+<!-- Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-[60] bg-surface-container/60 dark:bg-surface-container-highest/60 backdrop-blur-xl border-t border-white/10 hidden md:flex justify-around items-center px-gutter py-base">
+<!-- Not rendered as per Destination Rule for detailed profile page focus -->
+</nav>
+<!-- Simple Bottom Nav for mobile feel -->
+<div class="md:hidden fixed bottom-2 left-4 right-4 z-50 flex justify-around items-center glass-card rounded-full py-2 px-4 shadow-xl pointer-events-none opacity-0">
+<!-- Space reserved for future main nav -->
+</div>
+</body></html>

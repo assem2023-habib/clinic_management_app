@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html class="dark" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Medical Services - Free Comprehensive Check-up</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-primary": "#006d44",
+                        "on-primary-fixed": "#002111",
+                        "primary-fixed": "#9cf5c1",
+                        "surface-tint": "#80d8a6",
+                        "surface": "#00180b",
+                        "tertiary-fixed": "#ffdad8",
+                        "on-primary-container": "#93ecb8",
+                        "on-error": "#690005",
+                        "surface-dim": "#00180b",
+                        "outline-variant": "#3f4942",
+                        "surface-bright": "#1f402d",
+                        "secondary-fixed": "#5dffa1",
+                        "primary": "#80d8a6",
+                        "tertiary": "#ffb3b1",
+                        "outline": "#88938a",
+                        "on-tertiary": "#5c171b",
+                        "tertiary-container": "#984546",
+                        "on-primary-fixed-variant": "#005232",
+                        "primary-fixed-dim": "#80d8a6",
+                        "inverse-surface": "#c6ebd1",
+                        "surface-container": "#032515",
+                        "primary-container": "#006d44",
+                        "on-primary": "#003921",
+                        "error": "#ffb4ab",
+                        "on-tertiary-fixed-variant": "#792e30",
+                        "on-background": "#c6ebd1",
+                        "on-tertiary-container": "#ffcdcc",
+                        "on-surface": "#c6ebd1",
+                        "on-secondary": "#00391c",
+                        "error-container": "#93000a",
+                        "secondary": "#40e78c",
+                        "on-secondary-fixed-variant": "#00522b",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-high": "#0f301f",
+                        "surface-variant": "#1b3b29",
+                        "surface-container-highest": "#1b3b29",
+                        "background": "#00180b",
+                        "on-tertiary-fixed": "#3f0209",
+                        "on-surface-variant": "#bec9bf",
+                        "tertiary-fixed-dim": "#ffb3b1",
+                        "on-secondary-fixed": "#00210e",
+                        "on-secondary-container": "#004e29",
+                        "secondary-fixed-dim": "#37e187",
+                        "inverse-on-surface": "#163725",
+                        "surface-container-lowest": "#001207",
+                        "surface-container-low": "#002111",
+                        "secondary-container": "#00ca73"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "lg": "24px",
+                        "margin-mobile": "16px",
+                        "gutter": "16px",
+                        "margin-desktop": "64px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "base": "8px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "headline-md": ["Manrope"],
+                        "headline-lg": ["Manrope"],
+                        "label-sm": ["Manrope"],
+                        "headline-lg-mobile": ["Manrope"],
+                        "body-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(3, 37, 21, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .vitality-card {
+            background: #032515;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        .vitality-card:hover {
+            border-color: #00ca73;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md text-body-md antialiased selection:bg-primary selection:text-on-primary">
+<!-- TopAppBar -->
+<header class="w-full sticky top-0 z-50 bg-surface/40 dark:bg-surface-container/40 backdrop-blur-xl shadow-sm border-b border-white/10 flex items-center justify-between px-margin-mobile py-base">
+<div class="flex items-center gap-md">
+<button class="active:scale-95 transition-transform p-base rounded-full hover:bg-surface-bright/20">
+<span class="material-symbols-outlined text-primary">arrow_forward</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface">Medical Services</h1>
+</div>
+<div class="flex items-center gap-sm">
+<button class="active:scale-95 transition-transform p-base rounded-full hover:bg-surface-bright/20">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-container-high border-2 border-primary/20 overflow-hidden">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" data-alt="A professional headshot of a young woman with a warm expression, set against a softly blurred minimalist architectural background. The lighting is bright and even, reinforcing a clean, corporate wellness aesthetic. The image is crisp with high detail in her features and skin texture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtphIOxFFyBbCzXlgCFKK0uEzObRP4cxB1hwwj1btSrsRIQpAN0aeF4TcMzx3tG2t1EKXuWtH_s-E2q9oKMkq9W_4c7NdKwynfrlZMbIytknAx1Jl3VxD6TVjSd7PtjKjBMVM3BJL8flQJJZYQJrLw0px_MQ-J5HJvkb75zcPVSJlObBhSaF9GpuCj2mMqoFEiNCebHwrOu2YCpfAT9M42RlG9b9e4ZT7MTRI__I6bF7xo6HLDqmX2R682ADw3rx4MerYTbOg3Wts"/>
+</div>
+</div>
+</header>
+<main class="pb-32">
+<!-- Hero Section -->
+<section class="relative h-[397px] w-full overflow-hidden">
+<img alt="High-tech Medical Equipment" class="w-full h-full object-cover" data-alt="A macro close-up of a futuristic MRI machine's glowing circular aperture, emitting soft, pulsing emerald green light. The sleek metallic surfaces reflect clinical precision and advanced technology. Deep shadows and vibrant green highlights create a sense of deep vitality and medical excellence. The atmosphere is calm and highly sophisticated." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7y7emCDWZP94UfqwdOje5swG6mzVWBqI85ZdThTx8lCoilLyurQXQMYbGOPFKzlueQKqnsRBJ68soVa-GZ34wWusChCEXbpz7jeJmiFwezFUqG7NCEvEMzx_jQ9ZHXoKXz0e9C6Xc6J60LopxrrRzvh5AAJzAuz1gA5ODFn9eFW67e02h7ubvk5jpNFiF6t72Mt2uuKGIAISKx2qMn5jnSFoZe0-QXqNqlUrVUoIrOE15XdcGTWVbl8-slNzCbMvMzovwm61ZVRA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-surface/60 to-transparent"></div>
+<div class="absolute bottom-0 left-0 right-0 p-margin-mobile">
+<span class="inline-block px-md py-xs bg-secondary/20 text-secondary border border-secondary/30 rounded-full font-label-md text-label-md mb-base">
+                    عرض لفترة محدودة
+                </span>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-xs">فحص شامل مجاني</h2>
+<p class="font-body-md text-body-md text-on-surface-variant opacity-90 max-w-[90%]">
+                    احصل على استشارة أولية مجانية لأعضاء حيوية مختارة مع نخبة من أخصائيينا.
+                </p>
+</div>
+</section>
+<!-- Bento Grid Content -->
+<div class="px-margin-mobile mt-lg grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Benefits Section -->
+<div class="md:col-span-12">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-md">مميزات العرض</h3>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-md">
+<div class="vitality-card p-lg rounded-xl flex flex-col gap-sm">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-weight="fill">bloodtype</span>
+</div>
+<h4 class="font-label-md text-label-md text-on-surface">تحليل دم مفصل</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">فحص شامل لجميع المؤشرات الحيوية الأساسية.</p>
+</div>
+<div class="vitality-card p-lg rounded-xl flex flex-col gap-sm">
+<div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary" data-weight="fill">cardiology</span>
+</div>
+<h4 class="font-label-md text-label-md text-on-surface">فحص صحة القلب</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">تقييم كامل لوظائف القلب والدورة الدموية.</p>
+</div>
+<div class="vitality-card p-lg rounded-xl flex flex-col gap-sm">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-weight="fill">visibility</span>
+</div>
+<h4 class="font-label-md text-label-md text-on-surface">فحص النظر</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">اختبارات دقيقة لحدة الإبصار وصحة العين.</p>
+</div>
+</div>
+</div>
+<!-- Eligibility & Time -->
+<div class="md:col-span-7">
+<div class="glass-panel p-lg rounded-xl h-full">
+<div class="flex items-center gap-base mb-md text-secondary">
+<span class="material-symbols-outlined">verified</span>
+<h3 class="font-headline-md text-headline-md">شروط الاستحقاق</h3>
+</div>
+<ul class="space-y-sm text-on-surface-variant">
+<li class="flex items-start gap-base">
+<span class="material-symbols-outlined text-primary text-[18px] mt-xs">check_circle</span>
+<span>هذا العرض مخصص للمستخدمين الجدد فقط.</span>
+</li>
+<li class="flex items-start gap-base">
+<span class="material-symbols-outlined text-primary text-[18px] mt-xs">check_circle</span>
+<span>صلاحية العرض لمدة 14 يوم من تاريخ التسجيل.</span>
+</li>
+<li class="flex items-start gap-base">
+<span class="material-symbols-outlined text-primary text-[18px] mt-xs">check_circle</span>
+<span>يتطلب العرض حجز موعد مسبق عبر التطبيق.</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Quick Stats/Small Card -->
+<div class="md:col-span-5">
+<div class="bg-primary-container p-lg rounded-xl h-full text-on-primary flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-[32px] mb-base">schedule</span>
+<h4 class="font-headline-md text-headline-md">وفر 100%</h4>
+<p class="font-body-md text-body-md opacity-90">استشارة مجانية بالكامل للمرة الأولى.</p>
+</div>
+<div class="mt-lg pt-md border-t border-on-primary/10">
+<div class="flex items-center gap-xs">
+<span class="font-label-md text-label-md">المدة المقدرة:</span>
+<span class="font-label-md text-label-md font-bold">45 دقيقة</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Action Bar (Fixed) -->
+<div class="fixed bottom-0 left-0 right-0 z-[60] px-margin-mobile pb-lg pt-md bg-gradient-to-t from-surface via-surface to-transparent">
+<div class="max-w-xl mx-auto">
+<button class="w-full h-14 bg-secondary text-on-secondary-fixed rounded-full font-headline-md text-headline-md flex items-center justify-center gap-base active:scale-95 transition-transform shadow-lg shadow-secondary/20">
+<span class="material-symbols-outlined">calendar_today</span>
+<span>احجز الآن</span>
+</button>
+</div>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-surface-container/60 dark:bg-surface-container-highest/60 backdrop-blur-xl border-t border-white/10 shadow-[0_-4px_12px_rgba(0,0,0,0.1)] flex justify-around items-center px-gutter py-base md:hidden">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant/70 font-label-sm text-label-sm hover:text-primary transition-colors active:scale-90 transition-transform">
+<span class="material-symbols-outlined">home</span>
+<span>Home</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-full px-4 py-1 font-label-sm text-label-sm active:scale-90 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">medical_services</span>
+<span>Services</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant/70 font-label-sm text-label-sm hover:text-primary transition-colors active:scale-90 transition-transform">
+<span class="material-symbols-outlined">description</span>
+<span>Records</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant/70 font-label-sm text-label-sm hover:text-primary transition-colors active:scale-90 transition-transform">
+<span class="material-symbols-outlined">person</span>
+<span>Profile</span>
+</div>
+</nav>
+</body></html>
