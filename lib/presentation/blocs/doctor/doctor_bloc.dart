@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:clinic_management_app/data/repositories/doctor_repository.dart';
+import 'package:clinic_management_app/domain/repositories/doctor_repository.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_event.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_state.dart';
 

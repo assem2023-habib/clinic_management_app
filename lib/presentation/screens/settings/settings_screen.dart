@@ -1,54 +1,60 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/theme/theme_provider.dart';
 
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
+class SettingsScreen extends StatefulWidget {
+  final ThemeProvider themeProvider;
+
+  const SettingsScreen({super.key, required this.themeProvider});
 
   @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
+  @override
   Widget build(BuildContext context) {
-    final themeProvider = context.watch<ThemeProvider>();
+    final themeProvider = widget.themeProvider;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Settings')),
-      body: ListView(
-        children: [
-          _buildSection(
-            'Account',
-            [
-              _buildTile(Icons.person, 'Profile', 'Manage your profile'),
-              _buildTile(Icons.lock, 'Change Password', 'Update your password'),
-              _buildTile(Icons.notifications, 'Notifications', 'Manage notification settings'),
-            ],
-            context,
-          ),
-          const Divider(height: 32),
-          _buildSection(
-            'Preferences',
-            [
-              _buildThemeTile(themeProvider),
-              _buildTile(Icons.language, 'Language', 'English'),
-              _buildTile(Icons.backup, 'Backup Data', 'Backup clinic data'),
-            ],
-            context,
-          ),
-          const Divider(height: 32),
-          _buildSection(
-            'About',
-            [
-              _buildTile(Icons.info, 'Version', '1.0.0'),
-              _buildTile(Icons.help, 'Help & Support', 'Get help'),
-              _buildTile(Icons.privacy_tip, 'Privacy Policy', 'View privacy policy'),
-            ],
-            context,
-          ),
-        ],
+      body: ListenableBuilder(
+        listenable: themeProvider,
+        builder: (context, _) => ListView(
+          children: [
+            _buildSection(
+              'Account',
+              [
+                _buildTile(Icons.person, 'Profile', 'Manage your profile'),
+                _buildTile(Icons.lock, 'Change Password', 'Update your password'),
+                _buildTile(Icons.notifications, 'Notifications', 'Manage notification settings'),
+              ],
+            ),
+            const Divider(height: 32),
+            _buildSection(
+              'Preferences',
+              [
+                _buildThemeTile(themeProvider),
+                _buildTile(Icons.language, 'Language', 'English'),
+                _buildTile(Icons.backup, 'Backup Data', 'Backup clinic data'),
+              ],
+            ),
+            const Divider(height: 32),
+            _buildSection(
+              'About',
+              [
+                _buildTile(Icons.info, 'Version', '1.0.0'),
+                _buildTile(Icons.help, 'Help & Support', 'Get help'),
+                _buildTile(Icons.privacy_tip, 'Privacy Policy', 'View privacy policy'),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildSection(String title, List<Widget> children, BuildContext context) {
+  Widget _buildSection(String title, List<Widget> children) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -69,31 +75,25 @@ class SettingsScreen extends StatelessWidget {
   }
 
   Widget _buildTile(IconData icon, String title, String subtitle) {
-    return Consumer<ThemeProvider>(
-      builder: (context, themeProvider, _) => ListTile(
-        leading: Icon(icon, color: AppColors.of(context).primary),
-        title: Text(title),
-        subtitle: Text(subtitle),
-        trailing: const Icon(Icons.chevron_right),
-        onTap: () {},
-      ),
+    return ListTile(
+      leading: Icon(icon, color: AppColors.of(context).primary),
+      title: Text(title),
+      subtitle: Text(subtitle),
+      trailing: const Icon(Icons.chevron_right),
+      onTap: () {},
     );
   }
 
   Widget _buildThemeTile(ThemeProvider themeProvider) {
-    return Consumer<ThemeProvider>(
-      builder: (context, theme, _) {
-        return ListTile(
-          leading: Icon(
-            theme.isDarkMode ? Icons.dark_mode : Icons.light_mode,
-            color: AppColors.of(context).primary,
-          ),
-          title: const Text('Dark Mode'),
-          subtitle: Text(_getThemeModeText(theme.themeMode)),
-          trailing: _buildThemeModeChip(theme.themeMode),
-          onTap: () => _showThemeDialog(context, themeProvider),
-        );
-      },
+    return ListTile(
+      leading: Icon(
+        themeProvider.isDarkMode ? Icons.dark_mode : Icons.light_mode,
+        color: AppColors.of(context).primary,
+      ),
+      title: const Text('Dark Mode'),
+      subtitle: Text(_getThemeModeText(themeProvider.themeMode)),
+      trailing: _buildThemeModeChip(themeProvider.themeMode),
+      onTap: () => _showThemeDialog(context, themeProvider),
     );
   }
 

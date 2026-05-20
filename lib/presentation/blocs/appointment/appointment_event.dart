@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:clinic_management_app/data/models/appointment.dart';
+import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
 
 abstract class AppointmentEvent extends Equatable {
   const AppointmentEvent();
@@ -17,14 +17,14 @@ class AppointmentLoadByDate extends AppointmentEvent {
 }
 
 class AppointmentAdd extends AppointmentEvent {
-  final Appointment appointment;
+  final AppointmentEntity appointment;
   const AppointmentAdd(this.appointment);
   @override
   List<Object?> get props => [appointment];
 }
 
 class AppointmentUpdate extends AppointmentEvent {
-  final Appointment appointment;
+  final AppointmentEntity appointment;
   const AppointmentUpdate(this.appointment);
   @override
   List<Object?> get props => [appointment];

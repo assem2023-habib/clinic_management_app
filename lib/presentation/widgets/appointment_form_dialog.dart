@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
-import 'package:clinic_management_app/data/models/appointment.dart';
+import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_state.dart';
 import 'package:clinic_management_app/presentation/blocs/patient/patient_bloc.dart';
@@ -44,13 +44,13 @@ class _AppointmentFormDialogState extends State<AppointmentFormDialog> {
         final doc = doctorState.doctors.firstWhere((d) => d.id == _selectedDoctorId);
         doctorName = doc.name;
       }
-      if (patientState is PatientLoaded) {
+      if (patientState is PatientLoaded && _selectedPatientId != null) {
         final pat = patientState.patients.firstWhere((p) => p.id == _selectedPatientId);
         patientName = pat.name;
       }
 
       final timeParts = _selectedTime.split(':');
-      final appointment = Appointment(
+      final appointment = AppointmentEntity(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
         patientId: _selectedPatientId!,
         patientName: patientName,

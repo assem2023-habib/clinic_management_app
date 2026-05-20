@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
+
 enum AppointmentStatus { scheduled, completed, cancelled, inProgress }
 
-class AppointmentEntity {
+class AppointmentEntity extends Equatable {
   final String id;
   final String patientId;
   final String patientName;
@@ -22,4 +24,31 @@ class AppointmentEntity {
     required this.status,
     this.notes,
   });
+
+  AppointmentEntity copyWith({
+    String? id,
+    String? patientId,
+    String? patientName,
+    String? doctorId,
+    String? doctorName,
+    DateTime? date,
+    String? timeSlot,
+    AppointmentStatus? status,
+    String? notes,
+  }) {
+    return AppointmentEntity(
+      id: id ?? this.id,
+      patientId: patientId ?? this.patientId,
+      patientName: patientName ?? this.patientName,
+      doctorId: doctorId ?? this.doctorId,
+      doctorName: doctorName ?? this.doctorName,
+      date: date ?? this.date,
+      timeSlot: timeSlot ?? this.timeSlot,
+      status: status ?? this.status,
+      notes: notes ?? this.notes,
+    );
+  }
+
+  @override
+  List<Object?> get props => [id, patientId, patientName, doctorId, doctorName, date, timeSlot, status, notes];
 }
