@@ -124,8 +124,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF006d44),
-                foregroundColor: const Color(0xFF93ecb8),
+                backgroundColor: colors.primaryDark,
+                foregroundColor: colors.primaryLight,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(14),
                 ),
@@ -135,19 +135,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   if (isLast) ...[
-                    Icon(Icons.check_circle_rounded, color: const Color(0xFF93ecb8)),
+                    Icon(Icons.check_circle_rounded, color: colors.primaryLight),
                     const SizedBox(width: 10),
                     Text(
                       'الدُّخُولِ إِلَى التَّطْبِيقِ',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xFF93ecb8)),
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colors.primaryLight),
                     ),
                   ] else ...[
                     Text(
                       'تَابِع',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: const Color(0xFF93ecb8)),
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colors.primaryLight),
                     ),
                     const SizedBox(width: 10),
-                    const Icon(Icons.arrow_forward_rounded, color: Color(0xFF93ecb8)),
+                    Icon(Icons.arrow_forward_rounded, color: colors.primaryLight),
                   ],
                 ],
               ),

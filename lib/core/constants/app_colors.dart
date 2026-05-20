@@ -43,13 +43,13 @@ class LightColors implements AppColorSet {
   const LightColors();
 
   @override
-  Color get primary => const Color(0xFF2563EB);
+  Color get primary => const Color(0xFF059669);
   @override
-  Color get primaryDark => const Color(0xFF1D4ED8);
+  Color get primaryDark => const Color(0xFF047857);
   @override
-  Color get primaryLight => const Color(0xFF60A5FA);
+  Color get primaryLight => const Color(0xFF34D399);
   @override
-  Color get secondary => const Color(0xFF10B981);
+  Color get secondary => const Color(0xFF0D9488);
   @override
   Color get accent => const Color(0xFFF59E0B);
   @override
@@ -100,13 +100,13 @@ class DarkColors implements AppColorSet {
   const DarkColors();
 
   @override
-  Color get primary => const Color(0xFF3B82F6);
+  Color get primary => const Color(0xFF34D399);
   @override
-  Color get primaryDark => const Color(0xFF2563EB);
+  Color get primaryDark => const Color(0xFF059669);
   @override
-  Color get primaryLight => const Color(0xFF93C5FD);
+  Color get primaryLight => const Color(0xFF6EE7B7);
   @override
-  Color get secondary => const Color(0xFF34D399);
+  Color get secondary => const Color(0xFF2DD4BF);
   @override
   Color get accent => const Color(0xFFFBBF24);
   @override
