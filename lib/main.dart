@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:clinic_management_app/core/di/injection_container.dart';
+import 'package:clinic_management_app/core/services/fcm_service.dart';
 import 'package:clinic_management_app/core/theme/app_theme.dart';
 import 'package:clinic_management_app/core/theme/theme_provider.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
@@ -22,7 +25,11 @@ import 'package:clinic_management_app/presentation/screens/onboarding/role_selec
 import 'package:clinic_management_app/presentation/screens/patients/patients_screen.dart';
 import 'package:clinic_management_app/presentation/screens/settings/settings_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await FcmService().initialize();
+  await initDependencies();
   runApp(
     MultiProvider(
       providers: [
