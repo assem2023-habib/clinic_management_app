@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/core/utils/helpers.dart';
-import 'package:clinic_management_app/data/models/appointment.dart';
+import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_event.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_state.dart';
@@ -82,7 +82,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
     );
   }
 
-  Widget _buildAppointmentCard(Appointment appointment, AppColorSet colors) {
+  Widget _buildAppointmentCard(AppointmentEntity appointment, AppColorSet colors) {
     return Card(
       child: ListTile(
         leading: CircleAvatar(backgroundColor: _getStatusColor(colors, appointment.status.name), child: const Icon(Icons.event, color: Colors.white)),
@@ -103,8 +103,10 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
                 if (value == 'delete') _deleteAppointment(context, appointment.id);
                 if (value == 'complete') _updateStatus(context, appointment.id, AppointmentStatus.completed);
                 if (value == 'cancel') _updateStatus(context, appointment.id, AppointmentStatus.cancelled);
+                if (value == 'edit') _showAppointmentForm(context);
               },
               itemBuilder: (context) => [
+                const PopupMenuItem(value: 'edit', child: Row(children: [Icon(Icons.edit), SizedBox(width: 8), Text('Edit')])),
                 const PopupMenuItem(value: 'complete', child: Text('Complete')),
                 const PopupMenuItem(value: 'cancel', child: Text('Cancel')),
                 const PopupMenuItem(value: 'delete', child: Row(children: [Icon(Icons.delete, color: Colors.red), SizedBox(width: 8), Text('Delete', style: TextStyle(color: Colors.red))])),

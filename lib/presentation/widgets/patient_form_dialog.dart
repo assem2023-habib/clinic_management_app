@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/core/utils/helpers.dart';
-import 'package:clinic_management_app/data/models/doctor.dart';
-import 'package:clinic_management_app/data/models/patient.dart';
+import 'package:clinic_management_app/domain/entities/patient_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/patient/patient_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/patient/patient_event.dart';
 
 class PatientFormDialog extends StatefulWidget {
-  final Patient? patient;
+  final PatientEntity? patient;
   const PatientFormDialog({super.key, this.patient});
 
   @override
@@ -50,7 +49,7 @@ class _PatientFormDialogState extends State<PatientFormDialog> {
 
   void _submit() {
     if (_formKey.currentState!.validate()) {
-      final patient = Patient(
+      final patient = PatientEntity(
         id: widget.patient?.id ?? DateTime.now().millisecondsSinceEpoch.toString(),
         name: _nameController.text.trim(),
         age: int.parse(_ageController.text),

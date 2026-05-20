@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/core/utils/helpers.dart';
-import 'package:clinic_management_app/data/models/doctor.dart';
+import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_event.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_state.dart';
@@ -82,7 +82,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
     );
   }
 
-  Widget _buildDoctorCard(Doctor doctor) {
+  Widget _buildDoctorCard(DoctorEntity doctor) {
     final colors = AppColors.of(context);
 
     return Card(
@@ -123,7 +123,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
     );
   }
 
-  void _showDoctorForm(BuildContext context, {Doctor? doctor}) {
+  void _showDoctorForm(BuildContext context, {DoctorEntity? doctor}) {
     showDialog(
       context: context,
       builder: (_) => DoctorFormDialog(doctor: doctor),

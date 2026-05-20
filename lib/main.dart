@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:clinic_management_app/core/di/injection_container.dart';
 import 'package:clinic_management_app/core/services/fcm_service.dart';
 import 'package:clinic_management_app/core/theme/app_theme.dart';
 import 'package:clinic_management_app/core/theme/theme_provider.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
-import 'package:clinic_management_app/data/repositories/appointment_repository.dart';
-import 'package:clinic_management_app/data/repositories/doctor_repository.dart';
-import 'package:clinic_management_app/data/repositories/patient_repository.dart';
+import 'package:clinic_management_app/data/datasources/local/mock_datasource.dart';
+import 'package:clinic_management_app/data/repositories/doctor_repository_impl.dart';
+import 'package:clinic_management_app/data/repositories/patient_repository_impl.dart';
+import 'package:clinic_management_app/data/repositories/appointment_repository_impl.dart';
+import 'package:clinic_management_app/data/repositories/medical_record_repository_impl.dart';
+import 'package:clinic_management_app/domain/repositories/doctor_repository.dart';
+import 'package:clinic_management_app/domain/repositories/patient_repository.dart';
+import 'package:clinic_management_app/domain/repositories/appointment_repository.dart';
+import 'package:clinic_management_app/domain/repositories/medical_record_repository.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_bloc.dart';
+import 'package:clinic_management_app/presentation/blocs/medical_record/medical_record_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/onboarding/onboarding_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/patient/patient_bloc.dart';
 import 'package:clinic_management_app/presentation/screens/appointments/appointments_screen.dart';
@@ -29,27 +34,34 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await FcmService().initialize();
-  await initDependencies();
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => ThemeProvider()),
-      ],
-      child: const MyApp(),
-    ),
-  );
+  runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late final ThemeProvider _themeProvider;
+
+  @override
+  void initState() {
+    super.initState();
+    _themeProvider = ThemeProvider();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final mockDataSource = MockDataSource();
     return MultiRepositoryProvider(
       providers: [
-        RepositoryProvider(create: (_) => DoctorRepository()),
-        RepositoryProvider(create: (_) => PatientRepository()),
-        RepositoryProvider(create: (_) => AppointmentRepository()),
+        RepositoryProvider<DoctorRepository>(create: (_) => DoctorRepositoryImpl(mockDataSource)),
+        RepositoryProvider<PatientRepository>(create: (_) => PatientRepositoryImpl(mockDataSource)),
+        RepositoryProvider<AppointmentRepository>(create: (_) => AppointmentRepositoryImpl(mockDataSource)),
+        RepositoryProvider<MedicalRecordRepository>(create: (_) => MedicalRecordRepositoryImpl(mockDataSource)),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -58,13 +70,15 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => DoctorBloc(RepositoryProvider.of<DoctorRepository>(context))),
           BlocProvider(create: (context) => PatientBloc(RepositoryProvider.of<PatientRepository>(context))),
           BlocProvider(create: (context) => AppointmentBloc(RepositoryProvider.of<AppointmentRepository>(context))),
+          BlocProvider(create: (context) => MedicalRecordBloc(RepositoryProvider.of<MedicalRecordRepository>(context))),
         ],
-        child: Consumer<ThemeProvider>(
-          builder: (context, themeProvider, _) => MaterialApp(
+        child: ListenableBuilder(
+          listenable: _themeProvider,
+          builder: (context, _) => MaterialApp(
             title: 'Clinic Management',
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
-            themeMode: themeProvider.themeMode,
+            themeMode: _themeProvider.themeMode,
             debugShowCheckedModeBanner: false,
             home: const _SplashScreen(),
             routes: {
@@ -76,7 +90,7 @@ class MyApp extends StatelessWidget {
               AppRoutes.patients: (_) => const PatientsScreen(),
               AppRoutes.appointments: (_) => const AppointmentsScreen(),
               AppRoutes.medicalRecords: (_) => const MedicalRecordsScreen(),
-              AppRoutes.settings: (_) => const SettingsScreen(),
+              AppRoutes.settings: (_) => SettingsScreen(themeProvider: _themeProvider),
             },
           ),
         ),

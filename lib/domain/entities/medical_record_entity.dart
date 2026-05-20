@@ -1,4 +1,6 @@
-class MedicalRecordEntity {
+import 'package:equatable/equatable.dart';
+
+class MedicalRecordEntity extends Equatable {
   final String id;
   final String patientId;
   final String patientName;
@@ -20,4 +22,31 @@ class MedicalRecordEntity {
     required this.prescription,
     this.notes,
   });
+
+  MedicalRecordEntity copyWith({
+    String? id,
+    String? patientId,
+    String? patientName,
+    String? doctorId,
+    String? doctorName,
+    DateTime? visitDate,
+    String? diagnosis,
+    String? prescription,
+    String? notes,
+  }) {
+    return MedicalRecordEntity(
+      id: id ?? this.id,
+      patientId: patientId ?? this.patientId,
+      patientName: patientName ?? this.patientName,
+      doctorId: doctorId ?? this.doctorId,
+      doctorName: doctorName ?? this.doctorName,
+      visitDate: visitDate ?? this.visitDate,
+      diagnosis: diagnosis ?? this.diagnosis,
+      prescription: prescription ?? this.prescription,
+      notes: notes ?? this.notes,
+    );
+  }
+
+  @override
+  List<Object?> get props => [id, patientId, patientName, doctorId, doctorName, visitDate, diagnosis, prescription, notes];
 }

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:clinic_management_app/data/models/doctor.dart';
+import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
 
 abstract class DoctorState extends Equatable {
   const DoctorState();
@@ -12,7 +12,7 @@ class DoctorInitial extends DoctorState {}
 class DoctorLoading extends DoctorState {}
 
 class DoctorLoaded extends DoctorState {
-  final List<Doctor> doctors;
+  final List<DoctorEntity> doctors;
   const DoctorLoaded(this.doctors);
   @override
   List<Object?> get props => [doctors];
