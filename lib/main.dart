@@ -28,6 +28,9 @@ import 'package:clinic_management_app/presentation/screens/medical_records/medic
 import 'package:clinic_management_app/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:clinic_management_app/presentation/screens/onboarding/role_selection_screen.dart';
 import 'package:clinic_management_app/presentation/screens/patients/patients_screen.dart';
+import 'package:clinic_management_app/presentation/screens/register/register_patient_screen.dart';
+import 'package:clinic_management_app/presentation/screens/register/register_doctor_screen.dart';
+import 'package:clinic_management_app/presentation/screens/register/register_receptionist_screen.dart';
 import 'package:clinic_management_app/presentation/screens/settings/settings_screen.dart';
 
 void main() async {
@@ -91,6 +94,9 @@ class _MyAppState extends State<MyApp> {
               AppRoutes.appointments: (_) => const AppointmentsScreen(),
               AppRoutes.medicalRecords: (_) => const MedicalRecordsScreen(),
               AppRoutes.settings: (_) => SettingsScreen(themeProvider: _themeProvider),
+              AppRoutes.registerPatient: (_) => const RegisterPatientScreen(),
+              AppRoutes.registerDoctor: (_) => const RegisterDoctorScreen(),
+              AppRoutes.registerReceptionist: (_) => const RegisterReceptionistScreen(),
             },
           ),
         ),
