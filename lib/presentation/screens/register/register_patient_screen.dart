@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
-import 'package:clinic_management_app/domain/entities/user_role.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 
 class RegisterPatientScreen extends StatefulWidget {
@@ -46,15 +45,16 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
       return;
     }
 
-    final cubit = context.read<AuthCubit>();
-    await cubit.login(
-      _emailController.text,
-      _passwordController.text,
-      role: UserRole.patient,
+    context.read<AuthCubit>().registerPatient(
+      firstName: _firstNameController.text,
+      lastName: _lastNameController.text,
+      username: _usernameController.text,
+      email: _emailController.text,
+      password: _passwordController.text,
+      phone: _phoneController.text.isEmpty ? null : _phoneController.text,
+      address: _addressController.text.isEmpty ? null : _addressController.text,
+      gender: _gender,
     );
-
-    if (!mounted) return;
-    Navigator.pushReplacementNamed(context, AppRoutes.dashboard);
   }
 
   @override
@@ -62,59 +62,77 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
     final colors = AppColors.of(context);
     return Scaffold(
       appBar: AppBar(title: const Text('تَسْجِيلُ مَرِيضٍ جَدِيدٍ')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _buildTextField(controller: _firstNameController, label: 'الاسْمُ الأَوَّلُ', validator: (v) => v?.isEmpty == true ? 'مَطْلُوبٌ' : null),
-              const SizedBox(height: 16),
-              _buildTextField(controller: _lastNameController, label: 'اسْمُ العَائِلَةِ', validator: (v) => v?.isEmpty == true ? 'مَطْلُوبٌ' : null),
-              const SizedBox(height: 16),
-              _buildTextField(controller: _usernameController, label: 'اسْمُ المُسْتَخْدِمِ', validator: (v) => v?.isEmpty == true ? 'مَطْلُوبٌ' : null),
-              const SizedBox(height: 16),
-              _buildTextField(controller: _emailController, label: 'البَرِيدُ الإِلِكْتْرُونِيُّ', keyboardType: TextInputType.emailAddress, validator: (v) => v?.isEmpty == true ? 'مَطْلُوبٌ' : null),
-              const SizedBox(height: 16),
-              _buildTextField(controller: _phoneController, label: 'رَقْمُ الهَاتِفِ (اخْتِيَارِي)', keyboardType: TextInputType.phone),
-              const SizedBox(height: 16),
-              _buildTextField(controller: _addressController, label: 'العُنْوَانُ (اخْتِيَارِي)'),
-              const SizedBox(height: 16),
-              DropdownButtonFormField<String>(
-                initialValue: _gender,
-                decoration: InputDecoration(
-                  labelText: 'الجِنْسُ', filled: true,
-                  fillColor: colors.cardBg,
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+      body: BlocListener<AuthCubit, AuthState>(
+        listener: (context, state) {
+          if (state.isAuthenticated) {
+            Navigator.pushReplacementNamed(context, AppRoutes.dashboard);
+          }
+          if (state.error != null) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.error!), backgroundColor: colors.error),
+            );
+          }
+        },
+        child: BlocBuilder<AuthCubit, AuthState>(
+          builder: (context, state) {
+            return SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    _buildTextField(controller: _firstNameController, label: 'الاسْمُ الأَوَّلُ', validator: (v) => v?.isEmpty == true ? 'مَطْلُوبٌ' : null),
+                    const SizedBox(height: 16),
+                    _buildTextField(controller: _lastNameController, label: 'اسْمُ العَائِلَةِ', validator: (v) => v?.isEmpty == true ? 'مَطْلُوبٌ' : null),
+                    const SizedBox(height: 16),
+                    _buildTextField(controller: _usernameController, label: 'اسْمُ المُسْتَخْدِمِ', validator: (v) => v?.isEmpty == true ? 'مَطْلُوبٌ' : null),
+                    const SizedBox(height: 16),
+                    _buildTextField(controller: _emailController, label: 'البَرِيدُ الإِلِكْتْرُونِيُّ', keyboardType: TextInputType.emailAddress, validator: (v) => v?.isEmpty == true ? 'مَطْلُوبٌ' : null),
+                    const SizedBox(height: 16),
+                    _buildTextField(controller: _phoneController, label: 'رَقْمُ الهَاتِفِ (اخْتِيَارِي)', keyboardType: TextInputType.phone),
+                    const SizedBox(height: 16),
+                    _buildTextField(controller: _addressController, label: 'العُنْوَانُ (اخْتِيَارِي)'),
+                    const SizedBox(height: 16),
+                    DropdownButtonFormField<String>(
+                      initialValue: _gender,
+                      decoration: InputDecoration(
+                        labelText: 'الجِنْسُ', filled: true,
+                        fillColor: colors.cardBg,
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                      ),
+                      items: const [
+                        DropdownMenuItem(value: 'male', child: Text('ذَكَر')),
+                        DropdownMenuItem(value: 'female', child: Text('أُنْثَى')),
+                      ],
+                      onChanged: (v) => setState(() => _gender = v ?? 'male'),
+                    ),
+                    const SizedBox(height: 16),
+                    _buildTextField(controller: _passwordController, label: 'كَلِمَةُ السِّرِّ', obscureText: true, validator: (v) => (v?.length ?? 0) < 8 ? '8 أَحْرُفٍ عَلَى الأَقَلِّ' : null),
+                    const SizedBox(height: 16),
+                    _buildTextField(controller: _confirmPasswordController, label: 'تَأْكِيدُ كَلِمَةِ السِّرِّ', obscureText: true),
+                    const SizedBox(height: 24),
+                    ElevatedButton(
+                      onPressed: state.isLoading ? null : _submit,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: colors.primary,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      ),
+                      child: state.isLoading
+                          ? SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: colors.surface))
+                          : const Text('تَسْجِيلُ', style: TextStyle(fontSize: 16)),
+                    ),
+                    const SizedBox(height: 16),
+                    TextButton(
+                      onPressed: () => Navigator.pushReplacementNamed(context, AppRoutes.login),
+                      child: const Text('لَدَيْكَ حِسَابٌ؟ سَجِّلُ الدُّخُولَ'),
+                    ),
+                  ],
                 ),
-                items: const [
-                  DropdownMenuItem(value: 'male', child: Text('ذَكَر')),
-                  DropdownMenuItem(value: 'female', child: Text('أُنْثَى')),
-                ],
-                onChanged: (v) => setState(() => _gender = v ?? 'male'),
               ),
-              const SizedBox(height: 16),
-              _buildTextField(controller: _passwordController, label: 'كَلِمَةُ السِّرِّ', obscureText: true, validator: (v) => (v?.length ?? 0) < 8 ? '8 أَحْرُفٍ عَلَى الأَقَلِّ' : null),
-              const SizedBox(height: 16),
-              _buildTextField(controller: _confirmPasswordController, label: 'تَأْكِيدُ كَلِمَةِ السِّرِّ', obscureText: true),
-              const SizedBox(height: 24),
-              ElevatedButton(
-                onPressed: _submit,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: colors.primary,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                ),
-                child: const Text('تَسْجِيلُ', style: TextStyle(fontSize: 16)),
-              ),
-              const SizedBox(height: 16),
-              TextButton(
-                onPressed: () => Navigator.pushReplacementNamed(context, AppRoutes.login),
-                child: const Text('لَدَيْكَ حِسَابٌ؟ سَجِّلُ الدُّخُولَ'),
-              ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
