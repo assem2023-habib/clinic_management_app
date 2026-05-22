@@ -13,4 +13,5 @@ class AppRoutes {
   static const settings = '/settings';
   static const profile = '/profile';
   static const changePassword = '/change-password';
+  static const deleteAccount = '/delete-account';
 }
