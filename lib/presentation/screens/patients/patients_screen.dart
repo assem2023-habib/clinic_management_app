@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:clinic_management_app/core/constants/app_colors.dart';
-import 'package:clinic_management_app/core/constants/app_spacing.dart';
-import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
-import 'package:clinic_management_app/core/utils/helpers.dart';
-import 'package:clinic_management_app/domain/entities/patient_entity.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
+import 'package:clinic_management_app/domain/entities/user_role.dart';
 import 'package:clinic_management_app/presentation/blocs/patient/patient_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/patient/patient_event.dart';
-import 'package:clinic_management_app/presentation/blocs/patient/patient_state.dart';
-import 'package:clinic_management_app/presentation/widgets/patient_form_dialog.dart';
 import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
+import 'package:clinic_management_app/presentation/screens/patients/views/admin_patients_view.dart';
+import 'package:clinic_management_app/presentation/screens/patients/views/doctor_patients_view.dart';
+import 'package:clinic_management_app/presentation/screens/patients/views/receptionist_patients_view.dart';
 
 class PatientsScreen extends StatefulWidget {
   const PatientsScreen({super.key});
@@ -20,8 +19,6 @@ class PatientsScreen extends StatefulWidget {
 }
 
 class _PatientsScreenState extends State<PatientsScreen> {
-  final _searchController = TextEditingController();
-
   @override
   void initState() {
     super.initState();
@@ -30,86 +27,21 @@ class _PatientsScreenState extends State<PatientsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = AppColors.of(context);
-
+    final role = context.watch<AuthCubit>().state.role;
+    final canManage = role == UserRole.admin || role == UserRole.receptionist;
     return AppShell(
       title: AppStrings.patients,
       currentRoute: AppRoutes.patients,
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.md, AppSpacing.md, 0),
-            child: TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                hintText: AppStrings.search,
-                prefixIcon: Icon(Icons.search, color: colors.textLight),
-              ),
-              onChanged: (value) => context.read<PatientBloc>().add(PatientSearch(value)),
-            ),
-          ),
-          Expanded(
-            child: BlocBuilder<PatientBloc, PatientState>(
-              builder: (context, state) {
-                if (state is PatientLoading) return const Center(child: CircularProgressIndicator());
-                if (state is PatientLoaded) {
-                  if (state.patients.isEmpty) return Center(child: Text(AppStrings.noData, style: TextStyle(color: colors.textSecondary)));
-                  return ListView.separated(
-                    padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm),
-                    itemCount: state.patients.length,
-                    separatorBuilder: (_, __) => const SizedBox(height: 8),
-                    itemBuilder: (context, index) => _buildPatientCard(state.patients[index]),
-                  );
-                }
-                if (state is PatientError) return Center(child: Text(state.message, style: TextStyle(color: colors.error)));
-                return Center(child: Text(AppStrings.noData, style: TextStyle(color: colors.textSecondary)));
-              },
-            ),
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _showPatientForm(context),
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: canManage
+          ? FloatingActionButton(onPressed: () {}, child: const Icon(Icons.add))
+          : null,
+      body: switch (role) {
+        UserRole.admin => const AdminPatientsView(),
+        UserRole.doctor => const DoctorPatientsView(),
+        UserRole.receptionist => const ReceptionistPatientsView(),
+        UserRole.patient => const AdminPatientsView(),
+        null => const AdminPatientsView(),
+      },
     );
-  }
-
-  Widget _buildPatientCard(PatientEntity patient) {
-    final colors = AppColors.of(context);
-
-    return Card(
-      child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor: patient.gender == Gender.male ? colors.primary : Colors.pink,
-          child: Icon(patient.gender == Gender.male ? Icons.male : Icons.female, color: Colors.white),
-        ),
-        title: Text(patient.name),
-        subtitle: Text('${patient.age} years - ${patient.gender.name.toUpperCase()}'),
-        trailing: PopupMenuButton<String>(
-          onSelected: (value) {
-            if (value == 'edit') _showPatientForm(context, patient: patient);
-            if (value == 'delete') _deletePatient(context, patient.id);
-          },
-          itemBuilder: (context) => [
-            const PopupMenuItem(value: 'edit', child: Row(children: [Icon(Icons.edit), SizedBox(width: 8), Text('Edit')])),
-            const PopupMenuItem(value: 'delete', child: Row(children: [Icon(Icons.delete, color: Colors.red), SizedBox(width: 8), Text('Delete', style: TextStyle(color: Colors.red))])),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _showPatientForm(BuildContext context, {PatientEntity? patient}) {
-    showDialog(context: context, builder: (_) => PatientFormDialog(patient: patient));
-  }
-
-  void _deletePatient(BuildContext context, String id) {
-    showDeleteDialog(context).then((confirmed) {
-      if (confirmed == true) {
-        context.read<PatientBloc>().add(PatientDelete(id));
-        showSnackBar(context, 'Patient deleted successfully');
-      }
-    });
   }
 }
