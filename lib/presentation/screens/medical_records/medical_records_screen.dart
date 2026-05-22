@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/domain/entities/medical_record_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/medical_record/medical_record_bloc.dart';
+import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
 
 class MedicalRecordsScreen extends StatefulWidget {
   const MedicalRecordsScreen({super.key});
@@ -23,8 +25,9 @@ class _MedicalRecordsScreenState extends State<MedicalRecordsScreen> {
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('Medical Records')),
+    return AppShell(
+      title: 'السِّجِلَّاتُ الطِّبِّيَّةُ',
+      currentRoute: AppRoutes.medicalRecords,
       body: BlocBuilder<MedicalRecordBloc, MedicalRecordState>(
         builder: (context, state) {
           if (state is MedicalRecordLoading) {

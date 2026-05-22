@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/utils/helpers.dart';
 import 'package:clinic_management_app/domain/entities/patient_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/patient/patient_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/patient/patient_event.dart';
 import 'package:clinic_management_app/presentation/blocs/patient/patient_state.dart';
 import 'package:clinic_management_app/presentation/widgets/patient_form_dialog.dart';
+import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
 
 class PatientsScreen extends StatefulWidget {
   const PatientsScreen({super.key});
@@ -29,12 +32,13 @@ class _PatientsScreenState extends State<PatientsScreen> {
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
 
-    return Scaffold(
-      appBar: AppBar(title: const Text(AppStrings.patients)),
+    return AppShell(
+      title: AppStrings.patients,
+      currentRoute: AppRoutes.patients,
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.md, AppSpacing.md, 0),
             child: TextField(
               controller: _searchController,
               decoration: InputDecoration(
@@ -51,7 +55,7 @@ class _PatientsScreenState extends State<PatientsScreen> {
                 if (state is PatientLoaded) {
                   if (state.patients.isEmpty) return Center(child: Text(AppStrings.noData, style: TextStyle(color: colors.textSecondary)));
                   return ListView.separated(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm),
                     itemCount: state.patients.length,
                     separatorBuilder: (_, __) => const SizedBox(height: 8),
                     itemBuilder: (context, index) => _buildPatientCard(state.patients[index]),

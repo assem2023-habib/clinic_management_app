@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/theme/theme_provider.dart';
+import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
 
 class SettingsScreen extends StatefulWidget {
   final ThemeProvider themeProvider;
@@ -16,8 +18,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     final themeProvider = widget.themeProvider;
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('Settings')),
+    return AppShell(
+      title: 'الإِعْدَادَاتُ',
+      currentRoute: AppRoutes.settings,
       body: ListenableBuilder(
         listenable: themeProvider,
         builder: (context, _) => ListView(

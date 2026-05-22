@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/presentation/blocs/profile/profile_cubit.dart';
+import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
 
 class DeleteAccountScreen extends StatefulWidget {
   const DeleteAccountScreen({super.key});
@@ -35,8 +36,10 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('حَذْفُ الحِسَابِ')),
+    return AppShell(
+      title: 'حَذْفُ الحِسَابِ',
+      showBackButton: true,
+      showDrawer: false,
       body: BlocListener<ProfileCubit, ProfileState>(
         listener: (context, state) {
           if (state.accountDeleted) {
