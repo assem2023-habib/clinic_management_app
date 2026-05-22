@@ -3,10 +3,76 @@ import 'package:clinic_management_app/data/models/doctor_model.dart';
 import 'package:clinic_management_app/data/models/patient_model.dart';
 import 'package:clinic_management_app/data/models/appointment_model.dart';
 import 'package:clinic_management_app/data/models/medical_record_model.dart';
+import 'package:clinic_management_app/data/models/country_model.dart';
+import 'package:clinic_management_app/data/models/city_model.dart';
 import 'package:clinic_management_app/domain/entities/patient_entity.dart';
 import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
 
 class MockDataSource implements DataSource {
+  final List<CountryModel> _countries = [
+    const CountryModel(id: 'sy', name: 'Syria', nameAr: 'سُورِيَا', code: 'SY', phoneCode: '+963', flag: '🇸🇾'),
+    const CountryModel(id: 'eg', name: 'Egypt', nameAr: 'مِصْرُ', code: 'EG', phoneCode: '+20', flag: '🇪🇬'),
+    const CountryModel(id: 'sa', name: 'Saudi Arabia', nameAr: 'السُّعُودِيَّةُ', code: 'SA', phoneCode: '+966', flag: '🇸🇦'),
+    const CountryModel(id: 'ae', name: 'UAE', nameAr: 'الإِمَارَاتُ', code: 'AE', phoneCode: '+971', flag: '🇦🇪'),
+    const CountryModel(id: 'qa', name: 'Qatar', nameAr: 'قَطَرُ', code: 'QA', phoneCode: '+974', flag: '🇶🇦'),
+    const CountryModel(id: 'kw', name: 'Kuwait', nameAr: 'الكُوَيْتُ', code: 'KW', phoneCode: '+965', flag: '🇰🇼'),
+    const CountryModel(id: 'jo', name: 'Jordan', nameAr: 'الأُرْدُنُّ', code: 'JO', phoneCode: '+962', flag: '🇯🇴'),
+    const CountryModel(id: 'lb', name: 'Lebanon', nameAr: 'لُبْنَانُ', code: 'LB', phoneCode: '+961', flag: '🇱🇧'),
+    const CountryModel(id: 'ps', name: 'Palestine', nameAr: 'فِلَسْطِينُ', code: 'PS', phoneCode: '+970', flag: '🇵🇸'),
+    const CountryModel(id: 'iq', name: 'Iraq', nameAr: 'العِرَاقُ', code: 'IQ', phoneCode: '+964', flag: '🇮🇶'),
+    const CountryModel(id: 'ye', name: 'Yemen', nameAr: 'اليَمَنُ', code: 'YE', phoneCode: '+967', flag: '🇾🇪'),
+    const CountryModel(id: 'ly', name: 'Libya', nameAr: 'لِيبِيَا', code: 'LY', phoneCode: '+218', flag: '🇱🇾'),
+    const CountryModel(id: 'tn', name: 'Tunisia', nameAr: 'تُونِسُ', code: 'TN', phoneCode: '+216', flag: '🇹🇳'),
+    const CountryModel(id: 'dz', name: 'Algeria', nameAr: 'الجَزَائِرُ', code: 'DZ', phoneCode: '+213', flag: '🇩🇿'),
+    const CountryModel(id: 'ma', name: 'Morocco', nameAr: 'المَغْرِبُ', code: 'MA', phoneCode: '+212', flag: '🇲🇦'),
+    const CountryModel(id: 'sd', name: 'Sudan', nameAr: 'السُّودَانُ', code: 'SD', phoneCode: '+249', flag: '🇸🇩'),
+    const CountryModel(id: 'om', name: 'Oman', nameAr: 'عُمَانُ', code: 'OM', phoneCode: '+968', flag: '🇴🇲'),
+    const CountryModel(id: 'bh', name: 'Bahrain', nameAr: 'البَحْرَيْنُ', code: 'BH', phoneCode: '+973', flag: '🇧🇭'),
+    const CountryModel(id: 'us', name: 'United States', nameAr: 'الوِلَايَاتُ المُتَّحِدَةُ', code: 'US', phoneCode: '+1', flag: '🇺🇸'),
+    const CountryModel(id: 'gb', name: 'United Kingdom', nameAr: 'المَمْلَكَةُ المُتَّحِدَةُ', code: 'GB', phoneCode: '+44', flag: '🇬🇧'),
+    const CountryModel(id: 'fr', name: 'France', nameAr: 'فَرَنْسَا', code: 'FR', phoneCode: '+33', flag: '🇫🇷'),
+    const CountryModel(id: 'de', name: 'Germany', nameAr: 'أَلْمَانِيَا', code: 'DE', phoneCode: '+49', flag: '🇩🇪'),
+  ];
+
+  final List<CityModel> _cities = [
+    const CityModel(id: 'sy-1', name: 'Damascus', nameAr: 'دِمَشْقُ', countryId: 'sy'),
+    const CityModel(id: 'sy-2', name: 'Aleppo', nameAr: 'حَلَبُ', countryId: 'sy'),
+    const CityModel(id: 'sy-3', name: 'Homs', nameAr: 'حِمْصُ', countryId: 'sy'),
+    const CityModel(id: 'sy-4', name: 'Latakia', nameAr: 'اللَّاذِقِيَّةُ', countryId: 'sy'),
+    const CityModel(id: 'eg-1', name: 'Cairo', nameAr: 'القَاهِرَةُ', countryId: 'eg'),
+    const CityModel(id: 'eg-2', name: 'Alexandria', nameAr: 'الإِسْكَنْدَرِيَّةُ', countryId: 'eg'),
+    const CityModel(id: 'eg-3', name: 'Giza', nameAr: 'الجِيزَةُ', countryId: 'eg'),
+    const CityModel(id: 'sa-1', name: 'Riyadh', nameAr: 'الرِّيَاضُ', countryId: 'sa'),
+    const CityModel(id: 'sa-2', name: 'Jeddah', nameAr: 'جِدَّةُ', countryId: 'sa'),
+    const CityModel(id: 'sa-3', name: 'Mecca', nameAr: 'مَكَّةُ المُكَرَّمَةُ', countryId: 'sa'),
+    const CityModel(id: 'sa-4', name: 'Medina', nameAr: 'المَدِينَةُ المُنَوَّرَةُ', countryId: 'sa'),
+    const CityModel(id: 'sa-5', name: 'Dammam', nameAr: 'الدَّمَّامُ', countryId: 'sa'),
+    const CityModel(id: 'ae-1', name: 'Dubai', nameAr: 'دُبَيٌّ', countryId: 'ae'),
+    const CityModel(id: 'ae-2', name: 'Abu Dhabi', nameAr: 'أَبُو ظَبْيٍ', countryId: 'ae'),
+    const CityModel(id: 'ae-3', name: 'Sharjah', nameAr: 'الشَّارِقَةُ', countryId: 'ae'),
+    const CityModel(id: 'qa-1', name: 'Doha', nameAr: 'الدَّوْحَةُ', countryId: 'qa'),
+    const CityModel(id: 'kw-1', name: 'Kuwait City', nameAr: 'مَدِينَةُ الكُوَيْتِ', countryId: 'kw'),
+    const CityModel(id: 'jo-1', name: 'Amman', nameAr: 'عَمَّانُ', countryId: 'jo'),
+    const CityModel(id: 'jo-2', name: 'Irbid', nameAr: 'إِرْبِدُ', countryId: 'jo'),
+    const CityModel(id: 'lb-1', name: 'Beirut', nameAr: 'بَيْرُوتُ', countryId: 'lb'),
+    const CityModel(id: 'lb-2', name: 'Tripoli', nameAr: 'طَرَابُلُسُ', countryId: 'lb'),
+    const CityModel(id: 'ps-1', name: 'Jerusalem', nameAr: 'القُدْسُ', countryId: 'ps'),
+    const CityModel(id: 'ps-2', name: 'Ramallah', nameAr: 'رَامُ اللَّهِ', countryId: 'ps'),
+    const CityModel(id: 'ps-3', name: 'Gaza', nameAr: 'غَزَّةُ', countryId: 'ps'),
+    const CityModel(id: 'iq-1', name: 'Baghdad', nameAr: 'بَغْدَادُ', countryId: 'iq'),
+    const CityModel(id: 'iq-2', name: 'Basra', nameAr: 'البَصْرَةُ', countryId: 'iq'),
+    const CityModel(id: 'iq-3', name: 'Erbil', nameAr: 'أَرْبِيلُ', countryId: 'iq'),
+    const CityModel(id: 'tn-1', name: 'Tunis', nameAr: 'تُونِسُ', countryId: 'tn'),
+    const CityModel(id: 'dz-1', name: 'Algiers', nameAr: 'الجَزَائِرُ', countryId: 'dz'),
+    const CityModel(id: 'ma-1', name: 'Rabat', nameAr: 'الرِّبَاطُ', countryId: 'ma'),
+    const CityModel(id: 'ma-2', name: 'Casablanca', nameAr: 'الدَّارُ البَيْضَاءُ', countryId: 'ma'),
+    const CityModel(id: 'us-1', name: 'New York', nameAr: 'نِيُويُورْكُ', countryId: 'us'),
+    const CityModel(id: 'us-2', name: 'Washington DC', nameAr: 'وَاشِنْطُنُ', countryId: 'us'),
+    const CityModel(id: 'gb-1', name: 'London', nameAr: 'لَنْدَنُ', countryId: 'gb'),
+    const CityModel(id: 'fr-1', name: 'Paris', nameAr: 'بَارِيسُ', countryId: 'fr'),
+    const CityModel(id: 'de-1', name: 'Berlin', nameAr: 'بَرْلِينُ', countryId: 'de'),
+  ];
+
   final List<DoctorModel> _doctors = [
     const DoctorModel(id: 'd1', name: 'د. أحمد الرشيد', specialty: 'قلب', phone: '+966-50-123-4567', email: 'ahmed@clinic.com', isAvailable: true),
     const DoctorModel(id: 'd2', name: 'د. سارة المنصور', specialty: 'جلدية', phone: '+966-50-234-5678', email: 'sara@clinic.com', isAvailable: true),
@@ -113,5 +179,26 @@ class MockDataSource implements DataSource {
     final now = DateTime.now();
     return _appointments.where((a) =>
         a.date.year == now.year && a.date.month == now.month && a.date.day == now.day).length;
+  }
+
+  @override
+  List<CountryModel> get allCountries => List.unmodifiable(_countries);
+
+  @override
+  List<CityModel> get allCities => List.unmodifiable(_cities);
+
+  @override
+  List<CityModel> citiesByCountry(String countryId) =>
+      _cities.where((c) => c.countryId == countryId).toList();
+
+  @override
+  List<CityModel> searchCities(String query, {String? countryId}) {
+    var result = _cities.where((c) =>
+        c.name.toLowerCase().contains(query.toLowerCase()) ||
+        c.nameAr.contains(query));
+    if (countryId != null) {
+      result = result.where((c) => c.countryId == countryId);
+    }
+    return result.toList();
   }
 }
