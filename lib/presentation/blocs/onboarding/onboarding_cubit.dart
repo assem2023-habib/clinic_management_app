@@ -12,11 +12,13 @@ class OnboardingCubit extends Cubit<OnboardingState> {
     final prefs = await SharedPreferences.getInstance();
     final completed = prefs.getBool(_keyCompleted) ?? false;
     final roleStr = prefs.getString(_keyRole);
-    final role = roleStr == 'admin'
-        ? UserRole.admin
-        : roleStr == 'doctor'
-            ? UserRole.doctor
-            : null;
+    final role = switch (roleStr) {
+        'admin' => UserRole.admin,
+        'doctor' => UserRole.doctor,
+        'receptionist' => UserRole.receptionist,
+        'patient' => UserRole.patient,
+        _ => null,
+      };
     emit(state.copyWith(completed: completed, selectedRole: role));
   }
 
