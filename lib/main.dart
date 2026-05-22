@@ -13,11 +13,13 @@ import 'package:clinic_management_app/data/repositories/patient_repository_impl.
 import 'package:clinic_management_app/data/repositories/appointment_repository_impl.dart';
 import 'package:clinic_management_app/data/repositories/medical_record_repository_impl.dart';
 import 'package:clinic_management_app/data/repositories/auth_repository_impl.dart';
+import 'package:clinic_management_app/data/repositories/location_repository_impl.dart';
 import 'package:clinic_management_app/domain/repositories/doctor_repository.dart';
 import 'package:clinic_management_app/domain/repositories/patient_repository.dart';
 import 'package:clinic_management_app/domain/repositories/appointment_repository.dart';
 import 'package:clinic_management_app/domain/repositories/medical_record_repository.dart';
 import 'package:clinic_management_app/domain/repositories/auth_repository.dart';
+import 'package:clinic_management_app/domain/repositories/location_repository.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_bloc.dart';
@@ -25,6 +27,7 @@ import 'package:clinic_management_app/presentation/blocs/medical_record/medical_
 import 'package:clinic_management_app/presentation/blocs/onboarding/onboarding_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/patient/patient_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/profile/profile_cubit.dart';
+import 'package:clinic_management_app/presentation/blocs/location/location_cubit.dart';
 import 'package:clinic_management_app/presentation/screens/appointments/appointments_screen.dart';
 import 'package:clinic_management_app/presentation/screens/dashboard/dashboard_screen.dart';
 import 'package:clinic_management_app/presentation/screens/doctors/doctors_screen.dart';
@@ -96,6 +99,7 @@ class _MyAppState extends State<MyApp> {
         RepositoryProvider<AppointmentRepository>(create: (_) => AppointmentRepositoryImpl(mockDataSource)),
         RepositoryProvider<MedicalRecordRepository>(create: (_) => MedicalRecordRepositoryImpl(mockDataSource)),
         RepositoryProvider<AuthRepository>(create: (_) => AuthRepositoryImpl(AuthRemoteDataSource(apiService), apiService)),
+        RepositoryProvider<LocationRepository>(create: (_) => LocationRepositoryImpl(mockDataSource)),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -106,6 +110,7 @@ class _MyAppState extends State<MyApp> {
           BlocProvider(create: (context) => AppointmentBloc(RepositoryProvider.of<AppointmentRepository>(context))),
           BlocProvider(create: (context) => MedicalRecordBloc(RepositoryProvider.of<MedicalRecordRepository>(context))),
           BlocProvider(create: (context) => ProfileCubit(authRepository: RepositoryProvider.of<AuthRepository>(context))),
+          BlocProvider(create: (context) => LocationCubit(locationRepository: RepositoryProvider.of<LocationRepository>(context))..loadCountries()),
         ],
         child: ListenableBuilder(
           listenable: _themeProvider,

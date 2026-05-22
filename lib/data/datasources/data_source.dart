@@ -2,6 +2,8 @@ import 'package:clinic_management_app/data/models/doctor_model.dart';
 import 'package:clinic_management_app/data/models/patient_model.dart';
 import 'package:clinic_management_app/data/models/appointment_model.dart';
 import 'package:clinic_management_app/data/models/medical_record_model.dart';
+import 'package:clinic_management_app/data/models/country_model.dart';
+import 'package:clinic_management_app/data/models/city_model.dart';
 
 abstract class DataSource {
   List<DoctorModel> get allDoctors;
@@ -30,4 +32,9 @@ abstract class DataSource {
   int get todayAppointmentCount;
 
   void addMedicalRecord(MedicalRecordModel record);
+
+  List<CountryModel> get allCountries;
+  List<CityModel> get allCities;
+  List<CityModel> citiesByCountry(String countryId);
+  List<CityModel> searchCities(String query, {String? countryId});
 }
