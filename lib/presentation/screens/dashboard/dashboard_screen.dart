@@ -35,7 +35,14 @@ class DashboardScreen extends StatelessWidget {
           children: [
             BlocBuilder<AuthCubit, AuthState>(
               builder: (context, authState) {
-                final roleLabel = authState.role == UserRole.doctor ? 'طَبِيب' : 'مُدِير العِيَادَة';
+                String roleLabel;
+                switch (authState.role) {
+                  case UserRole.admin: roleLabel = 'مُدِير العِيَادَة'; break;
+                  case UserRole.doctor: roleLabel = 'طَبِيب'; break;
+                  case UserRole.receptionist: roleLabel = 'مَسْؤُول الاسْتِقْبَال'; break;
+                  case UserRole.patient: roleLabel = 'مَرِيض'; break;
+                  default: roleLabel = 'مُدِير العِيَادَة';
+                }
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

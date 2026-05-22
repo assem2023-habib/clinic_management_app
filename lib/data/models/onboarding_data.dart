@@ -58,6 +58,58 @@ class OnboardingData {
         ),
       ];
 
-  static List<OnboardingItem> getItems(UserRole role) =>
-      role == UserRole.admin ? adminSteps : doctorSteps;
+  static List<OnboardingItem> get receptionistSteps => [
+        const OnboardingItem(
+          icon: Icons.assignment_ind_rounded,
+          iconColor: Color(0xFF80d8a6),
+          title: 'مَرْحَباً بِكَ مَسْؤُولَ الاسْتِقْبَالِ',
+          subtitle: 'نُسَاعِدُكَ عَلَى إِدَارَةِ مَوَاعِيدِ المَرْضَى وَتَسْجِيلِهِمْ بِسُهُولَةٍ وَاحْتِرَافِيَّةٍ.',
+        ),
+        const OnboardingItem(
+          icon: Icons.calendar_month_rounded,
+          iconColor: Color(0xFF40e78c),
+          title: 'إِدَارَةُ المَوَاعِيدِ وَالمَرْضَى',
+          subtitle: 'أَضِفْ المَرْضَى الجُدُدَ، وَجَدْوِلْ مَوَاعِيدَهُمْ مَعَ الأَطِبَّاءِ بِسُرْعَةٍ وَدِقَّةٍ.',
+        ),
+        const OnboardingItem(
+          icon: Icons.contact_phone_rounded,
+          iconColor: Color(0xFF93ecb8),
+          title: 'التَّوَاصُلُ وَالتَّنْسِيقُ',
+          subtitle: 'تَابِعْ بَيَانَاتِ المَرْضَى، وَقُمْ بِالتَّنْسِيقِ مَعَ الأَطِبَّاءِ لِضَمَانِ سَيْرِ العَمَلِ بِانْسِيَابِيَّةٍ تَامَّةٍ.',
+        ),
+      ];
+
+  static List<OnboardingItem> get patientSteps => [
+        const OnboardingItem(
+          icon: Icons.person_pin_rounded,
+          iconColor: Color(0xFF80d8a6),
+          title: 'أَهْلاً بِكَ فِي بَوَّابَةِ المَرْضَى',
+          subtitle: 'تَطْبِيقُنَا يُسَاعِدُكَ عَلَى مُتَابَعَةِ مَوَاعِيدِكَ الطِّبِّيَّةِ وَسِجِلَّاتِكَ الصِّحِّيَّةِ بِكُلِّ يُسْرٍ.',
+        ),
+        const OnboardingItem(
+          icon: Icons.calendar_today_rounded,
+          iconColor: Color(0xFF40e78c),
+          title: 'مَوَاعِيدُكَ فِي نَظْرَةٍ',
+          subtitle: 'اسْتَعْرِضْ مَوَاعِيدَكَ القَادِمَةَ وَالسَّابِقَةَ، وَاسْتَقْبِلْ تَذْكِيرَاتٍ فَوْرِيَّةً لِمَوَاعِيدِكَ.',
+        ),
+        const OnboardingItem(
+          icon: Icons.health_and_safety_rounded,
+          iconColor: Color(0xFF93ecb8),
+          title: 'سِجِلَّاتُكَ الطِّبِّيَّةُ',
+          subtitle: 'اطَّلِعْ عَلَى سِجِلَّاتِكَ الطِّبِّيَّةَ السَّابِقَةَ، التَّشْخِيصَاتِ، وَالوَصَفَاتِ فِي أَيِّ وَقْتٍ وَمِنْ أَيِّ مَكَانٍ.',
+        ),
+      ];
+
+  static List<OnboardingItem> getItems(UserRole role) {
+    switch (role) {
+      case UserRole.admin:
+        return adminSteps;
+      case UserRole.doctor:
+        return doctorSteps;
+      case UserRole.receptionist:
+        return receptionistSteps;
+      case UserRole.patient:
+        return patientSteps;
+    }
+  }
 }

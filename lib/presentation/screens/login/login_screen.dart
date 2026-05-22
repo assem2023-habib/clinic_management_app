@@ -28,10 +28,13 @@ class LoginScreen extends StatelessWidget {
               builder: (context, onboardingState) {
                 final role = onboardingState.selectedRole;
                 final roleLabel = role == null
-                    ? 'Admin / Doctor'
-                    : role == UserRole.admin
-                        ? 'مُدِير العِيَادَة'
-                        : 'طَبِيب';
+                    ? 'اخْتَرْ دَوْرَكَ'
+                    : switch (role) {
+                        UserRole.admin => 'مُدِير العِيَادَة',
+                        UserRole.doctor => 'طَبِيب',
+                        UserRole.receptionist => 'مَسْؤُول الاسْتِقْبَال',
+                        UserRole.patient => 'مَرِيض',
+                      };
 
                 return Form(
                   key: _formKey,

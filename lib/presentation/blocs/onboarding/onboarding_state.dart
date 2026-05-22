@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-enum UserRole { admin, doctor }
+enum UserRole { admin, doctor, receptionist, patient }
 
 class OnboardingState extends Equatable {
   final bool completed;

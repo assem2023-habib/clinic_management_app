@@ -52,7 +52,12 @@ class AuthCubit extends Cubit<AuthState> {
   void login(String email, String password, {UserRole? role}) {
     if (email.isNotEmpty && password.isNotEmpty) {
       final userRole = role ?? UserRole.admin;
-      final name = userRole == UserRole.admin ? 'مُدِير العِيَادَة' : 'طَبِيب';
+      final name = switch (userRole) {
+          UserRole.admin => 'مُدِير العِيَادَة',
+          UserRole.doctor => 'طَبِيب',
+          UserRole.receptionist => 'مَسْؤُول الاسْتِقْبَال',
+          UserRole.patient => 'مَرِيض',
+        };
       emit(AuthAuthenticated(userId: 'user1', userName: name, role: userRole));
     } else {
       emit(const AuthState(isAuthenticated: false));
