@@ -105,6 +105,86 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  Future<void> registerPatient({
+    required String firstName, required String lastName, required String username,
+    required String email, required String password, String? phone,
+    String? address, required String gender, String? birthdayDate,
+  }) async {
+    emit(const AuthLoading());
+    if (_authRepository == null) {
+      emit(const AuthError('مُصَادِقُ API غَيْرُ مُتَاحٍ'));
+      return;
+    }
+    try {
+      final result = await _authRepository.registerPatient(
+        firstName: firstName, lastName: lastName, username: username,
+        email: email, password: password, phone: phone, address: address,
+        gender: gender, birthdayDate: birthdayDate,
+      );
+      _emitAuthenticated(result.user);
+    } catch (e) {
+      emit(AuthError(e.toString()));
+    }
+  }
+
+  Future<void> registerDoctor({
+    required String firstName, required String lastName, required String username,
+    required String email, required String password, String? phone,
+    String? address, required String gender, String? birthdayDate,
+    required String specialization, required int experienceMonths,
+  }) async {
+    emit(const AuthLoading());
+    if (_authRepository == null) {
+      emit(const AuthError('مُصَادِقُ API غَيْرُ مُتَاحٍ'));
+      return;
+    }
+    try {
+      final result = await _authRepository.registerDoctor(
+        firstName: firstName, lastName: lastName, username: username,
+        email: email, password: password, phone: phone, address: address,
+        gender: gender, birthdayDate: birthdayDate,
+        specialization: specialization, experienceMonths: experienceMonths,
+      );
+      _emitAuthenticated(result.user);
+    } catch (e) {
+      emit(AuthError(e.toString()));
+    }
+  }
+
+  Future<void> registerReceptionist({
+    required String firstName, required String lastName, required String username,
+    required String email, required String password, String? phone,
+    String? address, required String gender, String? birthdayDate,
+    String? shiftStart, String? shiftEnd,
+  }) async {
+    emit(const AuthLoading());
+    if (_authRepository == null) {
+      emit(const AuthError('مُصَادِقُ API غَيْرُ مُتَاحٍ'));
+      return;
+    }
+    try {
+      final result = await _authRepository.registerReceptionist(
+        firstName: firstName, lastName: lastName, username: username,
+        email: email, password: password, phone: phone, address: address,
+        gender: gender, birthdayDate: birthdayDate,
+        shiftStart: shiftStart, shiftEnd: shiftEnd,
+      );
+      _emitAuthenticated(result.user);
+    } catch (e) {
+      emit(AuthError(e.toString()));
+    }
+  }
+
+  void _emitAuthenticated(UserEntity user) {
+    final userRole = _mapRole(user.roles);
+    emit(AuthAuthenticated(
+      userId: user.id,
+      userName: user.fullName,
+      role: userRole,
+      user: user,
+    ));
+  }
+
   Future<void> logout() async {
     try {
       await _authRepository?.logout();
