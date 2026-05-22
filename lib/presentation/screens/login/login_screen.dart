@@ -6,6 +6,7 @@ import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/onboarding/onboarding_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/onboarding/onboarding_state.dart';
+import 'package:clinic_management_app/domain/entities/user_role.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -14,7 +15,6 @@ class LoginScreen extends StatelessWidget {
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  @override
   @override
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);

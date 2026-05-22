@@ -1,10 +1,10 @@
-import 'package:clinic_management_app/data/datasources/local/mock_datasource.dart';
+import 'package:clinic_management_app/data/datasources/data_source.dart';
 import 'package:clinic_management_app/data/models/medical_record_model.dart';
 import 'package:clinic_management_app/domain/entities/medical_record_entity.dart';
 import 'package:clinic_management_app/domain/repositories/medical_record_repository.dart';
 
 class MedicalRecordRepositoryImpl implements MedicalRecordRepository {
-  final MockDataSource dataSource;
+  final DataSource dataSource;
 
   MedicalRecordRepositoryImpl(this.dataSource);
 

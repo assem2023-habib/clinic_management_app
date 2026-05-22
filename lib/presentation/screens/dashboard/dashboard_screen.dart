@@ -4,7 +4,7 @@ import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
-import 'package:clinic_management_app/presentation/blocs/onboarding/onboarding_state.dart';
+import 'package:clinic_management_app/domain/entities/user_role.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_state.dart';
 

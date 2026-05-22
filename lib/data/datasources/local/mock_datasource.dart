@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/data/datasources/data_source.dart';
 import 'package:clinic_management_app/data/models/doctor_model.dart';
 import 'package:clinic_management_app/data/models/patient_model.dart';
 import 'package:clinic_management_app/data/models/appointment_model.dart';
@@ -5,7 +6,7 @@ import 'package:clinic_management_app/data/models/medical_record_model.dart';
 import 'package:clinic_management_app/domain/entities/patient_entity.dart';
 import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
 
-class MockDataSource {
+class MockDataSource implements DataSource {
   final List<DoctorModel> _doctors = [
     const DoctorModel(id: 'd1', name: 'د. أحمد الرشيد', specialty: 'قلب', phone: '+966-50-123-4567', email: 'ahmed@clinic.com', isAvailable: true),
     const DoctorModel(id: 'd2', name: 'د. سارة المنصور', specialty: 'جلدية', phone: '+966-50-234-5678', email: 'sara@clinic.com', isAvailable: true),
@@ -44,49 +45,70 @@ class MockDataSource {
     ]);
   }
 
+  @override
   List<DoctorModel> get allDoctors => List.unmodifiable(_doctors);
+  @override
   List<PatientModel> get allPatients => List.unmodifiable(_patients);
+  @override
   List<AppointmentModel> get allAppointments => List.unmodifiable(_appointments);
+  @override
   List<MedicalRecordModel> get allMedicalRecords => List.unmodifiable(_medicalRecords);
 
+  @override
   DoctorModel? doctorById(String id) {
     try { return _doctors.firstWhere((d) => d.id == id); } catch (_) { return null; }
   }
 
+  @override
   PatientModel? patientById(String id) {
     try { return _patients.firstWhere((p) => p.id == id); } catch (_) { return null; }
   }
 
+  @override
   void addDoctor(DoctorModel doctor) => _doctors.add(doctor);
+  @override
   void updateDoctor(DoctorModel doctor) {
     final i = _doctors.indexWhere((d) => d.id == doctor.id);
     if (i != -1) _doctors[i] = doctor;
   }
+  @override
   void deleteDoctor(String id) => _doctors.removeWhere((d) => d.id == id);
+  @override
   List<DoctorModel> searchDoctors(String query) =>
       _doctors.where((d) => d.name.contains(query) || d.specialty.contains(query)).toList();
 
+  @override
   void addPatient(PatientModel patient) => _patients.add(patient);
+  @override
   void updatePatient(PatientModel patient) {
     final i = _patients.indexWhere((p) => p.id == patient.id);
     if (i != -1) _patients[i] = patient;
   }
+  @override
   void deletePatient(String id) => _patients.removeWhere((p) => p.id == id);
+  @override
   List<PatientModel> searchPatients(String query) =>
       _patients.where((p) => p.name.contains(query)).toList();
 
+  @override
   void addAppointment(AppointmentModel appointment) => _appointments.add(appointment);
+  @override
   void addMedicalRecord(MedicalRecordModel record) => _medicalRecords.add(record);
+  @override
   void updateAppointment(AppointmentModel appointment) {
     final i = _appointments.indexWhere((a) => a.id == appointment.id);
     if (i != -1) _appointments[i] = appointment;
   }
+  @override
   void deleteAppointment(String id) => _appointments.removeWhere((a) => a.id == id);
+  @override
   List<AppointmentModel> appointmentsByDate(DateTime date) =>
       _appointments.where((a) =>
           a.date.year == date.year && a.date.month == date.month && a.date.day == date.day).toList();
+  @override
   List<AppointmentModel> appointmentsByPatient(String patientId) =>
       _appointments.where((a) => a.patientId == patientId).toList();
+  @override
   int get todayAppointmentCount {
     final now = DateTime.now();
     return _appointments.where((a) =>
