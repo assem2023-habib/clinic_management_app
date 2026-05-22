@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
+import 'package:clinic_management_app/presentation/widgets/phone_field.dart';
+import 'package:clinic_management_app/presentation/widgets/date_picker_field.dart';
 
 class RegisterPatientScreen extends StatefulWidget {
   const RegisterPatientScreen({super.key});
@@ -17,7 +19,8 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
   final _lastNameController = TextEditingController();
   final _usernameController = TextEditingController();
   final _emailController = TextEditingController();
-  final _phoneController = TextEditingController();
+  final _phoneState = GlobalKey<PhoneFieldState>();
+  final _birthdayController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final _addressController = TextEditingController();
@@ -29,9 +32,9 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
     _lastNameController.dispose();
     _usernameController.dispose();
     _emailController.dispose();
-    _phoneController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
+    _birthdayController.dispose();
     _addressController.dispose();
     super.dispose();
   }
@@ -45,15 +48,21 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
       return;
     }
 
+    final phone = _phoneState.currentState;
     context.read<AuthCubit>().registerPatient(
       firstName: _firstNameController.text,
       lastName: _lastNameController.text,
       username: _usernameController.text,
       email: _emailController.text,
       password: _passwordController.text,
-      phone: _phoneController.text.isEmpty ? null : _phoneController.text,
+      phone: phone != null && phone.fullPhoneNumber.isNotEmpty
+          ? phone.fullPhoneNumber
+          : null,
       address: _addressController.text.isEmpty ? null : _addressController.text,
       gender: _gender,
+      birthdayDate: _birthdayController.text.isEmpty
+          ? null
+          : _birthdayController.text,
     );
   }
 
@@ -90,9 +99,14 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                     const SizedBox(height: 16),
                     _buildTextField(controller: _emailController, label: 'البَرِيدُ الإِلِكْتْرُونِيُّ', keyboardType: TextInputType.emailAddress, validator: (v) => v?.isEmpty == true ? 'مَطْلُوبٌ' : null),
                     const SizedBox(height: 16),
-                    _buildTextField(controller: _phoneController, label: 'رَقْمُ الهَاتِفِ (اخْتِيَارِي)', keyboardType: TextInputType.phone),
+                    PhoneField(key: _phoneState, hintText: 'رَقْمُ الهَاتِفِ (اخْتِيَارِي)'),
                     const SizedBox(height: 16),
                     _buildTextField(controller: _addressController, label: 'العُنْوَانُ (اخْتِيَارِي)'),
+                    const SizedBox(height: 16),
+                    DatePickerField(
+                      controller: _birthdayController,
+                      label: 'تَارِيخُ المِيلَادِ (اخْتِيَارِي)',
+                    ),
                     const SizedBox(height: 16),
                     DropdownButtonFormField<String>(
                       initialValue: _gender,
@@ -150,8 +164,11 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
       controller: controller,
       keyboardType: keyboardType,
       obscureText: obscureText,
+      style: TextStyle(color: colors.textPrimary, fontSize: 16),
       decoration: InputDecoration(
-        labelText: label, filled: true,
+        labelText: label,
+        labelStyle: TextStyle(color: colors.textSecondary),
+        filled: true,
         fillColor: colors.cardBg,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
       ),
