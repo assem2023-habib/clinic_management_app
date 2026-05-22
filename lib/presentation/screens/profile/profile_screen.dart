@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/presentation/blocs/profile/profile_cubit.dart';
+import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -49,8 +50,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final isTablet = screenWidth > 600;
     final horizontalPadding = isTablet ? screenWidth * 0.15 : 16.0;
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('المَلَفُّ الشَّخْصِيُّ')),
+    return AppShell(
+      title: 'المَلَفُّ الشَّخْصِيُّ',
+      currentRoute: AppRoutes.profile,
       body: BlocConsumer<ProfileCubit, ProfileState>(
         listener: (context, state) {
           if (state.accountDeleted) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/core/utils/helpers.dart';
 import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
@@ -9,6 +10,7 @@ import 'package:clinic_management_app/presentation/blocs/appointment/appointment
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_event.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_state.dart';
 import 'package:clinic_management_app/presentation/widgets/appointment_form_dialog.dart';
+import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
 
 class AppointmentsScreen extends StatefulWidget {
   const AppointmentsScreen({super.key});
@@ -30,8 +32,9 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
 
-    return Scaffold(
-      appBar: AppBar(title: const Text(AppStrings.appointments)),
+    return AppShell(
+      title: AppStrings.appointments,
+      currentRoute: AppRoutes.appointments,
       body: Column(
         children: [
           _buildCalendarHeader(colors),
