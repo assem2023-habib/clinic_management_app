@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
-import 'package:clinic_management_app/data/models/onboarding_data.dart';
+import 'package:clinic_management_app/presentation/screens/onboarding/onboarding_data.dart';
 import 'package:clinic_management_app/presentation/blocs/onboarding/onboarding_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/onboarding/onboarding_state.dart';
 import 'package:clinic_management_app/presentation/widgets/onboarding_page.dart';

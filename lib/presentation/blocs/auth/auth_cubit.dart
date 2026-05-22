@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:clinic_management_app/presentation/blocs/onboarding/onboarding_state.dart';
+import 'package:clinic_management_app/domain/entities/user_role.dart';
 
 class AuthState extends Equatable {
   final bool isAuthenticated;
@@ -35,16 +35,6 @@ class AuthAuthenticated extends AuthState {
 }
 
 class AuthUnauthenticated extends AuthState {}
-
-abstract class AuthEvent {}
-
-class AuthLogin extends AuthEvent {
-  final String email;
-  final String password;
-  AuthLogin(this.email, this.password);
-}
-
-class AuthLogout extends AuthEvent {}
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(const AuthState());

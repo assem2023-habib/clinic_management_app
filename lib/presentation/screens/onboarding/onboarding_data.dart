@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:clinic_management_app/presentation/blocs/onboarding/onboarding_state.dart';
+import 'package:clinic_management_app/domain/entities/user_role.dart';
 
 class OnboardingItem {
   final IconData icon;

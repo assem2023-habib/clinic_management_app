@@ -1,10 +1,10 @@
-import 'package:clinic_management_app/data/datasources/local/mock_datasource.dart';
+import 'package:clinic_management_app/data/datasources/data_source.dart';
 import 'package:clinic_management_app/data/models/appointment_model.dart';
 import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
 import 'package:clinic_management_app/domain/repositories/appointment_repository.dart';
 
 class AppointmentRepositoryImpl implements AppointmentRepository {
-  final MockDataSource dataSource;
+  final DataSource dataSource;
 
   AppointmentRepositoryImpl(this.dataSource);
 
