@@ -134,9 +134,12 @@ class PhoneFieldState extends State<PhoneField> {
   }
 
   void _showPicker(BuildContext context, AppColorSet colors) {
+    final screenHeight = MediaQuery.of(context).size.height;
     showModalBottomSheet(
       context: context,
       backgroundColor: colors.cardBg,
+      isScrollControlled: true,
+      constraints: BoxConstraints(maxHeight: screenHeight * 0.75),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
@@ -190,8 +193,7 @@ class PhoneFieldState extends State<PhoneField> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  SizedBox(
-                    height: 320,
+                  Flexible(
                     child: ListView.builder(
                       itemCount: filtered.length,
                       itemBuilder: (_, i) {

@@ -41,6 +41,27 @@ import 'package:clinic_management_app/presentation/screens/profile/change_passwo
 import 'package:clinic_management_app/presentation/screens/profile/delete_account_screen.dart';
 import 'package:clinic_management_app/presentation/screens/settings/settings_screen.dart';
 
+Route<dynamic> _buildRoute(Widget screen) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => screen,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(0.05, 0.0);
+      const end = Offset.zero;
+      const curve = Curves.easeOutCubic;
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+      var fadeTween = Tween<double>(begin: 0.5, end: 1.0).chain(CurveTween(curve: curve));
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: FadeTransition(
+          opacity: animation.drive(fadeTween),
+          child: child,
+        ),
+      );
+    },
+    transitionDuration: const Duration(milliseconds: 350),
+  );
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -95,22 +116,43 @@ class _MyAppState extends State<MyApp> {
             themeMode: _themeProvider.themeMode,
             debugShowCheckedModeBanner: false,
             home: const _SplashScreen(),
-            routes: {
-              AppRoutes.roleSelection: (_) => const RoleSelectionScreen(),
-              AppRoutes.onboarding: (_) => const OnboardingScreen(),
-              AppRoutes.login: (_) => LoginScreen(),
-              AppRoutes.dashboard: (_) => const DashboardScreen(),
-              AppRoutes.doctors: (_) => const DoctorsScreen(),
-              AppRoutes.patients: (_) => const PatientsScreen(),
-              AppRoutes.appointments: (_) => const AppointmentsScreen(),
-              AppRoutes.medicalRecords: (_) => const MedicalRecordsScreen(),
-              AppRoutes.settings: (_) => SettingsScreen(themeProvider: _themeProvider),
-              AppRoutes.registerPatient: (_) => const RegisterPatientScreen(),
-              AppRoutes.registerDoctor: (_) => const RegisterDoctorScreen(),
-              AppRoutes.registerReceptionist: (_) => const RegisterReceptionistScreen(),
-              AppRoutes.profile: (_) => const ProfileScreen(),
-              AppRoutes.changePassword: (_) => const ChangePasswordScreen(),
-              AppRoutes.deleteAccount: (_) => const DeleteAccountScreen(),
+            onGenerateRoute: (settings) {
+              Widget screen;
+              switch (settings.name) {
+                case AppRoutes.roleSelection:
+                  screen = const RoleSelectionScreen();
+                case AppRoutes.onboarding:
+                  screen = const OnboardingScreen();
+                case AppRoutes.login:
+                  screen = LoginScreen();
+                case AppRoutes.dashboard:
+                  screen = const DashboardScreen();
+                case AppRoutes.doctors:
+                  screen = const DoctorsScreen();
+                case AppRoutes.patients:
+                  screen = const PatientsScreen();
+                case AppRoutes.appointments:
+                  screen = const AppointmentsScreen();
+                case AppRoutes.medicalRecords:
+                  screen = const MedicalRecordsScreen();
+                case AppRoutes.settings:
+                  screen = SettingsScreen(themeProvider: _themeProvider);
+                case AppRoutes.registerPatient:
+                  screen = const RegisterPatientScreen();
+                case AppRoutes.registerDoctor:
+                  screen = const RegisterDoctorScreen();
+                case AppRoutes.registerReceptionist:
+                  screen = const RegisterReceptionistScreen();
+                case AppRoutes.profile:
+                  screen = const ProfileScreen();
+                case AppRoutes.changePassword:
+                  screen = const ChangePasswordScreen();
+                case AppRoutes.deleteAccount:
+                  screen = const DeleteAccountScreen();
+                default:
+                  screen = const RoleSelectionScreen();
+              }
+              return _buildRoute(screen);
             },
           ),
         ),

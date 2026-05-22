@@ -17,12 +17,11 @@ class RoleSelectionScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Spacer(flex: 2),
+              const SizedBox(height: 40),
               Container(
-                width: 100,
-                height: 100,
+                width: 88,
+                height: 88,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: colors.surface,
@@ -34,30 +33,31 @@ class RoleSelectionScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Icon(Icons.medical_services_rounded, size: 48, color: colors.primary),
+                child: Icon(Icons.medical_services_rounded, size: 44, color: colors.primary),
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 24),
               Text(
                 'نِظَامُ إِدَارَةِ العِيَادَةِ',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w800,
                   color: colors.textPrimary,
                 ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 8),
               Text(
                 'اخْتَرْ دَوْرَكَ لِلْبَدْءِ',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 14,
                   color: colors.textSecondary,
                 ),
               ),
+              const SizedBox(height: 24),
               Expanded(
                 child: SingleChildScrollView(
-                  padding: const EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(bottom: 8),
                   child: Column(
                     children: [
                       _buildRoleCard(
