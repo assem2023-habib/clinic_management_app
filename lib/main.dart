@@ -43,6 +43,7 @@ import 'package:clinic_management_app/presentation/screens/profile/profile_scree
 import 'package:clinic_management_app/presentation/screens/profile/change_password_screen.dart';
 import 'package:clinic_management_app/presentation/screens/profile/delete_account_screen.dart';
 import 'package:clinic_management_app/presentation/screens/settings/settings_screen.dart';
+import 'package:clinic_management_app/presentation/screens/splash_screen.dart';
 
 Route<dynamic> _buildRoute(Widget screen) {
   return PageRouteBuilder(
@@ -120,7 +121,7 @@ class _MyAppState extends State<MyApp> {
             darkTheme: AppTheme.darkTheme,
             themeMode: _themeProvider.themeMode,
             debugShowCheckedModeBanner: false,
-            home: const _SplashScreen(),
+            home: const SplashScreen(),
             onGenerateRoute: (settings) {
               Widget screen;
               switch (settings.name) {
@@ -166,40 +167,4 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class _SplashScreen extends StatefulWidget {
-  const _SplashScreen();
 
-  @override
-  State<_SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<_SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    _checkOnboardingStatus();
-  }
-
-  Future<void> _checkOnboardingStatus() async {
-    final cubit = context.read<OnboardingCubit>();
-    await cubit.loadOnboardingStatus();
-    final state = cubit.state;
-
-    if (!mounted) return;
-
-    if (state.completed) {
-      Navigator.pushReplacementNamed(context, AppRoutes.login);
-    } else {
-      Navigator.pushReplacementNamed(context, AppRoutes.roleSelection);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
-  }
-}
