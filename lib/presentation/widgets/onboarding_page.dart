@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 
 class OnboardingPage extends StatelessWidget {
@@ -58,7 +59,8 @@ class OnboardingPage extends StatelessWidget {
                   child: Icon(icon, size: 64, color: iconColor),
                 ),
               ),
-            ),
+             ).animate().fadeIn(duration: 600.ms, curve: Curves.easeOutCubic)
+             .scale(delay: 100.ms, duration: 500.ms, begin: const Offset(0.6, 0.6), curve: Curves.easeOutBack),
             const Spacer(flex: 1),
             Text(
               title,
@@ -69,7 +71,8 @@ class OnboardingPage extends StatelessWidget {
                 color: colors.textPrimary,
                 height: 1.4,
               ),
-            ),
+            ).animate().fadeIn(delay: 300.ms, duration: 500.ms, curve: Curves.easeOutCubic)
+             .slideY(begin: 0.3, duration: 500.ms, curve: Curves.easeOutCubic),
             const SizedBox(height: 16),
             Text(
               subtitle,
@@ -79,7 +82,8 @@ class OnboardingPage extends StatelessWidget {
                 color: colors.textSecondary,
                 height: 1.6,
               ),
-            ),
+            ).animate().fadeIn(delay: 450.ms, duration: 500.ms, curve: Curves.easeOutCubic)
+             .slideY(begin: 0.3, duration: 500.ms, curve: Curves.easeOutCubic),
             const Spacer(flex: 2),
           ],
         ),
