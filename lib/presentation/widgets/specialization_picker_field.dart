@@ -57,7 +57,7 @@ class SpecializationPickerField extends StatelessWidget {
         labelStyle: TextStyle(color: colors.textSecondary),
         hintText: 'اخْتَرِ التَّخَصُّصَ',
         hintStyle: TextStyle(color: colors.textLight),
-        prefixIcon: Icon(Icons.medical_services_outlined, color: colors.textSecondary),
+        prefixIcon: Icon(value != null ? _specializationIcon(value!) : Icons.medical_services_outlined, color: colors.textSecondary),
         suffixIcon: Icon(Icons.arrow_drop_down_rounded, color: colors.textSecondary, size: 22),
         filled: true,
         fillColor: colors.cardBg,
@@ -138,8 +138,8 @@ class SpecializationPickerField extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             ListTile(
-                              leading: Icon(Icons.medical_services_outlined,
-                                  color: isSelected ? colors.primary : colors.textSecondary, size: 22),
+                              leading: Icon(_specializationIcon(e.key),
+                                  color: isSelected ? colors.primary : colors.textSecondary, size: 24),
                               title: Text(e.value, style: TextStyle(color: colors.textPrimary)),
                               subtitle: Text(
                                 _specializationEnglish(e.key),
@@ -176,6 +176,39 @@ class SpecializationPickerField extends StatelessWidget {
       },
     );
   }
+}
+
+IconData _specializationIcon(String key) {
+  return switch (key) {
+    'cardiology' => Icons.favorite_rounded,
+    'dermatology' => Icons.face_rounded,
+    'neurology' => Icons.psychology_rounded,
+    'pediatrics' => Icons.child_care_rounded,
+    'orthopedics' => Icons.accessible_rounded,
+    'ophthalmology' => Icons.visibility_rounded,
+    'ent' => Icons.hearing_rounded,
+    'psychiatry' => Icons.psychology_alt_rounded,
+    'radiology' => Icons.image_outlined,
+    'surgery' => Icons.content_cut_rounded,
+    'internal_medicine' => Icons.biotech_rounded,
+    'obstetrics_gynecology' => Icons.pregnant_woman_rounded,
+    'emergency_medicine' => Icons.local_hospital_rounded,
+    'anesthesiology' => Icons.bedtime_rounded,
+    'pathology' => Icons.science_rounded,
+    'urology' => Icons.water_drop_rounded,
+    'gastroenterology' => Icons.restaurant_rounded,
+    'endocrinology' => Icons.monitor_heart_rounded,
+    'pulmonology' => Icons.air_rounded,
+    'rheumatology' => Icons.accessible_forward_rounded,
+    'nephrology' => Icons.water_rounded,
+    'hematology' => Icons.bloodtype_rounded,
+    'oncology' => Icons.coronavirus_rounded,
+    'infectious_disease' => Icons.bug_report_rounded,
+    'genetics' => Icons.science_rounded,
+    'immunology' => Icons.shield_rounded,
+    'sports_medicine' => Icons.sports_kabaddi_rounded,
+    _ => Icons.medical_services_outlined,
+  };
 }
 
 String _specializationEnglish(String key) {
