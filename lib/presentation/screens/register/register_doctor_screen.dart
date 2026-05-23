@@ -5,36 +5,7 @@ import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/presentation/widgets/phone_field.dart';
 import 'package:clinic_management_app/presentation/widgets/date_picker_field.dart';
-
-const _specializations = {
-  'cardiology': 'أمراض القلب',
-  'dermatology': 'الأمراض الجلدية',
-  'neurology': 'الأمراض العصبية',
-  'pediatrics': 'طب الأطفال',
-  'orthopedics': 'جراحة العظام',
-  'ophthalmology': 'طب العيون',
-  'ent': 'الأذن والأنف والحنجرة',
-  'psychiatry': 'الطب النفسي',
-  'radiology': 'الأشعة',
-  'surgery': 'الجراحة العامة',
-  'internal_medicine': 'الباطنة',
-  'obstetrics_gynecology': 'النساء والتوليد',
-  'emergency_medicine': 'طب الطوارئ',
-  'anesthesiology': 'التخدير',
-  'pathology': 'علم الأمراض',
-  'urology': 'المسالك البولية',
-  'gastroenterology': 'الجهاز الهضمي',
-  'endocrinology': 'الغدد الصماء',
-  'pulmonology': 'أمراض الصدر',
-  'rheumatology': 'الروماتيزم',
-  'nephrology': 'أمراض الكلى',
-  'hematology': 'أمراض الدم',
-  'oncology': 'الأورام',
-  'infectious_disease': 'الأمراض المعدية',
-  'genetics': 'علم الوراثة',
-  'immunology': 'علم المناعة',
-  'sports_medicine': 'الطب الرياضي',
-};
+import 'package:clinic_management_app/presentation/widgets/specialization_picker_field.dart';
 
 class RegisterDoctorScreen extends StatefulWidget {
   const RegisterDoctorScreen({super.key});
@@ -154,16 +125,8 @@ class _RegisterDoctorScreenState extends State<RegisterDoctorScreen> {
                       ],
                       onChanged: (v) => setState(() => _gender = v ?? 'male'),
                     ),
-                    const SizedBox(height: 16),
-                    DropdownButtonFormField<String>(
+                    SpecializationPickerField(
                       value: _specialization,
-                      decoration: InputDecoration(
-                        labelText: 'التَّخَصُّصُ', filled: true,
-                        fillColor: colors.cardBg,
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-                        prefixIcon: Icon(Icons.medical_services_outlined, color: colors.textSecondary),
-                      ),
-                      items: _specializations.entries.map((e) => DropdownMenuItem(value: e.key, child: Text(e.value))).toList(),
                       onChanged: (v) => setState(() => _specialization = v),
                       validator: (v) => v == null ? 'مَطْلُوبٌ' : null,
                     ),
