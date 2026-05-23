@@ -77,27 +77,27 @@ class _DoctorFormDialogState extends State<DoctorFormDialog> {
               TextFormField(
                 controller: _nameController,
                 decoration: const InputDecoration(labelText: AppStrings.name),
-                validator: (v) => v!.isEmpty ? 'Required' : null,
+                validator: (v) => v!.isEmpty ? 'مَطْلُوبٌ' : null,
               ),
               const SizedBox(height: 12),
               TextFormField(
                 controller: _specialtyController,
                 decoration: const InputDecoration(labelText: AppStrings.specialty),
-                validator: (v) => v!.isEmpty ? 'Required' : null,
+                validator: (v) => v!.isEmpty ? 'مَطْلُوبٌ' : null,
               ),
               const SizedBox(height: 12),
               TextFormField(
                 controller: _phoneController,
                 decoration: const InputDecoration(labelText: AppStrings.phone),
                 keyboardType: TextInputType.phone,
-                validator: (v) => v!.isEmpty ? 'Required' : null,
+                validator: (v) => v!.isEmpty ? 'مَطْلُوبٌ' : null,
               ),
               const SizedBox(height: 12),
               TextFormField(
                 controller: _emailController,
                 decoration: const InputDecoration(labelText: AppStrings.email),
                 keyboardType: TextInputType.emailAddress,
-                validator: (v) => v!.isEmpty ? 'Required' : null,
+                validator: (v) => v!.isEmpty ? 'مَطْلُوبٌ' : null,
               ),
               const SizedBox(height: 12),
               SwitchListTile(

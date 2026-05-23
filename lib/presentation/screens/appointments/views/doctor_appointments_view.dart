@@ -93,8 +93,8 @@ class _DoctorAppointmentsViewState extends State<DoctorAppointmentsView> {
                 if (value == 'cancel') _updateStatus(context, appointment.id, AppointmentStatus.cancelled);
               },
               itemBuilder: (context) => [
-                const PopupMenuItem(value: 'complete', child: Text('Complete')),
-                const PopupMenuItem(value: 'cancel', child: Text('Cancel')),
+                const PopupMenuItem(value: 'complete', child: Text('إِكْمَالُ')),
+                const PopupMenuItem(value: 'cancel', child: Text(AppStrings.cancel)),
               ],
             ),
           ],
@@ -115,10 +115,10 @@ class _DoctorAppointmentsViewState extends State<DoctorAppointmentsView> {
 
   Widget _buildStatusBadge(AppColorSet colors, String status) {
     final (color, label) = switch (status) {
-      'scheduled' => (colors.primary, 'Scheduled'),
-      'completed' => (colors.success, 'Completed'),
-      'cancelled' => (colors.error, 'Cancelled'),
-      'inProgress' => (colors.accent, 'In Progress'),
+      'scheduled' => (colors.primary, AppStrings.scheduled),
+      'completed' => (colors.success, AppStrings.completed),
+      'cancelled' => (colors.error, AppStrings.cancelled),
+      'inProgress' => (colors.accent, AppStrings.inProgress),
       _ => (colors.textLight, status),
     };
     return Container(
@@ -130,6 +130,6 @@ class _DoctorAppointmentsViewState extends State<DoctorAppointmentsView> {
 
   void _updateStatus(BuildContext context, String id, AppointmentStatus status) {
     context.read<AppointmentBloc>().add(AppointmentUpdateStatus(id, status));
-    showSnackBar(context, 'Status updated');
+    showSnackBar(context, 'تَمَّ تَحْدِيثُ الحَالَةِ');
   }
 }

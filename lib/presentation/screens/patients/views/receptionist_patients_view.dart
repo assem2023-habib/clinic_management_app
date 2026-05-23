@@ -77,8 +77,8 @@ class _ReceptionistPatientsViewState extends State<ReceptionistPatientsView> {
             if (value == 'delete') _deletePatient(context, patient.id);
           },
           itemBuilder: (context) => [
-            const PopupMenuItem(value: 'edit', child: Row(children: [Icon(Icons.edit), SizedBox(width: 8), Text('Edit')])),
-            const PopupMenuItem(value: 'delete', child: Row(children: [Icon(Icons.delete, color: Colors.red), SizedBox(width: 8), Text('Delete', style: TextStyle(color: Colors.red))])),
+            const PopupMenuItem(value: 'edit', child: Row(children: [Icon(Icons.edit), SizedBox(width: 8), Text(AppStrings.edit)])),
+            const PopupMenuItem(value: 'delete', child: Row(children: [Icon(Icons.delete, color: Colors.red), SizedBox(width: 8), Text(AppStrings.delete, style: TextStyle(color: Colors.red))])),
           ],
         ),
       ),
@@ -93,7 +93,7 @@ class _ReceptionistPatientsViewState extends State<ReceptionistPatientsView> {
     showDeleteDialog(context).then((confirmed) {
       if (confirmed == true) {
         context.read<PatientBloc>().add(PatientDelete(id));
-        showSnackBar(context, 'Patient deleted successfully');
+        showSnackBar(context, 'تَمَّ حَذْفُ المَرِيضِ بِنَجَاحٍ');
       }
     });
   }

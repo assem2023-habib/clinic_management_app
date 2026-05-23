@@ -117,8 +117,8 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                 }
               },
               itemBuilder: (context) => [
-                const PopupMenuItem(value: 'edit', child: Row(children: [Icon(Icons.edit), SizedBox(width: 8), Text('Edit')])),
-                const PopupMenuItem(value: 'delete', child: Row(children: [Icon(Icons.delete, color: Colors.red), SizedBox(width: 8), Text('Delete', style: TextStyle(color: Colors.red))])),
+                const PopupMenuItem(value: 'edit', child: Row(children: [Icon(Icons.edit), SizedBox(width: 8), Text(AppStrings.edit)])),
+                const PopupMenuItem(value: 'delete', child: Row(children: [Icon(Icons.delete, color: Colors.red), SizedBox(width: 8), Text(AppStrings.delete, style: TextStyle(color: Colors.red))])),
               ],
             ),
           ],
@@ -138,7 +138,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
     showDeleteDialog(context).then((confirmed) {
       if (confirmed == true) {
         context.read<DoctorBloc>().add(DoctorDelete(id));
-        showSnackBar(context, 'Doctor deleted successfully');
+        showSnackBar(context, 'تَمَّ حَذْفُ الطَّبِيبِ بِنَجَاحٍ');
       }
     });
   }

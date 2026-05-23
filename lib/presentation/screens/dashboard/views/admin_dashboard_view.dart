@@ -43,7 +43,7 @@ class AdminDashboardView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Quick Actions', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+                Text('إِجْرَاءَاتٌ سَرِيعَةٌ', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
                 const SizedBox(height: 12),
                 Row(children: [
                   Expanded(child: ActionButton(icon: Icons.person_add, label: AppStrings.addDoctor, color: colors.primary, onPressed: () => Navigator.pushNamed(context, AppRoutes.doctors))),
@@ -54,7 +54,7 @@ class AdminDashboardView extends StatelessWidget {
                 Row(children: [
                   Expanded(child: ActionButton(icon: Icons.calendar_today, label: AppStrings.addAppointment, color: colors.accent, onPressed: () => Navigator.pushNamed(context, AppRoutes.appointments))),
                   const SizedBox(width: 12),
-                  Expanded(child: ActionButton(icon: Icons.description, label: 'View Records', color: colors.primaryDark, onPressed: () => Navigator.pushNamed(context, AppRoutes.medicalRecords))),
+                  Expanded(child: ActionButton(icon: Icons.description, label: 'عَرْضُ السِّجِلَّاتِ', color: colors.primaryDark, onPressed: () => Navigator.pushNamed(context, AppRoutes.medicalRecords))),
                 ]),
               ],
             ),
@@ -65,7 +65,7 @@ class AdminDashboardView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Recent Appointments', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+                Text('آخِرُ المَوَاعِيدِ', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
                 const SizedBox(height: 12),
                 const RecentAppointments(),
               ],

@@ -141,10 +141,6 @@ class SpecializationPickerField extends StatelessWidget {
                               leading: Icon(_specializationIcon(e.key),
                                   color: isSelected ? colors.primary : colors.textSecondary, size: 24),
                               title: Text(e.value, style: TextStyle(color: colors.textPrimary)),
-                              subtitle: Text(
-                                _specializationEnglish(e.key),
-                                style: TextStyle(color: colors.textSecondary, fontSize: 12),
-                              ),
                               trailing: isSelected
                                   ? Icon(Icons.check_circle_rounded, color: colors.primary, size: 22)
                                   : null,
@@ -208,38 +204,5 @@ IconData _specializationIcon(String key) {
     'immunology' => Icons.shield_rounded,
     'sports_medicine' => Icons.sports_kabaddi_rounded,
     _ => Icons.medical_services_outlined,
-  };
-}
-
-String _specializationEnglish(String key) {
-  return switch (key) {
-    'cardiology' => 'Cardiology',
-    'dermatology' => 'Dermatology',
-    'neurology' => 'Neurology',
-    'pediatrics' => 'Pediatrics',
-    'orthopedics' => 'Orthopedics',
-    'ophthalmology' => 'Ophthalmology',
-    'ent' => 'ENT',
-    'psychiatry' => 'Psychiatry',
-    'radiology' => 'Radiology',
-    'surgery' => 'General Surgery',
-    'internal_medicine' => 'Internal Medicine',
-    'obstetrics_gynecology' => 'OB/GYN',
-    'emergency_medicine' => 'Emergency Medicine',
-    'anesthesiology' => 'Anesthesiology',
-    'pathology' => 'Pathology',
-    'urology' => 'Urology',
-    'gastroenterology' => 'Gastroenterology',
-    'endocrinology' => 'Endocrinology',
-    'pulmonology' => 'Pulmonology',
-    'rheumatology' => 'Rheumatology',
-    'nephrology' => 'Nephrology',
-    'hematology' => 'Hematology',
-    'oncology' => 'Oncology',
-    'infectious_disease' => 'Infectious Disease',
-    'genetics' => 'Genetics',
-    'immunology' => 'Immunology',
-    'sports_medicine' => 'Sports Medicine',
-    _ => key,
   };
 }

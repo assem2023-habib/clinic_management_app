@@ -93,10 +93,10 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
 
   (Color, String) _statusInfo(AppColorSet colors, String status) {
     return switch (status) {
-      'scheduled' => (colors.primary, 'Scheduled'),
-      'completed' => (colors.success, 'Completed'),
-      'cancelled' => (colors.error, 'Cancelled'),
-      'inProgress' => (colors.accent, 'In Progress'),
+      'scheduled' => (colors.primary, AppStrings.scheduled),
+      'completed' => (colors.success, AppStrings.completed),
+      'cancelled' => (colors.error, AppStrings.cancelled),
+      'inProgress' => (colors.accent, AppStrings.inProgress),
       _ => (colors.textLight, status),
     };
   }

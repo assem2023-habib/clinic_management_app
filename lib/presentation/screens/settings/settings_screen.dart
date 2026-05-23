@@ -26,29 +26,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
         builder: (context, _) => ListView(
           children: [
             _buildSection(
-              'Account',
+              'الحِسَابُ',
               [
-                _buildTile(Icons.person, 'Profile', 'Manage your profile'),
-                _buildTile(Icons.lock, 'Change Password', 'Update your password'),
-                _buildTile(Icons.notifications, 'Notifications', 'Manage notification settings'),
+                _buildTile(Icons.person, 'المِلَفُّ الشَّخْصِيُّ', 'إِدَارَةُ المِلَفِّ الشَّخْصِيِّ'),
+                _buildTile(Icons.lock, 'تَغْيِيرُ كَلِمَةِ السِّرِّ', 'تَحْدِيثُ كَلِمَةِ السِّرِّ'),
+                _buildTile(Icons.notifications, 'الإِشْعَارَاتُ', 'إِدَارَةُ إِعْدَادَاتِ الإِشْعَارَاتِ'),
               ],
             ),
             const Divider(height: 32),
             _buildSection(
-              'Preferences',
+              'التَّفْضِيلَاتُ',
               [
                 _buildThemeTile(themeProvider),
-                _buildTile(Icons.language, 'Language', 'English'),
-                _buildTile(Icons.backup, 'Backup Data', 'Backup clinic data'),
+                _buildTile(Icons.language, 'اللُّغَةُ', 'العَرَبِيَّةُ'),
+                _buildTile(Icons.backup, 'نَسْخٌ احْتِيَاطِيٌّ', 'نَسْخٌ احْتِيَاطِيٌّ لِبَيَانَاتِ العِيَادَةِ'),
               ],
             ),
             const Divider(height: 32),
             _buildSection(
-              'About',
+              'حَوْلَ',
               [
-                _buildTile(Icons.info, 'Version', '1.0.0'),
-                _buildTile(Icons.help, 'Help & Support', 'Get help'),
-                _buildTile(Icons.privacy_tip, 'Privacy Policy', 'View privacy policy'),
+                _buildTile(Icons.info, 'الإِصْدَارُ', '١.٠.٠'),
+                _buildTile(Icons.help, 'المُسَاعَدَةُ وَالدَّعْمُ', 'الحُصُولُ عَلَى المُسَاعَدَةِ'),
+                _buildTile(Icons.privacy_tip, 'سِيَاسَةُ الخُصُوصِيَّةِ', 'عَرْضُ سِيَاسَةِ الخُصُوصِيَّةِ'),
               ],
             ),
           ],
@@ -93,7 +93,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         themeProvider.isDarkMode ? Icons.dark_mode : Icons.light_mode,
         color: AppColors.of(context).primary,
       ),
-      title: const Text('Dark Mode'),
+      title: const Text('الوَضْعُ الدَّاكِنُ'),
       subtitle: Text(_getThemeModeText(themeProvider.themeMode)),
       trailing: _buildThemeModeChip(themeProvider.themeMode),
       onTap: () => _showThemeDialog(context, themeProvider),
@@ -103,11 +103,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
   String _getThemeModeText(ThemeMode mode) {
     switch (mode) {
       case ThemeMode.light:
-        return 'Light theme active';
+        return 'الوَضْعُ الفَاتِحُ نَشِطٌ';
       case ThemeMode.dark:
-        return 'Dark theme active';
+        return 'الوَضْعُ الدَّاكِنُ نَشِطٌ';
       case ThemeMode.system:
-        return 'Follows system setting';
+        return 'يَتْبَعُ إِعْدَادَاتِ الجِهَازِ';
     }
   }
 
@@ -117,15 +117,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
     switch (mode) {
       case ThemeMode.light:
         color = Colors.amber;
-        label = 'Light';
+        label = 'فَاتِحٌ';
         break;
       case ThemeMode.dark:
         color = Colors.deepPurple;
-        label = 'Dark';
+        label = 'دَاكِنٌ';
         break;
       case ThemeMode.system:
         color = Colors.grey;
-        label = 'Auto';
+        label = 'تِلْقَائِيٌّ';
         break;
     }
     return Container(
@@ -150,7 +150,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             _buildThemeOption(context, themeProvider, ThemeMode.light, Icons.light_mode, 'Light Mode'),
-            _buildThemeOption(context, themeProvider, ThemeMode.dark, Icons.dark_mode, 'Dark Mode'),
+            _buildThemeOption(context, themeProvider, ThemeMode.dark, Icons.dark_mode, 'الوَضْعُ الدَّاكِنُ'),
             _buildThemeOption(context, themeProvider, ThemeMode.system, Icons.brightness_auto, 'System Default'),
           ],
         ),
