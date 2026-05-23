@@ -38,7 +38,7 @@ import 'package:clinic_management_app/presentation/screens/onboarding/role_selec
 import 'package:clinic_management_app/presentation/screens/patients/patients_screen.dart';
 import 'package:clinic_management_app/presentation/screens/register/register_patient_screen.dart';
 import 'package:clinic_management_app/presentation/screens/register/register_doctor_screen.dart';
-import 'package:clinic_management_app/presentation/screens/register/register_receptionist_screen.dart';
+
 import 'package:clinic_management_app/presentation/screens/profile/profile_screen.dart';
 import 'package:clinic_management_app/presentation/screens/profile/change_password_screen.dart';
 import 'package:clinic_management_app/presentation/screens/profile/delete_account_screen.dart';
@@ -147,8 +147,6 @@ class _MyAppState extends State<MyApp> {
                   screen = const RegisterPatientScreen();
                 case AppRoutes.registerDoctor:
                   screen = const RegisterDoctorScreen();
-                case AppRoutes.registerReceptionist:
-                  screen = const RegisterReceptionistScreen();
                 case AppRoutes.profile:
                   screen = const ProfileScreen();
                 case AppRoutes.changePassword:
