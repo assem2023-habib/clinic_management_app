@@ -144,9 +144,9 @@ class PhoneFieldState extends State<PhoneField> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (ctx) {
+        final searchCtrl = TextEditingController();
         return StatefulBuilder(
           builder: (ctx, setSheetState) {
-            final searchCtrl = TextEditingController();
             var filtered = _countries;
 
             return Padding(
