@@ -1,4 +1,7 @@
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
+import 'package:clinic_management_app/domain/entities/doctor_profile_entity.dart';
+import 'package:clinic_management_app/domain/entities/review_entity.dart';
+import 'package:clinic_management_app/domain/entities/time_slot_entity.dart';
 
 abstract class DoctorRepository {
   Future<List<DoctorEntity>> getAllDoctors();
@@ -7,4 +10,10 @@ abstract class DoctorRepository {
   Future<void> updateDoctor(DoctorEntity doctor);
   Future<void> deleteDoctor(String id);
   Future<List<DoctorEntity>> searchDoctors(String query);
+
+  Future<DoctorProfileEntity> getDoctorProfile(String id);
+  Future<List<ReviewEntity>> getDoctorReviews(String doctorId);
+  Future<List<TimeSlotEntity>> getDoctorSlots(String doctorId, DateTime month);
+  Future<void> toggleSlotAvailability(String slotId);
+  Future<void> addReview(String doctorId, ReviewEntity review);
 }

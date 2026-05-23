@@ -91,6 +91,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
 
     return Card(
       child: ListTile(
+        onTap: () => Navigator.pushNamed(context, AppRoutes.doctorProfile, arguments: doctor.id),
         leading: CircleAvatar(
           backgroundColor: doctor.isAvailable ? colors.secondary : colors.textLight,
           child: const Icon(Icons.person, color: Colors.white),
