@@ -4,7 +4,7 @@ class AppRoutes {
   static const login = '/login';
   static const registerPatient = '/register-patient';
   static const registerDoctor = '/register-doctor';
-  static const registerReceptionist = '/register-receptionist';
+
   static const dashboard = '/dashboard';
   static const doctors = '/doctors';
   static const patients = '/patients';
