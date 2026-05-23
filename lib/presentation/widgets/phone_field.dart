@@ -145,9 +145,9 @@ class PhoneFieldState extends State<PhoneField> {
       ),
       builder: (ctx) {
         final searchCtrl = TextEditingController();
+        var filtered = _countries;
         return StatefulBuilder(
           builder: (ctx, setSheetState) {
-            var filtered = _countries;
 
             return Padding(
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
