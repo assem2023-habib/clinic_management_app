@@ -17,7 +17,6 @@ class _RegisterReceptionistScreenState extends State<RegisterReceptionistScreen>
   final _formKey = GlobalKey<FormState>();
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
-  final _usernameController = TextEditingController();
   final _emailController = TextEditingController();
   final _phoneState = GlobalKey<PhoneFieldState>();
   final _birthdayController = TextEditingController();
@@ -32,7 +31,6 @@ class _RegisterReceptionistScreenState extends State<RegisterReceptionistScreen>
   void dispose() {
     _firstNameController.dispose();
     _lastNameController.dispose();
-    _usernameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
@@ -53,11 +51,12 @@ class _RegisterReceptionistScreenState extends State<RegisterReceptionistScreen>
     }
 
     final phone = _phoneState.currentState;
+    final email = _emailController.text;
     context.read<AuthCubit>().registerReceptionist(
       firstName: _firstNameController.text,
       lastName: _lastNameController.text,
-      username: _usernameController.text,
-      email: _emailController.text,
+      username: email.split('@').first,
+      email: email,
       password: _passwordController.text,
       phone: phone != null && phone.fullPhoneNumber.isNotEmpty
           ? phone.fullPhoneNumber
@@ -104,17 +103,15 @@ class _RegisterReceptionistScreenState extends State<RegisterReceptionistScreen>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    _buildTextField(controller: _firstNameController, label: 'الاسْمُ الأَوَّلُ', validator: (v) => v?.isEmpty == true ? 'مَطْلُوبٌ' : null),
+                    _buildTextField(controller: _firstNameController, label: 'الاسْمُ الأَوَّلُ', prefixIcon: Icons.person_outline, validator: (v) => v?.isEmpty == true ? 'مَطْلُوبٌ' : null),
                     const SizedBox(height: 16),
-                    _buildTextField(controller: _lastNameController, label: 'اسْمُ العَائِلَةِ', validator: (v) => v?.isEmpty == true ? 'مَطْلُوبٌ' : null),
+                    _buildTextField(controller: _lastNameController, label: 'اسْمُ العَائِلَةِ', prefixIcon: Icons.person_outline, validator: (v) => v?.isEmpty == true ? 'مَطْلُوبٌ' : null),
                     const SizedBox(height: 16),
-                    _buildTextField(controller: _usernameController, label: 'اسْمُ المُسْتَخْدِمِ', validator: (v) => v?.isEmpty == true ? 'مَطْلُوبٌ' : null),
-                    const SizedBox(height: 16),
-                    _buildTextField(controller: _emailController, label: 'البَرِيدُ الإِلِكْتْرُونِيُّ', keyboardType: TextInputType.emailAddress, validator: (v) => v?.isEmpty == true ? 'مَطْلُوبٌ' : null),
+                    _buildTextField(controller: _emailController, label: 'البَرِيدُ الإِلِكْتْرُونِيُّ', prefixIcon: Icons.email_outlined, keyboardType: TextInputType.emailAddress, validator: (v) => v?.isEmpty == true ? 'مَطْلُوبٌ' : null),
                     const SizedBox(height: 16),
                     PhoneField(key: _phoneState, hintText: 'رَقْمُ الهَاتِفِ (اخْتِيَارِي)'),
                     const SizedBox(height: 16),
-                    _buildTextField(controller: _addressController, label: 'العُنْوَانُ (اخْتِيَارِي)'),
+                    _buildTextField(controller: _addressController, label: 'العُنْوَانُ (اخْتِيَارِي)', prefixIcon: Icons.location_on_outlined),
                     const SizedBox(height: 16),
                     DatePickerField(
                       controller: _birthdayController,
@@ -127,6 +124,7 @@ class _RegisterReceptionistScreenState extends State<RegisterReceptionistScreen>
                         labelText: 'الجِنْسُ', filled: true,
                         fillColor: colors.cardBg,
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                        prefixIcon: Icon(Icons.wc_rounded, color: colors.textSecondary),
                       ),
                       items: const [
                         DropdownMenuItem(value: 'male', child: Text('ذَكَر')),
@@ -135,13 +133,13 @@ class _RegisterReceptionistScreenState extends State<RegisterReceptionistScreen>
                       onChanged: (v) => setState(() => _gender = v ?? 'male'),
                     ),
                     const SizedBox(height: 16),
-                    _buildTextField(controller: _shiftStartController, label: 'بِدَايَةُ الدَّوْرَةِ (اخْتِيَارِي)', readOnly: true, onTap: () => _pickTime(_shiftStartController)),
+                    _buildTextField(controller: _shiftStartController, label: 'بِدَايَةُ الدَّوْرَةِ (اخْتِيَارِي)', prefixIcon: Icons.schedule_outlined, readOnly: true, onTap: () => _pickTime(_shiftStartController)),
                     const SizedBox(height: 16),
-                    _buildTextField(controller: _shiftEndController, label: 'نِهَايَةُ الدَّوْرَةِ (اخْتِيَارِي)', readOnly: true, onTap: () => _pickTime(_shiftEndController)),
+                    _buildTextField(controller: _shiftEndController, label: 'نِهَايَةُ الدَّوْرَةِ (اخْتِيَارِي)', prefixIcon: Icons.schedule_outlined, readOnly: true, onTap: () => _pickTime(_shiftEndController)),
                     const SizedBox(height: 16),
-                    _buildTextField(controller: _passwordController, label: 'كَلِمَةُ السِّرِّ', obscureText: true, validator: (v) => (v?.length ?? 0) < 8 ? '8 أَحْرُفٍ عَلَى الأَقَلِّ' : null),
+                    _buildTextField(controller: _passwordController, label: 'كَلِمَةُ السِّرِّ', prefixIcon: Icons.lock_outlined, obscureText: true, validator: (v) => (v?.length ?? 0) < 8 ? '8 أَحْرُفٍ عَلَى الأَقَلِّ' : null),
                     const SizedBox(height: 16),
-                    _buildTextField(controller: _confirmPasswordController, label: 'تَأْكِيدُ كَلِمَةِ السِّرِّ', obscureText: true),
+                    _buildTextField(controller: _confirmPasswordController, label: 'تَأْكِيدُ كَلِمَةِ السِّرِّ', prefixIcon: Icons.lock_outlined, obscureText: true),
                     const SizedBox(height: 24),
                     ElevatedButton(
                       onPressed: state.isLoading ? null : _submit,
@@ -172,6 +170,7 @@ class _RegisterReceptionistScreenState extends State<RegisterReceptionistScreen>
   Widget _buildTextField({
     required TextEditingController controller,
     required String label,
+    IconData? prefixIcon,
     TextInputType keyboardType = TextInputType.text,
     bool obscureText = false,
     bool readOnly = false,
@@ -189,6 +188,7 @@ class _RegisterReceptionistScreenState extends State<RegisterReceptionistScreen>
       decoration: InputDecoration(
         labelText: label,
         labelStyle: TextStyle(color: colors.textSecondary),
+        prefixIcon: prefixIcon != null ? Icon(prefixIcon, color: colors.textSecondary) : null,
         filled: true,
         fillColor: colors.cardBg,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
