@@ -132,6 +132,21 @@ class LoginScreen extends StatelessWidget {
                           style: TextStyle(fontSize: 16, color: Colors.white),
                         ),
                       ),
+                      if (role == UserRole.doctor || role == UserRole.patient) ...[
+                        const SizedBox(height: 4),
+                        TextButton(
+                          onPressed: () {
+                            final route = role == UserRole.doctor
+                                ? AppRoutes.registerDoctor
+                                : AppRoutes.registerPatient;
+                            Navigator.pushReplacementNamed(context, route);
+                          },
+                          child: Text(
+                            'لَيْسَ لَدَيْكَ حِسَابٌ؟ إِنْشَاءُ حِسَابٍ',
+                            style: TextStyle(color: colors.primary, fontSize: 14, fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                      ],
                       const SizedBox(height: 4),
                       TextButton(
                         onPressed: () {
