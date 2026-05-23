@@ -23,6 +23,7 @@ import 'package:clinic_management_app/domain/repositories/location_repository.da
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_bloc.dart';
+import 'package:clinic_management_app/presentation/blocs/doctor_profile/doctor_profile_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/medical_record/medical_record_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/onboarding/onboarding_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/patient/patient_bloc.dart';
@@ -31,6 +32,7 @@ import 'package:clinic_management_app/presentation/blocs/location/location_cubit
 import 'package:clinic_management_app/presentation/screens/appointments/appointments_screen.dart';
 import 'package:clinic_management_app/presentation/screens/dashboard/dashboard_screen.dart';
 import 'package:clinic_management_app/presentation/screens/doctors/doctors_screen.dart';
+import 'package:clinic_management_app/presentation/screens/doctors/doctor_profile_screen.dart';
 import 'package:clinic_management_app/presentation/screens/login/login_screen.dart';
 import 'package:clinic_management_app/presentation/screens/medical_records/medical_records_screen.dart';
 import 'package:clinic_management_app/presentation/screens/onboarding/onboarding_screen.dart';
@@ -110,6 +112,7 @@ class _MyAppState extends State<MyApp> {
           BlocProvider(create: (context) => PatientBloc(RepositoryProvider.of<PatientRepository>(context))),
           BlocProvider(create: (context) => AppointmentBloc(RepositoryProvider.of<AppointmentRepository>(context))),
           BlocProvider(create: (context) => MedicalRecordBloc(RepositoryProvider.of<MedicalRecordRepository>(context))),
+          BlocProvider(create: (context) => DoctorProfileBloc(RepositoryProvider.of<DoctorRepository>(context))),
           BlocProvider(create: (context) => ProfileCubit(authRepository: RepositoryProvider.of<AuthRepository>(context))),
           BlocProvider(create: (context) => LocationCubit(locationRepository: RepositoryProvider.of<LocationRepository>(context))..loadCountries()),
         ],
@@ -151,6 +154,9 @@ class _MyAppState extends State<MyApp> {
                   screen = const ProfileScreen();
                 case AppRoutes.changePassword:
                   screen = const ChangePasswordScreen();
+                case AppRoutes.doctorProfile:
+                  final doctorId = settings.arguments as String? ?? '';
+                  screen = DoctorProfileScreen(doctorId: doctorId);
                 case AppRoutes.deleteAccount:
                   screen = const DeleteAccountScreen();
                 default:
