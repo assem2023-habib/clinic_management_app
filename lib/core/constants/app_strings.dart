@@ -16,8 +16,8 @@ class AppStrings {
   static const save = 'Save';
   static const cancel = 'Cancel';
   static const search = 'Search...';
-  static const email = 'Email';
-  static const password = 'Password';
+  static const email = 'البَرِيدُ الإِلِكْتْرُونِيُّ';
+  static const password = 'كَلِمَةُ السِّرِّ';
   static const name = 'Name';
   static const phone = 'Phone';
   static const address = 'Address';
