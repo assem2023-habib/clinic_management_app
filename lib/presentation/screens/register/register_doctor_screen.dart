@@ -125,6 +125,7 @@ class _RegisterDoctorScreenState extends State<RegisterDoctorScreen> {
                       ],
                       onChanged: (v) => setState(() => _gender = v ?? 'male'),
                     ),
+                    const SizedBox(height: 16),
                     SpecializationPickerField(
                       value: _specialization,
                       onChanged: (v) => setState(() => _specialization = v),
