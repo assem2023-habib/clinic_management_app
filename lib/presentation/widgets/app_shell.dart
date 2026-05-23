@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
+import 'package:clinic_management_app/core/theme/theme_provider.dart';
 import 'package:clinic_management_app/presentation/widgets/app_drawer.dart';
 
 class AppShell extends StatelessWidget {
@@ -13,6 +14,7 @@ class AppShell extends StatelessWidget {
   final String? currentRoute;
   final Widget? floatingActionButton;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
+  final ThemeProvider? themeProvider;
 
   const AppShell({
     super.key,
@@ -26,6 +28,7 @@ class AppShell extends StatelessWidget {
     this.currentRoute,
     this.floatingActionButton,
     this.floatingActionButtonLocation,
+    this.themeProvider,
   });
 
   @override
@@ -44,7 +47,7 @@ class AppShell extends StatelessWidget {
                   actions: actions,
                 )
               : null),
-      drawer: showDrawer ? AppDrawer(currentRoute: currentRoute) : null,
+      drawer: showDrawer ? AppDrawer(currentRoute: currentRoute, themeProvider: themeProvider) : null,
       body: Padding(
         padding: padding ?? AppSpacing.screenPadding,
         child: body,

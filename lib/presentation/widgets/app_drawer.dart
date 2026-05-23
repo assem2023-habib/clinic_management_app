@@ -3,13 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
+import 'package:clinic_management_app/core/theme/theme_provider.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
 
 class AppDrawer extends StatelessWidget {
   final String? currentRoute;
+  final ThemeProvider? themeProvider;
 
-  const AppDrawer({super.key, this.currentRoute});
+  const AppDrawer({super.key, this.currentRoute, this.themeProvider});
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +24,7 @@ class AppDrawer extends StatelessWidget {
           Expanded(
             child: _buildMenuItems(context, colors),
           ),
+          _buildThemeToggle(context, colors),
           _buildLogout(context, colors),
         ],
       ),
@@ -136,6 +139,29 @@ class AppDrawer extends StatelessWidget {
           ),
         );
       }).toList(),
+    );
+  }
+
+  Widget _buildThemeToggle(BuildContext context, AppColorSet colors) {
+    if (themeProvider == null) return const SizedBox.shrink();
+    return ListenableBuilder(
+      listenable: themeProvider!,
+      builder: (context, _) {
+        final isDark = themeProvider!.isDarkMode;
+        return Container(
+          decoration: BoxDecoration(
+            border: Border(top: BorderSide(color: colors.divider.withValues(alpha: 0.3))),
+          ),
+          child: ListTile(
+            leading: Icon(isDark ? Icons.dark_mode_rounded : Icons.light_mode_rounded, color: colors.primary, size: 22),
+            title: Text(
+              isDark ? 'الوَضْعُ الدَّاكِنُ' : 'الوَضْعُ الفَاتِحُ',
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: colors.textPrimary),
+            ),
+            onTap: () => themeProvider!.toggleTheme(),
+          ),
+        );
+      },
     );
   }
 
