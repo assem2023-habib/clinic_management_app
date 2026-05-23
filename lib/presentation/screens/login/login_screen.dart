@@ -132,24 +132,25 @@ class LoginScreen extends StatelessWidget {
                           style: TextStyle(fontSize: 16, color: Colors.white),
                         ),
                       ),
-                      const SizedBox(height: 16),
-                      TextButton(
-                        onPressed: () {
-                          final role = onboardingState.selectedRole;
-                          final route = switch (role) {
-                            UserRole.admin => AppRoutes.registerReceptionist,
-                            UserRole.doctor => AppRoutes.registerDoctor,
-                            UserRole.receptionist => AppRoutes.registerReceptionist,
-                            UserRole.patient => AppRoutes.registerPatient,
-                            null => AppRoutes.registerPatient,
-                          };
-                          Navigator.pushReplacementNamed(context, route);
-                        },
-                        child: Text(
-                          'لَيْسَ لَدَيْكَ حِسَابٌ؟ إِنْشَاءُ حِسَابٍ',
-                          style: TextStyle(color: colors.primary, fontSize: 14, fontWeight: FontWeight.w600),
+                      if (role != UserRole.admin) ...[
+                        const SizedBox(height: 16),
+                        TextButton(
+                          onPressed: () {
+                            final route = switch (role) {
+                              UserRole.admin => AppRoutes.registerReceptionist,
+                              UserRole.doctor => AppRoutes.registerDoctor,
+                              UserRole.receptionist => AppRoutes.registerReceptionist,
+                              UserRole.patient => AppRoutes.registerPatient,
+                              null => AppRoutes.registerPatient,
+                            };
+                            Navigator.pushReplacementNamed(context, route);
+                          },
+                          child: Text(
+                            'لَيْسَ لَدَيْكَ حِسَابٌ؟ إِنْشَاءُ حِسَابٍ',
+                            style: TextStyle(color: colors.primary, fontSize: 14, fontWeight: FontWeight.w600),
+                          ),
                         ),
-                      ),
+                      ],
                       const SizedBox(height: 4),
                       TextButton(
                         onPressed: () {
