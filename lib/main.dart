@@ -132,7 +132,7 @@ class _MyAppState extends State<MyApp> {
                 case AppRoutes.login:
                   screen = LoginScreen();
                 case AppRoutes.dashboard:
-                  screen = const DashboardScreen();
+                  screen = DashboardScreen(themeProvider: _themeProvider);
                 case AppRoutes.doctors:
                   screen = const DoctorsScreen();
                 case AppRoutes.patients:
