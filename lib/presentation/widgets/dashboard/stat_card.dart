@@ -20,12 +20,12 @@ class StatCard extends StatelessWidget {
     final colors = AppColors.of(context);
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 32, color: color),
-            const SizedBox(height: 8),
+            Icon(icon, size: 24, color: color),
+            const SizedBox(height: 4),
             Text(
               title,
               textAlign: TextAlign.center,

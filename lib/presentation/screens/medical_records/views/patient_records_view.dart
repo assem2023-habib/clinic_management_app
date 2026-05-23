@@ -30,7 +30,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
         }
         if (state is MedicalRecordLoaded) {
           if (state.records.isEmpty) {
-            return Center(child: Text('No records', style: TextStyle(color: colors.textSecondary)));
+            return Center(child: Text('لا تُوجَدُ سِجِلَّاتٌ', style: TextStyle(color: colors.textSecondary)));
           }
           return ListView.separated(
             padding: const EdgeInsets.all(16),
@@ -45,7 +45,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
         if (state is MedicalRecordError) {
           return Center(child: Text(state.message, style: TextStyle(color: colors.error)));
         }
-        return Center(child: Text('No records', style: TextStyle(color: colors.textSecondary)));
+        return Center(child: Text('لا تُوجَدُ سِجِلَّاتٌ', style: TextStyle(color: colors.textSecondary)));
       },
     );
   }
@@ -62,12 +62,12 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildInfoRow('Diagnosis', record.diagnosis, colors),
+                _buildInfoRow('التَّشْخِيصُ', record.diagnosis, colors),
                 const SizedBox(height: 12),
-                _buildInfoRow('Prescription', record.prescription, colors),
+                _buildInfoRow('الوَصْفَةُ', record.prescription, colors),
                 if (record.notes != null) ...[
                   const SizedBox(height: 12),
-                  _buildInfoRow('Notes', record.notes!, colors),
+                  _buildInfoRow('مُلَاحَظَاتٌ', record.notes!, colors),
                 ],
               ],
             ),

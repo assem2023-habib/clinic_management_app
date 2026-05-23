@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_state.dart';
 
@@ -20,7 +21,7 @@ class RecentAppointments extends StatelessWidget {
         if (state is AppointmentLoaded) {
           final recent = state.appointments.take(limit).toList();
           if (recent.isEmpty) {
-            return Center(child: Text('No appointments', style: TextStyle(color: colors.textSecondary)));
+            return Center(child: Text('لا تُوجَدُ مَوَاعِيدُ', style: TextStyle(color: colors.textSecondary)));
           }
           return ListView.separated(
             shrinkWrap: true,
@@ -43,7 +44,7 @@ class RecentAppointments extends StatelessWidget {
             },
           );
         }
-        return Center(child: Text('No appointments', style: TextStyle(color: colors.textSecondary)));
+        return Center(child: Text('لا تُوجَدُ مَوَاعِيدُ', style: TextStyle(color: colors.textSecondary)));
       },
     );
   }
@@ -60,10 +61,10 @@ class RecentAppointments extends StatelessWidget {
 
   Widget _statusBadge(AppColorSet colors, String status) {
     final (color, label) = switch (status) {
-      'scheduled' => (colors.primary, 'Scheduled'),
-      'completed' => (colors.success, 'Completed'),
-      'cancelled' => (colors.error, 'Cancelled'),
-      'inProgress' => (colors.accent, 'In Progress'),
+      'scheduled' => (colors.primary, AppStrings.scheduled),
+      'completed' => (colors.success, AppStrings.completed),
+      'cancelled' => (colors.error, AppStrings.cancelled),
+      'inProgress' => (colors.accent, AppStrings.inProgress),
       _ => (colors.textLight, status),
     };
     return Container(

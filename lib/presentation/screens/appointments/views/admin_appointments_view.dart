@@ -96,10 +96,10 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
                 if (value == 'edit') _showAppointmentForm(context);
               },
               itemBuilder: (context) => [
-                const PopupMenuItem(value: 'edit', child: Row(children: [Icon(Icons.edit), SizedBox(width: 8), Text('Edit')])),
-                const PopupMenuItem(value: 'complete', child: Text('Complete')),
-                const PopupMenuItem(value: 'cancel', child: Text('Cancel')),
-                const PopupMenuItem(value: 'delete', child: Row(children: [Icon(Icons.delete, color: Colors.red), SizedBox(width: 8), Text('Delete', style: TextStyle(color: Colors.red))])),
+                const PopupMenuItem(value: 'edit', child: Row(children: [Icon(Icons.edit), SizedBox(width: 8), Text(AppStrings.edit)])),
+                const PopupMenuItem(value: 'complete', child: Text('إِكْمَالُ')),
+                const PopupMenuItem(value: 'cancel', child: Text(AppStrings.cancel)),
+                const PopupMenuItem(value: 'delete', child: Row(children: [Icon(Icons.delete, color: Colors.red), SizedBox(width: 8), Text(AppStrings.delete, style: TextStyle(color: Colors.red))])),
               ],
             ),
           ],
@@ -120,10 +120,10 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
 
   Widget _buildStatusBadge(AppColorSet colors, String status) {
     final (color, label) = switch (status) {
-      'scheduled' => (colors.primary, 'Scheduled'),
-      'completed' => (colors.success, 'Completed'),
-      'cancelled' => (colors.error, 'Cancelled'),
-      'inProgress' => (colors.accent, 'In Progress'),
+      'scheduled' => (colors.primary, AppStrings.scheduled),
+      'completed' => (colors.success, AppStrings.completed),
+      'cancelled' => (colors.error, AppStrings.cancelled),
+      'inProgress' => (colors.accent, AppStrings.inProgress),
       _ => (colors.textLight, status),
     };
     return Container(
@@ -141,13 +141,13 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
     showDeleteDialog(context).then((confirmed) {
       if (confirmed == true) {
         context.read<AppointmentBloc>().add(AppointmentDelete(id));
-        showSnackBar(context, 'Appointment deleted');
+        showSnackBar(context, 'تَمَّ حَذْفُ المَوْعِدِ');
       }
     });
   }
 
   void _updateStatus(BuildContext context, String id, AppointmentStatus status) {
     context.read<AppointmentBloc>().add(AppointmentUpdateStatus(id, status));
-    showSnackBar(context, 'Status updated');
+    showSnackBar(context, 'تَمَّ تَحْدِيثُ الحَالَةِ');
   }
 }
