@@ -23,8 +23,6 @@ class _RegisterReceptionistScreenState extends State<RegisterReceptionistScreen>
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final _addressController = TextEditingController();
-  final _shiftStartController = TextEditingController();
-  final _shiftEndController = TextEditingController();
   String _gender = 'male';
 
   @override
@@ -36,8 +34,6 @@ class _RegisterReceptionistScreenState extends State<RegisterReceptionistScreen>
     _confirmPasswordController.dispose();
     _birthdayController.dispose();
     _addressController.dispose();
-    _shiftStartController.dispose();
-    _shiftEndController.dispose();
     super.dispose();
   }
 
@@ -66,16 +62,7 @@ class _RegisterReceptionistScreenState extends State<RegisterReceptionistScreen>
       birthdayDate: _birthdayController.text.isEmpty
           ? null
           : _birthdayController.text,
-      shiftStart: _shiftStartController.text.isEmpty ? null : _shiftStartController.text,
-      shiftEnd: _shiftEndController.text.isEmpty ? null : _shiftEndController.text,
     );
-  }
-
-  Future<void> _pickTime(TextEditingController ctrl) async {
-    final time = await showTimePicker(context: context, initialTime: TimeOfDay.now());
-    if (time != null) {
-      ctrl.text = '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
-    }
   }
 
   @override
@@ -132,10 +119,6 @@ class _RegisterReceptionistScreenState extends State<RegisterReceptionistScreen>
                       ],
                       onChanged: (v) => setState(() => _gender = v ?? 'male'),
                     ),
-                    const SizedBox(height: 16),
-                    _buildTextField(controller: _shiftStartController, label: 'بِدَايَةُ الدَّوْرَةِ (اخْتِيَارِي)', prefixIcon: Icons.schedule_outlined, readOnly: true, onTap: () => _pickTime(_shiftStartController)),
-                    const SizedBox(height: 16),
-                    _buildTextField(controller: _shiftEndController, label: 'نِهَايَةُ الدَّوْرَةِ (اخْتِيَارِي)', prefixIcon: Icons.schedule_outlined, readOnly: true, onTap: () => _pickTime(_shiftEndController)),
                     const SizedBox(height: 16),
                     _buildTextField(controller: _passwordController, label: 'كَلِمَةُ السِّرِّ', prefixIcon: Icons.lock_outlined, obscureText: true, validator: (v) => (v?.length ?? 0) < 8 ? '8 أَحْرُفٍ عَلَى الأَقَلِّ' : null),
                     const SizedBox(height: 16),
