@@ -72,7 +72,7 @@ class RatingSummarySection extends StatelessWidget {
                 ),
                 const SizedBox(height: AppSpacing.sm),
                 Text(
-                  'بناءً على $totalReviews مراجعة من المرضى',
+                  '${AppStrings.basedOnReviews} $totalReviews ${AppStrings.reviewsFromPatients}',
                   style: TextStyle(fontSize: 12, color: colors.textSecondary),
                 ),
               ],

@@ -365,4 +365,25 @@ class AppStrings {
 
   // Onboarding role selection services
   static const roleSelectionSystemName = 'نِظَامُ إِدَارَةِ العِيَادَةِ';
+
+  // Rating Screen
+  static const ratingsTitle = 'التقييمات';
+  static const noReviews = 'لا توجد مراجعات';
+  static const noMoreReviews = 'لا توجد مراجعات إضافية';
+  static const loadMoreReviews = 'تحميل المزيد من المراجعات';
+  static const reviewReported = 'تم الإبلاغ عن هذه المراجعة';
+  static const reviewPrompt = 'رأيك يساعدنا في تحسين خدماتنا الصحية';
+  static const basedOnReviews = 'بناءً على';
+  static const reviewsFromPatients = 'مراجعة من المرضى';
+  static const filterNewest = 'الأحدث';
+  static const filterHighest = 'الأعلى تقييماً';
+  static const filterWithPhotos = 'مع صور';
+  static const filterLowest = 'الأقل تقييماً';
+  static const timeAgoTwoDays = 'قبل يومين';
+  static const timeAgoYesterday = 'أمس';
+  static const timeAgoSince = 'منذ';
+  static const timeAgoDays = 'أيام';
+  static const timeAgoWeeks = 'أسابيع';
+  static const timeAgoMonth = 'شهر';
+  static const timeAgoYear = 'سنة';
 }

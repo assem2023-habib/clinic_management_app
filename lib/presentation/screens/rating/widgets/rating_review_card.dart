@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/review_entity.dart';
 
 class RatingReviewCard extends StatelessWidget {
@@ -135,11 +136,11 @@ class RatingReviewCard extends StatelessWidget {
   }
 
   String _formatTimeAgo(Duration diff) {
-    if (diff.inDays == 0) return 'قبل يومين';
-    if (diff.inDays == 1) return 'أمس';
-    if (diff.inDays < 7) return 'منذ ${diff.inDays} أيام';
-    if (diff.inDays < 30) return 'منذ ${(diff.inDays / 7).round()} أسابيع';
-    if (diff.inDays < 365) return 'منذ ${(diff.inDays / 30).round()} شهر';
-    return 'منذ ${(diff.inDays / 365).round()} سنة';
+    if (diff.inDays == 0) return AppStrings.timeAgoTwoDays;
+    if (diff.inDays == 1) return AppStrings.timeAgoYesterday;
+    if (diff.inDays < 7) return '${AppStrings.timeAgoSince} ${diff.inDays} ${AppStrings.timeAgoDays}';
+    if (diff.inDays < 30) return '${AppStrings.timeAgoSince} ${(diff.inDays / 7).round()} ${AppStrings.timeAgoWeeks}';
+    if (diff.inDays < 365) return '${AppStrings.timeAgoSince} ${(diff.inDays / 30).round()} ${AppStrings.timeAgoMonth}';
+    return '${AppStrings.timeAgoSince} ${(diff.inDays / 365).round()} ${AppStrings.timeAgoYear}';
   }
 }
