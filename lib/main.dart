@@ -36,6 +36,8 @@ import 'package:clinic_management_app/presentation/screens/doctors/doctor_profil
 import 'package:clinic_management_app/presentation/screens/user_booking/user_booking_screen.dart';
 import 'package:clinic_management_app/presentation/screens/appointment_confirmation/appointment_confirmation_screen.dart';
 import 'package:clinic_management_app/presentation/screens/appointment_confirmation/confirmation_data.dart';
+import 'package:clinic_management_app/presentation/screens/rating/rating_screen.dart';
+import 'package:clinic_management_app/presentation/blocs/rating/rating_bloc.dart';
 import 'package:clinic_management_app/presentation/screens/login/login_screen.dart';
 import 'package:clinic_management_app/presentation/screens/medical_records/medical_records_screen.dart';
 import 'package:clinic_management_app/presentation/screens/onboarding/onboarding_screen.dart';
@@ -118,6 +120,7 @@ class _MyAppState extends State<MyApp> {
           BlocProvider(create: (context) => DoctorProfileBloc(RepositoryProvider.of<DoctorRepository>(context))),
           BlocProvider(create: (context) => ProfileCubit(authRepository: RepositoryProvider.of<AuthRepository>(context))),
           BlocProvider(create: (context) => LocationCubit(locationRepository: RepositoryProvider.of<LocationRepository>(context))..loadCountries()),
+          BlocProvider(create: (_) => RatingBloc()),
         ],
         child: ListenableBuilder(
           listenable: _themeProvider,
@@ -168,6 +171,9 @@ class _MyAppState extends State<MyApp> {
                   screen = AppointmentConfirmationScreen(data: confirmationData);
                 case AppRoutes.deleteAccount:
                   screen = const DeleteAccountScreen();
+                case AppRoutes.rating:
+                  final ratingDoctorId = settings.arguments as String?;
+                  screen = RatingScreen(doctorId: ratingDoctorId);
                 default:
                   screen = const RoleSelectionScreen();
               }
