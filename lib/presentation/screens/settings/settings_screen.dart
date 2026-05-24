@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/core/theme/theme_provider.dart';
 import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
 
@@ -19,36 +20,36 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final themeProvider = widget.themeProvider;
 
     return AppShell(
-      title: 'الإِعْدَادَاتُ',
+      title: AppStrings.settings,
       currentRoute: AppRoutes.settings,
       body: ListenableBuilder(
         listenable: themeProvider,
         builder: (context, _) => ListView(
           children: [
             _buildSection(
-              'الحِسَابُ',
+              AppStrings.account,
               [
-                _buildTile(Icons.person, 'المِلَفُّ الشَّخْصِيُّ', 'إِدَارَةُ المِلَفِّ الشَّخْصِيِّ'),
-                _buildTile(Icons.lock, 'تَغْيِيرُ كَلِمَةِ السِّرِّ', 'تَحْدِيثُ كَلِمَةِ السِّرِّ'),
-                _buildTile(Icons.notifications, 'الإِشْعَارَاتُ', 'إِدَارَةُ إِعْدَادَاتِ الإِشْعَارَاتِ'),
+                _buildTile(Icons.person, AppStrings.myProfile, AppStrings.manageProfile),
+                _buildTile(Icons.lock, AppStrings.changePassword, AppStrings.updatePassword),
+                _buildTile(Icons.notifications, AppStrings.notifications, AppStrings.manageNotifications),
               ],
             ),
             const Divider(height: 32),
             _buildSection(
-              'التَّفْضِيلَاتُ',
+              AppStrings.preferences,
               [
                 _buildThemeTile(themeProvider),
-                _buildTile(Icons.language, 'اللُّغَةُ', 'العَرَبِيَّةُ'),
-                _buildTile(Icons.backup, 'نَسْخٌ احْتِيَاطِيٌّ', 'نَسْخٌ احْتِيَاطِيٌّ لِبَيَانَاتِ العِيَادَةِ'),
+                _buildTile(Icons.language, AppStrings.language, AppStrings.arabic),
+                _buildTile(Icons.backup, AppStrings.backup, AppStrings.backupDescription),
               ],
             ),
             const Divider(height: 32),
             _buildSection(
-              'حَوْلَ',
+              AppStrings.about,
               [
-                _buildTile(Icons.info, 'الإِصْدَارُ', '١.٠.٠'),
-                _buildTile(Icons.help, 'المُسَاعَدَةُ وَالدَّعْمُ', 'الحُصُولُ عَلَى المُسَاعَدَةِ'),
-                _buildTile(Icons.privacy_tip, 'سِيَاسَةُ الخُصُوصِيَّةِ', 'عَرْضُ سِيَاسَةِ الخُصُوصِيَّةِ'),
+                _buildTile(Icons.info, AppStrings.version, AppStrings.versionNumber),
+                _buildTile(Icons.help, AppStrings.helpSupport, AppStrings.getHelp),
+                _buildTile(Icons.privacy_tip, AppStrings.privacyPolicy, AppStrings.viewPrivacyPolicy),
               ],
             ),
           ],

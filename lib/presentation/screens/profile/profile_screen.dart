@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/profile/profile_cubit.dart';
 import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
 
@@ -24,19 +25,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('تَعْدِيلُ $label'),
+        title: Text('${AppStrings.editLabel}$label'),
         content: TextField(
           controller: controller,
           decoration: InputDecoration(labelText: label),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('إِلْغَاءُ')),
+          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text(AppStrings.cancel)),
           ElevatedButton(
             onPressed: () {
               Navigator.pop(ctx);
               context.read<ProfileCubit>().updateProfile({fieldKey: controller.text});
             },
-            child: const Text('حِفْظُ'),
+            child: const Text(AppStrings.save),
           ),
         ],
       ),
@@ -51,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final horizontalPadding = isTablet ? screenWidth * 0.15 : 16.0;
 
     return AppShell(
-      title: 'المَلَفُّ الشَّخْصِيُّ',
+      title: AppStrings.profileTitle,
       currentRoute: AppRoutes.profile,
       body: BlocConsumer<ProfileCubit, ProfileState>(
         listener: (context, state) {
@@ -69,9 +70,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text('تَعَذَّرَ تَحْمِيلُ المَلَفِّ'),
+                  const Text(AppStrings.failedToLoadProfile),
                   const SizedBox(height: 16),
-                  ElevatedButton(onPressed: () => context.read<ProfileCubit>().loadProfile(), child: const Text('إِعَادَةُ المُحَاوَلَةِ')),
+                  ElevatedButton(onPressed: () => context.read<ProfileCubit>().loadProfile(), child: const Text(AppStrings.retry)),
                 ],
               ),
             );
@@ -132,17 +133,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Column(
         children: [
-          _buildInfoTile('الاسْمُ الأَوَّلُ', user.firstName, 'first_name', colors),
+          _buildInfoTile(AppStrings.firstName, user.firstName, 'first_name', colors),
           _buildDivider(colors),
-          _buildInfoTile('اسْمُ العَائِلَةِ', user.lastName, 'last_name', colors),
+          _buildInfoTile(AppStrings.lastName, user.lastName, 'last_name', colors),
           _buildDivider(colors),
-          _buildInfoTile('اسْمُ المُسْتَخْدِمِ', user.username, 'username', colors),
+          _buildInfoTile(AppStrings.username, user.username, 'username', colors),
           _buildDivider(colors),
-          _buildInfoTile('البَرِيدُ الإِلِكْتْرُونِيُّ', user.email, 'email', colors),
+          _buildInfoTile(AppStrings.email, user.email, 'email', colors),
           _buildDivider(colors),
-          _buildInfoTile('رَقْمُ الهَاتِفِ', user.phone ?? '—', 'phone', colors),
+          _buildInfoTile(AppStrings.phone, user.phone ?? '—', 'phone', colors),
           _buildDivider(colors),
-          _buildInfoTile('العُنْوَانُ', user.address ?? '—', 'address', colors),
+          _buildInfoTile(AppStrings.address, user.address ?? '—', 'address', colors),
         ],
       ),
     );
@@ -170,7 +171,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: ElevatedButton.icon(
             onPressed: () => Navigator.pushNamed(context, AppRoutes.changePassword),
             icon: const Icon(Icons.lock_outline_rounded),
-            label: const Text('تَغْيِيرُ كَلِمَةِ السِّرِّ'),
+            label: const Text(AppStrings.changePassword),
             style: ElevatedButton.styleFrom(
               backgroundColor: colors.surface,
               foregroundColor: colors.textPrimary,
@@ -190,11 +191,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
               final confirmed = await showDialog<bool>(
                 context: context,
                 builder: (ctx) => AlertDialog(
-                  title: const Text('حَذْفُ الحِسَابِ'),
-                  content: const Text('هَلْ أَنْتَ مُتَأَكِّدٌ مِنْ حَذْفِ حِسَابِكَ؟ هَذَا الإِجْرَاءُ نِهَائِيٌّ وَلا يُمْكِنُ التَّرَاجُعُ عَنْهُ.'),
+                  title: const Text(AppStrings.deleteAccount),
+                  content: const Text(AppStrings.deleteAccountConfirm),
                   actions: [
-                    TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('إِلْغَاءُ')),
-                    ElevatedButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('تَأْكِيدُ الحَذْفِ')),
+                    TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text(AppStrings.cancel)),
+                    ElevatedButton(onPressed: () => Navigator.pop(ctx, true), child: const Text(AppStrings.confirmDeletion)),
                   ],
                 ),
               );
@@ -203,7 +204,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               }
             },
             icon: const Icon(Icons.delete_forever_rounded),
-            label: const Text('حَذْفُ الحِسَابِ'),
+            label: const Text(AppStrings.deleteAccount),
             style: ElevatedButton.styleFrom(
               backgroundColor: colors.error.withValues(alpha: 0.1),
               foregroundColor: colors.error,

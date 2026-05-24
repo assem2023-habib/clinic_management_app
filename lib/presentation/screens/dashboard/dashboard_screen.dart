@@ -57,19 +57,19 @@ class DashboardScreen extends StatelessWidget {
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: colors.cardBg,
-        title: Text('تَأْكِيدُ الخُرُوجِ', style: TextStyle(color: colors.textPrimary)),
-        content: Text('هَلْ تُرِيدُ الخُرُوجَ مِنَ التَّطْبِيقِ؟', style: TextStyle(color: colors.textSecondary)),
+        title: Text(AppStrings.confirmExit, style: TextStyle(color: colors.textPrimary)),
+        content: Text(AppStrings.confirmExitMessage, style: TextStyle(color: colors.textSecondary)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: Text('إِلْغَاءُ', style: TextStyle(color: colors.primary)),
+            child: Text(AppStrings.cancel, style: TextStyle(color: colors.primary)),
           ),
           TextButton(
             onPressed: () {
               Navigator.pop(ctx);
               SystemNavigator.pop();
             },
-            child: Text('خُرُوجُ', style: TextStyle(color: colors.error)),
+            child: Text(AppStrings.exit, style: TextStyle(color: colors.error)),
           ),
         ],
       ),

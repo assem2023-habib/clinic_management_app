@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/medical_record_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/medical_record/medical_record_bloc.dart';
 import 'package:clinic_management_app/presentation/widgets/animated_card.dart';
@@ -30,7 +31,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
         }
         if (state is MedicalRecordLoaded) {
           if (state.records.isEmpty) {
-            return Center(child: Text('لا تُوجَدُ سِجِلَّاتٌ', style: TextStyle(color: colors.textSecondary)));
+            return Center(child: Text(AppStrings.noRecords, style: TextStyle(color: colors.textSecondary)));
           }
           return ListView.separated(
             padding: const EdgeInsets.all(16),
@@ -45,7 +46,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
         if (state is MedicalRecordError) {
           return Center(child: Text(state.message, style: TextStyle(color: colors.error)));
         }
-        return Center(child: Text('لا تُوجَدُ سِجِلَّاتٌ', style: TextStyle(color: colors.textSecondary)));
+        return Center(child: Text(AppStrings.noRecords, style: TextStyle(color: colors.textSecondary)));
       },
     );
   }
@@ -62,12 +63,12 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildInfoRow('التَّشْخِيصُ', record.diagnosis, colors),
+                _buildInfoRow(AppStrings.diagnosis, record.diagnosis, colors),
                 const SizedBox(height: 12),
-                _buildInfoRow('الوَصْفَةُ', record.prescription, colors),
+                _buildInfoRow(AppStrings.prescription, record.prescription, colors),
                 if (record.notes != null) ...[
                   const SizedBox(height: 12),
-                  _buildInfoRow('مُلَاحَظَاتٌ', record.notes!, colors),
+                  _buildInfoRow(AppStrings.notesLabel, record.notes!, colors),
                 ],
               ],
             ),

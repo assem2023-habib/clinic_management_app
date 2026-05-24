@@ -21,7 +21,7 @@ class RecentAppointments extends StatelessWidget {
         if (state is AppointmentLoaded) {
           final recent = state.appointments.take(limit).toList();
           if (recent.isEmpty) {
-            return Center(child: Text('لا تُوجَدُ مَوَاعِيدُ', style: TextStyle(color: colors.textSecondary)));
+            return Center(child: Text(AppStrings.noAppointments, style: TextStyle(color: colors.textSecondary)));
           }
           return ListView.separated(
             shrinkWrap: true,
@@ -44,7 +44,7 @@ class RecentAppointments extends StatelessWidget {
             },
           );
         }
-        return Center(child: Text('لا تُوجَدُ مَوَاعِيدُ', style: TextStyle(color: colors.textSecondary)));
+        return Center(child: Text(AppStrings.noAppointments, style: TextStyle(color: colors.textSecondary)));
       },
     );
   }

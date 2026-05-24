@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
 import 'package:clinic_management_app/domain/repositories/appointment_repository.dart';
 import 'package:clinic_management_app/domain/repositories/doctor_repository.dart';
@@ -8,6 +9,8 @@ import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/user_booking/user_booking_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/user_booking/user_booking_event.dart';
 import 'package:clinic_management_app/presentation/blocs/user_booking/user_booking_state.dart';
+import 'package:clinic_management_app/presentation/screens/appointment_confirmation/confirmation_data.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/screens/user_booking/widgets/date_selection_bar.dart';
 import 'package:clinic_management_app/presentation/screens/user_booking/widgets/doctor_booking_card.dart';
 import 'package:clinic_management_app/presentation/screens/user_booking/widgets/time_slot_grid.dart';
@@ -33,7 +36,7 @@ class UserBookingScreen extends StatelessWidget {
             icon: const Icon(Icons.arrow_forward_rounded),
             onPressed: () => Navigator.pop(context),
           ),
-          title: const Text('جدول المواعيد'),
+          title: const Text(AppStrings.bookingTitle),
         ),
         body: role != UserRole.patient
             ? Center(
@@ -42,36 +45,22 @@ class UserBookingScreen extends StatelessWidget {
                   children: [
                     Icon(Icons.lock_outline_rounded, size: 64, color: AppColors.of(context).textLight),
                     const SizedBox(height: 16),
-                    Text('هذه الميزة متاحة للمرضى فقط', style: TextStyle(color: AppColors.of(context).textSecondary)),
+                    Text(AppStrings.bookingPatientOnly, style: TextStyle(color: AppColors.of(context).textSecondary)),
                   ],
                 ),
               )
             : BlocConsumer<UserBookingBloc, UserBookingState>(
                 listener: (context, state) {
                   if (state is UserBookingConfirmed) {
-                    showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (ctx) => AlertDialog(
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(Icons.check_circle_outline_rounded, size: 64, color: AppColors.of(context).success),
-                            const SizedBox(height: 16),
-                            const Text('تم تأكيد الحجز بنجاح', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
-                            const SizedBox(height: 4),
-                            Text('رقم الحجز: ${state.appointmentId}', style: TextStyle(color: AppColors.of(context).textSecondary)),
-                          ],
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(ctx);
-                              Navigator.pop(context);
-                            },
-                            child: const Text('تم'),
-                          ),
-                        ],
+                    Navigator.pushNamed(
+                      context,
+                      AppRoutes.appointmentConfirmation,
+                      arguments: ConfirmationData(
+                        appointmentId: state.appointmentId,
+                        doctor: state.doctor,
+                        date: state.date,
+                        timeSlot: state.timeSlot,
+                        patientName: state.patientName,
                       ),
                     );
                   }
@@ -130,7 +119,9 @@ class UserBookingScreen extends StatelessWidget {
                               if (selectedSlot != null) {
                                 context.read<UserBookingBloc>().add(UserBookingConfirm(
                                   patientId: patientId,
+                                  patientName: context.read<AuthCubit>().state.userName ?? AppStrings.bookingDefaultPatientName,
                                   doctorId: doctorId,
+                                  doctorEntity: state.doctor,
                                   date: state.selectedDate,
                                   timeSlot: selectedSlot.time,
                                 ));

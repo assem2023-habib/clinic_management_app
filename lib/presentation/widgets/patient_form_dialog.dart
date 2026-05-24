@@ -82,9 +82,9 @@ class _PatientFormDialogState extends State<PatientFormDialog> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              TextFormField(controller: _nameController, decoration: const InputDecoration(labelText: AppStrings.name), validator: (v) => v!.isEmpty ? 'مَطْلُوبٌ' : null),
+              TextFormField(controller: _nameController, decoration: const InputDecoration(labelText: AppStrings.name), validator: (v) => v!.isEmpty ? AppStrings.required : null),
               const SizedBox(height: 12),
-              TextFormField(controller: _ageController, decoration: const InputDecoration(labelText: 'Age'), keyboardType: TextInputType.number, validator: (v) => v!.isEmpty ? 'مَطْلُوبٌ' : null),
+              TextFormField(controller: _ageController, decoration: const InputDecoration(labelText: 'Age'), keyboardType: TextInputType.number, validator: (v) => v!.isEmpty ? AppStrings.required : null),
               const SizedBox(height: 12),
               DropdownButtonFormField<Gender>(
                 initialValue: _gender,
@@ -93,11 +93,11 @@ class _PatientFormDialogState extends State<PatientFormDialog> {
                 onChanged: (v) => setState(() => _gender = v!),
               ),
               const SizedBox(height: 12),
-              TextFormField(controller: _phoneController, decoration: const InputDecoration(labelText: AppStrings.phone), keyboardType: TextInputType.phone, validator: (v) => v!.isEmpty ? 'مَطْلُوبٌ' : null),
+              TextFormField(controller: _phoneController, decoration: const InputDecoration(labelText: AppStrings.phone), keyboardType: TextInputType.phone, validator: (v) => v!.isEmpty ? AppStrings.required : null),
               const SizedBox(height: 12),
-              TextFormField(controller: _emailController, decoration: const InputDecoration(labelText: AppStrings.email), keyboardType: TextInputType.emailAddress, validator: (v) => v!.isEmpty ? 'مَطْلُوبٌ' : null),
+              TextFormField(controller: _emailController, decoration: const InputDecoration(labelText: AppStrings.email), keyboardType: TextInputType.emailAddress, validator: (v) => v!.isEmpty ? AppStrings.required : null),
               const SizedBox(height: 12),
-              TextFormField(controller: _addressController, decoration: const InputDecoration(labelText: AppStrings.address), validator: (v) => v!.isEmpty ? 'مَطْلُوبٌ' : null),
+              TextFormField(controller: _addressController, decoration: const InputDecoration(labelText: AppStrings.address), validator: (v) => v!.isEmpty ? AppStrings.required : null),
               const SizedBox(height: 12),
               TextFormField(controller: _bloodTypeController, decoration: const InputDecoration(labelText: 'Blood Type')),
             ],

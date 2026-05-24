@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/doctor_profile_entity.dart';
 import 'package:clinic_management_app/presentation/widgets/doctor_profile/profile_header.dart';
 import 'package:clinic_management_app/presentation/widgets/doctor_profile/profile_stats_grid.dart';
@@ -40,7 +41,7 @@ class AdminDoctorProfileView extends StatelessWidget {
                 child: OutlinedButton.icon(
                   onPressed: onEditProfile,
                   icon: Icon(Icons.edit_rounded, size: 18, color: colors.primary),
-                  label: Text('تعديل الملف', style: TextStyle(color: colors.primary)),
+                  label: Text(AppStrings.editProfile, style: TextStyle(color: colors.primary)),
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -53,7 +54,7 @@ class AdminDoctorProfileView extends StatelessWidget {
                 child: OutlinedButton.icon(
                   onPressed: onDeleteDoctor,
                   icon: Icon(Icons.delete_rounded, size: 18, color: colors.error),
-                  label: Text('حذف الطبيب', style: TextStyle(color: colors.error)),
+                  label: Text(AppStrings.deleteDoctor, style: TextStyle(color: colors.error)),
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

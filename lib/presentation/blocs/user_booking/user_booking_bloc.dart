@@ -4,6 +4,7 @@ import 'package:clinic_management_app/domain/repositories/doctor_repository.dart
 import 'package:clinic_management_app/domain/repositories/appointment_repository.dart';
 import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/user_booking/user_booking_event.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/user_booking/user_booking_state.dart';
 
 class UserBookingBloc extends Bloc<UserBookingEvent, UserBookingState> {
@@ -25,7 +26,7 @@ class UserBookingBloc extends Bloc<UserBookingEvent, UserBookingState> {
     try {
       final doctor = await doctorRepository.getDoctorById(event.doctorId);
       if (doctor == null) {
-        emit(const UserBookingError('الطبيب غير موجود'));
+        emit(const UserBookingError(AppStrings.bookingDoctorNotFound));
         return;
       }
       final now = DateTime.now();
@@ -72,7 +73,13 @@ class UserBookingBloc extends Bloc<UserBookingEvent, UserBookingState> {
         status: AppointmentStatus.scheduled,
         notes: event.notes,
       ));
-      emit(UserBookingConfirmed(id));
+      emit(UserBookingConfirmed(
+        appointmentId: id,
+        doctor: event.doctorEntity,
+        patientName: event.patientName,
+        date: event.date,
+        timeSlot: event.timeSlot,
+      ));
     } catch (e) {
       emit(UserBookingError(e.toString()));
     }

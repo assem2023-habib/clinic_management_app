@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
 import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
@@ -19,7 +20,7 @@ class _MedicalRecordsScreenState extends State<MedicalRecordsScreen> {
   Widget build(BuildContext context) {
     final role = context.watch<AuthCubit>().state.role;
     return AppShell(
-      title: 'السِّجِلَّاتُ الطِّبِّيَّةُ',
+      title: AppStrings.medicalRecordsTitle,
       currentRoute: AppRoutes.medicalRecords,
       body: switch (role) {
         UserRole.doctor || UserRole.admin || UserRole.receptionist => const DoctorRecordsView(),

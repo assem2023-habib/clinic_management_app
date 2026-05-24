@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
 import 'package:clinic_management_app/core/utils/helpers.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
@@ -36,7 +37,7 @@ class DoctorProfileScreen extends StatelessWidget {
             return AppShell(
               currentRoute: AppRoutes.doctorProfile,
               showBackButton: true,
-              title: 'ملف الطبيب',
+              title: AppStrings.doctorProfile,
               body: const Center(child: CircularProgressIndicator()),
             );
           }
@@ -45,7 +46,7 @@ class DoctorProfileScreen extends StatelessWidget {
             return AppShell(
               currentRoute: AppRoutes.doctorProfile,
               showBackButton: true,
-              title: 'ملف الطبيب',
+              title: AppStrings.doctorProfile,
               body: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

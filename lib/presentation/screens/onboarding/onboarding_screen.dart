@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/screens/onboarding/onboarding_data.dart';
 import 'package:clinic_management_app/presentation/blocs/onboarding/onboarding_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/onboarding/onboarding_state.dart';
@@ -83,14 +84,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               Navigator.pushReplacementNamed(context, AppRoutes.roleSelection);
             },
             child: Text(
-              'عودة',
+              AppStrings.back,
               style: TextStyle(color: colors.textSecondary, fontSize: 14),
             ),
           ),
           TextButton(
             onPressed: () => _completeOnboarding(context),
             child: Text(
-              'تخط', 
+              AppStrings.skip, 
               style: TextStyle(color: colors.textSecondary, fontSize: 14),
             ),
           ),
@@ -138,12 +139,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     Icon(Icons.check_circle_rounded, color: colors.primaryLight),
                     const SizedBox(width: 10),
                     Text(
-                      'الدُّخُولِ إِلَى التَّطْبِيقِ',
+                      AppStrings.enterApp,
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colors.primaryLight),
                     ),
                   ] else ...[
                     Text(
-                      'تَابِع',
+                      AppStrings.next,
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colors.primaryLight),
                     ),
                     const SizedBox(width: 10),
@@ -161,7 +162,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               });
             },
             child: Text(
-              'لَدَيْكَ حِسَابٌ بِالفِعْلِ؟ تَسْجِيلُ الدُّخُولِ',
+              AppStrings.haveAccountLogin,
               style: TextStyle(
                 color: colors.primary,
                 fontSize: 14,

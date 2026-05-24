@@ -93,7 +93,7 @@ class _AdminPatientsViewState extends State<AdminPatientsView> {
     showDeleteDialog(context).then((confirmed) {
       if (confirmed == true) {
         context.read<PatientBloc>().add(PatientDelete(id));
-        showSnackBar(context, 'تَمَّ حَذْفُ المَرِيضِ بِنَجَاحٍ');
+        showSnackBar(context, AppStrings.patientDeleted);
       }
     });
   }

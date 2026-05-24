@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/widgets/dashboard/action_button.dart';
 import 'package:clinic_management_app/presentation/widgets/dashboard/dashboard_greeting.dart';
 import 'package:clinic_management_app/presentation/widgets/dashboard/recent_appointments.dart';
@@ -29,10 +30,10 @@ class PatientDashboardView extends StatelessWidget {
               mainAxisSpacing: 12,
               childAspectRatio: 1.5,
               children: [
-                StatCard(title: 'مَوَاعِيدُ قَادِمَةٌ', icon: Icons.event, color: colors.primary),
-                StatCard(title: 'زِيَارَاتٌ سَابِقَةٌ', icon: Icons.history, color: colors.secondary),
-                StatCard(title: 'سِجِلَّاتٌ طِبِّيَّةٌ', icon: Icons.folder, color: colors.accent),
-                StatCard(title: 'فَوَاتِيرُ', icon: Icons.receipt, color: colors.primaryDark),
+                StatCard(title: AppStrings.upcomingAppts, icon: Icons.event, color: colors.primary),
+                StatCard(title: AppStrings.previousVisits, icon: Icons.history, color: colors.secondary),
+                StatCard(title: AppStrings.medicalRecords, icon: Icons.folder, color: colors.accent),
+                StatCard(title: AppStrings.invoices, icon: Icons.receipt, color: colors.primaryDark),
               ],
             ),
           ),
@@ -42,18 +43,18 @@ class PatientDashboardView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('إِجْرَاءَاتٌ سَرِيعَةٌ', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+                Text(AppStrings.quickActions, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
                 const SizedBox(height: 12),
                 Row(children: [
-                  Expanded(child: ActionButton(icon: Icons.calendar_month, label: 'مَوَاعِيدِي', color: colors.primary, onPressed: () => Navigator.pushNamed(context, AppRoutes.appointments))),
+                  Expanded(child: ActionButton(icon: Icons.calendar_month, label: AppStrings.myAppointments, color: colors.primary, onPressed: () => Navigator.pushNamed(context, AppRoutes.appointments))),
                   const SizedBox(width: 12),
-                  Expanded(child: ActionButton(icon: Icons.folder, label: 'سِجِلَّاتِي', color: colors.secondary, onPressed: () => Navigator.pushNamed(context, AppRoutes.medicalRecords))),
+                  Expanded(child: ActionButton(icon: Icons.folder, label: AppStrings.myRecords, color: colors.secondary, onPressed: () => Navigator.pushNamed(context, AppRoutes.medicalRecords))),
                 ]),
                 const SizedBox(height: 12),
                 Row(children: [
-                  Expanded(child: ActionButton(icon: Icons.person, label: 'مَلَفِّي', color: colors.accent, onPressed: () => Navigator.pushNamed(context, AppRoutes.profile))),
+                  Expanded(child: ActionButton(icon: Icons.person, label: AppStrings.myFile, color: colors.accent, onPressed: () => Navigator.pushNamed(context, AppRoutes.profile))),
                   const SizedBox(width: 12),
-                  Expanded(child: ActionButton(icon: Icons.settings, label: 'الإِعْدَادَاتُ', color: colors.primaryDark, onPressed: () => Navigator.pushNamed(context, AppRoutes.settings))),
+                  Expanded(child: ActionButton(icon: Icons.settings, label: AppStrings.settings, color: colors.primaryDark, onPressed: () => Navigator.pushNamed(context, AppRoutes.settings))),
                 ]),
               ],
             ),
@@ -64,7 +65,7 @@ class PatientDashboardView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('آخِرُ المَوَاعِيدِ', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+                Text(AppStrings.latestAppointments, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
                 const SizedBox(height: 12),
                 const RecentAppointments(),
               ],

@@ -3,13 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
+import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_state.dart';
 import 'package:clinic_management_app/presentation/blocs/patient/patient_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/patient/patient_state.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_event.dart';
-import 'package:clinic_management_app/core/utils/helpers.dart';
+import 'package:clinic_management_app/presentation/screens/appointment_confirmation/confirmation_data.dart';
 
 class AppointmentFormDialog extends StatefulWidget {
   const AppointmentFormDialog({super.key});
@@ -37,12 +38,11 @@ class _AppointmentFormDialogState extends State<AppointmentFormDialog> {
       final doctorState = context.read<DoctorBloc>().state;
       final patientState = context.read<PatientBloc>().state;
 
-      String doctorName = '';
+      DoctorEntity? doctor;
       String patientName = '';
 
       if (doctorState is DoctorLoaded) {
-        final doc = doctorState.doctors.firstWhere((d) => d.id == _selectedDoctorId);
-        doctorName = doc.name;
+        doctor = doctorState.doctors.firstWhere((d) => d.id == _selectedDoctorId);
       }
       if (patientState is PatientLoaded && _selectedPatientId != null) {
         final pat = patientState.patients.firstWhere((p) => p.id == _selectedPatientId);
@@ -55,7 +55,7 @@ class _AppointmentFormDialogState extends State<AppointmentFormDialog> {
         patientId: _selectedPatientId!,
         patientName: patientName,
         doctorId: _selectedDoctorId!,
-        doctorName: doctorName,
+        doctorName: doctor?.name ?? '',
         date: DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day, int.parse(timeParts[0]), int.parse(timeParts[1])),
         timeSlot: '${_selectedTime} - ${int.parse(timeParts[0])}:${(int.parse(timeParts[1]) + 30) % 60}',
         status: AppointmentStatus.scheduled,
@@ -63,8 +63,17 @@ class _AppointmentFormDialogState extends State<AppointmentFormDialog> {
       );
 
       context.read<AppointmentBloc>().add(AppointmentAdd(appointment));
-      showSnackBar(context, 'Appointment added');
-      Navigator.pop(context);
+
+      final confirmationData = ConfirmationData(
+        appointmentId: appointment.id,
+        doctor: doctor!,
+        date: _selectedDate,
+        timeSlot: '${_selectedTime} - ${int.parse(timeParts[0])}:${(int.parse(timeParts[1]) + 30) % 60}',
+        patientName: patientName,
+        notes: _notesController.text.trim().isEmpty ? null : _notesController.text.trim(),
+      );
+
+      Navigator.pop(context, confirmationData);
     }
   }
 
@@ -83,10 +92,10 @@ class _AppointmentFormDialogState extends State<AppointmentFormDialog> {
                   if (state is DoctorLoaded) {
                     return DropdownButtonFormField<String>(
                       initialValue: _selectedDoctorId,
-                      decoration: const InputDecoration(labelText: 'Doctor'),
+                      decoration: const InputDecoration(labelText: AppStrings.doctors),
                       items: state.doctors.map((d) => DropdownMenuItem(value: d.id, child: Text(d.name))).toList(),
                       onChanged: (v) => setState(() => _selectedDoctorId = v),
-                      validator: (v) => v == null ? 'Required' : null,
+                      validator: (v) => v == null ? AppStrings.required : null,
                     );
                   }
                   return const SizedBox.shrink();
@@ -98,10 +107,10 @@ class _AppointmentFormDialogState extends State<AppointmentFormDialog> {
                   if (state is PatientLoaded) {
                     return DropdownButtonFormField<String>(
                       initialValue: _selectedPatientId,
-                      decoration: const InputDecoration(labelText: 'Patient'),
+                      decoration: const InputDecoration(labelText: AppStrings.patients),
                       items: state.patients.map((p) => DropdownMenuItem(value: p.id, child: Text(p.name))).toList(),
                       onChanged: (v) => setState(() => _selectedPatientId = v),
-                      validator: (v) => v == null ? 'Required' : null,
+                      validator: (v) => v == null ? AppStrings.required : null,
                     );
                   }
                   return const SizedBox.shrink();
@@ -110,7 +119,7 @@ class _AppointmentFormDialogState extends State<AppointmentFormDialog> {
               const SizedBox(height: 12),
               TextFormField(
                 readOnly: true,
-                decoration: const InputDecoration(labelText: 'Date', suffixIcon: Icon(Icons.calendar_today)),
+                decoration: const InputDecoration(labelText: AppStrings.date, suffixIcon: Icon(Icons.calendar_today)),
                 controller: TextEditingController(text: DateFormat('yyyy-MM-dd').format(_selectedDate)),
                 onTap: () async {
                   final date = await showDatePicker(context: context, initialDate: _selectedDate, firstDate: DateTime.now(), lastDate: DateTime.now().add(const Duration(days: 365)));
@@ -120,14 +129,14 @@ class _AppointmentFormDialogState extends State<AppointmentFormDialog> {
               const SizedBox(height: 12),
               DropdownButtonFormField<String>(
                 initialValue: _selectedTime,
-                decoration: const InputDecoration(labelText: 'Time'),
+                decoration: const InputDecoration(labelText: AppStrings.time),
                 items: ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30']
                     .map((t) => DropdownMenuItem(value: t, child: Text(t)))
                     .toList(),
                 onChanged: (v) => setState(() => _selectedTime = v!),
               ),
               const SizedBox(height: 12),
-              TextFormField(controller: _notesController, decoration: const InputDecoration(labelText: 'Notes'), maxLines: 2),
+              TextFormField(controller: _notesController, decoration: const InputDecoration(labelText: AppStrings.notesLabel), maxLines: 2),
             ],
           ),
         ),
