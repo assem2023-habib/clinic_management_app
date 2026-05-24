@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/domain/entities/doctor_profile_entity.dart';
 import 'package:clinic_management_app/presentation/widgets/doctor_profile/profile_header.dart';
 import 'package:clinic_management_app/presentation/widgets/doctor_profile/profile_stats_grid.dart';
@@ -10,11 +11,17 @@ import 'package:clinic_management_app/presentation/widgets/doctor_profile/profil
 
 class PatientDoctorProfileView extends StatelessWidget {
   final DoctorProfileEntity profile;
+  final VoidCallback? onBookAppointment;
 
-  const PatientDoctorProfileView({super.key, required this.profile});
+  const PatientDoctorProfileView({
+    super.key,
+    required this.profile,
+    this.onBookAppointment,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     final doctor = profile.doctor;
 
     return SingleChildScrollView(
@@ -42,6 +49,21 @@ class PatientDoctorProfileView extends StatelessWidget {
             totalReviews: doctor.reviewsCount,
             canAddReview: true,
             onAddReview: () => _showReviewDialog(context),
+          ),
+          const SizedBox(height: 24),
+          SizedBox(
+            width: double.infinity,
+            height: 52,
+            child: ElevatedButton.icon(
+              onPressed: onBookAppointment,
+              icon: const Icon(Icons.event_available_rounded, size: 22),
+              label: const Text('حجز موعد', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: colors.primary,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              ),
+            ),
           ),
           const SizedBox(height: 100),
         ],

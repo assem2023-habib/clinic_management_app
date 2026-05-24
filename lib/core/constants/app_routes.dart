@@ -15,4 +15,5 @@ class AppRoutes {
   static const changePassword = '/change-password';
   static const deleteAccount = '/delete-account';
   static const doctorProfile = '/doctor-profile';
+  static const userBooking = '/user-booking';
 }

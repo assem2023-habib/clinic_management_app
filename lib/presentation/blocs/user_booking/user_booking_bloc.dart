@@ -1,0 +1,85 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:uuid/uuid.dart';
+import 'package:clinic_management_app/domain/repositories/doctor_repository.dart';
+import 'package:clinic_management_app/domain/repositories/appointment_repository.dart';
+import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
+import 'package:clinic_management_app/presentation/blocs/user_booking/user_booking_event.dart';
+import 'package:clinic_management_app/presentation/blocs/user_booking/user_booking_state.dart';
+
+class UserBookingBloc extends Bloc<UserBookingEvent, UserBookingState> {
+  final DoctorRepository doctorRepository;
+  final AppointmentRepository appointmentRepository;
+
+  UserBookingBloc({
+    required this.doctorRepository,
+    required this.appointmentRepository,
+  }) : super(UserBookingInitial()) {
+    on<UserBookingLoad>(_onLoad);
+    on<UserBookingSelectDate>(_onSelectDate);
+    on<UserBookingSelectSlot>(_onSelectSlot);
+    on<UserBookingConfirm>(_onConfirm);
+  }
+
+  Future<void> _onLoad(UserBookingLoad event, Emitter<UserBookingState> emit) async {
+    emit(UserBookingLoading());
+    try {
+      final doctor = await doctorRepository.getDoctorById(event.doctorId);
+      if (doctor == null) {
+        emit(const UserBookingError('الطبيب غير موجود'));
+        return;
+      }
+      final now = DateTime.now();
+      final slots = await doctorRepository.getDoctorSlots(
+        event.doctorId,
+        DateTime(now.year, now.month),
+      );
+      final dates = _generateAvailableDates();
+      emit(UserBookingLoaded(
+        doctor: doctor,
+        allSlots: slots,
+        selectedDate: now,
+        availableDates: dates,
+      ));
+    } catch (e) {
+      emit(UserBookingError(e.toString()));
+    }
+  }
+
+  Future<void> _onSelectDate(UserBookingSelectDate event, Emitter<UserBookingState> emit) async {
+    final current = state;
+    if (current is! UserBookingLoaded) return;
+    emit(current.copyWith(selectedDate: event.date, selectedSlotId: null));
+  }
+
+  void _onSelectSlot(UserBookingSelectSlot event, Emitter<UserBookingState> emit) {
+    final current = state;
+    if (current is! UserBookingLoaded) return;
+    emit(current.copyWith(selectedSlotId: event.slotId));
+  }
+
+  Future<void> _onConfirm(UserBookingConfirm event, Emitter<UserBookingState> emit) async {
+    emit(UserBookingBooking());
+    try {
+      final id = const Uuid().v4();
+      await appointmentRepository.addAppointment(AppointmentEntity(
+        id: id,
+        patientId: event.patientId,
+        patientName: '',
+        doctorId: event.doctorId,
+        doctorName: '',
+        date: event.date,
+        timeSlot: event.timeSlot,
+        status: AppointmentStatus.scheduled,
+        notes: event.notes,
+      ));
+      emit(UserBookingConfirmed(id));
+    } catch (e) {
+      emit(UserBookingError(e.toString()));
+    }
+  }
+
+  List<DateTime> _generateAvailableDates() {
+    final now = DateTime.now();
+    return List.generate(7, (i) => DateTime(now.year, now.month, now.day + i));
+  }
+}
