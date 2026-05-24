@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/rating/rating_event.dart';
 
 class RatingFilterBar extends StatelessWidget {
@@ -14,10 +15,10 @@ class RatingFilterBar extends StatelessWidget {
   });
 
   static const _filters = [
-    (filter: RatingFilter.newest, label: 'الأحدث'),
-    (filter: RatingFilter.highest, label: 'الأعلى تقييماً'),
-    (filter: RatingFilter.withPhotos, label: 'مع صور'),
-    (filter: RatingFilter.lowest, label: 'الأقل تقييماً'),
+    (filter: RatingFilter.newest, label: AppStrings.filterNewest),
+    (filter: RatingFilter.highest, label: AppStrings.filterHighest),
+    (filter: RatingFilter.withPhotos, label: AppStrings.filterWithPhotos),
+    (filter: RatingFilter.lowest, label: AppStrings.filterLowest),
   ];
 
   @override

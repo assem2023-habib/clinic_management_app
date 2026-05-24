@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/rating/rating_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/rating/rating_event.dart';
 import 'package:clinic_management_app/presentation/blocs/rating/rating_state.dart';
@@ -52,7 +53,7 @@ class _RatingScreenState extends State<RatingScreen> {
           icon: const Icon(Icons.arrow_forward_rounded),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text('التقييمات'),
+        title: Text(AppStrings.ratingsTitle),
         actions: [
           IconButton(icon: Icon(Icons.search_rounded, color: colors.textSecondary), onPressed: () {}),
           Padding(
@@ -113,7 +114,7 @@ class _RatingScreenState extends State<RatingScreen> {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: AppSpacing.xxl),
                           child: Center(
-                            child: Text('لا توجد مراجعات', style: TextStyle(color: colors.textSecondary)),
+                            child: Text(AppStrings.noReviews, style: TextStyle(color: colors.textSecondary)),
                           ),
                         ),
                       ...state.displayedReviews.map((review) => Padding(
@@ -124,7 +125,7 @@ class _RatingScreenState extends State<RatingScreen> {
                           onToggleLike: () => context.read<RatingBloc>().add(RatingToggleLike(review.id)),
                           onFlag: () {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('تم الإبلاغ عن هذه المراجعة')),
+                              SnackBar(content: Text(AppStrings.reviewReported)),
                             );
                           },
                         ),
@@ -138,7 +139,7 @@ class _RatingScreenState extends State<RatingScreen> {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
                           child: Center(
-                            child: Text('لا توجد مراجعات إضافية', style: TextStyle(color: colors.textSecondary, fontSize: 13)),
+                            child: Text(AppStrings.noMoreReviews, style: TextStyle(color: colors.textSecondary, fontSize: 13)),
                           ),
                         ),
                       if (state.hasMore && !state.isLoadingMore)
@@ -151,7 +152,7 @@ class _RatingScreenState extends State<RatingScreen> {
                               padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl, vertical: AppSpacing.sm),
                             ),
                             child: Text(
-                              'تحميل المزيد من المراجعات',
+                              AppStrings.loadMoreReviews,
                               style: TextStyle(color: colors.primary, fontSize: 14, fontWeight: FontWeight.w600),
                             ),
                           ),

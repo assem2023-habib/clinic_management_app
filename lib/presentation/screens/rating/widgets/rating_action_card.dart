@@ -37,7 +37,7 @@ class RatingActionCard extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            'رأيك يساعدنا في تحسين خدماتنا الصحية',
+            AppStrings.reviewPrompt,
             style: TextStyle(fontSize: 12, color: Colors.white.withValues(alpha: 0.8)),
             textAlign: TextAlign.center,
           ),
