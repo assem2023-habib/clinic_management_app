@@ -91,7 +91,14 @@ class DoctorProfileScreen extends StatelessWidget {
                 onToggleSlot: () {},
               );
             } else {
-              body = PatientDoctorProfileView(profile: profile);
+              body = PatientDoctorProfileView(
+                profile: profile,
+                onBookAppointment: () => Navigator.pushNamed(
+                  context,
+                  AppRoutes.userBooking,
+                  arguments: doctor.id,
+                ),
+              );
             }
 
             return AppShell(

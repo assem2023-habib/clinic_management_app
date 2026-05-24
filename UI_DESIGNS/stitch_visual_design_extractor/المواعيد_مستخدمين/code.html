@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="dark" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Deep Vitality - Appointment Schedule</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#0f301f",
+                        "surface-tint": "#80d8a6",
+                        "on-tertiary-fixed-variant": "#792e30",
+                        "surface-variant": "#1b3b29",
+                        "secondary-fixed-dim": "#37e187",
+                        "surface-dim": "#00180b",
+                        "on-primary-fixed-variant": "#005232",
+                        "tertiary-fixed-dim": "#ffb3b1",
+                        "on-secondary": "#00391c",
+                        "background": "#00180b",
+                        "on-tertiary": "#5c171b",
+                        "surface-container-lowest": "#001207",
+                        "outline": "#88938a",
+                        "error-container": "#93000a",
+                        "on-secondary-fixed": "#00210e",
+                        "on-background": "#c6ebd1",
+                        "primary": "#80d8a6",
+                        "inverse-surface": "#c6ebd1",
+                        "tertiary-fixed": "#ffdad8",
+                        "tertiary-container": "#984546",
+                        "on-surface": "#c6ebd1",
+                        "surface-container-highest": "#1b3b29",
+                        "surface-container-low": "#002111",
+                        "outline-variant": "#3f4942",
+                        "on-secondary-fixed-variant": "#00522b",
+                        "primary-fixed": "#9cf5c1",
+                        "on-error": "#690005",
+                        "primary-fixed-dim": "#80d8a6",
+                        "inverse-primary": "#006d44",
+                        "secondary-fixed": "#5dffa1",
+                        "on-primary-fixed": "#002111",
+                        "on-secondary-container": "#004e29",
+                        "surface-bright": "#1f402d",
+                        "on-tertiary-fixed": "#3f0209",
+                        "on-surface-variant": "#bec9bf",
+                        "on-primary": "#003921",
+                        "secondary-container": "#00ca73",
+                        "tertiary": "#ffb3b1",
+                        "on-error-container": "#ffdad6",
+                        "surface-container": "#032515",
+                        "surface": "#00180b",
+                        "on-tertiary-container": "#ffcdcc",
+                        "error": "#ffb4ab",
+                        "secondary": "#40e78c",
+                        "primary-container": "#006d44",
+                        "on-primary-container": "#93ecb8",
+                        "inverse-on-surface": "#163725"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "64px",
+                        "lg": "24px",
+                        "sm": "12px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "gutter": "16px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["manrope"],
+                        "body-md": ["manrope"],
+                        "label-sm": ["manrope"],
+                        "label-md": ["manrope"],
+                        "headline-md": ["manrope"],
+                        "display-lg": ["manrope"],
+                        "headline-lg": ["manrope"],
+                        "headline-lg-mobile": ["manrope"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #00180b;
+            font-family: 'Manrope', sans-serif;
+            color: #c6ebd1;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(3, 37, 21, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .date-item.active {
+            background-color: #006d44;
+            color: #ffffff;
+        }
+        .slot-booked {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="antialiased min-h-screen pb-32">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 bg-surface/70 backdrop-blur-xl shadow-sm">
+<button aria-label="Back" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-primary-container/20 transition-colors">
+<span class="material-symbols-outlined text-primary">arrow_forward</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">جدول المواعيد</h1>
+<div class="w-10"></div> <!-- Spacer for symmetry -->
+</header>
+<main class="pt-24 px-margin-mobile md:max-w-2xl md:mx-auto">
+<!-- Date Selection Section -->
+<section class="mb-xl">
+<div class="flex items-center justify-between mb-md">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">يونيو، ٢٠٢٦</h2>
+<button class="p-2 rounded-full glass-card text-primary">
+<span class="material-symbols-outlined">calendar_month</span>
+</button>
+</div>
+<div class="flex gap-sm overflow-x-auto pb-2 no-scrollbar">
+<!-- Date Cards -->
+<div class="flex flex-col items-center justify-center min-w-[56px] h-24 rounded-2xl glass-card transition-all cursor-pointer hover:border-primary/50 group">
+<span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-primary">الاثنين</span>
+<span class="font-headline-md text-headline-md mt-1">١١</span>
+</div>
+<div class="flex flex-col items-center justify-center min-w-[56px] h-24 rounded-2xl glass-card transition-all cursor-pointer hover:border-primary/50 group">
+<span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-primary">الثلاثاء</span>
+<span class="font-headline-md text-headline-md mt-1">١٢</span>
+</div>
+<div class="flex flex-col items-center justify-center min-w-[56px] h-24 rounded-2xl bg-primary-container text-on-primary-container shadow-lg shadow-primary-container/20 border border-primary">
+<span class="font-label-sm text-label-sm opacity-80">الأربعاء</span>
+<span class="font-headline-md text-headline-md mt-1">١٣</span>
+</div>
+<div class="flex flex-col items-center justify-center min-w-[56px] h-24 rounded-2xl glass-card transition-all cursor-pointer hover:border-primary/50 group">
+<span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-primary">الخميس</span>
+<span class="font-headline-md text-headline-md mt-1">١٤</span>
+</div>
+<div class="flex flex-col items-center justify-center min-w-[56px] h-24 rounded-2xl glass-card transition-all cursor-pointer hover:border-primary/50 group">
+<span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-primary">الجمعة</span>
+<span class="font-headline-md text-headline-md mt-1">١٥</span>
+</div>
+<div class="flex flex-col items-center justify-center min-w-[56px] h-24 rounded-2xl glass-card transition-all cursor-pointer hover:border-primary/50 group">
+<span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-primary">السبت</span>
+<span class="font-headline-md text-headline-md mt-1">١٦</span>
+</div>
+</div>
+</section>
+<!-- Doctor Profile Card -->
+<section class="mb-xl">
+<div class="glass-card rounded-2xl p-lg flex items-center gap-md">
+<div class="relative">
+<img alt="Doctor Profile" class="w-16 h-16 rounded-xl object-cover border border-white/10" data-alt="A professional portrait of a male Middle Eastern doctor with a warm, confident expression. He is wearing a white lab coat and a stethoscope around his neck. The background is a softly blurred modern medical clinic with hints of teal and deep green, creating a calm and trusted clinical atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdXhoj6HJdScOPh6VgLKZnom7ZGRNQZCW3lfx7Egs3y9nBN0nKSjFflQ_Qjge-gqJcL75P-Mg1Baa07tEwvoxmle4HxjZscuHxnizbDnGGOpMXk3mqbTtGoWo5yNxdGIscSCMJpdmVA1Jy_qfGSlw-R16np-F1xt8R3M4W3dqP9fA63hBn0vB7vV_E773uvI4aCMVJ6qj33pYZVZB0LZPl0kS4Xdq8RUgifcn1D3vy48pg-5MO8yoMFYhCKNGsY5EqyyTkYtfFIQM"/>
+<div class="absolute -bottom-1 -left-1 bg-secondary w-4 h-4 rounded-full border-2 border-surface"></div>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">د. سمير منصور</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">استشاري أمراض القلب</p>
+</div>
+<div class="mr-auto">
+<span class="material-symbols-outlined text-primary">verified</span>
+</div>
+</div>
+</section>
+<!-- Appointment Slots -->
+<div class="space-y-xl">
+<!-- Morning Slots -->
+<section>
+<div class="flex items-center gap-base mb-lg">
+<span class="material-symbols-outlined text-primary text-sm">light_mode</span>
+<h4 class="font-label-md text-label-md text-on-surface-variant tracking-wider">الفترة الصباحية</h4>
+</div>
+<div class="grid grid-cols-2 gap-md">
+<div class="glass-card rounded-xl p-md flex items-center justify-between border-primary/40 group cursor-pointer hover:bg-primary/10 transition-colors">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">schedule</span>
+<span class="font-label-md text-label-md">٠٩:٠٠ ص</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary">متاح</span>
+</div>
+<div class="bg-primary-container text-on-primary-container rounded-xl p-md flex items-center justify-between border border-primary shadow-lg shadow-primary-container/30">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-primary-container text-[20px]">schedule</span>
+<span class="font-label-md text-label-md">٠٩:٣٠ ص</span>
+</div>
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+</div>
+<div class="glass-card rounded-xl p-md flex items-center justify-between slot-booked">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+<span class="font-label-md text-label-md">١٠:٠٠ ص</span>
+</div>
+<span class="material-symbols-outlined text-[18px]">lock</span>
+</div>
+<div class="glass-card rounded-xl p-md flex items-center justify-between border-primary/40 cursor-pointer hover:bg-primary/10 transition-colors">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">schedule</span>
+<span class="font-label-md text-label-md">١٠:٣٠ ص</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary">متاح</span>
+</div>
+</div>
+</section>
+<!-- Evening Slots -->
+<section>
+<div class="flex items-center gap-base mb-lg">
+<span class="material-symbols-outlined text-primary text-sm">dark_mode</span>
+<h4 class="font-label-md text-label-md text-on-surface-variant tracking-wider">الفترة المسائية</h4>
+</div>
+<div class="grid grid-cols-2 gap-md">
+<div class="glass-card rounded-xl p-md flex items-center justify-between border-primary/40 cursor-pointer hover:bg-primary/10 transition-colors">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">schedule</span>
+<span class="font-label-md text-label-md">٠٤:٠٠ م</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary">متاح</span>
+</div>
+<div class="glass-card rounded-xl p-md flex items-center justify-between slot-booked">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+<span class="font-label-md text-label-md">٠٤:٣٠ م</span>
+</div>
+<span class="material-symbols-outlined text-[18px]">lock</span>
+</div>
+<div class="glass-card rounded-xl p-md flex items-center justify-between border-primary/40 cursor-pointer hover:bg-primary/10 transition-colors">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">schedule</span>
+<span class="font-label-md text-label-md">٠٥:٠٠ م</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary">متاح</span>
+</div>
+<div class="glass-card rounded-xl p-md flex items-center justify-between border-primary/40 cursor-pointer hover:bg-primary/10 transition-colors">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">schedule</span>
+<span class="font-label-md text-label-md">٠٥:٣٠ م</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary">متاح</span>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Confirm Button -->
+<div class="fixed bottom-0 left-0 w-full p-lg bg-gradient-to-t from-background to-transparent pt-xl">
+<button class="w-full h-14 bg-primary text-on-primary-fixed font-headline-md rounded-2xl flex items-center justify-center gap-md active:scale-95 transition-transform opacity-90 backdrop-blur-md shadow-2xl shadow-primary/20 md:max-w-2xl md:mx-auto">
+<span>تأكيد الحجز</span>
+<span class="material-symbols-outlined">event_available</span>
+</button>
+</div>
+<script>
+        // Simple Interaction logic
+        document.querySelectorAll('.cursor-pointer').forEach(slot => {
+            slot.addEventListener('click', function() {
+                // In a real app, this would handle state selection
+                console.log('Slot selected');
+            });
+        });
+    </script>
+</body></html>

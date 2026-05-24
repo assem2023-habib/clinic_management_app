@@ -33,6 +33,7 @@ import 'package:clinic_management_app/presentation/screens/appointments/appointm
 import 'package:clinic_management_app/presentation/screens/dashboard/dashboard_screen.dart';
 import 'package:clinic_management_app/presentation/screens/doctors/doctors_screen.dart';
 import 'package:clinic_management_app/presentation/screens/doctors/doctor_profile_screen.dart';
+import 'package:clinic_management_app/presentation/screens/user_booking/user_booking_screen.dart';
 import 'package:clinic_management_app/presentation/screens/login/login_screen.dart';
 import 'package:clinic_management_app/presentation/screens/medical_records/medical_records_screen.dart';
 import 'package:clinic_management_app/presentation/screens/onboarding/onboarding_screen.dart';
@@ -157,6 +158,9 @@ class _MyAppState extends State<MyApp> {
                 case AppRoutes.doctorProfile:
                   final doctorId = settings.arguments as String? ?? '';
                   screen = DoctorProfileScreen(doctorId: doctorId);
+                case AppRoutes.userBooking:
+                  final bookingDoctorId = settings.arguments as String? ?? '';
+                  screen = UserBookingScreen(doctorId: bookingDoctorId);
                 case AppRoutes.deleteAccount:
                   screen = const DeleteAccountScreen();
                 default:
