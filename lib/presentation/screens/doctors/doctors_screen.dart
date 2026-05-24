@@ -139,7 +139,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
     showDeleteDialog(context).then((confirmed) {
       if (confirmed == true) {
         context.read<DoctorBloc>().add(DoctorDelete(id));
-        showSnackBar(context, 'تَمَّ حَذْفُ الطَّبِيبِ بِنَجَاحٍ');
+        showSnackBar(context, AppStrings.doctorDeleted);
       }
     });
   }

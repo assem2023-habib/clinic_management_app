@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/doctor_profile_entity.dart';
 import 'package:clinic_management_app/presentation/widgets/doctor_profile/profile_header.dart';
 import 'package:clinic_management_app/presentation/widgets/doctor_profile/profile_stats_grid.dart';
@@ -57,7 +58,7 @@ class PatientDoctorProfileView extends StatelessWidget {
             child: ElevatedButton.icon(
               onPressed: onBookAppointment,
               icon: const Icon(Icons.event_available_rounded, size: 22),
-              label: const Text('حجز موعد', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+              label: Text(AppStrings.bookAppointment, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: colors.primary,
                 foregroundColor: Colors.white,
@@ -79,7 +80,7 @@ class PatientDoctorProfileView extends StatelessWidget {
       context: context,
       builder: (ctx) => StatefulBuilder(
         builder: (context, setState) => AlertDialog(
-          title: const Text('أضف تقييمك'),
+          title: Text(AppStrings.addReview),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -99,19 +100,19 @@ class PatientDoctorProfileView extends StatelessWidget {
                 controller: controller,
                 maxLines: 3,
                 decoration: const InputDecoration(
-                  hintText: 'اكتب تعليقك...',
+                  hintText: AppStrings.writeReview,
                   border: OutlineInputBorder(),
                 ),
               ),
             ],
           ),
           actions: [
-            TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('إلغاء')),
+            TextButton(onPressed: () => Navigator.pop(ctx), child: Text(AppStrings.cancel)),
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(ctx);
               },
-              child: const Text('إرسال'),
+              child: Text(AppStrings.send),
             ),
           ],
         ),

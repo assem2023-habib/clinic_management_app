@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/profile/profile_cubit.dart';
 import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
 
@@ -32,7 +33,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     if (!_formKey.currentState!.validate()) return;
     if (_newPasswordController.text != _confirmPasswordController.text) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('كَلِمَتَا السِّرِّ غَيْرُ مُتَطَابِقَتَيْنِ')),
+        const SnackBar(content: Text(AppStrings.passwordsNotMatch)),
       );
       return;
     }
@@ -46,14 +47,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
     return AppShell(
-      title: 'تَغْيِيرُ كَلِمَةِ السِّرِّ',
+      title: AppStrings.changePassword,
       showBackButton: true,
       showDrawer: false,
       body: BlocListener<ProfileCubit, ProfileState>(
         listener: (context, state) {
           if (state.passwordChanged) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('تَمَّ تَغْيِيرُ كَلِمَةِ السِّرِّ بِنَجَاحٍ')),
+              const SnackBar(content: Text(AppStrings.passwordChanged)),
             );
             Navigator.pop(context);
           }
@@ -75,25 +76,25 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   children: [
                     _buildPasswordField(
                       controller: _oldPasswordController,
-                      label: 'كَلِمَةُ السِّرِّ الحَالِيَّةُ',
+                      label: AppStrings.currentPassword,
                       obscure: _obscureOld,
                       toggle: () => setState(() => _obscureOld = !_obscureOld),
                       colors: colors,
-                      validator: (v) => v?.isEmpty == true ? 'مَطْلُوبٌ' : null,
+                      validator: (v) => v?.isEmpty == true ? AppStrings.required : null,
                     ),
                     const SizedBox(height: 20),
                     _buildPasswordField(
                       controller: _newPasswordController,
-                      label: 'كَلِمَةُ السِّرِّ الجَدِيدَةُ',
+                      label: AppStrings.newPassword,
                       obscure: _obscureNew,
                       toggle: () => setState(() => _obscureNew = !_obscureNew),
                       colors: colors,
-                      validator: (v) => (v?.length ?? 0) < 8 ? '8 أَحْرُفٍ عَلَى الأَقَلِّ' : null,
+                      validator: (v) => (v?.length ?? 0) < 8 ? AppStrings.min8Chars : null,
                     ),
                     const SizedBox(height: 20),
                     _buildPasswordField(
                       controller: _confirmPasswordController,
-                      label: 'تَأْكِيدُ كَلِمَةِ السِّرِّ الجَدِيدَةِ',
+                      label: AppStrings.confirmNewPassword,
                       obscure: _obscureConfirm,
                       toggle: () => setState(() => _obscureConfirm = !_obscureConfirm),
                       colors: colors,
@@ -108,7 +109,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       ),
                       child: state.isSaving
                           ? SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: colors.surface))
-                          : const Text('حِفْظُ', style: TextStyle(fontSize: 16)),
+                          : const Text(AppStrings.save, style: TextStyle(fontSize: 16)),
                     ),
                   ],
                 ),

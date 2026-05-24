@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/core/utils/helpers.dart';
 import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_event.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_state.dart';
+import 'package:clinic_management_app/presentation/screens/appointment_confirmation/confirmation_data.dart';
 import 'package:clinic_management_app/presentation/widgets/appointment_form_dialog.dart';
 import 'package:clinic_management_app/presentation/widgets/animated_card.dart';
 
@@ -97,7 +99,7 @@ class _ReceptionistAppointmentsViewState extends State<ReceptionistAppointmentsV
               },
               itemBuilder: (context) => [
                 const PopupMenuItem(value: 'edit', child: Row(children: [Icon(Icons.edit), SizedBox(width: 8), Text(AppStrings.edit)])),
-                const PopupMenuItem(value: 'complete', child: Text('إِكْمَالُ')),
+                const PopupMenuItem(value: 'complete', child: Text(AppStrings.complete)),
                 const PopupMenuItem(value: 'cancel', child: Text(AppStrings.cancel)),
                 const PopupMenuItem(value: 'delete', child: Row(children: [Icon(Icons.delete, color: Colors.red), SizedBox(width: 8), Text(AppStrings.delete, style: TextStyle(color: Colors.red))])),
               ],
@@ -133,21 +135,27 @@ class _ReceptionistAppointmentsViewState extends State<ReceptionistAppointmentsV
     );
   }
 
-  void _showAppointmentForm(BuildContext context) {
-    showDialog(context: context, builder: (_) => const AppointmentFormDialog());
+  void _showAppointmentForm(BuildContext context) async {
+    final result = await showDialog<ConfirmationData>(
+      context: context,
+      builder: (_) => const AppointmentFormDialog(),
+    );
+    if (result != null && context.mounted) {
+      Navigator.pushNamed(context, AppRoutes.appointmentConfirmation, arguments: result);
+    }
   }
 
   void _deleteAppointment(BuildContext context, String id) {
     showDeleteDialog(context).then((confirmed) {
       if (confirmed == true) {
         context.read<AppointmentBloc>().add(AppointmentDelete(id));
-        showSnackBar(context, 'تَمَّ حَذْفُ المَوْعِدِ');
+        showSnackBar(context, AppStrings.appointmentDeleted);
       }
     });
   }
 
   void _updateStatus(BuildContext context, String id, AppointmentStatus status) {
     context.read<AppointmentBloc>().add(AppointmentUpdateStatus(id, status));
-    showSnackBar(context, 'تَمَّ تَحْدِيثُ الحَالَةِ');
+    showSnackBar(context, AppStrings.statusUpdated);
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/onboarding/onboarding_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -103,7 +104,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
              .scale(delay: 100.ms, duration: 700.ms, begin: const Offset(0.5, 0.5), curve: Curves.easeOutBack),
             const SizedBox(height: 32),
             Text(
-              'عِيَادَتِي',
+              AppStrings.splashTitle,
               style: TextStyle(
                 fontSize: 36,
                 fontWeight: FontWeight.bold,
@@ -115,7 +116,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
              .slideY(begin: 0.4, duration: 600.ms, curve: Curves.easeOutCubic),
             const SizedBox(height: 12),
             Text(
-              'نِظَامُ إِدَارَةِ العِيَادَاتِ الطِّبِّيَّةِ',
+              AppStrings.systemTitle,
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.white.withValues(alpha: 0.7),

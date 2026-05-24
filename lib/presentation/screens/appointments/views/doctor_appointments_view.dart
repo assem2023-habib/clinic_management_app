@@ -93,7 +93,7 @@ class _DoctorAppointmentsViewState extends State<DoctorAppointmentsView> {
                 if (value == 'cancel') _updateStatus(context, appointment.id, AppointmentStatus.cancelled);
               },
               itemBuilder: (context) => [
-                const PopupMenuItem(value: 'complete', child: Text('إِكْمَالُ')),
+                const PopupMenuItem(value: 'complete', child: Text(AppStrings.complete)),
                 const PopupMenuItem(value: 'cancel', child: Text(AppStrings.cancel)),
               ],
             ),
@@ -130,6 +130,6 @@ class _DoctorAppointmentsViewState extends State<DoctorAppointmentsView> {
 
   void _updateStatus(BuildContext context, String id, AppointmentStatus status) {
     context.read<AppointmentBloc>().add(AppointmentUpdateStatus(id, status));
-    showSnackBar(context, 'تَمَّ تَحْدِيثُ الحَالَةِ');
+    showSnackBar(context, AppStrings.statusUpdated);
   }
 }

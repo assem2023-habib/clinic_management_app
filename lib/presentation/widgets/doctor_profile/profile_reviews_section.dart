@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/review_entity.dart';
 
 class ProfileReviewsSection extends StatelessWidget {
@@ -28,10 +29,10 @@ class ProfileReviewsSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('التقييمات', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+            Text(AppStrings.reviews, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
             TextButton(
               onPressed: () {},
-              child: Text('عرض الكل', style: TextStyle(color: colors.primary)),
+              child: Text(AppStrings.viewAll, style: TextStyle(color: colors.primary)),
             ),
           ],
         ),
@@ -64,7 +65,7 @@ class ProfileReviewsSection extends StatelessWidget {
                           size: 16,
                         )),
                       ),
-                      Text('$totalReviews تقييم', style: TextStyle(fontSize: 11, color: colors.textLight)),
+                      Text('$totalReviews ${AppStrings.rating}', style: TextStyle(fontSize: 11, color: colors.textLight)),
                     ],
                   ),
                 ],
@@ -75,7 +76,7 @@ class ProfileReviewsSection extends StatelessWidget {
               ElevatedButton.icon(
                 onPressed: onAddReview,
                 icon: const Icon(Icons.rate_review_rounded, size: 18),
-                label: const Text('تقييم'),
+                label: Text(AppStrings.rating),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 ),
@@ -147,10 +148,10 @@ class ProfileReviewsSection extends StatelessWidget {
 
   String _formatDate(DateTime date) {
     final diff = DateTime.now().difference(date);
-    if (diff.inDays == 0) return 'اليوم';
-    if (diff.inDays == 1) return 'أمس';
-    if (diff.inDays < 7) return 'منذ ${diff.inDays} أيام';
-    if (diff.inDays < 30) return 'منذ ${(diff.inDays / 7).round()} أسابيع';
-    return 'منذ ${(diff.inDays / 30).round()} شهر';
+    if (diff.inDays == 0) return AppStrings.today;
+    if (diff.inDays == 1) return AppStrings.yesterday;
+    if (diff.inDays < 7) return '${AppStrings.since} ${diff.inDays} ${AppStrings.daysAgo}';
+    if (diff.inDays < 30) return '${AppStrings.since} ${(diff.inDays / 7).round()} ${AppStrings.weeksAgo}';
+    return '${AppStrings.since} ${(diff.inDays / 30).round()} ${AppStrings.monthAgo}';
   }
 }

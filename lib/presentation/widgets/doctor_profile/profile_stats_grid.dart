@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
 
 class ProfileStatsGrid extends StatelessWidget {
@@ -13,9 +14,9 @@ class ProfileStatsGrid extends StatelessWidget {
     final colors = AppColors.of(context);
 
     final defaultStats = [
-      _StatItem(label: 'الخبرة', value: '${doctor.experienceYears}+', icon: Icons.work_history_rounded, color: colors.primary),
-      _StatItem(label: 'المرضى', value: '${doctor.patientsCount}+', icon: Icons.people_rounded, color: colors.secondary),
-      _StatItem(label: 'العمليات', value: '${doctor.surgeriesCount}', icon: Icons.biotech_rounded, color: colors.primary),
+      _StatItem(label: AppStrings.experience, value: '${doctor.experienceYears}+', icon: Icons.work_history_rounded, color: colors.primary),
+      _StatItem(label: AppStrings.doctorPatients, value: '${doctor.patientsCount}+', icon: Icons.people_rounded, color: colors.secondary),
+      _StatItem(label: AppStrings.surgeries, value: '${doctor.surgeriesCount}', icon: Icons.biotech_rounded, color: colors.primary),
     ];
 
     final stats = extraStats?.call() ?? defaultStats;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/presentation/widgets/phone_field.dart';
 import 'package:clinic_management_app/presentation/widgets/date_picker_field.dart';
@@ -45,7 +46,7 @@ class _RegisterDoctorScreenState extends State<RegisterDoctorScreen> {
     if (!_formKey.currentState!.validate()) return;
     if (_passwordController.text != _confirmPasswordController.text) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('كَلِمَتَا السِّرِّ غَيْرُ مُتَطَابِقَتَيْنِ')),
+        const SnackBar(content: Text(AppStrings.passwordsNotMatch)),
       );
       return;
     }
@@ -75,7 +76,7 @@ class _RegisterDoctorScreenState extends State<RegisterDoctorScreen> {
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
     return Scaffold(
-      appBar: AppBar(title: const Text('تَسْجِيلُ طَبِيبٍ جَدِيدٍ')),
+      appBar: AppBar(title: const Text(AppStrings.registerDoctor)),
       body: BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state.isAuthenticated) {
@@ -96,32 +97,32 @@ class _RegisterDoctorScreenState extends State<RegisterDoctorScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    _buildTextField(controller: _firstNameController, label: 'الاسْمُ الأَوَّلُ', prefixIcon: Icons.person_outline, validator: (v) => v?.isEmpty == true ? 'مَطْلُوبٌ' : null),
+                    _buildTextField(controller: _firstNameController, label: AppStrings.firstName, prefixIcon: Icons.person_outline, validator: (v) => v?.isEmpty == true ? AppStrings.required : null),
                     const SizedBox(height: 16),
-                    _buildTextField(controller: _lastNameController, label: 'اسْمُ العَائِلَةِ', prefixIcon: Icons.person_outline, validator: (v) => v?.isEmpty == true ? 'مَطْلُوبٌ' : null),
+                    _buildTextField(controller: _lastNameController, label: AppStrings.lastName, prefixIcon: Icons.person_outline, validator: (v) => v?.isEmpty == true ? AppStrings.required : null),
                     const SizedBox(height: 16),
-                    _buildTextField(controller: _emailController, label: 'البَرِيدُ الإِلِكْتْرُونِيُّ', prefixIcon: Icons.email_outlined, keyboardType: TextInputType.emailAddress, validator: (v) => v?.isEmpty == true ? 'مَطْلُوبٌ' : null),
+                    _buildTextField(controller: _emailController, label: AppStrings.email, prefixIcon: Icons.email_outlined, keyboardType: TextInputType.emailAddress, validator: (v) => v?.isEmpty == true ? AppStrings.required : null),
                     const SizedBox(height: 16),
-                    PhoneField(key: _phoneState, hintText: 'رَقْمُ الهَاتِفِ (اخْتِيَارِي)'),
+                    PhoneField(key: _phoneState, hintText: AppStrings.phoneOptional),
                     const SizedBox(height: 16),
-                    _buildTextField(controller: _addressController, label: 'العُنْوَانُ (اخْتِيَارِي)', prefixIcon: Icons.location_on_outlined),
+                    _buildTextField(controller: _addressController, label: AppStrings.addressOptional, prefixIcon: Icons.location_on_outlined),
                     const SizedBox(height: 16),
                     DatePickerField(
                       controller: _birthdayController,
-                      label: 'تَارِيخُ المِيلَادِ (اخْتِيَارِي)',
+                      label: AppStrings.dateOfBirthOptional,
                     ),
                     const SizedBox(height: 16),
                     DropdownButtonFormField<String>(
                       value: _gender,
                       decoration: InputDecoration(
-                        labelText: 'الجِنْسُ', filled: true,
+                        labelText: AppStrings.gender, filled: true,
                         fillColor: colors.cardBg,
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                         prefixIcon: Icon(Icons.wc_rounded, color: colors.textSecondary),
                       ),
                       items: const [
-                        DropdownMenuItem(value: 'male', child: Text('ذَكَر')),
-                        DropdownMenuItem(value: 'female', child: Text('أُنْثَى')),
+                        DropdownMenuItem(value: 'male', child: Text(AppStrings.male)),
+                        DropdownMenuItem(value: 'female', child: Text(AppStrings.female)),
                       ],
                       onChanged: (v) => setState(() => _gender = v ?? 'male'),
                     ),
@@ -129,19 +130,19 @@ class _RegisterDoctorScreenState extends State<RegisterDoctorScreen> {
                     SpecializationPickerField(
                       value: _specialization,
                       onChanged: (v) => setState(() => _specialization = v),
-                      validator: (v) => v == null ? 'مَطْلُوبٌ' : null,
+                      validator: (v) => v == null ? AppStrings.required : null,
                     ),
                     const SizedBox(height: 16),
-                    _buildTextField(controller: _experienceController, label: 'عَدَدُ شُهُورِ الخِبْرَةِ', prefixIcon: Icons.work_history_outlined, keyboardType: TextInputType.number, validator: (v) {
-                      if (v == null || v.isEmpty) return 'مَطْلُوبٌ';
+                    _buildTextField(controller: _experienceController, label: AppStrings.experienceMonths, prefixIcon: Icons.work_history_outlined, keyboardType: TextInputType.number, validator: (v) {
+                      if (v == null || v.isEmpty) return AppStrings.required;
                       final n = int.tryParse(v);
-                      if (n == null || n < 0 || n > 1200) return 'بَيْنَ 0 و 1200';
+                      if (n == null || n < 0 || n > 1200) return AppStrings.between0and1200;
                       return null;
                     }),
                     const SizedBox(height: 16),
-                    _buildTextField(controller: _passwordController, label: 'كَلِمَةُ السِّرِّ', prefixIcon: Icons.lock_outlined, obscureText: true, validator: (v) => (v?.length ?? 0) < 8 ? '8 أَحْرُفٍ عَلَى الأَقَلِّ' : null),
+                    _buildTextField(controller: _passwordController, label: 'كَلِمَةُ السِّرِّ', prefixIcon: Icons.lock_outlined, obscureText: true, validator: (v) => (v?.length ?? 0) < 8 ? AppStrings.min8Chars : null),
                     const SizedBox(height: 16),
-                    _buildTextField(controller: _confirmPasswordController, label: 'تَأْكِيدُ كَلِمَةِ السِّرِّ', prefixIcon: Icons.lock_outlined, obscureText: true),
+                    _buildTextField(controller: _confirmPasswordController, label: AppStrings.confirmPassword, prefixIcon: Icons.lock_outlined, obscureText: true),
                     const SizedBox(height: 24),
                     ElevatedButton(
                       onPressed: state.isLoading ? null : _submit,
@@ -152,12 +153,12 @@ class _RegisterDoctorScreenState extends State<RegisterDoctorScreen> {
                       ),
                       child: state.isLoading
                           ? SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: colors.surface))
-                          : const Text('تَسْجِيلُ', style: TextStyle(fontSize: 16)),
+                          : const Text(AppStrings.register, style: TextStyle(fontSize: 16)),
                     ),
                     const SizedBox(height: 16),
                     TextButton(
                       onPressed: () => Navigator.pushReplacementNamed(context, AppRoutes.login),
-                      child: const Text('لَدَيْكَ حِسَابٌ؟ سَجِّلُ الدُّخُولَ'),
+                      child: const Text(AppStrings.haveAccountLogin2),
                     ),
                   ],
                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
 
 class DoctorBookingCard extends StatelessWidget {
@@ -12,10 +13,10 @@ class DoctorBookingCard extends StatelessWidget {
     final colors = AppColors.of(context);
 
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(AppSpacing.md),
       decoration: BoxDecoration(
         color: colors.cardBg,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
         border: Border.all(color: colors.divider.withValues(alpha: 0.2)),
       ),
       child: Row(
@@ -23,13 +24,13 @@ class DoctorBookingCard extends StatelessWidget {
           Stack(
             children: [
               CircleAvatar(
-                radius: 32,
+                radius: AppSpacing.xl,
                 backgroundColor: colors.primary.withValues(alpha: 0.15),
                 backgroundImage: doctor.imageUrl != null
                     ? NetworkImage(doctor.imageUrl!)
                     : null,
                 child: doctor.imageUrl == null
-                    ? Icon(Icons.person_rounded, size: 32, color: colors.primary)
+                    ? Icon(Icons.person_rounded, size: AppSpacing.xl, color: colors.primary)
                     : null,
               ),
               Positioned(
@@ -71,7 +72,7 @@ class DoctorBookingCard extends StatelessWidget {
               ],
             ),
           ),
-          Icon(Icons.verified_rounded, color: colors.primary, size: 24),
+          Icon(Icons.verified_rounded, color: colors.primary, size: AppSpacing.lg),
         ],
       ),
     );

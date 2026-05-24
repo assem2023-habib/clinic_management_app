@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/widgets/dashboard/action_button.dart';
 import 'package:clinic_management_app/presentation/widgets/dashboard/dashboard_greeting.dart';
 import 'package:clinic_management_app/presentation/widgets/dashboard/recent_appointments.dart';
@@ -29,10 +30,10 @@ class ReceptionistDashboardView extends StatelessWidget {
               mainAxisSpacing: 12,
               childAspectRatio: 1.5,
               children: [
-                StatCard(title: 'مَوَاعِيدُ اليَوْمِ', icon: Icons.today, color: colors.primary),
-                StatCard(title: 'مَرْضَى جُدُدٌ', icon: Icons.person_add, color: colors.secondary),
-                StatCard(title: 'مُوَاعِيدُ مُعَلَّقَةٌ', icon: Icons.pending_actions, color: colors.accent),
-                StatCard(title: 'المُكَمَّلُ اليَوْمَ', icon: Icons.check_circle, color: colors.success),
+                StatCard(title: AppStrings.todayAppts, icon: Icons.today, color: colors.primary),
+                StatCard(title: AppStrings.newPatients, icon: Icons.person_add, color: colors.secondary),
+                StatCard(title: AppStrings.pendingAppts, icon: Icons.pending_actions, color: colors.accent),
+                StatCard(title: AppStrings.todayCompleted, icon: Icons.check_circle, color: colors.success),
               ],
             ),
           ),
@@ -42,18 +43,18 @@ class ReceptionistDashboardView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('إِجْرَاءَاتٌ سَرِيعَةٌ', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+                Text(AppStrings.quickActions, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
                 const SizedBox(height: 12),
                 Row(children: [
-                  Expanded(child: ActionButton(icon: Icons.person_add, label: 'تَسْجِيلُ مَرِيضٍ', color: colors.primary, onPressed: () => Navigator.pushNamed(context, AppRoutes.patients))),
+                  Expanded(child: ActionButton(icon: Icons.person_add, label: AppStrings.registerPatient, color: colors.primary, onPressed: () => Navigator.pushNamed(context, AppRoutes.patients))),
                   const SizedBox(width: 12),
-                  Expanded(child: ActionButton(icon: Icons.calendar_today, label: 'مَوْعِدٌ جَدِيدٌ', color: colors.secondary, onPressed: () => Navigator.pushNamed(context, AppRoutes.appointments))),
+                  Expanded(child: ActionButton(icon: Icons.calendar_today, label: AppStrings.newAppointment, color: colors.secondary, onPressed: () => Navigator.pushNamed(context, AppRoutes.appointments))),
                 ]),
                 const SizedBox(height: 12),
                 Row(children: [
-                  Expanded(child: ActionButton(icon: Icons.schedule, label: 'جَدْوَلُ اليَوْمِ', color: colors.accent, onPressed: () => Navigator.pushNamed(context, AppRoutes.appointments))),
+                  Expanded(child: ActionButton(icon: Icons.schedule, label: AppStrings.todaySchedule, color: colors.accent, onPressed: () => Navigator.pushNamed(context, AppRoutes.appointments))),
                   const SizedBox(width: 12),
-                  Expanded(child: ActionButton(icon: Icons.search, label: 'بَحْثٌ', color: colors.primaryDark, onPressed: () => Navigator.pushNamed(context, AppRoutes.patients))),
+                  Expanded(child: ActionButton(icon: Icons.search, label: AppStrings.search, color: colors.primaryDark, onPressed: () => Navigator.pushNamed(context, AppRoutes.patients))),
                 ]),
               ],
             ),
@@ -64,7 +65,7 @@ class ReceptionistDashboardView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('مَوَاعِيدُ اليَوْمِ', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+                Text(AppStrings.todayAppts, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
                 const SizedBox(height: 12),
                 const RecentAppointments(),
               ],

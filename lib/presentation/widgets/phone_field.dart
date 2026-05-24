@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 
 class CountryCode {
   final String flag;
@@ -17,28 +18,28 @@ class CountryCode {
 }
 
 const _countries = [
-  CountryCode(flag: '🇸🇾', code: 'SY', dialCode: '+963', name: 'سوريا'),
-  CountryCode(flag: '🇪🇬', code: 'EG', dialCode: '+20', name: 'مصر'),
-  CountryCode(flag: '🇸🇦', code: 'SA', dialCode: '+966', name: 'السعودية'),
-  CountryCode(flag: '🇦🇪', code: 'AE', dialCode: '+971', name: 'الإمارات'),
-  CountryCode(flag: '🇶🇦', code: 'QA', dialCode: '+974', name: 'قطر'),
-  CountryCode(flag: '🇰🇼', code: 'KW', dialCode: '+965', name: 'الكويت'),
-  CountryCode(flag: '🇴🇲', code: 'OM', dialCode: '+968', name: 'عُمان'),
-  CountryCode(flag: '🇧🇭', code: 'BH', dialCode: '+973', name: 'البحرين'),
-  CountryCode(flag: '🇯🇴', code: 'JO', dialCode: '+962', name: 'الأردن'),
-  CountryCode(flag: '🇮🇶', code: 'IQ', dialCode: '+964', name: 'العراق'),
-  CountryCode(flag: '🇱🇧', code: 'LB', dialCode: '+961', name: 'لبنان'),
-  CountryCode(flag: '🇾🇪', code: 'YE', dialCode: '+967', name: 'اليمن'),
-  CountryCode(flag: '🇵🇸', code: 'PS', dialCode: '+970', name: 'فلسطين'),
-  CountryCode(flag: '🇱🇾', code: 'LY', dialCode: '+218', name: 'ليبيا'),
-  CountryCode(flag: '🇹🇳', code: 'TN', dialCode: '+216', name: 'تونس'),
-  CountryCode(flag: '🇩🇿', code: 'DZ', dialCode: '+213', name: 'الجزائر'),
-  CountryCode(flag: '🇲🇦', code: 'MA', dialCode: '+212', name: 'المغرب'),
-  CountryCode(flag: '🇸🇩', code: 'SD', dialCode: '+249', name: 'السودان'),
-  CountryCode(flag: '🇺🇸', code: 'US', dialCode: '+1', name: 'الولايات المتحدة'),
-  CountryCode(flag: '🇬🇧', code: 'GB', dialCode: '+44', name: 'المملكة المتحدة'),
-  CountryCode(flag: '🇫🇷', code: 'FR', dialCode: '+33', name: 'فرنسا'),
-  CountryCode(flag: '🇩🇪', code: 'DE', dialCode: '+49', name: 'ألمانيا'),
+  CountryCode(flag: '🇸🇾', code: 'SY', dialCode: '+963', name: AppStrings.countriesSyria),
+  CountryCode(flag: '🇪🇬', code: 'EG', dialCode: '+20', name: AppStrings.countriesEgypt),
+  CountryCode(flag: '🇸🇦', code: 'SA', dialCode: '+966', name: AppStrings.countriesSaudi),
+  CountryCode(flag: '🇦🇪', code: 'AE', dialCode: '+971', name: AppStrings.countriesUAE),
+  CountryCode(flag: '🇶🇦', code: 'QA', dialCode: '+974', name: AppStrings.countriesQatar),
+  CountryCode(flag: '🇰🇼', code: 'KW', dialCode: '+965', name: AppStrings.countriesKuwait),
+  CountryCode(flag: '🇴🇲', code: 'OM', dialCode: '+968', name: AppStrings.countriesOman),
+  CountryCode(flag: '🇧🇭', code: 'BH', dialCode: '+973', name: AppStrings.countriesBahrain),
+  CountryCode(flag: '🇯🇴', code: 'JO', dialCode: '+962', name: AppStrings.countriesJordan),
+  CountryCode(flag: '🇮🇶', code: 'IQ', dialCode: '+964', name: AppStrings.countriesIraq),
+  CountryCode(flag: '🇱🇧', code: 'LB', dialCode: '+961', name: AppStrings.countriesLebanon),
+  CountryCode(flag: '🇾🇪', code: 'YE', dialCode: '+967', name: AppStrings.countriesYemen),
+  CountryCode(flag: '🇵🇸', code: 'PS', dialCode: '+970', name: AppStrings.countriesPalestine),
+  CountryCode(flag: '🇱🇾', code: 'LY', dialCode: '+218', name: AppStrings.countriesLibya),
+  CountryCode(flag: '🇹🇳', code: 'TN', dialCode: '+216', name: AppStrings.countriesTunisia),
+  CountryCode(flag: '🇩🇿', code: 'DZ', dialCode: '+213', name: AppStrings.countriesAlgeria),
+  CountryCode(flag: '🇲🇦', code: 'MA', dialCode: '+212', name: AppStrings.countriesMorocco),
+  CountryCode(flag: '🇸🇩', code: 'SD', dialCode: '+249', name: AppStrings.countriesSudan),
+  CountryCode(flag: '🇺🇸', code: 'US', dialCode: '+1', name: AppStrings.countriesUSA),
+  CountryCode(flag: '🇬🇧', code: 'GB', dialCode: '+44', name: AppStrings.countriesUK),
+  CountryCode(flag: '🇫🇷', code: 'FR', dialCode: '+33', name: AppStrings.countriesFrance),
+  CountryCode(flag: '🇩🇪', code: 'DE', dialCode: '+49', name: AppStrings.countriesGermany),
 ];
 
 class PhoneField extends StatefulWidget {
@@ -85,7 +86,7 @@ class PhoneFieldState extends State<PhoneField> {
       onChanged: _onChanged,
       style: TextStyle(color: colors.textPrimary, fontSize: 16),
       decoration: InputDecoration(
-        hintText: widget.hintText ?? 'رَقْمُ الهَاتِفِ',
+        hintText: widget.hintText ?? AppStrings.phone,
         hintStyle: TextStyle(color: colors.textLight),
         filled: true,
         fillColor: colors.cardBg,
@@ -164,7 +165,7 @@ class PhoneFieldState extends State<PhoneField> {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'اخْتَرِ الدَّوْلَةَ',
+                    AppStrings.chooseCountry,
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -184,7 +185,7 @@ class PhoneFieldState extends State<PhoneField> {
                       });
                     },
                     decoration: InputDecoration(
-                      hintText: 'بَحْثٌ...',
+                      hintText: AppStrings.search,
                       hintStyle: TextStyle(color: colors.textLight),
                       prefixIcon: Icon(Icons.search_rounded, color: colors.textSecondary),
                       filled: true,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/presentation/blocs/profile/profile_cubit.dart';
 import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
@@ -25,7 +26,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
   void _submit() {
     if (_passwordController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('يَجِبُ إِدْخَالُ كَلِمَةِ السِّرِّ لِتَأْكِيدِ الحَذْفِ')),
+        const SnackBar(content: Text(AppStrings.enterPasswordToDelete)),
       );
       return;
     }
@@ -37,7 +38,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
     final colors = AppColors.of(context);
 
     return AppShell(
-      title: 'حَذْفُ الحِسَابِ',
+      title: AppStrings.deleteAccountTitle,
       showBackButton: true,
       showDrawer: false,
       body: BlocListener<ProfileCubit, ProfileState>(
@@ -62,13 +63,13 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                   Icon(Icons.warning_amber_rounded, size: 64, color: colors.error),
                   const SizedBox(height: 24),
                   Text(
-                    'تَحْذِيرٌ: هَذَا الإِجْرَاءُ نِهَائِيٌّ',
+                    AppStrings.warningPermanent,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: colors.textPrimary),
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    'سَيَتُمُ حَذْفُ جَمِيعِ بَيَانَاتِكَ بِمَا فِي ذَلِكَ المَوَاعِيدُ وَالسِّجِلَّاتُ الطِّبِّيَّةُ. لا يُمْكِنُ التَّرَاجُعُ عَنْ هَذَا القَرَارِ.',
+                    AppStrings.deleteAllDataWarning,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 14, color: colors.textSecondary),
                   ),
@@ -77,7 +78,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                     controller: _passwordController,
                     obscureText: _obscure,
                     decoration: InputDecoration(
-                      labelText: 'أَدْخِلْ كَلِمَةَ السِّرِّ لِلتَّأْكِيدِ',
+                      labelText: AppStrings.enterPasswordConfirm,
                       filled: true,
                       fillColor: colors.cardBg,
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
@@ -98,7 +99,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                     ),
                     child: state.isSaving
                         ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-                        : const Text('حَذْفُ الحِسَابِ', style: TextStyle(fontSize: 16)),
+                        : const Text(AppStrings.deleteAccountTitle, style: TextStyle(fontSize: 16)),
                   ),
                 ],
               ),

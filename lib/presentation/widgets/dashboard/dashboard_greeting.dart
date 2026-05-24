@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
 
@@ -13,17 +14,17 @@ class DashboardGreeting extends StatelessWidget {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
         final roleLabel = switch (state.role) {
-          UserRole.admin => 'مُدِير العِيَادَة',
-          UserRole.doctor => 'طَبِيب',
-          UserRole.receptionist => 'مَسْؤُول الاسْتِقْبَال',
-          UserRole.patient => 'مَرِيض',
-          null => 'مُسْتَخْدِم',
+          UserRole.admin => AppStrings.roleAdmin,
+          UserRole.doctor => AppStrings.roleDoctor,
+          UserRole.receptionist => AppStrings.roleReceptionist,
+          UserRole.patient => AppStrings.rolePatient,
+          null => AppStrings.roleUser,
         };
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'مَرْحَباً، ${state.userName ?? ''}',
+              '${AppStrings.greeting} ${state.userName ?? ''}',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: colors.textPrimary),
             ),
             const SizedBox(height: 4),

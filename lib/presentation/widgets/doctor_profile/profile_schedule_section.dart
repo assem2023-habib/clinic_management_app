@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/time_slot_entity.dart';
 
 class ProfileScheduleSection extends StatelessWidget {
@@ -35,18 +36,18 @@ class ProfileScheduleSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('المواعيد المتاحة', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+            Text(AppStrings.availableAppts, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
             if (canManage)
               TextButton.icon(
                 onPressed: () {},
                 icon: Icon(Icons.edit_calendar_rounded, size: 18, color: colors.primary),
-                label: Text('إدارة الجدول', style: TextStyle(color: colors.primary)),
+                label: Text(AppStrings.manageSchedule, style: TextStyle(color: colors.primary)),
               ),
           ],
         ),
         const SizedBox(height: 12),
         if (morningSlots.isNotEmpty) ...[
-          Text('الفترة الصباحية', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: colors.textSecondary)),
+          Text(AppStrings.bookingMorning, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: colors.textSecondary)),
           const SizedBox(height: 8),
           Wrap(
             spacing: 8,
@@ -88,7 +89,7 @@ class ProfileScheduleSection extends StatelessWidget {
         ],
         if (eveningSlots.isNotEmpty) ...[
           const SizedBox(height: 16),
-          Text('الفترة المسائية', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: colors.textSecondary)),
+          Text(AppStrings.bookingEvening, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: colors.textSecondary)),
           const SizedBox(height: 8),
           Wrap(
             spacing: 8,
@@ -132,7 +133,7 @@ class ProfileScheduleSection extends StatelessWidget {
           Center(
             child: Padding(
               padding: const EdgeInsets.all(24),
-              child: Text('لا توجد مواعيد متاحة حالياً', style: TextStyle(color: colors.textLight)),
+              child: Text(AppStrings.noAvailableSlots, style: TextStyle(color: colors.textLight)),
             ),
           ),
       ],

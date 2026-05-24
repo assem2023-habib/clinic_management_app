@@ -34,6 +34,8 @@ import 'package:clinic_management_app/presentation/screens/dashboard/dashboard_s
 import 'package:clinic_management_app/presentation/screens/doctors/doctors_screen.dart';
 import 'package:clinic_management_app/presentation/screens/doctors/doctor_profile_screen.dart';
 import 'package:clinic_management_app/presentation/screens/user_booking/user_booking_screen.dart';
+import 'package:clinic_management_app/presentation/screens/appointment_confirmation/appointment_confirmation_screen.dart';
+import 'package:clinic_management_app/presentation/screens/appointment_confirmation/confirmation_data.dart';
 import 'package:clinic_management_app/presentation/screens/login/login_screen.dart';
 import 'package:clinic_management_app/presentation/screens/medical_records/medical_records_screen.dart';
 import 'package:clinic_management_app/presentation/screens/onboarding/onboarding_screen.dart';
@@ -161,6 +163,9 @@ class _MyAppState extends State<MyApp> {
                 case AppRoutes.userBooking:
                   final bookingDoctorId = settings.arguments as String? ?? '';
                   screen = UserBookingScreen(doctorId: bookingDoctorId);
+                case AppRoutes.appointmentConfirmation:
+                  final confirmationData = settings.arguments as ConfirmationData;
+                  screen = AppointmentConfirmationScreen(data: confirmationData);
                 case AppRoutes.deleteAccount:
                   screen = const DeleteAccountScreen();
                 default:

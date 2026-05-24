@@ -28,12 +28,12 @@ class LoginScreen extends StatelessWidget {
               builder: (context, onboardingState) {
                 final role = onboardingState.selectedRole;
                 final roleLabel = role == null
-                    ? 'اخْتَرْ دَوْرَكَ'
+                    ? AppStrings.chooseRole
                     : switch (role) {
-                        UserRole.admin => 'مُدِير العِيَادَة',
-                        UserRole.doctor => 'طَبِيب',
-                        UserRole.receptionist => 'مَسْؤُول الاسْتِقْبَال',
-                        UserRole.patient => 'مَرِيض',
+                        UserRole.admin => AppStrings.roleAdmin,
+                        UserRole.doctor => AppStrings.roleDoctor,
+                        UserRole.receptionist => AppStrings.roleReceptionist,
+                        UserRole.patient => AppStrings.rolePatient,
                       };
 
                 return Form(
@@ -59,7 +59,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'تَسْجِيلُ الدُّخُولِ بِصِفَةِ',
+                        AppStrings.loginAsRole,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 14,
@@ -92,7 +92,7 @@ class LoginScreen extends StatelessWidget {
                           prefixIcon: Icon(Icons.email_outlined, color: colors.textSecondary),
                         ),
                         validator: (value) {
-                          if (value == null || value.isEmpty) return 'الرَّجَاء إِدْخَال البَرِيد الإِلِكْتُرُونِيّ';
+                          if (value == null || value.isEmpty) return AppStrings.enterEmail;
                           return null;
                         },
                       ),
@@ -105,7 +105,7 @@ class LoginScreen extends StatelessWidget {
                           prefixIcon: Icon(Icons.lock_outlined, color: colors.textSecondary),
                         ),
                         validator: (value) {
-                          if (value == null || value.isEmpty) return 'الرَّجَاء إِدْخَال كَلِمَة المُرُور';
+                          if (value == null || value.isEmpty) return AppStrings.enterPassword;
                           return null;
                         },
                       ),
@@ -142,7 +142,7 @@ class LoginScreen extends StatelessWidget {
                             Navigator.pushReplacementNamed(context, route);
                           },
                           child: Text(
-                            'لَيْسَ لَدَيْكَ حِسَابٌ؟ إِنْشَاءُ حِسَابٍ',
+                            AppStrings.noAccountCreate,
                             style: TextStyle(color: colors.primary, fontSize: 14, fontWeight: FontWeight.w600),
                           ),
                         ),
@@ -154,7 +154,7 @@ class LoginScreen extends StatelessWidget {
                           Navigator.pushReplacementNamed(context, AppRoutes.roleSelection);
                         },
                         child: Text(
-                          'العَوْدَةُ لِاخْتِيَارِ الدَّوْرِ',
+                          AppStrings.backToRoleSelection,
                           style: TextStyle(color: colors.textLight, fontSize: 13),
                         ),
                       ),

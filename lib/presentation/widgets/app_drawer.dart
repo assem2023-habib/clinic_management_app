@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/core/theme/theme_provider.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
@@ -34,7 +35,7 @@ class AppDrawer extends StatelessWidget {
   Widget _buildHeader(BuildContext context, AppColorSet colors) {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
-        final name = state.userName ?? 'مُسْتَخْدِم';
+        final name = state.userName ?? AppStrings.roleUser;
         final initials = name.isNotEmpty ? name[0] : 'م';
         final roleLabel = _roleLabel(state.role);
         return Container(
@@ -96,13 +97,13 @@ class AppDrawer extends StatelessWidget {
 
   Widget _buildMenuItems(BuildContext context, AppColorSet colors) {
     final items = [
-      _MenuItem(icon: Icons.dashboard_rounded, title: 'لَوْحَةُ التَّحَكُّمِ', route: AppRoutes.dashboard),
-      _MenuItem(icon: Icons.local_hospital_rounded, title: 'الأَطِبَّاءُ', route: AppRoutes.doctors),
-      _MenuItem(icon: Icons.people_rounded, title: 'المَرْضَى', route: AppRoutes.patients),
-      _MenuItem(icon: Icons.calendar_month_rounded, title: 'المَوَاعِيدُ', route: AppRoutes.appointments),
-      _MenuItem(icon: Icons.folder_rounded, title: 'السِّجِلَّاتُ الطِّبِّيَّةُ', route: AppRoutes.medicalRecords),
-      _MenuItem(icon: Icons.settings_rounded, title: 'الإِعْدَادَاتُ', route: AppRoutes.settings),
-      _MenuItem(icon: Icons.person_rounded, title: 'المِلَفُّ الشَّخْصِيُّ', route: AppRoutes.profile),
+      _MenuItem(icon: Icons.dashboard_rounded, title: AppStrings.dashboard, route: AppRoutes.dashboard),
+      _MenuItem(icon: Icons.local_hospital_rounded, title: AppStrings.doctors, route: AppRoutes.doctors),
+      _MenuItem(icon: Icons.people_rounded, title: AppStrings.patients, route: AppRoutes.patients),
+      _MenuItem(icon: Icons.calendar_month_rounded, title: AppStrings.appointments, route: AppRoutes.appointments),
+      _MenuItem(icon: Icons.folder_rounded, title: AppStrings.medicalRecords, route: AppRoutes.medicalRecords),
+      _MenuItem(icon: Icons.settings_rounded, title: AppStrings.settings, route: AppRoutes.settings),
+      _MenuItem(icon: Icons.person_rounded, title: AppStrings.myProfile, route: AppRoutes.profile),
     ];
 
     return ListView(
@@ -155,7 +156,7 @@ class AppDrawer extends StatelessWidget {
           child: ListTile(
             leading: Icon(isDark ? Icons.dark_mode_rounded : Icons.light_mode_rounded, color: colors.primary, size: 22),
             title: Text(
-              isDark ? 'الوَضْعُ الدَّاكِنُ' : 'الوَضْعُ الفَاتِحُ',
+              isDark ? AppStrings.darkMode : AppStrings.lightMode,
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: colors.textPrimary),
             ),
             onTap: () => themeProvider!.toggleTheme(),
@@ -173,7 +174,7 @@ class AppDrawer extends StatelessWidget {
       child: ListTile(
         leading: Icon(Icons.logout_rounded, color: colors.error, size: 22),
         title: Text(
-          'تَسْجِيلُ الخُرُوجِ',
+          AppStrings.logout,
           style: TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w600,
@@ -190,11 +191,11 @@ class AppDrawer extends StatelessWidget {
 
   String _roleLabel(UserRole? role) {
     return switch (role) {
-      UserRole.admin => 'مُدِير العِيَادَة',
-      UserRole.doctor => 'طَبِيب',
-      UserRole.receptionist => 'مَسْؤُول الاسْتِقْبَال',
-      UserRole.patient => 'مَرِيض',
-      null => 'مُسْتَخْدِم',
+      UserRole.admin => AppStrings.roleAdmin,
+      UserRole.doctor => AppStrings.roleDoctor,
+      UserRole.receptionist => AppStrings.roleReceptionist,
+      UserRole.patient => AppStrings.rolePatient,
+      null => AppStrings.roleUser,
     };
   }
 }

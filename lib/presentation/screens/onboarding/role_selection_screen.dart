@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/onboarding/onboarding_cubit.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
 
@@ -37,7 +38,7 @@ class RoleSelectionScreen extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               Text(
-                'نِظَامُ إِدَارَةِ العِيَادَةِ',
+                AppStrings.roleSelectionSystemName,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 24,
@@ -47,7 +48,7 @@ class RoleSelectionScreen extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                'اخْتَرْ دَوْرَكَ لِلْبَدْءِ',
+                AppStrings.chooseRoleToStart,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 14,
@@ -63,8 +64,8 @@ class RoleSelectionScreen extends StatelessWidget {
                       _buildRoleCard(
                         context,
                         icon: Icons.admin_panel_settings_rounded,
-                        title: 'مُدِيرُ العِيَادَةِ',
-                        subtitle: 'إِدَارَةُ العِيَادَةِ، الأَطِبَّاءِ، المَوَاعِيدِ وَالتَّقَارِيرِ',
+                        title: AppStrings.roleAdmin,
+                        subtitle: AppStrings.adminSubtitle,
                         role: UserRole.admin,
                         color: colors.primary,
                       ),
@@ -72,8 +73,8 @@ class RoleSelectionScreen extends StatelessWidget {
                       _buildRoleCard(
                         context,
                         icon: Icons.local_hospital_rounded,
-                        title: 'طَبِيب',
-                        subtitle: 'إِدَارَةُ المَوَاعِيدِ، السِّجِلَّاتِ الطِّبِّيَّةِ وَالمَرْضَى',
+                        title: AppStrings.roleDoctor,
+                        subtitle: AppStrings.doctorSubtitle,
                         role: UserRole.doctor,
                         color: colors.secondary,
                       ),
@@ -81,8 +82,8 @@ class RoleSelectionScreen extends StatelessWidget {
                       _buildRoleCard(
                         context,
                         icon: Icons.assignment_ind_rounded,
-                        title: 'مَسْؤُولُ الاسْتِقْبَالِ',
-                        subtitle: 'تَسْجِيلُ المَرْضَى، جَدْوَلَةُ المَوَاعِيدِ، وَمُتَابَعَةُ الكَشْفِ',
+                        title: AppStrings.roleReceptionist,
+                        subtitle: AppStrings.receptionistSubtitle,
                         role: UserRole.receptionist,
                         color: colors.accent,
                       ),
@@ -90,8 +91,8 @@ class RoleSelectionScreen extends StatelessWidget {
                       _buildRoleCard(
                         context,
                         icon: Icons.person_pin_rounded,
-                        title: 'مَرِيض',
-                        subtitle: 'مُتَابَعَةُ المَوَاعِيدِ وَالسِّجِلَّاتِ الطِّبِّيَّةِ الشَّخْصِيَّةِ',
+                        title: AppStrings.rolePatient,
+                        subtitle: AppStrings.patientSubtitle,
                         role: UserRole.patient,
                         color: colors.primaryLight,
                       ),

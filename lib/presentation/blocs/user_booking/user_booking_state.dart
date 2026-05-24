@@ -57,9 +57,19 @@ class UserBookingBooking extends UserBookingState {}
 
 class UserBookingConfirmed extends UserBookingState {
   final String appointmentId;
-  const UserBookingConfirmed(this.appointmentId);
+  final DoctorEntity doctor;
+  final String patientName;
+  final DateTime date;
+  final String timeSlot;
+  const UserBookingConfirmed({
+    required this.appointmentId,
+    required this.doctor,
+    required this.patientName,
+    required this.date,
+    required this.timeSlot,
+  });
   @override
-  List<Object?> get props => [appointmentId];
+  List<Object?> get props => [appointmentId, doctor, patientName, date, timeSlot];
 }
 
 class UserBookingError extends UserBookingState {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/time_slot_entity.dart';
 
 class TimeSlotGrid extends StatelessWidget {
@@ -31,22 +33,22 @@ class TimeSlotGrid extends StatelessWidget {
     return Column(
       children: [
         if (morningSlots.isNotEmpty) ...[
-          _buildPeriodHeader(context, Icons.wb_sunny_rounded, 'الفترة الصباحية'),
+          _buildPeriodHeader(context, Icons.wb_sunny_rounded, AppStrings.bookingMorning),
           const SizedBox(height: 12),
           _buildSlotGrid(context, morningSlots),
         ],
         if (eveningSlots.isNotEmpty) ...[
-          const SizedBox(height: 24),
-          _buildPeriodHeader(context, Icons.nights_stay_rounded, 'الفترة المسائية'),
+          const SizedBox(height: AppSpacing.lg),
+          _buildPeriodHeader(context, Icons.nights_stay_rounded, AppStrings.bookingEvening),
           const SizedBox(height: 12),
           _buildSlotGrid(context, eveningSlots),
         ],
         if (slots.isEmpty)
           Center(
             child: Padding(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.all(AppSpacing.lg),
               child: Text(
-                'لا توجد مواعيد متاحة لهذا اليوم',
+                AppStrings.bookingNoSlots,
                 style: TextStyle(color: colors.textLight),
               ),
             ),
@@ -60,7 +62,7 @@ class TimeSlotGrid extends StatelessWidget {
     return Row(
       children: [
         Icon(icon, color: colors.primary, size: 18),
-        const SizedBox(width: 8),
+        const SizedBox(width: AppSpacing.sm),
         Text(
           title,
           style: TextStyle(
@@ -96,12 +98,12 @@ class TimeSlotGrid extends StatelessWidget {
           onTap: isBooked ? null : () => onSelectSlot(slot.id),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: AppSpacing.sm),
             decoration: BoxDecoration(
               color: isSelected
                   ? colors.primaryDark
                   : colors.cardBg,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
               border: Border.all(
                 color: isSelected
                     ? colors.primary
@@ -139,10 +141,10 @@ class TimeSlotGrid extends StatelessWidget {
                 if (isSelected)
                   Icon(Icons.check_circle_rounded, size: 18, color: Colors.white)
                 else if (isBooked)
-                  Icon(Icons.lock_rounded, size: 16, color: colors.textLight)
+                  Icon(Icons.lock_rounded, size: AppSpacing.md, color: colors.textLight)
                 else
                   Text(
-                    'متاح',
+                    AppStrings.bookingAvailable,
                     style: TextStyle(
                       fontSize: 11,
                       color: colors.primary,
@@ -162,11 +164,11 @@ class TimeSlotGrid extends StatelessWidget {
     final hour = int.tryParse(parts[0]) ?? 0;
     final minute = parts[1];
     if (hour < 12) {
-      return '$hour:$minute ص';
+      return '$hour:$minute ${AppStrings.am}';
     } else if (hour == 12) {
-      return '12:$minute م';
+      return '12:$minute ${AppStrings.pm}';
     } else {
-      return '${hour - 12}:$minute م';
+      return '${hour - 12}:$minute ${AppStrings.pm}';
     }
   }
 }
