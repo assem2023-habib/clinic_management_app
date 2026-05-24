@@ -17,4 +17,5 @@ class AppRoutes {
   static const doctorProfile = '/doctor-profile';
   static const userBooking = '/user-booking';
   static const appointmentConfirmation = '/appointment-confirmation';
+  static const rating = '/rating';
 }
