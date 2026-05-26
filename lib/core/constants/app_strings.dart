@@ -428,4 +428,18 @@ class AppStrings {
   static const daCheckInTime = 'وقت تسجيل الدخول';
   static const daNoApptsToday = 'لا توجد مواعيد اليوم';
   static const daWithDoctor = 'د. ';
+
+  // Services Screen
+  static const srSearchHint = 'ابحث عن طبيب أو خدمة...';
+  static const srCategories = 'التصنيفات';
+  static const srViewAll = 'عرض الكل';
+  static const srCardiology = 'أمراض القلب';
+  static const srDental = 'طب الأسنان';
+  static const srPediatrics = 'طب الأطفال';
+  static const srOrthopedics = 'طب العظام';
+  static const srOphthalmology = 'طب العيون';
+  static const srNeurology = 'طب الأعصاب';
+  static const srBannerTitle = 'فحص شامل مجاني';
+  static const srBannerSubtitle = 'احصل على استشارة أولية مجانية لأعضاء حيوية المختارة.';
+  static const srMedicalServices = 'الخدمات الطبية';
 }
