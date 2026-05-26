@@ -37,6 +37,7 @@ import 'package:clinic_management_app/presentation/screens/user_booking/user_boo
 import 'package:clinic_management_app/presentation/screens/appointment_confirmation/appointment_confirmation_screen.dart';
 import 'package:clinic_management_app/presentation/screens/appointment_confirmation/confirmation_data.dart';
 import 'package:clinic_management_app/presentation/screens/rating/rating_screen.dart';
+import 'package:clinic_management_app/presentation/screens/services/services_screen.dart';
 import 'package:clinic_management_app/presentation/blocs/rating/rating_bloc.dart';
 import 'package:clinic_management_app/presentation/screens/login/login_screen.dart';
 import 'package:clinic_management_app/presentation/screens/medical_records/medical_records_screen.dart';
@@ -174,6 +175,8 @@ class _MyAppState extends State<MyApp> {
                 case AppRoutes.rating:
                   final ratingDoctorId = settings.arguments as String?;
                   screen = RatingScreen(doctorId: ratingDoctorId);
+                case AppRoutes.services:
+                  screen = const ServicesScreen();
                 default:
                   screen = const RoleSelectionScreen();
               }
