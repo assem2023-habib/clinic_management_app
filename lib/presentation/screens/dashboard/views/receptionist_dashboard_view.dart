@@ -1,76 +1,113 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
-import 'package:clinic_management_app/presentation/widgets/dashboard/action_button.dart';
-import 'package:clinic_management_app/presentation/widgets/dashboard/dashboard_greeting.dart';
-import 'package:clinic_management_app/presentation/widgets/dashboard/recent_appointments.dart';
-import 'package:clinic_management_app/presentation/widgets/dashboard/stat_card.dart';
-import 'package:clinic_management_app/presentation/widgets/animated_card.dart';
+import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
+import 'package:clinic_management_app/presentation/blocs/appointment/appointment_event.dart';
+import 'package:clinic_management_app/presentation/blocs/appointment/appointment_state.dart';
+import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
+import 'package:clinic_management_app/presentation/screens/receptionist_home/widgets/rh_greeting_section.dart';
+import 'package:clinic_management_app/presentation/screens/receptionist_home/widgets/rh_calendar_bar.dart';
+import 'package:clinic_management_app/presentation/screens/receptionist_home/widgets/rh_clinic_pulse.dart';
+import 'package:clinic_management_app/presentation/screens/receptionist_home/widgets/rh_quick_actions.dart';
+import 'package:clinic_management_app/presentation/screens/receptionist_home/widgets/rh_active_queue.dart';
+import 'package:clinic_management_app/presentation/widgets/appointment_form_dialog.dart';
 
-class ReceptionistDashboardView extends StatelessWidget {
+class ReceptionistDashboardView extends StatefulWidget {
   const ReceptionistDashboardView({super.key});
+
+  @override
+  State<ReceptionistDashboardView> createState() => _ReceptionistDashboardViewState();
+}
+
+class _ReceptionistDashboardViewState extends State<ReceptionistDashboardView> {
+  DateTime _selectedDate = DateTime.now();
+  late List<DateTime> _dates;
+
+  @override
+  void initState() {
+    super.initState();
+    _dates = List.generate(7, (i) => DateTime.now().add(Duration(days: i)));
+    context.read<AppointmentBloc>().add(AppointmentLoadAll());
+  }
 
   @override
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AnimatedCard(index: 0, child: const DashboardGreeting()),
-          const SizedBox(height: 24),
-          AnimatedCard(
-            index: 1,
-            child: GridView.count(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 2,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              childAspectRatio: 1.5,
-              children: [
-                StatCard(title: AppStrings.todayAppts, icon: Icons.today, color: colors.primary),
-                StatCard(title: AppStrings.newPatients, icon: Icons.person_add, color: colors.secondary),
-                StatCard(title: AppStrings.pendingAppts, icon: Icons.pending_actions, color: colors.accent),
-                StatCard(title: AppStrings.todayCompleted, icon: Icons.check_circle, color: colors.success),
-              ],
-            ),
+          const RhGreetingSection(),
+          const SizedBox(height: AppSpacing.lg),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                AppStrings.rhScheduleOverview,
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: colors.textLight),
+              ),
+              GestureDetector(
+                onTap: () => Navigator.pushNamed(context, AppRoutes.appointments),
+                child: Text(
+                  AppStrings.rhViewFull,
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: colors.secondary),
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 24),
-          AnimatedCard(
-            index: 2,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(AppStrings.quickActions, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
-                const SizedBox(height: 12),
-                Row(children: [
-                  Expanded(child: ActionButton(icon: Icons.person_add, label: AppStrings.registerPatient, color: colors.primary, onPressed: () => Navigator.pushNamed(context, AppRoutes.patients))),
-                  const SizedBox(width: 12),
-                  Expanded(child: ActionButton(icon: Icons.calendar_today, label: AppStrings.newAppointment, color: colors.secondary, onPressed: () => Navigator.pushNamed(context, AppRoutes.appointments))),
-                ]),
-                const SizedBox(height: 12),
-                Row(children: [
-                  Expanded(child: ActionButton(icon: Icons.schedule, label: AppStrings.todaySchedule, color: colors.accent, onPressed: () => Navigator.pushNamed(context, AppRoutes.appointments))),
-                  const SizedBox(width: 12),
-                  Expanded(child: ActionButton(icon: Icons.search, label: AppStrings.search, color: colors.primaryDark, onPressed: () => Navigator.pushNamed(context, AppRoutes.patients))),
-                ]),
-              ],
-            ),
+          const SizedBox(height: AppSpacing.sm),
+          RhCalendarBar(
+            dates: _dates,
+            selectedDate: _selectedDate,
+            onSelectDate: (date) {
+              setState(() => _selectedDate = date);
+              context.read<AppointmentBloc>().add(AppointmentLoadByDate(date));
+            },
           ),
-          const SizedBox(height: 24),
-          AnimatedCard(
-            index: 3,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(AppStrings.todayAppts, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
-                const SizedBox(height: 12),
-                const RecentAppointments(),
-              ],
-            ),
+          const SizedBox(height: AppSpacing.lg),
+
+          Text(
+            AppStrings.rhClinicPulse,
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: colors.textLight),
           ),
+          const SizedBox(height: AppSpacing.sm),
+          BlocBuilder<AppointmentBloc, AppointmentState>(
+            builder: (context, state) {
+              final appts = state is AppointmentLoaded ? state.appointments : <AppointmentEntity>[];
+              final today = DateTime.now();
+              final todayAppts = appts.where((a) =>
+                a.date.year == today.year && a.date.month == today.month && a.date.day == today.day
+              ).toList();
+              return RhClinicPulse(
+                totalAppts: todayAppts.length,
+                checkedIn: todayAppts.where((a) => a.status == AppointmentStatus.scheduled).length,
+                inProgress: todayAppts.where((a) => a.status == AppointmentStatus.inProgress).length,
+                pending: todayAppts.where((a) => a.status == AppointmentStatus.cancelled).length,
+              );
+            },
+          ),
+          const SizedBox(height: AppSpacing.lg),
+
+          RhQuickActions(
+            onNewAppointment: () {
+              showDialog(context: context, builder: (_) => const AppointmentFormDialog());
+            },
+            onRegisterPatient: () => Navigator.pushNamed(context, AppRoutes.patients),
+            onScanMedicalId: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(AppStrings.rhScannerActivating)),
+              );
+            },
+          ),
+          const SizedBox(height: AppSpacing.lg),
+
+          const RhActiveQueue(),
+          const SizedBox(height: AppSpacing.xxl),
         ],
       ),
     );

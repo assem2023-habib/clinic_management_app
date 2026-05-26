@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
-import 'package:clinic_management_app/core/utils/helpers.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
 
 class ProfileHeader extends StatelessWidget {

@@ -1,7 +1,6 @@
 import 'package:clinic_management_app/data/datasources/data_source.dart';
 import 'package:clinic_management_app/data/models/doctor_model.dart';
 import 'package:clinic_management_app/data/models/review_model.dart';
-import 'package:clinic_management_app/data/models/time_slot_model.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
 import 'package:clinic_management_app/domain/entities/doctor_profile_entity.dart';
 import 'package:clinic_management_app/domain/entities/review_entity.dart';
