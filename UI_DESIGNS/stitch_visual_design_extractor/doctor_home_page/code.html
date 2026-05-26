@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html class="dark" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vitality Hub - Doctor Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #00180b;
+            color: #c6ebd1;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-card {
+            background: rgba(1, 43, 23, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .vitality-gradient-text {
+            background: linear-gradient(135deg, #80d8a6 0%, #32de84 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #1b3b29; border-radius: 10px; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed": "#5dffa1",
+                      "secondary-container": "#00ca73",
+                      "on-secondary-fixed": "#00210e",
+                      "on-primary": "#003921",
+                      "surface-container-highest": "#1b3b29",
+                      "surface": "#00180b",
+                      "secondary-fixed-dim": "#37e187",
+                      "primary-container": "#006d44",
+                      "on-error-container": "#ffdad6",
+                      "background": "#00180b",
+                      "on-tertiary-fixed-variant": "#792e30",
+                      "surface-variant": "#1b3b29",
+                      "surface-container-low": "#002111",
+                      "on-surface": "#c6ebd1",
+                      "on-primary-container": "#93ecb8",
+                      "inverse-primary": "#006d44",
+                      "surface-dim": "#00180b",
+                      "on-primary-fixed-variant": "#005232",
+                      "surface-container-high": "#0f301f",
+                      "on-background": "#c6ebd1",
+                      "outline": "#88938a",
+                      "secondary": "#40e78c",
+                      "primary": "#80d8a6",
+                      "on-secondary-container": "#004e29",
+                      "error-container": "#93000a",
+                      "on-secondary-fixed-variant": "#00522b",
+                      "inverse-surface": "#c6ebd1",
+                      "on-tertiary-container": "#ffcdcc",
+                      "on-primary-fixed": "#002111",
+                      "primary-fixed": "#9cf5c1",
+                      "tertiary": "#ffb3b1",
+                      "surface-container-lowest": "#001207",
+                      "surface-bright": "#1f402d",
+                      "on-secondary": "#00391c",
+                      "tertiary-container": "#984546",
+                      "surface-container": "#032515",
+                      "error": "#ffb4ab",
+                      "on-tertiary-fixed": "#3f0209",
+                      "primary-fixed-dim": "#80d8a6",
+                      "on-tertiary": "#5c171b",
+                      "on-surface-variant": "#bec9bf",
+                      "surface-tint": "#80d8a6",
+                      "tertiary-fixed": "#ffdad8",
+                      "on-error": "#690005",
+                      "outline-variant": "#3f4942",
+                      "tertiary-fixed-dim": "#ffb3b1",
+                      "inverse-on-surface": "#163725"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "lg": "24px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "64px",
+                      "xl": "32px",
+                      "sm": "12px",
+                      "gutter": "16px",
+                      "base": "8px",
+                      "xs": "4px",
+                      "md": "16px"
+              },
+              "fontFamily": {
+                      "body-md": ["Manrope"],
+                      "display-lg": ["Manrope"],
+                      "headline-lg-mobile": ["Manrope"],
+                      "label-md": ["Manrope"],
+                      "headline-lg": ["Manrope"],
+                      "label-sm": ["Manrope"],
+                      "headline-md": ["Manrope"],
+                      "body-lg": ["Manrope"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    @keyframes floating {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-5px); }
+        100% { transform: translateY(0px); }
+    }
+    .stat-card-glow {
+        border: 1px solid rgba(128, 216, 166, 0.2);
+        box-shadow: 0 0 15px rgba(0, 109, 68, 0.1);
+        animation: floating 4s ease-in-out infinite;
+    }
+    .stat-card-glow:hover {
+        border-color: rgba(128, 216, 166, 0.4);
+        box-shadow: 0 0 20px rgba(0, 109, 68, 0.2);
+        transform: scale(1.02) !important;
+    }
+</style></head>
+<body class="bg-background text-on-background min-h-screen pb-32">
+<!-- TopAppBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/40 dark:bg-surface-container-low/40 backdrop-blur-md border-b border-white/10 shadow-sm flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border-2 border-primary/30 overflow-hidden">
+<img alt="Doctor Avatar" class="w-full h-full object-cover" data-alt="A professional close-up portrait of a male doctor in his late 40s wearing a crisp white medical coat and a stethoscope. He has a warm, confident expression. The background is a softly blurred modern medical office with cool blue and deep green ambient lighting, maintaining a premium healthcare aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdN7e4GsjQjsWIl-xnU8RlUfxNgboYc5qftTRH-7vI8ksorHPXAU3i-WZPM2zV19KHYjTJ0qgZ8ZeJTxZNyUc0hk1BoSn9oGxcwWrAKeSZQScYqhIz6Tvq5HhGIiy5YNpOVAkwjvEA8Uso9Zd79TV7XghgFLSHKC07oXWgpG80k3V0WfXda_yRCrHT3H3Xa2MUtWzF7orbE5s3XggfHdh7GuJpL8KLpCWBYmR3hstdDk5SXMjTvEv93_oOEHDM8dO7oPh7aYjrlLo"/>
+</div>
+<span class="font-headline-md text-headline-md text-primary dark:text-primary-fixed">Vitality Hub</span>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/5 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+</nav>
+<main class="pt-24 px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+<!-- Greetings Section -->
+<section class="mb-xl animate-fade-in">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface mb-xs">صباح الخير، د. سمير</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">لديك 12 مريضاً اليوم. يوم عمل موفق.</p>
+</section>
+<!-- Stats Bento Grid -->
+<div class="grid grid-cols-2 md:grid-cols-3 gap-md mb-xl">
+<div class="glass-card stat-card-glow p-lg rounded-xl flex flex-col justify-between min-h-[140px] relative transition-all duration-300">
+<span class="material-symbols-outlined text-primary/50 absolute top-4 left-4 text-xl">groups</span>
+<div class="mt-auto">
+<div class="text-secondary-fixed font-display-lg text-4xl font-bold leading-none mb-1">12</div>
+<div class="text-on-surface-variant font-label-md text-label-md">إجمالي المرضى</div>
+</div>
+</div>
+<div class="glass-card stat-card-glow p-lg rounded-xl flex flex-col justify-between min-h-[140px] relative transition-all duration-300" style="animation-delay: 0.5s;">
+<span class="material-symbols-outlined text-secondary/50 absolute top-4 left-4 text-xl">task_alt</span>
+<div class="mt-auto">
+<div class="text-secondary-fixed font-display-lg text-4xl font-bold leading-none mb-1">05</div>
+<div class="text-on-surface-variant font-label-md text-label-md">الاستشارات المنتهية</div>
+</div>
+</div>
+<div class="glass-card stat-card-glow p-lg rounded-xl flex flex-col justify-between min-h-[140px] relative col-span-2 md:col-span-1 transition-all duration-300" style="animation-delay: 1s;">
+<span class="material-symbols-outlined text-tertiary/50 absolute top-4 left-4 text-xl">pending_actions</span>
+<div class="mt-auto">
+<div class="text-tertiary-fixed-dim font-display-lg text-4xl font-bold leading-none mb-1">03</div>
+<div class="text-on-surface-variant font-label-md text-label-md">تقارير معلقة</div>
+</div>
+</div>
+</div>
+<!-- Next Appointment Card -->
+<section class="mb-xl">
+<div class="flex items-center justify-between mb-base">
+<h2 class="font-headline-md text-headline-md text-primary">الموعد القادم</h2>
+<span class="text-secondary text-label-md font-label-md">مباشر الآن</span>
+</div>
+<div class="glass-card p-lg rounded-xl relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-secondary shadow-[0_0_15px_#40e78c]"></div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-lg">
+<div class="flex items-center gap-md">
+<div class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl">person</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">أحمد الفارسي</h3>
+<p class="text-on-surface-variant font-body-md text-body-md">متابعة - أمراض القلب</p>
+</div>
+</div>
+<div class="flex items-center gap-xl">
+<div class="text-left md:text-right">
+<div class="text-secondary font-headline-md text-headline-md">10:30 ص</div>
+<div class="text-on-surface-variant font-label-sm text-label-sm">المدة المتوقعة: 20 دقيقة</div>
+</div>
+<button class="bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md px-lg py-sm rounded-full transition-all active:scale-95 shadow-lg shadow-primary/20">
+                            ابدأ الجلسة
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Actions -->
+<section class="mb-xl">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-md">إجراءات سريعة</h2>
+<div class="grid grid-cols-3 gap-md">
+<button class="flex flex-col items-center gap-base p-md glass-card rounded-xl hover:bg-white/5 transition-all group">
+<div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary">qr_code_scanner</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">مسح البطاقة</span>
+</button>
+<button class="flex flex-col items-center gap-base p-md glass-card rounded-xl hover:bg-white/5 transition-all group">
+<div class="w-12 h-12 rounded-full bg-secondary-container/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-secondary">note_add</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">إضافة ملاحظة</span>
+</button>
+<button class="flex flex-col items-center gap-base p-md glass-card rounded-xl hover:bg-white/5 transition-all group">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-on-surface">biotech</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">نتائج المختبر</span>
+</button>
+</div>
+</section>
+<!-- Patient Queue -->
+<section class="mb-xl pb-base">
+<div class="flex items-center justify-between mb-md">
+<h2 class="font-headline-md text-headline-md text-on-surface">قائمة الانتظار</h2>
+<button class="text-primary font-label-md text-label-md hover:underline">عرض الكل</button>
+</div>
+<div class="space-y-base">
+<!-- Queue Item 1 -->
+<div class="flex items-center justify-between p-md glass-card rounded-xl border-l-4 border-secondary/40">
+<div class="flex items-center gap-md">
+<div class="text-on-surface-variant font-label-md text-label-md">11:00 ص</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface">سارة محمود</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">فحص روتيني</div>
+</div>
+</div>
+<span class="px-3 py-1 bg-secondary-container/20 text-secondary rounded-full font-label-sm text-label-sm border border-secondary/20">قادم</span>
+</div>
+<!-- Queue Item 2 -->
+<div class="flex items-center justify-between p-md glass-card rounded-xl">
+<div class="flex items-center gap-md">
+<div class="text-on-surface-variant font-label-md text-label-md">11:30 ص</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface">خالد العتيبي</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">استشارة طارئة</div>
+</div>
+</div>
+<span class="px-3 py-1 bg-surface-container-highest text-on-surface-variant rounded-full font-label-sm text-label-sm border border-white/5">ينتظر</span>
+</div>
+<!-- Queue Item 3 -->
+<div class="flex items-center justify-between p-md glass-card rounded-xl">
+<div class="flex items-center gap-md">
+<div class="text-on-surface-variant font-label-md text-label-md">12:00 م</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface">ليلى عبدالله</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">مراجعة نتائج</div>
+</div>
+</div>
+<span class="px-3 py-1 bg-surface-container-highest text-on-surface-variant rounded-full font-label-sm text-label-sm border border-white/5">ينتظر</span>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface/40 dark:bg-surface-container-low/40 backdrop-blur-md border-t border-white/10 shadow-lg flex justify-around items-center h-20 pb-safe px-xs">
+<!-- Home (Active) -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-3 py-1 active:scale-90 duration-150 transition-all" href="#">
+<span class="material-symbols-outlined fill-icon">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<!-- Schedule -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-label-sm text-label-sm">Schedule</span>
+</a>
+<!-- Patients -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-sm text-label-sm">Patients</span>
+</a>
+<!-- Messages -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="font-label-sm text-label-sm">Messages</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for Stats Cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('touchstart', () => {
+                card.style.transform = 'scale(0.98)';
+            });
+            card.addEventListener('touchend', () => {
+                card.style.transform = 'scale(1)';
+            });
+        });
+
+        // Atmospheric effect: Subtle pulse for the "Live" session
+        const liveIndicator = document.querySelector('.text-secondary.text-label-md');
+        if (liveIndicator) {
+            setInterval(() => {
+                liveIndicator.style.opacity = liveIndicator.style.opacity === '0.5' ? '1' : '0.5';
+            }, 1000);
+        }
+    </script>
+</body></html>
