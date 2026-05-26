@@ -7,6 +7,9 @@ class ApiService {
   static const String _refreshTokenKey = 'refresh_token';
   static const String defaultBaseUrl = 'http://localhost:8000/api/v1';
 
+  static void Function()? onRateLimit;
+  static void Function()? onNetworkError;
+
   ApiService() {
     _dio = Dio(BaseOptions(
       baseUrl: defaultBaseUrl,
@@ -24,6 +27,18 @@ class ApiService {
         handler.next(options);
       },
       onError: (error, handler) async {
+        if (error.response?.statusCode == 429) {
+          onRateLimit?.call();
+          handler.next(error);
+          return;
+        }
+        if (error.type == DioExceptionType.connectionError ||
+            error.type == DioExceptionType.connectionTimeout ||
+            error.type == DioExceptionType.receiveTimeout) {
+          onNetworkError?.call();
+          handler.next(error);
+          return;
+        }
         if (error.response?.statusCode == 401) {
           final refreshed = await _tryRefreshToken();
           if (refreshed) {
