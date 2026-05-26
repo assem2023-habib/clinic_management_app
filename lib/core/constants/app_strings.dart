@@ -386,4 +386,29 @@ class AppStrings {
   static const timeAgoWeeks = 'أسابيع';
   static const timeAgoMonth = 'شهر';
   static const timeAgoYear = 'سنة';
+
+  // Receptionist Home
+  static const rhSystemStatus = 'حالة النظام: نشط';
+  static const rhReceptionDesk = 'منصة الاستقبال 01';
+  static const rhScheduleOverview = 'نظرة عامة على المواعيد';
+  static const rhViewFull = 'عرض الكل';
+  static const rhClinicPulse = 'مؤشرات العيادة';
+  static const rhTotalAppts = 'إجمالي المواعيد';
+  static const rhCheckedIn = 'تم تسجيل الدخول';
+  static const rhQueueInProgress = 'قيد الكشف';
+  static const rhQueuePending = 'معلق';
+  static const rhNewAppointment = 'موعد جديد';
+  static const rhBookSlot = 'حجز موعد لمريض';
+  static const rhRegisterPatient = 'تسجيل مريض';
+  static const rhActiveQueue = 'قائمة الانتظار';
+  static const rhWithDoctor = 'عند الطبيب';
+  static const rhWaiting = 'بانتظار الكشف';
+  static const rhCheckingIn = 'يتم تسجيل الدخول';
+  static const rhScanMedicalId = 'مسح رمز المريض';
+  static const rhWithDoctorSub = 'د. ';
+  static const rhGreetingMorning = 'صباح الخير';
+  static const rhGreetingEvening = 'مساء الخير';
+  static const rhClinicName = 'الجناح الطبي المركزي';
+  static const rhNoApptsToday = 'لا توجد مواعيد اليوم';
+  static const rhScannerActivating = 'جاري تفعيل الماسح الضوئي...';
 }
