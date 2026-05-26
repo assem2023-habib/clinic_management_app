@@ -411,4 +411,21 @@ class AppStrings {
   static const rhClinicName = 'الجناح الطبي المركزي';
   static const rhNoApptsToday = 'لا توجد مواعيد اليوم';
   static const rhScannerActivating = 'جاري تفعيل الماسح الضوئي...';
+
+  // Doctor Appointments
+  static const daTotalApptsToday = 'إجمالي المواعيد اليوم';
+  static const daPatientsWaiting = 'المرضى في الانتظار';
+  static const daAvailableDoctors = 'الأطباء المتاحون';
+  static const daFromYesterday = 'من الأمس';
+  static const daEmergencyCases = 'حالات طارئة';
+  static const daOutOf = 'من أصل';
+  static const daQuickActions = 'إجراءات سريعة';
+  static const daRegisterPatient = 'تسجيل مريض';
+  static const daAddAppointment = 'إضافة موعد';
+  static const daManageSchedule = 'إدارة الجدول';
+  static const daLiveQueue = 'قائمة الانتظار المباشرة';
+  static const daViewAll = 'عرض الكل';
+  static const daCheckInTime = 'وقت تسجيل الدخول';
+  static const daNoApptsToday = 'لا توجد مواعيد اليوم';
+  static const daWithDoctor = 'د. ';
 }
