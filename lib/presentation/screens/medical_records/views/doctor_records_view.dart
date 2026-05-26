@@ -6,6 +6,7 @@ import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/medical_record_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/medical_record/medical_record_bloc.dart';
 import 'package:clinic_management_app/presentation/widgets/animated_card.dart';
+import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
 
 class DoctorRecordsView extends StatefulWidget {
   const DoctorRecordsView({super.key});
@@ -27,7 +28,7 @@ class _DoctorRecordsViewState extends State<DoctorRecordsView> {
     return BlocBuilder<MedicalRecordBloc, MedicalRecordState>(
       builder: (context, state) {
         if (state is MedicalRecordLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return const SkeletonList();
         }
         if (state is MedicalRecordLoaded) {
           if (state.records.isEmpty) {

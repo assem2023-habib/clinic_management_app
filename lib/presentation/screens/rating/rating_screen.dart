@@ -6,6 +6,7 @@ import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/rating/rating_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/rating/rating_event.dart';
 import 'package:clinic_management_app/presentation/blocs/rating/rating_state.dart';
+import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
 import 'package:clinic_management_app/presentation/screens/rating/widgets/rating_summary_section.dart';
 import 'package:clinic_management_app/presentation/screens/rating/widgets/rating_action_card.dart';
 import 'package:clinic_management_app/presentation/screens/rating/widgets/rating_filter_bar.dart';
@@ -69,7 +70,7 @@ class _RatingScreenState extends State<RatingScreen> {
       body: BlocBuilder<RatingBloc, RatingState>(
         builder: (context, state) {
           if (state.isLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return const SkeletonList();
           }
           if (state.error != null) {
             return Center(child: Text(state.error!, style: TextStyle(color: colors.error)));

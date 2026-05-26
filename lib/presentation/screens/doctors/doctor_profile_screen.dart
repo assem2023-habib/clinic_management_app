@@ -9,6 +9,7 @@ import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor_profile/doctor_profile_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor_profile/doctor_profile_event.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor_profile/doctor_profile_state.dart';
+import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
 import 'package:clinic_management_app/domain/repositories/doctor_repository.dart';
 import 'package:clinic_management_app/presentation/screens/doctors/views/admin_doctor_profile_view.dart';
 import 'package:clinic_management_app/presentation/screens/doctors/views/doctor_self_profile_view.dart';
@@ -38,7 +39,7 @@ class DoctorProfileScreen extends StatelessWidget {
               currentRoute: AppRoutes.doctorProfile,
               showBackButton: true,
               title: AppStrings.doctorProfile,
-              body: const Center(child: CircularProgressIndicator()),
+              body: const SkeletonProfile(),
             );
           }
 

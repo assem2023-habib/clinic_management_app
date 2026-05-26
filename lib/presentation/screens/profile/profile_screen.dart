@@ -5,6 +5,7 @@ import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/profile/profile_cubit.dart';
 import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
+import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -62,7 +63,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         },
         builder: (context, state) {
           if (state.isLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return const SkeletonProfile();
           }
           final user = state.user;
           if (user == null) {

@@ -442,4 +442,17 @@ class AppStrings {
   static const srBannerTitle = 'فحص شامل مجاني';
   static const srBannerSubtitle = 'احصل على استشارة أولية مجانية لأعضاء حيوية المختارة.';
   static const srMedicalServices = 'الخدمات الطبية';
+
+  // Doctor Patients
+  static const dpMyPatients = 'مرضاي';
+  static const dpPatient = 'مريض';
+  static const dpSearchPatients = 'ابحث عن مريض...';
+  static const dpFilterAll = 'الكل';
+  static const dpFilterNew = 'جديد';
+  static const dpFilterMale = 'ذكور';
+  static const dpFilterFemale = 'إناث';
+  static const dpYear = 'سنة';
+  static const dpNoPatients = 'لا يوجد مرضى';
+  static const dpNoPatientsHint = 'سيظهر هنا مرضاك المسجلون تحت عنايتك.';
+  static String dpUnderCareOf(String name) => 'تحت عناية $name';
 }

@@ -12,6 +12,7 @@ import 'package:clinic_management_app/presentation/blocs/appointment/appointment
 import 'package:clinic_management_app/presentation/screens/appointment_confirmation/confirmation_data.dart';
 import 'package:clinic_management_app/presentation/widgets/appointment_form_dialog.dart';
 import 'package:clinic_management_app/presentation/widgets/animated_card.dart';
+import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
 
 class AdminAppointmentsView extends StatefulWidget {
   const AdminAppointmentsView({super.key});
@@ -32,7 +33,7 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
         Expanded(
           child: BlocBuilder<AppointmentBloc, AppointmentState>(
             builder: (context, state) {
-              if (state is AppointmentLoading) return const Center(child: CircularProgressIndicator());
+              if (state is AppointmentLoading) return const SkeletonList();
               if (state is AppointmentLoaded) {
                 if (state.appointments.isEmpty) return Center(child: Text(AppStrings.noData, style: TextStyle(color: colors.textSecondary)));
                 return ListView.separated(

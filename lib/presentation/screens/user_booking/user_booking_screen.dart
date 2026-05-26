@@ -9,6 +9,7 @@ import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/user_booking/user_booking_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/user_booking/user_booking_event.dart';
 import 'package:clinic_management_app/presentation/blocs/user_booking/user_booking_state.dart';
+import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
 import 'package:clinic_management_app/presentation/screens/appointment_confirmation/confirmation_data.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/screens/user_booking/widgets/date_selection_bar.dart';
@@ -72,7 +73,7 @@ class UserBookingScreen extends StatelessWidget {
                 },
                 builder: (context, state) {
                   if (state is UserBookingLoading || state is UserBookingInitial) {
-                    return const Center(child: CircularProgressIndicator());
+                    return const SkeletonList();
                   }
 
                   if (state is UserBookingLoaded) {
