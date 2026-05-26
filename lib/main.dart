@@ -38,6 +38,8 @@ import 'package:clinic_management_app/presentation/screens/appointment_confirmat
 import 'package:clinic_management_app/presentation/screens/appointment_confirmation/confirmation_data.dart';
 import 'package:clinic_management_app/presentation/screens/rating/rating_screen.dart';
 import 'package:clinic_management_app/presentation/screens/services/services_screen.dart';
+import 'package:clinic_management_app/presentation/screens/offline/offline_screen.dart';
+import 'package:clinic_management_app/presentation/screens/rate_limit/rate_limit_screen.dart';
 import 'package:clinic_management_app/presentation/blocs/rating/rating_bloc.dart';
 import 'package:clinic_management_app/presentation/screens/login/login_screen.dart';
 import 'package:clinic_management_app/presentation/screens/medical_records/medical_records_screen.dart';
@@ -177,6 +179,10 @@ class _MyAppState extends State<MyApp> {
                   screen = RatingScreen(doctorId: ratingDoctorId);
                 case AppRoutes.services:
                   screen = const ServicesScreen();
+                case AppRoutes.offline:
+                  screen = const OfflineScreen();
+                case AppRoutes.rateLimit:
+                  screen = const RateLimitScreen();
                 default:
                   screen = const RoleSelectionScreen();
               }

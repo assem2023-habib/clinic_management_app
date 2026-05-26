@@ -19,4 +19,6 @@ class AppRoutes {
   static const appointmentConfirmation = '/appointment-confirmation';
   static const rating = '/rating';
   static const services = '/services';
+  static const offline = '/offline';
+  static const rateLimit = '/rate-limit';
 }

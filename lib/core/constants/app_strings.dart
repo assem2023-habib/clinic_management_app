@@ -455,4 +455,21 @@ class AppStrings {
   static const dpNoPatients = 'لا يوجد مرضى';
   static const dpNoPatientsHint = 'سيظهر هنا مرضاك المسجلون تحت عنايتك.';
   static String dpUnderCareOf(String name) => 'تحت عناية $name';
+
+  // Offline Screen
+  static const olTitle = 'عذراً، لا يوجد اتصال بالإنترنت';
+  static const olMessage = 'يبدو أنك غير متصل بالشبكة حالياً. يرجى التحقق من إعدادات الواي فاي أو بيانات الهاتف والمحاولة مرة أخرى.';
+  static const olRetry = 'إعادة المحاولة';
+  static const olShowCached = 'عرض البيانات المحملة مسبقاً';
+  static const olSignalLost = 'Signal Lost';
+  static const olServerUnreachable = 'Server unreachable';
+
+  // Rate Limit Screen
+  static const rlTitle = 'تم تجاوز الحد المسموح من الطلبات';
+  static const rlMessage = 'لقد أرسلت عدداً كبيراً من الطلبات. يرجى الانتظار قليلاً قبل المحاولة مرة أخرى.';
+  static const rlRetry = 'إعادة المحاولة';
+  static const rlGoHome = 'العودة للرئيسية';
+  static const rlTooManyRequests = '429 Too Many Requests';
+  static const rlRateLimited = 'Rate Limited';
+  static const rlWaitPrefix = 'يرجى الانتظار';
 }
