@@ -4,6 +4,7 @@ import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_state.dart';
+import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
 
 class RecentAppointments extends StatelessWidget {
   final int limit;
@@ -16,7 +17,7 @@ class RecentAppointments extends StatelessWidget {
     return BlocBuilder<AppointmentBloc, AppointmentState>(
       builder: (context, state) {
         if (state is AppointmentLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return const SkeletonList();
         }
         if (state is AppointmentLoaded) {
           final recent = state.appointments.take(limit).toList();

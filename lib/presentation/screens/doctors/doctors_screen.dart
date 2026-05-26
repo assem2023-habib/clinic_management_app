@@ -11,6 +11,7 @@ import 'package:clinic_management_app/presentation/blocs/doctor/doctor_event.dar
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_state.dart';
 import 'package:clinic_management_app/presentation/widgets/doctor_form_dialog.dart';
 import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
+import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
 
 class DoctorsScreen extends StatefulWidget {
   const DoctorsScreen({super.key});
@@ -54,7 +55,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
             child: BlocBuilder<DoctorBloc, DoctorState>(
               builder: (context, state) {
                 if (state is DoctorLoading) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const SkeletonList();
                 }
                 if (state is DoctorLoaded) {
                   if (state.doctors.isEmpty) {

@@ -37,6 +37,8 @@ abstract class AppColorSet {
   Color get chipText;
   Color get overlay;
   Color get scaffoldBg;
+  Color get skeletonBase;
+  Color get skeletonShimmer;
 }
 
 class VitalityLight implements AppColorSet {
@@ -119,6 +121,12 @@ class VitalityLight implements AppColorSet {
 
   @override
   Color get scaffoldBg => const Color(0xFFF9F9FF);
+
+  @override
+  Color get skeletonBase => const Color(0xFFE8E8E8);
+
+  @override
+  Color get skeletonShimmer => const Color(0x4DFFFFFF);
 }
 
 class VitalityDark implements AppColorSet {
@@ -201,4 +209,10 @@ class VitalityDark implements AppColorSet {
 
   @override
   Color get scaffoldBg => const Color(0xFF00180B);
+
+  @override
+  Color get skeletonBase => const Color(0xFF2A2A2A);
+
+  @override
+  Color get skeletonShimmer => const Color(0x1AFFFFFF);
 }

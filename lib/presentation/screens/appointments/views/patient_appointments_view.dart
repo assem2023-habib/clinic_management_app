@@ -7,6 +7,7 @@ import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_state.dart';
 import 'package:clinic_management_app/presentation/widgets/animated_card.dart';
+import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
 
 class PatientAppointmentsView extends StatefulWidget {
   const PatientAppointmentsView({super.key});
@@ -27,7 +28,7 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
         Expanded(
           child: BlocBuilder<AppointmentBloc, AppointmentState>(
             builder: (context, state) {
-              if (state is AppointmentLoading) return const Center(child: CircularProgressIndicator());
+              if (state is AppointmentLoading) return const SkeletonList();
               if (state is AppointmentLoaded) {
                 if (state.appointments.isEmpty) return Center(child: Text(AppStrings.noData, style: TextStyle(color: colors.textSecondary)));
                 return ListView.separated(

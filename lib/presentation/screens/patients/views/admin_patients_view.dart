@@ -10,6 +10,7 @@ import 'package:clinic_management_app/presentation/blocs/patient/patient_event.d
 import 'package:clinic_management_app/presentation/blocs/patient/patient_state.dart';
 import 'package:clinic_management_app/presentation/widgets/patient_form_dialog.dart';
 import 'package:clinic_management_app/presentation/widgets/animated_card.dart';
+import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
 
 class AdminPatientsView extends StatefulWidget {
   const AdminPatientsView({super.key});
@@ -40,7 +41,7 @@ class _AdminPatientsViewState extends State<AdminPatientsView> {
         Expanded(
           child: BlocBuilder<PatientBloc, PatientState>(
             builder: (context, state) {
-              if (state is PatientLoading) return const Center(child: CircularProgressIndicator());
+              if (state is PatientLoading) return const SkeletonList();
               if (state is PatientLoaded) {
                 if (state.patients.isEmpty) return Center(child: Text(AppStrings.noData, style: TextStyle(color: colors.textSecondary)));
                 return ListView.separated(
