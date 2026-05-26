@@ -7,10 +7,13 @@ import 'package:clinic_management_app/domain/entities/user_role.dart';
 import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_event.dart';
+import 'package:clinic_management_app/presentation/blocs/doctor/doctor_bloc.dart';
+import 'package:clinic_management_app/presentation/blocs/doctor/doctor_event.dart';
 import 'package:clinic_management_app/presentation/screens/appointments/views/admin_appointments_view.dart';
 import 'package:clinic_management_app/presentation/screens/appointments/views/doctor_appointments_view.dart';
 import 'package:clinic_management_app/presentation/screens/appointments/views/receptionist_appointments_view.dart';
 import 'package:clinic_management_app/presentation/screens/appointments/views/patient_appointments_view.dart';
+import 'package:clinic_management_app/presentation/screens/doctor_appointments/widgets/dr_appointments_header.dart';
 
 class AppointmentsScreen extends StatefulWidget {
   const AppointmentsScreen({super.key});
@@ -24,14 +27,18 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
   void initState() {
     super.initState();
     context.read<AppointmentBloc>().add(AppointmentLoadAll());
+    context.read<DoctorBloc>().add(DoctorLoadAll());
   }
 
   @override
   Widget build(BuildContext context) {
     final role = context.watch<AuthCubit>().state.role;
+    final isDoctor = role == UserRole.doctor;
     return AppShell(
       title: AppStrings.appointments,
       currentRoute: AppRoutes.appointments,
+      header: isDoctor ? const DrAppointmentsHeader() : null,
+      padding: isDoctor ? EdgeInsets.zero : null,
       floatingActionButton: switch (role) {
         UserRole.admin || UserRole.receptionist => FloatingActionButton(
           onPressed: () {},

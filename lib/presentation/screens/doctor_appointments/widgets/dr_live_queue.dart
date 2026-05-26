@@ -1,0 +1,131 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
+import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
+import 'package:clinic_management_app/presentation/blocs/appointment/appointment_state.dart';
+import 'package:clinic_management_app/presentation/blocs/doctor/doctor_bloc.dart';
+import 'package:clinic_management_app/presentation/blocs/doctor/doctor_state.dart';
+import 'package:clinic_management_app/presentation/screens/doctor_appointments/widgets/dr_stats_cards.dart';
+import 'package:clinic_management_app/presentation/screens/doctor_appointments/widgets/dr_quick_actions.dart';
+import 'package:clinic_management_app/presentation/screens/doctor_appointments/widgets/dr_queue_item.dart';
+
+class DrLiveQueue extends StatelessWidget {
+  const DrLiveQueue({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
+
+    return BlocBuilder<AppointmentBloc, AppointmentState>(
+      builder: (context, state) {
+        final appointments = state is AppointmentLoaded ? state.appointments : <AppointmentEntity>[];
+        final today = DateTime.now();
+        final todayAppts = appointments.where((a) =>
+          a.date.year == today.year && a.date.month == today.month && a.date.day == today.day
+        ).toList();
+
+        final totalToday = todayAppts.length;
+        final waiting = todayAppts.where((a) => a.status == AppointmentStatus.scheduled).length;
+        final emergencyCount = 0;
+
+        final queueOrder = [AppointmentStatus.inProgress, AppointmentStatus.scheduled, AppointmentStatus.cancelled];
+        todayAppts.sort((a, b) {
+          final aIdx = queueOrder.indexOf(a.status);
+          final bIdx = queueOrder.indexOf(b.status);
+          if (aIdx != bIdx) return aIdx.compareTo(bIdx);
+          return a.timeSlot.compareTo(b.timeSlot);
+        });
+
+        return SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              DrStatsCards(
+                totalToday: totalToday,
+                waitingPatients: waiting,
+                emergencyCount: emergencyCount,
+                availableDoctors: _availableDoctorCount(context),
+                totalDoctors: _totalDoctorCount(context),
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              DrQuickActions(
+                onRegisterPatient: () {},
+                onAddAppointment: () {},
+                onManageSchedule: () {},
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(AppStrings.daLiveQueue,
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(AppStrings.daViewAll, style: TextStyle(color: colors.primary, fontSize: 13)),
+                  ),
+                ],
+              ),
+              const SizedBox(height: AppSpacing.sm),
+              if (todayAppts.isEmpty)
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(AppSpacing.xl),
+                    child: Text(AppStrings.daNoApptsToday, style: TextStyle(color: colors.textLight)),
+                  ),
+                )
+              else
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: colors.cardBg.withValues(alpha: 0.4),
+                    borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
+                    border: Border.all(color: colors.divider.withValues(alpha: 0.08)),
+                  ),
+                  child: Column(
+                    children: todayAppts.asMap().entries.map((entry) {
+                      final appt = entry.value;
+                      final isLast = entry.key == todayAppts.length - 1;
+                      return Column(
+                        children: [
+                          DrQueueItem(
+                            queueNumber: entry.key + 1,
+                            patientName: appt.patientName,
+                            doctorName: '${AppStrings.daWithDoctor} ${appt.doctorName}',
+                            checkInTime: appt.timeSlot,
+                            isEmergency: false,
+                          ),
+                          if (!isLast)
+                            Divider(height: 1, color: colors.divider.withValues(alpha: 0.05)),
+                        ],
+                      );
+                    }).toList(),
+                  ),
+                ),
+              const SizedBox(height: AppSpacing.xxl),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  int _availableDoctorCount(BuildContext context) {
+    final state = context.read<DoctorBloc>().state;
+    if (state is DoctorLoaded) {
+      return state.doctors.where((d) => d.isAvailable).length;
+    }
+    return 0;
+  }
+
+  int _totalDoctorCount(BuildContext context) {
+    final state = context.read<DoctorBloc>().state;
+    if (state is DoctorLoaded) {
+      return state.doctors.length;
+    }
+    return 0;
+  }
+}
