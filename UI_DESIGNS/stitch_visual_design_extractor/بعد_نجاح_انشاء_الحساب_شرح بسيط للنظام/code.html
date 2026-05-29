@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html class="dark" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vitality - Welcome</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#003824",
+                    "surface-container-lowest": "#001207",
+                    "inverse-primary": "#006c49",
+                    "on-error": "#690005",
+                    "tertiary-container": "#00b982",
+                    "surface-tint": "#4edea3",
+                    "error-container": "#93000a",
+                    "surface-dim": "#00180b",
+                    "surface-container-low": "#002111",
+                    "secondary-container": "#0b513d",
+                    "on-primary-fixed": "#002113",
+                    "on-tertiary-container": "#00422c",
+                    "on-primary-container": "#00422b",
+                    "on-tertiary-fixed-variant": "#005137",
+                    "on-tertiary": "#003825",
+                    "primary-container": "#10b981",
+                    "outline-variant": "#3c4a42",
+                    "secondary-fixed": "#b0f0d6",
+                    "secondary": "#95d3ba",
+                    "on-secondary-fixed": "#002117",
+                    "inverse-on-surface": "#163725",
+                    "background": "#00180b",
+                    "tertiary-fixed": "#68fcbf",
+                    "surface-bright": "#1f402d",
+                    "surface-variant": "#1b3b29",
+                    "primary": "#4edea3",
+                    "on-secondary-fixed-variant": "#0b513d",
+                    "on-surface": "#c6ebd1",
+                    "surface-container-high": "#0f301f",
+                    "surface-container-highest": "#1b3b29",
+                    "primary-fixed": "#6ffbbe",
+                    "on-tertiary-fixed": "#002114",
+                    "primary-fixed-dim": "#4edea3",
+                    "inverse-surface": "#c6ebd1",
+                    "on-secondary": "#003829",
+                    "secondary-fixed-dim": "#95d3ba",
+                    "outline": "#86948a",
+                    "surface": "#00180b",
+                    "on-secondary-container": "#83c2a9",
+                    "tertiary": "#45dfa4",
+                    "on-surface-variant": "#bbcabf",
+                    "tertiary-fixed-dim": "#45dfa4",
+                    "on-primary-fixed-variant": "#005236",
+                    "on-background": "#c6ebd1",
+                    "on-error-container": "#ffdad6",
+                    "error": "#ffb4ab",
+                    "surface-container": "#032515"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "lg": "40px",
+                    "sm": "12px",
+                    "md": "24px",
+                    "margin-desktop": "48px",
+                    "gutter": "16px",
+                    "xl": "64px",
+                    "xs": "4px",
+                    "margin-mobile": "20px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Sora"],
+                    "headline-lg": ["Sora"],
+                    "label-sm": ["Sora"],
+                    "label-md": ["Sora"],
+                    "headline-xl": ["Sora"],
+                    "headline-lg-mobile": ["Sora"],
+                    "body-lg": ["Sora"],
+                    "body-md": ["Sora"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Sora', sans-serif;
+            background-color: #00180b;
+            overflow: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .particle {
+            position: absolute;
+            background: #4edea3;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); opacity: 0.2; }
+            50% { transform: scale(1.2); opacity: 0.4; }
+        }
+        .glow-circle {
+            animation: pulse-glow 4s infinite ease-in-out;
+        }
+        .dna-gradient {
+            background: linear-gradient(180deg, #10b981 0%, #00422b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface antialiased">
+<!-- Atmospheric Background -->
+<div class="fixed inset-0 z-0" id="particle-container">
+<!-- Pulse Elements -->
+<div class="glow-circle absolute top-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-primary/10 blur-[100px]"></div>
+<div class="glow-circle absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] rounded-full bg-tertiary/5 blur-[80px]" style="animation-delay: 2s;"></div>
+</div>
+<!-- Top Navigation Anchor -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile py-sm bg-background/50 backdrop-blur-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary text-headline-md" data-icon="clinical_notes">clinical_notes</span>
+<span class="font-headline-md text-headline-md font-bold text-primary">Vitality</span>
+</div>
+<button class="font-label-md text-label-md text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95">Skip</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="relative z-10 flex flex-col items-center justify-center min-h-screen px-margin-mobile text-center">
+<!-- Hero Visual Section -->
+<div class="relative w-full max-w-md aspect-square flex items-center justify-center mb-xl">
+<!-- DNA / Heart Visual Placeholder -->
+<div class="relative w-72 h-72 md:w-96 md:h-96">
+<div class="absolute inset-0 flex items-center justify-center">
+<!-- Representing the Futuristic DNA/Heart with a stylized icon and glows -->
+<div class="relative">
+<span class="material-symbols-outlined text-[180px] md:text-[240px] text-primary opacity-20 blur-sm absolute inset-0 text-center" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="material-symbols-outlined text-[180px] md:text-[240px] text-primary relative z-10 block" data-icon="dna" style="font-variation-settings: 'FILL' 1;">genetics</span>
+<!-- Orbiting Elements -->
+<div class="absolute inset-0 border-2 border-primary/20 rounded-full animate-[spin_10s_linear_infinite]"></div>
+<div class="absolute inset-[-20px] border border-primary/10 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
+</div>
+</div>
+</div>
+<!-- Floating Data Chips (Glassmorphism) -->
+<div class="absolute top-10 left-4 glass-card px-sm py-xs rounded-xl flex items-center gap-xs animate-bounce" style="animation-duration: 3s;">
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="pulse">pulse_alert</span>
+<span class="font-label-sm text-label-sm">82 BPM</span>
+</div>
+<div class="absolute bottom-20 right-4 glass-card px-sm py-xs rounded-xl flex items-center gap-xs animate-bounce" style="animation-duration: 4s; animation-delay: 1s;">
+<span class="material-symbols-outlined text-tertiary text-[18px]" data-icon="vital_signs">vital_signs</span>
+<span class="font-label-sm text-label-sm">AI Scan Active</span>
+</div>
+</div>
+<!-- Text Content -->
+<div class="max-w-xl space-y-md">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface tracking-tight">
+                مرحباً بك في مستقبل الرعاية الصحية
+            </h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm mx-auto opacity-80 leading-relaxed">
+                اكتشف القوة الكامنة في بياناتك الحيوية مع تحليلات الذكاء الاصطناعي المتقدمة.
+            </p>
+</div>
+<!-- Pagination & Actions -->
+<div class="fixed bottom-0 left-0 w-full p-xl flex flex-col items-center gap-lg">
+<!-- Progress Dots -->
+<div class="flex gap-xs">
+<div class="w-8 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(16,185,129,0.6)] transition-all"></div>
+<div class="w-2 h-2 rounded-full bg-outline opacity-30"></div>
+<div class="w-2 h-2 rounded-full bg-outline opacity-30"></div>
+</div>
+<!-- Primary Action -->
+<button class="w-full max-w-xs py-md px-xl bg-primary-container text-on-primary font-headline-md text-headline-md rounded-xl shadow-[0_10px_20px_-5px_rgba(16,185,129,0.3)] hover:scale-[1.02] active:scale-95 transition-all duration-300">
+                ابدأ الآن
+            </button>
+</div>
+</main>
+<!-- Interactive Background Particles Script -->
+<script>
+        const container = document.getElementById('particle-container');
+        const particleCount = 25;
+
+        for (let i = 0; i < particleCount; i++) {
+            createParticle();
+        }
+
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            
+            const size = Math.random() * 4 + 1;
+            const posX = Math.random() * 100;
+            const posY = Math.random() * 100;
+            const duration = Math.random() * 20 + 10;
+            const delay = Math.random() * 5;
+
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${posX}%`;
+            particle.style.top = `${posY}%`;
+            
+            container.appendChild(particle);
+
+            particle.animate([
+                { transform: 'translate(0, 0)', opacity: 0 },
+                { opacity: 0.4, offset: 0.2 },
+                { transform: `translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px)`, opacity: 0.4, offset: 0.8 },
+                { transform: `translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px)`, opacity: 0 }
+            ], {
+                duration: duration * 1000,
+                iterations: Infinity,
+                delay: delay * 1000,
+                easing: 'ease-in-out'
+            });
+        }
+    </script>
+</body></html>
