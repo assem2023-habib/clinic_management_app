@@ -7,6 +7,7 @@ import 'package:clinic_management_app/domain/entities/user_entity.dart';
 import 'package:clinic_management_app/domain/repositories/auth_repository.dart';
 import 'package:clinic_management_app/presentation/blocs/profile/profile_cubit.dart';
 import 'package:clinic_management_app/presentation/screens/profile/profile_screen.dart';
+import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
 
 class MockAuthRepository extends Mock implements AuthRepository {}
 
@@ -46,7 +47,7 @@ void main() {
 
   testWidgets('shows loading then user info', (tester) async {
     await tester.pumpWidget(buildTestWidget());
-    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    expect(find.byType(SkeletonProfile), findsOneWidget);
     await tester.pumpAndSettle();
     expect(find.text('المَلَفُّ الشَّخْصِيُّ'), findsOneWidget);
     expect(find.text('أحمد'), findsOneWidget);

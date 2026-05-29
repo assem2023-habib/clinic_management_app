@@ -6,6 +6,7 @@ import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/rating/rating_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/rating/rating_event.dart';
 import 'package:clinic_management_app/presentation/blocs/rating/rating_state.dart';
+import 'package:clinic_management_app/presentation/widgets/empty_data/empty_data_widget.dart';
 import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
 import 'package:clinic_management_app/presentation/screens/rating/widgets/rating_summary_section.dart';
 import 'package:clinic_management_app/presentation/screens/rating/widgets/rating_action_card.dart';
@@ -112,11 +113,9 @@ class _RatingScreenState extends State<RatingScreen> {
                       ),
                       const SizedBox(height: AppSpacing.md),
                       if (state.displayedReviews.isEmpty)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: AppSpacing.xxl),
-                          child: Center(
-                            child: Text(AppStrings.noReviews, style: TextStyle(color: colors.textSecondary)),
-                          ),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 24),
+                          child: EmptyDataWidget(icon: Icons.rate_review_outlined, title: AppStrings.noReviews, compact: true),
                         ),
                       ...state.displayedReviews.map((review) => Padding(
                         padding: const EdgeInsets.only(bottom: AppSpacing.md),
@@ -137,11 +136,9 @@ class _RatingScreenState extends State<RatingScreen> {
                           child: Center(child: CircularProgressIndicator()),
                         ),
                       if (!state.hasMore && state.displayedReviews.isNotEmpty)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
-                          child: Center(
-                            child: Text(AppStrings.noMoreReviews, style: TextStyle(color: colors.textSecondary, fontSize: 13)),
-                          ),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 24),
+                          child: EmptyDataWidget(icon: Icons.rate_review_outlined, title: AppStrings.noMoreReviews, compact: true),
                         ),
                       if (state.hasMore && !state.isLoadingMore)
                         Center(

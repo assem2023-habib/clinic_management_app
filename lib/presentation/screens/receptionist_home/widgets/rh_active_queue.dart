@@ -7,6 +7,7 @@ import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_state.dart';
 import 'package:clinic_management_app/presentation/screens/receptionist_home/widgets/rh_queue_card.dart';
+import 'package:clinic_management_app/presentation/widgets/empty_data/empty_data_widget.dart';
 
 class RhActiveQueue extends StatelessWidget {
   const RhActiveQueue({super.key});
@@ -54,12 +55,7 @@ class RhActiveQueue extends StatelessWidget {
             ),
             const SizedBox(height: AppSpacing.md),
             if (todayAppts.isEmpty)
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(AppSpacing.xl),
-                  child: Text(AppStrings.rhNoApptsToday, style: TextStyle(color: colors.textSecondary)),
-                ),
-              )
+              const EmptyDataWidget(icon: Icons.event_busy_rounded, title: AppStrings.rhNoApptsToday, compact: true)
             else
               ...todayAppts.asMap().entries.map((entry) => Padding(
                 padding: EdgeInsets.only(bottom: entry.key < todayAppts.length - 1 ? AppSpacing.sm : 0),

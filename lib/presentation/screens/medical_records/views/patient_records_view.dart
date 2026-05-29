@@ -6,6 +6,7 @@ import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/medical_record_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/medical_record/medical_record_bloc.dart';
 import 'package:clinic_management_app/presentation/widgets/animated_card.dart';
+import 'package:clinic_management_app/presentation/widgets/empty_data/empty_data_widget.dart';
 import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
 
 class PatientRecordsView extends StatefulWidget {
@@ -32,7 +33,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
         }
         if (state is MedicalRecordLoaded) {
           if (state.records.isEmpty) {
-            return Center(child: Text(AppStrings.noRecords, style: TextStyle(color: colors.textSecondary)));
+            return const EmptyDataWidget(icon: Icons.folder_open_rounded, title: AppStrings.noRecords, compact: true);
           }
           return ListView.separated(
             padding: const EdgeInsets.all(16),
@@ -47,7 +48,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
         if (state is MedicalRecordError) {
           return Center(child: Text(state.message, style: TextStyle(color: colors.error)));
         }
-        return Center(child: Text(AppStrings.noRecords, style: TextStyle(color: colors.textSecondary)));
+        return const EmptyDataWidget(icon: Icons.folder_open_rounded, title: AppStrings.noRecords, compact: true);
       },
     );
   }

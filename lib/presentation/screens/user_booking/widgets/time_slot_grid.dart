@@ -3,6 +3,7 @@ import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/time_slot_entity.dart';
+import 'package:clinic_management_app/presentation/widgets/empty_data/empty_data_widget.dart';
 
 class TimeSlotGrid extends StatelessWidget {
   final List<TimeSlotEntity> slots;
@@ -18,8 +19,6 @@ class TimeSlotGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = AppColors.of(context);
-
     final morningSlots = slots.where((s) {
       final hour = int.tryParse(s.time.split(':').first) ?? 0;
       return hour < 12;
@@ -44,15 +43,7 @@ class TimeSlotGrid extends StatelessWidget {
           _buildSlotGrid(context, eveningSlots),
         ],
         if (slots.isEmpty)
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(AppSpacing.lg),
-              child: Text(
-                AppStrings.bookingNoSlots,
-                style: TextStyle(color: colors.textLight),
-              ),
-            ),
-          ),
+          const EmptyDataWidget(icon: Icons.schedule_rounded, title: AppStrings.bookingNoSlots, compact: true),
       ],
     );
   }

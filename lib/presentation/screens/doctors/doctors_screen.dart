@@ -11,6 +11,7 @@ import 'package:clinic_management_app/presentation/blocs/doctor/doctor_event.dar
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_state.dart';
 import 'package:clinic_management_app/presentation/widgets/doctor_form_dialog.dart';
 import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
+import 'package:clinic_management_app/presentation/widgets/empty_data/empty_data_widget.dart';
 import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
 
 class DoctorsScreen extends StatefulWidget {
@@ -59,7 +60,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                 }
                 if (state is DoctorLoaded) {
                   if (state.doctors.isEmpty) {
-                    return Center(child: Text(AppStrings.noData, style: TextStyle(color: colors.textSecondary)));
+                    return const EmptyDataWidget(icon: Icons.medical_services_outlined, title: AppStrings.noData, compact: true);
                   }
                   return ListView.separated(
                     padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm),
@@ -74,7 +75,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                 if (state is DoctorError) {
                   return Center(child: Text(state.message, style: TextStyle(color: colors.error)));
                 }
-                return Center(child: Text(AppStrings.noData, style: TextStyle(color: colors.textSecondary)));
+                return const EmptyDataWidget(icon: Icons.medical_services_outlined, title: AppStrings.noData, compact: true);
               },
             ),
           ),

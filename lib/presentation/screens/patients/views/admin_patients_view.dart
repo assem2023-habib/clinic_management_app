@@ -10,6 +10,7 @@ import 'package:clinic_management_app/presentation/blocs/patient/patient_event.d
 import 'package:clinic_management_app/presentation/blocs/patient/patient_state.dart';
 import 'package:clinic_management_app/presentation/widgets/patient_form_dialog.dart';
 import 'package:clinic_management_app/presentation/widgets/animated_card.dart';
+import 'package:clinic_management_app/presentation/widgets/empty_data/empty_data_widget.dart';
 import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
 
 class AdminPatientsView extends StatefulWidget {
@@ -43,7 +44,7 @@ class _AdminPatientsViewState extends State<AdminPatientsView> {
             builder: (context, state) {
               if (state is PatientLoading) return const SkeletonList();
               if (state is PatientLoaded) {
-                if (state.patients.isEmpty) return Center(child: Text(AppStrings.noData, style: TextStyle(color: colors.textSecondary)));
+                if (state.patients.isEmpty) return const EmptyDataWidget(icon: Icons.people_outline_rounded, title: AppStrings.noData, compact: true);
                 return ListView.separated(
                   padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm),
                   itemCount: state.patients.length,
@@ -55,7 +56,7 @@ class _AdminPatientsViewState extends State<AdminPatientsView> {
                 );
               }
               if (state is PatientError) return Center(child: Text(state.message, style: TextStyle(color: colors.error)));
-              return Center(child: Text(AppStrings.noData, style: TextStyle(color: colors.textSecondary)));
+              return const EmptyDataWidget(icon: Icons.people_outline_rounded, title: AppStrings.noData, compact: true);
             },
           ),
         ),

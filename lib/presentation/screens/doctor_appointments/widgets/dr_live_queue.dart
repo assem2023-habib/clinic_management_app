@@ -11,6 +11,7 @@ import 'package:clinic_management_app/presentation/blocs/doctor/doctor_state.dar
 import 'package:clinic_management_app/presentation/screens/doctor_appointments/widgets/dr_stats_cards.dart';
 import 'package:clinic_management_app/presentation/screens/doctor_appointments/widgets/dr_quick_actions.dart';
 import 'package:clinic_management_app/presentation/screens/doctor_appointments/widgets/dr_queue_item.dart';
+import 'package:clinic_management_app/presentation/widgets/empty_data/empty_data_widget.dart';
 
 class DrLiveQueue extends StatelessWidget {
   const DrLiveQueue({super.key});
@@ -71,12 +72,7 @@ class DrLiveQueue extends StatelessWidget {
               ),
               const SizedBox(height: AppSpacing.sm),
               if (todayAppts.isEmpty)
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(AppSpacing.xl),
-                    child: Text(AppStrings.daNoApptsToday, style: TextStyle(color: colors.textLight)),
-                  ),
-                )
+                const EmptyDataWidget(icon: Icons.event_busy_rounded, title: AppStrings.daNoApptsToday, compact: true)
               else
                 Container(
                   width: double.infinity,
