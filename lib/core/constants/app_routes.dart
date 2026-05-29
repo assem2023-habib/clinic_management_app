@@ -28,4 +28,5 @@ class AppRoutes {
   static const serviceStopped = '/service-stopped';
   static const serverError = '/server-error';
   static const forbidden = '/forbidden';
+  static const sessionExpired = '/session-expired';
 }

@@ -560,4 +560,12 @@ class AppStrings {
   static const fbAccessIdValue = 'REQ-403-VIT-2024';
   static const fbSecurityLabel = 'حالة الأمن';
   static const fbSecurityValue = 'محمي بتشفير Vitality';
+
+  // Session Expired
+  static const sesTitle = 'انتهت صلاحية الجلسة';
+  static const sesMessage = 'لدواعي الأمان، تم إنهاء جلستك الحالية. يرجى تسجيل الدخول مرة أخرى لمتابعة استخدام خدمات Vitality وحماية بياناتك.';
+  static const sesLogin = 'تسجيل الدخول';
+  static const sesGoHome = 'العودة للرئيسية';
+  static const sesCloseApp = 'إغلاق التطبيق';
+  static const sesFooter = 'Vitality Health Platform © 2024';
 }
