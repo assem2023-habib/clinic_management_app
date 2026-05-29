@@ -1,0 +1,51 @@
+import 'package:flutter/material.dart';
+import 'package:clinic_management_app/presentation/screens/notification_failure/widgets/nf_actions.dart';
+import 'package:clinic_management_app/presentation/screens/notification_failure/widgets/nf_content_card.dart';
+import 'package:clinic_management_app/presentation/screens/notification_failure/widgets/nf_icon_section.dart';
+
+class NotificationFailureScreen extends StatelessWidget {
+  final VoidCallback? onRetry;
+  final VoidCallback? onBack;
+
+  const NotificationFailureScreen({super.key, this.onRetry, this.onBack});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFF00180B),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back_rounded, color: Color(0xFFBBCABF)),
+                    onPressed: onBack ?? () => Navigator.pop(context),
+                  ),
+                  const Spacer(),
+                  const Text(
+                    'الإشْعَارَات',
+                    style: TextStyle(fontFamily: 'Sora', fontSize: 18, fontWeight: FontWeight.w600, color: Color(0xFFC6EBD1)),
+                  ),
+                  const SizedBox(width: 48),
+                ],
+              ),
+            ),
+            const Spacer(flex: 2),
+            const NfIconSection(),
+            const SizedBox(height: 32),
+            const NfContentCard(
+              title: 'فَشِلَ إِرْسَالُ الإِشْعَارِ',
+              message: 'تَعَذَّرَ إِرْسَالُ الإِشْعَارِ فِي هَذِهِ اللَّحْظَةِ. يُرجَى التَّحَقُّقُ مِنْ اتِّصَالِكَ بِالشَّبَكَةِ وَالمُحَاوَلَةِ مُجَدَّداً، أَوِ المُحَاوَلَةِ لَاحِقاً.',
+            ),
+            const Spacer(flex: 3),
+            NfActions(onRetry: onRetry, onBack: onBack),
+            const SizedBox(height: 24),
+          ],
+        ),
+      ),
+    );
+  }
+}
