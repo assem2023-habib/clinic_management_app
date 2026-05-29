@@ -32,4 +32,5 @@ class AppRoutes {
   static const suspended = '/suspended';
   static const unauthorized = '/unauthorized';
   static const uploadFiles = '/upload-files';
+  static const patientWelcome = '/patient-welcome';
 }
