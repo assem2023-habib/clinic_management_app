@@ -568,4 +568,13 @@ class AppStrings {
   static const sesGoHome = 'العودة للرئيسية';
   static const sesCloseApp = 'إغلاق التطبيق';
   static const sesFooter = 'Vitality Health Platform © 2024';
+
+  // Suspended Account
+  static const spTitle = 'تم إيقاف الحساب';
+  static const spMessage = 'نأسف لإبلاغك بأنه تم تعليق وصولك إلى خدمات Vitality. تم اتخاذ هذا الإجراء لضمان أمان البيانات أو بسبب مخالفة سياسات الاستخدام الخاصة بنا.';
+  static const spReasonLabel = 'سبب الإيقاف';
+  static const spReasonValue = 'نشاط غير معتاد في الدخول إلى السجلات الطبية';
+  static const spContactSupport = 'تواصل مع الدعم الفني';
+  static const spLogout = 'تسجيل الخروج';
+  static const spFooter = '© 2024 AeroHealth AI. جميع الحقوق محفوظة.';
 }

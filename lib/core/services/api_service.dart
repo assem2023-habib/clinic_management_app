@@ -11,6 +11,7 @@ class ApiService {
   static void Function()? onNetworkError;
   static void Function()? onServerError;
   static void Function()? onForbidden;
+  static void Function()? onSuspended;
 
   ApiService() {
     _dio = Dio(BaseOptions(

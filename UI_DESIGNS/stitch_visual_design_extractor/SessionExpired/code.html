@@ -1,0 +1,313 @@
+<!DOCTYPE html><html class="dark" dir="rtl" lang="ar" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>انتهت صلاحية الجلسة | Vitality</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#86948a",
+                    "on-primary-container": "#00422b",
+                    "surface-container-high": "#0f301f",
+                    "on-error": "#690005",
+                    "on-surface": "#c6ebd1",
+                    "on-primary-fixed-variant": "#005236",
+                    "tertiary-container": "#00b982",
+                    "inverse-primary": "#006c49",
+                    "inverse-on-surface": "#163725",
+                    "surface-container-lowest": "#001207",
+                    "surface-container-low": "#002111",
+                    "on-surface-variant": "#bbcabf",
+                    "surface-bright": "#1f402d",
+                    "on-tertiary-fixed-variant": "#005137",
+                    "primary-container": "#10b981",
+                    "surface-container-highest": "#1b3b29",
+                    "secondary-fixed-dim": "#95d3ba",
+                    "on-secondary-container": "#83c2a9",
+                    "tertiary-fixed-dim": "#45dfa4",
+                    "secondary-container": "#0b513d",
+                    "on-secondary-fixed": "#002117",
+                    "background": "#00180b",
+                    "on-secondary": "#003829",
+                    "tertiary-fixed": "#68fcbf",
+                    "outline-variant": "#3c4a42",
+                    "surface-container": "#032515",
+                    "secondary": "#95d3ba",
+                    "on-error-container": "#ffdad6",
+                    "primary-fixed-dim": "#4edea3",
+                    "inverse-surface": "#c6ebd1",
+                    "error": "#ffb4ab",
+                    "on-tertiary": "#003825",
+                    "surface-variant": "#1b3b29",
+                    "surface": "#00180b",
+                    "secondary-fixed": "#b0f0d6",
+                    "on-primary": "#003824",
+                    "tertiary": "#4edea3",
+                    "on-tertiary-fixed": "#002114",
+                    "on-secondary-fixed-variant": "#0b513d",
+                    "surface-dim": "#00180b",
+                    "surface-tint": "#4edea3",
+                    "primary-fixed": "#6ffbbe",
+                    "on-tertiary-container": "#00422c",
+                    "primary": "#4edea3",
+                    "on-primary-fixed": "#002113",
+                    "error-container": "#93000a",
+                    "on-background": "#c6ebd1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "md": "24px",
+                    "margin-mobile": "20px",
+                    "sm": "12px",
+                    "margin-desktop": "48px",
+                    "xs": "4px",
+                    "lg": "40px",
+                    "xl": "64px",
+                    "base": "8px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Sora"],
+                    "headline-lg-mobile": ["Sora"],
+                    "body-lg": ["Sora"],
+                    "label-md": ["Sora"],
+                    "headline-lg": ["Sora"],
+                    "body-md": ["Sora"],
+                    "label-sm": ["Sora"],
+                    "headline-xl": ["Sora"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #00180b;
+            color: #c6ebd1;
+            overflow: hidden;
+            font-family: 'Sora', sans-serif;
+        }
+
+        #particle-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: #4edea3;
+            border-radius: 50%;
+            opacity: 0.3;
+            filter: blur(1px);
+        }
+
+        .glass-panel {
+            background: rgba(15, 48, 31, 0.4);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 40px rgba(0, 255, 133, 0.03);
+        }
+
+        .emerald-glow {
+            filter: drop-shadow(0 0 15px rgba(78, 222, 163, 0.4));
+        }
+
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        .animate-pulse-slow {
+            animation: pulse-slow 4s infinite ease-in-out;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style class="">
+@keyframes floating {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+.animate-float {
+    animation: floating 3s ease-in-out infinite;
+}
+.primary-glow-pulse {
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+    animation: glow-pulse 2s infinite ease-in-out;
+}
+@keyframes glow-pulse {
+    0%, 100% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }
+    50% { box-shadow: 0 0 35px rgba(16, 185, 129, 0.7); }
+}
+</style><style>
+@keyframes pulse-icon {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+@keyframes ripple-expand {
+  0% { transform: scale(1); opacity: 0.4; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+@keyframes rotate-border {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-pulse-icon {
+  animation: pulse-icon 3s ease-in-out infinite;
+}
+.ripple-effect {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 9999px;
+  border: 2px solid #10b981;
+  pointer-events: none;
+  z-index: -1;
+}
+.ripple-1 { animation: ripple-expand 4s linear infinite; }
+.ripple-2 { animation: ripple-expand 4s linear 2s infinite; }
+.rotating-glow::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: conic-gradient(from 0deg, transparent, #10b981, transparent, #10b981, transparent);
+  border-radius: 9999px;
+  animation: rotate-border 6s linear infinite;
+  z-index: -1;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+</style></head>
+<body class="flex flex-col items-center justify-center min-h-screen p-margin-mobile md:p-margin-desktop">
+<!-- Background Particles -->
+<div id="particle-container"><div class="particle" style="width: 2.3347px; height: 2.3347px; left: 293.106px; top: 876.327px;"></div><div class="particle" style="width: 1.73647px; height: 1.73647px; left: 7.28764px; top: 574.66px;"></div><div class="particle" style="width: 1.618px; height: 1.618px; left: 279.673px; top: 832.914px;"></div><div class="particle" style="width: 1.43892px; height: 1.43892px; left: 156.582px; top: 625.785px;"></div><div class="particle" style="width: 1.26765px; height: 1.26765px; left: 351.012px; top: 217.201px;"></div><div class="particle" style="width: 2.08648px; height: 2.08648px; left: 140.269px; top: 700.472px;"></div><div class="particle" style="width: 1.4568px; height: 1.4568px; left: 141.074px; top: 373.049px;"></div><div class="particle" style="width: 1.26858px; height: 1.26858px; left: 201.467px; top: 666.715px;"></div><div class="particle" style="width: 1.60498px; height: 1.60498px; left: 85.0932px; top: 634.536px;"></div><div class="particle" style="width: 3.84747px; height: 3.84747px; left: 288.301px; top: 869.874px;"></div><div class="particle" style="width: 3.4272px; height: 3.4272px; left: 387.902px; top: 483.701px;"></div><div class="particle" style="width: 1.18543px; height: 1.18543px; left: 276.811px; top: 409.935px;"></div><div class="particle" style="width: 3.08471px; height: 3.08471px; left: 102.598px; top: 514.79px;"></div><div class="particle" style="width: 3.41655px; height: 3.41655px; left: 182.341px; top: 70.5552px;"></div><div class="particle" style="width: 2.41769px; height: 2.41769px; left: 361.745px; top: 567.656px;"></div><div class="particle" style="width: 2.27528px; height: 2.27528px; left: 149.187px; top: 330.285px;"></div><div class="particle" style="width: 1.79434px; height: 1.79434px; left: 247.132px; top: 178.098px;"></div><div class="particle" style="width: 2.21015px; height: 2.21015px; left: 262.33px; top: 95.2075px;"></div><div class="particle" style="width: 3.82047px; height: 3.82047px; left: 181.6px; top: 160.611px;"></div><div class="particle" style="width: 1.48615px; height: 1.48615px; left: 342.431px; top: 538.445px;"></div><div class="particle" style="width: 1.9026px; height: 1.9026px; left: 127.35px; top: 148.799px;"></div><div class="particle" style="width: 2.35376px; height: 2.35376px; left: 153.617px; top: 863.374px;"></div><div class="particle" style="width: 3.11208px; height: 3.11208px; left: 143.192px; top: 316.447px;"></div><div class="particle" style="width: 3.86533px; height: 3.86533px; left: 249.257px; top: 598.687px;"></div><div class="particle" style="width: 2.52039px; height: 2.52039px; left: 91.7191px; top: 27.0938px;"></div><div class="particle" style="width: 3.21645px; height: 3.21645px; left: 339.025px; top: 778.305px;"></div><div class="particle" style="width: 1.10908px; height: 1.10908px; left: 191.982px; top: 793.046px;"></div><div class="particle" style="width: 1.12341px; height: 1.12341px; left: 200.453px; top: 164.771px;"></div><div class="particle" style="width: 1.10575px; height: 1.10575px; left: 222.85px; top: 235.772px;"></div><div class="particle" style="width: 1.36276px; height: 1.36276px; left: 17.9192px; top: 564.499px;"></div><div class="particle" style="width: 1.49895px; height: 1.49895px; left: 113.713px; top: 779.736px;"></div><div class="particle" style="width: 3.49234px; height: 3.49234px; left: 199.272px; top: 488.98px;"></div><div class="particle" style="width: 2.75465px; height: 2.75465px; left: 251.538px; top: 592.653px;"></div><div class="particle" style="width: 3.99159px; height: 3.99159px; left: 371.656px; top: 564.407px;"></div><div class="particle" style="width: 3.99801px; height: 3.99801px; left: 29.7369px; top: 85.6589px;"></div><div class="particle" style="width: 1.78976px; height: 1.78976px; left: 387.659px; top: 355.411px;"></div><div class="particle" style="width: 2.05584px; height: 2.05584px; left: 153.849px; top: 499.176px;"></div><div class="particle" style="width: 2.07773px; height: 2.07773px; left: 320.161px; top: 772.41px;"></div><div class="particle" style="width: 3.48905px; height: 3.48905px; left: 23.8311px; top: 435.734px;"></div><div class="particle" style="width: 3.74044px; height: 3.74044px; left: 29.3239px; top: 133.34px;"></div></div>
+<main class="relative z-10 w-full max-w-[560px] flex flex-col items-center text-center mt-xl pt-lg">
+<!-- Central Visual: 3D-style Medical Timer/Lock Icon -->
+<div class="relative mb-lg">
+
+<div class="relative w-32 h-32 md:w-40 md:h-40 glass-panel rounded-full flex items-center justify-center border-white/5 bg-white/5 animate-pulse-icon rotating-glow"><div class="ripple-effect ripple-1"></div><div class="ripple-effect ripple-2"></div>
+<span class="material-symbols-outlined text-[64px] md:text-[80px] text-primary" style="font-variation-settings: &quot;FILL&quot; 1;">
+                    timer_off
+                </span>
+<!-- Floating Decorative Elements -->
+<div class="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-primary flex items-center justify-center text-background">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">lock</span>
+</div>
+</div>
+</div>
+<!-- Typography Content -->
+<div class="space-y-md mb-xl">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface">
+                انتهت صلاحية الجلسة
+            </h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-[420px] mx-auto leading-relaxed">
+                لدواعي الأمان، تم إنهاء جلستك الحالية. يرجى تسجيل الدخول مرة أخرى لمتابعة استخدام خدمات Vitality وحماية بياناتك.
+            </p>
+</div>
+<!-- Actions -->
+<div class="flex flex-col gap-4 w-full">
+<button class="w-full bg-primary-container text-on-primary-container font-label-md text-label-md px-xl py-md rounded-xl hover:opacity-90 active:scale-95 transition-all shadow-[0_4px_20px_rgba(16,185,129,0.3)]">
+                تسجيل الدخول
+            </button>
+<button class="w-full border border-outline-variant text-on-surface font-label-md text-label-md px-xl py-md rounded-xl hover:bg-white/5 active:scale-95 transition-all">
+                العودة للرئيسية
+            </button>
+<button class="w-full border border-outline-variant/30 text-on-surface font-label-md text-label-md px-xl py-md rounded-xl hover:bg-white/5 active:scale-95 transition-all">
+                إغلاق التطبيق
+            </button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="fixed bottom-lg w-full text-center px-margin-mobile">
+<p class="font-label-sm text-label-sm text-on-surface-variant opacity-40 uppercase tracking-widest">
+            Vitality Health Platform © 2024
+        </p>
+</footer>
+<!-- Micro-interactions Script -->
+<script>
+        // Particle Background Generation
+        const container = document.getElementById('particle-container');
+        const particleCount = 40;
+
+        for (let i = 0; i < particleCount; i++) {
+            createParticle();
+        }
+
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            
+            const size = Math.random() * 3 + 1;
+            const posX = Math.random() * window.innerWidth;
+            const posY = Math.random() * window.innerHeight;
+            const duration = Math.random() * 20 + 10;
+            const delay = Math.random() * -20;
+
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${posX}px`;
+            particle.style.top = `${posY}px`;
+            
+            container.appendChild(particle);
+
+            animateParticle(particle, duration, delay);
+        }
+
+        function animateParticle(el, duration, delay) {
+            const xMove = (Math.random() - 0.5) * 200;
+            const yMove = (Math.random() - 0.5) * 200;
+
+            el.animate([
+                { transform: `translate(0, 0)`, opacity: 0.1 },
+                { transform: `translate(${xMove}px, ${yMove}px)`, opacity: 0.4 },
+                { transform: `translate(${xMove * 1.5}px, ${yMove * 1.5}px)`, opacity: 0.1 }
+            ], {
+                duration: duration * 1000,
+                delay: delay * 1000,
+                iterations: Infinity,
+                easing: 'ease-in-out'
+            });
+        }
+
+        // Resize handler to reposition particles
+        window.addEventListener('resize', () => {
+            container.innerHTML = '';
+            for (let i = 0; i < particleCount; i++) {
+                createParticle();
+            }
+        });
+    </script>
+<!-- Content Accessibility/Identity Tagging -->
+<div class="hidden" data-identity="session-expired-screen"></div>
+
+
+</body></html>

@@ -52,6 +52,7 @@ import 'package:clinic_management_app/presentation/screens/server_error/server_e
 import 'package:clinic_management_app/presentation/screens/service_stopped/service_stopped_screen.dart';
 import 'package:clinic_management_app/presentation/screens/forbidden/forbidden_screen.dart';
 import 'package:clinic_management_app/presentation/screens/session_expired/session_expired_screen.dart';
+import 'package:clinic_management_app/presentation/screens/suspended/suspended_screen.dart';
 import 'package:clinic_management_app/presentation/screens/medical_records/medical_records_screen.dart';
 import 'package:clinic_management_app/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:clinic_management_app/presentation/screens/onboarding/role_selection_screen.dart';
@@ -118,6 +119,7 @@ class _MyAppState extends State<MyApp> {
     ApiService.onNetworkError = () => _navigatorKey.currentState?.pushReplacementNamed(AppRoutes.offline);
     ApiService.onServerError = () => _navigatorKey.currentState?.pushReplacementNamed(AppRoutes.serverError);
     ApiService.onForbidden = () => _navigatorKey.currentState?.pushReplacementNamed(AppRoutes.forbidden);
+    ApiService.onSuspended = () => _navigatorKey.currentState?.pushReplacementNamed(AppRoutes.suspended);
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<DoctorRepository>(create: (_) => DoctorRepositoryImpl(mockDataSource)),
@@ -217,6 +219,8 @@ class _MyAppState extends State<MyApp> {
                   screen = const ForbiddenScreen();
                 case AppRoutes.sessionExpired:
                   screen = const SessionExpiredScreen();
+                case AppRoutes.suspended:
+                  screen = const SuspendedScreen();
                 default:
                   screen = const RoleSelectionScreen();
               }
