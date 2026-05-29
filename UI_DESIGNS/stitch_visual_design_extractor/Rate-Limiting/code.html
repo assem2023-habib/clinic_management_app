@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html class="dark" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vitality Hub - Rate Limit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Manrope:wght@400;500&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#ffb4aa",
+                        "outline": "#8c928c",
+                        "on-surface": "#e5e2e1",
+                        "inverse-primary": "#446651",
+                        "background": "#002111",
+                        "tertiary-fixed": "#ffdad5",
+                        "error-container": "#93000a",
+                        "on-primary-fixed-variant": "#2d4d3a",
+                        "on-secondary": "#003919",
+                        "secondary": "#f5fff2",
+                        "surface-container-lowest": "#0e0e0e",
+                        "secondary-container": "#36ff8b",
+                        "surface-variant": "#353534",
+                        "surface-dim": "#131313",
+                        "error": "#ffb4ab",
+                        "on-tertiary-fixed-variant": "#930005",
+                        "primary": "#abcfb6",
+                        "on-primary-fixed": "#002111",
+                        "surface-tint": "#abcfb6",
+                        "surface-container-high": "#2a2a2a",
+                        "tertiary-container": "#410001",
+                        "surface-container": "#201f1f",
+                        "primary-fixed": "#c6ebd1",
+                        "on-primary": "#163725",
+                        "tertiary-fixed-dim": "#ffb4aa",
+                        "on-secondary-container": "#007238",
+                        "on-tertiary": "#690003",
+                        "on-surface-variant": "#c2c8c1",
+                        "surface": "#131313",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-bright": "#3a3939",
+                        "on-tertiary-container": "#f9362c",
+                        "on-secondary-fixed-variant": "#005227",
+                        "on-secondary-fixed": "#00210c",
+                        "primary-fixed-dim": "#abcfb6",
+                        "on-tertiary-fixed": "#410001",
+                        "inverse-on-surface": "#313030",
+                        "secondary-fixed": "#61ff97",
+                        "on-primary-container": "#698c75",
+                        "on-error": "#690005",
+                        "outline-variant": "#424843",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#00e476",
+                        "on-background": "#e5e2e1",
+                        "surface-container-low": "#1c1b1b",
+                        "primary-container": "#002111",
+                        "surface-container-highest": "#353534"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding": "24px",
+                        "stack-sm": "12px",
+                        "gutter": "16px",
+                        "unit": "8px",
+                        "stack-md": "24px",
+                        "stack-lg": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Sora"],
+                        "body-md": ["Manrope"],
+                        "headline-lg": ["Sora"],
+                        "display-lg": ["Sora"],
+                        "label-sm": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+body { background-color: #00180b; color: #e5e2e1; font-family: 'Manrope', sans-serif; overflow-x: hidden; } 
+.glass-card { background: rgba(0, 33, 17, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.15); border-top-color: rgba(255, 255, 255, 0.3); } 
+.neon-glow-mint { box-shadow: 0 0 40px rgba(0, 255, 133, 0.15); } 
+.neon-text-mint { text-shadow: 0 0 10px rgba(54, 255, 139, 0.5); } 
+.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; } 
+
+@keyframes pulse-scan { 
+    0% { opacity: 0.3; transform: scale(0.98); } 
+    50% { opacity: 0.6; transform: scale(1); } 
+    100% { opacity: 0.3; transform: scale(0.98); } 
+} 
+.scan-effect { animation: pulse-scan 3s infinite ease-in-out; } 
+
+.clock-container { width: 100px; height: 100px; border-radius: 50%; position: relative; margin-bottom: 2rem; overflow: hidden; } 
+.clock-marker { position: absolute; width: 2px; height: 8px; background: rgba(0, 33, 17, 0.6); left: 50%; transform-origin: 50% 50px; margin-left: -1px; z-index: 5; } 
+.clock-hand { position: absolute; bottom: 50%; left: 50%; transform-origin: bottom center; border-radius: 10px; transition: transform 0.1s linear; z-index: 15; } 
+.countdown-hand { width: 4px; height: 45px; background: #002111; margin-left: -2px; } 
+.clock-center { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; background: #002111; border-radius: 50%; transform: translate(-50%, -50%); z-index: 20; }
+
+@keyframes pulse-expand {
+    0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+    50% { opacity: 0.5; }
+    100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+}
+.pulse-circle {
+    animation: pulse-expand 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+.animate-delay-1000 { animation-delay: 1s; }
+.animate-delay-2000 { animation-delay: 2s; }
+
+.particle {
+    position: absolute;
+    background: #10b981;
+    border-radius: 50%;
+    pointer-events: none;
+    box-shadow: 0 0 4px #10b981;
+    animation: particle-behavior 6s ease-in-out infinite;
+}
+
+@keyframes particle-behavior {
+    0% { opacity: 0; transform: translateY(0) scale(0.5); }
+    20% { opacity: 0.6; }
+    50% { transform: translateY(-30px) translateX(10px) scale(1.2); }
+    80% { opacity: 0.6; }
+    100% { opacity: 0; transform: translateY(-60px) translateX(-10px) scale(0.5); }
+}
+</style></head>
+<body class="flex flex-col min-h-screen items-center justify-center p-container-padding relative">
+<!-- Dynamic Background Layer -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden z-0 bg-[#00180b]" id="particle-container">
+<!-- Pulsing Circles -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+<div class="pulse-circle w-[300px] h-[300px] rounded-full border border-secondary-container/20"></div>
+<div class="pulse-circle w-[500px] h-[500px] rounded-full border border-secondary-container/10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-delay-1000"></div>
+<div class="pulse-circle w-[700px] h-[700px] rounded-full border border-secondary-container/5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-delay-2000"></div>
+</div>
+<!-- Atmospheric Glows -->
+<div class="absolute -top-24 -left-24 w-96 h-96 bg-secondary-container/10 rounded-full blur-[120px]"></div>
+<div class="absolute -bottom-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-[120px]"></div>
+</div>
+<!-- Main Content Canvas -->
+<main class="relative z-10 w-full max-w-lg flex flex-col items-center text-center">
+<!-- Analog Clock Section (Countdown) -->
+<div class="clock-container" id="analog-clock" style="background: conic-gradient(rgb(0, 33, 17) 0deg, rgb(0, 33, 17) 0deg, rgb(54, 255, 139) 0deg) rgb(54, 255, 139); margin-bottom: 2rem; box-shadow: rgba(54, 255, 139, 0.3) 0px 0px 25px; border: 2px solid rgba(255, 255, 255, 0.2);">
+<!-- Hour Markers -->
+<div class="clock-marker" style="transform: rotate(0deg)"></div>
+<div class="clock-marker" style="transform: rotate(30deg)"></div>
+<div class="clock-marker" style="transform: rotate(60deg)"></div>
+<div class="clock-marker" style="transform: rotate(90deg)"></div>
+<div class="clock-marker" style="transform: rotate(120deg)"></div>
+<div class="clock-marker" style="transform: rotate(150deg)"></div>
+<div class="clock-marker" style="transform: rotate(180deg)"></div>
+<div class="clock-marker" style="transform: rotate(210deg)"></div>
+<div class="clock-marker" style="transform: rotate(240deg)"></div>
+<div class="clock-marker" style="transform: rotate(270deg)"></div>
+<div class="clock-marker" style="transform: rotate(300deg)"></div>
+<div class="clock-marker" style="transform: rotate(330deg)"></div>
+<div class="clock-hand countdown-hand" id="countdown-hand" style="transform: rotate(-360deg); background: rgb(0, 33, 17); box-shadow: rgba(0, 33, 17, 0.5) 0px 0px 10px; width: 4px; height: 45px; margin-left: -2px;"></div>
+<div class="clock-center" style="background: rgb(0, 33, 17); box-shadow: rgba(0, 33, 17, 0.8) 0px 0px 10px;"></div>
+</div>
+<div class="relative w-64 h-64 mb-stack-lg flex items-center justify-center">
+<div class="absolute inset-0 flex items-center justify-center">
+<svg class="w-48 h-48 text-secondary-container" fill="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2L4 5V11C4 16.19 7.41 21.05 12 22.5C16.59 21.05 20 16.19 20 11V5L12 2Z" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+<path d="M12 7V15M8 11H16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path class="opacity-30" d="M12 22C16.4183 22 20 18.4183 20 14C20 9.58172 16.4183 6 12 6C7.58172 6 4 9.58172 4 14C4 18.4183 7.58172 22 12 22Z" stroke="currentColor" stroke-dasharray="1 3" stroke-width="0.5"></path>
+</svg>
+</div>
+<div class="absolute inset-0 bg-secondary-container/5 rounded-full blur-3xl animate-pulse"></div>
+</div>
+<!-- Typography Block -->
+<div class="space-y-stack-sm mb-stack-lg px-4">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-secondary-container neon-text-mint">
+            تم تجاوز حد الطلبات
+        </h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm mx-auto leading-relaxed">
+            لقد قمت بإرسال عدد كبير من الطلبات في وقت قصير جداً. لضمان أمان النظام واستقرار بياناتك الطبية، نرجو الانتظار قليلاً قبل المحاولة مجدداً.
+        </p>
+</div>
+<!-- Timer/Progress Card -->
+<div class="glass-card w-full p-stack-md rounded-xl neon-glow-mint mb-stack-md border-white/10">
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-sm text-label-sm text-secondary-container uppercase tracking-widest">مؤقت الانتظار</span>
+<span class="font-label-sm text-label-sm text-on-surface" id="countdown-text">جاهز الآن</span>
+</div>
+<div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container transition-all duration-1000 ease-linear" id="progress-bar" style="width: 0%;"></div>
+</div>
+</div>
+<!-- Actions -->
+<div class="w-full space-y-stack-sm">
+<button class="w-full py-4 rounded-lg border border-white/10 font-headline-lg-mobile text-body-md transition-all duration-300 flex items-center justify-center gap-2 bg-secondary-container text-on-primary-fixed font-bold hover:opacity-90 cursor-pointer" id="retry-button" style="box-shadow: rgba(0, 255, 133, 0.4) 0px 0px 20px;">
+<span class="material-symbols-outlined text-[20px]">refresh</span>
+            إعادة المحاولة
+        </button>
+<a class="inline-block py-2 font-label-sm text-label-sm text-on-surface-variant hover:text-secondary-container transition-colors duration-200 border-b border-transparent hover:border-secondary-container/30" href="#">
+            اتصل بالدعم الفني
+        </a>
+</div>
+</main>
+<script>
+    // Particle System Initialization
+    (function initParticles() {
+        const container = document.getElementById('particle-container');
+        if (!container) return;
+        
+        const particleCount = 45;
+        for (let i = 0; i < particleCount; i++) {
+            createParticle(container);
+        }
+    })();
+
+    function createParticle(container) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Random size between 1.5px and 4px
+        const size = Math.random() * 2.5 + 1.5;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Random position
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        
+        // Random animation delay and duration
+        const duration = 4 + Math.random() * 6;
+        const delay = Math.random() * 8;
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.animationDelay = `${-delay}s`; // Start mid-animation
+        
+        container.appendChild(particle);
+        
+        // When animation ends, reposition and restart (using the same element for performance)
+        particle.addEventListener('animationiteration', () => {
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+        });
+    }
+
+    // Rate limit countdown logic
+    let timeLeft = 28;
+    const totalTime = 28;
+    const progressBar = document.getElementById('progress-bar');
+    const countdownText = document.getElementById('countdown-text');
+    const retryButton = document.getElementById('retry-button');
+    const countdownHand = document.getElementById('countdown-hand');
+
+    function updateTimer() {
+        const progress = (timeLeft / totalTime) * 100;
+        progressBar.style.width = progress + '%';
+        countdownText.innerText = timeLeft + ' ثانية';
+
+        const rotationDegrees = -((totalTime - timeLeft) / totalTime) * 360;
+        countdownHand.style.transform = `rotate(${rotationDegrees}deg)`;
+
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            countdownText.innerText = 'جاهز الآن';
+            progressBar.style.width = '0%';
+            countdownHand.style.transform = `rotate(-360deg)`;
+            
+            retryButton.disabled = false;
+            retryButton.classList.remove('bg-white/5', 'text-on-surface-variant', 'cursor-not-allowed', 'opacity-50');
+            retryButton.classList.add('bg-secondary-container', 'text-on-primary-fixed', 'font-bold', 'hover:opacity-90', 'cursor-pointer');
+            retryButton.style.boxShadow = '0 0 20px rgba(0, 255, 133, 0.4)';
+        }
+    }
+
+    updateTimer();
+
+    const timerInterval = setInterval(() => {
+        timeLeft--;
+        updateTimer();
+    }, 1000);
+
+    retryButton.addEventListener('click', () => {
+        if(!retryButton.disabled) {
+            location.reload();
+        }
+    });
+</script>
+</body></html>

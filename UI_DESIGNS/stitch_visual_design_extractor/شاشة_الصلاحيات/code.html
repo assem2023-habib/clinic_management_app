@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html class="dark" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary": "#003829",
+                    "surface-container-high": "#0f301f",
+                    "on-surface": "#c6ebd1",
+                    "surface-container": "#032515",
+                    "surface-container-highest": "#1b3b29",
+                    "on-background": "#c6ebd1",
+                    "tertiary": "#45dfa4",
+                    "primary-fixed-dim": "#4edea3",
+                    "background": "#00180b",
+                    "tertiary-fixed-dim": "#45dfa4",
+                    "on-error-container": "#ffdad6",
+                    "on-tertiary-fixed-variant": "#005137",
+                    "on-secondary-fixed-variant": "#0b513d",
+                    "secondary-container": "#0b513d",
+                    "outline-variant": "#3c4a42",
+                    "surface-variant": "#1b3b29",
+                    "surface-container-lowest": "#001207",
+                    "primary-container": "#10b981",
+                    "on-surface-variant": "#bbcabf",
+                    "secondary-fixed": "#b0f0d6",
+                    "on-secondary-fixed": "#002117",
+                    "inverse-primary": "#006c49",
+                    "on-secondary-container": "#83c2a9",
+                    "primary-fixed": "#6ffbbe",
+                    "outline": "#86948a",
+                    "surface": "#00180b",
+                    "surface-bright": "#1f402d",
+                    "on-error": "#690005",
+                    "error-container": "#93000a",
+                    "secondary-fixed-dim": "#95d3ba",
+                    "tertiary-container": "#00b982",
+                    "on-primary": "#003824",
+                    "surface-dim": "#00180b",
+                    "on-primary-fixed-variant": "#005236",
+                    "inverse-surface": "#c6ebd1",
+                    "inverse-on-surface": "#163725",
+                    "secondary": "#95d3ba",
+                    "on-tertiary-fixed": "#002114",
+                    "tertiary-fixed": "#68fcbf",
+                    "on-primary-container": "#00422b",
+                    "surface-container-low": "#002111",
+                    "error": "#ffb4ab",
+                    "primary": "#4edea3",
+                    "on-tertiary-container": "#00422c",
+                    "on-primary-fixed": "#002113",
+                    "surface-tint": "#4edea3",
+                    "on-tertiary": "#003825"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "md": "24px",
+                    "xl": "64px",
+                    "margin-desktop": "48px",
+                    "margin-mobile": "20px",
+                    "gutter": "16px",
+                    "base": "8px",
+                    "sm": "12px",
+                    "lg": "40px",
+                    "xs": "4px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Sora"],
+                    "label-sm": ["Sora"],
+                    "label-md": ["Sora"],
+                    "body-md": ["Sora"],
+                    "headline-md": ["Sora"],
+                    "headline-lg-mobile": ["Sora"],
+                    "headline-lg": ["Sora"],
+                    "headline-xl": ["Sora"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #00180b;
+            color: #c6ebd1;
+            font-family: 'Sora', sans-serif;
+            overflow: hidden;
+        }
+        .glow-particle {
+            position: absolute;
+            background: radial-gradient(circle, #10b981 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        .pulse-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 50%;
+            animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0% { width: 100px; height: 100px; opacity: 1; }
+            100% { width: 600px; height: 600px; opacity: 0; }
+        }
+        .floating-icon-container {
+            animation: float 6s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(16, 185, 129, 0.4));
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        .glass-btn {
+            background: rgba(16, 185, 129, 0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+        }
+        .glass-btn:active {
+            transform: scale(0.95);
+            transition: transform 0.2s;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen">
+<!-- Atmospheric Background Elements -->
+<div class="fixed inset-0 z-0 overflow-hidden" id="particle-container">
+<div class="pulse-circle" style="animation-delay: 0s;"></div>
+<div class="pulse-circle" style="animation-delay: 1.5s;"></div>
+<div class="pulse-circle" style="animation-delay: 3s;"></div>
+</div>
+<!-- Header Section -->
+<header class="relative z-10 w-full top-0 sticky bg-background dark:bg-background border-b border-outline-variant flex items-center justify-between px-margin-mobile py-sm">
+<button class="material-symbols-outlined text-primary dark:text-primary hover:bg-surface-container-highest transition-colors rounded-full p-2 active:scale-95 duration-200">
+            arrow_back
+        </button>
+<span class="font-headline-md text-headline-md font-bold text-primary">Vitals Monitor</span>
+<div class="w-10"></div> <!-- Spacer for balance -->
+</header>
+<!-- Main Content Canvas -->
+<main class="relative z-10 flex-grow flex flex-col items-center justify-center px-margin-mobile text-center pt-10">
+<!-- Illustrative Element -->
+<div class="floating-icon-container mb-lg relative">
+<div class="w-48 h-48 bg-primary-container/20 rounded-full flex items-center justify-center relative">
+<div class="absolute inset-0 border-2 border-primary/30 rounded-full animate-spin-slow" style="animation: spin 10s linear infinite;"></div>
+<span class="material-symbols-outlined text-[80px] text-primary" style="font-variation-settings: 'FILL' 1;">
+                    shield_lock
+                </span>
+<!-- Medical Cross Overlay -->
+<div class="absolute -bottom-2 -right-2 bg-primary rounded-xl p-2 shadow-lg">
+<span class="material-symbols-outlined text-background font-bold">add</span>
+</div>
+</div>
+</div>
+<!-- Typography -->
+<div class="max-w-md space-y-md">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">الصلاحيات المطلوبة</h1>
+<p class="font-body-md text-body-md text-on-surface-variant px-4">
+                للحصول على أفضل تجربة طبية دقيقة، نحتاج إلى الوصول لبعض الصلاحيات الأساسية مثل الكاميرا للفحص والموقع للبحث عن أقرب المراكز الصحية.
+            </p>
+</div>
+<!-- Permissions Detail List -->
+<div class="mt-lg w-full max-w-sm flex flex-col gap-sm">
+<div class="flex items-center gap-md p-sm bg-surface-container/50 border border-white/5 rounded-xl text-right">
+<div class="bg-primary/10 p-base rounded-lg">
+<span class="material-symbols-outlined text-primary">photo_camera</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">الكاميرا</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">لمسح الوصفات الطبية ضوئياً</p>
+</div>
+<span class="material-symbols-outlined mr-auto text-error">cancel</span>
+</div>
+<div class="flex items-center gap-md p-sm bg-surface-container/50 border border-white/5 rounded-xl text-right">
+<div class="bg-primary/10 p-base rounded-lg">
+<span class="material-symbols-outlined text-primary">location_on</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">الموقع الجغرافي</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">لتحديد أقرب عيادة طوارئ</p>
+</div>
+<span class="material-symbols-outlined mr-auto text-error">cancel</span>
+</div>
+</div>
+</main>
+<!-- Footer Actions -->
+<footer class="relative z-10 w-full p-lg space-y-md">
+<button class="w-full py-md rounded-full bg-primary-container text-on-primary-container font-headline-md glass-btn transition-all flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined">settings</span>
+<span>الذهاب للإعدادات</span>
+</button>
+<button class="w-full py-md rounded-full border border-primary/30 text-primary font-body-md hover:bg-primary/10 transition-colors active:scale-95">
+            المحاولة لاحقاً
+        </button>
+</footer>
+<script>
+        // Micro-interactions: Particle generation
+        const container = document.getElementById('particle-container');
+        const particleCount = 20;
+
+        for (let i = 0; i < particleCount; i++) {
+            createParticle();
+        }
+
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'glow-particle';
+            const size = Math.random() * 4 + 2;
+            const posX = Math.random() * 100;
+            const posY = Math.random() * 100;
+            const duration = Math.random() * 10 + 5;
+            const delay = Math.random() * 5;
+
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${posX}%`;
+            particle.style.top = `${posY}%`;
+            
+            particle.animate([
+                { opacity: 0, transform: 'translateY(0)' },
+                { opacity: 0.4, transform: 'translateY(-100px)' },
+                { opacity: 0, transform: 'translateY(-200px)' }
+            ], {
+                duration: duration * 1000,
+                iterations: Infinity,
+                delay: delay * 1000
+            });
+
+            container.appendChild(particle);
+        }
+    </script>
+<script>
+        function createTechParticle() {
+            const container = document.getElementById('particle-container');
+            const particle = document.createElement('div');
+            const size = Math.random() * 3 + 1;
+            const duration = Math.random() * 15 + 10;
+            
+            particle.style.cssText = `
+                position: absolute;
+                width: ${size}px;
+                height: ${size}px;
+                background-color: #4edea3;
+                border-radius: 50%;
+                opacity: 0;
+                left: ${Math.random() * 100}%;
+                top: ${Math.random() * 100}%;
+                pointer-events: none;
+                filter: blur(1px);
+                z-index: -1;
+            `;
+
+            container.appendChild(particle);
+
+            const animation = particle.animate([
+                { opacity: 0, transform: 'translate(0, 0)' },
+                { opacity: 0.6, transform: `translate(${(Math.random() - 0.5) * 100}px, ${(Math.random() - 0.5) * 100}px)` },
+                { opacity: 0, transform: `translate(${(Math.random() - 0.5) * 200}px, ${(Math.random() - 0.5) * 200}px)` }
+            ], {
+                duration: duration * 1000,
+                easing: 'ease-in-out',
+                iterations: Infinity
+            });
+        }
+
+        for (let i = 0; i < 30; i++) {
+            setTimeout(createTechParticle, Math.random() * 5000);
+        }
+    </script></body></html>
