@@ -523,6 +523,22 @@ class AppStrings {
   static const ntHoursAgoPlural = 'منذ ساعات';
   static const ntDaysAgo = 'منذ أيام';
 
+  // Search Doctors Screen
+  static const sdTitle = 'البحث عن رعاية';
+  static const sdSearchHint = 'ابحث عن طبيب أو تخصص...';
+  static const sdResultsCount = 'تم العثور على';
+  static const sdDoctor = 'طبيب';
+  static const sdFilterAll = 'الكل';
+  static const sdFilterCardiology = 'القلب';
+  static const sdFilterNeurology = 'الأعصاب';
+  static const sdFilterDental = 'الأسنان';
+  static const sdBookAppointment = 'احجز موعداً';
+  static const sdChat = 'chat';
+  static const sdBottomHome = 'الرئيسية';
+  static const sdBottomSearch = 'بحث';
+  static const sdBottomAppointments = 'المواعيد';
+  static const sdBottomProfile = 'الملف';
+
   // Forbidden
   static const fbTitle = 'عذراً، لا تملك الصلاحية الكافية';
   static const fbMessage = 'هذه الصفحة مخصصة للمصرح لهم فقط. إذا كنت تعتقد أن هذا خطأ، يرجى التواصل مع الإدارة الطبية.';
