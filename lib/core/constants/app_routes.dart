@@ -30,4 +30,5 @@ class AppRoutes {
   static const forbidden = '/forbidden';
   static const sessionExpired = '/session-expired';
   static const suspended = '/suspended';
+  static const unauthorized = '/unauthorized';
 }
