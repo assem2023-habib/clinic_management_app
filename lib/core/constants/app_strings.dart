@@ -539,6 +539,14 @@ class AppStrings {
   static const sdBottomAppointments = 'المواعيد';
   static const sdBottomProfile = 'الملف';
 
+  // Service Stopped Screen
+  static const ssTitle = 'عذراً، الخدمة غير متوفرة حالياً';
+  static const ssMessage = 'النظام متوقف حالياً لإجراء صيانة تقنية طارئة. يعمل فريقنا الطبي والتقني بأقصى سرعة لاستعادة الخدمة. شكراً لتفهمكم.';
+  static const ssRetry = 'إعادة المحاولة';
+  static const ssGoHome = 'العودة للرئيسية';
+  static const ssStatusOffline = 'OFFLINE';
+  static const ssErrorCode = 'ERROR CODE: 503_SERVICE_UNAVAILABLE_VITALITY_CORE';
+
   // Forbidden
   static const fbTitle = 'عذراً، لا تملك الصلاحية الكافية';
   static const fbMessage = 'هذه الصفحة مخصصة للمصرح لهم فقط. إذا كنت تعتقد أن هذا خطأ، يرجى التواصل مع الإدارة الطبية.';

@@ -25,6 +25,7 @@ class AppRoutes {
   static const rateLimit = '/rate-limit';
   static const searchDoctors = '/search-doctors';
   static const downloadFiles = '/download-files';
+  static const serviceStopped = '/service-stopped';
   static const serverError = '/server-error';
   static const forbidden = '/forbidden';
 }
