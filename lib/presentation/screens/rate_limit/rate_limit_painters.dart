@@ -1,4 +1,4 @@
-import 'dart:math';
+import 'dart:math' show pi, cos, sin;
 import 'package:flutter/material.dart';
 
 class ClockPainter extends CustomPainter {
