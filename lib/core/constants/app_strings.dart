@@ -456,6 +456,13 @@ class AppStrings {
   static const dpNoPatientsHint = 'سيظهر هنا مرضاك المسجلون تحت عنايتك.';
   static String dpUnderCareOf(String name) => 'تحت عناية $name';
 
+  // Weak Connection Screen
+  static const wcTitle = 'الاتصال ضعيف حالياً';
+  static const wcMessage = 'يبدو أن سرعة الإنترنت منخفضة، قد تستغرق العملية وقتاً أطول من المعتاد.';
+  static const wcWaiting = 'يرجى الانتظار...';
+  static const wcRetry = 'إعادة المحاولة';
+  static const wcSignalStrength = 'قوة الإشارة: ضعيفة';
+
   // Offline Screen
   static const olTitle = 'عذراً، لا يوجد اتصال بالإنترنت';
   static const olMessage = 'يبدو أنك غير متصل بالشبكة حالياً. يرجى التحقق من إعدادات الواي فاي أو بيانات الهاتف والمحاولة مرة أخرى.';
@@ -465,11 +472,64 @@ class AppStrings {
   static const olServerUnreachable = 'Server unreachable';
 
   // Rate Limit Screen
-  static const rlTitle = 'تم تجاوز الحد المسموح من الطلبات';
-  static const rlMessage = 'لقد أرسلت عدداً كبيراً من الطلبات. يرجى الانتظار قليلاً قبل المحاولة مرة أخرى.';
+  static const rlTitle = 'تم تجاوز حد الطلبات';
+  static const rlMessage = 'لقد قمت بإرسال عدد كبير من الطلبات في وقت قصير جداً. لضمان أمان النظام واستقرار بياناتك الطبية، نرجو الانتظار قليلاً قبل المحاولة مجدداً.';
   static const rlRetry = 'إعادة المحاولة';
   static const rlGoHome = 'العودة للرئيسية';
   static const rlTooManyRequests = '429 Too Many Requests';
   static const rlRateLimited = 'Rate Limited';
   static const rlWaitPrefix = 'يرجى الانتظار';
+  static const rlWaitingTimer = 'مؤقت الانتظار';
+  static const rlReadyNow = 'جاهز الآن';
+  static const rlContactSupport = 'اتصل بالدعم الفني';
+  static const rlSecond = 'ثانية';
+
+  // Download Files
+  static const dfTitle = 'الملفات القابلة للتحميل';
+  static const dfSearchHint = 'ابحث عن ملف...';
+  static const dfCategoryAll = 'الكل';
+  static const dfCategoryReports = 'تقارير';
+  static const dfCategoryLab = 'تحاليل';
+  static const dfCategoryImaging = 'أشعة';
+  static const dfCategoryBilling = 'فواتير';
+  static const dfDownload = 'تحميل';
+  static const dfDownloaded = 'تم التحميل';
+  static const dfMb = 'ميغابايت';
+  static const dfNoFiles = 'لا توجد ملفات';
+  static const dfNoFilesHint = 'سيظهر هنا الملفات الطبية المتاحة للتحميل.';
+
+  // Server Error
+  static const seTitle = 'خطأ في الخادم';
+  static const seMessage = 'تعذر الاتصال بالخادم. يرجى المحاولة لاحقاً.';
+  static const seRetry = 'إعادة المحاولة';
+  static const seGoHome = 'العودة للرئيسية';
+  static const seServerBusy = 'الخادم مشغول';
+  static const seTryAgain = 'يرجى المحاولة لاحقاً';
+
+  // Notifications Screen
+  static const ntTitle = 'الإشعارات';
+  static const ntMarkAllRead = 'تحديد الكل كمقروء';
+  static const ntCategoryAll = 'الكل';
+  static const ntCategoryUnread = 'جديدة';
+  static const ntCategoryMedical = 'طبية';
+  static const ntCategoryAppointment = 'مواعيد';
+  static const ntCategorySystem = 'نظام';
+  static const ntEmptyTitle = 'لا توجد إشعارات';
+  static const ntEmptyHint = 'سيظهر هنا كل الإشعارات الجديدة والقديمة.';
+  static const ntJustNow = 'الآن';
+  static const ntMinutesAgo = 'منذ دقائق';
+  static const ntHourAgo = 'منذ ساعة';
+  static const ntHoursAgo = 'منذ ساعتين';
+  static const ntHoursAgoPlural = 'منذ ساعات';
+  static const ntDaysAgo = 'منذ أيام';
+
+  // Forbidden
+  static const fbTitle = 'عذراً، لا تملك الصلاحية الكافية';
+  static const fbMessage = 'هذه الصفحة مخصصة للمصرح لهم فقط. إذا كنت تعتقد أن هذا خطأ، يرجى التواصل مع الإدارة الطبية.';
+  static const fbGoHome = 'العودة للرئيسية';
+  static const fbContactSupport = 'تواصل مع الدعم';
+  static const fbAccessIdLabel = 'معرف الوصول';
+  static const fbAccessIdValue = 'REQ-403-VIT-2024';
+  static const fbSecurityLabel = 'حالة الأمن';
+  static const fbSecurityValue = 'محمي بتشفير Vitality';
 }

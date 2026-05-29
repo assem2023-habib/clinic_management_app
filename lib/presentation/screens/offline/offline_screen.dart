@@ -1,33 +1,461 @@
 import 'package:flutter/material.dart';
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
-import 'package:clinic_management_app/presentation/widgets/state_screen/state_screen.dart';
 
-class OfflineScreen extends StatelessWidget {
-  const OfflineScreen({super.key});
+class OfflineScreen extends StatefulWidget {
+  final VoidCallback? onRetry;
+  final VoidCallback? onShowCached;
+
+  const OfflineScreen({super.key, this.onRetry, this.onShowCached});
+
+  @override
+  State<OfflineScreen> createState() => _OfflineScreenState();
+}
+
+class _OfflineScreenState extends State<OfflineScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _pulseController;
+  late Animation<double> _pulseAnimation;
+
+  static const _imageUrl =
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuBSeUtfQ8B9jy-BT5l7LjgFV_x82Y5dBqwrkXeIGya0Zd7-gG5jEZ7B5xC-CAfrxyQfcMJWUCnj1VRUFGa_1-uCjsmV5FPNuHXwqzxZMvzyec_OzweSM1TiYV6y7xJTSe7L6tFeitBlC9NiJq3GoLTYHb5_Qt00LbdEx3DefG-miD1k3bs7--8GV1JbDyCMezVQnweqPlNDRaDEQsFEzj05YBvU1kYM4Ky1zwCpK6_8dkG1v_zL-xIIWOktu_S-0IbNII2Za9X2P8k';
+
+  @override
+  void initState() {
+    super.initState();
+    _pulseController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    )..repeat(reverse: true);
+    _pulseAnimation = Tween<double>(begin: 0.92, end: 1.08).animate(
+      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _pulseController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return StateScreen(
-      showAppBar: true,
-      appBarTitle: AppStrings.appName,
-      icon: Icons.wifi_off_rounded,
-      title: AppStrings.olTitle,
-      message: AppStrings.olMessage,
-      primaryAction: StateAction(
-        label: AppStrings.olRetry,
-        icon: Icons.refresh_rounded,
-        onTap: () {},
+    final colors = AppColors.of(context);
+    final screenSize = MediaQuery.of(context).size;
+
+    return Scaffold(
+      body: Stack(
+        children: [
+          _buildBackground(screenSize),
+          _buildScanlines(),
+          SafeArea(
+            child: Column(
+              children: [
+                _buildHeader(colors),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.lg,
+                      ),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: AppSpacing.xl),
+                          _buildIllustration(),
+                          const SizedBox(height: AppSpacing.xxl),
+                          _buildGlassCard(),
+                          const SizedBox(height: AppSpacing.xxl),
+                          _buildStatusDetails(colors),
+                          const SizedBox(height: AppSpacing.xl),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          _buildParticles(),
+        ],
       ),
-      secondaryAction: StateAction(
-        label: AppStrings.olShowCached,
-        isPrimary: false,
-        onTap: () => Navigator.of(context).pushReplacementNamed(AppRoutes.dashboard),
+    );
+  }
+
+  Widget _buildBackground(Size screenSize) {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      decoration: BoxDecoration(
+        gradient: RadialGradient(
+          center: Alignment.center,
+          radius: 1.2,
+          colors: [
+            const Color(0xFF002111),
+            const Color(0xFF131313),
+          ],
+          stops: const [0.0, 1.0],
+        ),
       ),
-      statusChips: const [
-        StatusChip(icon: Icons.wifi_off_rounded, label: AppStrings.olSignalLost),
-        StatusChip(icon: Icons.dns_rounded, label: AppStrings.olServerUnreachable),
+    );
+  }
+
+  Widget _buildScanlines() {
+    return Positioned.fill(
+      child: IgnorePointer(
+        child: CustomPaint(
+          painter: _ScanlinePainter(),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildParticles() {
+    return Positioned.fill(
+      child: IgnorePointer(
+        child: CustomPaint(
+          painter: _ParticlePainter(),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeader(AppColorSet colors) {
+    return Container(
+      height: 64,
+      decoration: BoxDecoration(
+        color: const Color(0xFF131313).withValues(alpha: 0.7),
+        border: Border(
+          bottom: BorderSide(
+            color: Colors.white.withValues(alpha: 0.15),
+          ),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: colors.primary.withValues(alpha: 0.1),
+            blurRadius: 20,
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          IconButton(
+            icon: const Icon(Icons.arrow_back_rounded),
+            color: colors.primary,
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          Expanded(
+            child: Text(
+              AppStrings.appName,
+              style: TextStyle(
+                fontFamily: 'Sora',
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
+                color: colors.primary,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          const SizedBox(width: 48),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildIllustration() {
+    return AnimatedBuilder(
+      animation: _pulseAnimation,
+      builder: (context, child) {
+        return Transform.scale(
+          scale: _pulseAnimation.value,
+          child: child,
+        );
+      },
+      child: SizedBox(
+        width: double.infinity,
+        height: MediaQuery.of(context).size.width * 0.72,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width * 0.6,
+              height: MediaQuery.of(context).size.width * 0.6,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: const Color(0xFF00E476).withValues(alpha: 0.04),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF00E476).withValues(alpha: 0.06),
+                    blurRadius: 100,
+                    spreadRadius: 30,
+                  ),
+                ],
+              ),
+            ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
+              child: Image.network(
+                _imageUrl,
+                width: MediaQuery.of(context).size.width * 0.55,
+                height: MediaQuery.of(context).size.width * 0.55,
+                fit: BoxFit.contain,
+                errorBuilder: (context, error, stackTrace) =>
+                    _buildFallbackIcon(),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFallbackIcon() {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.45,
+      height: MediaQuery.of(context).size.width * 0.45,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: const Color(0xFF002111).withValues(alpha: 0.5),
+        border: Border.all(
+          color: const Color(0xFF00FF85).withValues(alpha: 0.3),
+          width: 1.5,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF00FF85).withValues(alpha: 0.15),
+            blurRadius: 40,
+            spreadRadius: 10,
+          ),
+        ],
+      ),
+      child: Icon(
+        Icons.signal_cellular_off_rounded,
+        size: 72,
+        color: const Color(0xFF00FF85).withValues(alpha: 0.7),
+      ),
+    );
+  }
+
+  Widget _buildGlassCard() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(AppSpacing.lg),
+      decoration: BoxDecoration(
+        color: const Color(0xFF002111).withValues(alpha: 0.7),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.15),
+        ),
+      ),
+      child: Column(
+        children: [
+          Text(
+            AppStrings.olTitle,
+            style: const TextStyle(
+              fontFamily: 'Sora',
+              fontSize: 24,
+              fontWeight: FontWeight.w600,
+              height: 1.3,
+              color: Color(0xFFABCFB6),
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
+            child: Text(
+              AppStrings.olMessage,
+              style: const TextStyle(
+                fontFamily: 'Manrope',
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: Color(0xFFC2C8C1),
+                height: 1.5,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          _buildActions(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildActions() {
+    return Column(
+      children: [
+        SizedBox(
+          width: double.infinity,
+          height: 56,
+          child: ElevatedButton(
+            onPressed: widget.onRetry,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF00E476),
+              foregroundColor: const Color(0xFF00210C),
+              disabledBackgroundColor: const Color(0xFF00E476).withValues(alpha: 0.5),
+              disabledForegroundColor: const Color(0xFF00210C).withValues(alpha: 0.5),
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.refresh_rounded, size: 20),
+                const SizedBox(width: 8),
+                Text(
+                  AppStrings.olRetry,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        SizedBox(
+          width: double.infinity,
+          height: 56,
+          child: TextButton(
+            onPressed: widget.onShowCached ?? () => Navigator.of(context).pushReplacementNamed(AppRoutes.dashboard),
+            style: TextButton.styleFrom(
+              foregroundColor: const Color(0xFFABCFB6),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.cached_rounded, size: 20),
+                const SizedBox(width: 8),
+                Text(
+                  AppStrings.olShowCached,
+                  style: const TextStyle(
+                    fontFamily: 'JetBrains Mono',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }
+
+  Widget _buildStatusDetails(AppColorSet colors) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.wifi_off_rounded,
+              size: 16,
+              color: colors.textSecondary.withValues(alpha: 0.4),
+            ),
+            const SizedBox(width: 8),
+            Text(
+              AppStrings.olSignalLost,
+              style: TextStyle(
+                fontFamily: 'JetBrains Mono',
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                letterSpacing: 0.5,
+                color: colors.textSecondary.withValues(alpha: 0.4),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(width: AppSpacing.lg),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.dns_rounded,
+              size: 16,
+              color: colors.textSecondary.withValues(alpha: 0.4),
+            ),
+            const SizedBox(width: 8),
+            Text(
+              AppStrings.olServerUnreachable,
+              style: TextStyle(
+                fontFamily: 'JetBrains Mono',
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                letterSpacing: 0.5,
+                color: colors.textSecondary.withValues(alpha: 0.4),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class _ScanlinePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    for (double y = 0; y < size.height; y += 4) {
+      canvas.drawLine(
+        Offset(0, y + 2),
+        Offset(size.width, y + 2),
+        Paint()..color = Colors.black.withValues(alpha: 0.04),
+      );
+    }
+
+    final rect = Offset.zero & size;
+    final gradient = LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: [
+        Colors.red.withValues(alpha: 0.005),
+        Colors.green.withValues(alpha: 0.003),
+        Colors.blue.withValues(alpha: 0.005),
+      ],
+    );
+    canvas.drawRect(
+      rect,
+      Paint()..shader = gradient.createShader(rect),
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+
+class _ParticlePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = const Color(0xFF00E476).withValues(alpha: 0.12);
+    canvas.drawCircle(
+      Offset(size.width * 0.2, size.height * 0.25),
+      2,
+      paint,
+    );
+    canvas.drawCircle(
+      Offset(size.width * 0.75, size.height * 0.7),
+      3,
+      paint..color = const Color(0xFFABCFB6).withValues(alpha: 0.08),
+    );
+    canvas.drawCircle(
+      Offset(size.width * 0.5, size.height * 0.85),
+      1.5,
+      paint..color = const Color(0xFF00E476).withValues(alpha: 0.12),
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
