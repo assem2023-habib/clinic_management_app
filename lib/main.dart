@@ -54,6 +54,7 @@ import 'package:clinic_management_app/presentation/screens/forbidden/forbidden_s
 import 'package:clinic_management_app/presentation/screens/session_expired/session_expired_screen.dart';
 import 'package:clinic_management_app/presentation/screens/suspended/suspended_screen.dart';
 import 'package:clinic_management_app/presentation/screens/unauthorized/unauthorized_screen.dart';
+import 'package:clinic_management_app/presentation/screens/upload_files/upload_files_screen.dart';
 import 'package:clinic_management_app/presentation/screens/medical_records/medical_records_screen.dart';
 import 'package:clinic_management_app/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:clinic_management_app/presentation/screens/onboarding/role_selection_screen.dart';
@@ -224,6 +225,8 @@ class _MyAppState extends State<MyApp> {
                   screen = const SuspendedScreen();
                 case AppRoutes.unauthorized:
                   screen = const UnauthorizedScreen();
+                case AppRoutes.uploadFiles:
+                  screen = const UploadFilesScreen();
                 default:
                   screen = const RoleSelectionScreen();
               }

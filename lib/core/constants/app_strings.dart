@@ -587,4 +587,20 @@ class AppStrings {
   static const uaDataProtection = 'حماية البيانات';
   static const uaSecureProtocol = 'بروتوكول آمن';
   static const uaFooter = 'Vitality Health Platform © 2024 • جميع الحقوق محفوظة';
+
+  // Upload Files
+  static const ufTitle = 'Medical Uploads';
+  static const ufActiveUploadLabel = 'جاري التحميل الآن';
+  static const ufRecentUploadsLabel = 'تحميلات حديثة';
+  static const ufViewAll = 'عرض الكل';
+  static const ufCancelUpload = 'إلغاء التحميل';
+  static const ufProcessing = 'جاري المعالجة';
+  static const ufProgressComplete = 'مكتمل';
+  static const ufRemaining = 'بقي';
+  static const ufSecurityTitle = 'تشفير طبي فائق';
+  static const ufSecurityMessage = 'يتم حماية جميع ملفاتك باستخدام بروتوكولات التشفير AES-256 المتوافقة مع معايير HIPAA الدولية لضمان خصوصيتك.';
+  static const ufNavDashboard = 'Dashboard';
+  static const ufNavRecords = 'Records';
+  static const ufNavUpload = 'Upload';
+  static const ufNavProfile = 'Profile';
 }

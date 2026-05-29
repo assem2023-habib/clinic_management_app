@@ -31,4 +31,5 @@ class AppRoutes {
   static const sessionExpired = '/session-expired';
   static const suspended = '/suspended';
   static const unauthorized = '/unauthorized';
+  static const uploadFiles = '/upload-files';
 }
