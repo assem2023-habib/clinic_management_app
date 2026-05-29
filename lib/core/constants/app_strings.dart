@@ -577,4 +577,14 @@ class AppStrings {
   static const spContactSupport = 'تواصل مع الدعم الفني';
   static const spLogout = 'تسجيل الخروج';
   static const spFooter = '© 2024 AeroHealth AI. جميع الحقوق محفوظة.';
+
+  // Unauthorized
+  static const uaTitle = 'عذراً، الوصول غير مصرح';
+  static const uaMessage = 'يرجى تسجيل الدخول للوصول إلى هذه الصفحة والاستفادة من كافة الخدمات الطبية المتاحة.';
+  static const uaLogin = 'تسجيل الدخول';
+  static const uaGoHome = 'العودة للرئيسية';
+  static const uaEncryption = 'تشفير AES-256';
+  static const uaDataProtection = 'حماية البيانات';
+  static const uaSecureProtocol = 'بروتوكول آمن';
+  static const uaFooter = 'Vitality Health Platform © 2024 • جميع الحقوق محفوظة';
 }
