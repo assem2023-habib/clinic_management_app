@@ -61,6 +61,7 @@ import 'package:clinic_management_app/presentation/screens/onboarding/role_selec
 import 'package:clinic_management_app/presentation/screens/patients/patients_screen.dart';
 import 'package:clinic_management_app/presentation/screens/register/register_patient_screen.dart';
 import 'package:clinic_management_app/presentation/screens/register/register_doctor_screen.dart';
+import 'package:clinic_management_app/presentation/screens/patient_welcome/patient_welcome_screen.dart';
 
 import 'package:clinic_management_app/presentation/screens/profile/profile_screen.dart';
 import 'package:clinic_management_app/presentation/screens/profile/change_password_screen.dart';
@@ -227,6 +228,8 @@ class _MyAppState extends State<MyApp> {
                   screen = const UnauthorizedScreen();
                 case AppRoutes.uploadFiles:
                   screen = const UploadFilesScreen();
+                case AppRoutes.patientWelcome:
+                  screen = const PatientWelcomeScreen();
                 default:
                   screen = const RoleSelectionScreen();
               }

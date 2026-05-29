@@ -363,6 +363,20 @@ class AppStrings {
   static const onboardingPatientRecordsTitle = 'سِجِلَّاتُكَ الطِّبِّيَّةُ';
   static const onboardingPatientRecordsSubtitle = 'اطَّلِعْ عَلَى سِجِلَّاتِكَ الطِّبِّيَّةَ السَّابِقَةَ، التَّشْخِيصَاتِ، وَالوَصَفَاتِ فِي أَيِّ وَقْتٍ وَمِنْ أَيِّ مَكَانٍ.';
 
+  // Patient post-registration welcome
+  static const pwWelcomeTitle = 'مَرْحَباً بِكَ فِي مُسْتَقْبَلِ الرِّعَايَةِ الصِّحِّيَّةِ';
+  static const pwWelcomeSubtitle = 'اِكْتَشِفِ القُوَّةَ الكَامِنَةَ فِي بَيَانَاتِكَ الحَيَوِيَّةِ مَعَ تَحْلِيلَاتِ الذَّكَاءِ الاِصْطِنَاعِيِّ المُتَقَدِّمَةِ.';
+  static const pwApptsTitle = 'مَوَاعِيدُكَ فِي لَمْحَةٍ';
+  static const pwApptsSubtitle = 'اِسْتَعْرِضْ مَوَاعِيدَكَ القَادِمَةَ وَاسْتَقْبِلْ تَذْكِيرَاتٍ فَوْرِيَّةً لِمَوَاعِيدِكَ الطِّبِّيَّةِ.';
+  static const pwRecordsTitle = 'سِجْلُكَ الطِّبِّيُّ بِتَقْنِيَّةِ AI';
+  static const pwRecordsSubtitle = 'اطَّلِعْ عَلَى سِجِلَّاتِكَ الطِّبِّيَّةِ وَالتَّشْخِيصَاتِ وَالوَصَفَاتِ مَعَ تَحْلِيلَاتٍ ذَكِيَّةٍ.';
+  static const pwStartNow = 'ابْدَأْ الآنَ';
+  static const pwSkip = 'تَخَطِّي';
+  static const pwChipBpm = '82 BPM';
+  static const pwChipAiScan = 'AI Scan Active';
+  static const pwChipReminder = 'تَذْكِيرٌ ذَكِيٌّ';
+  static const pwChipAnalysis = 'تَحْلِيلُ AI';
+
   // Onboarding role selection services
   static const roleSelectionSystemName = 'نِظَامُ إِدَارَةِ العِيَادَةِ';
 

@@ -74,7 +74,7 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
       body: BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state.isAuthenticated) {
-            Navigator.pushReplacementNamed(context, AppRoutes.dashboard);
+            Navigator.pushReplacementNamed(context, AppRoutes.patientWelcome);
           }
           if (state.error != null) {
             ScaffoldMessenger.of(context).showSnackBar(
