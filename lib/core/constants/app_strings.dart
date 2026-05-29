@@ -441,7 +441,11 @@ class AppStrings {
   static const srNeurology = 'طب الأعصاب';
   static const srBannerTitle = 'فحص شامل مجاني';
   static const srBannerSubtitle = 'احصل على استشارة أولية مجانية لأعضاء حيوية المختارة.';
+  static const srBottomHome = 'الرئيسية';
   static const srMedicalServices = 'الخدمات الطبية';
+  static const srBottomServices = 'الخدمات';
+  static const srBottomRecords = 'السجلات';
+  static const srBottomAccount = 'حسابي';
 
   // Doctor Patients
   static const dpMyPatients = 'مرضاي';
