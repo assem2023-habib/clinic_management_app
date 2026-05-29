@@ -19,6 +19,11 @@ class AppRoutes {
   static const appointmentConfirmation = '/appointment-confirmation';
   static const rating = '/rating';
   static const services = '/services';
+  static const notifications = '/notifications';
+  static const weakConnection = '/weak-connection';
   static const offline = '/offline';
   static const rateLimit = '/rate-limit';
+  static const downloadFiles = '/download-files';
+  static const serverError = '/server-error';
+  static const forbidden = '/forbidden';
 }

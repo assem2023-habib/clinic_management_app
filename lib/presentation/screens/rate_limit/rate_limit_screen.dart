@@ -1,29 +1,43 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:clinic_management_app/core/constants/app_colors.dart';
-import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
-import 'package:clinic_management_app/presentation/widgets/state_screen/state_screen.dart';
+import 'package:clinic_management_app/presentation/screens/rate_limit/rate_limit_painters.dart';
 
 class RateLimitScreen extends StatefulWidget {
   final int? retryAfterSeconds;
+  final VoidCallback? onRetry;
+  final VoidCallback? onContactSupport;
 
-  const RateLimitScreen({super.key, this.retryAfterSeconds});
+  const RateLimitScreen({
+    super.key,
+    this.retryAfterSeconds,
+    this.onRetry,
+    this.onContactSupport,
+  });
 
   @override
   State<RateLimitScreen> createState() => _RateLimitScreenState();
 }
 
-class _RateLimitScreenState extends State<RateLimitScreen> {
+class _RateLimitScreenState extends State<RateLimitScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _pulseController;
   int? _remaining;
   Timer? _timer;
+  int _totalTime = 0;
 
   @override
   void initState() {
     super.initState();
+    _pulseController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 4),
+    )..repeat();
+
     if (widget.retryAfterSeconds != null && widget.retryAfterSeconds! > 0) {
       _remaining = widget.retryAfterSeconds;
+      _totalTime = widget.retryAfterSeconds!;
       _timer = Timer.periodic(const Duration(seconds: 1), (_) {
         if (_remaining != null && _remaining! > 0) {
           setState(() => _remaining = _remaining! - 1);
@@ -36,70 +50,386 @@ class _RateLimitScreenState extends State<RateLimitScreen> {
 
   @override
   void dispose() {
+    _pulseController.dispose();
     _timer?.cancel();
     super.dispose();
   }
 
-  String _formatDuration(int seconds) {
-    final min = seconds ~/ 60;
-    final sec = seconds % 60;
-    return '${min.toString().padLeft(2, '0')}:${sec.toString().padLeft(2, '0')}';
-  }
+  double get _progress =>
+      _remaining != null && _totalTime > 0 ? _remaining! / _totalTime : 0.0;
+
+  bool get _isReady => _remaining == null || _remaining! <= 0;
 
   @override
   Widget build(BuildContext context) {
-    final colors = AppColors.of(context);
-
-    Widget? timerWidget;
-    if (_remaining != null && _remaining! > 0) {
-      timerWidget = Column(
+    return Scaffold(
+      body: Stack(
         children: [
-          const SizedBox(height: AppSpacing.md),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
-            decoration: BoxDecoration(
-              color: colors.warning.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: colors.warning.withValues(alpha: 0.2)),
+          const DecoratedBox(
+            decoration: BoxDecoration(color: Color(0xFF00180B)),
+            child: SizedBox.expand(),
+          ),
+          _buildPulsingCircles(),
+          _buildAtmosphericGlows(),
+          _buildParticles(),
+          SafeArea(
+            child: Center(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.lg,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const SizedBox(height: AppSpacing.xl),
+                      _buildAnalogClock(),
+                      const SizedBox(height: AppSpacing.xl),
+                      _buildShieldIcon(),
+                      const SizedBox(height: AppSpacing.xxl),
+                      _buildContent(),
+                      const SizedBox(height: AppSpacing.lg),
+                      _buildTimerCard(),
+                      const SizedBox(height: AppSpacing.sm),
+                      _buildActions(),
+                      const SizedBox(height: AppSpacing.xl),
+                    ],
+                  ),
+                ),
+              ),
             ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPulsingCircles() {
+    return Positioned.fill(
+      child: IgnorePointer(
+        child: AnimatedBuilder(
+          animation: _pulseController,
+          builder: (context, _) {
+            return Stack(
+              alignment: Alignment.center,
               children: [
-                Icon(Icons.timer_rounded, size: 20, color: colors.warning),
-                const SizedBox(width: AppSpacing.sm),
-                Text(
-                  '${AppStrings.rlWaitPrefix} ${_formatDuration(_remaining!)}',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colors.warning),
+                _pulseCircle(300, 0.0),
+                _pulseCircle(500, 0.25),
+                _pulseCircle(700, 0.5),
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _pulseCircle(double size, double delay) {
+    final t = (_pulseController.value + delay) % 1.0;
+    final scale = 0.8 + 0.7 * t;
+    final opacity = t <= 0.5 ? t * 2.0 * 0.5 : (1.0 - t) * 2.0 * 0.5;
+    return Transform.scale(
+      scale: scale,
+      child: Opacity(
+        opacity: opacity,
+        child: Container(
+          width: size,
+          height: size,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: const Color(0xFF36FF8B).withValues(alpha: 0.15),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAtmosphericGlows() {
+    return Positioned.fill(
+      child: IgnorePointer(
+        child: Stack(
+          children: [
+            Positioned(
+              top: -96,
+              left: -96,
+              child: Container(
+                width: 384,
+                height: 384,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: const Color(0xFF36FF8B).withValues(alpha: 0.06),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFF36FF8B).withValues(alpha: 0.04),
+                      blurRadius: 120,
+                      spreadRadius: 40,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: -96,
+              right: -96,
+              child: Container(
+                width: 384,
+                height: 384,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: const Color(0xFFABCFB6).withValues(alpha: 0.03),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFFABCFB6).withValues(alpha: 0.02),
+                      blurRadius: 120,
+                      spreadRadius: 40,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildParticles() {
+    return Positioned.fill(
+      child: IgnorePointer(
+        child: CustomPaint(
+          painter: ParticlePainter(),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAnalogClock() {
+    return SizedBox(
+      width: 100,
+      height: 100,
+      child: CustomPaint(
+        painter: ClockPainter(progress: _progress),
+      ),
+    );
+  }
+
+  Widget _buildShieldIcon() {
+    return SizedBox(
+      width: 256,
+      height: 256,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Positioned.fill(
+            child: CustomPaint(
+              painter: DashedCirclePainter(),
+            ),
+          ),
+          Container(
+            width: 192,
+            height: 192,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: const Color(0xFF36FF8B).withValues(alpha: 0.03),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF36FF8B).withValues(alpha: 0.05),
+                  blurRadius: 80,
+                  spreadRadius: 20,
                 ),
               ],
             ),
           ),
+          Icon(
+            Icons.medical_services_rounded,
+            size: 72,
+            color: const Color(0xFF36FF8B).withValues(alpha: 0.8),
+          ),
         ],
-      );
-    }
+      ),
+    );
+  }
 
-    return StateScreen(
-      showAppBar: true,
-      appBarTitle: AppStrings.appName,
-      icon: Icons.timer_off_rounded,
-      title: AppStrings.rlTitle,
-      message: AppStrings.rlMessage,
-      primaryAction: StateAction(
-        label: AppStrings.rlRetry,
-        icon: Icons.refresh_rounded,
-        onTap: _remaining == null || _remaining! <= 0 ? () {} : null,
-        isPrimary: _remaining == null || _remaining! <= 0,
+  Widget _buildContent() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+      child: Column(
+        children: [
+          Text(
+            AppStrings.rlTitle,
+            style: const TextStyle(
+              fontFamily: 'Sora',
+              fontSize: 24,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF36FF8B),
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          Text(
+            AppStrings.rlMessage,
+            style: const TextStyle(
+              fontFamily: 'Manrope',
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+              color: Color(0xFFC2C8C1),
+              height: 1.5,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
-      secondaryAction: StateAction(
-        label: AppStrings.rlGoHome,
-        isPrimary: false,
-        onTap: () => Navigator.of(context).pushReplacementNamed(AppRoutes.dashboard),
+    );
+  }
+
+  Widget _buildTimerCard() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(AppSpacing.md),
+      decoration: BoxDecoration(
+        color: const Color(0xFF002111).withValues(alpha: 0.7),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
       ),
-      statusChips: const [
-        StatusChip(icon: Icons.warning_rounded, label: AppStrings.rlTooManyRequests),
-        StatusChip(icon: Icons.shield_rounded, label: AppStrings.rlRateLimited),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                AppStrings.rlWaitingTimer,
+                style: const TextStyle(
+                  fontFamily: 'JetBrains Mono',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  letterSpacing: 0.5,
+                  color: Color(0xFF36FF8B),
+                ),
+              ),
+              Text(
+                _isReady
+                    ? AppStrings.rlReadyNow
+                    : '$_remaining ${AppStrings.rlSecond}',
+                style: TextStyle(
+                  fontFamily: 'JetBrains Mono',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  letterSpacing: 0.5,
+                  color: _isReady
+                      ? const Color(0xFF36FF8B)
+                      : const Color(0xFFE5E2E1),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.md),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(9999),
+            child: SizedBox(
+              width: double.infinity,
+              height: 6,
+              child: Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 6,
+                    color: Colors.white.withValues(alpha: 0.08),
+                  ),
+                  AnimatedContainer(
+                    duration: const Duration(seconds: 1),
+                    curve: Curves.linear,
+                    width: _progress *
+                        MediaQuery.of(context).size.width *
+                        0.85,
+                    height: 6,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF36FF8B),
+                      borderRadius: BorderRadius.circular(9999),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFF36FF8B)
+                              .withValues(alpha: 0.3),
+                          blurRadius: 8,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildActions() {
+    return Column(
+      children: [
+        SizedBox(
+          width: double.infinity,
+          height: 56,
+          child: ElevatedButton(
+            onPressed: _isReady ? (widget.onRetry ?? () {}) : null,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF36FF8B),
+              foregroundColor: const Color(0xFF002111),
+              disabledBackgroundColor: Colors.white.withValues(alpha: 0.04),
+              disabledForegroundColor:
+                  const Color(0xFFC2C8C1).withValues(alpha: 0.5),
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.refresh_rounded,
+                  size: 20,
+                  color: _isReady
+                      ? const Color(0xFF002111)
+                      : const Color(0xFFC2C8C1).withValues(alpha: 0.5),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  AppStrings.rlRetry,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: _isReady
+                        ? const Color(0xFF002111)
+                        : const Color(0xFFC2C8C1).withValues(alpha: 0.5),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        TextButton(
+          onPressed: widget.onContactSupport,
+          style: TextButton.styleFrom(
+            foregroundColor: const Color(0xFFC2C8C1),
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.sm,
+              vertical: AppSpacing.sm,
+            ),
+          ),
+          child: Text(
+            AppStrings.rlContactSupport,
+            style: const TextStyle(
+              fontFamily: 'JetBrains Mono',
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              letterSpacing: 0.5,
+            ),
+          ),
+        ),
       ],
-      bottomWidget: timerWidget,
     );
   }
 }

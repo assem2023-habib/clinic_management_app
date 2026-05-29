@@ -9,6 +9,8 @@ class ApiService {
 
   static void Function()? onRateLimit;
   static void Function()? onNetworkError;
+  static void Function()? onServerError;
+  static void Function()? onForbidden;
 
   ApiService() {
     _dio = Dio(BaseOptions(
@@ -46,6 +48,17 @@ class ApiService {
             handler.resolve(retryResponse);
             return;
           }
+        }
+        if (error.response?.statusCode == 403) {
+          onForbidden?.call();
+          handler.next(error);
+          return;
+        }
+        final statusCode = error.response?.statusCode;
+        if (statusCode != null && statusCode >= 500 && statusCode < 600) {
+          onServerError?.call();
+          handler.next(error);
+          return;
         }
         handler.next(error);
       },

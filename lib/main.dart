@@ -39,9 +39,16 @@ import 'package:clinic_management_app/presentation/screens/appointment_confirmat
 import 'package:clinic_management_app/presentation/screens/rating/rating_screen.dart';
 import 'package:clinic_management_app/presentation/screens/services/services_screen.dart';
 import 'package:clinic_management_app/presentation/screens/offline/offline_screen.dart';
+import 'package:clinic_management_app/presentation/screens/notification/notification_screen.dart';
+import 'package:clinic_management_app/presentation/screens/weak_connection/weak_connection_screen.dart';
 import 'package:clinic_management_app/presentation/screens/rate_limit/rate_limit_screen.dart';
 import 'package:clinic_management_app/presentation/blocs/rating/rating_bloc.dart';
+import 'package:clinic_management_app/presentation/blocs/download_file/download_file_bloc.dart';
+import 'package:clinic_management_app/presentation/blocs/notification/notification_bloc.dart';
+import 'package:clinic_management_app/presentation/screens/download_files/download_files_screen.dart';
 import 'package:clinic_management_app/presentation/screens/login/login_screen.dart';
+import 'package:clinic_management_app/presentation/screens/server_error/server_error_screen.dart';
+import 'package:clinic_management_app/presentation/screens/forbidden/forbidden_screen.dart';
 import 'package:clinic_management_app/presentation/screens/medical_records/medical_records_screen.dart';
 import 'package:clinic_management_app/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:clinic_management_app/presentation/screens/onboarding/role_selection_screen.dart';
@@ -92,6 +99,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late final ThemeProvider _themeProvider;
+  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
 
   @override
   void initState() {
@@ -103,6 +111,10 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     final mockDataSource = MockDataSource();
     final apiService = ApiService();
+    ApiService.onRateLimit = () => _navigatorKey.currentState?.pushReplacementNamed(AppRoutes.rateLimit);
+    ApiService.onNetworkError = () => _navigatorKey.currentState?.pushReplacementNamed(AppRoutes.offline);
+    ApiService.onServerError = () => _navigatorKey.currentState?.pushReplacementNamed(AppRoutes.serverError);
+    ApiService.onForbidden = () => _navigatorKey.currentState?.pushReplacementNamed(AppRoutes.forbidden);
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<DoctorRepository>(create: (_) => DoctorRepositoryImpl(mockDataSource)),
@@ -124,6 +136,8 @@ class _MyAppState extends State<MyApp> {
           BlocProvider(create: (context) => ProfileCubit(authRepository: RepositoryProvider.of<AuthRepository>(context))),
           BlocProvider(create: (context) => LocationCubit(locationRepository: RepositoryProvider.of<LocationRepository>(context))..loadCountries()),
           BlocProvider(create: (_) => RatingBloc()),
+          BlocProvider(create: (_) => DownloadFileBloc()),
+          BlocProvider(create: (_) => NotificationBloc()),
         ],
         child: ListenableBuilder(
           listenable: _themeProvider,
@@ -132,6 +146,7 @@ class _MyAppState extends State<MyApp> {
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
             themeMode: _themeProvider.themeMode,
+            navigatorKey: _navigatorKey,
             debugShowCheckedModeBanner: false,
             home: const SplashScreen(),
             onGenerateRoute: (settings) {
@@ -179,10 +194,20 @@ class _MyAppState extends State<MyApp> {
                   screen = RatingScreen(doctorId: ratingDoctorId);
                 case AppRoutes.services:
                   screen = const ServicesScreen();
+                case AppRoutes.notifications:
+                  screen = const NotificationScreen();
+                case AppRoutes.weakConnection:
+                  screen = const WeakConnectionScreen();
                 case AppRoutes.offline:
                   screen = const OfflineScreen();
                 case AppRoutes.rateLimit:
                   screen = const RateLimitScreen();
+                case AppRoutes.downloadFiles:
+                  screen = const DownloadFilesScreen();
+                case AppRoutes.serverError:
+                  screen = const ServerErrorScreen();
+                case AppRoutes.forbidden:
+                  screen = const ForbiddenScreen();
                 default:
                   screen = const RoleSelectionScreen();
               }
