@@ -9,6 +9,7 @@ import 'package:clinic_management_app/presentation/blocs/patient/patient_bloc.da
 import 'package:clinic_management_app/presentation/blocs/patient/patient_event.dart';
 import 'package:clinic_management_app/presentation/blocs/patient/patient_state.dart';
 import 'package:clinic_management_app/presentation/widgets/animated_card.dart';
+import 'package:clinic_management_app/presentation/widgets/empty_data/empty_data_widget.dart';
 import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
 
 class DoctorPatientsView extends StatefulWidget {
@@ -53,7 +54,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
               if (state is PatientLoading) return const SkeletonList();
               if (state is PatientLoaded) {
                 final filtered = _filterPatients(state.patients);
-                if (filtered.isEmpty) return _buildEmptyState(colors);
+                if (filtered.isEmpty) return const EmptyDataWidget(icon: Icons.people_outline_rounded, title: AppStrings.dpNoPatients, subtitle: AppStrings.dpNoPatientsHint, compact: true);
                 return RefreshIndicator(
                   onRefresh: () async => context.read<PatientBloc>().add(PatientLoadAll()),
                   child: ListView.separated(
@@ -93,7 +94,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
                 ),
               );
               }
-              return _buildEmptyState(colors);
+              return const EmptyDataWidget(icon: Icons.people_outline_rounded, title: AppStrings.dpNoPatients, subtitle: AppStrings.dpNoPatientsHint, compact: true);
             },
           ),
         ),
@@ -314,30 +315,6 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
           style: TextStyle(fontSize: 11, color: colors.textSecondary),
         ),
       ],
-    );
-  }
-
-  Widget _buildEmptyState(AppColorSet colors) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(AppSpacing.xl),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.people_outline_rounded, size: 64, color: colors.textLight.withValues(alpha: 0.3)),
-            const SizedBox(height: AppSpacing.md),
-            Text(
-              AppStrings.dpNoPatients,
-              style: TextStyle(fontSize: 16, color: colors.textSecondary),
-            ),
-            const SizedBox(height: AppSpacing.xs),
-            Text(
-              AppStrings.dpNoPatientsHint,
-              style: TextStyle(fontSize: 13, color: colors.textLight),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

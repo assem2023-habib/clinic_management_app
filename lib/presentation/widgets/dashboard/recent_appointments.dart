@@ -4,6 +4,7 @@ import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_state.dart';
+import 'package:clinic_management_app/presentation/widgets/empty_data/empty_data_widget.dart';
 import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
 
 class RecentAppointments extends StatelessWidget {
@@ -22,7 +23,7 @@ class RecentAppointments extends StatelessWidget {
         if (state is AppointmentLoaded) {
           final recent = state.appointments.take(limit).toList();
           if (recent.isEmpty) {
-            return Center(child: Text(AppStrings.noAppointments, style: TextStyle(color: colors.textSecondary)));
+            return const EmptyDataWidget(icon: Icons.event_busy_rounded, title: AppStrings.noAppointments, compact: true);
           }
           return ListView.separated(
             shrinkWrap: true,
@@ -45,7 +46,7 @@ class RecentAppointments extends StatelessWidget {
             },
           );
         }
-        return Center(child: Text(AppStrings.noAppointments, style: TextStyle(color: colors.textSecondary)));
+        return const EmptyDataWidget(icon: Icons.event_busy_rounded, title: AppStrings.noAppointments, compact: true);
       },
     );
   }

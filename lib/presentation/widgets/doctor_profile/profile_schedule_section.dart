@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/time_slot_entity.dart';
+import 'package:clinic_management_app/presentation/widgets/empty_data/empty_data_widget.dart';
 
 class ProfileScheduleSection extends StatelessWidget {
   final List<TimeSlotEntity> slots;
@@ -130,12 +131,7 @@ class ProfileScheduleSection extends StatelessWidget {
           ),
         ],
         if (slots.isEmpty)
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: Text(AppStrings.noAvailableSlots, style: TextStyle(color: colors.textLight)),
-            ),
-          ),
+          const EmptyDataWidget(icon: Icons.event_available_rounded, title: AppStrings.noAvailableSlots, compact: true),
       ],
     );
   }

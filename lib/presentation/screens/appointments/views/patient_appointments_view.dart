@@ -7,6 +7,7 @@ import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_state.dart';
 import 'package:clinic_management_app/presentation/widgets/animated_card.dart';
+import 'package:clinic_management_app/presentation/widgets/empty_data/empty_data_widget.dart';
 import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
 
 class PatientAppointmentsView extends StatefulWidget {
@@ -30,7 +31,7 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
             builder: (context, state) {
               if (state is AppointmentLoading) return const SkeletonList();
               if (state is AppointmentLoaded) {
-                if (state.appointments.isEmpty) return Center(child: Text(AppStrings.noData, style: TextStyle(color: colors.textSecondary)));
+                if (state.appointments.isEmpty) return const EmptyDataWidget(icon: Icons.calendar_month_outlined, title: AppStrings.noData, compact: true);
                 return ListView.separated(
                   padding: const EdgeInsets.all(16),
                   itemCount: state.appointments.length,
@@ -42,7 +43,7 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
                 );
               }
               if (state is AppointmentError) return Center(child: Text(state.message, style: TextStyle(color: colors.error)));
-              return Center(child: Text(AppStrings.noData, style: TextStyle(color: colors.textSecondary)));
+              return const EmptyDataWidget(icon: Icons.calendar_month_outlined, title: AppStrings.noData, compact: true);
             },
           ),
         ),
