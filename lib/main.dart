@@ -49,6 +49,7 @@ import 'package:clinic_management_app/presentation/blocs/notification/notificati
 import 'package:clinic_management_app/presentation/screens/download_files/download_files_screen.dart';
 import 'package:clinic_management_app/presentation/screens/login/login_screen.dart';
 import 'package:clinic_management_app/presentation/screens/server_error/server_error_screen.dart';
+import 'package:clinic_management_app/presentation/screens/service_stopped/service_stopped_screen.dart';
 import 'package:clinic_management_app/presentation/screens/forbidden/forbidden_screen.dart';
 import 'package:clinic_management_app/presentation/screens/medical_records/medical_records_screen.dart';
 import 'package:clinic_management_app/presentation/screens/onboarding/onboarding_screen.dart';
@@ -207,6 +208,8 @@ class _MyAppState extends State<MyApp> {
                   screen = const RateLimitScreen();
                 case AppRoutes.downloadFiles:
                   screen = const DownloadFilesScreen();
+                case AppRoutes.serviceStopped:
+                  screen = const ServiceStoppedScreen();
                 case AppRoutes.serverError:
                   screen = const ServerErrorScreen();
                 case AppRoutes.forbidden:
