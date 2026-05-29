@@ -603,4 +603,22 @@ class AppStrings {
   static const ufNavRecords = 'Records';
   static const ufNavUpload = 'Upload';
   static const ufNavProfile = 'Profile';
+
+  // Medical Records - Patient
+  static const mrTitle = 'التاريخ الطبي';
+  static const mrBloodTypeLabel = 'فصيلة الدم';
+  static const mrAgeLabel = 'العمر';
+  static const mrConditionsTitle = 'الحالات الطبية';
+  static const mrActiveLabel = 'نشط';
+  static const mrMedicationsTitle = 'الأدوية الحالية';
+  static const mrAppointmentsTitle = 'المواعيد السابقة';
+  static const mrViewAll = 'عرض الكل';
+  static const mrVisitDone = 'تمت الزيارة';
+  static const mrDocumentsTitle = 'الوثائق الطبية';
+  static const mrUploadDocument = 'تحميل مستند جديد';
+  static const mrUploadHint = 'يدعم PDF, PNG, JPG';
+  static const mrNavHome = 'الرئيسية';
+  static const mrNavRecords = 'السجل';
+  static const mrNavVitals = 'المؤشرات';
+  static const mrNavProfile = 'الملف';
 }
