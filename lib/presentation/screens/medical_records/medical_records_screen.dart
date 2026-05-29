@@ -19,14 +19,16 @@ class _MedicalRecordsScreenState extends State<MedicalRecordsScreen> {
   @override
   Widget build(BuildContext context) {
     final role = context.watch<AuthCubit>().state.role;
+    if (role == UserRole.patient) return const PatientRecordsView();
+    final body = switch (role) {
+      UserRole.doctor || UserRole.admin || UserRole.receptionist => const DoctorRecordsView(),
+      null => const DoctorRecordsView(),
+      _ => const DoctorRecordsView(),
+    };
     return AppShell(
       title: AppStrings.medicalRecordsTitle,
       currentRoute: AppRoutes.medicalRecords,
-      body: switch (role) {
-        UserRole.doctor || UserRole.admin || UserRole.receptionist => const DoctorRecordsView(),
-        UserRole.patient => const PatientRecordsView(),
-        null => const DoctorRecordsView(),
-      },
+      body: body,
     );
   }
 }
