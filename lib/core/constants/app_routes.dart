@@ -23,6 +23,7 @@ class AppRoutes {
   static const weakConnection = '/weak-connection';
   static const offline = '/offline';
   static const rateLimit = '/rate-limit';
+  static const searchDoctors = '/search-doctors';
   static const downloadFiles = '/download-files';
   static const serverError = '/server-error';
   static const forbidden = '/forbidden';
