@@ -2,6 +2,7 @@ import 'package:clinic_management_app/core/services/api_service.dart';
 import 'package:clinic_management_app/data/models/auth/login_request.dart';
 import 'package:clinic_management_app/data/models/auth/register_patient_request.dart';
 import 'package:clinic_management_app/data/models/auth/register_doctor_request.dart';
+import 'package:clinic_management_app/data/models/auth/register_receptionist_request.dart';
 
 class AuthRemoteDataSource {
   final ApiService _api;
@@ -20,6 +21,11 @@ class AuthRemoteDataSource {
 
   Future<Map<String, dynamic>> registerDoctor(RegisterDoctorRequest request) async {
     final response = await _api.post('/auth/register/doctor', data: request.toMap());
+    return response.data as Map<String, dynamic>;
+  }
+
+  Future<Map<String, dynamic>> registerReceptionist(RegisterReceptionistRequest request) async {
+    final response = await _api.post('/auth/register/receptionist', data: request.toMap());
     return response.data as Map<String, dynamic>;
   }
 
@@ -45,7 +51,7 @@ class AuthRemoteDataSource {
   }
 
   Future<void> deleteAccount(String password) async {
-    await _api.delete('/auth/account');
+    await _api.delete('/auth/account', data: {'password': password});
   }
 
   Future<Map<String, dynamic>> updateDeviceToken(String token) async {

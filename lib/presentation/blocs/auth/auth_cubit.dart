@@ -8,6 +8,7 @@ import 'package:clinic_management_app/domain/repositories/auth_repository.dart';
 import 'package:clinic_management_app/data/models/auth/login_request.dart';
 import 'package:clinic_management_app/data/models/auth/register_patient_request.dart';
 import 'package:clinic_management_app/data/models/auth/register_doctor_request.dart';
+import 'package:clinic_management_app/data/models/auth/register_receptionist_request.dart';
 import 'package:clinic_management_app/core/services/fcm_service.dart';
 import 'package:clinic_management_app/core/services/firebase_auth_service.dart';
 
@@ -217,6 +218,37 @@ class AuthCubit extends Cubit<AuthState> {
         specializationId: specializationId, experienceMonths: experienceMonths,
       );
       final response = await _authRepository.registerDoctor(request);
+      if (response.isAuthenticated && response.user != null) {
+        _emitAuthenticated(response.user!);
+        await _registerDeviceToken(FcmService().deviceToken);
+        await _initFirebaseAuth();
+      } else {
+        emit(AuthState(pendingMessage: response.message));
+      }
+    } catch (e) {
+      emit(AuthError(e.toString()));
+    }
+  }
+
+  Future<void> registerReceptionist({
+    required String firstName, required String lastName, required String username,
+    required String email, required String password, String? phone,
+    String? address, required String gender, String? birthdayDate,
+    String? shiftStart, String? shiftEnd,
+  }) async {
+    emit(const AuthLoading());
+    if (_authRepository == null) {
+      emit(const AuthError('API غير متاح'));
+      return;
+    }
+    try {
+      final request = RegisterReceptionistRequest(
+        firstName: firstName, lastName: lastName, username: username,
+        email: email, password: password, phone: phone, address: address,
+        gender: gender, birthdayDate: birthdayDate,
+        shiftStart: shiftStart, shiftEnd: shiftEnd,
+      );
+      final response = await _authRepository.registerReceptionist(request);
       if (response.isAuthenticated && response.user != null) {
         _emitAuthenticated(response.user!);
         await _registerDeviceToken(FcmService().deviceToken);
