@@ -47,4 +47,14 @@ class AuthRemoteDataSource {
   Future<void> deleteAccount(String password) async {
     await _api.delete('/auth/account');
   }
+
+  Future<Map<String, dynamic>> updateDeviceToken(String token) async {
+    final response = await _api.post('/device-tokens', data: {'token': token});
+    return response.data as Map<String, dynamic>;
+  }
+
+  Future<Map<String, dynamic>> getFirebaseToken() async {
+    final response = await _api.post('/auth/firebase-token');
+    return response.data as Map<String, dynamic>;
+  }
 }

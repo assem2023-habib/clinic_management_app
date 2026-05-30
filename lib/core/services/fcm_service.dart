@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -22,6 +23,9 @@ class FcmService {
 
   final _messageStream = ValueNotifier<RemoteMessage?>(null);
   ValueNotifier<RemoteMessage?> get messageStream => _messageStream;
+
+  final _tokenStreamController = StreamController<String>.broadcast();
+  Stream<String> get onTokenRefresh => _tokenStreamController.stream;
 
   Future<void> initialize() async {
     await _requestPermission();
@@ -80,6 +84,7 @@ class FcmService {
     _messaging.onTokenRefresh.listen((newToken) {
       _deviceToken = newToken;
       debugPrint('FCM token refreshed: $newToken');
+      _tokenStreamController.add(newToken);
     });
   }
 
@@ -139,5 +144,9 @@ class FcmService {
   Future<void> deleteToken() async {
     await _messaging.deleteToken();
     _deviceToken = null;
+  }
+
+  void dispose() {
+    _tokenStreamController.close();
   }
 }

@@ -13,4 +13,6 @@ abstract class AuthRepository {
   Future<UserEntity> updateProfile(Map<String, dynamic> data);
   Future<void> changePassword(String oldPassword, String newPassword);
   Future<void> deleteAccount(String password);
+  Future<void> updateDeviceToken(String token);
+  Future<Map<String, String>> getFirebaseToken();
 }
