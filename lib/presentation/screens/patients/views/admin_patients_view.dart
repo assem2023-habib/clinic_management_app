@@ -64,15 +64,26 @@ class _AdminPatientsViewState extends State<AdminPatientsView> {
     );
   }
 
+  int _ageFromBirthday(String? birthdayDate) {
+    if (birthdayDate == null) return 0;
+    final birth = DateTime.tryParse(birthdayDate);
+    if (birth == null) return 0;
+    final now = DateTime.now();
+    int age = now.year - birth.year;
+    if (now.month < birth.month || (now.month == birth.month && now.day < birth.day)) age--;
+    return age;
+  }
+
   Widget _buildPatientCard(PatientEntity patient, AppColorSet colors) {
+    final isMale = patient.gender == 'male';
     return Card(
       child: ListTile(
         leading: CircleAvatar(
-          backgroundColor: patient.gender == Gender.male ? colors.primary : Colors.pink,
-          child: Icon(patient.gender == Gender.male ? Icons.male : Icons.female, color: Colors.white),
+          backgroundColor: isMale ? colors.primary : Colors.pink,
+          child: Icon(isMale ? Icons.male : Icons.female, color: Colors.white),
         ),
-        title: Text(patient.name),
-        subtitle: Text('${patient.age} years - ${patient.gender.name.toUpperCase()}'),
+        title: Text('${patient.firstName} ${patient.lastName}'),
+        subtitle: Text('${_ageFromBirthday(patient.birthdayDate)} years - ${patient.gender.toUpperCase()}'),
         trailing: PopupMenuButton<String>(
           onSelected: (value) {
             if (value == 'edit') _showPatientForm(context, patient: patient);

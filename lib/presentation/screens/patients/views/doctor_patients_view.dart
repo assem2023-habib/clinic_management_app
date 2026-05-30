@@ -35,8 +35,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
     if (_activeFilter == 'all') {
       return patients;
     }
-    final gender = _activeFilter == 'male' ? Gender.male : Gender.female;
-    return patients.where((p) => p.gender == gender).toList();
+    return patients.where((p) => p.gender == _activeFilter).toList();
   }
 
   @override
@@ -246,6 +245,16 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
     );
   }
 
+  int _ageFromBirthday(String? birthdayDate) {
+    if (birthdayDate == null) return 0;
+    final birth = DateTime.tryParse(birthdayDate);
+    if (birth == null) return 0;
+    final now = DateTime.now();
+    int age = now.year - birth.year;
+    if (now.month < birth.month || (now.month == birth.month && now.day < birth.day)) age--;
+    return age;
+  }
+
   Widget _buildPatientCard(PatientEntity patient, AppColorSet colors) {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.md),
@@ -261,13 +270,13 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
             height: 50,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: patient.gender == Gender.male
+              color: patient.gender == 'male'
                   ? colors.primary.withValues(alpha: 0.15)
                   : Colors.pink.withValues(alpha: 0.15),
             ),
             child: Icon(
-              patient.gender == Gender.male ? Icons.male_rounded : Icons.female_rounded,
-              color: patient.gender == Gender.male ? colors.primary : Colors.pink,
+              patient.gender == 'male' ? Icons.male_rounded : Icons.female_rounded,
+              color: patient.gender == 'male' ? colors.primary : Colors.pink,
               size: 26,
             ),
           ),
@@ -277,7 +286,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  patient.name,
+                  '${patient.firstName} ${patient.lastName}',
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
@@ -287,10 +296,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
                 const SizedBox(height: 4),
                 Row(
                   children: [
-                    _buildInfoChip(colors, Icons.calendar_today_rounded, '${patient.age} ${AppStrings.dpYear}'),
-                    const SizedBox(width: AppSpacing.sm),
-                    if (patient.bloodType != null)
-                      _buildInfoChip(colors, Icons.water_drop_rounded, patient.bloodType!),
+                    _buildInfoChip(colors, Icons.calendar_today_rounded, '${_ageFromBirthday(patient.birthdayDate)} ${AppStrings.dpYear}'),
                     const SizedBox(width: AppSpacing.sm),
                     _buildInfoChip(colors, Icons.phone_rounded, patient.phone),
                   ],

@@ -10,6 +10,7 @@ import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/data/datasources/local/mock_datasource.dart';
 import 'package:clinic_management_app/data/datasources/remote/auth_remote_datasource.dart';
 import 'package:clinic_management_app/data/datasources/remote/appointment_remote_datasource.dart';
+import 'package:clinic_management_app/data/datasources/remote/patient_remote_datasource.dart';
 import 'package:clinic_management_app/core/services/appointment_rtdb_service.dart';
 import 'package:clinic_management_app/data/repositories/doctor_repository_impl.dart';
 import 'package:clinic_management_app/data/repositories/patient_repository_impl.dart';
