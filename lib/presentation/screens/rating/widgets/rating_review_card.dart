@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
-import 'package:clinic_management_app/domain/entities/review_entity.dart';
+import 'package:clinic_management_app/domain/entities/rating_entity.dart';
 
 class RatingReviewCard extends StatelessWidget {
-  final ReviewEntity review;
+  final RatingEntity review;
   final bool isLiked;
   final VoidCallback? onToggleLike;
   final VoidCallback? onFlag;
@@ -21,8 +21,10 @@ class RatingReviewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
-    final diff = DateTime.now().difference(review.date);
-    final timeAgo = _formatTimeAgo(diff);
+    final raterName = review.raterName;
+    final raterImage = review.raterImage;
+    final createdAt = review.createdAt ?? '';
+    final timeAgo = _formatTimeAgo(createdAt);
 
     return Container(
       padding: const EdgeInsets.all(AppSpacing.md),
@@ -40,12 +42,12 @@ class RatingReviewCard extends StatelessWidget {
               CircleAvatar(
                 radius: 22,
                 backgroundColor: colors.primary.withValues(alpha: 0.15),
-                backgroundImage: review.patientImage != null
-                    ? NetworkImage(review.patientImage!)
+                backgroundImage: raterImage != null
+                    ? NetworkImage(raterImage)
                     : null,
-                child: review.patientImage == null
+                child: raterImage == null
                     ? Text(
-                        review.patientName.isNotEmpty ? review.patientName[0] : '?',
+                        raterName.isNotEmpty ? raterName[0] : '?',
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colors.primary),
                       )
                     : null,
@@ -56,7 +58,7 @@ class RatingReviewCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      review.patientName,
+                      raterName,
                       style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: colors.textPrimary),
                     ),
                     Text(
@@ -85,7 +87,7 @@ class RatingReviewCard extends StatelessWidget {
           ),
           const SizedBox(height: AppSpacing.sm),
           Text(
-            review.comment,
+            review.comment ?? '',
             style: TextStyle(fontSize: 14, color: colors.textSecondary, height: 1.6),
           ),
           const SizedBox(height: AppSpacing.sm),
@@ -106,11 +108,6 @@ class RatingReviewCard extends StatelessWidget {
                         isLiked ? Icons.thumb_up_rounded : Icons.thumb_up_outlined,
                         size: 14,
                         color: isLiked ? colors.primary : colors.textSecondary,
-                      ),
-                      const SizedBox(width: AppSpacing.xs),
-                      Text(
-                        '${review.likesCount + (isLiked && review.likesCount == 0 ? 1 : 0)}',
-                        style: TextStyle(fontSize: 12, color: isLiked ? colors.primary : colors.textSecondary),
                       ),
                     ],
                   ),
@@ -135,7 +132,11 @@ class RatingReviewCard extends StatelessWidget {
     );
   }
 
-  String _formatTimeAgo(Duration diff) {
+  String _formatTimeAgo(String dateStr) {
+    if (dateStr.isEmpty) return '';
+    final dateTime = DateTime.tryParse(dateStr);
+    if (dateTime == null) return '';
+    final diff = DateTime.now().difference(dateTime);
     if (diff.inDays == 0) return AppStrings.timeAgoTwoDays;
     if (diff.inDays == 1) return AppStrings.timeAgoYesterday;
     if (diff.inDays < 7) return '${AppStrings.timeAgoSince} ${diff.inDays} ${AppStrings.timeAgoDays}';

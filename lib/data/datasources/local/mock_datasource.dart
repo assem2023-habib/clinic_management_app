@@ -7,6 +7,7 @@ import 'package:clinic_management_app/data/models/country_model.dart';
 import 'package:clinic_management_app/data/models/city_model.dart';
 import 'package:clinic_management_app/data/models/review_model.dart';
 import 'package:clinic_management_app/data/models/doctor_schedule_model.dart';
+import 'package:clinic_management_app/data/models/rating_model.dart';
 
 class MockDataSource implements DataSource {
   final List<CountryModel> _countries = [
@@ -25,6 +26,7 @@ class MockDataSource implements DataSource {
   final List<DoctorScheduleModel> _schedules = [];
   final List<AppointmentModel> _appointments = [];
   final List<MedicalRecordModel> _medicalRecords = [];
+  final List<RatingModel> _ratings = [];
 
   @override
   List<DoctorModel> get allDoctors => List.unmodifiable(_doctors);
@@ -110,4 +112,16 @@ class MockDataSource implements DataSource {
       _schedules[i] = DoctorScheduleModel(id: _schedules[i].id, dayOfWeek: _schedules[i].dayOfWeek, startTime: _schedules[i].startTime, endTime: _schedules[i].endTime, isActive: !_schedules[i].isActive);
     }
   }
+
+  @override
+  List<RatingModel> get allRatings => List.unmodifiable(_ratings);
+  @override
+  void addRating(RatingModel rating) => _ratings.add(rating);
+  @override
+  void updateRating(RatingModel rating) {
+    final i = _ratings.indexWhere((r) => r.id == rating.id);
+    if (i != -1) _ratings[i] = rating;
+  }
+  @override
+  void deleteRating(String id) => _ratings.removeWhere((r) => r.id == id);
 }
