@@ -14,14 +14,14 @@ void main() {
   late MockLocationRepository repository;
   late LocationCubit cubit;
 
-  const testCountries = [
-    CountryEntity(id: 'sy', name: 'Syria', nameAr: 'سُورِيَا', code: 'SY', phoneCode: '+963', flag: '🇸🇾'),
-    CountryEntity(id: 'sa', name: 'Saudi Arabia', nameAr: 'السُّعُودِيَّةُ', code: 'SA', phoneCode: '+966', flag: '🇸🇦'),
+  final testCountries = <CountryEntity>[
+    CountryEntity(id: 'sy', nameEn: 'Syria', nameAr: 'سُورِيَا', code: 'SY', flag: '🇸🇾'),
+    CountryEntity(id: 'sa', nameEn: 'Saudi Arabia', nameAr: 'السُّعُودِيَّةُ', code: 'SA', flag: '🇸🇦'),
   ];
 
-  const testCities = [
-    CityEntity(id: 'sy-1', name: 'Damascus', nameAr: 'دِمَشْقُ', countryId: 'sy'),
-    CityEntity(id: 'sy-2', name: 'Aleppo', nameAr: 'حَلَبُ', countryId: 'sy'),
+  final testCities = <CityEntity>[
+    CityEntity(id: 'sy-1', nameEn: 'Damascus', nameAr: 'دِمَشْقُ', countryId: 'sy'),
+    CityEntity(id: 'sy-2', nameEn: 'Aleppo', nameAr: 'حَلَبُ', countryId: 'sy'),
   ];
 
   setUp(() {
@@ -49,7 +49,7 @@ void main() {
 
   group('CountryPickerField', () {
     testWidgets('renders label and hint when nothing selected', (tester) async {
-      cubit.emit(const LocationState(countries: testCountries));
+      cubit.emit(LocationState(countries: testCountries));
 
       await tester.pumpWidget(buildTestWidget(
         CountryPickerField(
@@ -63,7 +63,7 @@ void main() {
     });
 
     testWidgets('shows selected country name and flag', (tester) async {
-      cubit.emit(const LocationState(countries: testCountries));
+      cubit.emit(LocationState(countries: testCountries));
 
       await tester.pumpWidget(buildTestWidget(
         CountryPickerField(
@@ -78,7 +78,7 @@ void main() {
 
   group('CityPickerField', () {
     testWidgets('displays disabled hint when no country selected', (tester) async {
-      cubit.emit(const LocationState(cities: testCities, selectedCountry: null));
+      cubit.emit(LocationState(cities: testCities, selectedCountry: null));
 
       await tester.pumpWidget(buildTestWidget(
         CityPickerField(

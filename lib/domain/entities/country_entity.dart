@@ -2,21 +2,23 @@ import 'package:equatable/equatable.dart';
 
 class CountryEntity extends Equatable {
   final String id;
-  final String name;
+  final String nameEn;
   final String nameAr;
   final String code;
-  final String phoneCode;
-  final String flag;
+  final String? flag;
+  final String? createdAt;
+  final String? updatedAt;
 
   const CountryEntity({
     required this.id,
-    required this.name,
+    required this.nameEn,
     required this.nameAr,
     required this.code,
-    required this.phoneCode,
-    required this.flag,
+    this.flag,
+    this.createdAt,
+    this.updatedAt,
   });
 
   @override
-  List<Object?> get props => [id, name, nameAr, code, phoneCode, flag];
+  List<Object?> get props => [id, nameEn, nameAr, code, flag, createdAt, updatedAt];
 }

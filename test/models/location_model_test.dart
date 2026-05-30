@@ -6,69 +6,65 @@ void main() {
   group('CountryModel', () {
     const json = {
       'id': 'sy',
-      'name': 'Syria',
-      'name_ar': 'سُورِيَا',
+      'name': {'en': 'Syria', 'ar': 'سُورِيَا'},
       'code': 'SY',
-      'phone_code': '+963',
       'flag': '🇸🇾',
     };
 
-    test('fromJson creates correct instance', () {
-      final model = CountryModel.fromJson(json);
+    test('fromMap creates correct instance', () {
+      final model = CountryModel.fromMap(json);
       expect(model.id, 'sy');
-      expect(model.name, 'Syria');
+      expect(model.nameEn, 'Syria');
       expect(model.nameAr, 'سُورِيَا');
       expect(model.code, 'SY');
-      expect(model.phoneCode, '+963');
       expect(model.flag, '🇸🇾');
     });
 
-    test('toJson produces correct map', () {
-      final model = CountryModel.fromJson(json);
-      expect(model.toJson(), json);
+    test('toMap produces correct map', () {
+      final model = CountryModel.fromMap(json);
+      expect(model.toMap(), json);
     });
 
     test('supports value equality', () {
-      final a = CountryModel.fromJson(json);
-      final b = CountryModel.fromJson(json);
+      final a = CountryModel.fromMap(json);
+      final b = CountryModel.fromMap(json);
       expect(a, equals(b));
     });
 
     test('props contains all fields', () {
-      final model = CountryModel.fromJson(json);
-      expect(model.props, containsAll(['sy', 'Syria', 'سُورِيَا', 'SY', '+963', '🇸🇾']));
+      final model = CountryModel.fromMap(json);
+      expect(model.props, containsAll(['sy', 'Syria', 'سُورِيَا', 'SY', '🇸🇾']));
     });
   });
 
   group('CityModel', () {
     const json = {
       'id': 'sy-1',
-      'name': 'Damascus',
-      'name_ar': 'دِمَشْقُ',
+      'name': {'en': 'Damascus', 'ar': 'دِمَشْقُ'},
       'country_id': 'sy',
     };
 
-    test('fromJson creates correct instance', () {
-      final model = CityModel.fromJson(json);
+    test('fromMap creates correct instance', () {
+      final model = CityModel.fromMap(json);
       expect(model.id, 'sy-1');
-      expect(model.name, 'Damascus');
+      expect(model.nameEn, 'Damascus');
       expect(model.nameAr, 'دِمَشْقُ');
       expect(model.countryId, 'sy');
     });
 
-    test('toJson produces correct map', () {
-      final model = CityModel.fromJson(json);
-      expect(model.toJson(), json);
+    test('toMap produces correct map', () {
+      final model = CityModel.fromMap(json);
+      expect(model.toMap(), json);
     });
 
     test('supports value equality', () {
-      final a = CityModel.fromJson(json);
-      final b = CityModel.fromJson(json);
+      final a = CityModel.fromMap(json);
+      final b = CityModel.fromMap(json);
       expect(a, equals(b));
     });
 
     test('props contains all fields', () {
-      final model = CityModel.fromJson(json);
+      final model = CityModel.fromMap(json);
       expect(model.props, containsAll(['sy-1', 'Damascus', 'دِمَشْقُ', 'sy']));
     });
   });

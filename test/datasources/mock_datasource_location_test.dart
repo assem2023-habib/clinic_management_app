@@ -13,7 +13,7 @@ void main() {
       final countries = dataSource.allCountries;
       expect(countries.length, 22);
       expect(countries.first.nameAr, 'سُورِيَا');
-      expect(countries.last.phoneCode, '+49');
+      expect(countries.last.nameEn, 'Germany');
     });
 
     test('allCities returns 36 cities', () {
@@ -46,7 +46,7 @@ void main() {
     test('searchCities finds by English name', () {
       final result = dataSource.searchCities('Cairo');
       expect(result.length, 1);
-      expect(result.first.name, 'Cairo');
+      expect(result.first.nameEn, 'Cairo');
     });
 
     test('searchCities without countryId searches all countries', () {

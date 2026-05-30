@@ -15,9 +15,21 @@ class UserModel extends UserEntity {
     super.roles = const [],
     super.isActive = true,
     super.imageUrl,
+    super.countryId,
+    super.cityId,
+    super.fcmTokens,
+    super.emailVerifiedAt,
+    super.createdAt,
+    super.updatedAt,
   });
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
+    List<String>? fcmTokens;
+    if (map['fcm_tokens'] != null) {
+      if (map['fcm_tokens'] is List) {
+        fcmTokens = (map['fcm_tokens'] as List).cast<String>();
+      }
+    }
     return UserModel(
       id: map['id'] as String,
       firstName: map['first_name'] as String? ?? '',
@@ -35,6 +47,12 @@ class UserModel extends UserEntity {
       imageUrl: map['image'] != null && map['image'] is Map
           ? (map['image'] as Map)['url'] as String?
           : null,
+      countryId: map['country_id'] as String?,
+      cityId: map['city_id'] as String?,
+      fcmTokens: fcmTokens,
+      emailVerifiedAt: map['email_verified_at'] as String?,
+      createdAt: map['created_at'] as String?,
+      updatedAt: map['updated_at'] as String?,
     );
   }
 
@@ -51,6 +69,10 @@ class UserModel extends UserEntity {
       'birthday_date': birthdayDate,
       'roles': roles.map((r) => (r as RoleModel).toMap()).toList(),
       'is_active': isActive,
+      'country_id': countryId,
+      'city_id': cityId,
+      'fcm_tokens': fcmTokens,
+      'email_verified_at': emailVerifiedAt,
     };
   }
 }

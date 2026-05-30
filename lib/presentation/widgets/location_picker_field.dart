@@ -69,7 +69,7 @@ class CountryPickerField extends StatelessWidget {
                   TextField(
                     controller: searchCtrl,
                     onChanged: (v) => setSheetState(() {
-                      filtered = countries.where((c) => c.nameAr.contains(v) || c.name.contains(v) || c.code.contains(v.toUpperCase())).toList();
+                      filtered = countries.where((c) => c.nameAr.contains(v) || c.nameEn.contains(v) || c.code.contains(v.toUpperCase())).toList();
                     }),
                     decoration: InputDecoration(
                       hintText: 'بَحْثٌ...',
@@ -88,9 +88,9 @@ class CountryPickerField extends StatelessWidget {
                         final c = filtered[i];
                         final isSelected = selectedCountry?.id == c.id;
                         return ListTile(
-                          leading: Text(c.flag, style: const TextStyle(fontSize: 24)),
+                          leading: Text(c.flag ?? '', style: const TextStyle(fontSize: 24)),
                           title: Text(c.nameAr, style: TextStyle(color: colors.textPrimary)),
-                          subtitle: Text('${c.name} | ${c.phoneCode}', style: TextStyle(color: colors.textSecondary, fontSize: 12)),
+                          subtitle: Text(c.nameEn, style: TextStyle(color: colors.textSecondary, fontSize: 12)),
                           trailing: isSelected ? Icon(Icons.check_circle_rounded, color: colors.primary, size: 22) : null,
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                           selected: isSelected,
@@ -178,7 +178,7 @@ class CityPickerField extends StatelessWidget {
                   TextField(
                     controller: searchCtrl,
                     onChanged: (v) => setSheetState(() {
-                      filtered = cities.where((c) => c.nameAr.contains(v) || c.name.contains(v)).toList();
+                      filtered = cities.where((c) => c.nameAr.contains(v) || c.nameEn.contains(v)).toList();
                     }),
                     decoration: InputDecoration(
                       hintText: 'بَحْثٌ...',
@@ -198,7 +198,7 @@ class CityPickerField extends StatelessWidget {
                         final isSelected = selectedCity?.id == c.id;
                         return ListTile(
                           title: Text(c.nameAr, style: TextStyle(color: colors.textPrimary)),
-                          subtitle: Text(c.name, style: TextStyle(color: colors.textSecondary, fontSize: 12)),
+                          subtitle: Text(c.nameEn, style: TextStyle(color: colors.textSecondary, fontSize: 12)),
                           trailing: isSelected ? Icon(Icons.check_circle_rounded, color: colors.primary, size: 22) : null,
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                           selected: isSelected,

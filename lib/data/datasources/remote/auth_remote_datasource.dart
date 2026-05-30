@@ -1,21 +1,25 @@
 import 'package:clinic_management_app/core/services/api_service.dart';
+import 'package:clinic_management_app/data/models/auth/login_request.dart';
+import 'package:clinic_management_app/data/models/auth/register_patient_request.dart';
+import 'package:clinic_management_app/data/models/auth/register_doctor_request.dart';
 
 class AuthRemoteDataSource {
   final ApiService _api;
 
   AuthRemoteDataSource(this._api);
 
-  Future<Map<String, dynamic>> login(String email, String password, {String? deviceFingerprint}) async {
-    final response = await _api.post('/auth/login', data: {
-      'email': email,
-      'password': password,
-      if (deviceFingerprint != null) 'device_fingerprint': deviceFingerprint,
-    });
+  Future<Map<String, dynamic>> login(LoginRequest request) async {
+    final response = await _api.post('/auth/login', data: request.toMap());
     return response.data as Map<String, dynamic>;
   }
 
-  Future<Map<String, dynamic>> register(Map<String, dynamic> data, String endpoint) async {
-    final response = await _api.post('/auth/register/$endpoint', data: data);
+  Future<Map<String, dynamic>> registerPatient(RegisterPatientRequest request) async {
+    final response = await _api.post('/auth/register/patient', data: request.toMap());
+    return response.data as Map<String, dynamic>;
+  }
+
+  Future<Map<String, dynamic>> registerDoctor(RegisterDoctorRequest request) async {
+    final response = await _api.post('/auth/register/doctor', data: request.toMap());
     return response.data as Map<String, dynamic>;
   }
 
