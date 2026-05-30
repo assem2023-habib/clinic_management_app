@@ -14,12 +14,14 @@ import 'package:clinic_management_app/data/repositories/appointment_repository_i
 import 'package:clinic_management_app/data/repositories/medical_record_repository_impl.dart';
 import 'package:clinic_management_app/data/repositories/auth_repository_impl.dart';
 import 'package:clinic_management_app/data/repositories/location_repository_impl.dart';
+import 'package:clinic_management_app/data/repositories/rating_repository_impl.dart';
 import 'package:clinic_management_app/domain/repositories/doctor_repository.dart';
 import 'package:clinic_management_app/domain/repositories/patient_repository.dart';
 import 'package:clinic_management_app/domain/repositories/appointment_repository.dart';
 import 'package:clinic_management_app/domain/repositories/medical_record_repository.dart';
 import 'package:clinic_management_app/domain/repositories/auth_repository.dart';
 import 'package:clinic_management_app/domain/repositories/location_repository.dart';
+import 'package:clinic_management_app/domain/repositories/rating_repository.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_bloc.dart';
@@ -134,6 +136,7 @@ class _MyAppState extends State<MyApp> {
         RepositoryProvider<MedicalRecordRepository>(create: (_) => MedicalRecordRepositoryImpl(mockDataSource)),
         RepositoryProvider<AuthRepository>(create: (_) => AuthRepositoryImpl(AuthRemoteDataSource(apiService), apiService)),
         RepositoryProvider<LocationRepository>(create: (_) => LocationRepositoryImpl(mockDataSource)),
+        RepositoryProvider<RatingRepository>(create: (_) => RatingRepositoryImpl(localDataSource: mockDataSource)),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -146,7 +149,7 @@ class _MyAppState extends State<MyApp> {
           BlocProvider(create: (context) => DoctorProfileBloc(RepositoryProvider.of<DoctorRepository>(context))),
           BlocProvider(create: (context) => ProfileCubit(authRepository: RepositoryProvider.of<AuthRepository>(context))),
           BlocProvider(create: (context) => LocationCubit(locationRepository: RepositoryProvider.of<LocationRepository>(context))..loadCountries()),
-          BlocProvider(create: (_) => RatingBloc()),
+          BlocProvider(create: (context) => RatingBloc(repository: RepositoryProvider.of<RatingRepository>(context))),
           BlocProvider(create: (_) => DownloadFileBloc()),
           BlocProvider(create: (_) => NotificationBloc()),
         ],

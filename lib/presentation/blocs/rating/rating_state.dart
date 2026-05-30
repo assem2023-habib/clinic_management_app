@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:clinic_management_app/domain/entities/review_entity.dart';
+import 'package:clinic_management_app/domain/entities/rating_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/rating/rating_event.dart';
 
 class RatingDistribution {
@@ -10,12 +10,12 @@ class RatingDistribution {
 }
 
 class RatingState extends Equatable {
-  final List<ReviewEntity> allReviews;
-  final List<ReviewEntity> displayedReviews;
+  final List<RatingEntity> allReviews;
+  final List<RatingEntity> displayedReviews;
   final bool isLoading;
   final bool isLoadingMore;
   final String? error;
-  final RatingFilter currentFilter;
+  final RatingFilterOption currentFilter;
   final double averageRating;
   final int totalReviews;
   final List<RatingDistribution> distribution;
@@ -28,7 +28,7 @@ class RatingState extends Equatable {
     this.isLoading = false,
     this.isLoadingMore = false,
     this.error,
-    this.currentFilter = RatingFilter.newest,
+    this.currentFilter = RatingFilterOption.newest,
     this.averageRating = 0.0,
     this.totalReviews = 0,
     this.distribution = const [],
@@ -37,12 +37,12 @@ class RatingState extends Equatable {
   });
 
   RatingState copyWith({
-    List<ReviewEntity>? allReviews,
-    List<ReviewEntity>? displayedReviews,
+    List<RatingEntity>? allReviews,
+    List<RatingEntity>? displayedReviews,
     bool? isLoading,
     bool? isLoadingMore,
     String? error,
-    RatingFilter? currentFilter,
+    RatingFilterOption? currentFilter,
     double? averageRating,
     int? totalReviews,
     List<RatingDistribution>? distribution,
@@ -70,7 +70,7 @@ class RatingState extends Equatable {
     displayedReviews,
     isLoading,
     isLoadingMore,
-    error,
+    error ?? '',
     currentFilter,
     averageRating,
     totalReviews,

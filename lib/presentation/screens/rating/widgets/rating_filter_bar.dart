@@ -5,8 +5,8 @@ import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/rating/rating_event.dart';
 
 class RatingFilterBar extends StatelessWidget {
-  final RatingFilter currentFilter;
-  final ValueChanged<RatingFilter> onFilterChanged;
+  final RatingFilterOption currentFilter;
+  final ValueChanged<RatingFilterOption> onFilterChanged;
 
   const RatingFilterBar({
     super.key,
@@ -15,10 +15,10 @@ class RatingFilterBar extends StatelessWidget {
   });
 
   static const _filters = [
-    (filter: RatingFilter.newest, label: AppStrings.filterNewest),
-    (filter: RatingFilter.highest, label: AppStrings.filterHighest),
-    (filter: RatingFilter.withPhotos, label: AppStrings.filterWithPhotos),
-    (filter: RatingFilter.lowest, label: AppStrings.filterLowest),
+    (filter: RatingFilterOption.newest, label: AppStrings.filterNewest),
+    (filter: RatingFilterOption.highest, label: AppStrings.filterHighest),
+    (filter: RatingFilterOption.withPhotos, label: AppStrings.filterWithPhotos),
+    (filter: RatingFilterOption.lowest, label: AppStrings.filterLowest),
   ];
 
   @override
@@ -30,7 +30,7 @@ class RatingFilterBar extends StatelessWidget {
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: _filters.length,
-        separatorBuilder: (_, __) => const SizedBox(width: AppSpacing.sm),
+        separatorBuilder: (_, _) => const SizedBox(width: AppSpacing.sm),
         itemBuilder: (context, index) {
           final f = _filters[index];
           final isActive = f.filter == currentFilter;

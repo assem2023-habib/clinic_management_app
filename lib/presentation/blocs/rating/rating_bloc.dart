@@ -1,32 +1,46 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:clinic_management_app/domain/entities/review_entity.dart';
+import 'package:clinic_management_app/domain/entities/rating_entity.dart';
+import 'package:clinic_management_app/domain/repositories/rating_repository.dart';
 import 'package:clinic_management_app/presentation/blocs/rating/rating_event.dart';
 import 'package:clinic_management_app/presentation/blocs/rating/rating_state.dart';
 
 const _pageSize = 6;
 
 class RatingBloc extends Bloc<RatingEvent, RatingState> {
-  RatingBloc() : super(const RatingState()) {
+  final RatingRepository? repository;
+
+  RatingBloc({this.repository}) : super(const RatingState()) {
     on<RatingLoad>(_onLoad);
     on<RatingFilterChanged>(_onFilterChanged);
     on<RatingLoadMore>(_onLoadMore);
     on<RatingToggleLike>(_onToggleLike);
+    on<RatingCreate>(_onCreate);
+    on<RatingUpdate>(_onUpdate);
+    on<RatingDelete>(_onDelete);
   }
 
   Future<void> _onLoad(RatingLoad event, Emitter<RatingState> emit) async {
     emit(state.copyWith(isLoading: true, error: null));
     try {
-      await Future.delayed(const Duration(milliseconds: 300));
-      final reviews = _mockReviews;
-      final dist = _computeDistribution(reviews);
-      final avg = _computeAverage(reviews);
-      final sorted = _applyFilter(reviews, state.currentFilter);
+      List<RatingEntity> ratings;
+      if (repository != null) {
+        final response = await repository!.getAllRatings(filter: RatingFilter(
+          raterId: event.raterId,
+          limit: 100,
+        ));
+        ratings = response.ratings;
+      } else {
+        ratings = _mockRatings;
+      }
+      final dist = _computeDistribution(ratings);
+      final avg = _computeAverage(ratings);
+      final sorted = _applyFilter(ratings, state.currentFilter);
       emit(state.copyWith(
         isLoading: false,
-        allReviews: reviews,
+        allReviews: ratings,
         displayedReviews: sorted.take(_pageSize).toList(),
         averageRating: avg,
-        totalReviews: reviews.length,
+        totalReviews: ratings.length,
         distribution: dist,
         hasMore: sorted.length > _pageSize,
       ));
@@ -68,29 +82,80 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
     emit(state.copyWith(likedReviewIds: liked));
   }
 
-  List<ReviewEntity> _applyFilter(List<ReviewEntity> reviews, RatingFilter filter) {
-    final sorted = List<ReviewEntity>.from(reviews);
+  Future<void> _onCreate(RatingCreate event, Emitter<RatingState> emit) async {
+    try {
+      if (repository != null) {
+        await repository!.createRating(
+          type: event.type,
+          rateableId: event.rateableId,
+          rateableType: event.rateableType,
+          rating: event.rating,
+          comment: event.comment,
+        );
+      }
+      add(const RatingLoad());
+    } catch (e) {
+      emit(state.copyWith(error: e.toString()));
+    }
+  }
+
+  Future<void> _onUpdate(RatingUpdate event, Emitter<RatingState> emit) async {
+    try {
+      if (repository != null) {
+        await repository!.updateRating(
+          id: event.id,
+          rating: event.rating,
+          comment: event.comment,
+        );
+      }
+      add(const RatingLoad());
+    } catch (e) {
+      emit(state.copyWith(error: e.toString()));
+    }
+  }
+
+  Future<void> _onDelete(RatingDelete event, Emitter<RatingState> emit) async {
+    try {
+      if (repository != null) {
+        await repository!.deleteRating(event.id);
+      }
+      add(const RatingLoad());
+    } catch (e) {
+      emit(state.copyWith(error: e.toString()));
+    }
+  }
+
+  List<RatingEntity> _applyFilter(List<RatingEntity> reviews, RatingFilterOption filter) {
+    final sorted = List<RatingEntity>.from(reviews);
     switch (filter) {
-      case RatingFilter.newest:
-        sorted.sort((a, b) => b.date.compareTo(a.date));
-      case RatingFilter.highest:
+      case RatingFilterOption.newest:
+        sorted.sort((a, b) {
+          final aDate = a.createdAt ?? '';
+          final bDate = b.createdAt ?? '';
+          return bDate.compareTo(aDate);
+        });
+      case RatingFilterOption.highest:
         sorted.sort((a, b) => b.rating.compareTo(a.rating));
-      case RatingFilter.lowest:
+      case RatingFilterOption.lowest:
         sorted.sort((a, b) => a.rating.compareTo(b.rating));
-      case RatingFilter.withPhotos:
-        sorted.sort((a, b) => b.date.compareTo(a.date));
-        sorted.retainWhere((r) => r.patientImage != null);
+      case RatingFilterOption.withPhotos:
+        sorted.sort((a, b) {
+          final aDate = a.createdAt ?? '';
+          final bDate = b.createdAt ?? '';
+          return bDate.compareTo(aDate);
+        });
+        sorted.retainWhere((r) => r.raterImage != null);
     }
     return sorted;
   }
 
-  double _computeAverage(List<ReviewEntity> reviews) {
+  double _computeAverage(List<RatingEntity> reviews) {
     if (reviews.isEmpty) return 0;
     final sum = reviews.fold<double>(0, (s, r) => s + r.rating);
     return (sum / reviews.length).roundToDouble();
   }
 
-  List<RatingDistribution> _computeDistribution(List<ReviewEntity> reviews) {
+  List<RatingDistribution> _computeDistribution(List<RatingEntity> reviews) {
     final counts = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0};
     for (final r in reviews) {
       final star = r.rating.round().clamp(1, 5);
@@ -109,73 +174,61 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
   }
 }
 
-final _mockReviews = [
-  ReviewEntity(
+final _mockRatings = [
+  RatingEntity(
     id: 'r1',
-    patientName: 'سارة العامري',
-    patientImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuACPhlrH1hPKgyAOTWhUqL5FN8JL_ZLv0wr_DTzbL6esD58ZnwW0UJ7B8i-YDwUtdbxcY5mF8uvNgrfsqvzY92bHRPsVEcV-DSc_tkHZZ_sHAPJwyQ3j2ptYM8E7y3Ii3sSW6Wbd29WpclfHyHV9caX2qVOROvy76m-gy5cVdLQYn1CQaP0fHd0LFY_bu5WoeLL6kSshxqMta9f-qGm6VbWt05yc6Aa4EWjM0_3NEGc89iewgFscNf8ZPTkzyFQO5eBYV-aO4xHUAg',
+    rater: {'first_name': 'سارة', 'last_name': 'العامري'},
     rating: 5,
-    comment: 'تجربة ممتازة جداً! الفريق الطبي محترف للغاية والتعامل راقي. التطبيق سهل الاستخدام وساعدني كثيراً في متابعة حالتي الصحية بدقة. أنصح به الجميع.',
-    date: DateTime.now().subtract(const Duration(days: 2)),
-    likesCount: 24,
+    comment: 'تجربة ممتازة جداً! الفريق الطبي محترف للغاية والتعامل راقي.',
+    createdAt: DateTime.now().subtract(const Duration(days: 2)).toIso8601String(),
   ),
-  ReviewEntity(
+  RatingEntity(
     id: 'r2',
-    patientName: 'أحمد منصور',
-    patientImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBvBhvF_9y7NSVyDNgSMEbTNhVbUj0Z4_TbQBw5UKQRNMR93n4AE7MU6QNZNcDsEYjrSRcJjf3dZTnbzAkN763hNJxJApDGj7OfqodulritnDCL0MLmBaJkbQ7dSafwW1t4dYSt1qihH65EmkqstCV7_AG3fX6Ne3Vov2fzkQac-eZzhxxB699dxxKrf4XA9t7cCHjrMhxX9DxhLMIlumTbEBgLZqjyAyeGsi2hoGsxny0uEyAGHC_LF1n06rJS9NF0FreHoYyji7o',
+    rater: {'first_name': 'أحمد', 'last_name': 'منصور'},
     rating: 4,
-    comment: 'النظام دقيق والمتابعة مستمرة. ميزة التحليلات الحيوية رائعة جداً وأعطتني نظرة شاملة عن صحتي لم أكن أجدها في تطبيقات أخرى. شكراً للقائمين عليه.',
-    date: DateTime.now().subtract(const Duration(days: 7)),
-    likesCount: 12,
+    comment: 'النظام دقيق والمتابعة مستمرة. ميزة التحليلات الحيوية رائعة جداً.',
+    createdAt: DateTime.now().subtract(const Duration(days: 7)).toIso8601String(),
   ),
-  ReviewEntity(
+  RatingEntity(
     id: 'r3',
-    patientName: 'ليلى حسن',
-    patientImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBOr8cKyKrutMmrToQvJtOD1i03TrPBiJ9A8GMiAwTrS_EsFUjQpplT1yAhUSh26ZqmOY5zgvFQbcHv8MKqEu9R6rVU91Da5ergIvAm-86FbZ8NIosFjFf4Rrf3oTIBYO1c-FUNPqg7nxFtv4xmAWch3L__6DtBcP7GajAXi5nlDZGbiBdb2__RdM8rj0LQvD5WMmH425445fD27YZ1wjN_JdtbaNpMyyDKfz-ctsVUXb1qqA4U4mVwYuijk3QI_dCvwnDcpL9Gh4U',
+    rater: {'first_name': 'ليلى', 'last_name': 'حسن'},
     rating: 5,
-    comment: 'أفضل تطبيق صحي استخدمته على الإطلاق. سرعة الاستجابة من قبل الأطباء مذهلة والتقارير الأسبوعية دقيقة ومفيدة جداً لتحسين نمط حياتي.',
-    date: DateTime.now().subtract(const Duration(days: 14)),
-    likesCount: 18,
+    comment: 'أفضل تطبيق صحي استخدمته على الإطلاق. سرعة الاستجابة من قبل الأطباء مذهلة.',
+    createdAt: DateTime.now().subtract(const Duration(days: 14)).toIso8601String(),
   ),
-  ReviewEntity(
+  RatingEntity(
     id: 'r4',
-    patientName: 'فيصل الحربي',
-    patientImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB2gLGySYoa6NWXUu677otU8IVlOm3OhYd1kQIvdU1QyLUBhXw06rE0YFksGfFKvkMoKYJzXsLbmhfdgwwPkRFqfWCTMBYRg5BimoFiSu3J0THDMa03mo022C6lh3kBaTTW-BUIxvicXBoSm6nvtYZw_9rrzdc4X5z-MM5azVC8Ib5Usl0Yn9Tsg27vncNnpWo4iAYmm0tPMeBb1G0cXCJl5n0onTuEwAnpIq5IGCz1qTu3Ndc9sfbrIUQa_2Mni-PCzQaNpZ9-3ro',
+    rater: {'first_name': 'فيصل', 'last_name': 'الحربي'},
     rating: 5,
-    comment: 'برنامج ممتاز وموثوق. كنت أبحث عن وسيلة سهلة لمراقبة ضغط الدم والسكري، وهذا التطبيق وفر لي كل ما أحتاجه وأكثر بتصميمه المريح.',
-    date: DateTime.now().subtract(const Duration(days: 30)),
-    likesCount: 8,
+    comment: 'برنامج ممتاز وموثوق. كنت أبحث عن وسيلة سهلة لمراقبة ضغط الدم والسكري.',
+    createdAt: DateTime.now().subtract(const Duration(days: 30)).toIso8601String(),
   ),
-  ReviewEntity(
+  RatingEntity(
     id: 'r5',
-    patientName: 'نورة الشمري',
+    rater: {'first_name': 'نورة', 'last_name': 'الشمري'},
     rating: 5,
     comment: 'خدمة رائعة وفريق متعاون. أنصح الجميع بتجربة هذه المنصة الصحية المتميزة.',
-    date: DateTime.now().subtract(const Duration(days: 45)),
-    likesCount: 6,
+    createdAt: DateTime.now().subtract(const Duration(days: 45)).toIso8601String(),
   ),
-  ReviewEntity(
+  RatingEntity(
     id: 'r6',
-    patientName: 'محمد القحطاني',
+    rater: {'first_name': 'محمد', 'last_name': 'القحطاني'},
     rating: 4,
-    comment: 'تطبيق جيد جداً ولكن أتمنى إضافة المزيد من التخصصات الطبية في الإصدارات القادمة.',
-    date: DateTime.now().subtract(const Duration(days: 60)),
-    likesCount: 4,
+    comment: 'تطبيق جيد جداً ولكن أتمنى إضافة المزيد من التخصصات الطبية.',
+    createdAt: DateTime.now().subtract(const Duration(days: 60)).toIso8601String(),
   ),
-  ReviewEntity(
+  RatingEntity(
     id: 'r7',
-    patientName: 'هدى العتيبي',
+    rater: {'first_name': 'هدى', 'last_name': 'العتيبي'},
     rating: 5,
     comment: 'من أفضل التطبيقات الصحية. المتابعة المستمرة من الأطباء والتذكير بالمواعيد من المميزات الرائعة.',
-    date: DateTime.now().subtract(const Duration(days: 75)),
-    likesCount: 15,
+    createdAt: DateTime.now().subtract(const Duration(days: 75)).toIso8601String(),
   ),
-  ReviewEntity(
+  RatingEntity(
     id: 'r8',
-    patientName: 'سعود الدوسري',
+    rater: {'first_name': 'سعود', 'last_name': 'الدوسري'},
     rating: 3,
-    comment: 'التطبيق جيد ولكن واجهت بعض المشاكل التقنية في البداية. آمل تحسينها قريباً.',
-    date: DateTime.now().subtract(const Duration(days: 90)),
-    likesCount: 2,
+    comment: 'التطبيق جيد ولكن واجهت بعض المشاكل التقنية في البداية.',
+    createdAt: DateTime.now().subtract(const Duration(days: 90)).toIso8601String(),
   ),
 ];
