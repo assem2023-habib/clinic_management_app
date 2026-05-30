@@ -28,6 +28,7 @@ import 'package:clinic_management_app/data/repositories/specialization_repositor
 import 'package:clinic_management_app/data/repositories/receptionist_repository_impl.dart';
 import 'package:clinic_management_app/data/repositories/appointment_repository_impl.dart';
 import 'package:clinic_management_app/data/repositories/medical_record_repository_impl.dart';
+import 'package:clinic_management_app/data/repositories/image_repository_impl.dart';
 import 'package:clinic_management_app/data/repositories/auth_repository_impl.dart';
 import 'package:clinic_management_app/data/repositories/location_repository_impl.dart';
 import 'package:clinic_management_app/data/repositories/rating_repository_impl.dart';
@@ -37,6 +38,7 @@ import 'package:clinic_management_app/data/datasources/remote/dashboard_remote_d
 import 'package:clinic_management_app/data/datasources/remote/notification_remote_datasource.dart';
 import 'package:clinic_management_app/data/datasources/remote/medical_record_remote_datasource.dart';
 import 'package:clinic_management_app/data/datasources/remote/location_remote_datasource.dart';
+import 'package:clinic_management_app/data/datasources/remote/image_remote_datasource.dart';
 import 'package:clinic_management_app/domain/repositories/doctor_repository.dart';
 import 'package:clinic_management_app/domain/repositories/patient_repository.dart';
 import 'package:clinic_management_app/domain/repositories/appointment_repository.dart';
@@ -52,6 +54,7 @@ import 'package:clinic_management_app/domain/repositories/supervision_repository
 import 'package:clinic_management_app/domain/repositories/user_repository.dart';
 import 'package:clinic_management_app/domain/repositories/receptionist_repository.dart';
 import 'package:clinic_management_app/domain/repositories/specialization_repository.dart';
+import 'package:clinic_management_app/domain/repositories/image_repository.dart';
 import 'package:clinic_management_app/presentation/blocs/prescription/prescription_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/rbac/rbac_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/supervision/supervision_bloc.dart';
@@ -204,6 +207,9 @@ class _MyAppState extends State<MyApp> {
         )),
         RepositoryProvider<ReceptionistRepository>(create: (_) => ReceptionistRepositoryImpl(
           remoteDataSource: ReceptionistRemoteDataSource(apiService),
+        )),
+        RepositoryProvider<ImageRepository>(create: (_) => ImageRepositoryImpl(
+          remoteDataSource: ImageRemoteDataSource(apiService),
         )),
       ],
       child: MultiBlocProvider(
