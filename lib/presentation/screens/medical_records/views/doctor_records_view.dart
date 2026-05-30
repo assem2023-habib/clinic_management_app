@@ -57,19 +57,19 @@ class _DoctorRecordsViewState extends State<DoctorRecordsView> {
     return Card(
       child: ExpansionTile(
         leading: CircleAvatar(child: Icon(Icons.description, color: colors.primary)),
-        title: Text(record.patientName),
-        subtitle: Text(DateFormat('yyyy-MM-dd').format(record.visitDate)),
+        title: Text(record.patientName ?? ''),
+        subtitle: Text(record.visitDate != null ? DateFormat('yyyy-MM-dd').format(DateTime.parse(record.visitDate!)) : ''),
         children: [
           Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildInfoRow(AppStrings.doctorLabel, record.doctorName, colors),
+                _buildInfoRow(AppStrings.doctorLabel, record.doctorName ?? '', colors),
                 const SizedBox(height: 12),
                 _buildInfoRow(AppStrings.diagnosis, record.diagnosis, colors),
                 const SizedBox(height: 12),
-                _buildInfoRow(AppStrings.prescription, record.prescription, colors),
+                _buildInfoRow(AppStrings.prescription, record.prescription ?? '', colors),
                 if (record.notes != null) ...[
                   const SizedBox(height: 12),
                   _buildInfoRow(AppStrings.notesLabel, record.notes!, colors),

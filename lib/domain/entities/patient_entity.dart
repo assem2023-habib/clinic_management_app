@@ -26,6 +26,8 @@ class PatientEntity extends UserEntity {
     this.patientId,
   });
 
+  String get name => fullName;
+
   factory PatientEntity.fromUser(UserEntity user, {String? patientId}) {
     return PatientEntity(
       id: user.id,

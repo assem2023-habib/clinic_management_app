@@ -3,6 +3,7 @@ import 'package:uuid/uuid.dart';
 import 'package:clinic_management_app/domain/repositories/doctor_repository.dart';
 import 'package:clinic_management_app/domain/repositories/appointment_repository.dart';
 import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
+import 'package:clinic_management_app/domain/entities/time_slot_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/user_booking/user_booking_event.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/user_booking/user_booking_state.dart';
@@ -24,8 +25,8 @@ class UserBookingBloc extends Bloc<UserBookingEvent, UserBookingState> {
   Future<void> _onLoad(UserBookingLoad event, Emitter<UserBookingState> emit) async {
     emit(UserBookingLoading());
     try {
-      final doctor = await doctorRepository.getDoctorById(event.doctorId);
-      if (doctor == null) {
+      final doer = await doctorRepository.getDoctorById(event.doctorId);
+      if (doer == null) {
         emit(const UserBookingError(AppStrings.bookingDoctorNotFound));
         return;
       }
@@ -34,10 +35,16 @@ class UserBookingBloc extends Bloc<UserBookingEvent, UserBookingState> {
         event.doctorId,
         DateTime(now.year, now.month),
       );
+      final timeSlots = slots.map((s) => TimeSlotEntity(
+        id: s.id,
+        date: now,
+        time: '${s.startTime} - ${s.endTime}',
+        isAvailable: s.isActive,
+      )).toList();
       final dates = _generateAvailableDates();
       emit(UserBookingLoaded(
-        doctor: doctor,
-        allSlots: slots,
+        doctor: doer,
+        allSlots: timeSlots,
         selectedDate: now,
         availableDates: dates,
       ));
@@ -68,7 +75,7 @@ class UserBookingBloc extends Bloc<UserBookingEvent, UserBookingState> {
         patientName: '',
         doctorId: event.doctorId,
         doctorName: '',
-        date: event.date,
+        date: event.date.toIso8601String(),
         timeSlot: event.timeSlot,
         status: AppointmentStatus.scheduled,
         notes: event.notes,

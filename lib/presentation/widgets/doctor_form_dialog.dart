@@ -44,13 +44,15 @@ class _DoctorFormDialogState extends State<DoctorFormDialog> {
 
   void _submit() {
     if (_formKey.currentState!.validate()) {
+      final nameParts = _nameController.text.trim().split(' ');
       final doctor = DoctorEntity(
         id: widget.doctor?.id ?? DateTime.now().millisecondsSinceEpoch.toString(),
-        name: _nameController.text.trim(),
-        specialty: _specialtyController.text.trim(),
-        phone: _phoneController.text.trim(),
+        firstName: nameParts.isNotEmpty ? nameParts.first : '',
+        lastName: nameParts.length > 1 ? nameParts.sublist(1).join(' ') : '',
+        username: _emailController.text.trim().split('@').first,
         email: _emailController.text.trim(),
-        isAvailable: _isAvailable,
+        gender: 'male',
+        phone: _phoneController.text.trim(),
       );
 
       if (widget.doctor == null) {

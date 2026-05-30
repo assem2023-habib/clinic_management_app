@@ -56,7 +56,7 @@ class _AppointmentFormDialogState extends State<AppointmentFormDialog> {
         patientName: patientName,
         doctorId: _selectedDoctorId!,
         doctorName: doctor?.name ?? '',
-        date: DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day, int.parse(timeParts[0]), int.parse(timeParts[1])),
+        date: DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day, int.parse(timeParts[0]), int.parse(timeParts[1])).toIso8601String(),
         timeSlot: '${_selectedTime} - ${int.parse(timeParts[0])}:${(int.parse(timeParts[1]) + 30) % 60}',
         status: AppointmentStatus.scheduled,
         notes: _notesController.text.trim().isEmpty ? null : _notesController.text.trim(),

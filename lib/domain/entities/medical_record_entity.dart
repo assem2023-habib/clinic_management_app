@@ -7,6 +7,10 @@ class MedicalRecordEntity extends Equatable {
   final String diagnosis;
   final String? notes;
   final String? createdAt;
+  final String? patientName;
+  final String? doctorName;
+  final String? prescription;
+  final String? visitDate;
 
   const MedicalRecordEntity({
     required this.id,
@@ -15,8 +19,15 @@ class MedicalRecordEntity extends Equatable {
     required this.diagnosis,
     this.notes,
     this.createdAt,
+    this.patientName,
+    this.doctorName,
+    this.prescription,
+    this.visitDate,
   });
 
   @override
-  List<Object?> get props => [id, patientId, doctorId, diagnosis, notes, createdAt];
+  List<Object?> get props => [
+    id, patientId, doctorId, diagnosis, notes, createdAt,
+    patientName, doctorName, prescription, visitDate,
+  ];
 }

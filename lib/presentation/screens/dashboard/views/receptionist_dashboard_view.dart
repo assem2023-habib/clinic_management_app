@@ -80,9 +80,10 @@ class _ReceptionistDashboardViewState extends State<ReceptionistDashboardView> {
             builder: (context, state) {
               final appts = state is AppointmentLoaded ? state.appointments : <AppointmentEntity>[];
               final today = DateTime.now();
-              final todayAppts = appts.where((a) =>
-                a.date.year == today.year && a.date.month == today.month && a.date.day == today.day
-              ).toList();
+              final todayAppts = appts.where((a) {
+                final d = a.date;
+                return d != null && DateTime.tryParse(d)?.year == today.year && DateTime.tryParse(d)?.month == today.month && DateTime.tryParse(d)?.day == today.day;
+              }).toList();
               return RhClinicPulse(
                 totalAppts: todayAppts.length,
                 checkedIn: todayAppts.where((a) => a.status == AppointmentStatus.scheduled).length,
