@@ -36,6 +36,7 @@ import 'package:clinic_management_app/data/repositories/notification_repository_
 import 'package:clinic_management_app/data/datasources/remote/dashboard_remote_datasource.dart';
 import 'package:clinic_management_app/data/datasources/remote/notification_remote_datasource.dart';
 import 'package:clinic_management_app/data/datasources/remote/medical_record_remote_datasource.dart';
+import 'package:clinic_management_app/data/datasources/remote/location_remote_datasource.dart';
 import 'package:clinic_management_app/domain/repositories/doctor_repository.dart';
 import 'package:clinic_management_app/domain/repositories/patient_repository.dart';
 import 'package:clinic_management_app/domain/repositories/appointment_repository.dart';
@@ -178,7 +179,9 @@ class _MyAppState extends State<MyApp> {
           remoteDataSource: MedicalRecordRemoteDataSource(apiService),
         )),
         RepositoryProvider<AuthRepository>(create: (_) => AuthRepositoryImpl(AuthRemoteDataSource(apiService), apiService)),
-        RepositoryProvider<LocationRepository>(create: (_) => LocationRepositoryImpl(mockDataSource)),
+        RepositoryProvider<LocationRepository>(create: (_) => LocationRepositoryImpl(mockDataSource,
+          remoteDataSource: LocationRemoteDataSource(apiService),
+        )),
         RepositoryProvider<RatingRepository>(create: (_) => RatingRepositoryImpl(localDataSource: mockDataSource)),
         RepositoryProvider<DashboardRepository>(create: (_) => DashboardRepositoryImpl(localDataSource: mockDataSource)),
         RepositoryProvider<NotificationRepository>(create: (_) => NotificationRepositoryImpl(
