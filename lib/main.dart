@@ -19,7 +19,9 @@ import 'package:clinic_management_app/data/repositories/auth_repository_impl.dar
 import 'package:clinic_management_app/data/repositories/location_repository_impl.dart';
 import 'package:clinic_management_app/data/repositories/rating_repository_impl.dart';
 import 'package:clinic_management_app/data/repositories/dashboard_repository_impl.dart';
+import 'package:clinic_management_app/data/repositories/notification_repository_impl.dart';
 import 'package:clinic_management_app/data/datasources/remote/dashboard_remote_datasource.dart';
+import 'package:clinic_management_app/data/datasources/remote/notification_remote_datasource.dart';
 import 'package:clinic_management_app/domain/repositories/doctor_repository.dart';
 import 'package:clinic_management_app/domain/repositories/patient_repository.dart';
 import 'package:clinic_management_app/domain/repositories/appointment_repository.dart';
@@ -28,6 +30,7 @@ import 'package:clinic_management_app/domain/repositories/auth_repository.dart';
 import 'package:clinic_management_app/domain/repositories/location_repository.dart';
 import 'package:clinic_management_app/domain/repositories/rating_repository.dart';
 import 'package:clinic_management_app/domain/repositories/dashboard_repository.dart';
+import 'package:clinic_management_app/domain/repositories/notification_repository.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/dashboard/dashboard_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
@@ -149,6 +152,9 @@ class _MyAppState extends State<MyApp> {
         RepositoryProvider<LocationRepository>(create: (_) => LocationRepositoryImpl(mockDataSource)),
         RepositoryProvider<RatingRepository>(create: (_) => RatingRepositoryImpl(localDataSource: mockDataSource)),
         RepositoryProvider<DashboardRepository>(create: (_) => DashboardRepositoryImpl(localDataSource: mockDataSource)),
+        RepositoryProvider<NotificationRepository>(create: (_) => NotificationRepositoryImpl(
+          remoteDataSource: NotificationRemoteDataSource(apiService),
+        )),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -164,7 +170,7 @@ class _MyAppState extends State<MyApp> {
           BlocProvider(create: (context) => DashboardBloc(RepositoryProvider.of<DashboardRepository>(context))),
           BlocProvider(create: (context) => RatingBloc(repository: RepositoryProvider.of<RatingRepository>(context))),
           BlocProvider(create: (_) => DownloadFileBloc()),
-          BlocProvider(create: (_) => NotificationBloc()),
+          BlocProvider(create: (context) => NotificationBloc(RepositoryProvider.of<NotificationRepository>(context))),
         ],
         child: ListenableBuilder(
           listenable: _themeProvider,
