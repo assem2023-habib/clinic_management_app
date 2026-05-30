@@ -79,19 +79,19 @@ class _ReceptionistAppointmentsViewState extends State<ReceptionistAppointmentsV
   Widget _buildAppointmentCard(AppointmentEntity appointment, AppColorSet colors) {
     return Card(
       child: ListTile(
-        leading: CircleAvatar(backgroundColor: _getStatusColor(colors, appointment.status.name), child: const Icon(Icons.event, color: Colors.white)),
-        title: Text(appointment.patientName),
+        leading: CircleAvatar(backgroundColor: _getStatusColor(colors, appointment.status.toValue()), child: const Icon(Icons.event, color: Colors.white)),
+        title: Text('${appointment.patientName ?? ''}'),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(appointment.doctorName),
-            Text(appointment.timeSlot, style: TextStyle(color: colors.textSecondary, fontSize: 12)),
+            Text('${appointment.doctorName ?? ''}'),
+            if (appointment.timeSlot != null) Text(appointment.timeSlot!, style: TextStyle(color: colors.textSecondary, fontSize: 12)),
           ],
         ),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _buildStatusBadge(colors, appointment.status.name),
+            _buildStatusBadge(colors, appointment.status.toValue()),
             PopupMenuButton<String>(
               onSelected: (value) {
                 if (value == 'delete') _deleteAppointment(context, appointment.id);
@@ -114,20 +114,20 @@ class _ReceptionistAppointmentsViewState extends State<ReceptionistAppointmentsV
 
   Color _getStatusColor(AppColorSet colors, String status) {
     return switch (status) {
-      'scheduled' => colors.primary,
+      'set' || 'accepted' => colors.primary,
       'completed' => colors.success,
       'cancelled' => colors.error,
-      'inProgress' => colors.accent,
+      'in_progress' => colors.accent,
       _ => colors.textLight,
     };
   }
 
   Widget _buildStatusBadge(AppColorSet colors, String status) {
     final (color, label) = switch (status) {
-      'scheduled' => (colors.primary, AppStrings.scheduled),
+      'set' || 'accepted' => (colors.primary, AppStrings.scheduled),
       'completed' => (colors.success, AppStrings.completed),
       'cancelled' => (colors.error, AppStrings.cancelled),
-      'inProgress' => (colors.accent, AppStrings.inProgress),
+      'in_progress' => (colors.accent, AppStrings.inProgress),
       _ => (colors.textLight, status),
     };
     return Container(

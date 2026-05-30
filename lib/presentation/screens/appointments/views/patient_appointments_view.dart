@@ -72,16 +72,17 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
   }
 
   Widget _buildAppointmentCard(AppointmentEntity appointment, AppColorSet colors) {
-    final (color, label) = _statusInfo(colors, appointment.status.name);
+    final statusValue = appointment.status.toValue();
+    final (color, label) = _statusInfo(colors, statusValue);
     return Card(
       child: ListTile(
         leading: CircleAvatar(backgroundColor: color, child: const Icon(Icons.event, color: Colors.white)),
-        title: Text(appointment.doctorName),
+        title: Text('${appointment.doctorName ?? ''}'),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(appointment.patientName),
-            Text(appointment.timeSlot, style: TextStyle(color: colors.textSecondary, fontSize: 12)),
+            Text('${appointment.patientName ?? ''}'),
+            if (appointment.timeSlot != null) Text(appointment.timeSlot!, style: TextStyle(color: colors.textSecondary, fontSize: 12)),
           ],
         ),
         trailing: Container(
@@ -95,10 +96,10 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
 
   (Color, String) _statusInfo(AppColorSet colors, String status) {
     return switch (status) {
-      'scheduled' => (colors.primary, AppStrings.scheduled),
+      'set' || 'accepted' => (colors.primary, AppStrings.scheduled),
       'completed' => (colors.success, AppStrings.completed),
       'cancelled' => (colors.error, AppStrings.cancelled),
-      'inProgress' => (colors.accent, AppStrings.inProgress),
+      'in_progress' => (colors.accent, AppStrings.inProgress),
       _ => (colors.textLight, status),
     };
   }
