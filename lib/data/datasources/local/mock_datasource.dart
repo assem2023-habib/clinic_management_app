@@ -124,4 +124,28 @@ class MockDataSource implements DataSource {
   }
   @override
   void deleteRating(String id) => _ratings.removeWhere((r) => r.id == id);
+
+  @override
+  DashboardData getDashboardData() => DashboardData(
+    users: UsersStats(
+      total: 150, doctors: 25, patients: 100, receptionists: 10, admins: 5,
+      active: 140, inactive: 10, newToday: 3, newThisWeek: 15, newThisMonth: 50,
+    ),
+    appointments: AppointmentsStats(
+      total: 500, today: 12, thisWeek: 60, thisMonth: 200,
+      byStatus: {'pending': 30, 'confirmed': 100, 'completed': 350, 'cancelled': 20},
+    ),
+    patients: PatientsStats(total: 100, newThisMonth: 15, registeredToday: 3),
+    doctors: const DoctorsStats(total: 25),
+    totalMedicalRecords: 300,
+    totalPrescriptions: 450,
+    specializations: SpecializationsStats(
+      total: 15,
+      top: [
+        const SpecializationCount(name: 'Cardiology', doctorsCount: 5),
+        const SpecializationCount(name: 'Dermatology', doctorsCount: 3),
+      ],
+    ),
+    ratings: const RatingsStats(average: 4.2, total: 80),
+  );
 }

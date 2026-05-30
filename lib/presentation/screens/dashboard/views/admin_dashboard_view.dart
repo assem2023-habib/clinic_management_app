@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/presentation/blocs/dashboard/dashboard_bloc.dart';
+import 'package:clinic_management_app/presentation/blocs/dashboard/dashboard_state.dart';
 import 'package:clinic_management_app/presentation/widgets/dashboard/action_button.dart';
 import 'package:clinic_management_app/presentation/widgets/dashboard/dashboard_greeting.dart';
 import 'package:clinic_management_app/presentation/widgets/dashboard/recent_appointments.dart';
@@ -20,22 +23,23 @@ class AdminDashboardView extends StatelessWidget {
         children: [
           AnimatedCard(index: 0, child: const DashboardGreeting()),
           const SizedBox(height: 24),
-          AnimatedCard(
-            index: 1,
-            child: GridView.count(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 2,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              childAspectRatio: 1.5,
-              children: [
-                StatCard(title: AppStrings.totalDoctors, icon: Icons.medical_services, color: colors.primary),
-                StatCard(title: AppStrings.totalPatients, icon: Icons.people, color: colors.secondary),
-                StatCard(title: AppStrings.todayAppointments, icon: Icons.today, color: colors.accent),
-                StatCard(title: AppStrings.pendingAppointments, icon: Icons.pending_actions, color: colors.error),
-              ],
-            ),
+          BlocBuilder<DashboardBloc, DashboardState>(
+            builder: (context, state) {
+              if (state is DashboardLoading) {
+                return _buildStatGrid(colors, null, null, null, null);
+              }
+              if (state is DashboardLoaded) {
+                final d = state.data;
+                return _buildStatGrid(
+                  colors,
+                  '${d.users?.doctors ?? 0}',
+                  '${d.users?.patients ?? 0}',
+                  '${d.appointments.today ?? 0}',
+                  '${d.appointments.byStatus['pending'] ?? 0}',
+                );
+              }
+              return _buildStatGrid(colors, null, null, null, null);
+            },
           ),
           const SizedBox(height: 24),
           AnimatedCard(
@@ -71,6 +75,26 @@ class AdminDashboardView extends StatelessWidget {
               ],
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStatGrid(AppColorSet colors, String? doctors, String? patients, String? today, String? pending) {
+    return AnimatedCard(
+      index: 1,
+      child: GridView.count(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        crossAxisCount: 2,
+        crossAxisSpacing: 12,
+        mainAxisSpacing: 12,
+        childAspectRatio: 1.5,
+        children: [
+          StatCard(title: AppStrings.totalDoctors, icon: Icons.medical_services, color: colors.primary, value: doctors),
+          StatCard(title: AppStrings.totalPatients, icon: Icons.people, color: colors.secondary, value: patients),
+          StatCard(title: AppStrings.todayAppointments, icon: Icons.today, color: colors.accent, value: today),
+          StatCard(title: AppStrings.pendingAppointments, icon: Icons.pending_actions, color: colors.error, value: pending),
         ],
       ),
     );
