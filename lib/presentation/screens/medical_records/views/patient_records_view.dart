@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/domain/entities/user_entity.dart';
+import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
+import 'package:clinic_management_app/presentation/blocs/medical_record/medical_record_bloc.dart';
+import 'package:clinic_management_app/presentation/blocs/prescription/prescription_bloc.dart';
+import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
+import 'package:clinic_management_app/presentation/blocs/appointment/appointment_state.dart';
+import 'package:clinic_management_app/presentation/blocs/appointment/appointment_event.dart';
 import 'package:clinic_management_app/presentation/screens/medical_records/views/widgets/mrp_patient_summary.dart';
 import 'package:clinic_management_app/presentation/screens/medical_records/views/widgets/mrp_conditions_grid.dart';
 import 'package:clinic_management_app/presentation/screens/medical_records/views/widgets/mrp_medications_list.dart';
 import 'package:clinic_management_app/presentation/screens/medical_records/views/widgets/mrp_appointments_timeline.dart';
-import 'package:clinic_management_app/presentation/screens/medical_records/views/widgets/mrp_documents_grid.dart';
 import 'package:clinic_management_app/presentation/screens/medical_records/views/widgets/mrp_bottom_nav.dart';
+import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
 
 class PatientRecordsView extends StatefulWidget {
   const PatientRecordsView({super.key});
@@ -16,6 +24,14 @@ class PatientRecordsView extends StatefulWidget {
 }
 
 class _PatientRecordsViewState extends State<PatientRecordsView> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<MedicalRecordBloc>().add(const MedicalRecordLoadAll());
+    context.read<PrescriptionBloc>().add(LoadMedicines());
+    context.read<AppointmentBloc>().add(AppointmentLoadAll());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,92 +95,133 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
   }
 
   Widget _buildBody() {
+    final user = context.watch<AuthCubit>().state.user;
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: AppSpacing.sm),
-          const MrpPatientSummary(),
+          MrpPatientSummary(
+            name: user != null ? '${user.firstName} ${user.lastName}' : '',
+            age: user?.birthdayDate != null ? _ageFromBirthday(user!.birthdayDate!) : 0,
+          ),
           const SizedBox(height: AppSpacing.md),
           _buildSectionTitle(AppStrings.mrConditionsTitle, AppStrings.mrActiveLabel),
           const SizedBox(height: AppSpacing.sm),
-          const Row(
-            children: [
-              Expanded(
-                child: MrpConditionCard(
-                  icon: Icons.monitor_heart_rounded,
-                  iconBg: Color(0xFF80D8A6),
-                  iconColor: Color(0xFF80D8A6),
-                  label: 'ارتفاع ضغط الدم',
-                ),
-              ),
-              SizedBox(width: AppSpacing.md),
-              Expanded(
-                child: MrpConditionCard(
-                  icon: Icons.medication_rounded,
-                  iconBg: Color(0xFFFFB3B1),
-                  iconColor: Color(0xFFFFB3B1),
-                  label: 'نقص فيتامين د',
-                ),
-              ),
-            ],
-          ),
+          _buildConditionsSection(),
           const SizedBox(height: AppSpacing.md),
           _buildSectionTitle(AppStrings.mrMedicationsTitle, null),
           const SizedBox(height: AppSpacing.sm),
-          const MrpMedicationCard(
-            icon: Icons.medication_rounded,
-            name: 'ليسينوبريل (Lisinopril)',
-            dosage: '10 ملغ • مرة واحدة يومياً',
-          ),
-          const SizedBox(height: AppSpacing.sm),
-          const MrpMedicationCard(
-            icon: Icons.medication_liquid_rounded,
-            name: 'فيتامين د3 مكمل',
-            dosage: '5000 وحدة • أسبوعياً',
-          ),
+          _buildMedicationsSection(),
           const SizedBox(height: AppSpacing.md),
-          _buildSectionTitle(AppStrings.mrAppointmentsTitle, AppStrings.mrViewAll),
+          _buildSectionTitle(AppStrings.mrAppointmentsTitle, null),
           const SizedBox(height: AppSpacing.sm),
-          const MrpTimelineItem(
-            isPrimary: true,
-            date: '15 أكتوبر 2023',
-            doctorName: 'د. محمد القحطاني',
-            specialty: 'أخصائي القلب',
-          ),
-          const MrpTimelineItem(
-            isPrimary: false,
-            date: '02 سبتمبر 2023',
-            doctorName: 'د. ليلى السعيد',
-            specialty: 'طبيب عام',
-          ),
-          const SizedBox(height: AppSpacing.md),
-          _buildSectionTitle(AppStrings.mrDocumentsTitle, null),
-          const SizedBox(height: AppSpacing.sm),
-          const Row(
-            children: [
-              Expanded(
-                child: MrpDocumentCard(
-                  title: 'نتائج المختبر - دم',
-                  subtitle: 'PDF • 1.2 MB',
-                ),
-              ),
-              SizedBox(width: AppSpacing.md),
-              Expanded(
-                child: MrpDocumentCard(
-                  title: 'أشعة سينية للصدر',
-                  subtitle: 'JPG • 4.5 MB',
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: AppSpacing.sm),
-          const MrpUploadButton(),
+          _buildTimelineSection(),
           const SizedBox(height: 32),
         ],
       ),
     );
+  }
+
+  Widget _buildConditionsSection() {
+    return BlocBuilder<MedicalRecordBloc, MedicalRecordState>(
+      builder: (context, state) {
+        if (state is MedicalRecordLoading) {
+          return const SkeletonBox(width: double.infinity, height: 56);
+        }
+        if (state is MedicalRecordLoaded) {
+          final diagnoses = state.records.where((r) => r.diagnosis.isNotEmpty).map((r) => r.diagnosis).toSet().toList();
+          if (diagnoses.isEmpty) {
+            return const Padding(
+              padding: EdgeInsets.symmetric(vertical: 8),
+              child: Text('لا توجد تشخيصات مسجلة', style: TextStyle(color: Color(0xFF88938A))),
+            );
+          }
+          return Column(
+            children: [
+              for (final diagnosis in diagnoses.take(2))
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: MrpConditionCard(
+                    icon: Icons.monitor_heart_rounded,
+                    iconBg: const Color(0xFF80D8A6),
+                    iconColor: const Color(0xFF80D8A6),
+                    label: diagnosis,
+                  ),
+                ),
+            ],
+          );
+        }
+        return const SizedBox.shrink();
+      },
+    );
+  }
+
+  Widget _buildMedicationsSection() {
+    return BlocBuilder<PrescriptionBloc, PrescriptionState>(
+      builder: (context, state) {
+        final medicines = switch (state) {
+          MedicinesLoaded(:final medicines) => medicines,
+          _ => <dynamic>[],
+        };
+        if (medicines.isEmpty) {
+          return const Padding(
+            padding: EdgeInsets.symmetric(vertical: 8),
+            child: Text('لا توجد أدوية مسجلة', style: TextStyle(color: Color(0xFF88938A))),
+          );
+        }
+        return Column(
+          children: [
+            for (final med in medicines.take(3))
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: MrpMedicationCard(
+                  icon: Icons.medication_rounded,
+                  name: med.nameAr,
+                  dosage: med.manufacturer ?? '',
+                ),
+              ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildTimelineSection() {
+    return BlocBuilder<AppointmentBloc, AppointmentState>(
+      builder: (context, state) {
+        final appointments = state is AppointmentLoaded ? state.appointments : <dynamic>[];
+        if (appointments.isEmpty) {
+          return const Padding(
+            padding: EdgeInsets.symmetric(vertical: 8),
+            child: Text('لا توجد مواعيد سابقة', style: TextStyle(color: Color(0xFF88938A))),
+          );
+        }
+        return Column(
+          children: [
+            for (int i = 0; i < appointments.length && i < 5; i++)
+              MrpTimelineItem(
+                isPrimary: i == 0,
+                date: appointments[i].createdAt ?? '',
+                doctorName: appointments[i].doctorName ?? '',
+                specialty: appointments[i].doctor?.specialty ?? '',
+              ),
+          ],
+        );
+      },
+    );
+  }
+
+  int _ageFromBirthday(String birthday) {
+    final date = DateTime.tryParse(birthday);
+    if (date == null) return 0;
+    final now = DateTime.now();
+    int age = now.year - date.year;
+    if (now.month < date.month || (now.month == date.month && now.day < date.day)) {
+      age--;
+    }
+    return age;
   }
 
   Widget _buildSectionTitle(String title, String? action) {

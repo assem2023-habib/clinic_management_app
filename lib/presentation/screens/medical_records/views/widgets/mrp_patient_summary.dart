@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 
 class MrpPatientSummary extends StatelessWidget {
-  const MrpPatientSummary({super.key});
+  final String name;
+  final int age;
+
+  const MrpPatientSummary({
+    super.key,
+    required this.name,
+    required this.age,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +45,9 @@ class MrpPatientSummary extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'ريم الفالح',
-                style: TextStyle(
+              Text(
+                name,
+                style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w600,
                   color: Color(0xFFC6EBD1),
@@ -49,9 +56,7 @@ class MrpPatientSummary extends StatelessWidget {
               const SizedBox(height: 4),
               Row(
                 children: [
-                  _buildTag('${AppStrings.mrBloodTypeLabel}: O+'),
-                  const SizedBox(width: 16),
-                  _buildTag('${AppStrings.mrAgeLabel}: 32 سنة'),
+                  _buildTag('$age ${AppStrings.dpYear}'),
                 ],
               ),
             ],
