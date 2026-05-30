@@ -35,12 +35,12 @@ class RecentAppointments extends StatelessWidget {
               return Card(
                 child: ListTile(
                   leading: CircleAvatar(
-                    backgroundColor: _statusColor(colors, a.status.name),
+                    backgroundColor: _statusColor(colors, a.status.toValue()),
                     child: const Icon(Icons.event, color: Colors.white),
                   ),
-                  title: Text(a.patientName),
-                  subtitle: Text(a.doctorName),
-                  trailing: _statusBadge(colors, a.status.name),
+                  title: Text('${a.patientName ?? ''}'),
+                  subtitle: Text('${a.doctorName ?? ''}'),
+                  trailing: _statusBadge(colors, a.status.toValue()),
                 ),
               );
             },
@@ -53,20 +53,20 @@ class RecentAppointments extends StatelessWidget {
 
   Color _statusColor(AppColorSet colors, String status) {
     return switch (status) {
-      'scheduled' => colors.primary,
+      'set' || 'accepted' => colors.primary,
       'completed' => colors.success,
       'cancelled' => colors.error,
-      'inProgress' => colors.accent,
+      'in_progress' => colors.accent,
       _ => colors.textLight,
     };
   }
 
   Widget _statusBadge(AppColorSet colors, String status) {
     final (color, label) = switch (status) {
-      'scheduled' => (colors.primary, AppStrings.scheduled),
+      'set' || 'accepted' => (colors.primary, AppStrings.scheduled),
       'completed' => (colors.success, AppStrings.completed),
       'cancelled' => (colors.error, AppStrings.cancelled),
-      'inProgress' => (colors.accent, AppStrings.inProgress),
+      'in_progress' => (colors.accent, AppStrings.inProgress),
       _ => (colors.textLight, status),
     };
     return Container(

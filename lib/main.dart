@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:clinic_management_app/core/services/api_service.dart';
 import 'package:clinic_management_app/core/services/fcm_service.dart';
 import 'package:clinic_management_app/core/theme/app_theme.dart';
@@ -8,6 +9,8 @@ import 'package:clinic_management_app/core/theme/theme_provider.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/data/datasources/local/mock_datasource.dart';
 import 'package:clinic_management_app/data/datasources/remote/auth_remote_datasource.dart';
+import 'package:clinic_management_app/data/datasources/remote/appointment_remote_datasource.dart';
+import 'package:clinic_management_app/core/services/appointment_rtdb_service.dart';
 import 'package:clinic_management_app/data/repositories/doctor_repository_impl.dart';
 import 'package:clinic_management_app/data/repositories/patient_repository_impl.dart';
 import 'package:clinic_management_app/data/repositories/appointment_repository_impl.dart';
@@ -136,7 +139,11 @@ class _MyAppState extends State<MyApp> {
       providers: [
         RepositoryProvider<DoctorRepository>(create: (_) => DoctorRepositoryImpl(mockDataSource)),
         RepositoryProvider<PatientRepository>(create: (_) => PatientRepositoryImpl(mockDataSource)),
-        RepositoryProvider<AppointmentRepository>(create: (_) => AppointmentRepositoryImpl(mockDataSource)),
+        RepositoryProvider<AppointmentRepository>(create: (_) => AppointmentRepositoryImpl(
+  mockDataSource,
+  remoteDataSource: AppointmentRemoteDataSource(apiService),
+  rtdbService: AppointmentRtdbService(FirebaseDatabase.instance),
+)),
         RepositoryProvider<MedicalRecordRepository>(create: (_) => MedicalRecordRepositoryImpl(mockDataSource)),
         RepositoryProvider<AuthRepository>(create: (_) => AuthRepositoryImpl(AuthRemoteDataSource(apiService), apiService)),
         RepositoryProvider<LocationRepository>(create: (_) => LocationRepositoryImpl(mockDataSource)),

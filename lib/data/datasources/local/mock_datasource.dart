@@ -81,7 +81,7 @@ class MockDataSource implements DataSource {
   @override
   List<AppointmentModel> appointmentsByPatient(String patientId) => _appointments.where((a) {
     final p = a.patient;
-    return p != null && p['id'] == patientId;
+    return p != null && p.id == patientId;
   }).toList();
   @override
   int get todayAppointmentCount => appointmentsByDate(DateTime.now()).length;
