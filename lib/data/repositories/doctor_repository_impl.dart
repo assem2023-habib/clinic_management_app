@@ -4,7 +4,7 @@ import 'package:clinic_management_app/data/models/review_model.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
 import 'package:clinic_management_app/domain/entities/doctor_profile_entity.dart';
 import 'package:clinic_management_app/domain/entities/review_entity.dart';
-import 'package:clinic_management_app/domain/entities/time_slot_entity.dart';
+import 'package:clinic_management_app/domain/entities/doctor_schedule_entity.dart';
 import 'package:clinic_management_app/domain/repositories/doctor_repository.dart';
 
 class DoctorRepositoryImpl implements DoctorRepository {
@@ -21,18 +21,24 @@ class DoctorRepositoryImpl implements DoctorRepository {
   @override
   Future<void> addDoctor(DoctorEntity doctor) async {
     dataSource.addDoctor(DoctorModel(
-      id: doctor.id, name: doctor.name, specialty: doctor.specialty,
-      phone: doctor.phone, email: doctor.email,
-      imageUrl: doctor.imageUrl, isAvailable: doctor.isAvailable,
+      id: doctor.id, firstName: doctor.firstName, lastName: doctor.lastName,
+      username: doctor.username, email: doctor.email,
+      phone: doctor.phone, address: doctor.address,
+      gender: doctor.gender, birthdayDate: doctor.birthdayDate,
+      isActive: doctor.isActive, imageUrl: doctor.imageUrl,
+      roles: doctor.roles,
     ));
   }
 
   @override
   Future<void> updateDoctor(DoctorEntity doctor) async {
     dataSource.updateDoctor(DoctorModel(
-      id: doctor.id, name: doctor.name, specialty: doctor.specialty,
-      phone: doctor.phone, email: doctor.email,
-      imageUrl: doctor.imageUrl, isAvailable: doctor.isAvailable,
+      id: doctor.id, firstName: doctor.firstName, lastName: doctor.lastName,
+      username: doctor.username, email: doctor.email,
+      phone: doctor.phone, address: doctor.address,
+      gender: doctor.gender, birthdayDate: doctor.birthdayDate,
+      isActive: doctor.isActive, imageUrl: doctor.imageUrl,
+      roles: doctor.roles,
     ));
   }
 
@@ -57,7 +63,7 @@ class DoctorRepositoryImpl implements DoctorRepository {
       dataSource.getDoctorReviews(doctorId);
 
   @override
-  Future<List<TimeSlotEntity>> getDoctorSlots(String doctorId, DateTime month) async =>
+  Future<List<DoctorScheduleEntity>> getDoctorSlots(String doctorId, DateTime month) async =>
       dataSource.getDoctorSlots(doctorId, month);
 
   @override
@@ -67,10 +73,10 @@ class DoctorRepositoryImpl implements DoctorRepository {
   @override
   Future<void> addReview(String doctorId, ReviewEntity review) async {
     dataSource.addReview(doctorId, ReviewModel(
-      id: review.id, patientName: review.patientName,
-      patientImage: review.patientImage, rating: review.rating,
-      comment: review.comment, date: review.date,
-      likesCount: review.likesCount,
+      id: review.id, rating: review.rating, comment: review.comment,
+      rater: review.rater, type: review.type,
+      rateableId: review.rateableId, rateableType: review.rateableType,
+      createdAt: review.createdAt, updatedAt: review.updatedAt,
     ));
   }
 }

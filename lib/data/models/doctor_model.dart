@@ -1,80 +1,75 @@
+import 'package:clinic_management_app/data/models/user_model.dart';
+import 'package:clinic_management_app/data/models/specialization_model.dart';
+import 'package:clinic_management_app/data/models/doctor_schedule_model.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
 
 class DoctorModel extends DoctorEntity {
   const DoctorModel({
     required super.id,
-    required super.name,
-    required super.specialty,
-    required super.phone,
+    required super.firstName,
+    required super.lastName,
+    required super.username,
     required super.email,
+    super.phone,
+    super.address,
+    required super.gender,
+    super.birthdayDate,
+    super.roles = const [],
+    super.isActive = true,
     super.imageUrl,
-    super.isAvailable,
-    super.bio,
-    super.experienceYears,
-    super.rating,
-    super.reviewsCount,
-    super.patientsCount,
-    super.surgeriesCount,
-    super.qualifications,
-    super.services,
-    super.education,
-    super.clinicName,
-    super.clinicAddress,
-    super.consultationFee,
-    super.languages,
+    super.countryId,
+    super.cityId,
+    super.fcmTokens,
+    super.emailVerifiedAt,
+    super.createdAt,
+    super.updatedAt,
+    super.specialization,
+    super.experienceMonths,
+    super.schedules = const [],
   });
 
   factory DoctorModel.fromMap(Map<String, dynamic> map) {
+    final userModel = UserModel.fromMap(map);
+
+    SpecializationEntity? specialization;
+    int? experienceMonths;
+    List<DoctorScheduleModel> schedules = const [];
+
+    final doctorData = map['doctor'] as Map<String, dynamic>?;
+    final source = doctorData ?? map;
+
+    if (source['specialization'] != null && source['specialization'] is Map) {
+      specialization = SpecializationModel.fromMap(source['specialization'] as Map<String, dynamic>);
+    }
+    experienceMonths = source['experience_months'] as int?;
+    if (source['schedules'] != null && source['schedules'] is List) {
+      schedules = (source['schedules'] as List)
+          .map((s) => DoctorScheduleModel.fromMap(s as Map<String, dynamic>))
+          .toList();
+    }
+
     return DoctorModel(
-      id: map['id'] as String,
-      name: map['name'] as String,
-      specialty: map['specialty'] as String,
-      phone: map['phone'] as String,
-      email: map['email'] as String,
-      imageUrl: map['imageUrl'] as String?,
-      isAvailable: map['isAvailable'] as bool? ?? true,
-      bio: map['bio'] as String?,
-      experienceYears: map['experienceYears'] as int? ?? 0,
-      rating: (map['rating'] as num?)?.toDouble() ?? 0.0,
-      reviewsCount: map['reviewsCount'] as int? ?? 0,
-      patientsCount: map['patientsCount'] as int? ?? 0,
-      surgeriesCount: map['surgeriesCount'] as int? ?? 0,
-      qualifications: map['qualifications'] != null
-          ? List<String>.from(map['qualifications'] as List)
-          : [],
-      services: map['services'] != null
-          ? List<String>.from(map['services'] as List)
-          : [],
-      education: map['education'] as String?,
-      clinicName: map['clinicName'] as String?,
-      clinicAddress: map['clinicAddress'] as String?,
-      consultationFee: (map['consultationFee'] as num?)?.toDouble(),
-      languages: map['languages'] != null
-          ? List<String>.from(map['languages'] as List)
-          : [],
+      id: userModel.id,
+      firstName: userModel.firstName,
+      lastName: userModel.lastName,
+      username: userModel.username,
+      email: userModel.email,
+      phone: userModel.phone,
+      address: userModel.address,
+      gender: userModel.gender,
+      birthdayDate: userModel.birthdayDate,
+      roles: userModel.roles,
+      isActive: userModel.isActive,
+      imageUrl: userModel.imageUrl,
+      countryId: userModel.countryId,
+      cityId: userModel.cityId,
+      fcmTokens: userModel.fcmTokens,
+      emailVerifiedAt: userModel.emailVerifiedAt,
+      createdAt: userModel.createdAt,
+      updatedAt: userModel.updatedAt,
+      specialization: specialization,
+      experienceMonths: experienceMonths,
+      schedules: schedules,
     );
   }
-
-  Map<String, dynamic> toMap() => {
-        'id': id,
-        'name': name,
-        'specialty': specialty,
-        'phone': phone,
-        'email': email,
-        'imageUrl': imageUrl,
-        'isAvailable': isAvailable,
-        'bio': bio,
-        'experienceYears': experienceYears,
-        'rating': rating,
-        'reviewsCount': reviewsCount,
-        'patientsCount': patientsCount,
-        'surgeriesCount': surgeriesCount,
-        'qualifications': qualifications,
-        'services': services,
-        'education': education,
-        'clinicName': clinicName,
-        'clinicAddress': clinicAddress,
-        'consultationFee': consultationFee,
-        'languages': languages,
-      };
 }

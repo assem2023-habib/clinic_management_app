@@ -3,10 +3,8 @@ import 'package:equatable/equatable.dart';
 class SpecializationEntity extends Equatable {
   final String id;
   final String slug;
-  final String nameEn;
-  final String nameAr;
-  final String? descriptionEn;
-  final String? descriptionAr;
+  final Map<String, String> name;
+  final Map<String, String>? description;
   final bool isActive;
   final int doctorsCount;
   final String? imageUrl;
@@ -16,10 +14,8 @@ class SpecializationEntity extends Equatable {
   const SpecializationEntity({
     required this.id,
     required this.slug,
-    required this.nameEn,
-    required this.nameAr,
-    this.descriptionEn,
-    this.descriptionAr,
+    required this.name,
+    this.description,
     this.isActive = true,
     this.doctorsCount = 0,
     this.imageUrl,
@@ -27,9 +23,14 @@ class SpecializationEntity extends Equatable {
     this.updatedAt,
   });
 
+  String get nameEn => name['en'] ?? '';
+  String get nameAr => name['ar'] ?? '';
+  String get descriptionEn => description?['en'];
+  String get descriptionAr => description?['ar'];
+
   @override
   List<Object?> get props => [
-    id, slug, nameEn, nameAr, descriptionEn, descriptionAr,
-    isActive, doctorsCount, imageUrl, createdAt, updatedAt,
+    id, slug, name, description, isActive, doctorsCount,
+    imageUrl, createdAt, updatedAt,
   ];
 }
