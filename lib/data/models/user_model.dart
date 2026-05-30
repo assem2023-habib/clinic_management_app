@@ -41,7 +41,7 @@ class UserModel extends UserEntity {
       gender: map['gender'] as String? ?? 'male',
       birthdayDate: map['birthday_date'] as String?,
       roles: map['roles'] != null
-          ? (map['roles'] as List).map((r) => RoleModel.fromMap(r as Map<String, dynamic>)).toList()
+          ? (map['roles'] as List).map((r) => RoleModel.fromDynamic(r)).toList()
           : const [],
       isActive: map['is_active'] as bool? ?? true,
       imageUrl: map['image'] != null && map['image'] is Map

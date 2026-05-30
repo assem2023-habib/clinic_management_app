@@ -8,6 +8,7 @@ class RegisterPatientRequest {
   final String? address;
   final String gender;
   final String? birthdayDate;
+  final String? cityId;
 
   const RegisterPatientRequest({
     required this.firstName,
@@ -19,6 +20,7 @@ class RegisterPatientRequest {
     this.address,
     required this.gender,
     this.birthdayDate,
+    this.cityId,
   });
 
   Map<String, dynamic> toMap() => {
@@ -31,5 +33,6 @@ class RegisterPatientRequest {
     if (address != null) 'address': address,
     'gender': gender,
     if (birthdayDate != null) 'birthday_date': birthdayDate,
+    if (cityId != null) 'city_id': cityId,
   };
 }
