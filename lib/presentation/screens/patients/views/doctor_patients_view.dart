@@ -298,7 +298,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
                   children: [
                     _buildInfoChip(colors, Icons.calendar_today_rounded, '${_ageFromBirthday(patient.birthdayDate)} ${AppStrings.dpYear}'),
                     const SizedBox(width: AppSpacing.sm),
-                    _buildInfoChip(colors, Icons.phone_rounded, patient.phone),
+                    _buildInfoChip(colors, Icons.phone_rounded, patient.phone ?? ''),
                   ],
                 ),
               ],

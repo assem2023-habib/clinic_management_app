@@ -6,6 +6,7 @@ import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
 import 'package:clinic_management_app/domain/entities/doctor_profile_entity.dart';
 import 'package:clinic_management_app/domain/entities/review_entity.dart';
 import 'package:clinic_management_app/domain/entities/doctor_schedule_entity.dart';
+import 'package:clinic_management_app/domain/entities/time_slot_entity.dart';
 import 'package:clinic_management_app/domain/repositories/doctor_repository.dart';
 
 class DoctorRepositoryImpl implements DoctorRepository {
@@ -124,7 +125,12 @@ class DoctorRepositoryImpl implements DoctorRepository {
         final reviews = await dataSource.getDoctorReviews(id);
         final now = DateTime.now();
         final slots = dataSource.getDoctorSlots(id, DateTime(now.year, now.month));
-        return DoctorProfileEntity(doctor: doctor, reviews: reviews, availableSlots: slots);
+        return DoctorProfileEntity(doctor: doctor, reviews: reviews, availableSlots: slots.map((s) => TimeSlotEntity(
+          id: s.id,
+          date: now,
+          time: '${s.startTime} - ${s.endTime}',
+          isAvailable: s.isActive,
+        )).toList());
       } catch (_) {}
     }
     final doctor = dataSource.doctorById(id);
@@ -132,7 +138,12 @@ class DoctorRepositoryImpl implements DoctorRepository {
     final reviews = dataSource.getDoctorReviews(id);
     final now = DateTime.now();
     final slots = dataSource.getDoctorSlots(id, DateTime(now.year, now.month));
-    return DoctorProfileEntity(doctor: doctor, reviews: reviews, availableSlots: slots);
+    return DoctorProfileEntity(doctor: doctor, reviews: reviews, availableSlots: slots.map((s) => TimeSlotEntity(
+      id: s.id,
+      date: now,
+      time: '${s.startTime} - ${s.endTime}',
+      isAvailable: s.isActive,
+    )).toList());
   }
 
   @override

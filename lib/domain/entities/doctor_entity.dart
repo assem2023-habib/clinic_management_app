@@ -7,6 +7,17 @@ class DoctorEntity extends UserEntity {
   final SpecializationEntity? specialization;
   final int? experienceMonths;
   final List<DoctorScheduleEntity> schedules;
+  final double? rating;
+  final int? reviewsCount;
+  final List<String> services;
+  final String? bio;
+  final String? clinicAddress;
+  final String? clinicName;
+  final List<String> languages;
+  final List<String> qualifications;
+  final String? education;
+  final int? patientsCount;
+  final int? surgeriesCount;
 
   const DoctorEntity({
     required super.id,
@@ -30,7 +41,23 @@ class DoctorEntity extends UserEntity {
     this.specialization,
     this.experienceMonths,
     this.schedules = const [],
+    this.rating,
+    this.reviewsCount,
+    this.services = const [],
+    this.bio,
+    this.clinicAddress,
+    this.clinicName,
+    this.languages = const [],
+    this.qualifications = const [],
+    this.education,
+    this.patientsCount,
+    this.surgeriesCount,
   });
+
+  String get name => fullName;
+  String get specialty => specialization?.nameAr ?? '';
+  int get experienceYears => experienceMonths != null ? experienceMonths! ~/ 12 : 0;
+  bool get isAvailable => isActive;
 
   factory DoctorEntity.fromUser(UserEntity user, {
     SpecializationEntity? specialization,
@@ -85,6 +112,17 @@ class DoctorEntity extends UserEntity {
     SpecializationEntity? specialization,
     int? experienceMonths,
     List<DoctorScheduleEntity>? schedules,
+    double? rating,
+    int? reviewsCount,
+    List<String>? services,
+    String? bio,
+    String? clinicAddress,
+    String? clinicName,
+    List<String>? languages,
+    List<String>? qualifications,
+    String? education,
+    int? patientsCount,
+    int? surgeriesCount,
   }) {
     return DoctorEntity(
       id: id ?? this.id,
@@ -108,6 +146,17 @@ class DoctorEntity extends UserEntity {
       specialization: specialization ?? this.specialization,
       experienceMonths: experienceMonths ?? this.experienceMonths,
       schedules: schedules ?? this.schedules,
+      rating: rating ?? this.rating,
+      reviewsCount: reviewsCount ?? this.reviewsCount,
+      services: services ?? this.services,
+      bio: bio ?? this.bio,
+      clinicAddress: clinicAddress ?? this.clinicAddress,
+      clinicName: clinicName ?? this.clinicName,
+      languages: languages ?? this.languages,
+      qualifications: qualifications ?? this.qualifications,
+      education: education ?? this.education,
+      patientsCount: patientsCount ?? this.patientsCount,
+      surgeriesCount: surgeriesCount ?? this.surgeriesCount,
     );
   }
 
@@ -117,5 +166,16 @@ class DoctorEntity extends UserEntity {
     specialization,
     experienceMonths,
     schedules,
+    rating,
+    reviewsCount,
+    services,
+    bio,
+    clinicAddress,
+    clinicName,
+    languages,
+    qualifications,
+    education,
+    patientsCount,
+    surgeriesCount,
   ];
 }

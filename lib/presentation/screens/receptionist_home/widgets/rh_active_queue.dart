@@ -20,18 +20,17 @@ class RhActiveQueue extends StatelessWidget {
       builder: (context, state) {
         final appointments = state is AppointmentLoaded ? state.appointments : <AppointmentEntity>[];
         final today = DateTime.now();
-        final todayAppts = appointments.where((a) =>
-          a.date.year == today.year &&
-          a.date.month == today.month &&
-          a.date.day == today.day
-        ).toList();
+        final todayAppts = appointments.where((a) {
+          final d = a.date;
+          return d != null && DateTime.tryParse(d)?.year == today.year && DateTime.tryParse(d)?.month == today.month && DateTime.tryParse(d)?.day == today.day;
+        }).toList();
 
         final queueOrder = [AppointmentStatus.inProgress, AppointmentStatus.scheduled, AppointmentStatus.cancelled];
         todayAppts.sort((a, b) {
           final aIdx = queueOrder.indexOf(a.status);
           final bIdx = queueOrder.indexOf(b.status);
           if (aIdx != bIdx) return aIdx.compareTo(bIdx);
-          return a.timeSlot.compareTo(b.timeSlot);
+          return (a.timeSlot ?? '').compareTo(b.timeSlot ?? '');
         });
 
         return Column(

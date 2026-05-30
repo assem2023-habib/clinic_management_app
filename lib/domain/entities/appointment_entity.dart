@@ -6,6 +6,7 @@ enum AppointmentStatus {
   pending,
   requested,
   set,
+  scheduled,
   accepted,
   rejected,
   inProgress,
@@ -23,6 +24,7 @@ enum AppointmentStatus {
       case 'pending': return AppointmentStatus.pending;
       case 'requested': return AppointmentStatus.requested;
       case 'set': return AppointmentStatus.set;
+      case 'scheduled': return AppointmentStatus.scheduled;
       case 'accepted': return AppointmentStatus.accepted;
       case 'rejected': return AppointmentStatus.rejected;
       case 'in_progress': return AppointmentStatus.inProgress;
@@ -47,24 +49,12 @@ class AppointmentEntity extends Equatable {
   final String? updatedAt;
   final PatientEntity? patient;
   final DoctorEntity? doctor;
-
-  String? get patientName {
-    if (patient == null) return null;
-    return '${patient!.firstName} ${patient!.lastName}';
-  }
-
-  String? get doctorName {
-    if (doctor == null) return null;
-    return '${doctor!.firstName} ${doctor!.lastName}';
-  }
-
-  String? get date => appointmentDate;
-
-  String? get timeSlot {
-    if (startTime == null && endTime == null) return null;
-    if (startTime != null && endTime != null) return '$startTime - $endTime';
-    return startTime ?? endTime;
-  }
+  final String? patientId;
+  final String? patientName;
+  final String? doctorId;
+  final String? doctorName;
+  final String? date;
+  final String? timeSlot;
 
   const AppointmentEntity({
     required this.id,
@@ -79,6 +69,12 @@ class AppointmentEntity extends Equatable {
     this.updatedAt,
     this.patient,
     this.doctor,
+    this.patientId,
+    this.patientName,
+    this.doctorId,
+    this.doctorName,
+    this.date,
+    this.timeSlot,
   });
 
   AppointmentEntity copyWith({

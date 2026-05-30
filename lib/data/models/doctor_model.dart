@@ -2,6 +2,7 @@ import 'package:clinic_management_app/data/models/user_model.dart';
 import 'package:clinic_management_app/data/models/specialization_model.dart';
 import 'package:clinic_management_app/data/models/doctor_schedule_model.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
+import 'package:clinic_management_app/domain/entities/specialization_entity.dart';
 
 class DoctorModel extends DoctorEntity {
   const DoctorModel({

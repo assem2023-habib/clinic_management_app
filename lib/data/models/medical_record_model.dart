@@ -8,6 +8,10 @@ class MedicalRecordModel extends MedicalRecordEntity {
     required super.diagnosis,
     super.notes,
     super.createdAt,
+    super.patientName,
+    super.doctorName,
+    super.prescription,
+    super.visitDate,
   });
 
   factory MedicalRecordModel.fromMap(Map<String, dynamic> map) {
@@ -18,6 +22,10 @@ class MedicalRecordModel extends MedicalRecordEntity {
       diagnosis: map['diagnosis'] as String? ?? '',
       notes: map['notes'] as String?,
       createdAt: map['created_at'] as String?,
+      patientName: map['patient_name'] as String?,
+      doctorName: map['doctor_name'] as String?,
+      prescription: map['prescription'] as String?,
+      visitDate: map['visit_date'] as String?,
     );
   }
 }

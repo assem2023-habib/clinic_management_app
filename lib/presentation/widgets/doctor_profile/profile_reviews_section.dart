@@ -5,16 +5,16 @@ import 'package:clinic_management_app/domain/entities/review_entity.dart';
 
 class ProfileReviewsSection extends StatelessWidget {
   final List<ReviewEntity> reviews;
-  final double averageRating;
-  final int totalReviews;
+  final double? averageRating;
+  final int? totalReviews;
   final bool canAddReview;
   final VoidCallback? onAddReview;
 
   const ProfileReviewsSection({
     super.key,
     required this.reviews,
-    required this.averageRating,
-    required this.totalReviews,
+    this.averageRating,
+    this.totalReviews,
     this.canAddReview = false,
     this.onAddReview,
   });
@@ -50,7 +50,7 @@ class ProfileReviewsSection extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    averageRating.toString(),
+                    (averageRating?.toString() ?? '0.0'),
                     style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: colors.textPrimary),
                   ),
                   const SizedBox(width: 8),
@@ -60,12 +60,12 @@ class ProfileReviewsSection extends StatelessWidget {
                     children: [
                       Row(
                         children: List.generate(5, (i) => Icon(
-                          i < averageRating.round() ? Icons.star_rounded : Icons.star_outline_rounded,
+                          i < (averageRating ?? 0).round() ? Icons.star_rounded : Icons.star_outline_rounded,
                           color: Colors.amber,
                           size: 16,
                         )),
                       ),
-                      Text('$totalReviews ${AppStrings.rating}', style: TextStyle(fontSize: 11, color: colors.textLight)),
+                      Text('${totalReviews ?? 0} ${AppStrings.rating}', style: TextStyle(fontSize: 11, color: colors.textLight)),
                     ],
                   ),
                 ],
@@ -101,7 +101,7 @@ class ProfileReviewsSection extends StatelessWidget {
                     radius: 18,
                     backgroundColor: colors.primary.withValues(alpha: 0.15),
                     child: Text(
-                      review.patientName.isNotEmpty ? review.patientName[0] : '?',
+                      (review.patientName?.isNotEmpty == true ? review.patientName![0] : '?'),
                       style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: colors.primary),
                     ),
                   ),
@@ -110,7 +110,7 @@ class ProfileReviewsSection extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(review.patientName, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+                        Text(review.patientName ?? '', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: colors.textPrimary)),
                         Row(
                           children: List.generate(5, (i) => Icon(
                             i < review.rating.round() ? Icons.star_rounded : Icons.star_outline_rounded,
@@ -128,14 +128,14 @@ class ProfileReviewsSection extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10),
-              Text(review.comment, style: TextStyle(fontSize: 13, color: colors.textSecondary, height: 1.5)),
-              if (review.likesCount > 0) ...[
+              Text(review.comment ?? '', style: TextStyle(fontSize: 13, color: colors.textSecondary, height: 1.5)),
+              if ((review.likesCount ?? 0) > 0) ...[
                 const SizedBox(height: 8),
                 Row(
                   children: [
                     Icon(Icons.thumb_up_rounded, size: 14, color: colors.textLight),
                     const SizedBox(width: 4),
-                    Text('${review.likesCount}', style: TextStyle(fontSize: 12, color: colors.textLight)),
+                    Text('${review.likesCount ?? 0}', style: TextStyle(fontSize: 12, color: colors.textLight)),
                   ],
                 ),
               ],
@@ -146,7 +146,9 @@ class ProfileReviewsSection extends StatelessWidget {
     );
   }
 
-  String _formatDate(DateTime date) {
+  String _formatDate(String? dateStr) {
+    final date = dateStr != null ? DateTime.tryParse(dateStr) : null;
+    if (date == null) return '';
     final diff = DateTime.now().difference(date);
     if (diff.inDays == 0) return AppStrings.today;
     if (diff.inDays == 1) return AppStrings.yesterday;

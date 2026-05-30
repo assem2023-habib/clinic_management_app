@@ -16,7 +16,7 @@ class SdDoctorCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final showVerified = doctor.rating >= 4.5;
+    final showVerified = (doctor.rating ?? 0) >= 4.5;
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -67,7 +67,7 @@ class SdDoctorCard extends StatelessWidget {
                               ),
                               const SizedBox(width: 2),
                               Text(
-                                doctor.rating.toStringAsFixed(1),
+                                (doctor.rating ?? 0).toStringAsFixed(1),
                                 style: const TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w500,

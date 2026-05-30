@@ -25,8 +25,8 @@ class SpecializationEntity extends Equatable {
 
   String get nameEn => name['en'] ?? '';
   String get nameAr => name['ar'] ?? '';
-  String get descriptionEn => description?['en'];
-  String get descriptionAr => description?['ar'];
+  String get descriptionEn => description?['en'] ?? '';
+  String get descriptionAr => description?['ar'] ?? '';
 
   @override
   List<Object?> get props => [
