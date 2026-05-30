@@ -4,6 +4,7 @@ import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/onboarding/onboarding_cubit.dart';
+import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -35,10 +36,20 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   Future<void> _checkOnboardingStatus() async {
     await Future.delayed(2.4.seconds);
     if (!mounted) return;
-    final cubit = context.read<OnboardingCubit>();
-    await cubit.loadOnboardingStatus();
+
+    final authCubit = context.read<AuthCubit>();
+    await authCubit.checkAuthStatus();
     if (!mounted) return;
-    final completed = cubit.state.completed;
+
+    if (authCubit.state.isAuthenticated) {
+      Navigator.pushReplacementNamed(context, AppRoutes.dashboard);
+      return;
+    }
+
+    final onboardingCubit = context.read<OnboardingCubit>();
+    await onboardingCubit.loadOnboardingStatus();
+    if (!mounted) return;
+    final completed = onboardingCubit.state.completed;
     Navigator.pushReplacementNamed(
       context,
       completed ? AppRoutes.login : AppRoutes.roleSelection,
