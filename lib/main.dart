@@ -15,6 +15,7 @@ import 'package:clinic_management_app/data/datasources/remote/prescription_remot
 import 'package:clinic_management_app/data/datasources/remote/rbac_remote_datasource.dart';
 import 'package:clinic_management_app/data/datasources/remote/supervision_remote_datasource.dart';
 import 'package:clinic_management_app/data/datasources/remote/user_remote_datasource.dart';
+import 'package:clinic_management_app/data/datasources/remote/receptionist_remote_datasource.dart';
 import 'package:clinic_management_app/data/datasources/remote/doctor_remote_datasource.dart';
 import 'package:clinic_management_app/core/services/appointment_rtdb_service.dart';
 import 'package:clinic_management_app/data/repositories/doctor_repository_impl.dart';
@@ -24,6 +25,7 @@ import 'package:clinic_management_app/data/repositories/rbac_repository_impl.dar
 import 'package:clinic_management_app/data/repositories/supervision_repository_impl.dart';
 import 'package:clinic_management_app/data/repositories/user_repository_impl.dart';
 import 'package:clinic_management_app/data/repositories/specialization_repository_impl.dart';
+import 'package:clinic_management_app/data/repositories/receptionist_repository_impl.dart';
 import 'package:clinic_management_app/data/repositories/appointment_repository_impl.dart';
 import 'package:clinic_management_app/data/repositories/medical_record_repository_impl.dart';
 import 'package:clinic_management_app/data/repositories/auth_repository_impl.dart';
@@ -46,10 +48,12 @@ import 'package:clinic_management_app/domain/repositories/prescription_repositor
 import 'package:clinic_management_app/domain/repositories/rbac_repository.dart';
 import 'package:clinic_management_app/domain/repositories/supervision_repository.dart';
 import 'package:clinic_management_app/domain/repositories/user_repository.dart';
+import 'package:clinic_management_app/domain/repositories/receptionist_repository.dart';
 import 'package:clinic_management_app/domain/repositories/specialization_repository.dart';
 import 'package:clinic_management_app/presentation/blocs/prescription/prescription_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/rbac/rbac_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/supervision/supervision_bloc.dart';
+import 'package:clinic_management_app/presentation/blocs/receptionist/receptionist_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/user/user_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/dashboard/dashboard_bloc.dart';
@@ -192,6 +196,9 @@ class _MyAppState extends State<MyApp> {
         RepositoryProvider<SpecializationRepository>(create: (_) => SpecializationRepositoryImpl(
           remoteDataSource: DoctorRemoteDataSource(apiService),
         )),
+        RepositoryProvider<ReceptionistRepository>(create: (_) => ReceptionistRepositoryImpl(
+          remoteDataSource: ReceptionistRemoteDataSource(apiService),
+        )),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -211,6 +218,7 @@ class _MyAppState extends State<MyApp> {
           BlocProvider(create: (context) => PrescriptionBloc(RepositoryProvider.of<PrescriptionRepository>(context))),
           BlocProvider(create: (context) => RbacBloc(RepositoryProvider.of<RbacRepository>(context))),
           BlocProvider(create: (context) => SupervisionBloc(RepositoryProvider.of<SupervisionRepository>(context))),
+          BlocProvider(create: (context) => ReceptionistBloc(RepositoryProvider.of<ReceptionistRepository>(context))),
           BlocProvider(create: (context) => UserBloc(RepositoryProvider.of<UserRepository>(context))),
         ],
         child: ListenableBuilder(
