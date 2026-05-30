@@ -30,7 +30,7 @@ class RoleModel extends RoleEntity {
 
   factory RoleModel.fromDynamic(dynamic value) {
     if (value is String) {
-      return RoleModel(id: '', name: '', slug: value, guardName: 'api');
+      return RoleModel(id: '', name: value, slug: value.toLowerCase(), guardName: 'api');
     }
     return RoleModel.fromMap(value as Map<String, dynamic>);
   }
