@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/presentation/blocs/dashboard/dashboard_bloc.dart';
+import 'package:clinic_management_app/presentation/blocs/dashboard/dashboard_state.dart';
 import 'package:clinic_management_app/presentation/widgets/dashboard/action_button.dart';
 import 'package:clinic_management_app/presentation/widgets/dashboard/dashboard_greeting.dart';
 import 'package:clinic_management_app/presentation/widgets/dashboard/recent_appointments.dart';
@@ -20,22 +23,20 @@ class DoctorDashboardView extends StatelessWidget {
         children: [
           AnimatedCard(index: 0, child: const DashboardGreeting()),
           const SizedBox(height: 24),
-          AnimatedCard(
-            index: 1,
-            child: GridView.count(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 2,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              childAspectRatio: 1.5,
-              children: [
-                StatCard(title: AppStrings.myPatientsV2, icon: Icons.people, color: colors.primary),
-                StatCard(title: AppStrings.todayAppts, icon: Icons.today, color: colors.secondary),
-                StatCard(title: AppStrings.pendingAppts, icon: Icons.pending_actions, color: colors.accent),
-                StatCard(title: AppStrings.completedAppts, icon: Icons.check_circle, color: colors.success),
-              ],
-            ),
+          BlocBuilder<DashboardBloc, DashboardState>(
+            builder: (context, state) {
+              if (state is DashboardLoaded) {
+                final d = state.data;
+                return _buildStatGrid(
+                  colors,
+                  '${d.patients?.total ?? 0}',
+                  '${d.appointments.today ?? 0}',
+                  '${d.appointments.byStatus['pending'] ?? 0}',
+                  '${d.appointments.byStatus['completed'] ?? 0}',
+                );
+              }
+              return _buildStatGrid(colors, null, null, null, null);
+            },
           ),
           const SizedBox(height: 24),
           AnimatedCard(
@@ -71,6 +72,26 @@ class DoctorDashboardView extends StatelessWidget {
               ],
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStatGrid(AppColorSet colors, String? patients, String? today, String? pending, String? completed) {
+    return AnimatedCard(
+      index: 1,
+      child: GridView.count(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        crossAxisCount: 2,
+        crossAxisSpacing: 12,
+        mainAxisSpacing: 12,
+        childAspectRatio: 1.5,
+        children: [
+          StatCard(title: AppStrings.myPatientsV2, icon: Icons.people, color: colors.primary, value: patients),
+          StatCard(title: AppStrings.todayAppts, icon: Icons.today, color: colors.secondary, value: today),
+          StatCard(title: AppStrings.pendingAppts, icon: Icons.pending_actions, color: colors.accent, value: pending),
+          StatCard(title: AppStrings.completedAppts, icon: Icons.check_circle, color: colors.success, value: completed),
         ],
       ),
     );

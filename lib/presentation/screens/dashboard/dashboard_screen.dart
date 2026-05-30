@@ -6,6 +6,8 @@ import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/theme/theme_provider.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
+import 'package:clinic_management_app/presentation/blocs/dashboard/dashboard_bloc.dart';
+import 'package:clinic_management_app/presentation/blocs/dashboard/dashboard_event.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
 import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
 import 'package:clinic_management_app/presentation/screens/dashboard/views/admin_dashboard_view.dart';
@@ -13,10 +15,21 @@ import 'package:clinic_management_app/presentation/screens/dashboard/views/docto
 import 'package:clinic_management_app/presentation/screens/dashboard/views/receptionist_dashboard_view.dart';
 import 'package:clinic_management_app/presentation/screens/dashboard/views/patient_dashboard_view.dart';
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatefulWidget {
   final ThemeProvider? themeProvider;
 
   const DashboardScreen({super.key, this.themeProvider});
+
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<DashboardBloc>().add(DashboardLoad());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +42,7 @@ class DashboardScreen extends StatelessWidget {
         _showExitDialog(context, colors);
       },
       child: AppShell(
-        themeProvider: themeProvider,
+        themeProvider: widget.themeProvider,
         title: AppStrings.dashboard,
         currentRoute: AppRoutes.dashboard,
         actions: [

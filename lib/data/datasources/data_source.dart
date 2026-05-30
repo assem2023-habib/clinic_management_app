@@ -7,6 +7,7 @@ import 'package:clinic_management_app/data/models/city_model.dart';
 import 'package:clinic_management_app/data/models/review_model.dart';
 import 'package:clinic_management_app/data/models/doctor_schedule_model.dart';
 import 'package:clinic_management_app/data/models/rating_model.dart';
+import 'package:clinic_management_app/domain/entities/dashboard_data.dart';
 
 abstract class DataSource {
   List<DoctorModel> get allDoctors;
@@ -50,4 +51,6 @@ abstract class DataSource {
   void addRating(RatingModel rating);
   void updateRating(RatingModel rating);
   void deleteRating(String id);
+
+  DashboardData getDashboardData();
 }
