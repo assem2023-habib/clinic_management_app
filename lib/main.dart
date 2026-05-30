@@ -12,10 +12,14 @@ import 'package:clinic_management_app/data/datasources/remote/auth_remote_dataso
 import 'package:clinic_management_app/data/datasources/remote/appointment_remote_datasource.dart';
 import 'package:clinic_management_app/data/datasources/remote/patient_remote_datasource.dart';
 import 'package:clinic_management_app/data/datasources/remote/prescription_remote_datasource.dart';
+import 'package:clinic_management_app/data/datasources/remote/rbac_remote_datasource.dart';
+import 'package:clinic_management_app/data/datasources/remote/supervision_remote_datasource.dart';
 import 'package:clinic_management_app/core/services/appointment_rtdb_service.dart';
 import 'package:clinic_management_app/data/repositories/doctor_repository_impl.dart';
 import 'package:clinic_management_app/data/repositories/patient_repository_impl.dart';
 import 'package:clinic_management_app/data/repositories/prescription_repository_impl.dart';
+import 'package:clinic_management_app/data/repositories/rbac_repository_impl.dart';
+import 'package:clinic_management_app/data/repositories/supervision_repository_impl.dart';
 import 'package:clinic_management_app/data/repositories/appointment_repository_impl.dart';
 import 'package:clinic_management_app/data/repositories/medical_record_repository_impl.dart';
 import 'package:clinic_management_app/data/repositories/auth_repository_impl.dart';
@@ -35,7 +39,11 @@ import 'package:clinic_management_app/domain/repositories/rating_repository.dart
 import 'package:clinic_management_app/domain/repositories/dashboard_repository.dart';
 import 'package:clinic_management_app/domain/repositories/notification_repository.dart';
 import 'package:clinic_management_app/domain/repositories/prescription_repository.dart';
+import 'package:clinic_management_app/domain/repositories/rbac_repository.dart';
+import 'package:clinic_management_app/domain/repositories/supervision_repository.dart';
 import 'package:clinic_management_app/presentation/blocs/prescription/prescription_bloc.dart';
+import 'package:clinic_management_app/presentation/blocs/rbac/rbac_bloc.dart';
+import 'package:clinic_management_app/presentation/blocs/supervision/supervision_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/dashboard/dashboard_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
@@ -163,6 +171,12 @@ class _MyAppState extends State<MyApp> {
         RepositoryProvider<PrescriptionRepository>(create: (_) => PrescriptionRepositoryImpl(
           remoteDataSource: PrescriptionRemoteDataSource(apiService),
         )),
+        RepositoryProvider<RbacRepository>(create: (_) => RbacRepositoryImpl(
+          remoteDataSource: RbacRemoteDataSource(apiService),
+        )),
+        RepositoryProvider<SupervisionRepository>(create: (_) => SupervisionRepositoryImpl(
+          remoteDataSource: SupervisionRemoteDataSource(apiService),
+        )),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -180,6 +194,8 @@ class _MyAppState extends State<MyApp> {
           BlocProvider(create: (_) => DownloadFileBloc()),
           BlocProvider(create: (context) => NotificationBloc(RepositoryProvider.of<NotificationRepository>(context))),
           BlocProvider(create: (context) => PrescriptionBloc(RepositoryProvider.of<PrescriptionRepository>(context))),
+          BlocProvider(create: (context) => RbacBloc(RepositoryProvider.of<RbacRepository>(context))),
+          BlocProvider(create: (context) => SupervisionBloc(RepositoryProvider.of<SupervisionRepository>(context))),
         ],
         child: ListenableBuilder(
           listenable: _themeProvider,
