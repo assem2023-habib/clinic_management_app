@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:clinic_management_app/core/services/api_service.dart';
+import 'package:clinic_management_app/core/config/api_config.dart';
 import 'package:clinic_management_app/core/services/fcm_service.dart';
 import 'package:clinic_management_app/core/theme/app_theme.dart';
 import 'package:clinic_management_app/core/theme/theme_provider.dart';
@@ -158,7 +159,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     final mockDataSource = MockDataSource();
-    final apiService = ApiService();
+    final apiService = ApiService(baseUrl: ApiConfig.apiUrl);
     ApiService.onRateLimit = () => _navigatorKey.currentState?.pushReplacementNamed(AppRoutes.rateLimit);
     ApiService.onNetworkError = () => _navigatorKey.currentState?.pushReplacementNamed(AppRoutes.offline);
     ApiService.onServerError = () => _navigatorKey.currentState?.pushReplacementNamed(AppRoutes.serverError);

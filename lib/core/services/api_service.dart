@@ -6,7 +6,6 @@ class ApiService {
   bool _isRefreshing = false;
   static const String _tokenKey = 'access_token';
   static const String _refreshTokenKey = 'refresh_token';
-  static const String defaultBaseUrl = 'http://localhost:8000/api/v1';
 
   static void Function()? onRateLimit;
   static void Function()? onNetworkError;
@@ -15,9 +14,9 @@ class ApiService {
   static void Function()? onSuspended;
   static void Function()? onSessionExpired;
 
-  ApiService() {
+  ApiService({String baseUrl = 'http://localhost:8000/api/v1'}) {
     _dio = Dio(BaseOptions(
-      baseUrl: defaultBaseUrl,
+      baseUrl: baseUrl,
       connectTimeout: const Duration(seconds: 15),
       receiveTimeout: const Duration(seconds: 15),
       headers: {'Accept': 'application/json'},
