@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
   late final Dio _dio;
+  bool _isRefreshing = false;
   static const String _tokenKey = 'access_token';
   static const String _refreshTokenKey = 'refresh_token';
   static const String defaultBaseUrl = 'http://localhost:8000/api/v1';
@@ -12,6 +13,7 @@ class ApiService {
   static void Function()? onServerError;
   static void Function()? onForbidden;
   static void Function()? onSuspended;
+  static void Function()? onSessionExpired;
 
   ApiService() {
     _dio = Dio(BaseOptions(
@@ -43,12 +45,22 @@ class ApiService {
           return;
         }
         if (error.response?.statusCode == 401) {
+          if (_isRefreshing) {
+            handler.next(error);
+            return;
+          }
+          _isRefreshing = true;
           final refreshed = await _tryRefreshToken();
+          _isRefreshing = false;
           if (refreshed) {
             final retryResponse = await _retry(error.requestOptions);
             handler.resolve(retryResponse);
             return;
           }
+          await clearTokens();
+          onSessionExpired?.call();
+          handler.next(error);
+          return;
         }
         if (error.response?.statusCode == 403) {
           onForbidden?.call();

@@ -123,6 +123,9 @@ class _MyAppState extends State<MyApp> {
     ApiService.onServerError = () => _navigatorKey.currentState?.pushReplacementNamed(AppRoutes.serverError);
     ApiService.onForbidden = () => _navigatorKey.currentState?.pushReplacementNamed(AppRoutes.forbidden);
     ApiService.onSuspended = () => _navigatorKey.currentState?.pushReplacementNamed(AppRoutes.suspended);
+    ApiService.onSessionExpired = () {
+      _navigatorKey.currentState?.pushReplacementNamed(AppRoutes.login);
+    };
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<DoctorRepository>(create: (_) => DoctorRepositoryImpl(mockDataSource)),
