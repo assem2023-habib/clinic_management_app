@@ -1,10 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
 import 'package:clinic_management_app/domain/entities/user_entity.dart';
 import 'package:clinic_management_app/domain/entities/role_entity.dart';
 import 'package:clinic_management_app/domain/repositories/auth_repository.dart';
+import 'package:clinic_management_app/data/models/auth/login_request.dart';
+import 'package:clinic_management_app/data/models/auth/register_patient_request.dart';
+import 'package:clinic_management_app/data/models/auth/register_doctor_request.dart';
 
 class AuthState extends Equatable {
   final bool isAuthenticated;
@@ -14,6 +16,7 @@ class AuthState extends Equatable {
   final UserEntity? user;
   final bool isLoading;
   final String? error;
+  final String? pendingMessage;
 
   const AuthState({
     this.isAuthenticated = false,
@@ -23,6 +26,7 @@ class AuthState extends Equatable {
     this.user,
     this.isLoading = false,
     this.error,
+    this.pendingMessage,
   });
 
   AuthState copyWith({
@@ -33,6 +37,7 @@ class AuthState extends Equatable {
     UserEntity? user,
     bool? isLoading,
     String? error,
+    String? pendingMessage,
   }) {
     return AuthState(
       isAuthenticated: isAuthenticated ?? this.isAuthenticated,
@@ -42,11 +47,12 @@ class AuthState extends Equatable {
       user: user ?? this.user,
       isLoading: isLoading ?? this.isLoading,
       error: error,
+      pendingMessage: pendingMessage,
     );
   }
 
   @override
-  List<Object?> get props => [isAuthenticated, userId, userName, role, user, isLoading, error];
+  List<Object?> get props => [isAuthenticated, userId, userName, role, user, isLoading, error, pendingMessage];
 }
 
 class AuthInitial extends AuthState {}
@@ -77,14 +83,19 @@ class AuthCubit extends Cubit<AuthState> {
 
     if (_authRepository != null) {
       try {
-        final result = await _authRepository.login(email, password);
-        final userRole = _mapRole(result.user.roles);
-        emit(AuthAuthenticated(
-          userId: result.user.id,
-          userName: result.user.fullName,
-          role: userRole,
-          user: result.user,
-        ));
+        final request = LoginRequest(email: email, password: password);
+        final response = await _authRepository.login(request);
+        if (response.isAuthenticated && response.user != null) {
+          final userRole = _mapRole(response.user!.roles);
+          emit(AuthAuthenticated(
+            userId: response.user!.id,
+            userName: response.user!.fullName,
+            role: userRole,
+            user: response.user,
+          ));
+        } else {
+          emit(AuthError(response.message ?? 'فشلت عملية الدخول'));
+        }
         return;
       } catch (e) {
         emit(AuthError(e.toString()));
@@ -95,10 +106,10 @@ class AuthCubit extends Cubit<AuthState> {
     if (email.isNotEmpty && password.isNotEmpty) {
       final userRole = role ?? UserRole.admin;
       final name = switch (userRole) {
-          UserRole.admin => AppStrings.roleAdmin,
-          UserRole.doctor => AppStrings.roleDoctor,
-          UserRole.receptionist => AppStrings.roleReceptionist,
-          UserRole.patient => AppStrings.rolePatient,
+          UserRole.admin => 'Admin',
+          UserRole.doctor => 'Doctor',
+          UserRole.receptionist => 'Receptionist',
+          UserRole.patient => 'Patient',
         };
       emit(AuthAuthenticated(userId: 'user1', userName: name, role: userRole));
     } else {
@@ -113,16 +124,21 @@ class AuthCubit extends Cubit<AuthState> {
   }) async {
     emit(const AuthLoading());
     if (_authRepository == null) {
-      emit(const AuthError(AppStrings.apiNotAvailable));
+      emit(const AuthError('API غير متاح'));
       return;
     }
     try {
-      final result = await _authRepository.registerPatient(
+      final request = RegisterPatientRequest(
         firstName: firstName, lastName: lastName, username: username,
         email: email, password: password, phone: phone, address: address,
         gender: gender, birthdayDate: birthdayDate,
       );
-      _emitAuthenticated(result.user);
+      final response = await _authRepository.registerPatient(request);
+      if (response.isAuthenticated && response.user != null) {
+        _emitAuthenticated(response.user!);
+      } else {
+        emit(AuthError(response.message ?? 'فشلت عملية التسجيل'));
+      }
     } catch (e) {
       emit(AuthError(e.toString()));
     }
@@ -132,45 +148,26 @@ class AuthCubit extends Cubit<AuthState> {
     required String firstName, required String lastName, required String username,
     required String email, required String password, String? phone,
     String? address, required String gender, String? birthdayDate,
-    required String specialization, required int experienceMonths,
+    required String specializationId, required int experienceMonths,
   }) async {
     emit(const AuthLoading());
     if (_authRepository == null) {
-      emit(const AuthError(AppStrings.apiNotAvailable));
+      emit(const AuthError('API غير متاح'));
       return;
     }
     try {
-      final result = await _authRepository.registerDoctor(
+      final request = RegisterDoctorRequest(
         firstName: firstName, lastName: lastName, username: username,
         email: email, password: password, phone: phone, address: address,
         gender: gender, birthdayDate: birthdayDate,
-        specialization: specialization, experienceMonths: experienceMonths,
+        specializationId: specializationId, experienceMonths: experienceMonths,
       );
-      _emitAuthenticated(result.user);
-    } catch (e) {
-      emit(AuthError(e.toString()));
-    }
-  }
-
-  Future<void> registerReceptionist({
-    required String firstName, required String lastName, required String username,
-    required String email, required String password, String? phone,
-    String? address, required String gender, String? birthdayDate,
-    String? shiftStart, String? shiftEnd,
-  }) async {
-    emit(const AuthLoading());
-    if (_authRepository == null) {
-      emit(const AuthError(AppStrings.apiNotAvailable));
-      return;
-    }
-    try {
-      final result = await _authRepository.registerReceptionist(
-        firstName: firstName, lastName: lastName, username: username,
-        email: email, password: password, phone: phone, address: address,
-        gender: gender, birthdayDate: birthdayDate,
-        shiftStart: shiftStart, shiftEnd: shiftEnd,
-      );
-      _emitAuthenticated(result.user);
+      final response = await _authRepository.registerDoctor(request);
+      if (response.isAuthenticated && response.user != null) {
+        _emitAuthenticated(response.user!);
+      } else {
+        emit(AuthState(pendingMessage: response.message));
+      }
     } catch (e) {
       emit(AuthError(e.toString()));
     }

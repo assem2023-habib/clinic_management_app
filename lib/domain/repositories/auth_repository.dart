@@ -1,38 +1,13 @@
 import 'package:clinic_management_app/domain/entities/user_entity.dart';
-
-class AuthResult {
-  final String accessToken;
-  final String refreshToken;
-  final int expiresIn;
-  final UserEntity user;
-
-  const AuthResult({
-    required this.accessToken,
-    required this.refreshToken,
-    required this.expiresIn,
-    required this.user,
-  });
-}
+import 'package:clinic_management_app/data/models/auth/login_request.dart';
+import 'package:clinic_management_app/data/models/auth/register_patient_request.dart';
+import 'package:clinic_management_app/data/models/auth/register_doctor_request.dart';
+import 'package:clinic_management_app/data/models/auth/auth_response.dart';
 
 abstract class AuthRepository {
-  Future<AuthResult> login(String email, String password, {String? deviceFingerprint});
-  Future<AuthResult> registerPatient({
-    required String firstName, required String lastName, required String username,
-    required String email, required String password, String? phone,
-    String? address, required String gender, String? birthdayDate,
-  });
-  Future<AuthResult> registerDoctor({
-    required String firstName, required String lastName, required String username,
-    required String email, required String password, String? phone,
-    String? address, required String gender, String? birthdayDate,
-    required String specialization, required int experienceMonths,
-  });
-  Future<AuthResult> registerReceptionist({
-    required String firstName, required String lastName, required String username,
-    required String email, required String password, String? phone,
-    String? address, required String gender, String? birthdayDate,
-    String? shiftStart, String? shiftEnd,
-  });
+  Future<AuthResponse> login(LoginRequest request);
+  Future<AuthResponse> registerPatient(RegisterPatientRequest request);
+  Future<AuthResponse> registerDoctor(RegisterDoctorRequest request);
   Future<void> logout();
   Future<UserEntity> getProfile();
   Future<UserEntity> updateProfile(Map<String, dynamic> data);

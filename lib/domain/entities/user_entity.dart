@@ -14,6 +14,12 @@ class UserEntity extends Equatable {
   final List<RoleEntity> roles;
   final bool isActive;
   final String? imageUrl;
+  final String? countryId;
+  final String? cityId;
+  final List<String>? fcmTokens;
+  final String? emailVerifiedAt;
+  final String? createdAt;
+  final String? updatedAt;
 
   const UserEntity({
     required this.id,
@@ -28,6 +34,12 @@ class UserEntity extends Equatable {
     this.roles = const [],
     this.isActive = true,
     this.imageUrl,
+    this.countryId,
+    this.cityId,
+    this.fcmTokens,
+    this.emailVerifiedAt,
+    this.createdAt,
+    this.updatedAt,
   });
 
   String get fullName => '$firstName $lastName';
@@ -45,6 +57,12 @@ class UserEntity extends Equatable {
     List<RoleEntity>? roles,
     bool? isActive,
     String? imageUrl,
+    String? countryId,
+    String? cityId,
+    List<String>? fcmTokens,
+    String? emailVerifiedAt,
+    String? createdAt,
+    String? updatedAt,
   }) {
     return UserEntity(
       id: id ?? this.id,
@@ -59,9 +77,19 @@ class UserEntity extends Equatable {
       roles: roles ?? this.roles,
       isActive: isActive ?? this.isActive,
       imageUrl: imageUrl ?? this.imageUrl,
+      countryId: countryId ?? this.countryId,
+      cityId: cityId ?? this.cityId,
+      fcmTokens: fcmTokens ?? this.fcmTokens,
+      emailVerifiedAt: emailVerifiedAt ?? this.emailVerifiedAt,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
     );
   }
 
   @override
-  List<Object?> get props => [id, firstName, lastName, username, email, phone, address, gender, birthdayDate, roles, isActive, imageUrl];
+  List<Object?> get props => [
+    id, firstName, lastName, username, email, phone, address, gender,
+    birthdayDate, roles, isActive, imageUrl, countryId, cityId,
+    fcmTokens, emailVerifiedAt, createdAt, updatedAt,
+  ];
 }

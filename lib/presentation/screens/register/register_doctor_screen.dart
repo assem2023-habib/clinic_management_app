@@ -64,7 +64,7 @@ class _RegisterDoctorScreenState extends State<RegisterDoctorScreen> {
           : null,
       address: _addressController.text.isEmpty ? null : _addressController.text,
       gender: _gender,
-      specialization: _specialization ?? '',
+      specializationId: _specialization ?? '',
       experienceMonths: int.tryParse(_experienceController.text) ?? 0,
       birthdayDate: _birthdayController.text.isEmpty
           ? null
@@ -77,10 +77,15 @@ class _RegisterDoctorScreenState extends State<RegisterDoctorScreen> {
     final colors = AppColors.of(context);
     return Scaffold(
       appBar: AppBar(title: const Text(AppStrings.registerDoctor)),
-      body: BlocListener<AuthCubit, AuthState>(
+      body:       BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state.isAuthenticated) {
             Navigator.pushReplacementNamed(context, AppRoutes.dashboard);
+          } else if (state.pendingMessage != null) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.pendingMessage!), backgroundColor: Colors.green),
+            );
+            Navigator.pushReplacementNamed(context, AppRoutes.login);
           }
           if (state.error != null) {
             ScaffoldMessenger.of(context).showSnackBar(

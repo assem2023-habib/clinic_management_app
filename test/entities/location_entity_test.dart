@@ -6,20 +6,18 @@ void main() {
   group('CountryEntity', () {
     const entity = CountryEntity(
       id: 'sa',
-      name: 'Saudi Arabia',
+      nameEn: 'Saudi Arabia',
       nameAr: 'السُّعُودِيَّةُ',
       code: 'SA',
-      phoneCode: '+966',
       flag: '🇸🇦',
     );
 
     test('supports value equality', () {
       const same = CountryEntity(
         id: 'sa',
-        name: 'Saudi Arabia',
+        nameEn: 'Saudi Arabia',
         nameAr: 'السُّعُودِيَّةُ',
         code: 'SA',
-        phoneCode: '+966',
         flag: '🇸🇦',
       );
       expect(entity, equals(same));
@@ -28,24 +26,23 @@ void main() {
     test('not equal when id differs', () {
       const other = CountryEntity(
         id: 'eg',
-        name: 'Egypt',
+        nameEn: 'Egypt',
         nameAr: 'مِصْرُ',
         code: 'EG',
-        phoneCode: '+20',
         flag: '🇪🇬',
       );
       expect(entity, isNot(equals(other)));
     });
 
     test('props contains all fields', () {
-      expect(entity.props, containsAll(['sa', 'Saudi Arabia', 'السُّعُودِيَّةُ', 'SA', '+966', '🇸🇦']));
+      expect(entity.props, containsAll(['sa', 'Saudi Arabia', 'السُّعُودِيَّةُ', 'SA', '🇸🇦']));
     });
   });
 
   group('CityEntity', () {
     const entity = CityEntity(
       id: 'sa-1',
-      name: 'Riyadh',
+      nameEn: 'Riyadh',
       nameAr: 'الرِّيَاضُ',
       countryId: 'sa',
     );
@@ -53,7 +50,7 @@ void main() {
     test('supports value equality', () {
       const same = CityEntity(
         id: 'sa-1',
-        name: 'Riyadh',
+        nameEn: 'Riyadh',
         nameAr: 'الرِّيَاضُ',
         countryId: 'sa',
       );
@@ -63,7 +60,7 @@ void main() {
     test('not equal when id differs', () {
       const other = CityEntity(
         id: 'sa-2',
-        name: 'Jeddah',
+        nameEn: 'Jeddah',
         nameAr: 'جِدَّةُ',
         countryId: 'sa',
       );

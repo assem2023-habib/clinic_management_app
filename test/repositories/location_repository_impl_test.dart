@@ -11,15 +11,15 @@ void main() {
   late MockDataSource dataSource;
   late LocationRepositoryImpl repository;
 
-  final countries = [
-    const CountryModel(id: 'sy', name: 'Syria', nameAr: 'سُورِيَا', code: 'SY', phoneCode: '+963', flag: '🇸🇾'),
-    const CountryModel(id: 'eg', name: 'Egypt', nameAr: 'مِصْرُ', code: 'EG', phoneCode: '+20', flag: '🇪🇬'),
+  final countries = <CountryModel>[
+    const CountryModel(id: 'sy', nameEn: 'Syria', nameAr: 'سُورِيَا', code: 'SY', flag: '🇸🇾'),
+    const CountryModel(id: 'eg', nameEn: 'Egypt', nameAr: 'مِصْرُ', code: 'EG', flag: '🇪🇬'),
   ];
 
-  final cities = [
-    const CityModel(id: 'sy-1', name: 'Damascus', nameAr: 'دِمَشْقُ', countryId: 'sy'),
-    const CityModel(id: 'sy-2', name: 'Aleppo', nameAr: 'حَلَبُ', countryId: 'sy'),
-    const CityModel(id: 'eg-1', name: 'Cairo', nameAr: 'القَاهِرَةُ', countryId: 'eg'),
+  final cities = <CityModel>[
+    const CityModel(id: 'sy-1', nameEn: 'Damascus', nameAr: 'دِمَشْقُ', countryId: 'sy'),
+    const CityModel(id: 'sy-2', nameEn: 'Aleppo', nameAr: 'حَلَبُ', countryId: 'sy'),
+    const CityModel(id: 'eg-1', nameEn: 'Cairo', nameAr: 'القَاهِرَةُ', countryId: 'eg'),
   ];
 
   setUp(() {

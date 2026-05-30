@@ -11,14 +11,14 @@ void main() {
   late MockLocationRepository repository;
   late LocationCubit cubit;
 
-  const testCountries = [
-    CountryEntity(id: 'sy', name: 'Syria', nameAr: 'سُورِيَا', code: 'SY', phoneCode: '+963', flag: '🇸🇾'),
-    CountryEntity(id: 'eg', name: 'Egypt', nameAr: 'مِصْرُ', code: 'EG', phoneCode: '+20', flag: '🇪🇬'),
+  final testCountries = <CountryEntity>[
+    CountryEntity(id: 'sy', nameEn: 'Syria', nameAr: 'سُورِيَا', code: 'SY', flag: '🇸🇾'),
+    CountryEntity(id: 'eg', nameEn: 'Egypt', nameAr: 'مِصْرُ', code: 'EG', flag: '🇪🇬'),
   ];
 
-  const testCities = [
-    CityEntity(id: 'sy-1', name: 'Damascus', nameAr: 'دِمَشْقُ', countryId: 'sy'),
-    CityEntity(id: 'sy-2', name: 'Aleppo', nameAr: 'حَلَبُ', countryId: 'sy'),
+  final testCities = <CityEntity>[
+    CityEntity(id: 'sy-1', nameEn: 'Damascus', nameAr: 'دِمَشْقُ', countryId: 'sy'),
+    CityEntity(id: 'sy-2', nameEn: 'Aleppo', nameAr: 'حَلَبُ', countryId: 'sy'),
   ];
 
   setUp(() {
@@ -46,7 +46,7 @@ void main() {
 
       final expected = [
         const LocationState(isLoadingCountries: true),
-        const LocationState(isLoadingCountries: false, countries: testCountries),
+        LocationState(isLoadingCountries: false, countries: testCountries),
       ];
 
       expectLater(cubit.stream, emitsInOrder(expected));
