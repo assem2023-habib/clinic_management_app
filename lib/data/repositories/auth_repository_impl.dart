@@ -71,4 +71,19 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> deleteAccount(String password) async {
     await _remoteDataSource.deleteAccount(password);
   }
+
+  @override
+  Future<void> updateDeviceToken(String token) async {
+    await _remoteDataSource.updateDeviceToken(token);
+  }
+
+  @override
+  Future<Map<String, String>> getFirebaseToken() async {
+    final json = await _remoteDataSource.getFirebaseToken();
+    final data = json['data'] as Map<String, dynamic>;
+    return {
+      'firebase_token': data['firebase_token'] as String,
+      'uid': data['uid'] as String,
+    };
+  }
 }

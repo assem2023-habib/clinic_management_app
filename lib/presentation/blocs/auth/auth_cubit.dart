@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
@@ -7,6 +8,8 @@ import 'package:clinic_management_app/domain/repositories/auth_repository.dart';
 import 'package:clinic_management_app/data/models/auth/login_request.dart';
 import 'package:clinic_management_app/data/models/auth/register_patient_request.dart';
 import 'package:clinic_management_app/data/models/auth/register_doctor_request.dart';
+import 'package:clinic_management_app/core/services/fcm_service.dart';
+import 'package:clinic_management_app/core/services/firebase_auth_service.dart';
 
 class AuthState extends Equatable {
   final bool isAuthenticated;
@@ -17,6 +20,7 @@ class AuthState extends Equatable {
   final bool isLoading;
   final String? error;
   final String? pendingMessage;
+  final Map<String, String>? firebaseToken;
 
   const AuthState({
     this.isAuthenticated = false,
@@ -27,6 +31,7 @@ class AuthState extends Equatable {
     this.isLoading = false,
     this.error,
     this.pendingMessage,
+    this.firebaseToken,
   });
 
   AuthState copyWith({
@@ -38,6 +43,7 @@ class AuthState extends Equatable {
     bool? isLoading,
     String? error,
     String? pendingMessage,
+    Map<String, String>? firebaseToken,
   }) {
     return AuthState(
       isAuthenticated: isAuthenticated ?? this.isAuthenticated,
@@ -48,11 +54,12 @@ class AuthState extends Equatable {
       isLoading: isLoading ?? this.isLoading,
       error: error,
       pendingMessage: pendingMessage,
+      firebaseToken: firebaseToken,
     );
   }
 
   @override
-  List<Object?> get props => [isAuthenticated, userId, userName, role, user, isLoading, error, pendingMessage];
+  List<Object?> get props => [isAuthenticated, userId, userName, role, user, isLoading, error, pendingMessage, firebaseToken];
 }
 
 class AuthInitial extends AuthState {}
@@ -73,10 +80,37 @@ class AuthError extends AuthState {
 
 class AuthCubit extends Cubit<AuthState> {
   final AuthRepository? _authRepository;
+  StreamSubscription<String>? _tokenSubscription;
 
   AuthCubit({AuthRepository? authRepository})
       : _authRepository = authRepository,
-        super(const AuthState());
+        super(const AuthState()) {
+    _listenToTokenRefreshes();
+  }
+
+  void _listenToTokenRefreshes() {
+    _tokenSubscription = FcmService().onTokenRefresh.listen((newToken) {
+      _registerDeviceToken(newToken);
+    });
+  }
+
+  Future<void> _registerDeviceToken(String? token) async {
+    if (_authRepository == null || token == null || token.isEmpty) return;
+    try {
+      await _authRepository.updateDeviceToken(token);
+    } catch (_) {}
+  }
+
+  Future<void> _initFirebaseAuth() async {
+    if (_authRepository == null) return;
+    try {
+      final result = await _authRepository.getFirebaseToken();
+      final customToken = result['firebase_token'];
+      if (customToken != null && customToken.isNotEmpty) {
+        await FirebaseAuthService().signInWithCustomToken(customToken);
+      }
+    } catch (_) {}
+  }
 
   Future<void> login(String email, String password, {UserRole? role}) async {
     emit(const AuthLoading());
@@ -93,6 +127,8 @@ class AuthCubit extends Cubit<AuthState> {
             role: userRole,
             user: response.user,
           ));
+          await _registerDeviceToken(FcmService().deviceToken);
+          await _initFirebaseAuth();
         } else {
           emit(AuthError(response.message ?? 'فشلت عملية الدخول'));
         }
@@ -136,6 +172,8 @@ class AuthCubit extends Cubit<AuthState> {
       final response = await _authRepository.registerPatient(request);
       if (response.isAuthenticated && response.user != null) {
         _emitAuthenticated(response.user!);
+        await _registerDeviceToken(FcmService().deviceToken);
+        await _initFirebaseAuth();
       } else {
         emit(AuthError(response.message ?? 'فشلت عملية التسجيل'));
       }
@@ -165,6 +203,8 @@ class AuthCubit extends Cubit<AuthState> {
       final response = await _authRepository.registerDoctor(request);
       if (response.isAuthenticated && response.user != null) {
         _emitAuthenticated(response.user!);
+        await _registerDeviceToken(FcmService().deviceToken);
+        await _initFirebaseAuth();
       } else {
         emit(AuthState(pendingMessage: response.message));
       }
@@ -187,7 +227,19 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       await _authRepository?.logout();
     } catch (_) {}
+    await FcmService().deleteToken();
+    await FirebaseAuthService().signOut();
     emit(const AuthState(isAuthenticated: false));
+  }
+
+  Future<void> getFirebaseToken() async {
+    if (_authRepository == null) return;
+    try {
+      final result = await _authRepository.getFirebaseToken();
+      emit(state.copyWith(firebaseToken: result));
+    } catch (e) {
+      emit(state.copyWith(error: e.toString()));
+    }
   }
 
   UserRole _mapRole(List<RoleEntity> roles) {
@@ -198,5 +250,11 @@ class AuthCubit extends Cubit<AuthState> {
       if (role.slug == 'patient') return UserRole.patient;
     }
     return UserRole.patient;
+  }
+
+  @override
+  Future<void> close() {
+    _tokenSubscription?.cancel();
+    return super.close();
   }
 }

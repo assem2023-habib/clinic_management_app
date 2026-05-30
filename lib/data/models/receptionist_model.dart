@@ -15,11 +15,23 @@ class ReceptionistModel extends ReceptionistEntity {
     super.roles = const [],
     super.isActive = true,
     super.imageUrl,
+    super.countryId,
+    super.cityId,
+    super.fcmTokens,
+    super.emailVerifiedAt,
+    super.createdAt,
+    super.updatedAt,
     super.shiftStart,
     super.shiftEnd,
   });
 
   factory ReceptionistModel.fromMap(Map<String, dynamic> map) {
+    List<String>? fcmTokens;
+    if (map['fcm_tokens'] != null) {
+      if (map['fcm_tokens'] is List) {
+        fcmTokens = (map['fcm_tokens'] as List).cast<String>();
+      }
+    }
     return ReceptionistModel(
       id: map['id'] as String,
       firstName: map['first_name'] as String? ?? '',
@@ -37,6 +49,12 @@ class ReceptionistModel extends ReceptionistEntity {
       imageUrl: map['image'] != null && map['image'] is Map
           ? (map['image'] as Map)['url'] as String?
           : null,
+      countryId: map['country_id'] as String?,
+      cityId: map['city_id'] as String?,
+      fcmTokens: fcmTokens,
+      emailVerifiedAt: map['email_verified_at'] as String?,
+      createdAt: map['created_at'] as String?,
+      updatedAt: map['updated_at'] as String?,
       shiftStart: map['receptionist'] != null && map['receptionist'] is Map
           ? (map['receptionist'] as Map)['shift_start'] as String?
           : null,
@@ -59,6 +77,10 @@ class ReceptionistModel extends ReceptionistEntity {
       'birthday_date': birthdayDate,
       'roles': roles.map((r) => (r as RoleModel).toMap()).toList(),
       'is_active': isActive,
+      'country_id': countryId,
+      'city_id': cityId,
+      'fcm_tokens': fcmTokens,
+      'email_verified_at': emailVerifiedAt,
       'shift_start': shiftStart,
       'shift_end': shiftEnd,
     };
