@@ -159,7 +159,7 @@ public function registerPatient(RegisterPatientRequest $request): JsonResponse
     "data": {
         "access_token": "eyJ0eXAiOiJKV1Qi...",
         "refresh_token": "def50200...",
-        "expires_in": 31536000,
+        "expires_in": 86400,
         "token_type": "Bearer",
         "user": {
             "id": "0196f0a0-1234-7abc-def0-123456789abc",
@@ -235,7 +235,7 @@ class AuthResource extends JsonResource
 
 > الـ `user` داخل الـ Resource يستخدم Resource مخصص حسب الـ Role:
 > - **Patient** ← `PatientResource` (يضيف `patient` object)
-> - **Doctor** ← `DoctorResource` (يضيف `doctor.specialization`, `doctor.experience_months`)
+> - **Doctor** ← `DoctorResource` (يضيف `specialization` كـ object مع id/slug/name/description, `experience_months`)
 > - **Receptionist** ← `ReceptionistResource` (يضيف `receptionist.shift_start`, `receptionist.shift_end`)
 > - **Admin** ← `UserResource` (بيانات المستخدم الأساسية فقط)
 
