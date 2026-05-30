@@ -1,110 +1,121 @@
-import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/domain/entities/notification_entity.dart';
+import 'package:clinic_management_app/domain/repositories/notification_repository.dart';
 import 'package:clinic_management_app/presentation/blocs/notification/notification_event.dart';
 import 'package:clinic_management_app/presentation/blocs/notification/notification_state.dart';
 
 class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
-  NotificationBloc() : super(NotificationInitial()) {
+  final NotificationRepository _repository;
+  List<NotificationEntity> _allNotifications = [];
+  String _currentCategory = 'all';
+  int _currentPage = 1;
+  bool _hasMore = true;
+
+  NotificationBloc(this._repository) : super(NotificationInitial()) {
     on<NotificationLoadAll>(_onLoadAll);
+    on<NotificationLoadMore>(_onLoadMore);
     on<NotificationMarkRead>(_onMarkRead);
     on<NotificationMarkAllRead>(_onMarkAllRead);
     on<NotificationDelete>(_onDelete);
+    on<NotificationDeleteAll>(_onDeleteAll);
     on<NotificationFilterCategory>(_onFilterCategory);
   }
 
-  List<NotificationEntity> _allNotifications = _mockNotifications;
-  String _currentCategory = 'all';
-
   Future<void> _onLoadAll(NotificationLoadAll event, Emitter<NotificationState> emit) async {
     emit(NotificationLoading());
-    await Future.delayed(const Duration(milliseconds: 500));
-    _allNotifications = _mockNotifications;
-    emit(_buildLoaded());
-  }
-
-  void _onMarkRead(NotificationMarkRead event, Emitter<NotificationState> emit) {
-    final index = _allNotifications.indexWhere((n) => n.id == event.notificationId);
-    if (index != -1) {
-      _allNotifications[index] = _allNotifications[index].copyWith(isRead: true);
-    }
-    if (state is NotificationLoaded) {
-      emit(_buildLoaded());
-    }
-  }
-
-  void _onMarkAllRead(NotificationMarkAllRead event, Emitter<NotificationState> emit) {
-    _allNotifications = _allNotifications.map((n) => n.copyWith(isRead: true)).toList();
-    if (state is NotificationLoaded) {
-      emit(_buildLoaded());
+    try {
+      _currentPage = 1;
+      _hasMore = true;
+      final result = await _repository.getNotifications(
+        page: event.page, limit: event.limit, category: _currentCategory == 'all' ? null : _currentCategory,
+      );
+      _allNotifications = result['notifications'] as List<NotificationEntity>;
+      final unreadCount = result['unread_count'] as int? ?? 0;
+      _currentPage = event.page;
+      _hasMore = _allNotifications.length >= event.limit;
+      emit(NotificationLoaded(_allNotifications, activeCategory: _currentCategory, unreadCount: unreadCount, currentPage: _currentPage, hasMore: _hasMore));
+    } catch (e) {
+      emit(NotificationError(e.toString()));
     }
   }
 
-  void _onDelete(NotificationDelete event, Emitter<NotificationState> emit) {
-    _allNotifications.removeWhere((n) => n.id == event.notificationId);
-    if (state is NotificationLoaded) {
-      emit(_buildLoaded());
-    }
+  Future<void> _onLoadMore(NotificationLoadMore event, Emitter<NotificationState> emit) async {
+    if (!_hasMore) return;
+    try {
+      final nextPage = _currentPage + 1;
+      final result = await _repository.getNotifications(
+        page: nextPage, limit: 20, category: _currentCategory == 'all' ? null : _currentCategory,
+      );
+      final newNotifications = result['notifications'] as List<NotificationEntity>;
+      final unreadCount = result['unread_count'] as int? ?? 0;
+      _allNotifications.addAll(newNotifications);
+      _currentPage = nextPage;
+      _hasMore = newNotifications.length >= 20;
+      emit(NotificationLoaded(_allNotifications, activeCategory: _currentCategory, unreadCount: unreadCount, currentPage: _currentPage, hasMore: _hasMore));
+    } catch (_) {}
   }
 
-  void _onFilterCategory(NotificationFilterCategory event, Emitter<NotificationState> emit) {
+  Future<void> _onMarkRead(NotificationMarkRead event, Emitter<NotificationState> emit) async {
+    try {
+      await _repository.markAsRead(event.notificationId);
+      final index = _allNotifications.indexWhere((n) => n.id == event.notificationId);
+      if (index != -1) {
+        _allNotifications[index] = _allNotifications[index].copyWith(isRead: true);
+      }
+      if (state is NotificationLoaded) {
+        emit(_buildLoaded());
+      }
+    } catch (_) {}
+  }
+
+  Future<void> _onMarkAllRead(NotificationMarkAllRead event, Emitter<NotificationState> emit) async {
+    try {
+      await _repository.markAllAsRead();
+      _allNotifications = _allNotifications.map((n) => n.copyWith(isRead: true)).toList();
+      if (state is NotificationLoaded) {
+        emit(_buildLoaded());
+      }
+    } catch (_) {}
+  }
+
+  Future<void> _onDelete(NotificationDelete event, Emitter<NotificationState> emit) async {
+    try {
+      await _repository.deleteNotification(event.notificationId);
+      _allNotifications.removeWhere((n) => n.id == event.notificationId);
+      if (state is NotificationLoaded) {
+        emit(_buildLoaded());
+      }
+    } catch (_) {}
+  }
+
+  Future<void> _onDeleteAll(NotificationDeleteAll event, Emitter<NotificationState> emit) async {
+    try {
+      await _repository.deleteAll();
+      _allNotifications.clear();
+      if (state is NotificationLoaded) {
+        emit(_buildLoaded());
+      }
+    } catch (_) {}
+  }
+
+  Future<void> _onFilterCategory(NotificationFilterCategory event, Emitter<NotificationState> emit) async {
     _currentCategory = event.category;
-    if (state is NotificationLoaded) {
-      emit(_buildLoaded());
+    emit(NotificationLoading());
+    try {
+      _currentPage = 1;
+      _hasMore = true;
+      final category = event.category == 'all' ? null : event.category;
+      final result = await _repository.getNotifications(category: category);
+      _allNotifications = result['notifications'] as List<NotificationEntity>;
+      final unreadCount = result['unread_count'] as int? ?? 0;
+      emit(NotificationLoaded(_allNotifications, activeCategory: _currentCategory, unreadCount: unreadCount, currentPage: 1, hasMore: _hasMore));
+    } catch (e) {
+      emit(NotificationError(e.toString()));
     }
   }
 
   NotificationLoaded _buildLoaded() {
-    final filtered = _filtered();
     final unread = _allNotifications.where((n) => !n.isRead).length;
-    return NotificationLoaded(filtered, activeCategory: _currentCategory, unreadCount: unread);
+    return NotificationLoaded(_allNotifications, activeCategory: _currentCategory, unreadCount: unread, currentPage: _currentPage, hasMore: _hasMore);
   }
-
-  List<NotificationEntity> _filtered() {
-    if (_currentCategory == 'all') return List.from(_allNotifications);
-    if (_currentCategory == 'unread') return _allNotifications.where((n) => !n.isRead).toList();
-    final typeMap = <String, NotificationType>{
-      'medical': NotificationType.medical,
-      'appointment': NotificationType.appointment,
-      'system': NotificationType.system,
-    };
-    final type = typeMap[_currentCategory];
-    if (type != null) return _allNotifications.where((n) => n.type == type).toList();
-    return List.from(_allNotifications);
-  }
-
-  static final List<NotificationEntity> _mockNotifications = [
-    NotificationEntity(
-      id: '1', type: NotificationType.appointment, title: 'موعد جديد', message: 'تم تأكيد موعدك مع د. أحمد السيد يوم الجمعة ٢٠٢٦-٠٦-٠١ الساعة ١٠:٠٠ صباحاً.',
-      timestamp: DateTime.now().subtract(const Duration(minutes: 5)), isRead: false,
-    ),
-    NotificationEntity(
-      id: '2', type: NotificationType.medical, title: 'نتيجة تحليل', message: 'نتيجة تحليل الدم الشامل جاهزة. يمكنك الاطلاع عليها من صفحة الملفات.',
-      timestamp: DateTime.now().subtract(const Duration(hours: 1)), isRead: false,
-    ),
-    NotificationEntity(
-      id: '3', type: NotificationType.system, title: 'تحديث التطبيق', message: 'تتوفر نسخة جديدة من التطبيق (v3.2.0). يرجى التحديث للحصول على آخر الميزات.',
-      timestamp: DateTime.now().subtract(const Duration(hours: 3)), isRead: true,
-    ),
-    NotificationEntity(
-      id: '4', type: NotificationType.appointment, title: 'تذكير بالموعد', message: 'لديك موعد مع د. سارة محمد بعد غدٍ الساعة ٢:٣٠ عصراً. يرجى التأكيد.',
-      timestamp: DateTime.now().subtract(const Duration(days: 1)), isRead: false,
-    ),
-    NotificationEntity(
-      id: '5', type: NotificationType.medical, title: 'وصفة طبية جديدة', message: 'تم إضافة وصفة طبية جديدة من قبل د. خالد عمر. يمكنك مراجعتها في صفحة الوصفات.',
-      timestamp: DateTime.now().subtract(const Duration(days: 2)), isRead: false,
-    ),
-    NotificationEntity(
-      id: '6', type: NotificationType.system, title: 'أمان الحساب', message: 'تم تسجيل الدخول من جهاز جديد. إذا لم يكن هذا أنت، يرجى تغيير كلمة المرور فوراً.',
-      timestamp: DateTime.now().subtract(const Duration(days: 3)), isRead: true,
-    ),
-    NotificationEntity(
-      id: '7', type: NotificationType.appointment, title: 'تم إلغاء الموعد', message: 'تم إلغاء موعدك مع د. ليلى أحمد ليوم ٢٠٢٦-٠٥-٢٨. يرجى حجز موعد جديد.',
-      timestamp: DateTime.now().subtract(const Duration(days: 7)), isRead: true,
-    ),
-    NotificationEntity(
-      id: '8', type: NotificationType.medical, title: 'تذكير بالدواء', message: 'حان وقت تناول دوائك (أملوديبين ٥مغ). يرجى الالتزام بالموعد المحدد.',
-      timestamp: DateTime.now().subtract(const Duration(days: 10)), isRead: true,
-    ),
-  ];
 }
