@@ -58,7 +58,7 @@ class _PatientFormDialogState extends State<PatientFormDialog> {
         birthdayDate: widget.patient?.birthdayDate,
         isActive: true,
         imageUrl: widget.patient?.imageUrl,
-        roles: widget.patient?.roles ?? ['Patient'],
+        roles: widget.patient?.roles ?? [],
         createdAt: widget.patient?.createdAt ?? DateTime.now().toIso8601String(),
         updatedAt: widget.patient?.updatedAt ?? DateTime.now().toIso8601String(),
       );
@@ -89,7 +89,7 @@ class _PatientFormDialogState extends State<PatientFormDialog> {
               TextFormField(controller: _lastNameController, decoration: const InputDecoration(labelText: 'Last Name'), validator: (v) => v!.isEmpty ? AppStrings.required : null),
               const SizedBox(height: 12),
               DropdownButtonFormField<String>(
-                value: _gender,
+                initialValue: _gender,
                 decoration: const InputDecoration(labelText: 'Gender'),
                 items: const [DropdownMenuItem(value: 'male', child: Text('Male')), DropdownMenuItem(value: 'female', child: Text('Female'))],
                 onChanged: (v) => setState(() => _gender = v!),
