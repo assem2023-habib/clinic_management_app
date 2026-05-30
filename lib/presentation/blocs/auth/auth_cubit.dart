@@ -112,6 +112,22 @@ class AuthCubit extends Cubit<AuthState> {
     } catch (_) {}
   }
 
+  Future<void> checkAuthStatus() async {
+    if (_authRepository == null) return;
+    try {
+      final user = await _authRepository.getProfile();
+      final userRole = _mapRole(user.roles);
+      emit(AuthAuthenticated(
+        userId: user.id,
+        userName: user.fullName,
+        role: userRole,
+        user: user,
+      ));
+      await _registerDeviceToken(FcmService().deviceToken);
+      await _initFirebaseAuth();
+    } catch (_) {}
+  }
+
   Future<void> login(String email, String password, {UserRole? role}) async {
     emit(const AuthLoading());
 

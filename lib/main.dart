@@ -137,7 +137,7 @@ class _MyAppState extends State<MyApp> {
       ],
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (_) => AuthCubit()),
+          BlocProvider(create: (context) => AuthCubit(authRepository: RepositoryProvider.of<AuthRepository>(context))),
           BlocProvider(create: (_) => OnboardingCubit()),
           BlocProvider(create: (context) => DoctorBloc(RepositoryProvider.of<DoctorRepository>(context))),
           BlocProvider(create: (context) => PatientBloc(RepositoryProvider.of<PatientRepository>(context))),
