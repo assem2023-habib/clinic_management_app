@@ -16,34 +16,31 @@ class PatientFormDialog extends StatefulWidget {
 
 class _PatientFormDialogState extends State<PatientFormDialog> {
   final _formKey = GlobalKey<FormState>();
-  late TextEditingController _nameController;
-  late TextEditingController _ageController;
+  late TextEditingController _firstNameController;
+  late TextEditingController _lastNameController;
   late TextEditingController _phoneController;
   late TextEditingController _emailController;
   late TextEditingController _addressController;
-  late TextEditingController _bloodTypeController;
-  Gender _gender = Gender.male;
+  String _gender = 'male';
 
   @override
   void initState() {
     super.initState();
-    _nameController = TextEditingController(text: widget.patient?.name ?? '');
-    _ageController = TextEditingController(text: widget.patient?.age.toString() ?? '');
+    _firstNameController = TextEditingController(text: widget.patient?.firstName ?? '');
+    _lastNameController = TextEditingController(text: widget.patient?.lastName ?? '');
     _phoneController = TextEditingController(text: widget.patient?.phone ?? '');
     _emailController = TextEditingController(text: widget.patient?.email ?? '');
     _addressController = TextEditingController(text: widget.patient?.address ?? '');
-    _bloodTypeController = TextEditingController(text: widget.patient?.bloodType ?? '');
-    _gender = widget.patient?.gender ?? Gender.male;
+    _gender = widget.patient?.gender ?? 'male';
   }
 
   @override
   void dispose() {
-    _nameController.dispose();
-    _ageController.dispose();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
     _phoneController.dispose();
     _emailController.dispose();
     _addressController.dispose();
-    _bloodTypeController.dispose();
     super.dispose();
   }
 
@@ -51,14 +48,19 @@ class _PatientFormDialogState extends State<PatientFormDialog> {
     if (_formKey.currentState!.validate()) {
       final patient = PatientEntity(
         id: widget.patient?.id ?? DateTime.now().millisecondsSinceEpoch.toString(),
-        name: _nameController.text.trim(),
-        age: int.parse(_ageController.text),
+        firstName: _firstNameController.text.trim(),
+        lastName: _lastNameController.text.trim(),
         gender: _gender,
         phone: _phoneController.text.trim(),
         email: _emailController.text.trim(),
         address: _addressController.text.trim(),
-        bloodType: _bloodTypeController.text.trim().isEmpty ? null : _bloodTypeController.text.trim(),
-        registeredDate: widget.patient?.registeredDate ?? DateTime.now(),
+        username: widget.patient?.username ?? '',
+        birthdayDate: widget.patient?.birthdayDate,
+        isActive: true,
+        imageUrl: widget.patient?.imageUrl,
+        roles: widget.patient?.roles ?? ['Patient'],
+        createdAt: widget.patient?.createdAt ?? DateTime.now().toIso8601String(),
+        updatedAt: widget.patient?.updatedAt ?? DateTime.now().toIso8601String(),
       );
 
       if (widget.patient == null) {
@@ -82,14 +84,14 @@ class _PatientFormDialogState extends State<PatientFormDialog> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              TextFormField(controller: _nameController, decoration: const InputDecoration(labelText: AppStrings.name), validator: (v) => v!.isEmpty ? AppStrings.required : null),
+              TextFormField(controller: _firstNameController, decoration: const InputDecoration(labelText: 'First Name'), validator: (v) => v!.isEmpty ? AppStrings.required : null),
               const SizedBox(height: 12),
-              TextFormField(controller: _ageController, decoration: const InputDecoration(labelText: 'Age'), keyboardType: TextInputType.number, validator: (v) => v!.isEmpty ? AppStrings.required : null),
+              TextFormField(controller: _lastNameController, decoration: const InputDecoration(labelText: 'Last Name'), validator: (v) => v!.isEmpty ? AppStrings.required : null),
               const SizedBox(height: 12),
-              DropdownButtonFormField<Gender>(
-                initialValue: _gender,
+              DropdownButtonFormField<String>(
+                value: _gender,
                 decoration: const InputDecoration(labelText: 'Gender'),
-                items: const [DropdownMenuItem(value: Gender.male, child: Text('Male')), DropdownMenuItem(value: Gender.female, child: Text('Female'))],
+                items: const [DropdownMenuItem(value: 'male', child: Text('Male')), DropdownMenuItem(value: 'female', child: Text('Female'))],
                 onChanged: (v) => setState(() => _gender = v!),
               ),
               const SizedBox(height: 12),
@@ -97,9 +99,7 @@ class _PatientFormDialogState extends State<PatientFormDialog> {
               const SizedBox(height: 12),
               TextFormField(controller: _emailController, decoration: const InputDecoration(labelText: AppStrings.email), keyboardType: TextInputType.emailAddress, validator: (v) => v!.isEmpty ? AppStrings.required : null),
               const SizedBox(height: 12),
-              TextFormField(controller: _addressController, decoration: const InputDecoration(labelText: AppStrings.address), validator: (v) => v!.isEmpty ? AppStrings.required : null),
-              const SizedBox(height: 12),
-              TextFormField(controller: _bloodTypeController, decoration: const InputDecoration(labelText: 'Blood Type')),
+              TextFormField(controller: _addressController, decoration: const InputDecoration(labelText: AppStrings.address)),
             ],
           ),
         ),
