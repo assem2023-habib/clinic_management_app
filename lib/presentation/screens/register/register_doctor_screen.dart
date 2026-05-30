@@ -118,7 +118,7 @@ class _RegisterDoctorScreenState extends State<RegisterDoctorScreen> {
                     ),
                     const SizedBox(height: 16),
                     DropdownButtonFormField<String>(
-                      value: _gender,
+                      initialValue: _gender,
                       decoration: InputDecoration(
                         labelText: AppStrings.gender, filled: true,
                         fillColor: colors.cardBg,
