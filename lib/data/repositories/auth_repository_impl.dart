@@ -5,6 +5,7 @@ import 'package:clinic_management_app/data/models/user_model.dart';
 import 'package:clinic_management_app/data/models/auth/login_request.dart';
 import 'package:clinic_management_app/data/models/auth/register_patient_request.dart';
 import 'package:clinic_management_app/data/models/auth/register_doctor_request.dart';
+import 'package:clinic_management_app/data/models/auth/register_receptionist_request.dart';
 import 'package:clinic_management_app/data/models/auth/auth_response.dart';
 import 'package:clinic_management_app/core/services/api_service.dart';
 
@@ -39,6 +40,12 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<AuthResponse> registerDoctor(RegisterDoctorRequest request) async {
     final json = await _remoteDataSource.registerDoctor(request);
+    return AuthResponse.fromMap(json);
+  }
+
+  @override
+  Future<AuthResponse> registerReceptionist(RegisterReceptionistRequest request) async {
+    final json = await _remoteDataSource.registerReceptionist(request);
     return AuthResponse.fromMap(json);
   }
 
