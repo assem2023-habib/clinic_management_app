@@ -17,20 +17,24 @@ class PatientRepositoryImpl implements PatientRepository {
   @override
   Future<void> addPatient(PatientEntity patient) async {
     dataSource.addPatient(PatientModel(
-      id: patient.id, name: patient.name, age: patient.age,
-      gender: patient.gender, phone: patient.phone, email: patient.email,
-      address: patient.address, bloodType: patient.bloodType,
-      registeredDate: patient.registeredDate,
+      id: patient.id, firstName: patient.firstName, lastName: patient.lastName,
+      username: patient.username, email: patient.email,
+      phone: patient.phone, address: patient.address,
+      gender: patient.gender, birthdayDate: patient.birthdayDate,
+      isActive: patient.isActive, imageUrl: patient.imageUrl,
+      roles: patient.roles,
     ));
   }
 
   @override
   Future<void> updatePatient(PatientEntity patient) async {
     dataSource.updatePatient(PatientModel(
-      id: patient.id, name: patient.name, age: patient.age,
-      gender: patient.gender, phone: patient.phone, email: patient.email,
-      address: patient.address, bloodType: patient.bloodType,
-      registeredDate: patient.registeredDate,
+      id: patient.id, firstName: patient.firstName, lastName: patient.lastName,
+      username: patient.username, email: patient.email,
+      phone: patient.phone, address: patient.address,
+      gender: patient.gender, birthdayDate: patient.birthdayDate,
+      isActive: patient.isActive, imageUrl: patient.imageUrl,
+      roles: patient.roles,
     ));
   }
 

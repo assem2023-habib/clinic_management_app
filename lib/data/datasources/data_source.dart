@@ -5,7 +5,7 @@ import 'package:clinic_management_app/data/models/medical_record_model.dart';
 import 'package:clinic_management_app/data/models/country_model.dart';
 import 'package:clinic_management_app/data/models/city_model.dart';
 import 'package:clinic_management_app/data/models/review_model.dart';
-import 'package:clinic_management_app/data/models/time_slot_model.dart';
+import 'package:clinic_management_app/data/models/doctor_schedule_model.dart';
 
 abstract class DataSource {
   List<DoctorModel> get allDoctors;
@@ -41,7 +41,7 @@ abstract class DataSource {
   List<CityModel> searchCities(String query, {String? countryId});
 
   List<ReviewModel> getDoctorReviews(String doctorId);
-  List<TimeSlotModel> getDoctorSlots(String doctorId, DateTime month);
+  List<DoctorScheduleModel> getDoctorSlots(String doctorId, DateTime month);
   void addReview(String doctorId, ReviewModel review);
   void toggleSlotAvailability(String slotId);
 }

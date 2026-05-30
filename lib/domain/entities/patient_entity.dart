@@ -1,54 +1,100 @@
-import 'package:equatable/equatable.dart';
+import 'package:clinic_management_app/domain/entities/user_entity.dart';
+import 'package:clinic_management_app/domain/entities/role_entity.dart';
 
-enum Gender { male, female }
-
-class PatientEntity extends Equatable {
-  final String id;
-  final String name;
-  final int age;
-  final Gender gender;
-  final String phone;
-  final String email;
-  final String address;
-  final String? bloodType;
-  final DateTime? registeredDate;
+class PatientEntity extends UserEntity {
+  final String? patientId;
 
   const PatientEntity({
-    required this.id,
-    required this.name,
-    required this.age,
-    required this.gender,
-    required this.phone,
-    required this.email,
-    required this.address,
-    this.bloodType,
-    this.registeredDate,
+    required super.id,
+    required super.firstName,
+    required super.lastName,
+    required super.username,
+    required super.email,
+    super.phone,
+    super.address,
+    required super.gender,
+    super.birthdayDate,
+    super.roles = const [],
+    super.isActive = true,
+    super.imageUrl,
+    super.countryId,
+    super.cityId,
+    super.fcmTokens,
+    super.emailVerifiedAt,
+    super.createdAt,
+    super.updatedAt,
+    this.patientId,
   });
 
-  PatientEntity copyWith({
-    String? id,
-    String? name,
-    int? age,
-    Gender? gender,
-    String? phone,
-    String? email,
-    String? address,
-    String? bloodType,
-    DateTime? registeredDate,
-  }) {
+  factory PatientEntity.fromUser(UserEntity user, {String? patientId}) {
     return PatientEntity(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      age: age ?? this.age,
-      gender: gender ?? this.gender,
-      phone: phone ?? this.phone,
-      email: email ?? this.email,
-      address: address ?? this.address,
-      bloodType: bloodType ?? this.bloodType,
-      registeredDate: registeredDate ?? this.registeredDate,
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      username: user.username,
+      email: user.email,
+      phone: user.phone,
+      address: user.address,
+      gender: user.gender,
+      birthdayDate: user.birthdayDate,
+      roles: user.roles,
+      isActive: user.isActive,
+      imageUrl: user.imageUrl,
+      countryId: user.countryId,
+      cityId: user.cityId,
+      fcmTokens: user.fcmTokens,
+      emailVerifiedAt: user.emailVerifiedAt,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+      patientId: patientId,
     );
   }
 
   @override
-  List<Object?> get props => [id, name, age, gender, phone, email, address, bloodType, registeredDate];
+  PatientEntity copyWith({
+    String? id,
+    String? firstName,
+    String? lastName,
+    String? username,
+    String? email,
+    String? phone,
+    String? address,
+    String? gender,
+    String? birthdayDate,
+    List<RoleEntity>? roles,
+    bool? isActive,
+    String? imageUrl,
+    String? countryId,
+    String? cityId,
+    List<String>? fcmTokens,
+    String? emailVerifiedAt,
+    String? createdAt,
+    String? updatedAt,
+    String? patientId,
+  }) {
+    return PatientEntity(
+      id: id ?? this.id,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      username: username ?? this.username,
+      email: email ?? this.email,
+      phone: phone ?? this.phone,
+      address: address ?? this.address,
+      gender: gender ?? this.gender,
+      birthdayDate: birthdayDate ?? this.birthdayDate,
+      roles: roles ?? this.roles,
+      isActive: isActive ?? this.isActive,
+      imageUrl: imageUrl ?? this.imageUrl,
+      countryId: countryId ?? this.countryId,
+      cityId: cityId ?? this.cityId,
+      fcmTokens: fcmTokens ?? this.fcmTokens,
+      emailVerifiedAt: emailVerifiedAt ?? this.emailVerifiedAt,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      patientId: patientId ?? this.patientId,
+    );
+  }
+
+  @override
+  List<Object?> get props => [...super.props, patientId];
 }

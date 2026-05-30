@@ -18,9 +18,9 @@ class MedicalRecordRepositoryImpl implements MedicalRecordRepository {
   @override
   Future<void> addRecord(MedicalRecordEntity record) async {
     dataSource.addMedicalRecord(MedicalRecordModel(
-      id: record.id, patientId: record.patientId, patientName: record.patientName,
-      doctorId: record.doctorId, doctorName: record.doctorName, visitDate: record.visitDate,
-      diagnosis: record.diagnosis, prescription: record.prescription, notes: record.notes,
+      id: record.id, patientId: record.patientId,
+      doctorId: record.doctorId, diagnosis: record.diagnosis,
+      notes: record.notes, createdAt: record.createdAt,
     ));
   }
 }

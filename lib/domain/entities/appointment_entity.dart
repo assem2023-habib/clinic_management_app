@@ -1,54 +1,58 @@
 import 'package:equatable/equatable.dart';
 
-enum AppointmentStatus { scheduled, completed, cancelled, inProgress }
+enum AppointmentStatus {
+  requested,
+  set,
+  accepted,
+  rejected,
+  cancelled,
+  completed;
+
+  static AppointmentStatus fromString(String s) {
+    switch (s) {
+      case 'requested': return AppointmentStatus.requested;
+      case 'set': return AppointmentStatus.set;
+      case 'accepted': return AppointmentStatus.accepted;
+      case 'rejected': return AppointmentStatus.rejected;
+      case 'cancelled': return AppointmentStatus.cancelled;
+      case 'completed': return AppointmentStatus.completed;
+      default: return AppointmentStatus.requested;
+    }
+  }
+}
 
 class AppointmentEntity extends Equatable {
   final String id;
-  final String patientId;
-  final String patientName;
-  final String doctorId;
-  final String doctorName;
-  final DateTime date;
-  final String timeSlot;
   final AppointmentStatus status;
+  final String? reason;
   final String? notes;
+  final String? appointmentDate;
+  final String? startTime;
+  final String? endTime;
+  final String? createdBy;
+  final String? createdAt;
+  final String? updatedAt;
+  final Map<String, dynamic>? patient;
+  final Map<String, dynamic>? doctor;
 
   const AppointmentEntity({
     required this.id,
-    required this.patientId,
-    required this.patientName,
-    required this.doctorId,
-    required this.doctorName,
-    required this.date,
-    required this.timeSlot,
     required this.status,
+    this.reason,
     this.notes,
+    this.appointmentDate,
+    this.startTime,
+    this.endTime,
+    this.createdBy,
+    this.createdAt,
+    this.updatedAt,
+    this.patient,
+    this.doctor,
   });
 
-  AppointmentEntity copyWith({
-    String? id,
-    String? patientId,
-    String? patientName,
-    String? doctorId,
-    String? doctorName,
-    DateTime? date,
-    String? timeSlot,
-    AppointmentStatus? status,
-    String? notes,
-  }) {
-    return AppointmentEntity(
-      id: id ?? this.id,
-      patientId: patientId ?? this.patientId,
-      patientName: patientName ?? this.patientName,
-      doctorId: doctorId ?? this.doctorId,
-      doctorName: doctorName ?? this.doctorName,
-      date: date ?? this.date,
-      timeSlot: timeSlot ?? this.timeSlot,
-      status: status ?? this.status,
-      notes: notes ?? this.notes,
-    );
-  }
-
   @override
-  List<Object?> get props => [id, patientId, patientName, doctorId, doctorName, date, timeSlot, status, notes];
+  List<Object?> get props => [
+    id, status, reason, notes, appointmentDate, startTime, endTime,
+    createdBy, createdAt, updatedAt, patient, doctor,
+  ];
 }

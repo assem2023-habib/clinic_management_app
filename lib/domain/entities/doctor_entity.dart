@@ -1,117 +1,121 @@
-import 'package:equatable/equatable.dart';
+import 'package:clinic_management_app/domain/entities/user_entity.dart';
+import 'package:clinic_management_app/domain/entities/role_entity.dart';
+import 'package:clinic_management_app/domain/entities/specialization_entity.dart';
+import 'package:clinic_management_app/domain/entities/doctor_schedule_entity.dart';
 
-class DoctorEntity extends Equatable {
-  final String id;
-  final String name;
-  final String specialty;
-  final String phone;
-  final String email;
-  final String? imageUrl;
-  final bool isAvailable;
-  final String? bio;
-  final int experienceYears;
-  final double rating;
-  final int reviewsCount;
-  final int patientsCount;
-  final int surgeriesCount;
-  final List<String> qualifications;
-  final List<String> services;
-  final String? education;
-  final String? clinicName;
-  final String? clinicAddress;
-  final double? consultationFee;
-  final List<String> languages;
+class DoctorEntity extends UserEntity {
+  final SpecializationEntity? specialization;
+  final int? experienceMonths;
+  final List<DoctorScheduleEntity> schedules;
 
   const DoctorEntity({
-    required this.id,
-    required this.name,
-    required this.specialty,
-    required this.phone,
-    required this.email,
-    this.imageUrl,
-    this.isAvailable = true,
-    this.bio,
-    this.experienceYears = 0,
-    this.rating = 0.0,
-    this.reviewsCount = 0,
-    this.patientsCount = 0,
-    this.surgeriesCount = 0,
-    this.qualifications = const [],
-    this.services = const [],
-    this.education,
-    this.clinicName,
-    this.clinicAddress,
-    this.consultationFee,
-    this.languages = const [],
+    required super.id,
+    required super.firstName,
+    required super.lastName,
+    required super.username,
+    required super.email,
+    super.phone,
+    super.address,
+    required super.gender,
+    super.birthdayDate,
+    super.roles = const [],
+    super.isActive = true,
+    super.imageUrl,
+    super.countryId,
+    super.cityId,
+    super.fcmTokens,
+    super.emailVerifiedAt,
+    super.createdAt,
+    super.updatedAt,
+    this.specialization,
+    this.experienceMonths,
+    this.schedules = const [],
   });
 
+  factory DoctorEntity.fromUser(UserEntity user, {
+    SpecializationEntity? specialization,
+    int? experienceMonths,
+    List<DoctorScheduleEntity> schedules = const [],
+  }) {
+    return DoctorEntity(
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      username: user.username,
+      email: user.email,
+      phone: user.phone,
+      address: user.address,
+      gender: user.gender,
+      birthdayDate: user.birthdayDate,
+      roles: user.roles,
+      isActive: user.isActive,
+      imageUrl: user.imageUrl,
+      countryId: user.countryId,
+      cityId: user.cityId,
+      fcmTokens: user.fcmTokens,
+      emailVerifiedAt: user.emailVerifiedAt,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+      specialization: specialization,
+      experienceMonths: experienceMonths,
+      schedules: schedules,
+    );
+  }
+
+  @override
   DoctorEntity copyWith({
     String? id,
-    String? name,
-    String? specialty,
-    String? phone,
+    String? firstName,
+    String? lastName,
+    String? username,
     String? email,
+    String? phone,
+    String? address,
+    String? gender,
+    String? birthdayDate,
+    List<RoleEntity>? roles,
+    bool? isActive,
     String? imageUrl,
-    bool? isAvailable,
-    String? bio,
-    int? experienceYears,
-    double? rating,
-    int? reviewsCount,
-    int? patientsCount,
-    int? surgeriesCount,
-    List<String>? qualifications,
-    List<String>? services,
-    String? education,
-    String? clinicName,
-    String? clinicAddress,
-    double? consultationFee,
-    List<String>? languages,
+    String? countryId,
+    String? cityId,
+    List<String>? fcmTokens,
+    String? emailVerifiedAt,
+    String? createdAt,
+    String? updatedAt,
+    SpecializationEntity? specialization,
+    int? experienceMonths,
+    List<DoctorScheduleEntity>? schedules,
   }) {
     return DoctorEntity(
       id: id ?? this.id,
-      name: name ?? this.name,
-      specialty: specialty ?? this.specialty,
-      phone: phone ?? this.phone,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      username: username ?? this.username,
       email: email ?? this.email,
+      phone: phone ?? this.phone,
+      address: address ?? this.address,
+      gender: gender ?? this.gender,
+      birthdayDate: birthdayDate ?? this.birthdayDate,
+      roles: roles ?? this.roles,
+      isActive: isActive ?? this.isActive,
       imageUrl: imageUrl ?? this.imageUrl,
-      isAvailable: isAvailable ?? this.isAvailable,
-      bio: bio ?? this.bio,
-      experienceYears: experienceYears ?? this.experienceYears,
-      rating: rating ?? this.rating,
-      reviewsCount: reviewsCount ?? this.reviewsCount,
-      patientsCount: patientsCount ?? this.patientsCount,
-      surgeriesCount: surgeriesCount ?? this.surgeriesCount,
-      qualifications: qualifications ?? this.qualifications,
-      services: services ?? this.services,
-      education: education ?? this.education,
-      clinicName: clinicName ?? this.clinicName,
-      clinicAddress: clinicAddress ?? this.clinicAddress,
-      consultationFee: consultationFee ?? this.consultationFee,
-      languages: languages ?? this.languages,
+      countryId: countryId ?? this.countryId,
+      cityId: cityId ?? this.cityId,
+      fcmTokens: fcmTokens ?? this.fcmTokens,
+      emailVerifiedAt: emailVerifiedAt ?? this.emailVerifiedAt,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      specialization: specialization ?? this.specialization,
+      experienceMonths: experienceMonths ?? this.experienceMonths,
+      schedules: schedules ?? this.schedules,
     );
   }
 
   @override
   List<Object?> get props => [
-        id,
-        name,
-        specialty,
-        phone,
-        email,
-        imageUrl,
-        isAvailable,
-        bio,
-        experienceYears,
-        rating,
-        reviewsCount,
-        patientsCount,
-        surgeriesCount,
-        qualifications,
-        services,
-        education,
-        clinicName,
-        clinicAddress,
-        consultationFee,
-        languages,
-      ];
+    ...super.props,
+    specialization,
+    experienceMonths,
+    schedules,
+  ];
 }

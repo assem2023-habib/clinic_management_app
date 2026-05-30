@@ -1,39 +1,53 @@
+import 'package:clinic_management_app/data/models/user_model.dart';
 import 'package:clinic_management_app/domain/entities/patient_entity.dart';
 
 class PatientModel extends PatientEntity {
   const PatientModel({
     required super.id,
-    required super.name,
-    required super.age,
-    required super.gender,
-    required super.phone,
+    required super.firstName,
+    required super.lastName,
+    required super.username,
     required super.email,
-    required super.address,
-    super.bloodType,
-    super.registeredDate,
+    super.phone,
+    super.address,
+    required super.gender,
+    super.birthdayDate,
+    super.roles = const [],
+    super.isActive = true,
+    super.imageUrl,
+    super.countryId,
+    super.cityId,
+    super.fcmTokens,
+    super.emailVerifiedAt,
+    super.createdAt,
+    super.updatedAt,
+    super.patientId,
   });
 
-  factory PatientModel.fromMap(Map<String, dynamic> map) => PatientModel(
-        id: map['id'] as String,
-        name: map['name'] as String,
-        age: map['age'] as int,
-        gender: map['gender'] == 'male' ? Gender.male : Gender.female,
-        phone: map['phone'] as String,
-        email: map['email'] as String,
-        address: map['address'] as String,
-        bloodType: map['bloodType'] as String?,
-        registeredDate: map['registeredDate'] != null ? DateTime.parse(map['registeredDate'] as String) : null,
-      );
+  factory PatientModel.fromMap(Map<String, dynamic> map) {
+    final userModel = UserModel.fromMap(map);
+    final patientData = map['patient'] as Map<String, dynamic>?;
 
-  Map<String, dynamic> toMap() => {
-        'id': id,
-        'name': name,
-        'age': age,
-        'gender': gender.name,
-        'phone': phone,
-        'email': email,
-        'address': address,
-        'bloodType': bloodType,
-        'registeredDate': registeredDate?.toIso8601String(),
-      };
+    return PatientModel(
+      id: userModel.id,
+      firstName: userModel.firstName,
+      lastName: userModel.lastName,
+      username: userModel.username,
+      email: userModel.email,
+      phone: userModel.phone,
+      address: userModel.address,
+      gender: userModel.gender,
+      birthdayDate: userModel.birthdayDate,
+      roles: userModel.roles,
+      isActive: userModel.isActive,
+      imageUrl: userModel.imageUrl,
+      countryId: userModel.countryId,
+      cityId: userModel.cityId,
+      fcmTokens: userModel.fcmTokens,
+      emailVerifiedAt: userModel.emailVerifiedAt,
+      createdAt: userModel.createdAt,
+      updatedAt: userModel.updatedAt,
+      patientId: patientData?['id'] as String?,
+    );
+  }
 }
