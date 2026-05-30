@@ -35,6 +35,7 @@ import 'package:clinic_management_app/data/repositories/dashboard_repository_imp
 import 'package:clinic_management_app/data/repositories/notification_repository_impl.dart';
 import 'package:clinic_management_app/data/datasources/remote/dashboard_remote_datasource.dart';
 import 'package:clinic_management_app/data/datasources/remote/notification_remote_datasource.dart';
+import 'package:clinic_management_app/data/datasources/remote/medical_record_remote_datasource.dart';
 import 'package:clinic_management_app/domain/repositories/doctor_repository.dart';
 import 'package:clinic_management_app/domain/repositories/patient_repository.dart';
 import 'package:clinic_management_app/domain/repositories/appointment_repository.dart';
@@ -173,7 +174,9 @@ class _MyAppState extends State<MyApp> {
   remoteDataSource: AppointmentRemoteDataSource(apiService),
   rtdbService: AppointmentRtdbService(FirebaseDatabase.instance),
 )),
-        RepositoryProvider<MedicalRecordRepository>(create: (_) => MedicalRecordRepositoryImpl(mockDataSource)),
+        RepositoryProvider<MedicalRecordRepository>(create: (_) => MedicalRecordRepositoryImpl(
+          remoteDataSource: MedicalRecordRemoteDataSource(apiService),
+        )),
         RepositoryProvider<AuthRepository>(create: (_) => AuthRepositoryImpl(AuthRemoteDataSource(apiService), apiService)),
         RepositoryProvider<LocationRepository>(create: (_) => LocationRepositoryImpl(mockDataSource)),
         RepositoryProvider<RatingRepository>(create: (_) => RatingRepositoryImpl(localDataSource: mockDataSource)),
