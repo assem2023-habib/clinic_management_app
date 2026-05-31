@@ -6,6 +6,8 @@ import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/utils/helpers.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
+import 'package:clinic_management_app/domain/entities/user_role.dart';
+import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_event.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_state.dart';
@@ -33,6 +35,8 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
   @override
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
+    final role = context.watch<AuthCubit>().state.role;
+    final canManage = role == UserRole.admin || role == UserRole.receptionist;
 
     return AppShell(
       title: AppStrings.doctors,
@@ -65,10 +69,10 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                   return ListView.separated(
                     padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm),
                     itemCount: state.doctors.length,
-                    separatorBuilder: (_, __) => const SizedBox(height: 8),
+                    separatorBuilder: (_, _) => const SizedBox(height: 8),
                     itemBuilder: (context, index) {
                       final doctor = state.doctors[index];
-                      return _buildDoctorCard(doctor);
+                      return _buildDoctorCard(doctor, canManage);
                     },
                   );
                 }
@@ -81,14 +85,16 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _showDoctorForm(context),
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: canManage
+          ? FloatingActionButton(
+              onPressed: () => _showDoctorForm(context),
+              child: const Icon(Icons.add),
+            )
+          : null,
     );
   }
 
-  Widget _buildDoctorCard(DoctorEntity doctor) {
+  Widget _buildDoctorCard(DoctorEntity doctor, bool canManage) {
     final colors = AppColors.of(context);
 
     return Card(
@@ -111,19 +117,20 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                 shape: BoxShape.circle,
               ),
             ),
-            PopupMenuButton<String>(
-              onSelected: (value) {
-                if (value == 'edit') {
-                  _showDoctorForm(context, doctor: doctor);
-                } else if (value == 'delete') {
-                  _deleteDoctor(context, doctor.id);
-                }
-              },
-              itemBuilder: (context) => [
-                const PopupMenuItem(value: 'edit', child: Row(children: [Icon(Icons.edit), SizedBox(width: 8), Text(AppStrings.edit)])),
-                const PopupMenuItem(value: 'delete', child: Row(children: [Icon(Icons.delete, color: Colors.red), SizedBox(width: 8), Text(AppStrings.delete, style: TextStyle(color: Colors.red))])),
-              ],
-            ),
+            if (canManage)
+              PopupMenuButton<String>(
+                onSelected: (value) {
+                  if (value == 'edit') {
+                    _showDoctorForm(context, doctor: doctor);
+                  } else if (value == 'delete') {
+                    _deleteDoctor(context, doctor.id);
+                  }
+                },
+                itemBuilder: (context) => [
+                  const PopupMenuItem(value: 'edit', child: Row(children: [Icon(Icons.edit), SizedBox(width: 8), Text(AppStrings.edit)])),
+                  const PopupMenuItem(value: 'delete', child: Row(children: [Icon(Icons.delete, color: Colors.red), SizedBox(width: 8), Text(AppStrings.delete, style: TextStyle(color: Colors.red))])),
+                ],
+              ),
           ],
         ),
       ),

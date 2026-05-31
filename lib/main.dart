@@ -9,6 +9,8 @@ import 'package:clinic_management_app/core/theme/app_theme.dart';
 import 'package:clinic_management_app/core/theme/theme_provider.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/data/datasources/local/mock_datasource.dart';
+import 'package:clinic_management_app/domain/entities/user_role.dart';
+import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/presentation/screens/splash_screen.dart';
 import 'package:clinic_management_app/presentation/screens/login/login_screen.dart';
 import 'package:clinic_management_app/presentation/screens/onboarding/onboarding_screen.dart';

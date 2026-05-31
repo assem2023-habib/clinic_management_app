@@ -39,7 +39,7 @@ class _PatientsScreenState extends State<PatientsScreen> {
         UserRole.admin => const AdminPatientsView(),
         UserRole.doctor => const DoctorPatientsView(),
         UserRole.receptionist => const ReceptionistPatientsView(),
-        UserRole.patient => const AdminPatientsView(),
+        UserRole.patient => const DoctorPatientsView(),
         null => const AdminPatientsView(),
       },
     );
