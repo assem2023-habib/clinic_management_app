@@ -53,8 +53,12 @@ class DoctorRemoteDataSource {
   }
 
   Future<List<DoctorScheduleModel>> getDoctorSchedules(String doctorId, DateTime month) async {
-    final response = await _api.get('/doctors/$doctorId/schedules', queryParameters: {
-      'month': '${month.year}-${month.month.toString().padLeft(2, '0')}',
+    final firstDay = DateTime(month.year, month.month, 1);
+    final lastDay = DateTime(month.year, month.month + 1, 0);
+    final response = await _api.get('/doctors/$doctorId/booked-slots', queryParameters: {
+      'from_date': '${firstDay.year}-${firstDay.month.toString().padLeft(2, '0')}-${firstDay.day.toString().padLeft(2, '0')}',
+      'to_date': '${lastDay.year}-${lastDay.month.toString().padLeft(2, '0')}-${lastDay.day.toString().padLeft(2, '0')}',
+      'limit': '100',
     });
     final data = response.data['data'] as List<dynamic>? ?? [];
     return data.map((e) => DoctorScheduleModel.fromMap(e as Map<String, dynamic>)).toList();
