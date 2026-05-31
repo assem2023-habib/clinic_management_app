@@ -40,6 +40,7 @@ import 'package:clinic_management_app/data/datasources/remote/notification_remot
 import 'package:clinic_management_app/data/datasources/remote/medical_record_remote_datasource.dart';
 import 'package:clinic_management_app/data/datasources/remote/location_remote_datasource.dart';
 import 'package:clinic_management_app/data/datasources/remote/image_remote_datasource.dart';
+import 'package:clinic_management_app/data/datasources/remote/rating_remote_datasource.dart';
 import 'package:clinic_management_app/domain/repositories/doctor_repository.dart';
 import 'package:clinic_management_app/domain/repositories/patient_repository.dart';
 import 'package:clinic_management_app/domain/repositories/appointment_repository.dart';
@@ -173,7 +174,9 @@ class _MyAppState extends State<MyApp> {
         RepositoryProvider<DoctorRepository>(create: (_) => DoctorRepositoryImpl(mockDataSource,
           remoteDataSource: DoctorRemoteDataSource(apiService),
         )),
-        RepositoryProvider<PatientRepository>(create: (_) => PatientRepositoryImpl(mockDataSource)),
+        RepositoryProvider<PatientRepository>(create: (_) => PatientRepositoryImpl(mockDataSource,
+          remoteDataSource: PatientRemoteDataSource(apiService),
+        )),
         RepositoryProvider<AppointmentRepository>(create: (_) => AppointmentRepositoryImpl(
   mockDataSource,
   remoteDataSource: AppointmentRemoteDataSource(apiService),
@@ -186,8 +189,14 @@ class _MyAppState extends State<MyApp> {
         RepositoryProvider<LocationRepository>(create: (_) => LocationRepositoryImpl(mockDataSource,
           remoteDataSource: LocationRemoteDataSource(apiService),
         )),
-        RepositoryProvider<RatingRepository>(create: (_) => RatingRepositoryImpl(localDataSource: mockDataSource)),
-        RepositoryProvider<DashboardRepository>(create: (_) => DashboardRepositoryImpl(localDataSource: mockDataSource)),
+        RepositoryProvider<RatingRepository>(create: (_) => RatingRepositoryImpl(
+          localDataSource: mockDataSource,
+          remoteDataSource: RatingRemoteDataSource(apiService),
+        )),
+        RepositoryProvider<DashboardRepository>(create: (_) => DashboardRepositoryImpl(
+          localDataSource: mockDataSource,
+          remoteDataSource: DashboardRemoteDataSource(apiService),
+        )),
         RepositoryProvider<NotificationRepository>(create: (_) => NotificationRepositoryImpl(
           remoteDataSource: NotificationRemoteDataSource(apiService),
         )),

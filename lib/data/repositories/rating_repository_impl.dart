@@ -13,18 +13,20 @@ class RatingRepositoryImpl implements RatingRepository {
   @override
   Future<RatingListResponse> getAllRatings({RatingFilter? filter}) async {
     if (remoteDataSource != null) {
-      final json = await remoteDataSource!.getAllRatings(queryParams: filter?.toQueryParams());
-      final dataList = (json['data'] as List<dynamic>?)?.cast<Map<String, dynamic>>() ?? [];
-      final ratings = dataList.map((m) => RatingModel.fromMap(m)).toList();
-      final meta = json['meta']?['pagination'] as Map<String, dynamic>?;
-      return RatingListResponse(
-        ratings: ratings,
-        currentPage: (meta?['current_page'] as num?)?.toInt() ?? 1,
-        lastPage: (meta?['last_page'] as num?)?.toInt() ?? 1,
-        total: (meta?['total'] as num?)?.toInt() ?? ratings.length,
-        hasNextPage: meta?['hasNextPage'] as bool? ?? false,
-        hasPreviousPage: meta?['hasPreviousPage'] as bool? ?? false,
-      );
+      try {
+        final json = await remoteDataSource!.getAllRatings(queryParams: filter?.toQueryParams());
+        final dataList = (json['data'] as List<dynamic>?)?.cast<Map<String, dynamic>>() ?? [];
+        final ratings = dataList.map((m) => RatingModel.fromMap(m)).toList();
+        final meta = json['meta']?['pagination'] as Map<String, dynamic>?;
+        return RatingListResponse(
+          ratings: ratings,
+          currentPage: (meta?['current_page'] as num?)?.toInt() ?? 1,
+          lastPage: (meta?['last_page'] as num?)?.toInt() ?? 1,
+          total: (meta?['total'] as num?)?.toInt() ?? ratings.length,
+          hasNextPage: meta?['hasNextPage'] as bool? ?? false,
+          hasPreviousPage: meta?['hasPreviousPage'] as bool? ?? false,
+        );
+      } catch (_) {}
     }
     final all = localDataSource?.allRatings ?? [];
     return RatingListResponse(
@@ -40,10 +42,12 @@ class RatingRepositoryImpl implements RatingRepository {
   @override
   Future<RatingEntity?> getRatingById(String id) async {
     if (remoteDataSource != null) {
-      final json = await remoteDataSource!.getRatingById(id);
-      final data = json['data'] as Map<String, dynamic>?;
-      if (data == null) return null;
-      return RatingModel.fromMap(data);
+      try {
+        final json = await remoteDataSource!.getRatingById(id);
+        final data = json['data'] as Map<String, dynamic>?;
+        if (data == null) return null;
+        return RatingModel.fromMap(data);
+      } catch (_) {}
     }
     try {
       return localDataSource!.allRatings.firstWhere((r) => r.id == id);
@@ -61,15 +65,17 @@ class RatingRepositoryImpl implements RatingRepository {
     String? comment,
   }) async {
     if (remoteDataSource != null) {
-      final json = await remoteDataSource!.createRating({
-        'type': type,
-        if (rateableId != null) 'rateable_id': rateableId,
-        if (rateableType != null) 'rateable_type': rateableType,
-        'rating': rating,
-        if (comment != null) 'comment': comment,
-      });
-      final data = json['data'] as Map<String, dynamic>;
-      return RatingModel.fromMap(data);
+      try {
+        final json = await remoteDataSource!.createRating({
+          'type': type,
+          if (rateableId != null) 'rateable_id': rateableId,
+          if (rateableType != null) 'rateable_type': rateableType,
+          'rating': rating,
+          if (comment != null) 'comment': comment,
+        });
+        final data = json['data'] as Map<String, dynamic>;
+        return RatingModel.fromMap(data);
+      } catch (_) {}
     }
     final model = RatingModel(
       id: DateTime.now().millisecondsSinceEpoch.toString(),
@@ -91,12 +97,14 @@ class RatingRepositoryImpl implements RatingRepository {
     String? comment,
   }) async {
     if (remoteDataSource != null) {
-      final json = await remoteDataSource!.updateRating(id, {
-        'rating': rating,
-        if (comment != null) 'comment': comment,
-      });
-      final data = json['data'] as Map<String, dynamic>;
-      return RatingModel.fromMap(data);
+      try {
+        final json = await remoteDataSource!.updateRating(id, {
+          'rating': rating,
+          if (comment != null) 'comment': comment,
+        });
+        final data = json['data'] as Map<String, dynamic>;
+        return RatingModel.fromMap(data);
+      } catch (_) {}
     }
     final model = RatingModel(
       id: id,
@@ -111,8 +119,10 @@ class RatingRepositoryImpl implements RatingRepository {
   @override
   Future<void> deleteRating(String id) async {
     if (remoteDataSource != null) {
-      await remoteDataSource!.deleteRating(id);
-      return;
+      try {
+        await remoteDataSource!.deleteRating(id);
+        return;
+      } catch (_) {}
     }
     localDataSource?.deleteRating(id);
   }

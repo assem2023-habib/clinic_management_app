@@ -13,8 +13,10 @@ class DashboardRepositoryImpl implements DashboardRepository {
   @override
   Future<DashboardData> getDashboard() async {
     if (remoteDataSource != null) {
-      final json = await remoteDataSource!.getDashboard();
-      return DashboardModel.fromMap(json);
+      try {
+        final json = await remoteDataSource!.getDashboard();
+        return DashboardModel.fromMap(json);
+      } catch (_) {}
     }
     return localDataSource?.getDashboardData() ?? const DashboardData();
   }
