@@ -10,7 +10,9 @@ class ImageRepositoryImpl implements ImageRepository {
   @override
   Future<ImageEntity> uploadImage(String filePath, String type, String imageableId) async {
     if (remoteDataSource != null) {
-      return await remoteDataSource!.uploadImage(filePath, type, imageableId);
+      try {
+        return await remoteDataSource!.uploadImage(filePath, type, imageableId);
+      } catch (_) {}
     }
     throw UnimplementedError('Image upload requires a remote data source');
   }
@@ -18,8 +20,10 @@ class ImageRepositoryImpl implements ImageRepository {
   @override
   Future<void> deleteImage(String id) async {
     if (remoteDataSource != null) {
-      await remoteDataSource!.deleteImage(id);
-      return;
+      try {
+        await remoteDataSource!.deleteImage(id);
+        return;
+      } catch (_) {}
     }
     throw UnimplementedError('Image delete requires a remote data source');
   }
