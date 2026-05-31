@@ -135,7 +135,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                _buildDateSection(colors, state),
+                                _buildDateSection(colors, state, context),
                                 const SizedBox(height: 32),
                                 _buildDoctorCard(colors, state.doctor),
                                 const SizedBox(height: 32),
@@ -202,7 +202,8 @@ class _UserBookingScreenState extends State<UserBookingScreen>
     );
   }
 
-  Widget _buildDateSection(AppColorSet colors, UserBookingLoaded state) {
+  Widget _buildDateSection(AppColorSet colors, UserBookingLoaded state, BuildContext context) {
+    final bloc = context.read<UserBookingBloc>();
     const arabicDays = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
     const arabicNums = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
     String toArabic(int n) => n.toString().split('').map((c) => arabicNums[int.parse(c)]).join();
@@ -232,7 +233,6 @@ class _UserBookingScreenState extends State<UserBookingScreen>
             _GlassIconButton(
               icon: Icons.calendar_month,
               onTap: () async {
-                final bloc = context.read<UserBookingBloc>();
                 final picked = await showDatePicker(
                   context: context,
                   initialDate: selected,
@@ -259,7 +259,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
               dayNumber: dates[i].dayNumber,
               isSelected: dates[i].date.day == selected.day && dates[i].date.month == selected.month,
               onTap: () {
-                context.read<UserBookingBloc>().add(UserBookingSelectDate(dates[i].date));
+                bloc.add(UserBookingSelectDate(dates[i].date));
                 _restartSlotAnimation();
               },
               colors: colors,
