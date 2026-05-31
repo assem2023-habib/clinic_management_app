@@ -22,15 +22,23 @@ class ApiService {
       headers: {'Accept': 'application/json'},
     ));
 
-    _dio.interceptors.add(InterceptorsWrapper(
-      onRequest: (options, handler) async {
-        final token = await getToken();
-        if (token != null) {
-          options.headers['Authorization'] = 'Bearer $token';
-        }
-        handler.next(options);
-      },
-      onError: (error, handler) async {
+    _dio.interceptors.addAll([
+      LogInterceptor(
+        request: true,
+        requestBody: true,
+        responseBody: true,
+        error: true,
+        logPrint: (obj) => print('[API] $obj'),
+      ),
+      InterceptorsWrapper(
+        onRequest: (options, handler) async {
+          final token = await getToken();
+          if (token != null) {
+            options.headers['Authorization'] = 'Bearer $token';
+          }
+          handler.next(options);
+        },
+        onError: (error, handler) async {
         if (error.response?.statusCode == 429) {
           onRateLimit?.call();
           handler.next(error);
@@ -74,7 +82,8 @@ class ApiService {
         }
         handler.next(error);
       },
-    ));
+      ),
+    ]);
   }
 
   Future<String?> getToken() async {
