@@ -25,6 +25,8 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
   final _confirmPasswordController = TextEditingController();
   final _addressController = TextEditingController();
   String _gender = 'male';
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
 
   @override
   void dispose() {
@@ -121,9 +123,9 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                       onChanged: (v) => setState(() => _gender = v ?? 'male'),
                     ),
                     const SizedBox(height: 16),
-                    _buildTextField(controller: _passwordController, label: 'كَلِمَةُ السِّرِّ', prefixIcon: Icons.lock_outlined, obscureText: true, validator: (v) => (v?.length ?? 0) < 8 ? AppStrings.min8Chars : null),
+                    _buildTextField(controller: _passwordController, label: 'كَلِمَةُ السِّرِّ', prefixIcon: Icons.lock_outlined, obscureText: _obscurePassword, validator: (v) => (v?.length ?? 0) < 8 ? AppStrings.min8Chars : null, suffix: IconButton(icon: Icon(_obscurePassword ? Icons.visibility_rounded : Icons.visibility_off_rounded), onPressed: () => setState(() => _obscurePassword = !_obscurePassword))),
                     const SizedBox(height: 16),
-                    _buildTextField(controller: _confirmPasswordController, label: AppStrings.confirmPassword, prefixIcon: Icons.lock_outlined, obscureText: true),
+                    _buildTextField(controller: _confirmPasswordController, label: AppStrings.confirmPassword, prefixIcon: Icons.lock_outlined, obscureText: _obscureConfirmPassword, suffix: IconButton(icon: Icon(_obscureConfirmPassword ? Icons.visibility_rounded : Icons.visibility_off_rounded), onPressed: () => setState(() => _obscureConfirmPassword = !_obscureConfirmPassword))),
                     const SizedBox(height: 24),
                     ElevatedButton(
                       onPressed: state.isLoading ? null : _submit,
@@ -157,6 +159,7 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
     IconData? prefixIcon,
     TextInputType keyboardType = TextInputType.text,
     bool obscureText = false,
+    Widget? suffix,
     String? Function(String?)? validator,
   }) {
     final colors = AppColors.of(context);
@@ -169,6 +172,7 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
         labelText: label,
         labelStyle: TextStyle(color: colors.textSecondary),
         prefixIcon: prefixIcon != null ? Icon(prefixIcon, color: colors.textSecondary) : null,
+        suffixIcon: suffix,
         filled: true,
         fillColor: colors.cardBg,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),

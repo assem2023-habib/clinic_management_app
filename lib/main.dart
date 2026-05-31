@@ -100,7 +100,7 @@ class _MyAppState extends State<MyApp> {
     ApiService.onForbidden = () => _navigatorKey.currentState?.pushReplacementNamed(AppRoutes.forbidden);
     ApiService.onSuspended = () => _navigatorKey.currentState?.pushReplacementNamed(AppRoutes.suspended);
     ApiService.onSessionExpired = () {
-      _navigatorKey.currentState?.pushReplacementNamed(AppRoutes.login);
+      _navigatorKey.currentState?.pushReplacementNamed(AppRoutes.unauthorized);
     };
     return MultiRepositoryProvider(
       providers: AppProviders.repositoryProviders(
