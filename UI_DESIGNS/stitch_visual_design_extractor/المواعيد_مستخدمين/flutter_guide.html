@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>دليل بناء صفحة Flutter — Deep Vitality</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg:        #00180B;
+    --bg2:       #032515;
+    --bg3:       #0f301f;
+    --primary:   #80D8A6;
+    --prim-con:  #006D44;
+    --on-prim:   #002111;
+    --secondary: #40E78C;
+    --surface:   #1B3B29;
+    --text:      #C6EBD1;
+    --text-muted:#BEC9BF;
+    --outline:   #3F4942;
+    --glass:     rgba(3,37,21,0.5);
+    --border:    rgba(255,255,255,0.08);
+    --amber:     #F9C84A;
+    --coral:     #FF7B6B;
+    --blue:      #60BFFF;
+    --purple:    #C4A0FF;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Cairo', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    background: linear-gradient(135deg, #032515 0%, #00180b 60%);
+    border-bottom: 1px solid var(--outline);
+    padding: 56px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 50%; transform: translateX(-50%);
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(128,216,166,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(128,216,166,0.12);
+    border: 1px solid rgba(128,216,166,0.3);
+    border-radius: 999px;
+    padding: 6px 16px;
+    font-size: 13px; font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 20px;
+  }
+  .hero h1 { font-size: 36px; font-weight: 900; color: var(--text); line-height: 1.2; }
+  .hero h1 span { color: var(--primary); }
+  .hero p { font-size: 16px; color: var(--text-muted); margin-top: 12px; max-width: 560px; margin-inline: auto; }
+
+  /* ── Nav Tabs ── */
+  .nav-tabs {
+    display: flex; gap: 4px; overflow-x: auto;
+    padding: 16px 24px;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--outline);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-tab {
+    flex-shrink: 0;
+    padding: 8px 18px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px; font-weight: 600;
+    color: var(--text-muted);
+    background: transparent;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .nav-tab:hover { background: rgba(128,216,166,0.08); color: var(--text); }
+  .nav-tab.active {
+    background: var(--prim-con);
+    color: #fff;
+    border-color: var(--primary);
+  }
+
+  /* ── Sections ── */
+  .section { display: none; padding: 32px 24px; max-width: 860px; margin: 0 auto; }
+  .section.active { display: block; }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  .card-title {
+    font-size: 18px; font-weight: 700; color: var(--primary);
+    margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+  }
+  .card-title .icon {
+    width: 32px; height: 32px;
+    background: rgba(128,216,166,0.15);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+
+  /* ── Code Blocks ── */
+  .code-block {
+    background: #010f07;
+    border: 1px solid var(--outline);
+    border-radius: 12px;
+    padding: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.8;
+    overflow-x: auto;
+    position: relative;
+    margin: 16px 0;
+  }
+  .code-block .copy-btn {
+    position: absolute; top: 12px; left: 12px;
+    background: rgba(128,216,166,0.15);
+    border: 1px solid rgba(128,216,166,0.3);
+    border-radius: 6px;
+    color: var(--primary); font-size: 11px; font-family: 'Cairo', sans-serif;
+    padding: 4px 10px; cursor: pointer; transition: all .2s;
+  }
+  .code-block .copy-btn:hover { background: rgba(128,216,166,0.25); }
+  .kw  { color: #C4A0FF; } /* keyword */
+  .cls { color: #60BFFF; } /* class */
+  .fn  { color: #80D8A6; } /* function */
+  .str { color: #F9C84A; } /* string */
+  .cmt { color: #4a6a52; } /* comment */
+  .num { color: #FF7B6B; } /* number */
+  .ann { color: #F9A870; } /* annotation */
+
+  /* ── Tree Diagram ── */
+  .tree { list-style: none; }
+  .tree li { padding: 6px 0; padding-right: 20px; position: relative; }
+  .tree li::before {
+    content: '├─';
+    position: absolute; right: 0;
+    color: var(--outline); font-family: monospace;
+  }
+  .tree li:last-child::before { content: '└─'; }
+  .tree .folder { color: var(--amber); font-weight: 600; }
+  .tree .file   { color: var(--text-muted); }
+  .tree .file.main { color: var(--primary); font-weight: 600; }
+  .tree .badge {
+    display: inline-block;
+    padding: 2px 8px; border-radius: 4px;
+    font-size: 11px; font-weight: 600; margin-right: 6px;
+  }
+  .badge-dart   { background: rgba(96,191,255,0.15); color: var(--blue); }
+  .badge-yaml   { background: rgba(249,200,74,0.15); color: var(--amber); }
+  .badge-json   { background: rgba(255,123,107,0.15); color: var(--coral); }
+
+  /* ── Step List ── */
+  .steps { counter-reset: step-counter; }
+  .step {
+    counter-increment: step-counter;
+    display: flex; gap: 16px; margin-bottom: 20px;
+    align-items: flex-start;
+  }
+  .step-num {
+    width: 32px; height: 32px; flex-shrink: 0;
+    background: var(--prim-con);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; color: #fff;
+  }
+  .step-body h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+  .step-body p  { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+
+  /* ── Info Chips ── */
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 12px; border-radius: 999px;
+    font-size: 12px; font-weight: 600; margin: 4px 4px 4px 0;
+  }
+  .chip-green  { background: rgba(128,216,166,0.12); color: var(--primary); border: 1px solid rgba(128,216,166,0.25); }
+  .chip-amber  { background: rgba(249,200,74,0.12);  color: var(--amber);  border: 1px solid rgba(249,200,74,0.25);  }
+  .chip-blue   { background: rgba(96,191,255,0.12);  color: var(--blue);   border: 1px solid rgba(96,191,255,0.25);  }
+  .chip-purple { background: rgba(196,160,255,0.12); color: var(--purple); border: 1px solid rgba(196,160,255,0.25); }
+  .chip-coral  { background: rgba(255,123,107,0.12); color: var(--coral);  border: 1px solid rgba(255,123,107,0.25); }
+
+  /* ── RTDB Diagram ── */
+  .rtdb-node {
+    background: var(--bg2);
+    border: 1px solid var(--outline);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    position: relative;
+  }
+  .rtdb-node::before {
+    content: '';
+    position: absolute; right: -1px; top: 50%;
+    transform: translateY(-50%);
+    width: 3px; height: 60%;
+    background: var(--prim-con);
+    border-radius: 2px;
+  }
+  .rtdb-node.root::before { display: none; }
+  .rtdb-node .key   { color: var(--blue); }
+  .rtdb-node .val   { color: var(--amber); }
+  .rtdb-node .type  { color: var(--text-muted); font-size: 11px; margin-right: 8px; }
+  .indent-1 { margin-right: 20px; }
+  .indent-2 { margin-right: 40px; }
+  .indent-3 { margin-right: 60px; }
+
+  /* ── Animation Timeline ── */
+  .timeline { position: relative; padding-right: 24px; }
+  .timeline::before {
+    content: '';
+    position: absolute; right: 8px; top: 0; bottom: 0;
+    width: 1px; background: var(--outline);
+  }
+  .tl-item { display: flex; gap: 16px; margin-bottom: 24px; align-items: flex-start; position: relative; }
+  .tl-dot {
+    width: 16px; height: 16px; flex-shrink: 0;
+    background: var(--prim-con);
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    margin-right: -8px; margin-top: 2px;
+    position: relative; z-index: 1;
+  }
+  .tl-content h4 { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+  .tl-content p  { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+  .tl-ms {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--coral);
+    background: rgba(255,123,107,0.1);
+    border-radius: 4px; padding: 2px 6px;
+    margin-right: 8px;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 26px; }
+    .code-block { font-size: 11px; }
+    .section { padding: 20px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Hero ── -->
+<div class="hero">
+  <div class="hero-badge">🩺 Deep Vitality — Flutter Guide</div>
+  <h1>دليل بناء صفحة <span>جدول المواعيد</span></h1>
+  <p>شرح كامل لبنية الملف، التأثيرات الحركية، وربط Firebase RTDB</p>
+</div>
+
+<!-- ── Navigation ── -->
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="showSection('structure')">🗂 بنية الملف</button>
+  <button class="nav-tab" onclick="showSection('models')">📦 نماذج البيانات</button>
+  <button class="nav-tab" onclick="showSection('animations')">✨ التأثيرات</button>
+  <button class="nav-tab" onclick="showSection('rtdb')">🔥 ربط RTDB</button>
+  <button class="nav-tab" onclick="showSection('widgets')">🧩 الويدجتات</button>
+  <button class="nav-tab" onclick="showSection('setup')">⚙️ الإعداد</button>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- TAB 1: بنية الملف -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="section-structure" class="section active">
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🗂</span> هيكل مجلد المشروع</div>
+    <ul class="tree" style="font-family:'JetBrains Mono',monospace; font-size:13px;">
+      <li><span class="folder">lib/</span></li>
+      <li style="padding-right:40px;"><span class="folder">features/</span></li>
+      <li style="padding-right:60px;"><span class="folder">appointment/</span></li>
+      <li style="padding-right:80px;">
+        <span class="badge badge-dart">dart</span>
+        <span class="file main">appointment_schedule_page.dart</span> ← الملف الرئيسي
+      </li>
+      <li style="padding-right:80px;">
+        <span class="badge badge-dart">dart</span>
+        <span class="file">appointment_models.dart</span>
+      </li>
+      <li style="padding-right:80px;">
+        <span class="badge badge-dart">dart</span>
+        <span class="file">appointment_colors.dart</span>
+      </li>
+      <li style="padding-right:40px;"><span class="folder">core/</span></li>
+      <li style="padding-right:60px;"><span class="badge badge-dart">dart</span><span class="file">firebase_service.dart</span></li>
+      <li><span class="badge badge-yaml">yaml</span><span class="file">pubspec.yaml</span></li>
+      <li><span class="badge badge-json">json</span><span class="file">google-services.json</span> ← Android</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📐</span> تقسيم الملف الرئيسي</div>
+    <p style="font-size:14px; color:var(--text-muted); margin-bottom:16px;">
+      الملف مقسّم إلى <strong style="color:var(--primary)">6 أجزاء</strong> منطقية:
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>الاستيرادات (Imports)</h4>
+          <p>استيراد Flutter SDK + Firebase Database + أي Packages خارجية</p>
+          <div class="code-block">
+<button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+<span class="kw">import</span> <span class="str">'package:flutter/material.dart'</span>;
+<span class="kw">import</span> <span class="str">'package:firebase_database/firebase_database.dart'</span>;
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>نماذج البيانات (Data Models)</h4>
+          <p>
+            <code style="color:var(--blue)">AppointmentSlot</code> — يمثّل موعداً واحداً مع حالته<br>
+            <code style="color:var(--blue)">DateItem</code> — يمثّل يوماً في شريط الأيام
+          </p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>ثوابت الألوان (AppColors)</h4>
+          <p>كلاس ثابت يحتوي جميع ألوان التصميم المطابقة للـ HTML الأصلي</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>StatefulWidget الرئيسي</h4>
+          <p>
+            <code style="color:var(--blue)">AppointmentSchedulePage</code> — يستقبل <code style="color:var(--amber)">doctorId</code><br>
+            <code style="color:var(--blue)">_AppointmentSchedulePageState</code> — يحتوي كل المنطق
+          </p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <h4>دوال بناء الواجهة (_build*)</h4>
+          <p>كل قسم من الصفحة له دالة مستقلة: AppBar، قسم الأيام، بطاقة الطبيب، الفترات، زر التأكيد</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-body">
+          <h4>الويدجتات المساعدة (Helper Widgets)</h4>
+          <p>ويدجتات مستقلة قابلة لإعادة الاستخدام: _DateCard, _SlotCard, _GlassCard, _GlassIconButton, _SectionHeader</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- TAB 2: نماذج البيانات -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="section-models" class="section">
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🔢</span> SlotStatus — حالة الموعد</div>
+    <div class="code-block">
+<button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+<span class="kw">enum</span> <span class="cls">SlotStatus</span> {
+  available,  <span class="cmt">// متاح — يمكن تحديده</span>
+  booked,     <span class="cmt">// محجوز — غير قابل للتفاعل</span>
+  selected,   <span class="cmt">// محدد من المستخدم الحالي</span>
+}
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📋</span> AppointmentSlot — نموذج الموعد</div>
+    <div class="code-block">
+<button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+<span class="kw">class</span> <span class="cls">AppointmentSlot</span> {
+  <span class="kw">final</span> <span class="cls">String</span> time;     <span class="cmt">// الوقت بالعربية: "٠٩:٠٠ ص"</span>
+  <span class="kw">final</span> <span class="cls">String</span> period;   <span class="cmt">// "morning" | "evening"</span>
+  <span class="cls">SlotStatus</span> status;    <span class="cmt">// الحالة (قابلة للتغيير)</span>
+
+  <span class="cmt">// بناء من Firebase Map</span>
+  <span class="kw">factory</span> <span class="fn">AppointmentSlot.fromMap</span>(
+    <span class="cls">String</span> time, <span class="cls">String</span> period,
+    <span class="cls">Map</span>&lt;dynamic, dynamic&gt; map
+  ) {
+    <span class="kw">final</span> statusStr = map[<span class="str">'status'</span>] <span class="kw">as</span> <span class="cls">String</span>? ?? <span class="str">'available'</span>;
+    <span class="kw">return</span> <span class="cls">AppointmentSlot</span>(
+      time: time, period: period,
+      status: <span class="cls">SlotStatus</span>.values.byName(statusStr),
+    );
+  }
+
+  <span class="cmt">// تحويل لـ Firebase Map</span>
+  <span class="cls">Map</span>&lt;<span class="cls">String</span>, dynamic&gt; <span class="fn">toMap</span>() => {<span class="str">'status'</span>: status.name};
+}
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📅</span> DateItem — نموذج اليوم</div>
+    <div class="code-block">
+<button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+<span class="kw">class</span> <span class="cls">DateItem</span> {
+  <span class="kw">final</span> <span class="cls">String</span> dayName;    <span class="cmt">// "الأربعاء"</span>
+  <span class="kw">final</span> <span class="cls">String</span> dayNumber;  <span class="cmt">// "١٣"</span>
+  <span class="kw">final</span> <span class="cls">DateTime</span> date;     <span class="cmt">// التاريخ الفعلي</span>
+  <span class="kw">bool</span> isSelected;          <span class="cmt">// هل هذا اليوم محدد؟</span>
+}
+    </div>
+    <div style="margin-top:12px; font-size:13px; color:var(--text-muted);">
+      💡 <strong style="color:var(--amber)">تحويل الأرقام للعربية:</strong><br>
+      يتم تحويل كل رقم بـ map: <code style="color:var(--blue)">'0'→'٠', '1'→'١', ...</code>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- TAB 3: التأثيرات الحركية -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="section-animations" class="section">
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🎬</span> قائمة جميع التأثيرات في الصفحة</div>
+    <div style="margin-bottom:8px;">
+      <span class="chip chip-green">3 AnimationControllers</span>
+      <span class="chip chip-blue">FadeTransition</span>
+      <span class="chip chip-purple">SlideTransition</span>
+      <span class="chip chip-amber">ScaleTransition</span>
+      <span class="chip chip-coral">AnimatedContainer</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">⏱</span> الخط الزمني للأنيميشن عند فتح الصفحة</div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <h4><span class="tl-ms">0ms</span> initState</h4>
+          <p>يبدأ <code>_headerFadeController.forward()</code> و <code>_slotListController.forward()</code></p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <h4><span class="tl-ms">0→600ms</span> FadeTransition — الهيدر</h4>
+          <p>AppBar يظهر تدريجياً من opacity=0 إلى opacity=1 مع Curves.easeOut</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <h4><span class="tl-ms">0→400ms</span> Slide + Fade — قائمة المواعيد</h4>
+          <p>القائمة تنزلق من أسفل (Offset 0,0.08) مع Fade في نفس الوقت</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <h4><span class="tl-ms">عند الضغط</span> Scale — زر التأكيد</h4>
+          <p>يُضغط الزر لـ 0.95 عند onTapDown، ثم يعود عند onTapUp (150ms)</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <h4><span class="tl-ms">عند اختيار يوم</span> إعادة تشغيل — قائمة المواعيد</h4>
+          <p><code>_slotListController.forward(from: 0)</code> لإعادة تشغيل أنيميشن الـ Slide</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🔧</span> كيفية إنشاء الـ Controllers</div>
+    <div class="code-block">
+<button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+<span class="cmt">// 1. أعلن عن الـ controllers في الـ State</span>
+<span class="kw">late</span> <span class="cls">AnimationController</span> _headerFadeController;
+<span class="kw">late</span> <span class="cls">AnimationController</span> _confirmBtnController;
+<span class="kw">late</span> <span class="cls">AnimationController</span> _slotListController;
+
+<span class="cmt">// 2. أعلن عن الـ Animations</span>
+<span class="kw">late</span> <span class="cls">Animation</span>&lt;<span class="kw">double</span>&gt; _headerFade;
+<span class="kw">late</span> <span class="cls">Animation</span>&lt;<span class="kw">double</span>&gt; _confirmScale;
+<span class="kw">late</span> <span class="cls">Animation</span>&lt;<span class="kw">double</span>&gt; _slotFade;
+<span class="kw">late</span> <span class="cls">Animation</span>&lt;<span class="cls">Offset</span>&gt; _slotSlide;
+    </div>
+    <div class="code-block">
+<button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+<span class="cmt">// 3. هيّأها في _initAnimations()</span>
+<span class="kw">void</span> <span class="fn">_initAnimations</span>() {
+  <span class="cmt">// هيدر الفيد</span>
+  _headerFadeController = <span class="cls">AnimationController</span>(
+    vsync: <span class="kw">this</span>,
+    duration: <span class="kw">const</span> <span class="cls">Duration</span>(milliseconds: <span class="num">600</span>),
+  )..<span class="fn">forward</span>(); <span class="cmt">// ابدأ فور الإنشاء</span>
+
+  _headerFade = <span class="cls">CurvedAnimation</span>(
+    parent: _headerFadeController,
+    curve: <span class="cls">Curves</span>.easeOut,
+  );
+
+  <span class="cmt">// زر التأكيد (Scale)</span>
+  _confirmBtnController = <span class="cls">AnimationController</span>(
+    vsync: <span class="kw">this</span>,
+    duration: <span class="kw">const</span> <span class="cls">Duration</span>(milliseconds: <span class="num">150</span>),
+  );
+  _confirmScale = <span class="cls">Tween</span>&lt;<span class="kw">double</span>&gt;(begin: <span class="num">1.0</span>, end: <span class="num">0.95</span>)
+      .<span class="fn">animate</span>(_confirmBtnController);
+
+  <span class="cmt">// قائمة المواعيد (Slide + Fade)</span>
+  _slotListController = <span class="cls">AnimationController</span>(
+    vsync: <span class="kw">this</span>,
+    duration: <span class="kw">const</span> <span class="cls">Duration</span>(milliseconds: <span class="num">400</span>),
+  )..<span class="fn">forward</span>();
+
+  _slotFade = <span class="cls">CurvedAnimation</span>(
+    parent: _slotListController, curve: <span class="cls">Curves</span>.easeOut,
+  );
+  _slotSlide = <span class="cls">Tween</span>&lt;<span class="cls">Offset</span>&gt;(
+    begin: <span class="kw">const</span> <span class="cls">Offset</span>(<span class="num">0</span>, <span class="num">0.08</span>),
+    end: <span class="cls">Offset</span>.zero,
+  ).<span class="fn">animate</span>(<span class="cls">CurvedAnimation</span>(
+    parent: _slotListController, curve: <span class="cls">Curves</span>.easeOut,
+  ));
+}
+    </div>
+    <div class="code-block">
+<button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+<span class="cmt">// 4. لا تنسَ dispose() — لمنع memory leaks</span>
+<span class="ann">@override</span>
+<span class="kw">void</span> <span class="fn">dispose</span>() {
+  _headerFadeController.<span class="fn">dispose</span>();
+  _confirmBtnController.<span class="fn">dispose</span>();
+  _slotListController.<span class="fn">dispose</span>();
+  <span class="kw">super</span>.<span class="fn">dispose</span>();
+}
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🎭</span> تأثيرات _SlotCard — كل بطاقة موعد</div>
+    <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">
+      كل بطاقة موعد لديها AnimationController خاص بها للـ Scale عند الضغط، بالإضافة لـ AnimatedContainer للتغيير السلس للألوان.
+    </p>
+    <div class="code-block">
+<button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+<span class="cmt">// داخل _SlotCardState</span>
+<span class="cls">GestureDetector</span>(
+  onTapDown: (_) => _tapController.<span class="fn">forward</span>(),
+  onTapUp:   (_) {
+    _tapController.<span class="fn">reverse</span>();
+    widget.onTap(); <span class="cmt">// تحديث Firebase</span>
+  },
+  onTapCancel: () => _tapController.<span class="fn">reverse</span>(),
+  child: <span class="cls">ScaleTransition</span>(
+    scale: _tapScale,        <span class="cmt">// 1.0 → 0.95</span>
+    child: <span class="cls">AnimatedContainer</span>(
+      duration: <span class="kw">const</span> <span class="cls">Duration</span>(milliseconds: <span class="num">200</span>),
+      color: isSelected
+          ? <span class="cls">AppColors</span>.primaryContainer  <span class="cmt">// تغيير سلس للون</span>
+          : <span class="cls">AppColors</span>.glassCard,
+      <span class="cmt">// ...</span>
+    ),
+  ),
+)
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- TAB 4: ربط RTDB -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="section-rtdb" class="section">
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🌳</span> هيكل Firebase RTDB</div>
+    <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">
+      هكذا تبدو بيانات المواعيد في قاعدة البيانات:
+    </p>
+
+    <div class="rtdb-node root">
+      <span class="key">appointments</span> <span class="type">// root</span>
+    </div>
+    <div class="rtdb-node indent-1">
+      <span class="key">doctor_001</span> <span class="type">// doctorId</span>
+    </div>
+    <div class="rtdb-node indent-2">
+      <span class="key">2026-06-13</span> <span class="type">// dateKey</span>
+    </div>
+    <div class="rtdb-node indent-3">
+      <span class="key">slots</span>
+    </div>
+    <div class="rtdb-node indent-3" style="margin-right:80px;">
+      <span class="key">"09:00"</span>: { <span class="val">status: "available"</span> }
+    </div>
+    <div class="rtdb-node indent-3" style="margin-right:80px;">
+      <span class="key">"09:30"</span>: { <span class="val">status: "selected"</span> }
+    </div>
+    <div class="rtdb-node indent-3" style="margin-right:80px;">
+      <span class="key">"10:00"</span>: { <span class="val">status: "booked"</span> }
+    </div>
+    <div class="rtdb-node indent-3" style="margin-right:80px;">
+      <span class="key">"16:00"</span>: { <span class="val">status: "available"</span> }
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🔗</span> تهيئة الاتصال بـ Firebase</div>
+    <div class="code-block">
+<button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+<span class="cmt">// في initState</span>
+<span class="kw">void</span> <span class="fn">_updateFirebaseRef</span>() {
+  <span class="cmt">// بناء مفتاح التاريخ: "2026-06-13"</span>
+  <span class="kw">final</span> dateKey = <span class="str">'${_selectedDate.year}-'</span>
+      <span class="str">'${_selectedDate.month.toString().padLeft(2, "0")}-'</span>
+      <span class="str">'${_selectedDate.day.toString().padLeft(2, "0")}'</span>;
+
+  <span class="cmt">// مرجع Node المواعيد</span>
+  _slotsRef = <span class="cls">FirebaseDatabase</span>.instance
+      .<span class="fn">ref</span>(<span class="str">'appointments/${widget.doctorId}/$dateKey/slots'</span>);
+
+  <span class="cmt">// Stream يستمع للتغييرات المباشرة</span>
+  _slotsStream = _slotsRef.onValue;
+}
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📡</span> الاستماع للبيانات في الـ build</div>
+    <div class="code-block">
+<button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+<span class="cmt">// في دالة build() استخدم StreamBuilder</span>
+<span class="cls">StreamBuilder</span>&lt;<span class="cls">DatabaseEvent</span>&gt;(
+  stream: _slotsStream,
+  builder: (context, snapshot) {
+    <span class="kw">if</span> (snapshot.hasData) {
+      <span class="kw">final</span> data = snapshot.data!.snapshot.value
+          <span class="kw">as</span> <span class="cls">Map</span>&lt;dynamic, dynamic&gt;?;
+
+      <span class="cmt">// تحديث الـ State بعد الـ build</span>
+      <span class="cls">WidgetsBinding</span>.instance.<span class="fn">addPostFrameCallback</span>(
+        (_) => <span class="fn">_parseSlots</span>(data)
+      );
+    }
+    <span class="kw">return</span> <span class="fn">_buildBody</span>(); <span class="cmt">// يُعيد رسم الصفحة</span>
+  },
+),
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">✍️</span> تحديث موعد في Firebase</div>
+    <div class="code-block">
+<button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+<span class="cmt">// عند اختيار Slot جديد</span>
+<span class="kw">Future</span>&lt;<span class="kw">void</span>&gt; <span class="fn">_selectSlot</span>(<span class="cls">AppointmentSlot</span> slot) <span class="kw">async</span> {
+  <span class="cmt">// ① Optimistic UI — تحديث فوري محلياً</span>
+  <span class="fn">setState</span>(() {
+    <span class="kw">for</span> (<span class="kw">var</span> s <span class="kw">in</span> [..._morningSlots, ..._eveningSlots]) {
+      <span class="kw">if</span> (s.status == <span class="cls">SlotStatus</span>.selected)
+        s.status = <span class="cls">SlotStatus</span>.available; <span class="cmt">// إلغاء القديم</span>
+    }
+    slot.status = <span class="cls">SlotStatus</span>.selected;
+    _selectedSlotTime = slot.time;
+  });
+
+  <span class="cmt">// ② إرسال التحديث لـ Firebase</span>
+  <span class="kw">try</span> {
+    <span class="kw">final</span> <span class="cls">Map</span>&lt;<span class="cls">String</span>, dynamic&gt; updates = {};
+    <span class="kw">for</span> (<span class="kw">var</span> s <span class="kw">in</span> [..._morningSlots, ..._eveningSlots]) {
+      updates[<span class="fn">_arabicToKey</span>(s.time)] = s.<span class="fn">toMap</span>();
+    }
+    <span class="kw">await</span> _slotsRef.<span class="fn">update</span>(updates);
+  } <span class="kw">catch</span> (e) {
+    debugPrint(<span class="str">'خطأ Firebase: $e'</span>);
+  }
+}
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">✅</span> تأكيد الحجز النهائي</div>
+    <div class="code-block">
+<button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+<span class="cmt">// تحديث الـ slot من "selected" إلى "booked"</span>
+<span class="kw">await</span> <span class="cls">FirebaseDatabase</span>.instance
+    .<span class="fn">ref</span>(<span class="str">'appointments/${widget.doctorId}/$dateKey/slots/$slotKey'</span>)
+    .<span class="fn">set</span>({<span class="str">'status'</span>: <span class="str">'booked'</span>});
+    </div>
+    <div style="margin-top:12px; padding:12px; background:rgba(128,216,166,0.08); border-radius:8px; border:1px solid rgba(128,216,166,0.2); font-size:13px;">
+      💡 <strong style="color:var(--primary)">مهم:</strong> بعد تأكيد الحجز، سيتلقى جميع المستخدمين الآخرين الذين يشاهدون نفس الطبيب ونفس اليوم التحديث تلقائياً عبر onValue stream!
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🔐</span> Security Rules الموصى بها</div>
+    <div class="code-block">
+<button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+{
+  <span class="str">"rules"</span>: {
+    <span class="str">"appointments"</span>: {
+      <span class="str">"$doctorId"</span>: {
+        <span class="str">"$date"</span>: {
+          <span class="str">"slots"</span>: {
+            <span class="str">".read"</span>: <span class="str">"auth != null"</span>,
+            <span class="str">"$slot"</span>: {
+              <span class="str">".write"</span>: <span class="str">"auth != null"</span>,
+              <span class="cmt">// لا يمكن تغيير "booked" إلى شيء آخر</span>
+              <span class="str">".validate"</span>: <span class="str">"!data.exists() ||
+                data.child('status').val() != 'booked'"</span>
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- TAB 5: الويدجتات -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="section-widgets" class="section">
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🧩</span> قائمة الويدجتات المستقلة</div>
+
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:16px;">
+      <div style="background:var(--bg2); border:1px solid var(--outline); border-radius:10px; padding:14px;">
+        <div style="font-size:14px; font-weight:700; color:var(--blue); margin-bottom:4px;">_DateCard</div>
+        <div style="font-size:12px; color:var(--text-muted);">بطاقة اليوم في الشريط الأفقي. AnimatedContainer للتحول بين الحالات.</div>
+      </div>
+      <div style="background:var(--bg2); border:1px solid var(--outline); border-radius:10px; padding:14px;">
+        <div style="font-size:14px; font-weight:700; color:var(--purple); margin-bottom:4px;">_SlotCard</div>
+        <div style="font-size:12px; color:var(--text-muted);">بطاقة الموعد. StatefulWidget بـ ScaleTransition + AnimatedContainer.</div>
+      </div>
+      <div style="background:var(--bg2); border:1px solid var(--outline); border-radius:10px; padding:14px;">
+        <div style="font-size:14px; font-weight:700; color:var(--amber); margin-bottom:4px;">_GlassCard</div>
+        <div style="font-size:12px; color:var(--text-muted);">حاوية زجاجية قابلة لإعادة الاستخدام مع backdrop effect.</div>
+      </div>
+      <div style="background:var(--bg2); border:1px solid var(--outline); border-radius:10px; padding:14px;">
+        <div style="font-size:14px; font-weight:700; color:var(--coral); margin-bottom:4px;">_GlassIconButton</div>
+        <div style="font-size:12px; color:var(--text-muted);">زر دائري زجاجي للـ AppBar والهيدر.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🃏</span> _GlassCard — التأثير الزجاجي</div>
+    <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">
+      في Flutter لا يوجد backdropFilter بسهولة الـ CSS، لكن نحاكيه بالألوان الشفافة:
+    </p>
+    <div class="code-block">
+<button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+<span class="kw">class</span> <span class="cls">_GlassCard</span> <span class="kw">extends</span> <span class="cls">StatelessWidget</span> {
+  <span class="kw">final</span> <span class="cls">Widget</span> child;
+
+  <span class="ann">@override</span>
+  <span class="cls">Widget</span> <span class="fn">build</span>(<span class="cls">BuildContext</span> context) {
+    <span class="kw">return</span> <span class="cls">ClipRRect</span>(
+      borderRadius: <span class="cls">BorderRadius</span>.<span class="fn">circular</span>(<span class="num">16</span>),
+      child: <span class="cls">BackdropFilter</span>(
+        filter: <span class="cls">ImageFilter</span>.<span class="fn">blur</span>(sigmaX: <span class="num">12</span>, sigmaY: <span class="num">12</span>),
+        child: <span class="cls">Container</span>(
+          padding: <span class="kw">const</span> <span class="cls">EdgeInsets</span>.<span class="fn">all</span>(<span class="num">20</span>),
+          decoration: <span class="cls">BoxDecoration</span>(
+            <span class="cmt">// rgba(3,37,21,0.4) — Glass Effect</span>
+            color: <span class="kw">const</span> <span class="cls">Color</span>(<span class="num">0x66032515</span>),
+            borderRadius: <span class="cls">BorderRadius</span>.<span class="fn">circular</span>(<span class="num">16</span>),
+            border: <span class="cls">Border</span>.<span class="fn">all</span>(
+              color: <span class="cls">Colors</span>.white.<span class="fn">withOpacity</span>(<span class="num">0.08</span>),
+            ),
+          ),
+          child: child,
+        ),
+      ),
+    );
+  }
+}
+    </div>
+    <div style="margin-top:12px; padding:12px; background:rgba(249,200,74,0.08); border-radius:8px; border:1px solid rgba(249,200,74,0.2); font-size:13px; color:var(--text-muted);">
+      ⚠️ BackdropFilter يحتاج <code style="color:var(--amber)">import 'dart:ui'</code> في أعلى الملف.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📋</span> _SlotCard — بطاقة الموعد الكاملة</div>
+    <div style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">
+      تستخدم <strong style="color:var(--primary)">AnimatedContainer</strong> للتغيير السلس بين حالات اللون، وتُغلّف بـ <strong style="color:var(--primary)">ScaleTransition</strong> للضغط:
+    </div>
+    <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
+      <span class="chip chip-green">available — glass + primary text</span>
+      <span class="chip chip-blue">selected — primaryContainer background</span>
+      <span class="chip chip-coral">booked — opacity 40% + lock icon</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- TAB 6: الإعداد -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="section-setup" class="section">
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📦</span> الـ Dependencies المطلوبة</div>
+    <div class="code-block">
+<button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+<span class="cmt"># pubspec.yaml</span>
+dependencies:
+  flutter:
+    sdk: flutter
+
+  <span class="cmt"># Firebase</span>
+  firebase_core: ^<span class="num">3.3.0</span>
+  firebase_database: ^<span class="num">11.1.0</span>
+
+  <span class="cmt"># خطوط Google (بديل لـ assets)</span>
+  google_fonts: ^<span class="num">6.2.1</span>
+
+  <span class="cmt"># صور مع Cache</span>
+  cached_network_image: ^<span class="num">3.3.1</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">⚡</span> خطوات الإعداد</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>إنشاء مشروع Firebase</h4>
+          <p>console.firebase.google.com ← New Project ← أضف تطبيق Android/iOS</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>تفعيل Realtime Database</h4>
+          <p>Build → Realtime Database → Create Database → Start in test mode</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>تثبيت FlutterFire CLI</h4>
+          <div class="code-block" style="margin:8px 0;">
+<span class="fn">dart</span> pub global activate flutterfire_cli
+<span class="fn">flutterfire</span> configure
+          </div>
+          <p>سيُنشئ تلقائياً ملف <code>firebase_options.dart</code></p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>تهيئة Firebase في main.dart</h4>
+          <div class="code-block" style="margin:8px 0;">
+<span class="kw">void</span> <span class="fn">main</span>() <span class="kw">async</span> {
+  <span class="cls">WidgetsFlutterBinding</span>.<span class="fn">ensureInitialized</span>();
+  <span class="kw">await</span> <span class="cls">Firebase</span>.<span class="fn">initializeApp</span>(
+    options: <span class="cls">DefaultFirebaseOptions</span>.currentPlatform,
+  );
+  <span class="fn">runApp</span>(<span class="kw">const</span> <span class="cls">MyApp</span>());
+}
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <h4>استخدام الصفحة</h4>
+          <div class="code-block" style="margin:8px 0;">
+<span class="cls">Navigator</span>.<span class="fn">push</span>(context,
+  <span class="cls">MaterialPageRoute</span>(
+    builder: (_) => <span class="kw">const</span> <span class="cls">AppointmentSchedulePage</span>(
+      doctorId: <span class="str">'doctor_001'</span>,
+    ),
+  ),
+);
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🌐</span> إضافة خط Manrope من Google Fonts</div>
+    <div class="code-block">
+<button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+<span class="cmt">// بدلاً من asset fonts، استخدم google_fonts:</span>
+<span class="kw">import</span> <span class="str">'package:google_fonts/google_fonts.dart'</span>;
+
+<span class="cmt">// في التصميم:</span>
+style: <span class="cls">GoogleFonts</span>.<span class="fn">manrope</span>(
+  fontSize: <span class="num">24</span>,
+  fontWeight: <span class="cls">FontWeight</span>.w700,
+  color: <span class="cls">AppColors</span>.primary,
+),
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">✅</span> ملاحظات مهمة</div>
+    <div style="display:flex; flex-direction:column; gap:10px; font-size:13px; color:var(--text-muted);">
+      <div style="display:flex; gap:10px; align-items:flex-start;">
+        <span style="color:var(--primary); font-size:16px;">•</span>
+        <span>الـ Slot أوقاتها مخزنة بمفاتيح إنجليزية في Firebase (<code style="color:var(--blue)">09:00</code>) وتُعرض بالعربية (<code style="color:var(--amber)">٠٩:٠٠ ص</code>)</span>
+      </div>
+      <div style="display:flex; gap:10px; align-items:flex-start;">
+        <span style="color:var(--primary); font-size:16px;">•</span>
+        <span>استخدم <code style="color:var(--blue)">TickerProviderStateMixin</code> (وليس SingleTicker) لأن لدينا أكثر من AnimationController</span>
+      </div>
+      <div style="display:flex; gap:10px; align-items:flex-start;">
+        <span style="color:var(--primary); font-size:16px;">•</span>
+        <span>Optimistic UI يُحسّن تجربة المستخدم — التحديث يظهر فوراً قبل انتهاء Firebase</span>
+      </div>
+      <div style="display:flex; gap:10px; align-items:flex-start;">
+        <span style="color:var(--primary); font-size:16px;">•</span>
+        <span>الـ StreamBuilder يُعيد بناء الواجهة تلقائياً عند أي تغيير في قاعدة البيانات في الوقت الحقيقي</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('section-' + id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  function copyCode(btn) {
+    const block = btn.parentElement;
+    const text = block.innerText.replace('نسخ\n', '').replace('نسخ', '');
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ تم';
+      setTimeout(() => btn.textContent = 'نسخ', 2000);
+    });
+  }
+</script>
+</body>
+</html>

@@ -1,24 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
+import 'package:clinic_management_app/presentation/blocs/appointment/appointment_event.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_state.dart';
+import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_state.dart';
 import 'package:clinic_management_app/presentation/screens/doctor_appointments/widgets/dr_stats_cards.dart';
 import 'package:clinic_management_app/presentation/screens/doctor_appointments/widgets/dr_quick_actions.dart';
 import 'package:clinic_management_app/presentation/screens/doctor_appointments/widgets/dr_queue_item.dart';
 import 'package:clinic_management_app/presentation/widgets/empty_data/empty_data_widget.dart';
+import 'package:clinic_management_app/presentation/widgets/glass_card.dart';
 
-class DrLiveQueue extends StatelessWidget {
+class DrLiveQueue extends StatefulWidget {
   const DrLiveQueue({super.key});
+
+  @override
+  State<DrLiveQueue> createState() => _DrLiveQueueState();
+}
+
+class _DrLiveQueueState extends State<DrLiveQueue> {
+  @override
+  void initState() {
+    super.initState();
+    final userId = context.read<AuthCubit>().state.userId;
+    if (userId != null) {
+      context.read<AppointmentBloc>().add(AppointmentWatchRtdb(userId));
+    }
+  }
+
+  @override
+  void dispose() {
+    final userId = context.read<AuthCubit>().state.userId;
+    if (userId != null) {
+      context.read<AppointmentBloc>().add(AppointmentStopRtdb(userId));
+    }
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
+    final userName = context.watch<AuthCubit>().state.userName ?? '';
 
     return BlocBuilder<AppointmentBloc, AppointmentState>(
       builder: (context, state) {
@@ -46,6 +74,9 @@ class DrLiveQueue extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(height: AppSpacing.md),
+              _buildGreeting(colors, userName, waiting),
+              const SizedBox(height: AppSpacing.md),
               DrStatsCards(
                 totalToday: totalToday,
                 waitingPatients: waiting,
@@ -56,7 +87,7 @@ class DrLiveQueue extends StatelessWidget {
               const SizedBox(height: AppSpacing.lg),
               DrQuickActions(
                 onRegisterPatient: () {},
-                onAddAppointment: () {},
+                onAddAppointment: () => Navigator.pushNamed(context, AppRoutes.userBooking),
                 onManageSchedule: () {},
               ),
               const SizedBox(height: AppSpacing.lg),
@@ -107,6 +138,32 @@ class DrLiveQueue extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildGreeting(AppColorSet colors, String userName, int waitingCount) {
+    final hour = DateTime.now().hour;
+    final greeting = hour < 12 ? 'صباح الخير' : hour < 18 ? 'مساء الخير' : 'مساء الخير';
+    return GlassCard(
+      child: Row(
+        children: [
+          CircleAvatar(
+            radius: 24,
+            backgroundColor: colors.primary.withValues(alpha: 0.15),
+            child: Icon(Icons.person_rounded, color: colors.primary, size: 28),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('$greeting، $userName', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: colors.textPrimary)),
+                Text('لديك $waitingCount مرضى ينتظرون', style: TextStyle(fontSize: 13, color: colors.textLight)),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
