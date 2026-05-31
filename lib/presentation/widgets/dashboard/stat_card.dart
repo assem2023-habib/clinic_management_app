@@ -20,18 +20,21 @@ class StatCard extends StatelessWidget {
     final colors = AppColors.of(context);
     return Card(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, size: 24, color: color),
-            if (value != null) ...[
-              const SizedBox(height: 4),
-              Text(value!, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: color)),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, size: 20, color: color),
+              if (value != null) ...[
+                const SizedBox(height: 2),
+                Text(value!, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: color)),
+              ],
+              const SizedBox(height: 2),
+              Text(title, textAlign: TextAlign.center, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: colors.textPrimary)),
             ],
-            const SizedBox(height: 4),
-            Text(title, textAlign: TextAlign.center, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: colors.textPrimary)),
-          ],
+          ),
         ),
       ),
     );
