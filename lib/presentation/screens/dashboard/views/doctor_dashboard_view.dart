@@ -27,15 +27,31 @@ class DoctorDashboardView extends StatelessWidget {
             builder: (context, state) {
               if (state is DashboardLoaded) {
                 final d = state.data;
-                return _buildStatGrid(
-                  colors,
-                  '${d.patients?.total ?? 0}',
-                  '${d.appointments.today ?? 0}',
-                  '${d.appointments.byStatus['pending'] ?? 0}',
-                  '${d.appointments.byStatus['completed'] ?? 0}',
+                return Column(
+                  children: [
+                    _buildPatientsGrid(colors,
+                      d.patients?.total,
+                      d.patients?.newThisMonth,
+                      d.patients?.registeredToday,
+                    ),
+                    const SizedBox(height: 16),
+                    _buildAppointmentsGrid(colors,
+                      d.appointments.today,
+                      d.appointments.thisWeek,
+                      d.appointments.thisMonth,
+                      d.appointments.byStatus['pending'],
+                      d.appointments.byStatus['confirmed'],
+                      d.appointments.byStatus['completed'],
+                    ),
+                    const SizedBox(height: 16),
+                    _buildRecordsGrid(colors,
+                      d.totalMedicalRecords,
+                      d.totalPrescriptions,
+                    ),
+                  ],
                 );
               }
-              return _buildStatGrid(colors, null, null, null, null);
+              return _buildPatientsGrid(colors, null, null, null);
             },
           ),
           const SizedBox(height: 24),
@@ -77,21 +93,88 @@ class DoctorDashboardView extends StatelessWidget {
     );
   }
 
-  Widget _buildStatGrid(AppColorSet colors, String? patients, String? today, String? pending, String? completed) {
+  Widget _buildPatientsGrid(AppColorSet colors, int? total, int? newThisMonth, int? registeredToday) {
     return AnimatedCard(
       index: 1,
-      child: GridView.count(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        crossAxisCount: 2,
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
-        childAspectRatio: 1.5,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          StatCard(title: AppStrings.myPatientsV2, icon: Icons.people, color: colors.primary, value: patients),
-          StatCard(title: AppStrings.todayAppts, icon: Icons.today, color: colors.secondary, value: today),
-          StatCard(title: AppStrings.pendingAppts, icon: Icons.pending_actions, color: colors.accent, value: pending),
-          StatCard(title: AppStrings.completedAppts, icon: Icons.check_circle, color: colors.success, value: completed),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: Text(AppStrings.myPatientsV2, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+          ),
+          GridView.count(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 2,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            childAspectRatio: 1.5,
+            children: [
+              StatCard(title: AppStrings.totalPatients, icon: Icons.people, color: colors.primary, value: total?.toString()),
+              StatCard(title: AppStrings.newThisMonth, icon: Icons.fiber_new, color: colors.accent, value: newThisMonth?.toString()),
+              StatCard(title: AppStrings.registeredToday, icon: Icons.today, color: colors.warning, value: registeredToday?.toString()),
+              StatCard(title: AppStrings.newPatients, icon: Icons.person_add, color: colors.secondary, value: newThisMonth != null ? '${newThisMonth}' : null),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAppointmentsGrid(AppColorSet colors, int? today, int? thisWeek, int? thisMonth, int? pending, int? confirmed, int? completed) {
+    return AnimatedCard(
+      index: 1,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: Text(AppStrings.appointments, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+          ),
+          GridView.count(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 2,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            childAspectRatio: 1.5,
+            children: [
+              StatCard(title: AppStrings.todayAppts, icon: Icons.today, color: colors.secondary, value: today?.toString()),
+              StatCard(title: AppStrings.thisWeekAppts, icon: Icons.date_range, color: colors.primary, value: thisWeek?.toString()),
+              StatCard(title: AppStrings.thisMonthAppts, icon: Icons.calendar_month, color: colors.warning, value: thisMonth?.toString()),
+              StatCard(title: AppStrings.pendingAppts, icon: Icons.pending_actions, color: colors.accent, value: pending?.toString()),
+              StatCard(title: AppStrings.confirmedAppts, icon: Icons.verified, color: colors.success, value: confirmed?.toString()),
+              StatCard(title: AppStrings.completedAppts, icon: Icons.check_circle, color: colors.primary, value: completed?.toString()),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRecordsGrid(AppColorSet colors, int? medicalRecords, int? prescriptions) {
+    return AnimatedCard(
+      index: 1,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: Text(AppStrings.medicalRecords, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+          ),
+          GridView.count(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 2,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            childAspectRatio: 1.5,
+            children: [
+              StatCard(title: AppStrings.medicalRecords, icon: Icons.folder, color: colors.primary, value: medicalRecords?.toString()),
+              StatCard(title: AppStrings.totalPrescriptions, icon: Icons.description, color: colors.secondary, value: prescriptions?.toString()),
+            ],
+          ),
         ],
       ),
     );
