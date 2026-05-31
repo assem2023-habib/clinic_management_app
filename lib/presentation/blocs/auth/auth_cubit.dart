@@ -70,7 +70,7 @@ class AuthLoading extends AuthState {
 }
 
 class AuthAuthenticated extends AuthState {
-  const AuthAuthenticated({required super.userId, required super.userName, required super.role, super.user});
+  const AuthAuthenticated({required super.userId, required super.userName, required super.role, super.user}) : super(isAuthenticated: true);
 }
 
 class AuthUnauthenticated extends AuthState {}
