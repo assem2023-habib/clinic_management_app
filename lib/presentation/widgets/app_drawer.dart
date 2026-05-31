@@ -96,7 +96,8 @@ class AppDrawer extends StatelessWidget {
   }
 
   Widget _buildMenuItems(BuildContext context, AppColorSet colors) {
-    final items = [
+    final role = context.watch<AuthCubit>().state.role;
+    final allItems = [
       _MenuItem(icon: Icons.dashboard_rounded, title: AppStrings.dashboard, route: AppRoutes.dashboard),
       _MenuItem(icon: Icons.local_hospital_rounded, title: AppStrings.doctors, route: AppRoutes.doctors),
       _MenuItem(icon: Icons.people_rounded, title: AppStrings.patients, route: AppRoutes.patients),
@@ -105,6 +106,16 @@ class AppDrawer extends StatelessWidget {
       _MenuItem(icon: Icons.settings_rounded, title: AppStrings.settings, route: AppRoutes.settings),
       _MenuItem(icon: Icons.person_rounded, title: AppStrings.myProfile, route: AppRoutes.profile),
     ];
+
+    final roleRoutes = <UserRole, Set<String>>{
+      UserRole.admin:        {AppRoutes.dashboard, AppRoutes.doctors, AppRoutes.patients, AppRoutes.appointments, AppRoutes.medicalRecords, AppRoutes.settings, AppRoutes.profile},
+      UserRole.doctor:       {AppRoutes.dashboard, AppRoutes.patients, AppRoutes.appointments, AppRoutes.medicalRecords, AppRoutes.settings, AppRoutes.profile},
+      UserRole.receptionist: {AppRoutes.dashboard, AppRoutes.doctors, AppRoutes.patients, AppRoutes.appointments, AppRoutes.medicalRecords, AppRoutes.settings, AppRoutes.profile},
+      UserRole.patient:      {AppRoutes.dashboard, AppRoutes.doctors, AppRoutes.appointments, AppRoutes.medicalRecords, AppRoutes.settings, AppRoutes.profile},
+    };
+
+    final allowed = roleRoutes[role] ?? roleRoutes[UserRole.patient]!;
+    final items = allItems.where((item) => allowed.contains(item.route)).toList();
 
     return ListView(
       padding: EdgeInsets.only(top: AppSpacing.sm),
