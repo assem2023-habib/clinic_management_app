@@ -1,116 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:clinic_management_app/core/services/api_service.dart';
 import 'package:clinic_management_app/core/config/api_config.dart';
 import 'package:clinic_management_app/core/services/fcm_service.dart';
+import 'package:clinic_management_app/core/di/providers.dart';
 import 'package:clinic_management_app/core/theme/app_theme.dart';
 import 'package:clinic_management_app/core/theme/theme_provider.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/data/datasources/local/mock_datasource.dart';
-import 'package:clinic_management_app/data/datasources/remote/auth_remote_datasource.dart';
-import 'package:clinic_management_app/data/datasources/remote/appointment_remote_datasource.dart';
-import 'package:clinic_management_app/data/datasources/remote/patient_remote_datasource.dart';
-import 'package:clinic_management_app/data/datasources/remote/prescription_remote_datasource.dart';
-import 'package:clinic_management_app/data/datasources/remote/rbac_remote_datasource.dart';
-import 'package:clinic_management_app/data/datasources/remote/supervision_remote_datasource.dart';
-import 'package:clinic_management_app/data/datasources/remote/user_remote_datasource.dart';
-import 'package:clinic_management_app/data/datasources/remote/receptionist_remote_datasource.dart';
-import 'package:clinic_management_app/data/datasources/remote/doctor_remote_datasource.dart';
-import 'package:clinic_management_app/core/services/appointment_rtdb_service.dart';
-import 'package:clinic_management_app/data/repositories/doctor_repository_impl.dart';
-import 'package:clinic_management_app/data/repositories/patient_repository_impl.dart';
-import 'package:clinic_management_app/data/repositories/prescription_repository_impl.dart';
-import 'package:clinic_management_app/data/repositories/rbac_repository_impl.dart';
-import 'package:clinic_management_app/data/repositories/supervision_repository_impl.dart';
-import 'package:clinic_management_app/data/repositories/user_repository_impl.dart';
-import 'package:clinic_management_app/data/repositories/specialization_repository_impl.dart';
-import 'package:clinic_management_app/data/repositories/receptionist_repository_impl.dart';
-import 'package:clinic_management_app/data/repositories/appointment_repository_impl.dart';
-import 'package:clinic_management_app/data/repositories/medical_record_repository_impl.dart';
-import 'package:clinic_management_app/data/repositories/image_repository_impl.dart';
-import 'package:clinic_management_app/data/repositories/auth_repository_impl.dart';
-import 'package:clinic_management_app/data/repositories/location_repository_impl.dart';
-import 'package:clinic_management_app/data/repositories/rating_repository_impl.dart';
-import 'package:clinic_management_app/data/repositories/dashboard_repository_impl.dart';
-import 'package:clinic_management_app/data/repositories/notification_repository_impl.dart';
-import 'package:clinic_management_app/data/datasources/remote/dashboard_remote_datasource.dart';
-import 'package:clinic_management_app/data/datasources/remote/notification_remote_datasource.dart';
-import 'package:clinic_management_app/data/datasources/remote/medical_record_remote_datasource.dart';
-import 'package:clinic_management_app/data/datasources/remote/location_remote_datasource.dart';
-import 'package:clinic_management_app/data/datasources/remote/image_remote_datasource.dart';
-import 'package:clinic_management_app/data/datasources/remote/rating_remote_datasource.dart';
-import 'package:clinic_management_app/domain/repositories/doctor_repository.dart';
-import 'package:clinic_management_app/domain/repositories/patient_repository.dart';
-import 'package:clinic_management_app/domain/repositories/appointment_repository.dart';
-import 'package:clinic_management_app/domain/repositories/medical_record_repository.dart';
-import 'package:clinic_management_app/domain/repositories/auth_repository.dart';
-import 'package:clinic_management_app/domain/repositories/location_repository.dart';
-import 'package:clinic_management_app/domain/repositories/rating_repository.dart';
-import 'package:clinic_management_app/domain/repositories/dashboard_repository.dart';
-import 'package:clinic_management_app/domain/repositories/notification_repository.dart';
-import 'package:clinic_management_app/domain/repositories/prescription_repository.dart';
-import 'package:clinic_management_app/domain/repositories/rbac_repository.dart';
-import 'package:clinic_management_app/domain/repositories/supervision_repository.dart';
-import 'package:clinic_management_app/domain/repositories/user_repository.dart';
-import 'package:clinic_management_app/domain/repositories/receptionist_repository.dart';
-import 'package:clinic_management_app/domain/repositories/specialization_repository.dart';
-import 'package:clinic_management_app/domain/repositories/image_repository.dart';
-import 'package:clinic_management_app/presentation/blocs/prescription/prescription_bloc.dart';
-import 'package:clinic_management_app/presentation/blocs/rbac/rbac_bloc.dart';
-import 'package:clinic_management_app/presentation/blocs/supervision/supervision_bloc.dart';
-import 'package:clinic_management_app/presentation/blocs/receptionist/receptionist_bloc.dart';
-import 'package:clinic_management_app/presentation/blocs/user/user_bloc.dart';
-import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
-import 'package:clinic_management_app/presentation/blocs/dashboard/dashboard_bloc.dart';
-import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
-import 'package:clinic_management_app/presentation/blocs/doctor/doctor_bloc.dart';
-import 'package:clinic_management_app/presentation/blocs/doctor_profile/doctor_profile_bloc.dart';
-import 'package:clinic_management_app/presentation/blocs/medical_record/medical_record_bloc.dart';
-import 'package:clinic_management_app/presentation/blocs/onboarding/onboarding_cubit.dart';
-import 'package:clinic_management_app/presentation/blocs/patient/patient_bloc.dart';
-import 'package:clinic_management_app/presentation/blocs/profile/profile_cubit.dart';
-import 'package:clinic_management_app/presentation/blocs/location/location_cubit.dart';
-import 'package:clinic_management_app/presentation/screens/appointments/appointments_screen.dart';
+import 'package:clinic_management_app/presentation/screens/splash_screen.dart';
+import 'package:clinic_management_app/presentation/screens/login/login_screen.dart';
+import 'package:clinic_management_app/presentation/screens/onboarding/onboarding_screen.dart';
+import 'package:clinic_management_app/presentation/screens/onboarding/role_selection_screen.dart';
 import 'package:clinic_management_app/presentation/screens/dashboard/dashboard_screen.dart';
 import 'package:clinic_management_app/presentation/screens/doctors/doctors_screen.dart';
 import 'package:clinic_management_app/presentation/screens/doctors/doctor_profile_screen.dart';
+import 'package:clinic_management_app/presentation/screens/patients/patients_screen.dart';
+import 'package:clinic_management_app/presentation/screens/appointments/appointments_screen.dart';
+import 'package:clinic_management_app/presentation/screens/medical_records/medical_records_screen.dart';
+import 'package:clinic_management_app/presentation/screens/settings/settings_screen.dart';
+import 'package:clinic_management_app/presentation/screens/profile/profile_screen.dart';
+import 'package:clinic_management_app/presentation/screens/profile/change_password_screen.dart';
+import 'package:clinic_management_app/presentation/screens/profile/delete_account_screen.dart';
+import 'package:clinic_management_app/presentation/screens/register/register_patient_screen.dart';
+import 'package:clinic_management_app/presentation/screens/register/register_doctor_screen.dart';
 import 'package:clinic_management_app/presentation/screens/user_booking/user_booking_screen.dart';
 import 'package:clinic_management_app/presentation/screens/appointment_confirmation/appointment_confirmation_screen.dart';
 import 'package:clinic_management_app/presentation/screens/appointment_confirmation/confirmation_data.dart';
 import 'package:clinic_management_app/presentation/screens/rating/rating_screen.dart';
-import 'package:clinic_management_app/presentation/screens/services/services_screen.dart';
 import 'package:clinic_management_app/presentation/screens/search_doctors/search_doctors_screen.dart';
-import 'package:clinic_management_app/presentation/screens/offline/offline_screen.dart';
+import 'package:clinic_management_app/presentation/screens/services/services_screen.dart';
 import 'package:clinic_management_app/presentation/screens/notification/notification_screen.dart';
+import 'package:clinic_management_app/presentation/screens/download_files/download_files_screen.dart';
+import 'package:clinic_management_app/presentation/screens/upload_files/upload_files_screen.dart';
+import 'package:clinic_management_app/presentation/screens/offline/offline_screen.dart';
 import 'package:clinic_management_app/presentation/screens/weak_connection/weak_connection_screen.dart';
 import 'package:clinic_management_app/presentation/screens/rate_limit/rate_limit_screen.dart';
-import 'package:clinic_management_app/presentation/blocs/rating/rating_bloc.dart';
-import 'package:clinic_management_app/presentation/blocs/download_file/download_file_bloc.dart';
-import 'package:clinic_management_app/presentation/blocs/notification/notification_bloc.dart';
-import 'package:clinic_management_app/presentation/screens/download_files/download_files_screen.dart';
-import 'package:clinic_management_app/presentation/screens/login/login_screen.dart';
 import 'package:clinic_management_app/presentation/screens/server_error/server_error_screen.dart';
-import 'package:clinic_management_app/presentation/screens/service_stopped/service_stopped_screen.dart';
 import 'package:clinic_management_app/presentation/screens/forbidden/forbidden_screen.dart';
 import 'package:clinic_management_app/presentation/screens/session_expired/session_expired_screen.dart';
 import 'package:clinic_management_app/presentation/screens/suspended/suspended_screen.dart';
 import 'package:clinic_management_app/presentation/screens/unauthorized/unauthorized_screen.dart';
-import 'package:clinic_management_app/presentation/screens/upload_files/upload_files_screen.dart';
-import 'package:clinic_management_app/presentation/screens/medical_records/medical_records_screen.dart';
-import 'package:clinic_management_app/presentation/screens/onboarding/onboarding_screen.dart';
-import 'package:clinic_management_app/presentation/screens/onboarding/role_selection_screen.dart';
-import 'package:clinic_management_app/presentation/screens/patients/patients_screen.dart';
-import 'package:clinic_management_app/presentation/screens/register/register_patient_screen.dart';
-import 'package:clinic_management_app/presentation/screens/register/register_doctor_screen.dart';
+import 'package:clinic_management_app/presentation/screens/service_stopped/service_stopped_screen.dart';
 import 'package:clinic_management_app/presentation/screens/patient_welcome/patient_welcome_screen.dart';
-
-import 'package:clinic_management_app/presentation/screens/profile/profile_screen.dart';
-import 'package:clinic_management_app/presentation/screens/profile/change_password_screen.dart';
-import 'package:clinic_management_app/presentation/screens/profile/delete_account_screen.dart';
-import 'package:clinic_management_app/presentation/screens/settings/settings_screen.dart';
-import 'package:clinic_management_app/presentation/screens/splash_screen.dart';
 
 Route<dynamic> _buildRoute(Widget screen) {
   return PageRouteBuilder(
@@ -170,79 +103,12 @@ class _MyAppState extends State<MyApp> {
       _navigatorKey.currentState?.pushReplacementNamed(AppRoutes.login);
     };
     return MultiRepositoryProvider(
-      providers: [
-        RepositoryProvider<DoctorRepository>(create: (_) => DoctorRepositoryImpl(mockDataSource,
-          remoteDataSource: DoctorRemoteDataSource(apiService),
-        )),
-        RepositoryProvider<PatientRepository>(create: (_) => PatientRepositoryImpl(mockDataSource,
-          remoteDataSource: PatientRemoteDataSource(apiService),
-        )),
-        RepositoryProvider<AppointmentRepository>(create: (_) => AppointmentRepositoryImpl(
-  mockDataSource,
-  remoteDataSource: AppointmentRemoteDataSource(apiService),
-  rtdbService: AppointmentRtdbService(FirebaseDatabase.instance),
-)),
-        RepositoryProvider<MedicalRecordRepository>(create: (_) => MedicalRecordRepositoryImpl(
-          remoteDataSource: MedicalRecordRemoteDataSource(apiService),
-        )),
-        RepositoryProvider<AuthRepository>(create: (_) => AuthRepositoryImpl(AuthRemoteDataSource(apiService), apiService)),
-        RepositoryProvider<LocationRepository>(create: (_) => LocationRepositoryImpl(mockDataSource,
-          remoteDataSource: LocationRemoteDataSource(apiService),
-        )),
-        RepositoryProvider<RatingRepository>(create: (_) => RatingRepositoryImpl(
-          localDataSource: mockDataSource,
-          remoteDataSource: RatingRemoteDataSource(apiService),
-        )),
-        RepositoryProvider<DashboardRepository>(create: (_) => DashboardRepositoryImpl(
-          localDataSource: mockDataSource,
-          remoteDataSource: DashboardRemoteDataSource(apiService),
-        )),
-        RepositoryProvider<NotificationRepository>(create: (_) => NotificationRepositoryImpl(
-          remoteDataSource: NotificationRemoteDataSource(apiService),
-        )),
-        RepositoryProvider<PrescriptionRepository>(create: (_) => PrescriptionRepositoryImpl(
-          remoteDataSource: PrescriptionRemoteDataSource(apiService),
-        )),
-        RepositoryProvider<RbacRepository>(create: (_) => RbacRepositoryImpl(
-          remoteDataSource: RbacRemoteDataSource(apiService),
-        )),
-        RepositoryProvider<SupervisionRepository>(create: (_) => SupervisionRepositoryImpl(
-          remoteDataSource: SupervisionRemoteDataSource(apiService),
-        )),
-        RepositoryProvider<UserRepository>(create: (_) => UserRepositoryImpl(
-          remoteDataSource: UserRemoteDataSource(apiService),
-        )),
-        RepositoryProvider<SpecializationRepository>(create: (_) => SpecializationRepositoryImpl(
-          remoteDataSource: DoctorRemoteDataSource(apiService),
-        )),
-        RepositoryProvider<ReceptionistRepository>(create: (_) => ReceptionistRepositoryImpl(
-          remoteDataSource: ReceptionistRemoteDataSource(apiService),
-        )),
-        RepositoryProvider<ImageRepository>(create: (_) => ImageRepositoryImpl(
-          remoteDataSource: ImageRemoteDataSource(apiService),
-        )),
-      ],
+      providers: AppProviders.repositoryProviders(
+        apiService: apiService,
+        mockDataSource: mockDataSource,
+      ),
       child: MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (context) => AuthCubit(authRepository: RepositoryProvider.of<AuthRepository>(context))),
-          BlocProvider(create: (_) => OnboardingCubit()),
-          BlocProvider(create: (context) => DoctorBloc(RepositoryProvider.of<DoctorRepository>(context))),
-          BlocProvider(create: (context) => PatientBloc(RepositoryProvider.of<PatientRepository>(context))),
-          BlocProvider(create: (context) => AppointmentBloc(RepositoryProvider.of<AppointmentRepository>(context))),
-          BlocProvider(create: (context) => MedicalRecordBloc(RepositoryProvider.of<MedicalRecordRepository>(context))),
-          BlocProvider(create: (context) => DoctorProfileBloc(RepositoryProvider.of<DoctorRepository>(context))),
-          BlocProvider(create: (context) => ProfileCubit(authRepository: RepositoryProvider.of<AuthRepository>(context))),
-          BlocProvider(create: (context) => LocationCubit(locationRepository: RepositoryProvider.of<LocationRepository>(context))..loadCountries()),
-          BlocProvider(create: (context) => DashboardBloc(RepositoryProvider.of<DashboardRepository>(context))),
-          BlocProvider(create: (context) => RatingBloc(repository: RepositoryProvider.of<RatingRepository>(context))),
-          BlocProvider(create: (_) => DownloadFileBloc()),
-          BlocProvider(create: (context) => NotificationBloc(RepositoryProvider.of<NotificationRepository>(context))),
-          BlocProvider(create: (context) => PrescriptionBloc(RepositoryProvider.of<PrescriptionRepository>(context))),
-          BlocProvider(create: (context) => RbacBloc(RepositoryProvider.of<RbacRepository>(context))),
-          BlocProvider(create: (context) => SupervisionBloc(RepositoryProvider.of<SupervisionRepository>(context))),
-          BlocProvider(create: (context) => ReceptionistBloc(RepositoryProvider.of<ReceptionistRepository>(context))),
-          BlocProvider(create: (context) => UserBloc(RepositoryProvider.of<UserRepository>(context))),
-        ],
+        providers: AppProviders.blocProviders(context),
         child: ListenableBuilder(
           listenable: _themeProvider,
           builder: (context, _) => MaterialApp(
