@@ -83,6 +83,20 @@ class AppStrings {
   static const invoices = 'فَوَاتِيرُ';
   static const newPatients = 'مَرْضَى جُدُدٌ';
   static const todayCompleted = 'المُكَمَّلُ اليَوْمَ';
+  static const activeUsers = 'نَشِطُونَ';
+  static const inactiveUsers = 'غَيْرُ نَشِطِينَ';
+  static const newToday = 'جَدِيدُ اليَوْمِ';
+  static const newThisWeek = 'جَدِيدُ الأُسْبُوعِ';
+  static const newThisMonth = 'جَدِيدُ الشَّهْرِ';
+  static const totalAppts = 'إِجْمَالِيُّ المَوَاعِيدِ';
+  static const thisWeekAppts = 'هَذَا الأُسْبُوعِ';
+  static const thisMonthAppts = 'هَذَا الشَّهْرِ';
+  static const confirmedAppts = 'مُؤَكَّدٌ';
+  static const cancelledAppts = 'مُلْغَىً';
+  static const totalPrescriptions = 'الوَصَفَاتُ الطِّبِّيَّةُ';
+  static const totalSpecializations = 'التَّخَصُّصَاتُ';
+  static const averageRating = 'مُتَوَسِّطُ التَّقْيِيمِ';
+  static const registeredToday = 'مُسَجَّلُونَ اليَوْمَ';
 
   // Appointments
   static const noAppointments = 'لا تُوجَدُ مَوَاعِيدُ';

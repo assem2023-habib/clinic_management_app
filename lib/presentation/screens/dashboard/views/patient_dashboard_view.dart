@@ -27,15 +27,24 @@ class PatientDashboardView extends StatelessWidget {
             builder: (context, state) {
               if (state is DashboardLoaded) {
                 final d = state.data;
-                return _buildStatGrid(
-                  colors,
-                  '${d.appointments.upcoming ?? d.appointments.byStatus['confirmed'] ?? 0}',
-                  '${d.appointments.byStatus['completed'] ?? 0}',
-                  '${d.totalMedicalRecords ?? 0}',
-                  '0',
+                return Column(
+                  children: [
+                    _buildAppointmentsGrid(colors,
+                      d.appointments.upcoming ?? d.appointments.byStatus['confirmed'],
+                      d.appointments.byStatus['pending'],
+                      d.appointments.byStatus['completed'],
+                      d.appointments.byStatus['cancelled'] ?? d.appointments.byStatus['cancelled'],
+                    ),
+                    const SizedBox(height: 16),
+                    _buildClinicGrid(colors,
+                      d.doctors?.total,
+                      d.totalPrescriptions,
+                      d.ratings?.average,
+                    ),
+                  ],
                 );
               }
-              return _buildStatGrid(colors, null, null, null, null);
+              return _buildAppointmentsGrid(colors, null, null, null, null);
             },
           ),
           const SizedBox(height: 24),
@@ -77,21 +86,59 @@ class PatientDashboardView extends StatelessWidget {
     );
   }
 
-  Widget _buildStatGrid(AppColorSet colors, String? upcoming, String? previous, String? records, String? invoices) {
+  Widget _buildAppointmentsGrid(AppColorSet colors, int? upcoming, int? pending, int? completed, int? cancelled) {
     return AnimatedCard(
       index: 1,
-      child: GridView.count(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        crossAxisCount: 2,
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
-        childAspectRatio: 1.5,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          StatCard(title: AppStrings.upcomingAppts, icon: Icons.event, color: colors.primary, value: upcoming),
-          StatCard(title: AppStrings.previousVisits, icon: Icons.history, color: colors.secondary, value: previous),
-          StatCard(title: AppStrings.medicalRecords, icon: Icons.folder, color: colors.accent, value: records),
-          StatCard(title: AppStrings.invoices, icon: Icons.receipt, color: colors.primaryDark, value: invoices),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: Text(AppStrings.appointments, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+          ),
+          GridView.count(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 2,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            childAspectRatio: 1.5,
+            children: [
+              StatCard(title: AppStrings.upcomingAppts, icon: Icons.event, color: colors.primary, value: upcoming?.toString()),
+              StatCard(title: AppStrings.pendingAppts, icon: Icons.pending_actions, color: colors.warning, value: pending?.toString()),
+              StatCard(title: AppStrings.completedAppts, icon: Icons.check_circle, color: colors.success, value: completed?.toString()),
+              StatCard(title: AppStrings.cancelledAppts, icon: Icons.cancel, color: colors.error, value: cancelled?.toString()),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildClinicGrid(AppColorSet colors, int? doctors, int? prescriptions, double? avgRating) {
+    return AnimatedCard(
+      index: 1,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: Text('العيادة', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+          ),
+          GridView.count(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 2,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            childAspectRatio: 1.5,
+            children: [
+              StatCard(title: AppStrings.totalDoctors, icon: Icons.medical_services, color: colors.primary, value: doctors?.toString()),
+              StatCard(title: AppStrings.totalPrescriptions, icon: Icons.description, color: colors.secondary, value: prescriptions?.toString()),
+              StatCard(title: AppStrings.averageRating, icon: Icons.star, color: colors.warning, value: avgRating?.toStringAsFixed(1)),
+              StatCard(title: AppStrings.medicalRecords, icon: Icons.folder, color: colors.accent, value: null),
+            ],
+          ),
         ],
       ),
     );

@@ -4,6 +4,8 @@ import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/presentation/blocs/dashboard/dashboard_bloc.dart';
+import 'package:clinic_management_app/presentation/blocs/dashboard/dashboard_state.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_event.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_state.dart';
@@ -14,6 +16,8 @@ import 'package:clinic_management_app/presentation/screens/receptionist_home/wid
 import 'package:clinic_management_app/presentation/screens/receptionist_home/widgets/rh_quick_actions.dart';
 import 'package:clinic_management_app/presentation/screens/receptionist_home/widgets/rh_active_queue.dart';
 import 'package:clinic_management_app/presentation/widgets/appointment_form_dialog.dart';
+import 'package:clinic_management_app/presentation/widgets/dashboard/stat_card.dart';
+import 'package:clinic_management_app/presentation/widgets/animated_card.dart';
 
 class ReceptionistDashboardView extends StatefulWidget {
   const ReceptionistDashboardView({super.key});
@@ -43,6 +47,35 @@ class _ReceptionistDashboardViewState extends State<ReceptionistDashboardView> {
         children: [
           const RhGreetingSection(),
           const SizedBox(height: AppSpacing.lg),
+
+          BlocBuilder<DashboardBloc, DashboardState>(
+            builder: (context, state) {
+              if (state is DashboardLoaded) {
+                final d = state.data;
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: AppSpacing.lg),
+                  child: AnimatedCard(
+                    index: 0,
+                    child: GridView.count(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 12,
+                      mainAxisSpacing: 12,
+                      childAspectRatio: 1.5,
+                      children: [
+                        StatCard(title: AppStrings.todayAppointments, icon: Icons.today, color: colors.primary, value: d.appointments.today?.toString()),
+                        StatCard(title: AppStrings.totalPatients, icon: Icons.people, color: colors.secondary, value: d.patients?.total.toString()),
+                        StatCard(title: AppStrings.totalDoctors, icon: Icons.medical_services, color: colors.accent, value: d.doctors?.total.toString()),
+                        StatCard(title: AppStrings.registeredToday, icon: Icons.person_add, color: colors.warning, value: d.patients?.registeredToday?.toString()),
+                      ],
+                    ),
+                  ),
+                );
+              }
+              return const SizedBox.shrink();
+            },
+          ),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
