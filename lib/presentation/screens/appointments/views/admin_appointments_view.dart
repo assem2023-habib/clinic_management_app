@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
-import 'package:clinic_management_app/core/utils/helpers.dart';
 import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_event.dart';
@@ -13,10 +12,13 @@ import 'package:clinic_management_app/presentation/screens/appointment_confirmat
 import 'package:clinic_management_app/presentation/widgets/appointment_form_dialog.dart';
 import 'package:clinic_management_app/presentation/widgets/animated_card.dart';
 import 'package:clinic_management_app/presentation/widgets/empty_data/empty_data_widget.dart';
+import 'package:clinic_management_app/presentation/widgets/glass_card.dart';
 import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
 
 class AdminAppointmentsView extends StatefulWidget {
-  const AdminAppointmentsView({super.key});
+  final bool isReceptionist;
+
+  const AdminAppointmentsView({super.key, this.isReceptionist = false});
 
   @override
   State<AdminAppointmentsView> createState() => _AdminAppointmentsViewState();
@@ -24,6 +26,16 @@ class AdminAppointmentsView extends StatefulWidget {
 
 class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
   DateTime _selectedDate = DateTime.now();
+
+  void _showDatePicker() async {
+    final date = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: DateTime.now().subtract(const Duration(days: 365)),
+      lastDate: DateTime.now().add(const Duration(days: 365)),
+    );
+    if (date != null) setState(() => _selectedDate = date);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +48,18 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
             builder: (context, state) {
               if (state is AppointmentLoading) return const SkeletonList();
               if (state is AppointmentLoaded) {
-                if (state.appointments.isEmpty) return const EmptyDataWidget(icon: Icons.calendar_month_outlined, title: AppStrings.noData, compact: true);
+                final filtered = state.appointments.where((a) {
+                  final d = a.date;
+                  return d != null && d.startsWith(DateFormat('yyyy-MM-dd').format(_selectedDate));
+                }).toList();
+                if (filtered.isEmpty) return const EmptyDataWidget(icon: Icons.calendar_month_outlined, title: AppStrings.noData, compact: true);
                 return ListView.separated(
                   padding: const EdgeInsets.all(16),
-                  itemCount: state.appointments.length,
-                  separatorBuilder: (_, __) => const SizedBox(height: 8),
+                  itemCount: filtered.length,
+                  separatorBuilder: (_, _) => const SizedBox(height: 8),
                   itemBuilder: (context, index) => AnimatedCard(
                     index: index,
-                    child: _buildAppointmentCard(state.appointments[index], colors),
+                    child: _buildAppointmentCard(filtered[index], colors),
                   ),
                 );
               }
@@ -57,54 +73,32 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
   }
 
   Widget _buildCalendarHeader(AppColorSet colors) {
-    return Container(
+    return Padding(
       padding: const EdgeInsets.all(16),
-      color: colors.surface,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          IconButton(icon: const Icon(Icons.chevron_left), onPressed: () => setState(() => _selectedDate = _selectedDate.subtract(const Duration(days: 1)))),
-          Column(
-            children: [
-              Text(DateFormat('EEEE').format(_selectedDate), style: TextStyle(fontSize: 14, color: colors.textSecondary)),
-              Text(DateFormat('yyyy-MM-dd').format(_selectedDate), style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: colors.textPrimary)),
-            ],
-          ),
-          IconButton(icon: const Icon(Icons.chevron_right), onPressed: () => setState(() => _selectedDate = _selectedDate.add(const Duration(days: 1)))),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildAppointmentCard(AppointmentEntity appointment, AppColorSet colors) {
-    return Card(
-      child: ListTile(
-        leading: CircleAvatar(backgroundColor: _getStatusColor(colors, appointment.status.toValue()), child: const Icon(Icons.event, color: Colors.white)),
-        title: Text('${appointment.patientName ?? ''}'),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      child: GlassCard(
+        padding: const EdgeInsets.all(12),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('${appointment.doctorName ?? ''}'),
-            if (appointment.timeSlot != null) Text(appointment.timeSlot!, style: TextStyle(color: colors.textSecondary, fontSize: 12)),
-          ],
-        ),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _buildStatusBadge(colors, appointment.status.toValue()),
-            PopupMenuButton<String>(
-              onSelected: (value) {
-                if (value == 'delete') _deleteAppointment(context, appointment.id);
-                if (value == 'complete') _updateStatus(context, appointment.id, AppointmentStatus.completed);
-                if (value == 'cancel') _updateStatus(context, appointment.id, AppointmentStatus.cancelled);
-                if (value == 'edit') _showAppointmentForm(context);
-              },
-              itemBuilder: (context) => [
-                const PopupMenuItem(value: 'edit', child: Row(children: [Icon(Icons.edit), SizedBox(width: 8), Text(AppStrings.edit)])),
-                const PopupMenuItem(value: 'complete', child: Text(AppStrings.complete)),
-                const PopupMenuItem(value: 'cancel', child: Text(AppStrings.cancel)),
-                const PopupMenuItem(value: 'delete', child: Row(children: [Icon(Icons.delete, color: Colors.red), SizedBox(width: 8), Text(AppStrings.delete, style: TextStyle(color: Colors.red))])),
-              ],
+            IconButton(
+              icon: const Icon(Icons.chevron_left),
+              color: colors.textPrimary,
+              onPressed: () => setState(() => _selectedDate = _selectedDate.subtract(const Duration(days: 1))),
+            ),
+            GestureDetector(
+              onTap: _showDatePicker,
+              child: Column(
+                children: [
+                  Text(DateFormat('EEEE').format(_selectedDate), style: TextStyle(fontSize: 13, color: colors.textLight)),
+                  const SizedBox(height: 2),
+                  Text(DateFormat('yyyy-MM-dd').format(_selectedDate), style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: colors.textPrimary)),
+                ],
+              ),
+            ),
+            IconButton(
+              icon: const Icon(Icons.chevron_right),
+              color: colors.textPrimary,
+              onPressed: () => setState(() => _selectedDate = _selectedDate.add(const Duration(days: 1))),
             ),
           ],
         ),
@@ -112,52 +106,130 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
     );
   }
 
-  Color _getStatusColor(AppColorSet colors, String status) {
-    return switch (status) {
-      'set' || 'accepted' => colors.primary,
-      'completed' => colors.success,
-      'cancelled' => colors.error,
-      'in_progress' => colors.accent,
-      _ => colors.textLight,
-    };
+  Widget _buildAppointmentCard(AppointmentEntity appt, AppColorSet colors) {
+    final statusValue = appt.status.toValue();
+    final (statusColor, statusLabel) = _statusInfo(colors, statusValue);
+
+    return GlassCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              CircleAvatar(
+                radius: 22,
+                backgroundColor: statusColor.withValues(alpha: 0.2),
+                child: Icon(_statusIcon(statusValue), color: statusColor, size: 20),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(appt.patientName ?? '', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+                    Text('${AppStrings.doctorLabel}: ${appt.doctorName ?? ''}', style: TextStyle(fontSize: 12, color: colors.textLight)),
+                  ],
+                ),
+              ),
+              _buildStatusBadge(colors, statusColor, statusLabel),
+            ],
+          ),
+          if (appt.timeSlot != null || appt.date != null) ...[
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                if (appt.date != null) ...[
+                  Icon(Icons.calendar_today_rounded, size: 14, color: colors.textLight),
+                  const SizedBox(width: 4),
+                  Text(appt.date!, style: TextStyle(fontSize: 12, color: colors.textLight)),
+                ],
+                if (appt.timeSlot != null) ...[
+                  const SizedBox(width: 16),
+                  Icon(Icons.schedule_rounded, size: 14, color: colors.textLight),
+                  const SizedBox(width: 4),
+                  Text(appt.timeSlot!, style: TextStyle(fontSize: 12, color: colors.textLight)),
+                ],
+              ],
+            ),
+          ],
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              if (statusValue != 'completed' && statusValue != 'cancelled') ...[
+                _smallAction(colors, AppStrings.complete, Icons.check_circle_rounded, colors.success, () {
+                  context.read<AppointmentBloc>().add(AppointmentUpdateStatus(appt.id, AppointmentStatus.completed));
+                }),
+                const SizedBox(width: 8),
+                _smallAction(colors, AppStrings.cancel, Icons.cancel_rounded, colors.error, () {
+                  context.read<AppointmentBloc>().add(AppointmentUpdateStatus(appt.id, AppointmentStatus.cancelled));
+                }),
+              ],
+              if (widget.isReceptionist) ...[
+                const SizedBox(width: 8),
+                _smallAction(colors, AppStrings.edit, Icons.edit_rounded, colors.primary, () => _showEditForm(appt)),
+              ],
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
-  Widget _buildStatusBadge(AppColorSet colors, String status) {
-    final (color, label) = switch (status) {
+  Widget _smallAction(AppColorSet colors, String label, IconData icon, Color color, VoidCallback onPressed) {
+    return SizedBox(
+      height: 30,
+      child: OutlinedButton.icon(
+        onPressed: onPressed,
+        icon: Icon(icon, size: 14),
+        label: Text(label, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600)),
+        style: OutlinedButton.styleFrom(
+          foregroundColor: color,
+          side: BorderSide(color: color.withValues(alpha: 0.3)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStatusBadge(AppColorSet colors, Color color, String label) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(color: color.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(12)),
+      child: Text(label, style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600)),
+    );
+  }
+
+  (Color, String) _statusInfo(AppColorSet colors, String status) {
+    return switch (status) {
       'set' || 'accepted' => (colors.primary, AppStrings.scheduled),
       'completed' => (colors.success, AppStrings.completed),
       'cancelled' => (colors.error, AppStrings.cancelled),
       'in_progress' => (colors.accent, AppStrings.inProgress),
+      'requested' => (colors.warning, 'قيد المراجعة'),
       _ => (colors.textLight, status),
     };
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(color: color.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(12)),
-      child: Text(label, style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w500)),
-    );
   }
 
-  void _showAppointmentForm(BuildContext context) async {
+  IconData _statusIcon(String status) {
+    return switch (status) {
+      'set' || 'accepted' => Icons.event_available_rounded,
+      'completed' => Icons.check_circle_rounded,
+      'cancelled' => Icons.cancel_rounded,
+      'in_progress' => Icons.pending_actions_rounded,
+      'requested' => Icons.hourglass_empty_rounded,
+      _ => Icons.event_rounded,
+    };
+  }
+
+  void _showEditForm(AppointmentEntity appt) async {
     final result = await showDialog<ConfirmationData>(
       context: context,
       builder: (_) => const AppointmentFormDialog(),
     );
-    if (result != null && context.mounted) {
+    if (result != null && mounted) {
       Navigator.pushNamed(context, AppRoutes.appointmentConfirmation, arguments: result);
     }
-  }
-
-  void _deleteAppointment(BuildContext context, String id) {
-    showDeleteDialog(context).then((confirmed) {
-      if (confirmed == true) {
-        context.read<AppointmentBloc>().add(AppointmentDelete(id));
-        showSnackBar(context, AppStrings.appointmentDeleted);
-      }
-    });
-  }
-
-  void _updateStatus(BuildContext context, String id, AppointmentStatus status) {
-    context.read<AppointmentBloc>().add(AppointmentUpdateStatus(id, status));
-    showSnackBar(context, AppStrings.statusUpdated);
   }
 }

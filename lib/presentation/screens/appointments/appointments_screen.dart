@@ -4,7 +4,9 @@ import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
+import 'package:clinic_management_app/presentation/screens/appointment_confirmation/confirmation_data.dart';
 import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
+import 'package:clinic_management_app/presentation/widgets/appointment_form_dialog.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_event.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_bloc.dart';
@@ -41,7 +43,12 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
       padding: isDoctor ? EdgeInsets.zero : null,
       floatingActionButton: switch (role) {
         UserRole.admin || UserRole.receptionist => FloatingActionButton(
-          onPressed: () {},
+          onPressed: () async {
+            final result = await showDialog<ConfirmationData>(context: context, builder: (_) => const AppointmentFormDialog());
+            if (result != null && context.mounted) {
+              Navigator.pushNamed(context, AppRoutes.appointmentConfirmation, arguments: result);
+            }
+          },
           child: const Icon(Icons.add),
         ),
         _ => null,
