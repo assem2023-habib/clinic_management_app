@@ -351,7 +351,15 @@ class _UserBookingScreenState extends State<UserBookingScreen>
         children: [
           _SectionHeader(title: title, icon: icon, colors: colors),
           const SizedBox(height: 16),
-          Center(child: CircularProgressIndicator(color: colors.primary)),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24),
+              child: Text(
+                'لا توجد مواعيد متاحة',
+                style: TextStyle(color: colors.textSecondary, fontSize: 14),
+              ),
+            ),
+          ),
         ],
       );
     }

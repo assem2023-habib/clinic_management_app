@@ -12,6 +12,16 @@ class UserBookingBloc extends Bloc<UserBookingEvent, UserBookingState> {
   final DoctorRepository doctorRepository;
   final AppointmentRepository appointmentRepository;
 
+  static const _dayMap = {
+    'sunday': DateTime.sunday,
+    'monday': DateTime.monday,
+    'tuesday': DateTime.tuesday,
+    'wednesday': DateTime.wednesday,
+    'thursday': DateTime.thursday,
+    'friday': DateTime.friday,
+    'saturday': DateTime.saturday,
+  };
+
   UserBookingBloc({
     required this.doctorRepository,
     required this.appointmentRepository,
@@ -35,13 +45,19 @@ class UserBookingBloc extends Bloc<UserBookingEvent, UserBookingState> {
         event.doctorId,
         DateTime(now.year, now.month),
       );
-      final timeSlots = slots.map((s) => TimeSlotEntity(
-        id: s.id,
-        date: now,
-        time: '${s.startTime} - ${s.endTime}',
-        isAvailable: s.isActive,
-      )).toList();
       final dates = _generateAvailableDates();
+      final timeSlots = slots.expand((s) {
+        final weekday = _dayMap[s.dayOfWeek.toLowerCase()];
+        if (weekday == null) return <TimeSlotEntity>[];
+        return dates
+          .where((d) => d.weekday == weekday)
+          .map((d) => TimeSlotEntity(
+            id: '${s.id}_${d.toIso8601String().substring(0, 10)}',
+            date: d,
+            time: '${s.startTime} - ${s.endTime}',
+            isAvailable: s.isActive,
+          ));
+      }).toList();
       emit(UserBookingLoaded(
         doctor: doer,
         allSlots: timeSlots,

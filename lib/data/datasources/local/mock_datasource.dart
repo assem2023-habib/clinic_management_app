@@ -103,7 +103,20 @@ class MockDataSource implements DataSource {
   @override
   List<ReviewModel> getDoctorReviews(String doctorId) => List.unmodifiable(_reviews);
   @override
-  List<DoctorScheduleModel> getDoctorSlots(String doctorId, DateTime month) => _schedules.where((s) => s.id.startsWith('${doctorId}_')).toList();
+  List<DoctorScheduleModel> getDoctorSlots(String doctorId, DateTime month) {
+    final cached = _schedules.where((s) => s.id.startsWith('${doctorId}_')).toList();
+    if (cached.isNotEmpty) return cached;
+    final days = ['sunday','monday','tuesday','wednesday','thursday'];
+    final schedules = days.map((d) => DoctorScheduleModel(
+      id: '${doctorId}_$d',
+      dayOfWeek: d,
+      startTime: '09:00',
+      endTime: '17:00',
+      isActive: true,
+    )).toList();
+    _schedules.addAll(schedules);
+    return schedules;
+  }
   @override
   void addReview(String doctorId, ReviewModel review) => _reviews.add(review);
   @override
