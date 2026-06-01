@@ -51,6 +51,7 @@ class AppointmentEntity extends Equatable {
   final DoctorEntity? doctor;
   final String? patientId;
   final String? patientName;
+  final String? patientPhone;
   final String? doctorId;
   final String? doctorName;
   final String? date;
@@ -71,6 +72,7 @@ class AppointmentEntity extends Equatable {
     this.doctor,
     this.patientId,
     this.patientName,
+    this.patientPhone,
     this.doctorId,
     this.doctorName,
     this.date,
@@ -90,6 +92,7 @@ class AppointmentEntity extends Equatable {
     String? updatedAt,
     PatientEntity? patient,
     DoctorEntity? doctor,
+    String? patientPhone,
   }) {
     return AppointmentEntity(
       id: id ?? this.id,
@@ -104,12 +107,13 @@ class AppointmentEntity extends Equatable {
       updatedAt: updatedAt ?? this.updatedAt,
       patient: patient ?? this.patient,
       doctor: doctor ?? this.doctor,
+      patientPhone: patientPhone ?? this.patientPhone,
     );
   }
 
   @override
   List<Object?> get props => [
     id, status, reason, notes, appointmentDate, startTime, endTime,
-    createdBy, createdAt, updatedAt, patient, doctor,
+    createdBy, createdAt, updatedAt, patient, doctor, patientPhone,
   ];
 }

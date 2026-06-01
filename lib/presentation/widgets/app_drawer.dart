@@ -121,13 +121,10 @@ class AppDrawer extends StatelessWidget {
       padding: EdgeInsets.only(top: AppSpacing.sm),
       children: items.map((item) {
         final isActive = currentRoute == item.route;
-        return Container(
-          margin: EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: 2),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: isActive ? colors.primary.withValues(alpha: 0.1) : null,
-          ),
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: 2),
           child: ListTile(
+            tileColor: isActive ? colors.primary.withValues(alpha: 0.1) : null,
             leading: Icon(
               item.icon,
               color: isActive ? colors.primary : colors.textSecondary,

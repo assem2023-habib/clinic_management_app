@@ -16,6 +16,13 @@ class AppointmentModel extends AppointmentEntity {
     super.updatedAt,
     super.patient,
     super.doctor,
+    super.patientId,
+    super.patientName,
+    super.patientPhone,
+    super.doctorId,
+    super.doctorName,
+    super.date,
+    super.timeSlot,
   });
 
   factory AppointmentModel.fromMap(Map<String, dynamic> map) {
@@ -90,16 +97,20 @@ class AppointmentModel extends AppointmentEntity {
       startTime: map['start_time'] as String?,
       endTime: map['end_time'] as String?,
       createdAt: map['synced_at'] as String?,
+      patientId: map['patient_id'] as String?,
+      patientName: map['patient_name'] as String?,
+      patientPhone: map['patient_phone'] as String?,
+      doctorId: map['doctor_id'] as String?,
     );
   }
 
   Map<String, dynamic> toRtdbMap() {
     return {
       'id': id,
-      'doctor_id': doctor?.id,
-      'patient_id': patient?.id,
-      'patient_name': patientName,
-      'patient_phone': patient?.phone,
+      'doctor_id': doctorId ?? doctor?.id,
+      'patient_id': patientId ?? patient?.id,
+      'patient_name': patientName ?? patient?.name,
+      'patient_phone': patientPhone ?? patient?.phone,
       'appointment_date': appointmentDate,
       'start_time': startTime,
       'end_time': endTime,
