@@ -43,16 +43,26 @@ class ProfileStatsGrid extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(stat.icon, color: stat.color, size: 24),
-              const SizedBox(height: 8),
-              Text(
-                stat.value,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: colors.textPrimary),
+              Icon(stat.icon, color: stat.color, size: 18),
+              const SizedBox(height: 4),
+              Flexible(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    stat.value,
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: colors.textPrimary),
+                  ),
+                ),
               ),
-              Text(
-                stat.label,
-                style: TextStyle(fontSize: 12, color: colors.textLight),
-                textAlign: TextAlign.center,
+              Flexible(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    stat.label,
+                    style: TextStyle(fontSize: 11, color: colors.textLight),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               ),
             ],
           ),

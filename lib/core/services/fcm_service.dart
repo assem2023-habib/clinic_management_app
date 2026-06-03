@@ -78,8 +78,12 @@ class FcmService {
   }
 
   Future<void> _getToken() async {
-    _deviceToken = await _messaging.getToken();
-    debugPrint('FCM token: $_deviceToken');
+    try {
+      _deviceToken = await _messaging.getToken();
+      debugPrint('FCM token: $_deviceToken');
+    } catch (e) {
+      debugPrint('FCM getToken failed: $e');
+    }
 
     _messaging.onTokenRefresh.listen((newToken) {
       _deviceToken = newToken;
