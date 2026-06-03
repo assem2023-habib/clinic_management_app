@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/core/utils/app_toast.dart';
 import 'package:clinic_management_app/domain/entities/doctor_profile_entity.dart';
+import 'package:clinic_management_app/presentation/blocs/rating/rating_bloc.dart';
+import 'package:clinic_management_app/presentation/blocs/rating/rating_event.dart';
 import 'package:clinic_management_app/presentation/widgets/doctor_profile/profile_header.dart';
 import 'package:clinic_management_app/presentation/widgets/doctor_profile/profile_stats_grid.dart';
 import 'package:clinic_management_app/presentation/widgets/doctor_profile/profile_about_section.dart';
@@ -9,6 +13,7 @@ import 'package:clinic_management_app/presentation/widgets/doctor_profile/profil
 import 'package:clinic_management_app/presentation/widgets/doctor_profile/profile_qualifications_section.dart';
 import 'package:clinic_management_app/presentation/widgets/doctor_profile/profile_reviews_section.dart';
 import 'package:clinic_management_app/presentation/widgets/doctor_profile/profile_schedule_section.dart';
+import 'package:clinic_management_app/presentation/widgets/rating_bottom_sheet.dart';
 
 class PatientDoctorProfileView extends StatelessWidget {
   final DoctorProfileEntity profile;
@@ -73,48 +78,27 @@ class PatientDoctorProfileView extends StatelessWidget {
   }
 
   void _showReviewDialog(BuildContext context) {
-    final controller = TextEditingController();
-    double rating = 5.0;
+    final doctor = profile.doctor;
+    final bottom = MediaQuery.of(context).viewInsets.bottom;
 
-    showDialog(
+    showModalBottomSheet(
       context: context,
-      builder: (ctx) => StatefulBuilder(
-        builder: (context, setState) => AlertDialog(
-          title: Text(AppStrings.addReview),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(5, (i) => IconButton(
-                  onPressed: () => setState(() => rating = (i + 1).toDouble()),
-                  icon: Icon(
-                    i < rating.round() ? Icons.star_rounded : Icons.star_outline_rounded,
-                    color: Colors.amber,
-                    size: 32,
-                  ),
-                )),
-              ),
-              const SizedBox(height: 12),
-              TextField(
-                controller: controller,
-                maxLines: 3,
-                decoration: const InputDecoration(
-                  hintText: AppStrings.writeReview,
-                  border: OutlineInputBorder(),
-                ),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(onPressed: () => Navigator.pop(ctx), child: Text(AppStrings.cancel)),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(ctx);
-              },
-              child: Text(AppStrings.send),
-            ),
-          ],
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => Padding(
+        padding: EdgeInsets.only(bottom: bottom),
+        child: RatingBottomSheet(
+          doctor: doctor,
+          onSubmit: (rating, comment) {
+            context.read<RatingBloc>().add(RatingCreate(
+              type: 'doctor',
+              rateableId: doctor.id,
+              rateableType: 'App\\Models\\Doctor',
+              rating: rating,
+              comment: comment.isNotEmpty ? comment : null,
+            ));
+            showAppToast(context, 'تم إرسال تقييمك ✓');
+          },
         ),
       ),
     );
