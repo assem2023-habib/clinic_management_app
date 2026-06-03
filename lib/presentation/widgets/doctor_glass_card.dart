@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
 
 class DoctorGlassCard extends StatefulWidget {
@@ -275,7 +276,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
               ),
               alignment: Alignment.center,
               child: Text(
-                'احجز موعداً',
+                AppStrings.sdBookAppointment,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,

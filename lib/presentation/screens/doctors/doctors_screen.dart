@@ -2,6 +2,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/utils/app_toast.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
@@ -22,16 +24,13 @@ class DoctorsScreen extends StatefulWidget {
   State<DoctorsScreen> createState() => _DoctorsScreenState();
 }
 
-class _DoctorsScreenState extends State<DoctorsScreen>
-    with TickerProviderStateMixin {
+class _DoctorsScreenState extends State<DoctorsScreen> {
   final _searchController = TextEditingController();
   final _searchFocus = FocusNode();
   bool _isSearchFocused = false;
   String _selectedCategory = 'all';
   int _bottomNavIndex = 0;
 
-  late AnimationController _pulseCtrl;
-  late Animation<double> _pulseAnim;
   final List<Map<String, String>> _categories = [
     {'key': 'all', 'label': 'الكل'},
     {'key': 'قلب', 'label': 'القلب'},
@@ -40,8 +39,21 @@ class _DoctorsScreenState extends State<DoctorsScreen>
     {'key': 'أسنان', 'label': 'الأسنان'},
   ];
 
-  void _openSheet(AppColorSet colors, DoctorEntity doctor) {
+  @override
+  void initState() {
+    super.initState();
+    context.read<DoctorBloc>().add(DoctorLoadAll());
+    _searchFocus.addListener(() => setState(() => _isSearchFocused = _searchFocus.hasFocus));
+  }
 
+  @override
+  void dispose() {
+    _searchController.dispose();
+    _searchFocus.dispose();
+    super.dispose();
+  }
+
+  void _openSheet(AppColorSet colors, DoctorEntity doctor) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -50,15 +62,15 @@ class _DoctorsScreenState extends State<DoctorsScreen>
   }
 
   Widget _buildBottomSheet(AppColorSet colors, DoctorEntity doctor) {
+    final bottom = MediaQuery.of(context).padding.bottom + AppSpacing.md;
+    const radius28 = BorderRadius.vertical(top: Radius.circular(28));
     return Container(
       decoration: BoxDecoration(
         color: const Color(0xFF1B3B29),
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+        borderRadius: radius28,
         border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.08))),
       ),
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).padding.bottom + 16,
-      ),
+      padding: EdgeInsets.only(bottom: bottom),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -72,7 +84,7 @@ class _DoctorsScreenState extends State<DoctorsScreen>
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: AppSpacing.listPadding,
             child: Row(
               children: [
                 Container(
@@ -124,7 +136,7 @@ class _DoctorsScreenState extends State<DoctorsScreen>
           _sheetOption(
             colors,
             icon: Icons.edit_rounded,
-            label: 'تعديل البيانات',
+            label: AppStrings.edit,
             onTap: () {
               Navigator.pop(context);
               _showDoctorForm(context, doctor: doctor);
@@ -133,26 +145,26 @@ class _DoctorsScreenState extends State<DoctorsScreen>
           _sheetOption(
             colors,
             icon: Icons.delete_rounded,
-            label: 'حذف',
+            label: AppStrings.delete,
             isDanger: true,
             onTap: () {
               Navigator.pop(context);
               _showDeleteConfirmDialog(colors, doctor);
             },
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: AppSpacing.sm),
           GestureDetector(
             onTap: () => Navigator.pop(context),
             child: Container(
               width: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 16),
+              margin: AppSpacing.listPadding,
               padding: const EdgeInsets.symmetric(vertical: 15),
               decoration: BoxDecoration(
                 color: const Color(0xFF002111),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
-                'إلغاء',
+                AppStrings.cancel,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 14,
@@ -177,7 +189,7 @@ class _DoctorsScreenState extends State<DoctorsScreen>
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16),
+        margin: AppSpacing.listPadding,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
         child: Row(
           children: [
@@ -257,7 +269,7 @@ class _DoctorsScreenState extends State<DoctorsScreen>
                             ),
                             child: Center(
                               child: Text(
-                                'إلغاء',
+                                AppStrings.cancel,
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w700,
@@ -274,7 +286,7 @@ class _DoctorsScreenState extends State<DoctorsScreen>
                           onTap: () {
                             Navigator.pop(ctx);
                             context.read<DoctorBloc>().add(DoctorDelete(doctor.id));
-                            showAppToast(context, '🗑 تم حذف د. ${doctor.name}');
+                            showAppToast(context, AppStrings.doctorDeleted);
                           },
                           child: Container(
                             height: 48,
@@ -285,7 +297,7 @@ class _DoctorsScreenState extends State<DoctorsScreen>
                             ),
                             child: Center(
                               child: Text(
-                                'حذف',
+                                AppStrings.delete,
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w700,
@@ -313,26 +325,346 @@ class _DoctorsScreenState extends State<DoctorsScreen>
       builder: (_) => DoctorFormDialog(doctor: doctor),
     );
   }
-}
-
-class _CentralPulsePainter extends CustomPainter {
-  final double progress;
-  _CentralPulsePainter(this.progress);
 
   @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    final radius = progress * size.longestSide * 1.5;
-    final opacity = (1.0 - progress) * 0.1;
-    final paint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.5
-      ..color = const Color(0xFF40E78C).withValues(alpha: opacity);
-    canvas.drawCircle(center, radius, paint);
+  Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
+    final role = context.watch<AuthCubit>().state.role;
+    final canManage = role == UserRole.admin || role == UserRole.receptionist;
+
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      extendBody: true,
+      drawer: const AppDrawer(),
+      body: Stack(
+        children: [
+          const ParticleBackground(),
+          SafeArea(
+            child: Column(
+              children: [
+                _buildGlassAppBar(colors),
+                _buildSearchBar(colors),
+                _buildCategoryChips(colors),
+                Expanded(
+                  child: BlocBuilder<DoctorBloc, DoctorState>(
+                    builder: (context, state) {
+                      if (state is DoctorLoading) {
+                        return const GlassSkeletonList();
+                      }
+                      if (state is DoctorLoaded) {
+                        final filtered = _selectedCategory == 'all'
+                            ? state.doctors
+                            : state.doctors.where((d) =>
+                                d.specialty.contains(_selectedCategory)).toList();
+                        if (filtered.isEmpty) {
+                          return _buildEmptyState(colors);
+                        }
+                        return _buildDoctorList(colors, filtered, canManage);
+                      }
+                      if (state is DoctorError) {
+                        return Center(
+                          child: Text(state.message, style: TextStyle(color: colors.error)),
+                        );
+                      }
+                      return _buildEmptyState(colors);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: _buildGlassBottomNav(colors),
+      floatingActionButton: canManage
+          ? FloatingActionButton(
+              onPressed: () => _showDoctorForm(context),
+              backgroundColor: const Color(0xFF00CA73),
+              child: const Icon(Icons.add, color: Colors.white),
+            )
+          : null,
+    );
   }
 
-  @override
-  bool shouldRepaint(covariant CustomPainter old) => true;
+  Widget _buildGlassAppBar(AppColorSet colors) {
+    return ClipRect(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+        child: Container(
+          padding: EdgeInsets.only(
+            left: AppSpacing.md,
+            right: AppSpacing.md,
+            top: MediaQuery.of(context).padding.top + 4,
+            bottom: 12,
+          ),
+          decoration: BoxDecoration(
+            color: const Color(0xFF002111).withValues(alpha: 0.55),
+            border: Border(bottom: BorderSide(color: Colors.white.withValues(alpha: 0.06))),
+          ),
+          child: Row(
+            children: [
+              Builder(
+                builder: (ctx) => GestureDetector(
+                  onTap: () => Scaffold.of(ctx).openDrawer(),
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF012B17),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+                    ),
+                    child: const Icon(Icons.menu_rounded, color: Colors.white, size: 22),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  'البحث عن طبيب',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                    color: colors.textPrimary,
+                  ),
+                ),
+              ),
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFF006D44), Color(0xFF00CA73)],
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(Icons.person, color: Colors.white, size: 20),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSearchBar(AppColorSet colors) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 14, 16, 6),
+      child: Focus(
+        onFocusChange: (focused) => setState(() => _isSearchFocused = focused),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeOut,
+          decoration: BoxDecoration(
+            color: const Color(0xFF0F301F).withValues(alpha: 0.65),
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(
+              color: _isSearchFocused
+                  ? const Color(0xFF00CA73).withValues(alpha: 0.6)
+                  : Colors.white.withValues(alpha: 0.06),
+            ),
+            boxShadow: _isSearchFocused
+                ? [BoxShadow(
+                    color: const Color(0xFF00CA73).withValues(alpha: 0.15),
+                    blurRadius: 16,
+                    spreadRadius: 1,
+                  )]
+                : null,
+          ),
+          child: TextField(
+            controller: _searchController,
+            focusNode: _searchFocus,
+            style: TextStyle(color: colors.textPrimary, fontSize: 14),
+            onChanged: (value) {
+              context.read<DoctorBloc>().add(DoctorSearch(value));
+            },
+            decoration: InputDecoration(
+              hintText: 'ابحث عن اسم الطبيب أو التخصص...',
+              hintStyle: TextStyle(color: colors.textSecondary.withValues(alpha: 0.6), fontSize: 14),
+              prefixIcon: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 200),
+                child: Icon(
+                  _isSearchFocused ? Icons.search_rounded : Icons.search_rounded,
+                  key: ValueKey(_isSearchFocused),
+                  size: 22,
+                  color: _isSearchFocused
+                      ? const Color(0xFF00CA73)
+                      : colors.textSecondary.withValues(alpha: 0.6),
+                ),
+              ),
+              suffixIcon: _searchController.text.isNotEmpty
+                  ? GestureDetector(
+                      onTap: () {
+                        _searchController.clear();
+                        context.read<DoctorBloc>().add(DoctorSearch(''));
+                      },
+                      child: Icon(Icons.close_rounded, size: 20, color: colors.textSecondary),
+                    )
+                  : null,
+              border: InputBorder.none,
+              contentPadding: const EdgeInsets.symmetric(vertical: 14),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCategoryChips(AppColorSet colors) {
+    return SizedBox(
+      height: 42,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        itemCount: _categories.length,
+        separatorBuilder: (_, _) => const SizedBox(width: 8),
+        itemBuilder: (_, i) {
+          final cat = _categories[i];
+          final isActive = _selectedCategory == cat['key'];
+          return GestureDetector(
+            onTap: () => setState(() => _selectedCategory = cat['key']!),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 250),
+              curve: Curves.easeOut,
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+              decoration: BoxDecoration(
+                color: isActive
+                    ? const Color(0xFF00CA73).withValues(alpha: 0.15)
+                    : Colors.white.withValues(alpha: 0.04),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: isActive
+                      ? const Color(0xFF00CA73).withValues(alpha: 0.4)
+                      : Colors.white.withValues(alpha: 0.06),
+                ),
+              ),
+              child: Text(
+                cat['label']!,
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
+                  color: isActive
+                      ? const Color(0xFF00CA73)
+                      : colors.textSecondary,
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildDoctorList(
+      AppColorSet colors, List<DoctorEntity> doctors, bool canManage) {
+    return ListView.builder(
+      padding: const EdgeInsets.fromLTRB(16, 10, 16, 100),
+      itemCount: doctors.length,
+      itemBuilder: (_, i) {
+        final doctor = doctors[i];
+        return DoctorGlassCard(
+          doctor: doctor,
+          animDelay: Duration(milliseconds: 80 * i),
+          onBook: canManage
+              ? null
+              : () => Navigator.pushNamed(
+                  context, AppRoutes.userBooking, arguments: doctor.id),
+          onMore: canManage
+              ? () => _openSheet(colors, doctor)
+              : null,
+        );
+      },
+    );
+  }
+
+  Widget _buildEmptyState(AppColorSet colors) {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.search_off_rounded, size: 56, color: colors.textSecondary.withValues(alpha: 0.4)),
+          const SizedBox(height: 16),
+          Text(
+            AppStrings.noData,
+            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: colors.textSecondary),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'جرّب البحث بكلمة مختلفة',
+            style: TextStyle(fontSize: 13, color: colors.textSecondary.withValues(alpha: 0.6)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildGlassBottomNav(AppColorSet colors) {
+    final items = [
+      ('Home', Icons.home_rounded, Icons.home_outlined),
+      (AppStrings.doctors, Icons.medical_services_rounded, Icons.medical_services_outlined),
+      (AppStrings.medicalRecords, Icons.folder_rounded, Icons.folder_outlined),
+      (AppStrings.myProfile, Icons.person_rounded, Icons.person_outlined),
+    ];
+    return ClipRect(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 24, sigmaY: 24),
+        child: Container(
+          padding: EdgeInsets.only(
+            left: AppSpacing.md,
+            right: AppSpacing.md,
+            top: 6,
+            bottom: MediaQuery.of(context).padding.bottom + 6,
+          ),
+          decoration: BoxDecoration(
+            color: const Color(0xFF002111).withValues(alpha: 0.7),
+            border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.06))),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: List.generate(items.length, (i) {
+              final isActive = _bottomNavIndex == i;
+              return GestureDetector(
+                onTap: () => setState(() => _bottomNavIndex = i),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 250),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: isActive
+                        ? const Color(0xFF00CA73).withValues(alpha: 0.12)
+                        : Colors.transparent,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        isActive ? items[i].$2 : items[i].$3,
+                        size: 22,
+                        color: isActive
+                            ? const Color(0xFF00CA73)
+                            : colors.textSecondary.withValues(alpha: 0.6),
+                      ),
+                      if (isActive) ...[
+                        const SizedBox(width: 6),
+                        Text(
+                          items[i].$1,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: const Color(0xFF00CA73),
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+              );
+            }),
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 class GlassSkeletonList extends StatelessWidget {
