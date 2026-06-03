@@ -235,7 +235,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
               onTap: () async {
                 final picked = await showDatePicker(
                   context: context,
-                  initialDate: selected,
+                  initialDate: selected.isBefore(DateTime.now()) ? DateTime.now() : selected,
                   firstDate: DateTime.now(),
                   lastDate: DateTime.now().add(const Duration(days: 90)),
                 );
