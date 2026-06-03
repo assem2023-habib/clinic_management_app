@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>البحث عن طبيب — Vitality</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@300..700,0..1&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════════════
+   VITALITY DESIGN SYSTEM — TOKENS
+═══════════════════════════════════════════ */
+:root {
+  --bg:          #00180b;
+  --surface:     #032515;
+  --surf-low:    #002111;
+  --surf-high:   #0f301f;
+  --surf-highest:#1b3b29;
+  --primary:     #80d8a6;
+  --primary-c:   #006d44;
+  --on-primary-c:#93ecb8;
+  --secondary:   #40e78c;
+  --sec-c:       #00ca73;
+  --on-sec-c:    #004e29;
+  --on-surface:  #c6ebd1;
+  --on-surf-var: #bec9bf;
+  --outline:     #88938a;
+  --outline-var: #3f4942;
+  --error:       #ffb4ab;
+  --glass-bg:    rgba(1,43,23,0.42);
+  --glass-bdr:   rgba(255,255,255,0.09);
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   20px;
+  --radius-2xl:  24px;
+  --radius-full: 9999px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Manrope',sans-serif;
+  background:var(--bg);
+  color:var(--on-surface);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ═══════════════════════════════════════════
+   BACKGROUND: PARTICLES + PULSE
+═══════════════════════════════════════════ */
+#bg-canvas{
+  position:fixed;inset:0;
+  pointer-events:none;z-index:0;
+}
+.central-pulse{
+  position:fixed;top:50%;left:50%;
+  width:2px;height:2px;
+  background:rgba(64,231,140,.15);
+  border-radius:50%;
+  animation:cpulse 7s infinite ease-out;
+  pointer-events:none;z-index:0;
+}
+@keyframes cpulse{
+  0%{transform:translate(-50%,-50%) scale(0);opacity:.5;}
+  100%{transform:translate(-50%,-50%) scale(600);opacity:0;}
+}
+
+/* ═══════════════════════════════════════════
+   APP WRAPPER (phone-width container)
+═══════════════════════════════════════════ */
+.app-shell{
+  position:relative;z-index:1;
+  max-width:420px;
+  margin:0 auto;
+  min-height:100vh;
+  display:flex;flex-direction:column;
+}
+
+/* ═══════════════════════════════════════════
+   TOP APP BAR (glass sticky)
+═══════════════════════════════════════════ */
+.top-bar{
+  position:sticky;top:0;z-index:50;
+  height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 16px;
+  background:rgba(0,24,11,.55);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.top-bar-right{display:flex;align-items:center;gap:12px;}
+.top-bar h1{
+  font-size:20px;font-weight:700;
+  color:var(--primary);
+  letter-spacing:-.01em;
+}
+.icon-btn{
+  width:40px;height:40px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:transparent;border:none;cursor:pointer;
+  color:var(--primary);
+  transition:background .2s,transform .15s;
+}
+.icon-btn:hover{background:rgba(128,216,166,.1);}
+.icon-btn:active{transform:scale(.9);}
+.avatar{
+  width:38px;height:38px;border-radius:50%;
+  overflow:hidden;
+  border:2px solid var(--primary-c);
+  flex-shrink:0;
+}
+.avatar img{width:100%;height:100%;object-fit:cover;}
+
+/* ═══════════════════════════════════════════
+   MAIN SCROLL BODY
+═══════════════════════════════════════════ */
+.main-scroll{
+  flex:1;
+  overflow-y:auto;
+  padding:24px 16px 100px;
+}
+.main-scroll::-webkit-scrollbar{display:none;}
+
+/* ═══════════════════════════════════════════
+   SEARCH BAR
+═══════════════════════════════════════════ */
+.search-row{
+  display:flex;gap:10px;
+  margin-bottom:20px;
+}
+.search-wrap{
+  flex:1;position:relative;
+  border-radius:var(--radius-md);
+  transition:box-shadow .3s;
+}
+.search-wrap:focus-within{
+  box-shadow:0 0 0 2px rgba(128,216,166,.25),
+             0 4px 20px rgba(128,216,166,.12);
+}
+.search-icon{
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  color:var(--on-surf-var);
+  font-size:20px;
+  transition:color .25s;
+  pointer-events:none;
+}
+.search-wrap:focus-within .search-icon{color:var(--primary);}
+.search-input{
+  width:100%;height:48px;
+  background:var(--surf-low);
+  border:1px solid var(--outline-var);
+  border-radius:var(--radius-md);
+  padding:0 46px 0 14px;
+  color:var(--on-surface);
+  font-family:'Manrope',sans-serif;
+  font-size:14px;
+  outline:none;
+  transition:border-color .25s;
+  direction:rtl;
+}
+.search-input::placeholder{color:rgba(190,201,191,.45);}
+.search-input:focus{border-color:var(--primary);}
+
+.filter-btn{
+  width:48px;height:48px;flex-shrink:0;
+  background:var(--primary-c);
+  border:none;border-radius:var(--radius-md);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  color:var(--on-primary-c);
+  box-shadow:0 4px 14px rgba(0,109,68,.35);
+  transition:transform .15s,box-shadow .2s;
+}
+.filter-btn:hover{box-shadow:0 4px 20px rgba(0,109,68,.55);}
+.filter-btn:active{transform:scale(.93);}
+
+/* ═══════════════════════════════════════════
+   CATEGORY CHIPS
+═══════════════════════════════════════════ */
+.chips-scroll{
+  display:flex;gap:8px;
+  overflow-x:auto;
+  margin-bottom:24px;
+  padding-bottom:4px;
+  margin-left:-16px;margin-right:-16px;
+  padding-left:16px;padding-right:16px;
+}
+.chips-scroll::-webkit-scrollbar{display:none;}
+.chip{
+  padding:7px 20px;
+  border-radius:var(--radius-full);
+  font-size:13px;font-weight:600;
+  white-space:nowrap;
+  border:1px solid rgba(255,255,255,.05);
+  background:var(--surf-high);
+  color:var(--on-surf-var);
+  cursor:pointer;
+  transition:background .22s,color .22s,border-color .22s,box-shadow .22s,transform .12s;
+}
+.chip:hover{color:var(--primary);}
+.chip:active{transform:scale(.95);}
+.chip.active{
+  background:var(--sec-c);
+  color:var(--on-sec-c);
+  border-color:transparent;
+  box-shadow:0 0 12px rgba(64,231,140,.3);
+}
+
+/* ═══════════════════════════════════════════
+   DOCTOR CARDS
+═══════════════════════════════════════════ */
+.cards-list{display:flex;flex-direction:column;gap:16px;}
+
+.doctor-card{
+  background:var(--glass-bg);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border:1px solid var(--glass-bdr);
+  border-radius:var(--radius-xl);
+  padding:20px;
+  display:flex;flex-direction:column;gap:14px;
+  cursor:pointer;
+  /* entrance animation */
+  opacity:0;
+  animation:slideUpFade .55s ease forwards;
+  transition:transform .25s,box-shadow .25s,border-color .25s;
+}
+.doctor-card:hover{
+  transform:translateY(-3px) scale(1.012);
+  box-shadow:0 12px 36px rgba(0,0,0,.38),
+             0 0 0 1px rgba(128,216,166,.1);
+  border-color:rgba(128,216,166,.18);
+}
+.doctor-card:active{transform:scale(.988);}
+
+@keyframes slideUpFade{
+  from{opacity:0;transform:translateY(28px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* ─── Card Header ─── */
+.card-header{display:flex;gap:14px;}
+
+.doc-avatar-wrap{
+  position:relative;flex-shrink:0;
+}
+.doc-img{
+  width:88px;height:88px;
+  border-radius:var(--radius-lg);
+  object-fit:cover;
+  border:1px solid rgba(255,255,255,.08);
+}
+.online-dot{
+  position:absolute;top:-3px;left:-3px;
+  width:13px;height:13px;
+  background:var(--secondary);
+  border-radius:50%;
+  border:2.5px solid var(--bg);
+  animation:pulse-dot 2s infinite;
+}
+@keyframes pulse-dot{
+  0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(64,231,140,.6);}
+  50%{opacity:.75;box-shadow:0 0 0 5px rgba(64,231,140,0);}
+}
+
+.doc-info{
+  flex:1;
+  display:flex;flex-direction:column;justify-content:center;
+  gap:4px;
+}
+.doc-rating{
+  display:flex;align-items:center;gap:4px;
+  color:var(--secondary);
+  font-size:13px;font-weight:700;
+}
+.doc-rating .star{font-size:17px;font-variation-settings:'FILL' 1;}
+.doc-name{
+  font-size:20px;font-weight:700;
+  color:var(--on-surface);
+  letter-spacing:-.01em;
+  line-height:1.25;
+}
+.doc-specialty{
+  font-size:13px;font-weight:600;
+  color:var(--primary);
+}
+
+/* ─── Card Body ─── */
+.card-body{display:flex;flex-direction:column;gap:8px;}
+
+.location-row{
+  display:flex;align-items:center;gap:6px;
+  color:var(--on-surf-var);
+  font-size:14px;
+}
+.location-row .loc-icon{font-size:18px;flex-shrink:0;}
+
+.doc-bio{
+  font-size:14px;line-height:1.65;
+  color:rgba(190,201,191,.75);
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+
+/* ─── Card Actions ─── */
+.card-actions{
+  display:flex;gap:10px;align-items:stretch;
+}
+
+.book-btn{
+  flex:1;
+  height:48px;
+  background:var(--primary-c);
+  color:var(--on-primary-c);
+  border:none;border-radius:var(--radius-md);
+  font-family:'Manrope',sans-serif;
+  font-size:16px;font-weight:700;
+  cursor:pointer;
+  transition:box-shadow .25s,opacity .2s,transform .15s;
+  position:relative;overflow:hidden;
+}
+.book-btn::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.07),transparent);
+  pointer-events:none;
+}
+.book-btn:hover{
+  box-shadow:0 0 22px rgba(128,216,166,.42);
+  opacity:.92;
+}
+.book-btn:active{transform:scale(.97);}
+
+/* ── زر ⋮ القائمة ── */
+.more-btn{
+  width:48px;height:48px;flex-shrink:0;
+  background:rgba(3,37,21,.45);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:var(--radius-md);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  color:var(--on-surface);
+  transition:background .2s,transform .15s,border-color .2s;
+}
+.more-btn:hover{
+  background:var(--surf-high);
+  border-color:rgba(128,216,166,.2);
+}
+.more-btn:active{transform:scale(.9);}
+.more-btn .mat-icon{font-size:22px;}
+
+/* ═══════════════════════════════════════════
+   BOTTOM NAVIGATION
+═══════════════════════════════════════════ */
+.bottom-nav{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  width:100%;max-width:420px;
+  height:72px;z-index:50;
+  display:flex;justify-content:space-around;align-items:center;
+  padding:0 8px 4px;
+  background:rgba(0,24,11,.55);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-top:1px solid rgba(255,255,255,.07);
+}
+.nav-item{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  font-size:11px;font-weight:600;
+  color:var(--on-surf-var);
+  cursor:pointer;
+  padding:6px 16px;
+  border-radius:var(--radius-md);
+  transition:color .2s,background .2s,transform .15s;
+  user-select:none;
+}
+.nav-item .mat-icon{font-size:22px;font-variation-settings:'FILL' 0;}
+.nav-item:hover{color:var(--primary);}
+.nav-item:active{transform:scale(.88);}
+.nav-item.active{
+  background:rgba(0,202,115,.18);
+  color:var(--secondary);
+}
+.nav-item.active .mat-icon{font-variation-settings:'FILL' 1;}
+
+/* ═══════════════════════════════════════════
+   OVERLAY BACKDROP (blur)
+═══════════════════════════════════════════ */
+.sheet-overlay{
+  position:fixed;inset:0;z-index:60;
+  background:rgba(0,24,11,.72);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  opacity:0;
+  transition:opacity .3s ease;
+  pointer-events:none;
+}
+.sheet-overlay.visible{
+  opacity:1;pointer-events:auto;
+}
+
+/* ═══════════════════════════════════════════
+   BOTTOM SHEET
+═══════════════════════════════════════════ */
+.bottom-sheet{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);
+  width:100%;max-width:420px;
+  z-index:70;
+  background:var(--surf-highest);
+  border-top:1px solid rgba(255,255,255,.08);
+  border-radius:28px 28px 0 0;
+  padding:0 16px 32px;
+  transition:transform .32s cubic-bezier(.32,1,.22,1);
+}
+.bottom-sheet.open{
+  transform:translateX(-50%) translateY(0);
+}
+
+.drag-handle{
+  width:48px;height:5px;
+  background:rgba(136,147,138,.28);
+  border-radius:var(--radius-full);
+  margin:14px auto 20px;
+}
+
+.sheet-option{
+  display:flex;align-items:center;gap:16px;
+  padding:15px 16px;
+  border-radius:var(--radius-lg);
+  cursor:pointer;
+  color:var(--on-surface);
+  font-size:16px;font-weight:500;
+  transition:background .18s,color .18s;
+  margin-bottom:4px;
+  user-select:none;
+}
+.sheet-option .mat-icon{font-size:22px;flex-shrink:0;}
+.sheet-option:hover{background:var(--surf-high);}
+.sheet-option:active{background:rgba(255,255,255,.04);}
+
+.sheet-option.danger{color:var(--error);}
+.sheet-option.danger:hover{background:rgba(255,180,171,.08);}
+
+.sheet-cancel{
+  width:100%;
+  margin-top:8px;
+  padding:15px;
+  background:var(--surf-low);
+  border:none;
+  border-radius:var(--radius-lg);
+  color:var(--on-surf-var);
+  font-family:'Manrope',sans-serif;
+  font-size:14px;font-weight:600;
+  cursor:pointer;
+  transition:background .2s;
+}
+.sheet-cancel:hover{background:var(--surf-high);}
+.sheet-cancel:active{background:rgba(255,255,255,.04);}
+
+/* ═══════════════════════════════════════════
+   TOAST (feedback messages)
+═══════════════════════════════════════════ */
+.sheet-doc-header{
+  display:flex;align-items:center;gap:12px;
+  padding:0 4px 18px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  margin-bottom:10px;
+}
+.sheet-doc-avatar{
+  width:46px;height:46px;border-radius:12px;
+  background:linear-gradient(135deg,var(--primary-c),var(--secondary));
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;flex-shrink:0;
+}
+.sheet-doc-label{font-size:11px;color:var(--on-surf-var);font-weight:500;margin-bottom:2px;}
+.sheet-doc-name-txt{font-size:16px;font-weight:700;color:var(--on-surface);}
+
+/* ── Delete Confirm Dialog ── */
+.dialog-overlay{
+  position:fixed;inset:0;z-index:90;
+  background:rgba(0,24,11,.82);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;
+  padding:24px;
+  opacity:0;pointer-events:none;
+  transition:opacity .25s;
+}
+.dialog-overlay.visible{opacity:1;pointer-events:auto;}
+.dialog-box{
+  width:100%;max-width:340px;
+  background:var(--surf-highest);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:24px;
+  padding:28px 22px 22px;
+  transform:scale(.92) translateY(14px);
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+.dialog-overlay.visible .dialog-box{transform:scale(1) translateY(0);}
+.dialog-icon-wrap{
+  width:58px;height:58px;border-radius:18px;
+  background:rgba(255,180,171,.1);
+  border:1px solid rgba(255,180,171,.2);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 18px;
+}
+.dialog-icon-wrap .mat-icon{font-size:30px;color:var(--error);}
+.dialog-title{font-size:20px;font-weight:700;color:var(--on-surface);text-align:center;margin-bottom:10px;}
+.dialog-body{font-size:14px;color:var(--on-surf-var);text-align:center;line-height:1.65;margin-bottom:24px;}
+.dialog-body strong{color:var(--primary);}
+.dialog-actions{display:flex;gap:10px;}
+.dialog-btn{
+  flex:1;height:48px;border-radius:14px;border:none;cursor:pointer;
+  font-family:'Manrope',sans-serif;font-size:14px;font-weight:700;
+  transition:opacity .2s,transform .15s;
+}
+.dialog-btn:active{transform:scale(.96);}
+.dialog-btn.d-cancel{background:var(--surf-high);color:var(--on-surf-var);}
+.dialog-btn.d-cancel:hover{opacity:.8;}
+.dialog-btn.d-confirm{
+  background:rgba(255,180,171,.13);
+  border:1px solid rgba(255,180,171,.28);
+  color:var(--error);
+}
+.dialog-btn.d-confirm:hover{background:rgba(255,180,171,.22);}
+
+/* ── Toast ── */
+.toast{
+  position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--surf-highest);
+  border:1px solid rgba(128,216,166,.2);
+  border-radius:var(--radius-full);
+  padding:11px 24px 11px 18px;
+  font-size:13px;font-weight:600;
+  color:var(--on-surface);
+  z-index:100;
+  opacity:0;
+  transition:opacity .28s,transform .3s cubic-bezier(.34,1.4,.64,1);
+  white-space:nowrap;
+  display:flex;align-items:center;gap:8px;
+  box-shadow:0 8px 28px rgba(0,0,0,.45);
+  pointer-events:none;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast-dot{width:7px;height:7px;border-radius:50%;background:var(--secondary);flex-shrink:0;}
+
+/* ── Empty state ── */
+.empty-state{
+  display:none;flex-direction:column;align-items:center;
+  padding:48px 16px;gap:10px;text-align:center;
+}
+.empty-state.visible{display:flex;}
+.empty-icon{font-size:48px;line-height:1;opacity:.3;}
+.empty-title{font-size:16px;font-weight:700;color:var(--on-surface);}
+.empty-sub{font-size:13px;color:var(--on-surf-var);}
+
+/* Material Symbols helper */
+.mat-icon{
+  font-family:'Material Symbols Outlined';
+  font-style:normal;line-height:1;
+  letter-spacing:normal;word-wrap:normal;
+  white-space:nowrap;direction:ltr;
+  font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;
+  user-select:none;
+}
+</style>
+</head>
+<body>
+
+<!-- Animated background -->
+<canvas id="bg-canvas"></canvas>
+<div class="central-pulse"></div>
+
+<!-- ════ APP SHELL ════ -->
+<div class="app-shell">
+
+  <!-- ── TOP BAR ── -->
+  <header class="top-bar">
+    <div class="top-bar-right">
+      <button class="icon-btn" aria-label="القائمة">
+        <span class="mat-icon">menu</span>
+      </button>
+      <h1>البحث عن طبيب</h1>
+    </div>
+    <div class="avatar">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzq6usirr7SmV3549EwCGHHokOix-0bGXuudvBmSrR3ua5NuNYamExQk0VpGGIzsmnYO4zqdWUhrASxxUnTQKIbz60uU_puWNjLtED6IbG4MP2HiuS14MQccSkqSTqxeJVeHVSSozBqAJ5krAqIU6q4BipnPgsjaj18hYbMhK-xu8nV-bIngoucL3Ygag0KR7pQnCjxEQkGzpaN2UtdfYK_ElqCaJ8LJLQRPfSVgASEsPUJddmpWb_mN-8ZZVF-WaDMRJwL-pgxfA" alt="User"/>
+    </div>
+  </header>
+
+  <!-- ── SCROLL BODY ── -->
+  <main class="main-scroll">
+
+    <!-- Search -->
+    <div class="search-row">
+      <div class="search-wrap">
+        <span class="mat-icon search-icon">search</span>
+        <input class="search-input" type="text" placeholder="ابحث عن اسم الطبيب أو التخصص..." id="searchInput"/>
+      </div>
+      <button class="filter-btn" aria-label="تصفية">
+        <span class="mat-icon">tune</span>
+      </button>
+    </div>
+
+    <!-- Category Chips -->
+    <div class="chips-scroll" id="chipsContainer">
+      <button class="chip active" data-cat="all">الكل</button>
+      <button class="chip" data-cat="heart">القلب</button>
+      <button class="chip" data-cat="neuro">الأعصاب</button>
+      <button class="chip" data-cat="eyes">العيون</button>
+      <button class="chip" data-cat="dental">الأسنان</button>
+    </div>
+
+    <!-- Doctor Cards -->
+    <div class="cards-list" id="cardsList">
+
+      <!-- Card 1 -->
+      <div class="doctor-card" data-cat="heart" style="animation-delay:.08s">
+        <div class="card-header">
+          <div class="doc-avatar-wrap">
+            <img class="doc-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHkAizkErfjxVLrzbT0IjGcNriYrbWQHqCLTeO7O452R46qQogpc0zKm8V146oouu18xmCRwNR80lylKhvCTcgsVb7upfYNikxFtW6oniXDYCKy46juNM2zFAExHuGBjoHLynZ1SthdengKabZq139N-lmUgusN_MWiBHYsxlO5YJzliPmt-EcaJWhg4KIWGmKC0QZI7kjVMU5U28rawTmVuOXZbYqEkU1tylkRFMPELd0zs_NiGKyu81a1X8KUh2B0XhOq8VICtM" alt="Dr. Samir"/>
+            <div class="online-dot"></div>
+          </div>
+          <div class="doc-info">
+            <div class="doc-rating">
+              <span class="mat-icon star">star</span>
+              <span>4.9</span>
+            </div>
+            <div class="doc-name">د. سمير المنصور</div>
+            <div class="doc-specialty">استشاري أمراض القلب والأوعية الدموية</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="location-row">
+            <span class="mat-icon loc-icon">location_on</span>
+            <span>الرياض، مركز العناية الطبية</span>
+          </div>
+          <p class="doc-bio">خبير في جراحة القلب المفتوح وعلاجات القسطرة المتقدمة مع أكثر من 15 عاماً من الخبرة السريرية.</p>
+        </div>
+        <div class="card-actions">
+          <button class="book-btn" onclick="showToast('تم الحجز مع د. سمير ✓')">احجز موعداً</button>
+          <button class="more-btn" onclick="openSheet('د. سمير المنصور')" aria-label="خيارات">
+            <span class="mat-icon">more_vert</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="doctor-card" data-cat="neuro" style="animation-delay:.18s">
+        <div class="card-header">
+          <div class="doc-avatar-wrap">
+            <img class="doc-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoRsJaMvkYY9zNVPzwxE-FAUmQhUa2n26w70riGDn4XqIhseUiQUdY9cIvhhcwg_fxXPgTPGKSEVcMIyJeMVbBDWNRGzMXQFmr5iz_6N4WDQJ5ceK8DnYucGaBQ544KQ1dMUPw5ttNUcvyum6XbF0-MSLCjGy_25pJn7dprfrOLwkqd2ZEJY3BlpwGpfIWZeqMdoCU_CrCXYoZ-EVNBliA11csZZmIzYPOn1qzMmY27L4aSkJIKcNRC5_ozxcjMhHpDOfPgUONO-k" alt="Dr. Sara"/>
+            <div class="online-dot"></div>
+          </div>
+          <div class="doc-info">
+            <div class="doc-rating">
+              <span class="mat-icon star">star</span>
+              <span>4.8</span>
+            </div>
+            <div class="doc-name">د. سارة الأحمد</div>
+            <div class="doc-specialty">استشاري جراحة الأعصاب والدماغ</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="location-row">
+            <span class="mat-icon loc-icon">location_on</span>
+            <span>جدة، مستشفى النخبة</span>
+          </div>
+          <p class="doc-bio">متخصصة في جراحات العمود الفقري المجهرية وعلاج الاضطرابات العصبية المعقدة لدى البالغين.</p>
+        </div>
+        <div class="card-actions">
+          <button class="book-btn" onclick="showToast('تم الحجز مع د. سارة ✓')">احجز موعداً</button>
+          <button class="more-btn" onclick="openSheet('د. سارة الأحمد')" aria-label="خيارات">
+            <span class="mat-icon">more_vert</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="doctor-card" data-cat="eyes" style="animation-delay:.28s">
+        <div class="card-header">
+          <div class="doc-avatar-wrap">
+            <img class="doc-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBS4D9sRQ0ss3sNc98J2J4eshYRqnWV5swbBO4eeLRhbBLqUW7_JFj-PWjgKlUINmuOMJF8kGxDpZVZ-oC3tCTluYVWL34iI-Xlhc77Gq_CRHpb0KoekhwDTEBxqChdXKs5WqmaXPH8N6XONWkrF8OYYnR1Vi3C5TilnilPHuMddUbjTv_f5AQMH4OrosZBHnI94jFPcdkeSkAtRUl7TiaPtM7ytUQrpeqNhKWrGhoibg2vsfAcurk2k6sfdW-eiNVnEvLC6Pqy8c" alt="Dr. Khalid"/>
+            <div class="online-dot"></div>
+          </div>
+          <div class="doc-info">
+            <div class="doc-rating">
+              <span class="mat-icon star">star</span>
+              <span>5.0</span>
+            </div>
+            <div class="doc-name">د. خالد العتيبي</div>
+            <div class="doc-specialty">استشاري طب وجراحة العيون</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="location-row">
+            <span class="mat-icon loc-icon">location_on</span>
+            <span>الرياض، مجمع الرؤية الطبي</span>
+          </div>
+          <p class="doc-bio">رائد في عمليات تصحيح النظر بالليزر وعلاجات القرنية المتقدمة باستخدام أحدث التقنيات العالمية.</p>
+        </div>
+        <div class="card-actions">
+          <button class="book-btn" onclick="showToast('تم الحجز مع د. خالد ✓')">احجز موعداً</button>
+          <button class="more-btn" onclick="openSheet('د. خالد العتيبي')" aria-label="خيارات">
+            <span class="mat-icon">more_vert</span>
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /cards-list -->
+  </main><!-- /main-scroll -->
+
+  <!-- ── BOTTOM NAV ── -->
+  <nav class="bottom-nav">
+    <div class="nav-item" onclick="setNav(this)">
+      <span class="mat-icon">home</span>
+      <span>Home</span>
+    </div>
+    <div class="nav-item active" onclick="setNav(this)">
+      <span class="mat-icon">medical_services</span>
+      <span>Doctors</span>
+    </div>
+    <div class="nav-item" onclick="setNav(this)">
+      <span class="mat-icon">description</span>
+      <span>Records</span>
+    </div>
+    <div class="nav-item" onclick="setNav(this)">
+      <span class="mat-icon">person</span>
+      <span>Profile</span>
+    </div>
+  </nav>
+
+</div><!-- /app-shell -->
+
+<!-- ════ OVERLAY ════ -->
+<div class="sheet-overlay" id="overlay" onclick="closeSheet()"></div>
+
+<!-- ════ BOTTOM SHEET ════ -->
+<div class="bottom-sheet" id="bottomSheet">
+  <div class="drag-handle"></div>
+
+  <!-- doctor name header -->
+  <div class="sheet-doc-header" id="sheetDocHeader">
+    <div class="sheet-doc-avatar" id="sheetDocEmoji">👨‍⚕️</div>
+    <div>
+      <div class="sheet-doc-label">الخيارات المتاحة لـ</div>
+      <div class="sheet-doc-name-txt" id="sheetDocName">—</div>
+    </div>
+  </div>
+
+  <button class="sheet-option" onclick="sheetAction('profile')">
+    <span class="mat-icon">visibility</span>
+    <span>عرض الملف</span>
+  </button>
+
+  <button class="sheet-option" onclick="sheetAction('edit')">
+    <span class="mat-icon">edit</span>
+    <span>تعديل البيانات</span>
+  </button>
+
+  <button class="sheet-option danger" onclick="sheetAction('delete')">
+    <span class="mat-icon">delete</span>
+    <span>حذف</span>
+  </button>
+
+  <button class="sheet-cancel" onclick="closeSheet()">إلغاء</button>
+</div>
+
+<!-- ════ DELETE CONFIRM DIALOG ════ -->
+<div class="dialog-overlay" id="deleteDialog">
+  <div class="dialog-box">
+    <div class="dialog-icon-wrap">
+      <span class="mat-icon">delete_forever</span>
+    </div>
+    <div class="dialog-title">تأكيد الحذف</div>
+    <div class="dialog-body">
+      هل أنت متأكد من حذف ملف<br/>
+      <strong id="dialogDoctorName">—</strong>؟<br/>
+      لا يمكن التراجع عن هذا الإجراء.
+    </div>
+    <div class="dialog-actions">
+      <button class="dialog-btn d-cancel" onclick="closeDeleteDialog()">إلغاء</button>
+      <button class="dialog-btn d-confirm" onclick="confirmDelete()">حذف</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════ TOAST ════ -->
+<div class="toast" id="toast">
+  <span class="toast-dot"></span>
+  <span id="toastMsg"></span>
+</div>
+
+<!-- ════ EMPTY STATE (cards list) ════ -->
+<div class="empty-state" id="emptyState">
+  <span class="empty-icon">🔍</span>
+  <div class="empty-title">لا توجد نتائج</div>
+  <div class="empty-sub">جرّب البحث بكلمة مختلفة</div>
+</div>
+
+<script>
+/* ─────────────────────────────────────────
+   PARTICLE BACKGROUND
+───────────────────────────────────────── */
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, parts = [];
+const COLS = ['rgba(16,185,129,','rgba(64,231,140,','rgba(128,216,166,'];
+
+function resize(){
+  W = canvas.width  = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+function mkPart(){
+  const sx = Math.random()*W, sy = Math.random()*H;
+  return {
+    x:sx, y:sy,
+    tx: sx+(Math.random()-.5)*220,
+    ty: sy+(Math.random()-.5)*220,
+    sz: Math.random()*3+1.5,
+    sp: .003+Math.random()*.004,
+    t:0,
+    col: COLS[Math.floor(Math.random()*3)],
+  };
+}
+for(let i=0;i<25;i++) parts.push(mkPart());
+
+let pulse=0;
+(function loop(){
+  ctx.clearRect(0,0,W,H);
+  // central pulse ring
+  pulse=(pulse+.0014)%1;
+  const pr=pulse*Math.max(W,H)*1.5;
+  const po=(1-pulse)*.1;
+  ctx.beginPath();
+  ctx.arc(W/2,H/2,pr,0,Math.PI*2);
+  ctx.strokeStyle=`rgba(64,231,140,${po})`;
+  ctx.lineWidth=1.5;ctx.stroke();
+  // particles
+  for(let i=parts.length-1;i>=0;i--){
+    const p=parts[i];
+    p.t+=p.sp;
+    if(p.t>=1){parts[i]=mkPart();continue;}
+    const cx=p.x+(p.tx-p.x)*p.t;
+    const cy=p.y+(p.ty-p.y)*p.t;
+    const op=p.t<.5?(p.t/.5)*.55:(1-(p.t-.5)/.5)*.55;
+    ctx.beginPath();ctx.arc(cx,cy,p.sz,0,Math.PI*2);
+    ctx.fillStyle=p.col+op+')';
+    ctx.shadowColor=p.col+'.5)';
+    ctx.shadowBlur=5;ctx.fill();ctx.shadowBlur=0;
+  }
+  requestAnimationFrame(loop);
+})();
+
+/* ─────────────────────────────────────────
+   CHIP FILTER
+───────────────────────────────────────── */
+document.querySelectorAll('.chip').forEach(chip=>{
+  chip.addEventListener('click',()=>{
+    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+    chip.classList.add('active');
+    const cat = chip.dataset.cat;
+    document.querySelectorAll('.doctor-card').forEach(card=>{
+      const match = cat==='all' || card.dataset.cat===cat;
+      card.style.display = match ? '' : 'none';
+    });
+  });
+});
+
+/* search filter */
+document.getElementById('searchInput').addEventListener('input', e=>{
+  const q = e.target.value.trim().toLowerCase();
+  document.querySelectorAll('.doctor-card').forEach(card=>{
+    const name = card.querySelector('.doc-name').textContent.toLowerCase();
+    const spec = card.querySelector('.doc-specialty').textContent.toLowerCase();
+    card.style.display = (!q || name.includes(q)||spec.includes(q)) ? '' : 'none';
+  });
+});
+
+/* ─────────────────────────────────────────
+   CHIP + SEARCH FILTER
+───────────────────────────────────────── */
+function checkEmpty(){
+  const visible = [...document.querySelectorAll('.doctor-card')]
+    .filter(c=>c.style.display!=='none');
+  document.getElementById('emptyState').classList.toggle('visible', visible.length===0);
+}
+
+document.querySelectorAll('.chip').forEach(chip=>{
+  chip.addEventListener('click',()=>{
+    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+    chip.classList.add('active');
+    const cat = chip.dataset.cat;
+    document.querySelectorAll('.doctor-card').forEach(card=>{
+      const match = cat==='all' || card.dataset.cat===cat;
+      card.style.display = match ? '' : 'none';
+    });
+    checkEmpty();
+  });
+});
+
+let searchTimer;
+document.getElementById('searchInput').addEventListener('input', e=>{
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(()=>{
+    const q = e.target.value.trim().toLowerCase();
+    document.querySelectorAll('.doctor-card').forEach(card=>{
+      const name = card.querySelector('.doc-name').textContent.toLowerCase();
+      const spec = card.querySelector('.doc-specialty').textContent.toLowerCase();
+      card.style.display = (!q||name.includes(q)||spec.includes(q)) ? '' : 'none';
+    });
+    checkEmpty();
+  }, 200);
+});
+
+/* ─────────────────────────────────────────
+   BOTTOM SHEET
+───────────────────────────────────────── */
+let currentDoctor = '';
+const doctorEmojis = {
+  'د. سمير المنصور': '👨‍⚕️',
+  'د. سارة الأحمد':  '👩‍⚕️',
+  'د. خالد العتيبي': '👨‍⚕️',
+};
+
+function openSheet(name){
+  currentDoctor = name;
+  // inject doctor name & emoji into sheet header
+  document.getElementById('sheetDocName').textContent = name;
+  document.getElementById('sheetDocEmoji').textContent = doctorEmojis[name] || '👨‍⚕️';
+  // show overlay + sheet
+  document.getElementById('overlay').classList.add('visible');
+  document.getElementById('bottomSheet').classList.add('open');
+  document.querySelector('.main-scroll').style.overflow='hidden';
+}
+
+function closeSheet(){
+  document.getElementById('overlay').classList.remove('visible');
+  document.getElementById('bottomSheet').classList.remove('open');
+  document.querySelector('.main-scroll').style.overflow='';
+}
+
+function sheetAction(action){
+  if(action === 'delete'){
+    closeSheet();
+    openDeleteDialog(currentDoctor);
+    return;
+  }
+  closeSheet();
+  const msgs = {
+    profile: `📋 جاري فتح ملف ${currentDoctor}`,
+    edit:    `✏️ جاري فتح تعديل ${currentDoctor}`,
+  };
+  showToast(msgs[action]);
+}
+
+/* swipe down to close */
+let startY=0;
+const bs = document.getElementById('bottomSheet');
+bs.addEventListener('touchstart',e=>{ startY=e.touches[0].clientY; },{passive:true});
+bs.addEventListener('touchmove',e=>{
+  const dy=e.touches[0].clientY-startY;
+  if(dy>55) closeSheet();
+},{passive:true});
+
+/* ─────────────────────────────────────────
+   DELETE CONFIRM DIALOG
+───────────────────────────────────────── */
+let deleteTarget = '';
+
+function openDeleteDialog(name){
+  deleteTarget = name;
+  document.getElementById('dialogDoctorName').textContent = name;
+  document.getElementById('deleteDialog').classList.add('visible');
+}
+
+function closeDeleteDialog(){
+  document.getElementById('deleteDialog').classList.remove('visible');
+  deleteTarget = '';
+}
+
+function confirmDelete(){
+  const name = deleteTarget;
+  closeDeleteDialog();
+  // remove card from DOM with fade-out
+  document.querySelectorAll('.doctor-card').forEach(card=>{
+    const n = card.querySelector('.doc-name').textContent;
+    if(n === name){
+      card.style.transition='opacity .35s,transform .35s';
+      card.style.opacity='0';
+      card.style.transform='scale(.95)';
+      setTimeout(()=>{
+        card.remove();
+        checkEmpty();
+      },360);
+    }
+  });
+  showToast(`🗑 تم حذف ${name}`);
+}
+
+/* close dialog on overlay click */
+document.getElementById('deleteDialog').addEventListener('click', e=>{
+  if(e.target===e.currentTarget) closeDeleteDialog();
+});
+
+/* ─────────────────────────────────────────
+   BOTTOM NAV
+───────────────────────────────────────── */
+function setNav(el){
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  el.classList.add('active');
+}
+
+/* ─────────────────────────────────────────
+   TOAST
+───────────────────────────────────────── */
+let toastTimer;
+function showToast(msg){
+  const t  = document.getElementById('toast');
+  const tm = document.getElementById('toastMsg');
+  tm.textContent = msg;
+  t.classList.remove('show');
+  void t.offsetWidth; // reflow to restart animation
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 2600);
+}
+</script>
+</body>
+</html>

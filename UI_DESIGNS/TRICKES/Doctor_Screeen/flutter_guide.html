@@ -1,0 +1,3569 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>دليل Flutter – شاشة البحث عن طبيب</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #00180b;
+  --surface: #032515;
+  --surface-high: #0f301f;
+  --surface-highest: #1b3b29;
+  --primary: #80d8a6;
+  --primary-container: #006d44;
+  --secondary: #40e78c;
+  --on-surface: #c6ebd1;
+  --on-surface-var: #bec9bf;
+  --outline: #3f4942;
+  --error: #ffb4ab;
+  --amber: #ffd166;
+  --glass-bg: rgba(1,43,23,0.45);
+  --glass-border: rgba(255,255,255,0.08);
+  --code-bg: #001207;
+  --radius: 16px;
+  --radius-sm: 10px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  background: var(--bg);
+  color: var(--on-surface);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ─── Fixed particles background ─── */
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.central-pulse {
+  position: fixed;
+  top: 50%; left: 50%;
+  width: 2px; height: 2px;
+  background: rgba(64,231,140,.15);
+  border-radius: 50%;
+  animation: cpulse 7s infinite ease-out;
+  pointer-events: none;
+  z-index: 0;
+}
+@keyframes cpulse {
+  0% { transform: translate(-50%,-50%) scale(0); opacity:.5; }
+  100% { transform: translate(-50%,-50%) scale(600); opacity:0; }
+}
+
+/* ─── Layout ─── */
+.page-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+/* ─── Hero ─── */
+.hero {
+  text-align: center;
+  padding: 100px 0 60px;
+  position: relative;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(128,216,166,.12);
+  border: 1px solid rgba(128,216,166,.25);
+  border-radius: 999px;
+  padding: 6px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 28px;
+  letter-spacing: .04em;
+}
+.hero-badge .dot { width:7px; height:7px; border-radius:50%; background:var(--secondary); animation: blink 1.5s infinite; }
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.3;} }
+
+.hero h1 {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  background: linear-gradient(135deg, #9cf5c1 0%, #40e78c 60%, #80d8a6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 20px;
+}
+.hero p {
+  color: var(--on-surface-var);
+  font-size: 18px;
+  max-width: 640px;
+  margin: 0 auto 40px;
+}
+.hero-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.hero-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid var(--outline);
+  color: var(--on-surface-var);
+  background: var(--surface);
+}
+
+/* ─── Section titles ─── */
+.section {
+  margin-top: 72px;
+}
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.section-num {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--primary-container);
+  color: var(--primary);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.section-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--on-surface);
+}
+.section-desc {
+  color: var(--on-surface-var);
+  font-size: 16px;
+  max-width: 820px;
+  margin-bottom: 28px;
+  line-height: 1.8;
+}
+
+/* ─── Glass cards ─── */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 28px;
+}
+.glass + .glass { margin-top: 20px; }
+
+/* ─── Code blocks ─── */
+.code-wrap {
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin: 20px 0;
+  border: 1px solid var(--outline);
+}
+.code-header {
+  background: var(--surface-high);
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--on-surface-var);
+  border-bottom: 1px solid var(--outline);
+}
+.code-header .lang-tag {
+  background: rgba(128,216,166,.15);
+  color: var(--primary);
+  padding: 2px 10px;
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+}
+pre {
+  background: var(--code-bg);
+  padding: 22px 24px;
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13.5px;
+  line-height: 1.75;
+}
+pre::-webkit-scrollbar { height: 5px; }
+pre::-webkit-scrollbar-track { background: transparent; }
+pre::-webkit-scrollbar-thumb { background: var(--outline); border-radius: 10px; }
+
+/* Syntax highlight colors */
+.kw  { color: #7dd3fc; }   /* keyword */
+.cl  { color: #86efac; }   /* class / widget */
+.pr  { color: #fda4af; }   /* property */
+.str { color: #fde68a; }   /* string */
+.cm  { color: #6b7280; font-style: italic; }  /* comment */
+.nm  { color: #a78bfa; }   /* number / const */
+.fn  { color: #67e8f9; }   /* function */
+
+/* ─── Property tables ─── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin: 18px 0;
+}
+th {
+  background: var(--surface-high);
+  color: var(--primary);
+  text-align: right;
+  padding: 10px 16px;
+  font-weight: 700;
+  border-bottom: 2px solid var(--primary-container);
+}
+td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--outline);
+  vertical-align: top;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,.025); }
+td code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  color: var(--secondary);
+  background: rgba(64,231,140,.1);
+  padding: 1px 7px;
+  border-radius: 5px;
+}
+
+/* ─── Info boxes ─── */
+.info-box {
+  display: flex;
+  gap: 14px;
+  padding: 16px 20px;
+  border-radius: var(--radius-sm);
+  margin: 16px 0;
+}
+.info-box.tip   { background: rgba(128,216,166,.08); border: 1px solid rgba(128,216,166,.2); }
+.info-box.warn  { background: rgba(255,209,102,.06); border: 1px solid rgba(255,209,102,.2); }
+.info-box.error { background: rgba(255,180,171,.06); border: 1px solid rgba(255,180,171,.2); }
+.info-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+.info-box p { font-size: 14px; color: var(--on-surface-var); }
+.info-box strong { color: var(--on-surface); }
+
+/* ─── Comparison grid ─── */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+@media (max-width: 640px) { .compare-grid { grid-template-columns: 1fr; } }
+.compare-card {
+  background: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+}
+.compare-card h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ─── Steps ─── */
+.steps { counter-reset: step; }
+.step-item {
+  display: flex;
+  gap: 18px;
+  position: relative;
+  padding-bottom: 32px;
+}
+.step-item:last-child { padding-bottom: 0; }
+.step-item::before {
+  content: '';
+  position: absolute;
+  right: 18px;
+  top: 38px;
+  width: 2px;
+  height: calc(100% - 38px);
+  background: linear-gradient(to bottom, var(--primary-container), transparent);
+}
+.step-item:last-child::before { display: none; }
+.step-num {
+  width: 36px; height: 36px; flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--primary-container);
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 13px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+.step-body h4 { font-size: 16px; font-weight: 700; margin-bottom: 6px; color: var(--on-surface); }
+.step-body p  { font-size: 14px; color: var(--on-surface-var); }
+
+/* ─── Effect showcase ─── */
+.effect-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+.effect-card {
+  background: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: border-color .3s, transform .3s;
+  cursor: default;
+}
+.effect-card:hover {
+  border-color: rgba(128,216,166,.4);
+  transform: translateY(-4px);
+}
+.effect-icon { font-size: 32px; margin-bottom: 10px; }
+.effect-card h4 { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
+.effect-card p  { font-size: 12px; color: var(--on-surface-var); line-height: 1.6; }
+
+/* ─── Live mock phone ─── */
+.phone-demo-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+}
+.phone-frame {
+  width: 320px;
+  background: var(--bg);
+  border: 2px solid var(--surface-highest);
+  border-radius: 36px;
+  overflow: hidden;
+  box-shadow: 0 40px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.04);
+  position: relative;
+}
+.phone-top-bar {
+  background: rgba(0,24,11,.75);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+}
+.phone-top-bar h3 { font-size: 14px; font-weight: 700; color: var(--primary); }
+.avatar-circle {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg,#006d44,#40e78c);
+  border: 2px solid var(--primary-container);
+}
+.phone-body { padding: 16px; }
+.mini-search {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.mini-input {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: var(--on-surface-var);
+}
+.mini-btn {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: var(--primary-container);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.chips-row {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  margin-bottom: 16px;
+  padding-bottom: 4px;
+}
+.chips-row::-webkit-scrollbar { display: none; }
+.chip {
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  border: 1px solid rgba(255,255,255,.06);
+  color: var(--on-surface-var);
+  background: var(--surface-high);
+}
+.chip.active {
+  background: var(--secondary);
+  color: #00391c;
+  border-color: transparent;
+}
+.mini-doc-card {
+  background: rgba(1,43,23,0.4);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 10px;
+  transition: transform .25s, box-shadow .25s;
+  cursor: pointer;
+}
+.mini-doc-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 30px rgba(0,0,0,.35);
+}
+.mini-doc-card:active { transform: scale(.98); }
+.mini-card-top {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.doc-avatar {
+  width: 52px; height: 52px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+.doc-avatar-inner {
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, #003921, #006d44);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+}
+.doc-online-dot {
+  position: absolute;
+  top: -2px; left: -2px;
+  width: 10px; height: 10px;
+  background: var(--secondary);
+  border: 2px solid var(--bg);
+  border-radius: 50%;
+  animation: blink 1.5s infinite;
+}
+.doc-info { flex: 1; }
+.doc-rating {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--secondary);
+  margin-bottom: 3px;
+}
+.doc-name { font-size: 14px; font-weight: 700; color: var(--on-surface); margin-bottom: 3px; }
+.doc-spec { font-size: 11px; color: var(--primary); }
+.mini-location { font-size: 11px; color: var(--on-surface-var); margin-bottom: 8px; display: flex; align-items: center; gap: 4px; }
+.mini-book-btn {
+  width: 100%;
+  background: var(--primary-container);
+  color: var(--primary);
+  border: none;
+  border-radius: 10px;
+  padding: 9px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: box-shadow .25s, opacity .25s;
+}
+.mini-book-btn:hover {
+  box-shadow: 0 0 18px rgba(128,216,166,.35);
+  opacity: .9;
+}
+.phone-bottom-nav {
+  background: rgba(0,24,11,.7);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255,255,255,.06);
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0 14px;
+}
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  color: var(--on-surface-var);
+  cursor: pointer;
+  padding: 4px 12px;
+  border-radius: 10px;
+  transition: color .2s, background .2s;
+}
+.nav-item.active {
+  background: rgba(0,202,115,.15);
+  color: var(--secondary);
+}
+.nav-item svg { width: 20px; height: 20px; }
+
+/* ─── Tag ─── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.tag-green { background: rgba(128,216,166,.1); color: var(--primary); border: 1px solid rgba(128,216,166,.2); }
+.tag-amber { background: rgba(255,209,102,.1); color: var(--amber); border: 1px solid rgba(255,209,102,.2); }
+.tag-red   { background: rgba(255,180,171,.1); color: var(--error); border: 1px solid rgba(255,180,171,.2); }
+
+/* ─── Divider ─── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--outline), transparent);
+  margin: 56px 0;
+}
+
+/* ─── TOC sidebar ─── */
+.toc-wrap {
+  position: sticky;
+  top: 80px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+}
+.toc-wrap::-webkit-scrollbar { width: 4px; }
+.toc-wrap::-webkit-scrollbar-thumb { background: var(--outline); border-radius: 4px; }
+.toc-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: var(--on-surface-var);
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+.toc-link {
+  display: block;
+  font-size: 13px;
+  color: var(--on-surface-var);
+  text-decoration: none;
+  padding: 5px 0 5px 12px;
+  border-right: 2px solid transparent;
+  transition: color .2s, border-color .2s;
+  margin-bottom: 2px;
+}
+.toc-link:hover { color: var(--primary); border-right-color: var(--primary-container); }
+.toc-link.active { color: var(--primary); border-right-color: var(--primary); font-weight: 600; }
+
+/* ─── Main layout (2-col on desktop) ─── */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 48px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .toc-wrap { display: none; }
+}
+
+/* ─── Top sticky header ─── */
+.top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(0,24,11,.8);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--outline);
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.top-bar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--primary);
+}
+.flutter-logo {
+  width: 26px; height: 26px;
+  background: linear-gradient(135deg,#54C5F8,#01579B);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  font-weight: 900;
+  color: white;
+  font-family: 'JetBrains Mono', monospace;
+}
+.top-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pill-badge {
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  background: rgba(128,216,166,.12);
+  border: 1px solid rgba(128,216,166,.2);
+  color: var(--primary);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 600px) {
+  .hero { padding: 80px 0 40px; }
+  pre { font-size: 12px; padding: 16px; }
+  .phone-frame { width: 100%; max-width: 320px; }
+}
+
+/* ─── Collapsible ─── */
+details {
+  background: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+details summary {
+  padding: 14px 18px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+  color: var(--on-surface);
+  transition: background .2s;
+}
+details summary:hover { background: var(--surface-high); }
+details summary::after { content: '▸'; color: var(--primary); transition: transform .25s; }
+details[open] summary::after { transform: rotate(90deg); }
+details .details-body { padding: 0 18px 18px; }
+</style>
+</head>
+<body>
+
+<!-- Particle canvas -->
+<canvas id="bg-canvas"></canvas>
+<div class="central-pulse"></div>
+
+<!-- Top bar -->
+<div class="top-bar">
+  <div class="top-bar-brand">
+    <div class="flutter-logo">F</div>
+    دليل Flutter — شاشة البحث عن طبيب
+  </div>
+  <div class="top-bar-right">
+    <span class="pill-badge">Flutter 3.x</span>
+    <span class="pill-badge">Dart 3</span>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      دليل شامل خطوة بخطوة
+    </div>
+    <h1>بناء شاشة "البحث عن طبيب"<br/>بـ Flutter من الصفر</h1>
+    <p>شرح تفصيلي لكل Section — من الخلفية المتحركة وGlassmorphism حتى hover effects وanimations الدقيقة</p>
+    <div class="hero-chips">
+      <span class="hero-chip">🎨 Vitality Design System</span>
+      <span class="hero-chip">⚡ Custom Painter</span>
+      <span class="hero-chip">🌀 Particle System</span>
+      <span class="hero-chip">💎 Glassmorphism</span>
+      <span class="hero-chip">📱 RTL / Arabic</span>
+    </div>
+  </section>
+
+  <!-- 2-col layout -->
+  <div class="layout">
+    <!-- Main content -->
+    <div>
+
+      <!-- SECTION 0: نظرة عامة -->
+      <div class="section" id="overview">
+        <div class="section-label">
+          <div class="section-num">0</div>
+          <h2 class="section-title">نظرة عامة على بنية الشاشة</h2>
+        </div>
+        <p class="section-desc">
+          الشاشة مبنية على هيكل طبقات (Layered Architecture). تتكون من خلفية متحركة ديناميكية، تليها Scaffold تحتوي على AppBar زجاجي ثابت وBody قابلة للتمرير وBottomNavigationBar زجاجي أيضاً. المحتوى الرئيسي يحتوي على حقل بحث، شرائح تصفية أفقية، وقائمة بطاقات الأطباء.
+        </p>
+
+        <!-- Live phone demo -->
+        <div class="phone-demo-wrap">
+          <div class="phone-frame">
+            <!-- top bar -->
+            <div class="phone-top-bar">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="color:var(--on-surface-var);font-size:18px;">☰</span>
+                <h3>البحث عن طبيب</h3>
+              </div>
+              <div class="avatar-circle"></div>
+            </div>
+            <!-- body -->
+            <div class="phone-body">
+              <!-- search -->
+              <div class="mini-search">
+                <div class="mini-input">ابحث عن الطبيب أو التخصص...</div>
+                <div class="mini-btn">⚙</div>
+              </div>
+              <!-- chips -->
+              <div class="chips-row">
+                <span class="chip active">الكل</span>
+                <span class="chip">القلب</span>
+                <span class="chip">الأعصاب</span>
+                <span class="chip">العيون</span>
+              </div>
+              <!-- cards -->
+              <div class="mini-doc-card">
+                <div class="mini-card-top">
+                  <div class="doc-avatar">
+                    <div class="doc-avatar-inner">👨‍⚕️</div>
+                    <div class="doc-online-dot"></div>
+                  </div>
+                  <div class="doc-info">
+                    <div class="doc-rating">⭐ 4.9</div>
+                    <div class="doc-name">د. سمير المنصور</div>
+                    <div class="doc-spec">استشاري أمراض القلب</div>
+                  </div>
+                </div>
+                <div class="mini-location">📍 الرياض، مركز العناية الطبية</div>
+                <button class="mini-book-btn">احجز موعداً</button>
+              </div>
+              <div class="mini-doc-card">
+                <div class="mini-card-top">
+                  <div class="doc-avatar">
+                    <div class="doc-avatar-inner">👩‍⚕️</div>
+                    <div class="doc-online-dot"></div>
+                  </div>
+                  <div class="doc-info">
+                    <div class="doc-rating">⭐ 4.8</div>
+                    <div class="doc-name">د. سارة الأحمد</div>
+                    <div class="doc-spec">استشاري جراحة الأعصاب</div>
+                  </div>
+                </div>
+                <div class="mini-location">📍 جدة، مستشفى النخبة</div>
+                <button class="mini-book-btn">احجز موعداً</button>
+              </div>
+            </div>
+            <!-- bottom nav -->
+            <div class="phone-bottom-nav">
+              <div class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+                Home
+              </div>
+              <div class="nav-item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16"/><path d="M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg>
+                Doctors
+              </div>
+              <div class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg>
+                Records
+              </div>
+              <div class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
+                Profile
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="section-desc">البنية العامة للكود في Flutter:</p>
+        <div class="code-wrap">
+          <div class="code-header"><span>الهيكل العام</span><span class="lang-tag">dart</span></div>
+<pre><span class="kw">class</span> <span class="cl">DoctorSearchScreen</span> <span class="kw">extends</span> <span class="cl">StatefulWidget</span> {
+  <span class="kw">const</span> <span class="cl">DoctorSearchScreen</span>({<span class="kw">super</span>.key});
+
+  <span class="kw">@override</span>
+  <span class="cl">State</span>&lt;<span class="cl">DoctorSearchScreen</span>&gt; createState() =&gt; _<span class="cl">DoctorSearchScreenState</span>();
+}
+
+<span class="kw">class</span> _<span class="cl">DoctorSearchScreenState</span> <span class="kw">extends</span> <span class="cl">State</span>&lt;<span class="cl">DoctorSearchScreen</span>&gt;
+    <span class="kw">with</span> <span class="cl">TickerProviderStateMixin</span> {
+  
+  <span class="cm">// Controllers للـ animations</span>
+  <span class="kw">late</span> <span class="cl">AnimationController</span> _particleController;
+  <span class="kw">late</span> <span class="cl">AnimationController</span> _pulseController;
+  <span class="kw">late</span> <span class="cl">AnimationController</span> _entranceController;
+
+  <span class="kw">@override</span>
+  <span class="cl">Widget</span> build(<span class="cl">BuildContext</span> context) {
+    <span class="kw">return</span> <span class="cl">Directionality</span>(       <span class="cm">// دعم RTL للعربية</span>
+      textDirection: <span class="cl">TextDirection</span>.rtl,
+      child: <span class="cl">Scaffold</span>(
+        backgroundColor: <span class="cl">AppColors</span>.background,
+        extendBodyBehindAppBar: <span class="kw">true</span>,  <span class="cm">// AppBar شفاف فوق المحتوى</span>
+        extendBody: <span class="kw">true</span>,              <span class="cm">// BottomNav شفاف أيضاً</span>
+        appBar: _buildGlassAppBar(),
+        bottomNavigationBar: _buildGlassBottomNav(),
+        body: <span class="cl">Stack</span>(
+          children: [
+            <span class="cl">ParticleBackground</span>(),   <span class="cm">// طبقة الخلفية المتحركة</span>
+            <span class="cl">PulseEffect</span>(),           <span class="cm">// نبضة مركزية</span>
+            _buildMainContent(),      <span class="cm">// المحتوى الرئيسي</span>
+          ],
+        ),
+      ),
+    );
+  }
+}</pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SECTION 1: نظام الألوان -->
+      <div class="section" id="colors">
+        <div class="section-label">
+          <div class="section-num">1</div>
+          <h2 class="section-title">نظام الألوان — AppColors</h2>
+        </div>
+        <p class="section-desc">
+          أول خطوة هي تعريف كل الألوان كـ constants في ملف منفصل بناءً على Design System الـ Vitality Dark. نستخدم <code>Color(0xFF…)</code> وليس <code>Colors.green</code> لأن الألوان محددة بدقة.
+        </p>
+        <div class="code-wrap">
+          <div class="code-header"><span>lib/core/theme/app_colors.dart</span><span class="lang-tag">dart</span></div>
+<pre><span class="kw">import</span> <span class="str">'package:flutter/material.dart'</span>;
+
+<span class="kw">class</span> <span class="cl">AppColors</span> {
+  AppColors._();  <span class="cm">// private constructor — no instantiation</span>
+
+  <span class="cm">// ── Backgrounds ──────────────────────────────</span>
+  <span class="kw">static const</span> background            = <span class="cl">Color</span>(<span class="nm">0xFF00180B</span>);
+  <span class="kw">static const</span> surface               = <span class="cl">Color</span>(<span class="nm">0xFF00180B</span>);
+  <span class="kw">static const</span> surfaceContainerLow    = <span class="cl">Color</span>(<span class="nm">0xFF002111</span>);
+  <span class="kw">static const</span> surfaceContainer       = <span class="cl">Color</span>(<span class="nm">0xFF032515</span>);
+  <span class="kw">static const</span> surfaceContainerHigh   = <span class="cl">Color</span>(<span class="nm">0xFF0F301F</span>);
+  <span class="kw">static const</span> surfaceContainerHighest= <span class="cl">Color</span>(<span class="nm">0xFF1B3B29</span>);
+  <span class="kw">static const</span> surfaceBright          = <span class="cl">Color</span>(<span class="nm">0xFF1F402D</span>);
+
+  <span class="cm">// ── Primary ───────────────────────────────────</span>
+  <span class="kw">static const</span> primary                = <span class="cl">Color</span>(<span class="nm">0xFF80D8A6</span>);
+  <span class="kw">static const</span> onPrimary              = <span class="cl">Color</span>(<span class="nm">0xFF003921</span>);
+  <span class="kw">static const</span> primaryContainer       = <span class="cl">Color</span>(<span class="nm">0xFF006D44</span>);
+  <span class="kw">static const</span> onPrimaryContainer     = <span class="cl">Color</span>(<span class="nm">0xFF93ECB8</span>);
+
+  <span class="cm">// ── Secondary (vibrant highlight) ─────────────</span>
+  <span class="kw">static const</span> secondary              = <span class="cl">Color</span>(<span class="nm">0xFF40E78C</span>);
+  <span class="kw">static const</span> onSecondary            = <span class="cl">Color</span>(<span class="nm">0xFF00391C</span>);
+  <span class="kw">static const</span> secondaryContainer     = <span class="cl">Color</span>(<span class="nm">0xFF00CA73</span>);
+  <span class="kw">static const</span> onSecondaryContainer   = <span class="cl">Color</span>(<span class="nm">0xFF004E29</span>);
+
+  <span class="cm">// ── Text ──────────────────────────────────────</span>
+  <span class="kw">static const</span> onSurface             = <span class="cl">Color</span>(<span class="nm">0xFFC6EBD1</span>);
+  <span class="kw">static const</span> onSurfaceVariant      = <span class="cl">Color</span>(<span class="nm">0xFFBEC9BF</span>);
+
+  <span class="cm">// ── Outline ───────────────────────────────────</span>
+  <span class="kw">static const</span> outline               = <span class="cl">Color</span>(<span class="nm">0xFF88938A</span>);
+  <span class="kw">static const</span> outlineVariant        = <span class="cl">Color</span>(<span class="nm">0xFF3F4942</span>);
+
+  <span class="cm">// ── Glass helper ──────────────────────────────</span>
+  <span class="kw">static</span> <span class="cl">Color</span> glassBg  = <span class="kw">const</span> <span class="cl">Color</span>(<span class="nm">0xFF012B17</span>).withOpacity(<span class="nm">0.4</span>);
+  <span class="kw">static</span> <span class="cl">Color</span> glassBorder = <span class="cl">Colors</span>.white.withOpacity(<span class="nm">0.08</span>);
+}</pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SECTION 2: Typography -->
+      <div class="section" id="typography">
+        <div class="section-label">
+          <div class="section-num">2</div>
+          <h2 class="section-title">الخطوط والطباعة — AppTextStyles</h2>
+        </div>
+        <p class="section-desc">
+          الخط المستخدم هو <strong>Manrope</strong>. في Flutter نضيفه عبر حزمة <code>google_fonts</code> أو عبر <code>assets/fonts/</code> محلياً. الـ TextStyles تتوافق مع مقاييس Design System تماماً.
+        </p>
+        <div class="info-box tip">
+          <span class="info-icon">💡</span>
+          <p><strong>نصيحة:</strong> أضف <code>google_fonts: ^6.2.1</code> في <code>pubspec.yaml</code> لاستخدام Manrope مباشرة بدون تحميل يدوي.</p>
+        </div>
+        <div class="code-wrap">
+          <div class="code-header"><span>lib/core/theme/app_text_styles.dart</span><span class="lang-tag">dart</span></div>
+<pre><span class="kw">import</span> <span class="str">'package:flutter/material.dart'</span>;
+<span class="kw">import</span> <span class="str">'package:google_fonts/google_fonts.dart'</span>;
+
+<span class="kw">class</span> <span class="cl">AppTextStyles</span> {
+  AppTextStyles._();
+
+  <span class="kw">static</span> <span class="cl">TextStyle</span> <span class="fn">displayLg</span>() =&gt; <span class="cl">GoogleFonts</span>.manrope(
+    fontSize: <span class="nm">48</span>, fontWeight: <span class="cl">FontWeight</span>.w800,
+    height: <span class="nm">56</span>/<span class="nm">48</span>, letterSpacing: -<span class="nm">0.02</span> * <span class="nm">48</span>,
+    color: <span class="cl">AppColors</span>.onSurface,
+  );
+
+  <span class="kw">static</span> <span class="cl">TextStyle</span> <span class="fn">headlineLg</span>() =&gt; <span class="cl">GoogleFonts</span>.manrope(
+    fontSize: <span class="nm">32</span>, fontWeight: <span class="cl">FontWeight</span>.w700,
+    height: <span class="nm">40</span>/<span class="nm">32</span>, letterSpacing: -<span class="nm">0.01</span> * <span class="nm">32</span>,
+    color: <span class="cl">AppColors</span>.onSurface,
+  );
+
+  <span class="kw">static</span> <span class="cl">TextStyle</span> <span class="fn">headlineLgMobile</span>() =&gt; <span class="cl">GoogleFonts</span>.manrope(
+    fontSize: <span class="nm">28</span>, fontWeight: <span class="cl">FontWeight</span>.w700,
+    height: <span class="nm">36</span>/<span class="nm">28</span>, color: <span class="cl">AppColors</span>.onSurface,
+  );
+
+  <span class="kw">static</span> <span class="cl">TextStyle</span> <span class="fn">headlineMd</span>() =&gt; <span class="cl">GoogleFonts</span>.manrope(
+    fontSize: <span class="nm">24</span>, fontWeight: <span class="cl">FontWeight</span>.w600,
+    height: <span class="nm">32</span>/<span class="nm">24</span>, color: <span class="cl">AppColors</span>.onSurface,
+  );
+
+  <span class="kw">static</span> <span class="cl">TextStyle</span> <span class="fn">bodyLg</span>() =&gt; <span class="cl">GoogleFonts</span>.manrope(
+    fontSize: <span class="nm">18</span>, fontWeight: <span class="cl">FontWeight</span>.w400,
+    height: <span class="nm">28</span>/<span class="nm">18</span>, color: <span class="cl">AppColors</span>.onSurface,
+  );
+
+  <span class="kw">static</span> <span class="cl">TextStyle</span> <span class="fn">bodyMd</span>() =&gt; <span class="cl">GoogleFonts</span>.manrope(
+    fontSize: <span class="nm">16</span>, fontWeight: <span class="cl">FontWeight</span>.w400,
+    height: <span class="nm">24</span>/<span class="nm">16</span>, color: <span class="cl">AppColors</span>.onSurfaceVariant,
+  );
+
+  <span class="kw">static</span> <span class="cl">TextStyle</span> <span class="fn">labelMd</span>() =&gt; <span class="cl">GoogleFonts</span>.manrope(
+    fontSize: <span class="nm">14</span>, fontWeight: <span class="cl">FontWeight</span>.w600,
+    height: <span class="nm">20</span>/<span class="nm">14</span>, letterSpacing: <span class="nm">0.01</span> * <span class="nm">14</span>,
+    color: <span class="cl">AppColors</span>.onSurface,
+  );
+
+  <span class="kw">static</span> <span class="cl">TextStyle</span> <span class="fn">labelSm</span>() =&gt; <span class="cl">GoogleFonts</span>.manrope(
+    fontSize: <span class="nm">12</span>, fontWeight: <span class="cl">FontWeight</span>.w500,
+    height: <span class="nm">16</span>/<span class="nm">12</span>, color: <span class="cl">AppColors</span>.onSurfaceVariant,
+  );
+}</pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SECTION 3: خلفية الجسيمات -->
+      <div class="section" id="particles">
+        <div class="section-label">
+          <div class="section-num">3</div>
+          <h2 class="section-title">خلفية الجسيمات المتحركة — Particle System</h2>
+        </div>
+        <p class="section-desc">
+          الخلفية تتكون من جزأين: جسيمات صغيرة عائمة (دوائر خضراء متوهجة) ونبضة مركزية تتوسع من المركز للخارج. في Flutter نستخدم <code>CustomPainter</code> + <code>AnimationController</code> لتحقيق هذا التأثير بكفاءة عالية.
+        </p>
+        <div class="effect-row">
+          <div class="effect-card">
+            <div class="effect-icon">🌀</div>
+            <h4>Particle Dots</h4>
+            <p>25 جسيم متحرك في مسارات عشوائية مع fade-in وfade-out</p>
+          </div>
+          <div class="effect-card">
+            <div class="effect-icon">💫</div>
+            <h4>Central Pulse</h4>
+            <p>دائرة تتوسع من النقطة المركزية بـ scale animation</p>
+          </div>
+          <div class="effect-card">
+            <div class="effect-icon">✨</div>
+            <h4>Glow Effect</h4>
+            <p>كل جسيم له shadow خضراء توهج باستخدام MaskFilter</p>
+          </div>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-header"><span>lib/widgets/particle_background.dart</span><span class="lang-tag">dart</span></div>
+<pre><span class="kw">import</span> <span class="str">'dart:math'</span>;
+<span class="kw">import</span> <span class="str">'package:flutter/material.dart'</span>;
+
+<span class="cm">// ── نموذج الجسيم ─────────────────────────────</span>
+<span class="kw">class</span> <span class="cl">Particle</span> {
+  <span class="cl">Offset</span> position;
+  <span class="cl">Offset</span> target;
+  <span class="kw">double</span> size;
+  <span class="kw">double</span> progress;  <span class="cm">// 0..1 للـ lifecycle</span>
+  <span class="kw">double</span> speed;
+
+  <span class="cl">Particle</span>({
+    <span class="kw">required this</span>.position, <span class="kw">required this</span>.target,
+    <span class="kw">required this</span>.size,     <span class="kw">required this</span>.speed,
+  }) : progress = <span class="nm">0</span>;
+}
+
+<span class="cm">// ── CustomPainter للرسم ───────────────────────</span>
+<span class="kw">class</span> <span class="cl">ParticlePainter</span> <span class="kw">extends</span> <span class="cl">CustomPainter</span> {
+  <span class="kw">final</span> <span class="cl">List</span>&lt;<span class="cl">Particle</span>&gt; particles;
+  <span class="kw">final</span> <span class="kw">double</span> pulseProgress;  <span class="cm">// 0..1 للنبضة المركزية</span>
+
+  <span class="cl">ParticlePainter</span>(<span class="kw">this</span>.particles, <span class="kw">this</span>.pulseProgress);
+
+  <span class="kw">@override</span>
+  <span class="kw">void</span> paint(<span class="cl">Canvas</span> canvas, <span class="cl">Size</span> size) {
+    <span class="cm">// 1. رسم النبضة المركزية</span>
+    <span class="kw">final</span> center = <span class="cl">Offset</span>(size.width / <span class="nm">2</span>, size.height / <span class="nm">2</span>);
+    <span class="kw">final</span> pulseRadius = pulseProgress * size.longestSide * <span class="nm">1.5</span>;
+    <span class="kw">final</span> pulseOpacity = (<span class="nm">1.0</span> - pulseProgress) * <span class="nm">0.15</span>;
+    <span class="kw">final</span> pulsePaint = <span class="cl">Paint</span>()
+      ..style = <span class="cl">PaintingStyle</span>.stroke
+      ..strokeWidth = <span class="nm">1.5</span>
+      ..color = <span class="kw">const</span> <span class="cl">Color</span>(<span class="nm">0xFF40E78C</span>).withOpacity(pulseOpacity);
+    canvas.drawCircle(center, pulseRadius, pulsePaint);
+
+    <span class="cm">// 2. رسم كل جسيم</span>
+    <span class="kw">for</span> (<span class="kw">final</span> p <span class="kw">in</span> particles) {
+      <span class="cm">// حساب الموقع الحالي (linear interpolation)</span>
+      <span class="kw">final</span> t = p.progress;
+      <span class="kw">final</span> current = <span class="cl">Offset</span>(
+        p.position.dx + (p.target.dx - p.position.dx) * t,
+        p.position.dy + (p.target.dy - p.position.dy) * t,
+      );
+
+      <span class="cm">// حساب الشفافية (fade in ثم fade out)</span>
+      <span class="kw">final</span> opacity = t &lt; <span class="nm">0.5</span>
+          ? (t / <span class="nm">0.5</span>) * <span class="nm">0.6</span>
+          : (<span class="nm">1.0</span> - (t - <span class="nm">0.5</span>) / <span class="nm">0.5</span>) * <span class="nm">0.6</span>;
+
+      <span class="kw">final</span> paint = <span class="cl">Paint</span>()
+        ..color = <span class="kw">const</span> <span class="cl">Color</span>(<span class="nm">0xFF10B981</span>).withOpacity(opacity)
+        ..maskFilter = <span class="kw">const</span> <span class="cl">MaskFilter</span>.blur(<span class="cl">BlurStyle</span>.normal, <span class="nm">2</span>); <span class="cm">// glow</span>
+
+      canvas.drawCircle(current, p.size / <span class="nm">2</span>, paint);
+    }
+  }
+
+  <span class="kw">@override</span>
+  <span class="kw">bool</span> shouldRepaint(<span class="kw">covariant</span> <span class="cl">CustomPainter</span> old) =&gt; <span class="kw">true</span>;
+}
+
+<span class="cm">// ── Widget رئيسي ──────────────────────────────</span>
+<span class="kw">class</span> <span class="cl">ParticleBackground</span> <span class="kw">extends</span> <span class="cl">StatefulWidget</span> {
+  <span class="kw">const</span> <span class="cl">ParticleBackground</span>({<span class="kw">super</span>.key});
+
+  <span class="kw">@override</span>
+  <span class="cl">State</span>&lt;<span class="cl">ParticleBackground</span>&gt; createState() =&gt; _<span class="cl">ParticleBackgroundState</span>();
+}
+
+<span class="kw">class</span> _<span class="cl">ParticleBackgroundState</span> <span class="kw">extends</span> <span class="cl">State</span>&lt;<span class="cl">ParticleBackground</span>&gt;
+    <span class="kw">with</span> <span class="cl">TickerProviderStateMixin</span> {
+
+  <span class="kw">final</span> _rand = <span class="cl">Random</span>();
+  <span class="kw">final</span> _particles = &lt;<span class="cl">Particle</span>&gt;[];
+  <span class="kw">late</span> <span class="cl">AnimationController</span> _controller;
+  <span class="kw">late</span> <span class="cl">AnimationController</span> _pulseCtrl;
+  <span class="kw">late</span> <span class="cl">Animation</span>&lt;<span class="kw">double</span>&gt; _pulseAnim;
+
+  <span class="kw">@override</span>
+  <span class="kw">void</span> initState() {
+    <span class="kw">super</span>.initState();
+
+    <span class="cm">// Controller عام يُحدّث الرسم كل frame</span>
+    _controller = <span class="cl">AnimationController</span>(
+      vsync: <span class="kw">this</span>,
+      duration: <span class="kw">const</span> <span class="cl">Duration</span>(seconds: <span class="nm">1</span>),
+    )..addListener(_updateParticles)..repeat();
+
+    <span class="cm">// Controller النبضة المركزية (6 ثواني)</span>
+    _pulseCtrl = <span class="cl">AnimationController</span>(
+      vsync: <span class="kw">this</span>,
+      duration: <span class="kw">const</span> <span class="cl">Duration</span>(seconds: <span class="nm">6</span>),
+    );
+    _pulseAnim = <span class="cl">CurvedAnimation</span>(parent: _pulseCtrl, curve: <span class="cl">Curves</span>.easeOut);
+    _pulseCtrl.repeat();
+  }
+
+  <span class="kw">void</span> _updateParticles() {
+    <span class="kw">if</span> (!mounted) <span class="kw">return</span>;
+    setState(() {
+      <span class="cm">// أضف جسيمات جديدة حتى الحد الأقصى</span>
+      <span class="kw">while</span> (_particles.length &lt; <span class="nm">25</span>) {
+        _spawnParticle();
+      }
+      <span class="cm">// حدّث progress كل جسيم</span>
+      <span class="kw">for</span> (<span class="kw">var</span> i = _particles.length - <span class="nm">1</span>; i &gt;= <span class="nm">0</span>; i--) {
+        _particles[i].progress += _particles[i].speed;
+        <span class="kw">if</span> (_particles[i].progress &gt;= <span class="nm">1.0</span>) {
+          _particles.removeAt(i);  <span class="cm">// ميت — احذفه</span>
+        }
+      }
+    });
+  }
+
+  <span class="kw">void</span> _spawnParticle() {
+    <span class="kw">final</span> sw = <span class="cl">MediaQuery</span>.of(context).size.width;
+    <span class="kw">final</span> sh = <span class="cl">MediaQuery</span>.of(context).size.height;
+    <span class="kw">final</span> sx = _rand.nextDouble() * sw;
+    <span class="kw">final</span> sy = _rand.nextDouble() * sh;
+    _particles.add(<span class="cl">Particle</span>(
+      position: <span class="cl">Offset</span>(sx, sy),
+      target: <span class="cl">Offset</span>(
+        sx + (_rand.nextDouble() - <span class="nm">0.5</span>) * <span class="nm">200</span>,
+        sy + (_rand.nextDouble() - <span class="nm">0.5</span>) * <span class="nm">200</span>,
+      ),
+      size: _rand.nextDouble() * <span class="nm">4</span> + <span class="nm">2</span>,
+      speed: <span class="nm">0.003</span> + _rand.nextDouble() * <span class="nm">0.004</span>,
+    ));
+  }
+
+  <span class="kw">@override</span>
+  <span class="kw">void</span> dispose() {
+    _controller.dispose();
+    _pulseCtrl.dispose();
+    <span class="kw">super</span>.dispose();
+  }
+
+  <span class="kw">@override</span>
+  <span class="cl">Widget</span> build(<span class="cl">BuildContext</span> context) {
+    <span class="kw">return</span> <span class="cl">Positioned</span>.fill(
+      child: <span class="cl">AnimatedBuilder</span>(
+        animation: _pulseAnim,
+        builder: (_, __) =&gt; <span class="cl">CustomPaint</span>(
+          painter: <span class="cl">ParticlePainter</span>(_particles, _pulseAnim.value),
+        ),
+      ),
+    );
+  }
+}</pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SECTION 4: AppBar الزجاجي -->
+      <div class="section" id="appbar">
+        <div class="section-label">
+          <div class="section-num">4</div>
+          <h2 class="section-title">AppBar الزجاجي — Glassmorphism Header</h2>
+        </div>
+        <p class="section-desc">
+          الـ AppBar يستخدم <code>ClipRect</code> + <code>BackdropFilter</code> لتحقيق تأثير الزجاج (blur الخلفية). لجعله شفافاً ويرى المحتوى خلفه، نحتاج <code>extendBodyBehindAppBar: true</code> في الـ Scaffold.
+        </p>
+
+        <div class="info-box warn">
+          <span class="info-icon">⚠️</span>
+          <p><strong>مهم:</strong> <code>BackdropFilter</code> يستهلك موارد GPU. تأكد من تغليفه بـ <code>ClipRect</code> وإلا سيؤثر على كل الشاشة.</p>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-header"><span>AppBar الزجاجي</span><span class="lang-tag">dart</span></div>
+<pre><span class="cl">PreferredSizeWidget</span> _buildGlassAppBar() {
+  <span class="kw">return</span> <span class="cl">PreferredSize</span>(
+    preferredSize: <span class="kw">const</span> <span class="cl">Size</span>.fromHeight(<span class="nm">64</span>),
+    child: <span class="cl">ClipRect</span>(           <span class="cm">// ← ضروري لحدّ تأثير الـ blur</span>
+      child: <span class="cl">BackdropFilter</span>(
+        filter: <span class="cl">ImageFilter</span>.blur(sigmaX: <span class="nm">20</span>, sigmaY: <span class="nm">20</span>),
+        child: <span class="cl">Container</span>(
+          height: <span class="nm">64</span>,
+          decoration: <span class="cl">BoxDecoration</span>(
+            color: <span class="cl">AppColors</span>.surface.withOpacity(<span class="nm">0.4</span>),  <span class="cm">// شفافية 40%</span>
+            border: <span class="kw">const</span> <span class="cl">Border</span>(
+              bottom: <span class="cl">BorderSide</span>(
+                color: <span class="cl">Color</span>(<span class="nm">0x1AFFFFFF</span>),  <span class="cm">// أبيض 10%</span>
+                width: <span class="nm">1</span>,
+              ),
+            ),
+          ),
+          child: <span class="cl">SafeArea</span>(
+            child: <span class="cl">Padding</span>(
+              padding: <span class="kw">const</span> <span class="cl">EdgeInsets</span>.symmetric(horizontal: <span class="nm">16</span>),
+              child: <span class="cl">Row</span>(
+                mainAxisAlignment: <span class="cl">MainAxisAlignment</span>.spaceBetween,
+                children: [
+                  <span class="cm">// زر القائمة الجانبية</span>
+                  <span class="cl">InkWell</span>(
+                    borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">20</span>),
+                    onTap: () {},
+                    child: <span class="kw">const</span> <span class="cl">Icon</span>(<span class="cl">Icons</span>.menu, color: <span class="cl">AppColors</span>.primary),
+                  ),
+                  <span class="cm">// عنوان الصفحة</span>
+                  <span class="cl">Text</span>(
+                    <span class="str">'البحث عن طبيب'</span>,
+                    style: <span class="cl">AppTextStyles</span>.headlineMd()
+                      .copyWith(color: <span class="cl">AppColors</span>.primary),
+                  ),
+                  <span class="cm">// صورة المستخدم</span>
+                  <span class="cl">Container</span>(
+                    width: <span class="nm">40</span>, height: <span class="nm">40</span>,
+                    decoration: <span class="cl">BoxDecoration</span>(
+                      shape: <span class="cl">BoxShape</span>.circle,
+                      border: <span class="cl">Border</span>.all(
+                        color: <span class="cl">AppColors</span>.primaryContainer, width: <span class="nm">2</span>,
+                      ),
+                    ),
+                    child: <span class="kw">const</span> <span class="cl">CircleAvatar</span>(
+                      backgroundImage: <span class="cl">NetworkImage</span>(<span class="str">'...'</span>),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+}</pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SECTION 5: Search Bar -->
+      <div class="section" id="search">
+        <div class="section-label">
+          <div class="section-num">5</div>
+          <h2 class="section-title">حقل البحث مع تأثير Focus Glow</h2>
+        </div>
+        <p class="section-desc">
+          حقل البحث مبني على <code>TextField</code> مع <code>AnimatedContainer</code> يُضيف توهجاً (box shadow) لحظة التركيز. الـ icon يغير لونه بـ AnimatedDefaultTextStyle عند الفوكس.
+        </p>
+        <div class="code-wrap">
+          <div class="code-header"><span>حقل البحث مع Focus Animation</span><span class="lang-tag">dart</span></div>
+<pre><span class="kw">class</span> <span class="cl">SearchBar</span> <span class="kw">extends</span> <span class="cl">StatefulWidget</span> {
+  <span class="kw">const</span> <span class="cl">SearchBar</span>({<span class="kw">super</span>.key});
+
+  <span class="kw">@override</span>
+  <span class="cl">State</span>&lt;<span class="cl">SearchBar</span>&gt; createState() =&gt; _<span class="cl">SearchBarState</span>();
+}
+
+<span class="kw">class</span> _<span class="cl">SearchBarState</span> <span class="kw">extends</span> <span class="cl">State</span>&lt;<span class="cl">SearchBar</span>&gt; {
+  <span class="kw">final</span> _focus = <span class="cl">FocusNode</span>();
+  <span class="kw">bool</span> _isFocused = <span class="kw">false</span>;
+
+  <span class="kw">@override</span>
+  <span class="kw">void</span> initState() {
+    <span class="kw">super</span>.initState();
+    _focus.addListener(() {
+      setState(() => _isFocused = _focus.hasFocus);
+    });
+  }
+
+  <span class="kw">@override</span>
+  <span class="kw">void</span> dispose() {
+    _focus.dispose();
+    <span class="kw">super</span>.dispose();
+  }
+
+  <span class="kw">@override</span>
+  <span class="cl">Widget</span> build(<span class="cl">BuildContext</span> context) {
+    <span class="kw">return</span> <span class="cl">Row</span>(
+      children: [
+        <span class="cl">Expanded</span>(
+          child: <span class="cl">AnimatedContainer</span>(      <span class="cm">// ← يُحرّك الـ shadow تلقائياً</span>
+            duration: <span class="kw">const</span> <span class="cl">Duration</span>(milliseconds: <span class="nm">300</span>),
+            decoration: <span class="cl">BoxDecoration</span>(
+              borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">12</span>),
+              boxShadow: _isFocused
+                  ? [<span class="cl">BoxShadow</span>(
+                      color: <span class="cl">AppColors</span>.primary.withOpacity(<span class="nm">0.2</span>),
+                      blurRadius: <span class="nm">15</span>, spreadRadius: <span class="nm">0</span>,
+                    )]
+                  : [],
+            ),
+            child: <span class="cl">TextField</span>(
+              focusNode: _focus,
+              textDirection: <span class="cl">TextDirection</span>.rtl,
+              style: <span class="cl">AppTextStyles</span>.bodyMd()
+                  .copyWith(color: <span class="cl">AppColors</span>.onSurface),
+              decoration: <span class="cl">InputDecoration</span>(
+                hintText: <span class="str">'ابحث عن اسم الطبيب أو التخصص...'</span>,
+                hintStyle: <span class="cl">AppTextStyles</span>.bodyMd(),
+                filled: <span class="kw">true</span>,
+                fillColor: <span class="cl">AppColors</span>.surfaceContainerLow,
+                contentPadding: <span class="kw">const</span> <span class="cl">EdgeInsets</span>.symmetric(
+                  horizontal: <span class="nm">16</span>, vertical: <span class="nm">14</span>,
+                ),
+                prefixIcon: <span class="cl">AnimatedSwitcher</span>(      <span class="cm">// ← icon يتغير لونه</span>
+                  duration: <span class="kw">const</span> <span class="cl">Duration</span>(milliseconds: <span class="nm">250</span>),
+                  child: <span class="cl">Icon</span>(
+                    <span class="cl">Icons</span>.search,
+                    key: <span class="cl">ValueKey</span>(_isFocused),
+                    color: _isFocused
+                        ? <span class="cl">AppColors</span>.primary
+                        : <span class="cl">AppColors</span>.onSurfaceVariant,
+                  ),
+                ),
+                enabledBorder: <span class="cl">OutlineInputBorder</span>(
+                  borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">12</span>),
+                  borderSide: <span class="cl">BorderSide</span>(color: <span class="cl">AppColors</span>.outlineVariant),
+                ),
+                focusedBorder: <span class="cl">OutlineInputBorder</span>(
+                  borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">12</span>),
+                  borderSide: <span class="cl">BorderSide</span>(
+                    color: <span class="cl">AppColors</span>.primary, width: <span class="nm">2</span>,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        <span class="kw">const</span> <span class="cl">SizedBox</span>(width: <span class="nm">8</span>),
+        <span class="cm">// زر الفلتر</span>
+        <span class="cl">GestureDetector</span>(
+          onTapDown: (_) =&gt; setState(() {}),
+          child: <span class="cl">AnimatedScale</span>(         <span class="cm">// ← تأثير الضغط</span>
+            scale: <span class="nm">1.0</span>,
+            duration: <span class="kw">const</span> <span class="cl">Duration</span>(milliseconds: <span class="nm">100</span>),
+            child: <span class="cl">Container</span>(
+              width: <span class="nm">48</span>, height: <span class="nm">48</span>,
+              decoration: <span class="cl">BoxDecoration</span>(
+                color: <span class="cl">AppColors</span>.primaryContainer,
+                borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">12</span>),
+                boxShadow: [<span class="cl">BoxShadow</span>(
+                  color: <span class="cl">AppColors</span>.primaryContainer.withOpacity(<span class="nm">0.35</span>),
+                  blurRadius: <span class="nm">12</span>,
+                )],
+              ),
+              child: <span class="kw">const</span> <span class="cl">Icon</span>(<span class="cl">Icons</span>.tune,
+                color: <span class="cl">AppColors</span>.onPrimaryContainer),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}</pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SECTION 6: Category Chips -->
+      <div class="section" id="chips">
+        <div class="section-label">
+          <div class="section-num">6</div>
+          <h2 class="section-title">شرائح التصفية — Category Chips</h2>
+        </div>
+        <p class="section-desc">
+          قائمة أفقية قابلة للتمرير من شرائح (pills). الشريحة النشطة تأخذ لون <code>secondaryContainer</code>. عند الضغط يتحرك اختيار الـ active chip مع <code>AnimatedContainer</code>.
+        </p>
+        <div class="code-wrap">
+          <div class="code-header"><span>Category Chips مع انتقال سلس</span><span class="lang-tag">dart</span></div>
+<pre><span class="kw">class</span> <span class="cl">CategoryChips</span> <span class="kw">extends</span> <span class="cl">StatefulWidget</span> {
+  <span class="kw">const</span> <span class="cl">CategoryChips</span>({<span class="kw">super</span>.key});
+  <span class="kw">@override</span>
+  <span class="cl">State</span>&lt;<span class="cl">CategoryChips</span>&gt; createState() =&gt; _<span class="cl">CategoryChipsState</span>();
+}
+
+<span class="kw">class</span> _<span class="cl">CategoryChipsState</span> <span class="kw">extends</span> <span class="cl">State</span>&lt;<span class="cl">CategoryChips</span>&gt; {
+  <span class="kw">int</span> _selected = <span class="nm">0</span>;
+  <span class="kw">final</span> _categories = [<span class="str">'الكل'</span>, <span class="str">'القلب'</span>, <span class="str">'الأعصاب'</span>, <span class="str">'العيون'</span>, <span class="str">'الأسنان'</span>];
+
+  <span class="kw">@override</span>
+  <span class="cl">Widget</span> build(<span class="cl">BuildContext</span> context) {
+    <span class="kw">return</span> <span class="cl">SizedBox</span>(
+      height: <span class="nm">40</span>,
+      child: <span class="cl">ListView</span>.separated(
+        scrollDirection: <span class="cl">Axis</span>.horizontal,
+        padding: <span class="kw">const</span> <span class="cl">EdgeInsets</span>.symmetric(horizontal: <span class="nm">16</span>),
+        itemCount: _categories.length,
+        separatorBuilder: (_, __) =&gt; <span class="kw">const</span> <span class="cl">SizedBox</span>(width: <span class="nm">8</span>),
+        itemBuilder: (context, i) {
+          <span class="kw">final</span> isActive = i == _selected;
+          <span class="kw">return</span> <span class="cl">GestureDetector</span>(
+            onTap: () =&gt; setState(() =&gt; _selected = i),
+            child: <span class="cl">AnimatedContainer</span>(        <span class="cm">// ← يُحرّك الخلفية والـ border</span>
+              duration: <span class="kw">const</span> <span class="cl">Duration</span>(milliseconds: <span class="nm">250</span>),
+              curve: <span class="cl">Curves</span>.easeInOut,
+              padding: <span class="kw">const</span> <span class="cl">EdgeInsets</span>.symmetric(horizontal: <span class="nm">20</span>),
+              decoration: <span class="cl">BoxDecoration</span>(
+                color: isActive
+                    ? <span class="cl">AppColors</span>.secondaryContainer
+                    : <span class="cl">AppColors</span>.surfaceContainerHigh,
+                borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">999</span>),  <span class="cm">// pill</span>
+                border: <span class="cl">Border</span>.all(
+                  color: isActive
+                      ? <span class="cl">Colors</span>.transparent
+                      : <span class="cl">Colors</span>.white.withOpacity(<span class="nm">0.05</span>),
+                ),
+                boxShadow: isActive
+                    ? [<span class="cl">BoxShadow</span>(
+                        color: <span class="cl">AppColors</span>.secondary.withOpacity(<span class="nm">0.25</span>),
+                        blurRadius: <span class="nm">10</span>,
+                      )]
+                    : [],
+              ),
+              alignment: <span class="cl">Alignment</span>.center,
+              child: <span class="cl">Text</span>(
+                _categories[i],
+                style: <span class="cl">AppTextStyles</span>.labelMd().copyWith(
+                  color: isActive
+                      ? <span class="cl">AppColors</span>.onSecondaryContainer
+                      : <span class="cl">AppColors</span>.onSurfaceVariant,
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}</pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SECTION 7: Doctor Card -->
+      <div class="section" id="card">
+        <div class="section-label">
+          <div class="section-num">7</div>
+          <h2 class="section-title">بطاقة الطبيب — Glassmorphism Card</h2>
+        </div>
+        <p class="section-desc">
+          القلب النابض للشاشة. البطاقة تحتوي على: تأثير زجاجي (BackdropFilter)، صورة الطبيب مع نقطة الإتاحة المتوهجة، تقييم النجوم، المعلومات، والزر. عند hover على الويب أو الضغط على الموبايل يكون هناك تأثير scale وglow.
+        </p>
+
+        <div class="compare-grid">
+          <div class="compare-card">
+            <h4>📱 على الموبايل (Mobile)</h4>
+            <p style="font-size:13px;color:var(--on-surface-var);">
+              • <code>GestureDetector</code> مع <code>onTapDown</code> / <code>onTapUp</code><br/>
+              • <code>AnimatedScale</code> بين 1.0 و 0.98<br/>
+              • لا توجد hover حقيقية على الموبايل
+            </p>
+          </div>
+          <div class="compare-card">
+            <h4>🖥️ على الويب (Web/Desktop)</h4>
+            <p style="font-size:13px;color:var(--on-surface-var);">
+              • <code>MouseRegion</code> لاكتشاف الـ hover<br/>
+              • <code>AnimatedScale</code> إلى 1.02<br/>
+              • <code>AnimatedContainer</code> يضيف box shadow خضراء
+            </p>
+          </div>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-header"><span>lib/widgets/doctor_card.dart</span><span class="lang-tag">dart</span></div>
+<pre><span class="kw">class</span> <span class="cl">DoctorCard</span> <span class="kw">extends</span> <span class="cl">StatefulWidget</span> {
+  <span class="kw">final</span> <span class="cl">Doctor</span> doctor;
+  <span class="kw">final</span> <span class="cl">Duration</span> animDelay;
+
+  <span class="kw">const</span> <span class="cl">DoctorCard</span>({
+    <span class="kw">super</span>.key, <span class="kw">required this</span>.doctor, <span class="kw">required this</span>.animDelay,
+  });
+
+  <span class="kw">@override</span>
+  <span class="cl">State</span>&lt;<span class="cl">DoctorCard</span>&gt; createState() =&gt; _<span class="cl">DoctorCardState</span>();
+}
+
+<span class="kw">class</span> _<span class="cl">DoctorCardState</span> <span class="kw">extends</span> <span class="cl">State</span>&lt;<span class="cl">DoctorCard</span>&gt;
+    <span class="kw">with</span> <span class="cl">SingleTickerProviderStateMixin</span> {
+
+  <span class="kw">bool</span> _isHovered = <span class="kw">false</span>;
+  <span class="kw">bool</span> _isPressed = <span class="kw">false</span>;
+
+  <span class="cm">// Entrance animation (slideUp + fade)</span>
+  <span class="kw">late</span> <span class="cl">AnimationController</span> _entranceCtrl;
+  <span class="kw">late</span> <span class="cl">Animation</span>&lt;<span class="kw">double</span>&gt; _opacity;
+  <span class="kw">late</span> <span class="cl">Animation</span>&lt;<span class="cl">Offset</span>&gt; _slide;
+
+  <span class="kw">@override</span>
+  <span class="kw">void</span> initState() {
+    <span class="kw">super</span>.initState();
+    _entranceCtrl = <span class="cl">AnimationController</span>(
+      vsync: <span class="kw">this</span>,
+      duration: <span class="kw">const</span> <span class="cl">Duration</span>(milliseconds: <span class="nm">600</span>),
+    );
+    _opacity = <span class="cl">CurvedAnimation</span>(parent: _entranceCtrl, curve: <span class="cl">Curves</span>.easeOut);
+    _slide = <span class="cl">Tween</span>&lt;<span class="cl">Offset</span>&gt;(
+      begin: <span class="kw">const</span> <span class="cl">Offset</span>(<span class="nm">0</span>, <span class="nm">0.3</span>),   <span class="cm">// من أسفل</span>
+      end: <span class="cl">Offset</span>.zero,
+    ).animate(<span class="cl">CurvedAnimation</span>(parent: _entranceCtrl, curve: <span class="cl">Curves</span>.easeOut));
+
+    <span class="cm">// تأخير الظهور حسب ترتيب البطاقة</span>
+    <span class="cl">Future</span>.delayed(widget.animDelay, () {
+      <span class="kw">if</span> (mounted) _entranceCtrl.forward();
+    });
+  }
+
+  <span class="kw">@override</span>
+  <span class="kw">void</span> dispose() {
+    _entranceCtrl.dispose();
+    <span class="kw">super</span>.dispose();
+  }
+
+  <span class="kw">@override</span>
+  <span class="cl">Widget</span> build(<span class="cl">BuildContext</span> context) {
+    <span class="kw">return</span> <span class="cl">FadeTransition</span>(           <span class="cm">// ← fade in عند الدخول</span>
+      opacity: _opacity,
+      child: <span class="cl">SlideTransition</span>(       <span class="cm">// ← slide up عند الدخول</span>
+        position: _slide,
+        child: <span class="cl">MouseRegion</span>(         <span class="cm">// ← hover للويب والـ desktop</span>
+          onEnter: (_) =&gt; setState(() =&gt; _isHovered = <span class="kw">true</span>),
+          onExit:  (_) =&gt; setState(() =&gt; _isHovered = <span class="kw">false</span>),
+          child: <span class="cl">GestureDetector</span>(   <span class="cm">// ← اكتشاف اللمس</span>
+            onTapDown: (_) =&gt; setState(() =&gt; _isPressed = <span class="kw">true</span>),
+            onTapUp:   (_) =&gt; setState(() =&gt; _isPressed = <span class="kw">false</span>),
+            onTapCancel: ()  =&gt; setState(() =&gt; _isPressed = <span class="kw">false</span>),
+            child: <span class="cl">AnimatedScale</span>(   <span class="cm">// ← تأثير التكبير/التصغير</span>
+              scale: _isPressed ? <span class="nm">0.98</span> : (_isHovered ? <span class="nm">1.02</span> : <span class="nm">1.0</span>),
+              duration: <span class="kw">const</span> <span class="cl">Duration</span>(milliseconds: <span class="nm">200</span>),
+              child: _buildCardContent(),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  <span class="cl">Widget</span> _buildCardContent() {
+    <span class="kw">return</span> <span class="cl">AnimatedContainer</span>(
+      duration: <span class="kw">const</span> <span class="cl">Duration</span>(milliseconds: <span class="nm">250</span>),
+      decoration: <span class="cl">BoxDecoration</span>(
+        borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">20</span>),
+        boxShadow: _isHovered
+            ? [<span class="cl">BoxShadow</span>(
+                color: <span class="cl">AppColors</span>.primary.withOpacity(<span class="nm">0.15</span>),
+                blurRadius: <span class="nm">24</span>, spreadRadius: <span class="nm">2</span>,
+              )]
+            : [],
+      ),
+      child: <span class="cl">ClipRRect</span>(
+        borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">20</span>),
+        child: <span class="cl">BackdropFilter</span>(        <span class="cm">// ← تأثير الزجاج</span>
+          filter: <span class="cl">ImageFilter</span>.blur(sigmaX: <span class="nm">12</span>, sigmaY: <span class="nm">12</span>),
+          child: <span class="cl">Container</span>(
+            padding: <span class="kw">const</span> <span class="cl">EdgeInsets</span>.all(<span class="nm">20</span>),
+            decoration: <span class="cl">BoxDecoration</span>(
+              color: <span class="cl">AppColors</span>.glassBg,      <span class="cm">// rgba(1,43,23, 0.4)</span>
+              borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">20</span>),
+              border: <span class="cl">Border</span>.all(
+                color: <span class="cl">AppColors</span>.glassBorder,  <span class="cm">// أبيض 8%</span>
+              ),
+            ),
+            child: <span class="cl">Column</span>(
+              crossAxisAlignment: <span class="cl">CrossAxisAlignment</span>.stretch,
+              children: [
+                _buildCardHeader(),
+                <span class="kw">const</span> <span class="cl">SizedBox</span>(height: <span class="nm">12</span>),
+                _buildLocationRow(),
+                <span class="kw">const</span> <span class="cl">SizedBox</span>(height: <span class="nm">6</span>),
+                _buildBio(),
+                <span class="kw">const</span> <span class="cl">SizedBox</span>(height: <span class="nm">14</span>),
+                _buildBookButton(),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  <span class="cm">// ─── Header: صورة + اسم + تخصص ──────────────</span>
+  <span class="cl">Widget</span> _buildCardHeader() {
+    <span class="kw">return</span> <span class="cl">Row</span>(
+      children: [
+        _buildDoctorAvatar(),
+        <span class="kw">const</span> <span class="cl">SizedBox</span>(width: <span class="nm">14</span>),
+        <span class="cl">Expanded</span>(child: _buildDoctorInfo()),
+      ],
+    );
+  }
+
+  <span class="cm">// ─── صورة الطبيب مع نقطة الإتاحة ────────────</span>
+  <span class="cl">Widget</span> _buildDoctorAvatar() {
+    <span class="kw">return</span> <span class="cl">Stack</span>(
+      clipBehavior: <span class="cl">Clip</span>.none,
+      children: [
+        <span class="cl">ClipRRect</span>(
+          borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">14</span>),
+          child: <span class="cl">Image</span>.network(
+            widget.doctor.imageUrl,
+            width: <span class="nm">80</span>, height: <span class="nm">80</span>, fit: <span class="cl">BoxFit</span>.cover,
+          ),
+        ),
+        <span class="cm">// نقطة الإتاحة المتوهجة (شبيهة بـ shimmerPulse)</span>
+        <span class="cl">Positioned</span>(
+          top: -<span class="nm">3</span>, right: -<span class="nm">3</span>,  <span class="cm">// ← يسار/يمين حسب الـ RTL</span>
+          child: <span class="cl">_PulsingDot</span>(),
+        ),
+      ],
+    );
+  }
+}</pre>
+        </div>
+
+        <div class="info-box tip">
+          <span class="info-icon">✨</span>
+          <p><strong>تأثير نقطة الإتاحة (shimmerPulse):</strong> هو <code>AnimationController</code> يُحرّك <code>opacity</code> بين 1.0 و 0.3 وكذلك <code>scale</code> بين 1.0 و 1.3 بشكل دوري.</p>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-header"><span>نقطة الإتاحة المتوهجة</span><span class="lang-tag">dart</span></div>
+<pre><span class="kw">class</span> <span class="cl">_PulsingDot</span> <span class="kw">extends</span> <span class="cl">StatefulWidget</span> {
+  <span class="kw">const</span> <span class="cl">_PulsingDot</span>();
+  <span class="kw">@override</span>
+  <span class="cl">State</span>&lt;<span class="cl">_PulsingDot</span>&gt; createState() =&gt; _<span class="cl">PulsingDotState</span>();
+}
+
+<span class="kw">class</span> _<span class="cl">PulsingDotState</span> <span class="kw">extends</span> <span class="cl">State</span>&lt;<span class="cl">_PulsingDot</span>&gt;
+    <span class="kw">with</span> <span class="cl">SingleTickerProviderStateMixin</span> {
+
+  <span class="kw">late</span> <span class="cl">AnimationController</span> _ctrl;
+  <span class="kw">late</span> <span class="cl">Animation</span>&lt;<span class="kw">double</span>&gt; _opacityAnim;
+
+  <span class="kw">@override</span>
+  <span class="kw">void</span> initState() {
+    <span class="kw">super</span>.initState();
+    _ctrl = <span class="cl">AnimationController</span>(
+      vsync: <span class="kw">this</span>,
+      duration: <span class="kw">const</span> <span class="cl">Duration</span>(seconds: <span class="nm">2</span>),
+    );
+    _opacityAnim = <span class="cl">TweenSequence</span>([
+      <span class="cl">TweenSequenceItem</span>(
+        tween: <span class="cl">Tween</span>(<span class="kw">begin</span>: <span class="nm">1.0</span>, end: <span class="nm">0.3</span>)
+            .chain(<span class="cl">CurveTween</span>(curve: <span class="cl">Curves</span>.easeInOut)),
+        weight: <span class="nm">50</span>,
+      ),
+      <span class="cl">TweenSequenceItem</span>(
+        tween: <span class="cl">Tween</span>(<span class="kw">begin</span>: <span class="nm">0.3</span>, end: <span class="nm">1.0</span>)
+            .chain(<span class="cl">CurveTween</span>(curve: <span class="cl">Curves</span>.easeInOut)),
+        weight: <span class="nm">50</span>,
+      ),
+    ]).animate(_ctrl);
+    _ctrl.repeat();
+  }
+
+  <span class="kw">@override</span>
+  <span class="kw">void</span> dispose() { _ctrl.dispose(); <span class="kw">super</span>.dispose(); }
+
+  <span class="kw">@override</span>
+  <span class="cl">Widget</span> build(<span class="cl">BuildContext</span> context) {
+    <span class="kw">return</span> <span class="cl">FadeTransition</span>(
+      opacity: _opacityAnim,
+      child: <span class="cl">Container</span>(
+        width: <span class="nm">12</span>, height: <span class="nm">12</span>,
+        decoration: <span class="cl">BoxDecoration</span>(
+          color: <span class="cl">AppColors</span>.secondary,
+          shape: <span class="cl">BoxShape</span>.circle,
+          border: <span class="cl">Border</span>.all(color: <span class="cl">AppColors</span>.background, width: <span class="nm">2</span>),
+          boxShadow: [<span class="cl">BoxShadow</span>(
+            color: <span class="cl">AppColors</span>.secondary.withOpacity(<span class="nm">0.5</span>),
+            blurRadius: <span class="nm">6</span>,
+          )],
+        ),
+      ),
+    );
+  }
+}</pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SECTION 8: Book Button -->
+      <div class="section" id="button">
+        <div class="section-label">
+          <div class="section-num">8</div>
+          <h2 class="section-title">زر الحجز — Glow Button</h2>
+        </div>
+        <p class="section-desc">
+          الزر يجمع ثلاثة تأثيرات: خلفية خضراء عميقة، توهج (glow) عند hover، وتأثير ضغط (active scale). كل هذا مع <code>MouseRegion</code> + <code>GestureDetector</code>.
+        </p>
+        <div class="code-wrap">
+          <div class="code-header"><span>زر الحجز</span><span class="lang-tag">dart</span></div>
+<pre><span class="kw">class</span> <span class="cl">GlowButton</span> <span class="kw">extends</span> <span class="cl">StatefulWidget</span> {
+  <span class="kw">final</span> <span class="cl">String</span> label;
+  <span class="kw">final</span> <span class="cl">VoidCallback</span> onTap;
+
+  <span class="kw">const</span> <span class="cl">GlowButton</span>({<span class="kw">super</span>.key, <span class="kw">required this</span>.label, <span class="kw">required this</span>.onTap});
+  <span class="kw">@override</span>
+  <span class="cl">State</span>&lt;<span class="cl">GlowButton</span>&gt; createState() =&gt; _<span class="cl">GlowButtonState</span>();
+}
+
+<span class="kw">class</span> _<span class="cl">GlowButtonState</span> <span class="kw">extends</span> <span class="cl">State</span>&lt;<span class="cl">GlowButton</span>&gt; {
+  <span class="kw">bool</span> _hov = <span class="kw">false</span>, _pressed = <span class="kw">false</span>;
+
+  <span class="kw">@override</span>
+  <span class="cl">Widget</span> build(<span class="cl">BuildContext</span> context) {
+    <span class="kw">return</span> <span class="cl">MouseRegion</span>(
+      onEnter: (_) =&gt; setState(() =&gt; _hov = <span class="kw">true</span>),
+      onExit:  (_) =&gt; setState(() =&gt; _hov = <span class="kw">false</span>),
+      child: <span class="cl">GestureDetector</span>(
+        onTapDown:   (_) =&gt; setState(() =&gt; _pressed = <span class="kw">true</span>),
+        onTapUp:     (_) { setState(() =&gt; _pressed = <span class="kw">false</span>); widget.onTap(); },
+        onTapCancel: ()  =&gt; setState(() =&gt; _pressed = <span class="kw">false</span>),
+        child: <span class="cl">AnimatedScale</span>(
+          scale: _pressed ? <span class="nm">0.97</span> : <span class="nm">1.0</span>,
+          duration: <span class="kw">const</span> <span class="cl">Duration</span>(milliseconds: <span class="nm">100</span>),
+          child: <span class="cl">AnimatedContainer</span>(
+            duration: <span class="kw">const</span> <span class="cl">Duration</span>(milliseconds: <span class="nm">250</span>),
+            height: <span class="nm">48</span>,
+            decoration: <span class="cl">BoxDecoration</span>(
+              color: _hov
+                  ? <span class="cl">AppColors</span>.primaryContainer.withOpacity(<span class="nm">0.8</span>)
+                  : <span class="cl">AppColors</span>.primaryContainer,
+              borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">12</span>),
+              boxShadow: [
+                <span class="cl">BoxShadow</span>(
+                  color: <span class="cl">AppColors</span>.primary.withOpacity(_hov ? <span class="nm">0.4</span> : <span class="nm">0.0</span>),
+                  blurRadius: <span class="nm">20</span>, spreadRadius: <span class="nm">0</span>,
+                ),
+              ],
+            ),
+            alignment: <span class="cl">Alignment</span>.center,
+            child: <span class="cl">Text</span>(
+              widget.label,
+              style: <span class="cl">AppTextStyles</span>.headlineMd()
+                  .copyWith(color: <span class="cl">AppColors</span>.onPrimaryContainer),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}</pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SECTION 9: Bottom Nav -->
+      <div class="section" id="bottomnav">
+        <div class="section-label">
+          <div class="section-num">9</div>
+          <h2 class="section-title">شريط التنقل السفلي — Glass Bottom Nav</h2>
+        </div>
+        <p class="section-desc">
+          شريط التنقل السفلي يستخدم نفس تأثير الزجاج كالـ AppBar. العنصر النشط يُحاط بـ container ملوّن. كل عنصر له تأثير ضغط (scale 90%).
+        </p>
+        <div class="code-wrap">
+          <div class="code-header"><span>Glass Bottom Navigation</span><span class="lang-tag">dart</span></div>
+<pre><span class="cl">Widget</span> _buildGlassBottomNav() {
+  <span class="kw">return</span> <span class="cl">ClipRect</span>(
+    child: <span class="cl">BackdropFilter</span>(
+      filter: <span class="cl">ImageFilter</span>.blur(sigmaX: <span class="nm">20</span>, sigmaY: <span class="nm">20</span>),
+      child: <span class="cl">Container</span>(
+        height: <span class="nm">80</span>,
+        decoration: <span class="cl">BoxDecoration</span>(
+          color: <span class="cl">AppColors</span>.surface.withOpacity(<span class="nm">0.4</span>),
+          border: <span class="kw">const</span> <span class="cl">Border</span>(
+            top: <span class="cl">BorderSide</span>(color: <span class="cl">Color</span>(<span class="nm">0x1AFFFFFF</span>), width: <span class="nm">1</span>),
+          ),
+        ),
+        child: <span class="cl">SafeArea</span>(
+          top: <span class="kw">false</span>,
+          child: <span class="cl">Row</span>(
+            mainAxisAlignment: <span class="cl">MainAxisAlignment</span>.spaceAround,
+            children: [
+              _navItem(<span class="cl">Icons</span>.home_outlined, <span class="str">'Home'</span>,    <span class="nm">0</span>),
+              _navItem(<span class="cl">Icons</span>.medical_services_outlined, <span class="str">'Doctors'</span>, <span class="nm">1</span>),
+              _navItem(<span class="cl">Icons</span>.description_outlined, <span class="str">'Records'</span>, <span class="nm">2</span>),
+              _navItem(<span class="cl">Icons</span>.person_outline, <span class="str">'Profile'</span>, <span class="nm">3</span>),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+<span class="cl">Widget</span> _navItem(<span class="cl">IconData</span> icon, <span class="cl">String</span> label, <span class="kw">int</span> idx) {
+  <span class="kw">final</span> isActive = _currentIndex == idx;
+  <span class="kw">return</span> <span class="cl">GestureDetector</span>(
+    onTap: () =&gt; setState(() =&gt; _currentIndex = idx),
+    child: <span class="cl">AnimatedScale</span>(
+      scale: isActive ? <span class="nm">1.0</span> : <span class="nm">1.0</span>,
+      duration: <span class="kw">const</span> <span class="cl">Duration</span>(milliseconds: <span class="nm">200</span>),
+      child: <span class="cl">AnimatedContainer</span>(
+        duration: <span class="kw">const</span> <span class="cl">Duration</span>(milliseconds: <span class="nm">250</span>),
+        padding: <span class="kw">const</span> <span class="cl">EdgeInsets</span>.symmetric(horizontal: <span class="nm">14</span>, vertical: <span class="nm">6</span>),
+        decoration: isActive
+            ? <span class="cl">BoxDecoration</span>(
+                color: <span class="cl">AppColors</span>.secondaryContainer.withOpacity(<span class="nm">0.3</span>),
+                borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">12</span>),
+              )
+            : <span class="kw">null</span>,
+        child: <span class="cl">Column</span>(
+          mainAxisSize: <span class="cl">MainAxisSize</span>.min,
+          children: [
+            <span class="cl">AnimatedSwitcher</span>(   <span class="cm">// ← يُبدّل بين الـ icon الممتلئ والفارغ</span>
+              duration: <span class="kw">const</span> <span class="cl">Duration</span>(milliseconds: <span class="nm">250</span>),
+              child: <span class="cl">Icon</span>(
+                key: <span class="cl">ValueKey</span>(isActive),
+                isActive ? _filledIcon(idx) : icon,
+                color: isActive
+                    ? <span class="cl">AppColors</span>.secondary
+                    : <span class="cl">AppColors</span>.onSurfaceVariant,
+              ),
+            ),
+            <span class="kw">const</span> <span class="cl">SizedBox</span>(height: <span class="nm">3</span>),
+            <span class="cl">Text</span>(label, style: <span class="cl">AppTextStyles</span>.labelSm().copyWith(
+              color: isActive
+                  ? <span class="cl">AppColors</span>.secondary
+                  : <span class="cl">AppColors</span>.onSurfaceVariant,
+            )),
+          ],
+        ),
+      ),
+    ),
+  );
+}</pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SECTION 10: Dependencies -->
+      <div class="section" id="deps">
+        <div class="section-label">
+          <div class="section-num">10</div>
+          <h2 class="section-title">ملف pubspec.yaml</h2>
+        </div>
+        <p class="section-desc">
+          كل المكتبات اللازمة لبناء الشاشة. لا نحتاج لمكتبات خارجية كثيرة — معظم التأثيرات تتم بـ Flutter الأساسي.
+        </p>
+        <div class="code-wrap">
+          <div class="code-header"><span>pubspec.yaml</span><span class="lang-tag">yaml</span></div>
+<pre>name: vitality_app
+description: Doctor Search Screen - Vitality Design System
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: '>=3.10.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  <span class="cm"># Google Fonts (Manrope)</span>
+  google_fonts: ^6.2.1
+
+  <span class="cm"># لتحميل الصور من الشبكة مع cache</span>
+  cached_network_image: ^3.3.1
+
+  <span class="cm"># إدارة الـ State (اختياري - يمكن Riverpod/Bloc)</span>
+  flutter_riverpod: ^2.5.1
+
+flutter:
+  uses-material-design: true</pre>
+        </div>
+
+        <!-- التأثيرات الرئيسية -->
+        <div style="margin-top:28px;">
+          <h3 style="font-size:18px;font-weight:700;color:var(--primary);margin-bottom:16px;">ملخص التأثيرات وكيفية تنفيذها</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>التأثير</th>
+                <th>الأداة في Flutter</th>
+                <th>الصعوبة</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>خلفية الجسيمات</td>
+                <td><code>CustomPainter + AnimationController</code></td>
+                <td><span class="tag tag-amber">متوسط</span></td>
+              </tr>
+              <tr>
+                <td>النبضة المركزية</td>
+                <td><code>CustomPainter + Canvas.drawCircle</code></td>
+                <td><span class="tag tag-green">سهل</span></td>
+              </tr>
+              <tr>
+                <td>Glassmorphism</td>
+                <td><code>BackdropFilter + ImageFilter.blur</code></td>
+                <td><span class="tag tag-green">سهل</span></td>
+              </tr>
+              <tr>
+                <td>Hover على الكارد</td>
+                <td><code>MouseRegion + AnimatedScale</code></td>
+                <td><span class="tag tag-green">سهل</span></td>
+              </tr>
+              <tr>
+                <td>Focus Glow للبحث</td>
+                <td><code>FocusNode + AnimatedContainer</code></td>
+                <td><span class="tag tag-green">سهل</span></td>
+              </tr>
+              <tr>
+                <td>تأثير الدخول للكارد</td>
+                <td><code>SlideTransition + FadeTransition</code></td>
+                <td><span class="tag tag-green">سهل</span></td>
+              </tr>
+              <tr>
+                <td>نقطة الإتاحة</td>
+                <td><code>TweenSequence + FadeTransition</code></td>
+                <td><span class="tag tag-green">سهل</span></td>
+              </tr>
+              <tr>
+                <td>الـ Chips النشطة</td>
+                <td><code>AnimatedContainer</code></td>
+                <td><span class="tag tag-green">سهل</span></td>
+              </tr>
+              <tr>
+                <td>Glow Button</td>
+                <td><code>AnimatedContainer + BoxShadow</code></td>
+                <td><span class="tag tag-green">سهل</span></td>
+              </tr>
+              <tr>
+                <td>RTL/Arabic</td>
+                <td><code>Directionality.rtl</code></td>
+                <td><span class="tag tag-green">سهل</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- نصائح الأداء -->
+        <div style="margin-top:28px;">
+          <h3 style="font-size:18px;font-weight:700;color:var(--primary);margin-bottom:16px;">💡 نصائح الأداء المهمة</h3>
+          <div class="steps">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-body">
+                <h4>استخدم RepaintBoundary حول الجسيمات</h4>
+                <p>غلّف <code>ParticleBackground</code> بـ <code>RepaintBoundary</code> لمنع إعادة رسم باقي الشاشة عند تحديث الجسيمات كل frame.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-body">
+                <h4>BackdropFilter تكلفته عالية</h4>
+                <p>قلّل عدد استخدامات <code>BackdropFilter</code> في القوائم المتحركة (ListView). يمكن إيقاف blur إذا كان الجهاز قديماً باستخدام <code>MediaQuery.of(context).platformBrightness</code> أو فحص الـ FPS.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-body">
+                <h4>استخدم const constructors</h4>
+                <p>أضف <code>const</code> لكل widget ثابتة لا تتغير. هذا يمنع Flutter من إعادة بنائها عند setState.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">4</div>
+              <div class="step-body">
+                <h4>CachedNetworkImage للصور</h4>
+                <p>استخدم <code>CachedNetworkImage</code> لصور الأطباء مع placeholder مناسب لتجنب الوميض (flash) عند التحميل.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SECTION 11: بنية المجلدات -->
+      <div class="section" id="structure">
+        <div class="section-label">
+          <div class="section-num">11</div>
+          <h2 class="section-title">بنية المجلدات المقترحة</h2>
+        </div>
+        <div class="code-wrap">
+          <div class="code-header"><span>Project Structure</span><span class="lang-tag">bash</span></div>
+<pre>lib/
+├── core/
+│   └── theme/
+│       ├── app_colors.dart       <span class="cm"># كل الألوان</span>
+│       ├── app_text_styles.dart  <span class="cm"># Typography scale</span>
+│       └── app_spacing.dart      <span class="cm"># 8px grid constants</span>
+├── features/
+│   └── doctor_search/
+│       ├── data/
+│       │   └── doctor_model.dart
+│       ├── presentation/
+│       │   ├── screens/
+│       │   │   └── doctor_search_screen.dart
+│       │   └── widgets/
+│       │       ├── particle_background.dart
+│       │       ├── doctor_card.dart
+│       │       ├── search_bar_widget.dart
+│       │       ├── category_chips.dart
+│       │       ├── glow_button.dart
+│       │       └── pulsing_dot.dart
+└── main.dart</pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SECTION 12: نموذج البيانات -->
+      <div class="section" id="model">
+        <div class="section-label">
+          <div class="section-num">12</div>
+          <h2 class="section-title">نموذج البيانات — Doctor Model</h2>
+        </div>
+        <p class="section-desc">
+          قبل بناء أي Widget نحتاج لتعريف نموذج البيانات الذي يُغذّي البطاقات. نستخدم <code>freezed</code> أو نموذجاً يدوياً بسيطاً مع <code>fromJson</code> لتحميل البيانات من API.
+        </p>
+        <div class="code-wrap">
+          <div class="code-header"><span>lib/features/doctor_search/data/doctor_model.dart</span><span class="lang-tag">dart</span></div>
+<pre><span class="kw">class</span> <span class="cl">Doctor</span> {
+  <span class="kw">final</span> <span class="cl">String</span> id;
+  <span class="kw">final</span> <span class="cl">String</span> name;
+  <span class="kw">final</span> <span class="cl">String</span> specialty;
+  <span class="kw">final</span> <span class="cl">String</span> location;
+  <span class="kw">final</span> <span class="cl">String</span> bio;
+  <span class="kw">final</span> <span class="cl">String</span> imageUrl;
+  <span class="kw">final</span> <span class="kw">double</span> rating;
+  <span class="kw">final</span> <span class="kw">bool</span>   isOnline;       <span class="cm">// يتحكم في النقطة الخضراء</span>
+  <span class="kw">final</span> <span class="cl">DoctorCategory</span> category;
+
+  <span class="kw">const</span> <span class="cl">Doctor</span>({
+    <span class="kw">required this</span>.id,       <span class="kw">required this</span>.name,
+    <span class="kw">required this</span>.specialty, <span class="kw">required this</span>.location,
+    <span class="kw">required this</span>.bio,      <span class="kw">required this</span>.imageUrl,
+    <span class="kw">required this</span>.rating,   <span class="kw">required this</span>.isOnline,
+    <span class="kw">required this</span>.category,
+  });
+
+  <span class="kw">factory</span> <span class="cl">Doctor</span>.fromJson(<span class="cl">Map</span>&lt;<span class="cl">String</span>, <span class="kw">dynamic</span>&gt; json) =&gt; <span class="cl">Doctor</span>(
+    id:        json[<span class="str">'id'</span>]        <span class="kw">as</span> <span class="cl">String</span>,
+    name:      json[<span class="str">'name'</span>]      <span class="kw">as</span> <span class="cl">String</span>,
+    specialty: json[<span class="str">'specialty'</span>] <span class="kw">as</span> <span class="cl">String</span>,
+    location:  json[<span class="str">'location'</span>]  <span class="kw">as</span> <span class="cl">String</span>,
+    bio:       json[<span class="str">'bio'</span>]       <span class="kw">as</span> <span class="cl">String</span>,
+    imageUrl:  json[<span class="str">'imageUrl'</span>]  <span class="kw">as</span> <span class="cl">String</span>,
+    rating:    (json[<span class="str">'rating'</span>]   <span class="kw">as</span> <span class="kw">num</span>).toDouble(),
+    isOnline:  json[<span class="str">'isOnline'</span>]  <span class="kw">as</span> <span class="kw">bool</span>,
+    category:  <span class="cl">DoctorCategory</span>.values.firstWhere(
+                 (e) =&gt; e.name == json[<span class="str">'category'</span>],
+                 orElse: () =&gt; <span class="cl">DoctorCategory</span>.all,
+               ),
+  );
+}
+
+<span class="kw">enum</span> <span class="cl">DoctorCategory</span> {
+  all, heart, neuro, eyes, dental;
+
+  <span class="cl">String</span> <span class="fn">label</span>() =&gt; <span class="kw">switch</span> (<span class="kw">this</span>) {
+    all    =&gt; <span class="str">'الكل'</span>,
+    heart  =&gt; <span class="str">'القلب'</span>,
+    neuro  =&gt; <span class="str">'الأعصاب'</span>,
+    eyes   =&gt; <span class="str">'العيون'</span>,
+    dental =&gt; <span class="str">'الأسنان'</span>,
+  };
+}
+
+<span class="cm">// ── بيانات وهمية للتطوير (Mock Data) ──────────</span>
+<span class="kw">final</span> kMockDoctors = [
+  <span class="cl">Doctor</span>(
+    id: <span class="str">'d1'</span>, name: <span class="str">'د. سمير المنصور'</span>,
+    specialty: <span class="str">'استشاري أمراض القلب والأوعية الدموية'</span>,
+    location: <span class="str">'الرياض، مركز العناية الطبية'</span>,
+    bio: <span class="str">'خبير في جراحة القلب المفتوح وعلاجات القسطرة المتقدمة مع أكثر من 15 عاماً من الخبرة السريرية.'</span>,
+    imageUrl: <span class="str">'https://example.com/dr1.jpg'</span>,
+    rating: <span class="nm">4.9</span>, isOnline: <span class="kw">true</span>, category: <span class="cl">DoctorCategory</span>.heart,
+  ),
+  <span class="cl">Doctor</span>(
+    id: <span class="str">'d2'</span>, name: <span class="str">'د. سارة الأحمد'</span>,
+    specialty: <span class="str">'استشاري جراحة الأعصاب والدماغ'</span>,
+    location: <span class="str">'جدة، مستشفى النخبة'</span>,
+    bio: <span class="str">'متخصصة في جراحات العمود الفقري المجهرية وعلاج الاضطرابات العصبية المعقدة لدى البالغين.'</span>,
+    imageUrl: <span class="str">'https://example.com/dr2.jpg'</span>,
+    rating: <span class="nm">4.8</span>, isOnline: <span class="kw">true</span>, category: <span class="cl">DoctorCategory</span>.neuro,
+  ),
+  <span class="cl">Doctor</span>(
+    id: <span class="str">'d3'</span>, name: <span class="str">'د. خالد العتيبي'</span>,
+    specialty: <span class="str">'استشاري طب وجراحة العيون'</span>,
+    location: <span class="str">'الرياض، مجمع الرؤية الطبي'</span>,
+    bio: <span class="str">'رائد في عمليات تصحيح النظر بالليزر وعلاجات القرنية المتقدمة باستخدام أحدث التقنيات العالمية.'</span>,
+    imageUrl: <span class="str">'https://example.com/dr3.jpg'</span>,
+    rating: <span class="nm">5.0</span>, isOnline: <span class="kw">true</span>, category: <span class="cl">DoctorCategory</span>.eyes,
+  ),
+];</pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SECTION 13: Spacing System -->
+      <div class="section" id="spacing">
+        <div class="section-label">
+          <div class="section-num">13</div>
+          <h2 class="section-title">نظام المسافات — 8px Grid</h2>
+        </div>
+        <p class="section-desc">
+          كل المسافات في التصميم مبنية على شبكة أساسها 8px. نُعرّف ثوابت في ملف منفصل لضمان الاتساق في كامل التطبيق ومنع الأرقام العشوائية (Magic Numbers) في الكود.
+        </p>
+        <div class="code-wrap">
+          <div class="code-header"><span>lib/core/theme/app_spacing.dart</span><span class="lang-tag">dart</span></div>
+<pre><span class="kw">class</span> <span class="cl">AppSpacing</span> {
+  AppSpacing._();
+
+  <span class="cm">// ── 8px grid ──────────────────────────────────</span>
+  <span class="kw">static const double</span> xs   = <span class="nm">4</span>;   <span class="cm">// نصف وحدة  — بين الـ label والعنصر</span>
+  <span class="kw">static const double</span> base = <span class="nm">8</span>;   <span class="cm">// وحدة أساس — بين العناصر المترابطة</span>
+  <span class="kw">static const double</span> sm   = <span class="nm">12</span>;  <span class="cm">// وحدة ونصف</span>
+  <span class="kw">static const double</span> md   = <span class="nm">16</span>;  <span class="cm">// وحدتان   — padding داخلي للكروت</span>
+  <span class="kw">static const double</span> lg   = <span class="nm">24</span>;  <span class="cm">// 3 وحدات  — بين الأقسام</span>
+  <span class="kw">static const double</span> xl   = <span class="nm">32</span>;  <span class="cm">// 4 وحدات  — بين الـ sections الكبيرة</span>
+
+  <span class="cm">// ── Margins ───────────────────────────────────</span>
+  <span class="kw">static const double</span> marginMobile  = <span class="nm">16</span>;  <span class="cm">// padding الجانبي للشاشة - موبايل</span>
+  <span class="kw">static const double</span> marginDesktop = <span class="nm">64</span>;  <span class="cm">// padding الجانبي للشاشة - ديسكتوب</span>
+  <span class="kw">static const double</span> gutter        = <span class="nm">16</span>;  <span class="cm">// المسافة بين أعمدة الـ Grid</span>
+
+  <span class="cm">// ── Radius ────────────────────────────────────</span>
+  <span class="kw">static const double</span> radiusSm    = <span class="nm">8</span>;    <span class="cm">// أزرار، حقول الإدخال</span>
+  <span class="kw">static const double</span> radiusMd    = <span class="nm">12</span>;   <span class="cm">// عناصر متوسطة</span>
+  <span class="kw">static const double</span> radiusLg    = <span class="nm">16</span>;   <span class="cm">// كروت، modals</span>
+  <span class="kw">static const double</span> radiusXl    = <span class="nm">24</span>;   <span class="cm">// bottom sheets</span>
+  <span class="kw">static const double</span> radiusFull  = <span class="nm">999</span>;  <span class="cm">// pill / chips</span>
+
+  <span class="cm">// ── App Bar & Nav ─────────────────────────────</span>
+  <span class="kw">static const double</span> appBarHeight  = <span class="nm">64</span>;
+  <span class="kw">static const double</span> bottomNavHeight = <span class="nm">80</span>;
+
+  <span class="cm">// ── Card ──────────────────────────────────────</span>
+  <span class="kw">static const double</span> cardPadding   = md;   <span class="cm">// 16px</span>
+  <span class="kw">static const double</span> cardRadius    = <span class="nm">20</span>;   <span class="cm">// rounded-2xl</span>
+  <span class="kw">static const double</span> avatarSize    = <span class="nm">80</span>;
+  <span class="kw">static const double</span> avatarRadius  = <span class="nm">14</span>;
+
+  <span class="cm">// ── Input ─────────────────────────────────────</span>
+  <span class="kw">static const double</span> inputHeight   = <span class="nm">48</span>;
+  <span class="kw">static const double</span> inputRadius   = radiusSm;  <span class="cm">// 8px</span>
+
+  <span class="cm">// ── Chips ─────────────────────────────────────</span>
+  <span class="kw">static const double</span> chipHeight    = <span class="nm">36</span>;
+  <span class="kw">static const double</span> chipPaddingH  = <span class="nm">20</span>;
+
+  <span class="cm">// ── Button ────────────────────────────────────</span>
+  <span class="kw">static const double</span> btnHeight     = <span class="nm">48</span>;
+  <span class="kw">static const double</span> btnRadius     = <span class="nm">12</span>;
+}</pre>
+        </div>
+
+        <div style="margin-top:20px;">
+          <h3 style="font-size:16px;font-weight:700;color:var(--primary);margin-bottom:14px;">🗺️ خريطة المسافات المرئية</h3>
+          <div class="glass" style="padding:28px;display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:4px;height:24px;background:var(--secondary);border-radius:2px;flex-shrink:0;"></div>
+              <code style="color:var(--secondary);font-family:'JetBrains Mono',monospace;font-size:13px;min-width:60px;">xs = 4px</code>
+              <span style="font-size:13px;color:var(--on-surface-var);">بين النجمة ورقم التقييم، بين الـ icon والنص الصغير</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:8px;height:24px;background:var(--secondary);border-radius:2px;flex-shrink:0;"></div>
+              <code style="color:var(--secondary);font-family:'JetBrains Mono',monospace;font-size:13px;min-width:60px;">base = 8px</code>
+              <span style="font-size:13px;color:var(--on-surface-var);">بين الأسماء والتفاصيل، gap داخل الـ Row للمعلومات</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:12px;height:24px;background:var(--secondary);border-radius:2px;flex-shrink:0;"></div>
+              <code style="color:var(--secondary);font-family:'JetBrains Mono',monospace;font-size:13px;min-width:60px;">sm = 12px</code>
+              <span style="font-size:13px;color:var(--on-surface-var);">بين عناصر البطاقة (location، bio)</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:16px;height:24px;background:var(--primary);border-radius:2px;flex-shrink:0;"></div>
+              <code style="color:var(--primary);font-family:'JetBrains Mono',monospace;font-size:13px;min-width:60px;">md = 16px</code>
+              <span style="font-size:13px;color:var(--on-surface-var);">padding داخل الكروت، margin الشاشة على الموبايل</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:24px;height:24px;background:var(--primary);border-radius:2px;flex-shrink:0;"></div>
+              <code style="color:var(--primary);font-family:'JetBrains Mono',monospace;font-size:13px;min-width:60px;">lg = 24px</code>
+              <span style="font-size:13px;color:var(--on-surface-var);">بين الـ sections الرئيسية (Search → Chips → Cards)</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:32px;height:24px;background:var(--primary-container);border-radius:2px;flex-shrink:0;"></div>
+              <code style="color:var(--on-surface-var);font-family:'JetBrains Mono',monospace;font-size:13px;min-width:60px;">xl = 32px</code>
+              <span style="font-size:13px;color:var(--on-surface-var);">padding أعلى الـ body (بعد AppBar الثابت)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SECTION 14: Doctor Bio Row -->
+      <div class="section" id="biorow">
+        <div class="section-label">
+          <div class="section-num">14</div>
+          <h2 class="section-title">تفاصيل البطاقة الكاملة — Location & Bio & Rating</h2>
+        </div>
+        <p class="section-desc">
+          نكمل تفاصيل بطاقة الطبيب: صف الموقع، النص المختصر (2 سطر)، وصف التقييم بالنجوم. كل هذا مع مراعاة RTL وaccessibility.
+        </p>
+        <div class="code-wrap">
+          <div class="code-header"><span>باقي widgets البطاقة</span><span class="lang-tag">dart</span></div>
+<pre><span class="cm">// داخل كلاس _DoctorCardState</span>
+
+<span class="cm">// ─── معلومات الطبيب (الاسم + التخصص + التقييم) ──</span>
+<span class="cl">Widget</span> _buildDoctorInfo() {
+  <span class="kw">return</span> <span class="cl">Column</span>(
+    crossAxisAlignment: <span class="cl">CrossAxisAlignment</span>.end,  <span class="cm">// RTL</span>
+    children: [
+      <span class="cm">// ── صف التقييم ──────────────────────────</span>
+      <span class="cl">Row</span>(
+        mainAxisAlignment: <span class="cl">MainAxisAlignment</span>.end,
+        children: [
+          <span class="cl">Text</span>(widget.doctor.rating.toStringAsFixed(<span class="nm">1</span>),
+            style: <span class="cl">AppTextStyles</span>.labelMd()
+              .copyWith(color: <span class="cl">AppColors</span>.secondary)),
+          <span class="kw">const</span> <span class="cl">SizedBox</span>(width: <span class="nm">4</span>),
+          <span class="cl">Icon</span>(<span class="cl">Icons</span>.star_rounded,
+            color: <span class="cl">AppColors</span>.secondary, size: <span class="nm">18</span>),
+        ],
+      ),
+      <span class="kw">const</span> <span class="cl">SizedBox</span>(height: <span class="cl">AppSpacing</span>.xs),
+
+      <span class="cm">// ── اسم الطبيب ──────────────────────────</span>
+      <span class="cl">Text</span>(widget.doctor.name,
+        style: <span class="cl">AppTextStyles</span>.headlineMd(),
+        textAlign: <span class="cl">TextAlign</span>.end),
+
+      <span class="kw">const</span> <span class="cl">SizedBox</span>(height: <span class="cl">AppSpacing</span>.xs),
+
+      <span class="cm">// ── التخصص ──────────────────────────────</span>
+      <span class="cl">Text</span>(widget.doctor.specialty,
+        style: <span class="cl">AppTextStyles</span>.labelMd()
+          .copyWith(color: <span class="cl">AppColors</span>.primary),
+        textAlign: <span class="cl">TextAlign</span>.end),
+    ],
+  );
+}
+
+<span class="cm">// ─── صف الموقع ──────────────────────────────────</span>
+<span class="cl">Widget</span> _buildLocationRow() {
+  <span class="kw">return</span> <span class="cl">Row</span>(
+    mainAxisAlignment: <span class="cl">MainAxisAlignment</span>.end,
+    children: [
+      <span class="cm">// النص يجي أولاً (RTL: يسار) ثم الأيقونة (يمين)</span>
+      <span class="cl">Text</span>(widget.doctor.location,
+        style: <span class="cl">AppTextStyles</span>.bodyMd()),
+      <span class="kw">const</span> <span class="cl">SizedBox</span>(width: <span class="nm">6</span>),
+      <span class="cl">Icon</span>(<span class="cl">Icons</span>.location_on_outlined,
+        color: <span class="cl">AppColors</span>.onSurfaceVariant, size: <span class="nm">18</span>),
+    ],
+  );
+}
+
+<span class="cm">// ─── النص البيوغرافي المختصر ────────────────────</span>
+<span class="cl">Widget</span> _buildBio() {
+  <span class="kw">return</span> <span class="cl">Text</span>(
+    widget.doctor.bio,
+    style: <span class="cl">AppTextStyles</span>.bodyMd()
+      .copyWith(color: <span class="cl">AppColors</span>.onSurfaceVariant.withOpacity(<span class="nm">0.8</span>)),
+    maxLines: <span class="nm">2</span>,
+    overflow: <span class="cl">TextOverflow</span>.ellipsis,  <span class="cm">// اقتطاع الطويل بـ "..."</span>
+    textAlign: <span class="cl">TextAlign</span>.end,
+  );
+}
+
+<span class="cm">// ─── زر الحجز ───────────────────────────────────</span>
+<span class="cl">Widget</span> _buildBookButton() {
+  <span class="kw">return</span> <span class="cl">GlowButton</span>(
+    label: <span class="str">'احجز موعداً'</span>,
+    onTap: () {
+      <span class="cm">// Navigate to booking screen</span>
+      <span class="cl">Navigator</span>.pushNamed(context, <span class="str">'/book'</span>,
+        arguments: widget.doctor);
+    },
+  );
+}</pre>
+        </div>
+
+        <div class="info-box tip">
+          <span class="info-icon">🌐</span>
+          <p><strong>RTL في Flutter:</strong> عند استخدام <code>Directionality.rtl</code>، الـ <code>Row</code> يبدأ من اليمين تلقائياً. لكن انتبه: <code>CrossAxisAlignment.start</code> = يمين في RTL، و<code>CrossAxisAlignment.end</code> = يسار. دائماً اختبر على محاكٍ عربي حقيقي.</p>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SECTION 15: Main Content Body -->
+      <div class="section" id="mainbody">
+        <div class="section-label">
+          <div class="section-num">15</div>
+          <h2 class="section-title">تجميع المحتوى الرئيسي — _buildMainContent()</h2>
+        </div>
+        <p class="section-desc">
+          هنا نجمع كل الـ widgets في الـ body الرئيسي. نستخدم <code>CustomScrollView</code> مع <code>SliverList</code> بدلاً من <code>ListView</code> للحصول على أداء أفضل مع قوائم طويلة. نضيف padding يأخذ بعين الاعتبار ارتفاع الـ AppBar والـ BottomNav الثابتَين.
+        </p>
+        <div class="code-wrap">
+          <div class="code-header"><span>_buildMainContent() الكاملة</span><span class="lang-tag">dart</span></div>
+<pre><span class="cl">Widget</span> _buildMainContent() {
+  <span class="kw">return</span> <span class="cl">CustomScrollView</span>(
+    physics: <span class="kw">const</span> <span class="cl">BouncingScrollPhysics</span>(),   <span class="cm">// تأثير bounce iOS</span>
+    slivers: [
+      <span class="cm">// ── مساحة فوق المحتوى (تحت AppBar الثابت) ──</span>
+      <span class="kw">const</span> <span class="cl">SliverToBoxAdapter</span>(
+        child: <span class="cl">SizedBox</span>(height: <span class="nm">80</span>),  <span class="cm">// appBarHeight + padding</span>
+      ),
+
+      <span class="cm">// ── حقل البحث ────────────────────────────────</span>
+      <span class="cl">SliverToBoxAdapter</span>(
+        child: <span class="cl">Padding</span>(
+          padding: <span class="kw">const</span> <span class="cl">EdgeInsets</span>.symmetric(
+            horizontal: <span class="cl">AppSpacing</span>.marginMobile,
+          ),
+          child: <span class="kw">const</span> <span class="cl">SearchBarWidget</span>(),
+        ),
+      ),
+
+      <span class="cl">SliverToBoxAdapter</span>(child: <span class="cl">SizedBox</span>(height: <span class="cl">AppSpacing</span>.lg)),
+
+      <span class="cm">// ── شرائح التصفية ───────────────────────────</span>
+      <span class="kw">const</span> <span class="cl">SliverToBoxAdapter</span>(
+        child: <span class="cl">CategoryChips</span>(),   <span class="cm">// تتضمن padding داخلياً</span>
+      ),
+
+      <span class="cl">SliverToBoxAdapter</span>(child: <span class="cl">SizedBox</span>(height: <span class="cl">AppSpacing</span>.lg)),
+
+      <span class="cm">// ── قائمة الأطباء ────────────────────────────</span>
+      <span class="cl">SliverPadding</span>(
+        padding: <span class="kw">const</span> <span class="cl">EdgeInsets</span>.symmetric(
+          horizontal: <span class="cl">AppSpacing</span>.marginMobile,
+        ),
+        sliver: <span class="cl">SliverList</span>(
+          delegate: <span class="cl">SliverChildBuilderDelegate</span>(
+            (context, index) {
+              <span class="kw">final</span> doc = kMockDoctors[index];
+              <span class="kw">return</span> <span class="cl">Padding</span>(
+                padding: <span class="kw">const</span> <span class="cl">EdgeInsets</span>.only(bottom: <span class="cl">AppSpacing</span>.md),
+                child: <span class="cl">DoctorCard</span>(
+                  doctor: doc,
+                  <span class="cm">// تأخير تراكمي: بطاقة 1 = 0.1s، بطاقة 2 = 0.2s...</span>
+                  animDelay: <span class="cl">Duration</span>(milliseconds: (index + <span class="nm">1</span>) * <span class="nm">100</span>),
+                ),
+              );
+            },
+            childCount: kMockDoctors.length,
+          ),
+        ),
+      ),
+
+      <span class="cm">// ── مساحة أسفل القائمة (تحت BottomNav الثابت) ─</span>
+      <span class="kw">const</span> <span class="cl">SliverToBoxAdapter</span>(
+        child: <span class="cl">SizedBox</span>(height: <span class="nm">100</span>),  <span class="cm">// bottomNavHeight + padding</span>
+      ),
+    ],
+  );
+}</pre>
+        </div>
+
+        <div class="info-box warn">
+          <span class="info-icon">⚠️</span>
+          <p><strong>لماذا CustomScrollView وليس ListView؟</strong> لأن الـ Slivers تُدار بواسطة Flutter مباشرة وتدعم <code>SliverAppBar</code> المدمج وتأثيرات الـ scroll المتقدمة. كذلك <code>SliverChildBuilderDelegate</code> تبني الـ widgets lazily (عند الحاجة فقط) وهذا يحسن الأداء مع القوائم الطويلة.</p>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SECTION 16: Search Filter Logic -->
+      <div class="section" id="filterlogic">
+        <div class="section-label">
+          <div class="section-num">16</div>
+          <h2 class="section-title">منطق البحث والفلترة</h2>
+        </div>
+        <p class="section-desc">
+          نربط حقل البحث وشرائح التصفية بقائمة الأطباء. نستخدم <code>setState</code> البسيط أو Riverpod. المنطق: فلترة بالتصنيف أولاً ثم بالنص.
+        </p>
+        <div class="code-wrap">
+          <div class="code-header"><span>منطق الفلترة والبحث</span><span class="lang-tag">dart</span></div>
+<pre><span class="cm">// في _DoctorSearchScreenState:</span>
+
+<span class="cl">String</span> _searchQuery = <span class="str">''</span>;
+<span class="cl">DoctorCategory</span> _selectedCategory = <span class="cl">DoctorCategory</span>.all;
+<span class="cl">List</span>&lt;<span class="cl">Doctor</span>&gt; _allDoctors = kMockDoctors;  <span class="cm">// أو من API</span>
+
+<span class="cm">// ── الدكاترة المفلترة ─────────────────────────</span>
+<span class="cl">List</span>&lt;<span class="cl">Doctor</span>&gt; <span class="kw">get</span> _filteredDoctors {
+  <span class="kw">return</span> _allDoctors.where((doc) {
+    <span class="cm">// فلتر التصنيف</span>
+    <span class="kw">final</span> catMatch = _selectedCategory == <span class="cl">DoctorCategory</span>.all
+        || doc.category == _selectedCategory;
+
+    <span class="cm">// فلتر البحث النصي (اسم أو تخصص)</span>
+    <span class="kw">final</span> query = _searchQuery.trim().toLowerCase();
+    <span class="kw">final</span> textMatch = query.isEmpty
+        || doc.name.toLowerCase().contains(query)
+        || doc.specialty.toLowerCase().contains(query);
+
+    <span class="kw">return</span> catMatch &amp;&amp; textMatch;
+  }).toList();
+}
+
+<span class="cm">// ── callback للـ SearchBar ───────────────────</span>
+<span class="kw">void</span> _onSearchChanged(<span class="cl">String</span> value) {
+  setState(() =&gt; _searchQuery = value);
+}
+
+<span class="cm">// ── callback للـ CategoryChips ──────────────</span>
+<span class="kw">void</span> _onCategorySelected(<span class="cl">DoctorCategory</span> cat) {
+  setState(() =&gt; _selectedCategory = cat);
+}
+
+<span class="cm">// ── في SliverChildBuilderDelegate ───────────</span>
+<span class="cm">// استبدل kMockDoctors بـ _filteredDoctors</span>
+childCount: _filteredDoctors.length,
+<span class="cm">// وفي body:</span>
+<span class="kw">final</span> doc = _filteredDoctors[index];</pre>
+        </div>
+
+        <div class="info-box tip">
+          <span class="info-icon">🔍</span>
+          <p><strong>تحسين للإنتاج:</strong> أضف <code>debounce</code> للبحث النصي لتجنب إعادة البناء عند كل حرف. استخدم <code>Timer(Duration(milliseconds: 300), () { ... })</code> أو مكتبة <code>rxdart</code> مع <code>debounceTime</code>.</p>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SECTION 17: Hover تفصيلي - 3D Tilt -->
+      <div class="section" id="hover3d">
+        <div class="section-label">
+          <div class="section-num">17</div>
+          <h2 class="section-title">تأثير Hover المتقدم — 3D Tilt على الكروت</h2>
+        </div>
+        <p class="section-desc">
+          في الويب والديسكتوب، يمكن إضافة تأثير 3D tilt يتابع موقع الماوس داخل الكارد. نستخدم <code>MouseRegion</code> لتتبع الموقع و<code>Transform</code> لتطبيق الـ perspective.
+        </p>
+        <div class="info-box warn">
+          <span class="info-icon">📱</span>
+          <p><strong>هذا التأثير للويب والديسكتوب فقط.</strong> على الموبايل، استبدله بـ scale بسيط. استخدم <code>kIsWeb</code> أو <code>Platform.isDesktop</code> للتمييز.</p>
+        </div>
+        <div class="code-wrap">
+          <div class="code-header"><span>3D Tilt Effect على الكارد (Web/Desktop)</span><span class="lang-tag">dart</span></div>
+<pre><span class="kw">class</span> <span class="cl">TiltCard</span> <span class="kw">extends</span> <span class="cl">StatefulWidget</span> {
+  <span class="kw">final</span> <span class="cl">Widget</span> child;
+  <span class="kw">const</span> <span class="cl">TiltCard</span>({<span class="kw">super</span>.key, <span class="kw">required this</span>.child});
+  <span class="kw">@override</span>
+  <span class="cl">State</span>&lt;<span class="cl">TiltCard</span>&gt; createState() =&gt; _<span class="cl">TiltCardState</span>();
+}
+
+<span class="kw">class</span> _<span class="cl">TiltCardState</span> <span class="kw">extends</span> <span class="cl">State</span>&lt;<span class="cl">TiltCard</span>&gt; {
+  <span class="kw">double</span> _rotX = <span class="nm">0</span>, _rotY = <span class="nm">0</span>;
+  <span class="kw">bool</span>   _hovered = <span class="kw">false</span>;
+
+  <span class="kw">void</span> _onHover(<span class="cl">PointerHoverEvent</span> event, <span class="cl">BoxConstraints</span> box) {
+    <span class="kw">if</span> (!_hovered) <span class="kw">return</span>;
+    <span class="kw">final</span> local = event.localPosition;
+    <span class="kw">final</span> dx = (local.dx / box.maxWidth  - <span class="nm">0.5</span>) * <span class="nm">2</span>;  <span class="cm">// -1..1</span>
+    <span class="kw">final</span> dy = (local.dy / box.maxHeight - <span class="nm">0.5</span>) * <span class="nm">2</span>;  <span class="cm">// -1..1</span>
+    setState(() {
+      _rotY =  dx * <span class="nm">0.06</span>;   <span class="cm">// max ~3.4° rotation</span>
+      _rotX = -dy * <span class="nm">0.06</span>;
+    });
+  }
+
+  <span class="kw">@override</span>
+  <span class="cl">Widget</span> build(<span class="cl">BuildContext</span> context) {
+    <span class="kw">return</span> <span class="cl">LayoutBuilder</span>(
+      builder: (context, constraints) {
+        <span class="kw">return</span> <span class="cl">MouseRegion</span>(
+          onEnter: (_) =&gt; setState(() =&gt; _hovered = <span class="kw">true</span>),
+          onExit:  (_) =&gt; setState(() {
+            _hovered = <span class="kw">false</span>;
+            _rotX = <span class="nm">0</span>; _rotY = <span class="nm">0</span>;  <span class="cm">// reset عند الخروج</span>
+          }),
+          onHover: (e) =&gt; _onHover(e, constraints),
+          child: <span class="cl">AnimatedContainer</span>(
+            duration: <span class="kw">const</span> <span class="cl">Duration</span>(milliseconds: <span class="nm">300</span>),
+            transform: (<span class="cl">Matrix4</span>.identity()
+              ..setEntry(<span class="nm">3</span>, <span class="nm">2</span>, <span class="nm">0.001</span>)  <span class="cm">// perspective</span>
+              ..rotateX(_rotX)
+              ..rotateY(_rotY)),
+            transformAlignment: <span class="cl">Alignment</span>.center,
+            child: widget.child,
+          ),
+        );
+      },
+    );
+  }
+}
+
+<span class="cm">// ── الاستخدام في DoctorCard ──────────────────</span>
+<span class="kw">return</span> <span class="cl">TiltCard</span>(
+  child: _buildCardContent(),
+);</pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SECTION 18: Shimmer Loading -->
+      <div class="section" id="shimmer">
+        <div class="section-label">
+          <div class="section-num">18</div>
+          <h2 class="section-title">حالة التحميل — Shimmer Skeleton</h2>
+        </div>
+        <p class="section-desc">
+          أثناء تحميل البيانات من الـ API نعرض هيكلاً وهمياً (Skeleton) بتأثير Shimmer. هذا أفضل بكثير من مؤشر التحميل الدائري لأنه يحافظ على Layout الشاشة ويُقلل من القلق البصري للمستخدم.
+        </p>
+        <div class="code-wrap">
+          <div class="code-header"><span>Shimmer Skeleton لبطاقة الطبيب</span><span class="lang-tag">dart</span></div>
+<pre><span class="kw">class</span> <span class="cl">DoctorCardSkeleton</span> <span class="kw">extends</span> <span class="cl">StatefulWidget</span> {
+  <span class="kw">const</span> <span class="cl">DoctorCardSkeleton</span>({<span class="kw">super</span>.key});
+  <span class="kw">@override</span>
+  <span class="cl">State</span>&lt;<span class="cl">DoctorCardSkeleton</span>&gt; createState() =&gt; _<span class="cl">DoctorCardSkeletonState</span>();
+}
+
+<span class="kw">class</span> _<span class="cl">DoctorCardSkeletonState</span> <span class="kw">extends</span> <span class="cl">State</span>&lt;<span class="cl">DoctorCardSkeleton</span>&gt;
+    <span class="kw">with</span> <span class="cl">SingleTickerProviderStateMixin</span> {
+
+  <span class="kw">late</span> <span class="cl">AnimationController</span> _ctrl;
+  <span class="kw">late</span> <span class="cl">Animation</span>&lt;<span class="kw">double</span>&gt; _anim;
+
+  <span class="kw">@override</span>
+  <span class="kw">void</span> initState() {
+    <span class="kw">super</span>.initState();
+    _ctrl = <span class="cl">AnimationController</span>(
+      vsync: <span class="kw">this</span>,
+      duration: <span class="kw">const</span> <span class="cl">Duration</span>(milliseconds: <span class="nm">1500</span>),
+    )..repeat();
+    _anim = <span class="cl">Tween</span>(<span class="kw">begin</span>: -<span class="nm">2.0</span>, end: <span class="nm">2.0</span>).animate(
+      <span class="cl">CurvedAnimation</span>(parent: _ctrl, curve: <span class="cl">Curves</span>.linear),
+    );
+  }
+
+  <span class="kw">@override</span>
+  <span class="kw">void</span> dispose() { _ctrl.dispose(); <span class="kw">super</span>.dispose(); }
+
+  <span class="cl">Widget</span> _shimmerBox(<span class="kw">double</span> w, <span class="kw">double</span> h, {<span class="kw">double</span> radius = <span class="nm">8</span>}) {
+    <span class="kw">return</span> <span class="cl">AnimatedBuilder</span>(
+      animation: _anim,
+      builder: (_, __) =&gt; <span class="cl">Container</span>(
+        width: w, height: h,
+        decoration: <span class="cl">BoxDecoration</span>(
+          borderRadius: <span class="cl">BorderRadius</span>.circular(radius),
+          gradient: <span class="cl">LinearGradient</span>(
+            begin: <span class="cl">Alignment</span>.centerRight,
+            end:   <span class="cl">Alignment</span>.centerLeft,
+            stops: <span class="kw">const</span> [<span class="nm">0.0</span>, <span class="nm">0.5</span>, <span class="nm">1.0</span>],
+            colors: <span class="kw">const</span> [
+              <span class="cl">Color</span>(<span class="nm">0xFF0F301F</span>),   <span class="cm">// surface-container-high</span>
+              <span class="cl">Color</span>(<span class="nm">0xFF1B3B29</span>),   <span class="cm">// أفتح قليلاً</span>
+              <span class="cl">Color</span>(<span class="nm">0xFF0F301F</span>),   <span class="cm">// يعود للأصل</span>
+            ],
+            transform: <span class="cl">GradientRotation</span>(_anim.value),
+          ),
+        ),
+      ),
+    );
+  }
+
+  <span class="kw">@override</span>
+  <span class="cl">Widget</span> build(<span class="cl">BuildContext</span> context) {
+    <span class="kw">return</span> <span class="cl">Container</span>(
+      padding: <span class="kw">const</span> <span class="cl">EdgeInsets</span>.all(<span class="cl">AppSpacing</span>.md),
+      decoration: <span class="cl">BoxDecoration</span>(
+        color: <span class="cl">AppColors</span>.glassBg,
+        borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="cl">AppSpacing</span>.cardRadius),
+        border: <span class="cl">Border</span>.all(color: <span class="cl">AppColors</span>.glassBorder),
+      ),
+      child: <span class="cl">Column</span>(
+        crossAxisAlignment: <span class="cl">CrossAxisAlignment</span>.stretch,
+        children: [
+          <span class="cl">Row</span>(children: [
+            _shimmerBox(<span class="nm">80</span>, <span class="nm">80</span>, radius: <span class="nm">14</span>),  <span class="cm">// صورة الطبيب</span>
+            <span class="kw">const</span> <span class="cl">SizedBox</span>(width: <span class="nm">14</span>),
+            <span class="cl">Expanded</span>(child: <span class="cl">Column</span>(
+              crossAxisAlignment: <span class="cl">CrossAxisAlignment</span>.end,
+              children: [
+                _shimmerBox(<span class="nm">60</span>,  <span class="nm">14</span>),  <span class="cm">// تقييم</span>
+                <span class="kw">const</span> <span class="cl">SizedBox</span>(height: <span class="nm">8</span>),
+                _shimmerBox(<span class="nm">160</span>, <span class="nm">20</span>),  <span class="cm">// اسم</span>
+                <span class="kw">const</span> <span class="cl">SizedBox</span>(height: <span class="nm">8</span>),
+                _shimmerBox(<span class="nm">120</span>, <span class="nm">14</span>),  <span class="cm">// تخصص</span>
+              ],
+            )),
+          ]),
+          <span class="kw">const</span> <span class="cl">SizedBox</span>(height: <span class="nm">14</span>),
+          _shimmerBox(<span class="kw">double</span>.infinity, <span class="nm">14</span>),
+          <span class="kw">const</span> <span class="cl">SizedBox</span>(height: <span class="nm">6</span>),
+          _shimmerBox(<span class="nm">200</span>, <span class="nm">14</span>),
+          <span class="kw">const</span> <span class="cl">SizedBox</span>(height: <span class="nm">16</span>),
+          _shimmerBox(<span class="kw">double</span>.infinity, <span class="nm">48</span>, radius: <span class="nm">12</span>),  <span class="cm">// زر</span>
+        ],
+      ),
+    );
+  }
+}</pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SECTION 19: main.dart الكامل -->
+      <div class="section" id="maindart">
+        <div class="section-label">
+          <div class="section-num">19</div>
+          <h2 class="section-title">ملف main.dart الكامل — نقطة الدخول</h2>
+        </div>
+        <p class="section-desc">
+          نضع إعدادات التطبيق الكاملة: MaterialApp مع الـ Theme، إعداد RTL كافتراضي، وإخفاء شريط Debug.
+        </p>
+        <div class="code-wrap">
+          <div class="code-header"><span>lib/main.dart</span><span class="lang-tag">dart</span></div>
+<pre><span class="kw">import</span> <span class="str">'package:flutter/material.dart'</span>;
+<span class="kw">import</span> <span class="str">'package:flutter/services.dart'</span>;
+<span class="kw">import</span> <span class="str">'package:google_fonts/google_fonts.dart'</span>;
+<span class="kw">import</span> <span class="str">'features/doctor_search/presentation/screens/doctor_search_screen.dart'</span>;
+<span class="kw">import</span> <span class="str">'core/theme/app_colors.dart'</span>;
+
+<span class="kw">void</span> main() {
+  <span class="cl">WidgetsFlutterBinding</span>.ensureInitialized();
+
+  <span class="cm">// إخفاء Status Bar على الموبايل (تأثير Immersive)</span>
+  <span class="cl">SystemChrome</span>.setSystemUIOverlayStyle(<span class="kw">const</span> <span class="cl">SystemUiOverlayStyle</span>(
+    statusBarColor: <span class="cl">Colors</span>.transparent,
+    statusBarBrightness: <span class="cl">Brightness</span>.dark,
+    statusBarIconBrightness: <span class="cl">Brightness</span>.light,
+    systemNavigationBarColor: <span class="cl">Colors</span>.transparent,
+  ));
+
+  <span class="cm">// جعل الـ Navigation Bar شفافة (Android)</span>
+  <span class="cl">SystemChrome</span>.setEnabledSystemUIMode(<span class="cl">SystemUiMode</span>.edgeToEdge);
+
+  runApp(<span class="kw">const</span> <span class="cl">VitalityApp</span>());
+}
+
+<span class="kw">class</span> <span class="cl">VitalityApp</span> <span class="kw">extends</span> <span class="cl">StatelessWidget</span> {
+  <span class="kw">const</span> <span class="cl">VitalityApp</span>({<span class="kw">super</span>.key});
+
+  <span class="kw">@override</span>
+  <span class="cl">Widget</span> build(<span class="cl">BuildContext</span> context) {
+    <span class="kw">return</span> <span class="cl">MaterialApp</span>(
+      title: <span class="str">'Vitality'</span>,
+      debugShowCheckedModeBanner: <span class="kw">false</span>,
+
+      <span class="cm">// ── اتجاه النص RTL عربي ──────────────────</span>
+      locale: <span class="kw">const</span> <span class="cl">Locale</span>(<span class="str">'ar'</span>),
+      supportedLocales: <span class="kw">const</span> [<span class="cl">Locale</span>(<span class="str">'ar'</span>), <span class="cl">Locale</span>(<span class="str">'en'</span>)],
+      builder: (context, child) =&gt; <span class="cl">Directionality</span>(
+        textDirection: <span class="cl">TextDirection</span>.rtl,
+        child: child!,
+      ),
+
+      <span class="cm">// ── الثيم الداكن ─────────────────────────</span>
+      themeMode: <span class="cl">ThemeMode</span>.dark,
+      darkTheme: _buildDarkTheme(),
+
+      <span class="cm">// ── الشاشة الرئيسية ──────────────────────</span>
+      home: <span class="kw">const</span> <span class="cl">DoctorSearchScreen</span>(),
+    );
+  }
+
+  <span class="cl">ThemeData</span> _buildDarkTheme() {
+    <span class="kw">return</span> <span class="cl">ThemeData</span>(
+      useMaterial3: <span class="kw">true</span>,
+      brightness: <span class="cl">Brightness</span>.dark,
+      scaffoldBackgroundColor: <span class="cl">AppColors</span>.background,
+      colorScheme: <span class="kw">const</span> <span class="cl">ColorScheme</span>.dark(
+        primary:          <span class="cl">AppColors</span>.primary,
+        onPrimary:        <span class="cl">AppColors</span>.onPrimary,
+        primaryContainer: <span class="cl">AppColors</span>.primaryContainer,
+        secondary:        <span class="cl">AppColors</span>.secondary,
+        surface:          <span class="cl">AppColors</span>.surface,
+        onSurface:        <span class="cl">AppColors</span>.onSurface,
+      ),
+      textTheme: <span class="cl">GoogleFonts</span>.manropeTextTheme(
+        <span class="cl">ThemeData</span>.dark().textTheme,
+      ).apply(bodyColor: <span class="cl">AppColors</span>.onSurface),
+      splashColor: <span class="cl">AppColors</span>.primary.withOpacity(<span class="nm">0.08</span>),
+      highlightColor: <span class="cl">Colors</span>.transparent,
+      pageTransitionsTheme: <span class="kw">const</span> <span class="cl">PageTransitionsTheme</span>(
+        builders: {
+          <span class="cl">TargetPlatform</span>.android: <span class="cl">FadeUpwardsPageTransitionsBuilder</span>(),
+          <span class="cl">TargetPlatform</span>.iOS:     <span class="cl">CupertinoPageTransitionsBuilder</span>(),
+        },
+      ),
+    );
+  }
+}</pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SECTION 20: خلاصة تسلسل العمل -->
+      <div class="section" id="workflow">
+        <div class="section-label">
+          <div class="section-num">20</div>
+          <h2 class="section-title">خلاصة — ترتيب العمل خطوة بخطوة</h2>
+        </div>
+        <p class="section-desc">
+          إليك الترتيب الصحيح لبناء الشاشة من الصفر حتى تعمل بالكامل مع كل التأثيرات:
+        </p>
+
+        <div class="steps">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <h4>إعداد المشروع وإضافة المكتبات</h4>
+              <p>أنشئ مشروع Flutter جديد، أضف <code>google_fonts</code> و<code>cached_network_image</code> في <code>pubspec.yaml</code>، نفّذ <code>flutter pub get</code>.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <h4>بناء الـ Design System</h4>
+              <p>أنشئ <code>app_colors.dart</code> و<code>app_text_styles.dart</code> و<code>app_spacing.dart</code>. هذه الأساس الذي يعتمد عليه كل شيء.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <h4>تعريف نموذج البيانات</h4>
+              <p>أنشئ <code>Doctor</code> model مع Mock Data. اختبر أن البيانات تُقرأ بشكل صحيح.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <h4>بناء الخلفية المتحركة</h4>
+              <p>ابدأ بـ <code>ParticleBackground</code> مع <code>CustomPainter</code>. تأكد من أن الـ FPS مستقر قبل الانتقال.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">5</div>
+            <div class="step-body">
+              <h4>بناء Scaffold الرئيسي</h4>
+              <p>أنشئ <code>DoctorSearchScreen</code> مع AppBar الزجاجي وBottomNav. تأكد من أن <code>extendBodyBehindAppBar: true</code>.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">6</div>
+            <div class="step-body">
+              <h4>بناء Widgets المحتوى</h4>
+              <p>ابنِ كل widget منفصلة: <code>SearchBarWidget</code> ← <code>CategoryChips</code> ← <code>DoctorCard</code> ← <code>GlowButton</code> ← <code>PulsingDot</code>.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">7</div>
+            <div class="step-body">
+              <h4>تجميع المحتوى في CustomScrollView</h4>
+              <p>ادمج كل الـ widgets في <code>_buildMainContent()</code> مع <code>SliverList</code>. أضف الـ padding المناسبة أعلى وأسفل.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">8</div>
+            <div class="step-body">
+              <h4>إضافة منطق البحث والفلترة</h4>
+              <p>اربط الـ <code>TextField</code> والـ chips بقائمة الأطباء. أضف <code>debounce</code> للبحث.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">9</div>
+            <div class="step-body">
+              <h4>إضافة Shimmer لحالة التحميل</h4>
+              <p>استخدم <code>DoctorCardSkeleton</code> في حالة <code>isLoading: true</code> بدلاً من CircularProgressIndicator.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">10</div>
+            <div class="step-body">
+              <h4>اختبار Hover وRTL</h4>
+              <p>شغّل على الويب (<code>flutter run -d chrome</code>) لاختبار hover. شغّل على محاكٍ عربي لاختبار RTL. أصلح أي مشاكل في المحاذاة.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- جدول التأثيرات الكامل -->
+        <div style="margin-top:36px;">
+          <h3 style="font-size:18px;font-weight:700;color:var(--primary);margin-bottom:16px;">📊 جدول التأثيرات الكامل</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>التأثير</th>
+                <th>الـ Widget / API</th>
+                <th>المنصة</th>
+                <th>الحالة</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>جسيمات الخلفية</td>
+                <td><code>CustomPainter</code></td>
+                <td>الكل</td>
+                <td><span class="tag tag-green">مكتمل ✓</span></td>
+              </tr>
+              <tr>
+                <td>النبضة المركزية</td>
+                <td><code>Canvas.drawCircle</code></td>
+                <td>الكل</td>
+                <td><span class="tag tag-green">مكتمل ✓</span></td>
+              </tr>
+              <tr>
+                <td>AppBar الزجاجي</td>
+                <td><code>BackdropFilter</code></td>
+                <td>الكل</td>
+                <td><span class="tag tag-green">مكتمل ✓</span></td>
+              </tr>
+              <tr>
+                <td>Focus Glow للبحث</td>
+                <td><code>FocusNode + AnimatedContainer</code></td>
+                <td>الكل</td>
+                <td><span class="tag tag-green">مكتمل ✓</span></td>
+              </tr>
+              <tr>
+                <td>Chips النشطة</td>
+                <td><code>AnimatedContainer</code></td>
+                <td>الكل</td>
+                <td><span class="tag tag-green">مكتمل ✓</span></td>
+              </tr>
+              <tr>
+                <td>Glassmorphism للكارد</td>
+                <td><code>BackdropFilter + ClipRRect</code></td>
+                <td>الكل</td>
+                <td><span class="tag tag-green">مكتمل ✓</span></td>
+              </tr>
+              <tr>
+                <td>Entrance Animation</td>
+                <td><code>SlideTransition + FadeTransition</code></td>
+                <td>الكل</td>
+                <td><span class="tag tag-green">مكتمل ✓</span></td>
+              </tr>
+              <tr>
+                <td>نقطة الإتاحة المتوهجة</td>
+                <td><code>TweenSequence + FadeTransition</code></td>
+                <td>الكل</td>
+                <td><span class="tag tag-green">مكتمل ✓</span></td>
+              </tr>
+              <tr>
+                <td>Hover Scale على الكارد</td>
+                <td><code>MouseRegion + AnimatedScale</code></td>
+                <td>ويب/ديسكتوب</td>
+                <td><span class="tag tag-green">مكتمل ✓</span></td>
+              </tr>
+              <tr>
+                <td>3D Tilt للكارد</td>
+                <td><code>MouseRegion + Matrix4</code></td>
+                <td>ويب/ديسكتوب</td>
+                <td><span class="tag tag-green">مكتمل ✓</span></td>
+              </tr>
+              <tr>
+                <td>Press Scale</td>
+                <td><code>GestureDetector + AnimatedScale</code></td>
+                <td>موبايل</td>
+                <td><span class="tag tag-green">مكتمل ✓</span></td>
+              </tr>
+              <tr>
+                <td>Glow Button</td>
+                <td><code>AnimatedContainer + BoxShadow</code></td>
+                <td>الكل</td>
+                <td><span class="tag tag-green">مكتمل ✓</span></td>
+              </tr>
+              <tr>
+                <td>Bottom Nav الزجاجي</td>
+                <td><code>BackdropFilter</code></td>
+                <td>الكل</td>
+                <td><span class="tag tag-green">مكتمل ✓</span></td>
+              </tr>
+              <tr>
+                <td>Shimmer Skeleton</td>
+                <td><code>LinearGradient + AnimationController</code></td>
+                <td>الكل</td>
+                <td><span class="tag tag-green">مكتمل ✓</span></td>
+              </tr>
+              <tr>
+                <td>RTL/Arabic</td>
+                <td><code>Directionality.rtl</code></td>
+                <td>الكل</td>
+                <td><span class="tag tag-green">مكتمل ✓</span></td>
+              </tr>
+              <tr>
+                <td>Bounce Scroll</td>
+                <td><code>BouncingScrollPhysics</code></td>
+                <td>الكل</td>
+                <td><span class="tag tag-green">مكتمل ✓</span></td>
+              </tr>
+              <tr>
+                <td>Immersive Status Bar</td>
+                <td><code>SystemChrome</code></td>
+                <td>موبايل</td>
+                <td><span class="tag tag-green">مكتمل ✓</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- أسئلة شائعة -->
+        <div style="margin-top:36px;">
+          <h3 style="font-size:18px;font-weight:700;color:var(--primary);margin-bottom:16px;">❓ أسئلة شائعة</h3>
+          
+          <details>
+            <summary>BackdropFilter لا يعمل على الكارد، لماذا؟</summary>
+            <div class="details-body">
+              <p style="font-size:14px;color:var(--on-surface-var);margin-top:10px;">تأكد من أن <code>ClipRRect</code> أو <code>ClipRect</code> يُغلّف الـ <code>BackdropFilter</code>. بدونه، يُطبّق الـ blur على كل الشاشة. أيضاً تأكد أن <code>sigmaX</code> و<code>sigmaY</code> ليسا 0.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>كيف أجعل الـ AppBar شفافاً ويرى الـ particles خلفه؟</summary>
+            <div class="details-body">
+              <p style="font-size:14px;color:var(--on-surface-var);margin-top:10px;">في الـ Scaffold اضبط <code>extendBodyBehindAppBar: true</code> وجعل <code>backgroundColor</code> للـ AppBar شفافاً. الـ body سيمتد تحت الـ AppBar وستظهر الجسيمات خلفه.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>لماذا تأثير الـ 3D Tilt يُبطئ التطبيق؟</summary>
+            <div class="details-body">
+              <p style="font-size:14px;color:var(--on-surface-var);margin-top:10px;">تأكد من تغليف الكارد بـ <code>RepaintBoundary</code>. الـ <code>Transform</code> مع <code>Matrix4</code> يُنشئ layer جديدة، والـ <code>RepaintBoundary</code> يمنع إعادة رسم الـ widgets المجاورة.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>هل يمكن استخدام Rive بدلاً من CustomPainter للجسيمات؟</summary>
+            <div class="details-body">
+              <p style="font-size:14px;color:var(--on-surface-var);margin-top:10px;">نعم، Rive خيار ممتاز للأنيميشن المعقد. لكن للجسيمات البسيطة، <code>CustomPainter</code> أخف وزناً وأسهل تخصيصاً. Rive يُفيد أكثر للـ character animations والـ illustrations.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>كيف أضيف دعم الـ Light Mode؟</summary>
+            <div class="details-body">
+              <p style="font-size:14px;color:var(--on-surface-var);margin-top:10px;">أنشئ <code>AppColorsLight</code> بنفس البنية مع الألوان الفاتحة من Design System (الخلفية <code>#f0fdf4</code>، السطح <code>#ffffff</code>). استخدم <code>ThemeMode.system</code> في MaterialApp ليتابع إعداد الجهاز تلقائياً.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SECTION 21: زر القائمة ⋮ more_vert -->
+      <div class="section" id="morebtn">
+        <div class="section-label">
+          <div class="section-num">21</div>
+          <h2 class="section-title">زر القائمة ⋮ — More Options Button</h2>
+        </div>
+        <p class="section-desc">
+          التحديث الجديد في الشاشة: إضافة زر <strong>⋮ (more_vert)</strong> بجانب زر الحجز في كل بطاقة طبيب. هذا الزر له تصميم زجاجي شفاف، ويفتح الـ Bottom Sheet عند الضغط عليه. نُعدّل صف الأزرار ليحتوي على زرَّين بدلاً من زر واحد.
+        </p>
+
+        <div class="info-box tip">
+          <span class="info-icon">📐</span>
+          <p><strong>التصميم:</strong> الزر عرضه 48×48px، خلفيته شفافة زجاجية (<code>surface-container/40</code>)، border أبيض 10%. عند hover يتحول لـ <code>surface-container-high</code>.</p>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-header"><span>صف الأزرار المحدّث — زر الحجز + زر القائمة</span><span class="lang-tag">dart</span></div>
+<pre><span class="cm">// داخل _buildBookButton() — نستبدله بـ _buildActionRow()</span>
+
+<span class="cl">Widget</span> _buildActionRow() {
+  <span class="kw">return</span> <span class="cl">Row</span>(
+    children: [
+      <span class="cm">// ── زر الحجز (flex: 1 — يأخذ باقي العرض) ──</span>
+      <span class="cl">Expanded</span>(
+        child: <span class="cl">GlowButton</span>(
+          label: <span class="str">'احجز موعداً'</span>,
+          onTap: () =&gt; <span class="cl">Navigator</span>.pushNamed(
+            context, <span class="str">'/book'</span>, arguments: widget.doctor,
+          ),
+        ),
+      ),
+
+      <span class="kw">const</span> <span class="cl">SizedBox</span>(width: <span class="nm">12</span>),
+
+      <span class="cm">// ── زر ⋮ القائمة ────────────────────────────</span>
+      <span class="cl">_MoreButton</span>(
+        onTap: () =&gt; _openDoctorBottomSheet(
+          context,
+          doctor: widget.doctor,
+        ),
+      ),
+    ],
+  );
+}
+
+<span class="cm">// ── Widget مستقل لزر ⋮ ──────────────────────</span>
+<span class="kw">class</span> <span class="cl">_MoreButton</span> <span class="kw">extends</span> <span class="cl">StatefulWidget</span> {
+  <span class="kw">final</span> <span class="cl">VoidCallback</span> onTap;
+  <span class="kw">const</span> <span class="cl">_MoreButton</span>({<span class="kw">required this</span>.onTap});
+  <span class="kw">@override</span>
+  <span class="cl">State</span>&lt;<span class="cl">_MoreButton</span>&gt; createState() =&gt; __<span class="cl">MoreButtonState</span>();
+}
+
+<span class="kw">class</span> __<span class="cl">MoreButtonState</span> <span class="kw">extends</span> <span class="cl">State</span>&lt;<span class="cl">_MoreButton</span>&gt; {
+  <span class="kw">bool</span> _hov = <span class="kw">false</span>, _pressed = <span class="kw">false</span>;
+
+  <span class="kw">@override</span>
+  <span class="cl">Widget</span> build(<span class="cl">BuildContext</span> context) {
+    <span class="kw">return</span> <span class="cl">MouseRegion</span>(
+      onEnter: (_) =&gt; setState(() =&gt; _hov = <span class="kw">true</span>),
+      onExit:  (_) =&gt; setState(() =&gt; _hov = <span class="kw">false</span>),
+      child: <span class="cl">GestureDetector</span>(
+        onTapDown:   (_) =&gt; setState(() =&gt; _pressed = <span class="kw">true</span>),
+        onTapUp:     (_) { setState(() =&gt; _pressed = <span class="kw">false</span>); widget.onTap(); },
+        onTapCancel: ()  =&gt; setState(() =&gt; _pressed = <span class="kw">false</span>),
+        child: <span class="cl">AnimatedScale</span>(
+          scale: _pressed ? <span class="nm">0.92</span> : <span class="nm">1.0</span>,
+          duration: <span class="kw">const</span> <span class="cl">Duration</span>(milliseconds: <span class="nm">100</span>),
+          child: <span class="cl">AnimatedContainer</span>(
+            duration: <span class="kw">const</span> <span class="cl">Duration</span>(milliseconds: <span class="nm">200</span>),
+            width: <span class="nm">48</span>, height: <span class="nm">48</span>,
+            decoration: <span class="cl">BoxDecoration</span>(
+              <span class="cm">// زجاجي شفاف — يتغير عند hover</span>
+              color: _hov
+                  ? <span class="cl">AppColors</span>.surfaceContainerHigh.withOpacity(<span class="nm">0.8</span>)
+                  : <span class="cl">AppColors</span>.surfaceContainer.withOpacity(<span class="nm">0.4</span>),
+              borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">12</span>),
+              border: <span class="cl">Border</span>.all(
+                color: <span class="cl">Colors</span>.white.withOpacity(<span class="nm">0.1</span>),
+              ),
+            ),
+            alignment: <span class="cl">Alignment</span>.center,
+            child: <span class="cl">Icon</span>(
+              <span class="cl">Icons</span>.more_vert,
+              color: <span class="cl">AppColors</span>.onSurface,
+              size: <span class="nm">22</span>,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}</pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SECTION 22: Bottom Sheet الطبيب -->
+      <div class="section" id="bottomsheet">
+        <div class="section-label">
+          <div class="section-num">22</div>
+          <h2 class="section-title">Bottom Sheet القائمة — Doctor Options Sheet</h2>
+        </div>
+        <p class="section-desc">
+          عند الضغط على زر ⋮ يظهر <strong>Modal Bottom Sheet</strong> من أسفل الشاشة بتأثير انزلاق سلس. يحتوي على:
+          شريط السحب (drag handle)، ثلاثة خيارات (عرض الملف، تعديل البيانات، حذف)، وزر إلغاء. الـ "حذف" له لون خطأ أحمر مميز.
+        </p>
+
+        <!-- مقارنة الطريقتين -->
+        <div class="compare-grid">
+          <div class="compare-card">
+            <h4>🔧 الطريقة 1 — showModalBottomSheet</h4>
+            <p style="font-size:13px;color:var(--on-surface-var);">
+              الطريقة الأسهل. Flutter يتولى الـ animation والـ overlay تلقائياً. مناسبة لـ 90% من الحالات.
+              <br/><br/>
+              <code>showModalBottomSheet(context, builder)</code>
+            </p>
+          </div>
+          <div class="compare-card">
+            <h4>⚙️ الطريقة 2 — Custom Widget يدوي</h4>
+            <p style="font-size:13px;color:var(--on-surface-var);">
+              تحكم كامل في الـ animation والـ gesture (سحب للأسفل للإغلاق). تستخدم <code>Overlay</code> + <code>AnimationController</code> يدوياً.
+            </p>
+          </div>
+        </div>
+
+        <div class="info-box tip">
+          <span class="info-icon">✅</span>
+          <p><strong>نوصي بالطريقة 1</strong> (showModalBottomSheet) لأنها تدعم سحب للإغلاق تلقائياً، وتعالج الـ barrier وإمكانية الوصول تلقائياً.</p>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-header"><span>lib/widgets/doctor_options_sheet.dart</span><span class="lang-tag">dart</span></div>
+<pre><span class="cm">// ── دالة لفتح الـ Bottom Sheet ────────────────</span>
+<span class="kw">void</span> _openDoctorBottomSheet(
+  <span class="cl">BuildContext</span> context, {
+  <span class="kw">required</span> <span class="cl">Doctor</span> doctor,
+}) {
+  showModalBottomSheet(
+    context: context,
+    <span class="cm">// ── مظهر الـ Sheet ──────────────────────────</span>
+    backgroundColor: <span class="cl">Colors</span>.transparent,  <span class="cm">// شفاف لنتحكم بالتصميم</span>
+    barrierColor: <span class="cl">AppColors</span>.background.withOpacity(<span class="nm">0.8</span>),
+    isScrollControlled: <span class="kw">true</span>,            <span class="cm">// يسمح بالتمدد لارتفاع مخصص</span>
+    useSafeArea: <span class="kw">true</span>,
+    enableDrag: <span class="kw">true</span>,                    <span class="cm">// ← سحب للأسفل يُغلقه</span>
+    shape: <span class="kw">const</span> <span class="cl">RoundedRectangleBorder</span>(
+      borderRadius: <span class="cl">BorderRadius</span>.vertical(
+        top: <span class="cl">Radius</span>.circular(<span class="nm">28</span>),         <span class="cm">// rounded-t-3xl</span>
+      ),
+    ),
+    builder: (ctx) =&gt; <span class="cl">DoctorOptionsSheet</span>(doctor: doctor),
+  );
+}
+
+<span class="cm">// ── Widget الـ Sheet ──────────────────────────</span>
+<span class="kw">class</span> <span class="cl">DoctorOptionsSheet</span> <span class="kw">extends</span> <span class="cl">StatelessWidget</span> {
+  <span class="kw">final</span> <span class="cl">Doctor</span> doctor;
+  <span class="kw">const</span> <span class="cl">DoctorOptionsSheet</span>({<span class="kw">super</span>.key, <span class="kw">required this</span>.doctor});
+
+  <span class="kw">@override</span>
+  <span class="cl">Widget</span> build(<span class="cl">BuildContext</span> context) {
+    <span class="kw">return</span> <span class="cl">Container</span>(
+      decoration: <span class="kw">const</span> <span class="cl">BoxDecoration</span>(
+        color: <span class="cl">AppColors</span>.surfaceContainerHighest,  <span class="cm">// #1b3b29</span>
+        borderRadius: <span class="cl">BorderRadius</span>.vertical(
+          top: <span class="cl">Radius</span>.circular(<span class="nm">28</span>),
+        ),
+        border: <span class="cl">Border</span>(
+          top: <span class="cl">BorderSide</span>(
+            color: <span class="cl">Color</span>(<span class="nm">0x1AFFFFFF</span>),  <span class="cm">// أبيض 10%</span>
+            width: <span class="nm">1</span>,
+          ),
+        ),
+      ),
+      padding: <span class="kw">const</span> <span class="cl">EdgeInsets</span>.fromLTRB(<span class="nm">16</span>, <span class="nm">0</span>, <span class="nm">16</span>, <span class="nm">24</span>),
+      child: <span class="cl">Column</span>(
+        mainAxisSize: <span class="cl">MainAxisSize</span>.min,   <span class="cm">// ← يأخذ فقط الارتفاع الضروري</span>
+        children: [
+          <span class="cm">// ── Drag Handle (شريط السحب) ─────────────</span>
+          <span class="cl">Padding</span>(
+            padding: <span class="kw">const</span> <span class="cl">EdgeInsets</span>.symmetric(vertical: <span class="nm">14</span>),
+            child: <span class="cl">Container</span>(
+              width: <span class="nm">48</span>, height: <span class="nm">5</span>,
+              decoration: <span class="cl">BoxDecoration</span>(
+                color: <span class="cl">AppColors</span>.outlineVariant.withOpacity(<span class="nm">0.3</span>),
+                borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">999</span>),
+              ),
+            ),
+          ),
+
+          <span class="cm">// ── خيار: عرض الملف ──────────────────────</span>
+          <span class="cl">_SheetOption</span>(
+            icon: <span class="cl">Icons</span>.visibility_outlined,
+            label: <span class="str">'عرض الملف'</span>,
+            onTap: () {
+              <span class="cl">Navigator</span>.pop(context);
+              <span class="cl">Navigator</span>.pushNamed(context, <span class="str">'/doctor-profile'</span>,
+                arguments: doctor);
+            },
+          ),
+
+          <span class="cm">// ── خيار: تعديل البيانات ─────────────────</span>
+          <span class="cl">_SheetOption</span>(
+            icon: <span class="cl">Icons</span>.edit_outlined,
+            label: <span class="str">'تعديل البيانات'</span>,
+            onTap: () {
+              <span class="cl">Navigator</span>.pop(context);
+              <span class="cl">Navigator</span>.pushNamed(context, <span class="str">'/edit-doctor'</span>,
+                arguments: doctor);
+            },
+          ),
+
+          <span class="cm">// ── خيار: حذف (لون خطأ أحمر مميّز) ──────</span>
+          <span class="cl">_SheetOption</span>(
+            icon: <span class="cl">Icons</span>.delete_outline,
+            label: <span class="str">'حذف'</span>,
+            isDestructive: <span class="kw">true</span>,      <span class="cm">// ← يُلوّن الأيقونة والنص بالأحمر</span>
+            onTap: () {
+              <span class="cl">Navigator</span>.pop(context);
+              _showDeleteConfirmDialog(context, doctor);
+            },
+          ),
+
+          <span class="kw">const</span> <span class="cl">SizedBox</span>(height: <span class="nm">8</span>),
+
+          <span class="cm">// ── زر الإلغاء ───────────────────────────</span>
+          <span class="cl">SizedBox</span>(
+            width: <span class="kw">double</span>.infinity,
+            child: <span class="cl">TextButton</span>(
+              onPressed: () =&gt; <span class="cl">Navigator</span>.pop(context),
+              style: <span class="cl">TextButton</span>.styleFrom(
+                backgroundColor: <span class="cl">AppColors</span>.surfaceContainerLow,
+                padding: <span class="kw">const</span> <span class="cl">EdgeInsets</span>.symmetric(vertical: <span class="nm">16</span>),
+                shape: <span class="cl">RoundedRectangleBorder</span>(
+                  borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">16</span>),
+                ),
+              ),
+              child: <span class="cl">Text</span>(<span class="str">'إلغاء'</span>,
+                style: <span class="cl">AppTextStyles</span>.labelMd()
+                    .copyWith(color: <span class="cl">AppColors</span>.onSurfaceVariant)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}</pre>
+        </div>
+
+        <!-- Sheet Option Widget -->
+        <div class="code-wrap">
+          <div class="code-header"><span>_SheetOption — عنصر القائمة مع Hover</span><span class="lang-tag">dart</span></div>
+<pre><span class="kw">class</span> <span class="cl">_SheetOption</span> <span class="kw">extends</span> <span class="cl">StatefulWidget</span> {
+  <span class="kw">final</span> <span class="cl">IconData</span>    icon;
+  <span class="kw">final</span> <span class="cl">String</span>     label;
+  <span class="kw">final</span> <span class="cl">VoidCallback</span> onTap;
+  <span class="kw">final</span> <span class="kw">bool</span>       isDestructive;   <span class="cm">// true = لون أحمر</span>
+
+  <span class="kw">const</span> <span class="cl">_SheetOption</span>({
+    <span class="kw">required this</span>.icon,  <span class="kw">required this</span>.label,
+    <span class="kw">required this</span>.onTap, <span class="kw">this</span>.isDestructive = <span class="kw">false</span>,
+  });
+  <span class="kw">@override</span>
+  <span class="cl">State</span>&lt;<span class="cl">_SheetOption</span>&gt; createState() =&gt; __<span class="cl">SheetOptionState</span>();
+}
+
+<span class="kw">class</span> __<span class="cl">SheetOptionState</span> <span class="kw">extends</span> <span class="cl">State</span>&lt;<span class="cl">_SheetOption</span>&gt; {
+  <span class="kw">bool</span> _hov = <span class="kw">false</span>;
+
+  <span class="kw">@override</span>
+  <span class="cl">Widget</span> build(<span class="cl">BuildContext</span> context) {
+    <span class="kw">final</span> color = widget.isDestructive
+        ? <span class="kw">const</span> <span class="cl">Color</span>(<span class="nm">0xFFFFB4AB</span>)    <span class="cm">// AppColors.error</span>
+        : <span class="cl">AppColors</span>.onSurface;
+
+    <span class="kw">final</span> hoverBg = widget.isDestructive
+        ? <span class="kw">const</span> <span class="cl">Color</span>(<span class="nm">0xFFFFB4AB</span>).withOpacity(<span class="nm">0.08</span>)  <span class="cm">// أحمر شفاف</span>
+        : <span class="cl">AppColors</span>.surfaceContainerHigh;
+
+    <span class="kw">return</span> <span class="cl">MouseRegion</span>(
+      onEnter: (_) =&gt; setState(() =&gt; _hov = <span class="kw">true</span>),
+      onExit:  (_) =&gt; setState(() =&gt; _hov = <span class="kw">false</span>),
+      child: <span class="cl">GestureDetector</span>(
+        onTap: widget.onTap,
+        child: <span class="cl">AnimatedContainer</span>(
+          duration: <span class="kw">const</span> <span class="cl">Duration</span>(milliseconds: <span class="nm">180</span>),
+          padding: <span class="kw">const</span> <span class="cl">EdgeInsets</span>.symmetric(
+            horizontal: <span class="nm">16</span>, vertical: <span class="nm">16</span>),
+          margin: <span class="kw">const</span> <span class="cl">EdgeInsets</span>.only(bottom: <span class="nm">4</span>),
+          decoration: <span class="cl">BoxDecoration</span>(
+            color: _hov ? hoverBg : <span class="cl">Colors</span>.transparent,
+            borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">16</span>),
+          ),
+          child: <span class="cl">Row</span>(
+            children: [
+              <span class="cl">Icon</span>(widget.icon, color: color, size: <span class="nm">24</span>),
+              <span class="kw">const</span> <span class="cl">SizedBox</span>(width: <span class="nm">16</span>),
+              <span class="cl">Text</span>(widget.label,
+                style: <span class="cl">AppTextStyles</span>.bodyLg()
+                    .copyWith(color: color)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+<span class="cm">// ── Dialog تأكيد الحذف ───────────────────────</span>
+<span class="kw">void</span> _showDeleteConfirmDialog(
+  <span class="cl">BuildContext</span> context, <span class="cl">Doctor</span> doctor,
+) {
+  showDialog(
+    context: context,
+    builder: (_) =&gt; <span class="cl">AlertDialog</span>(
+      backgroundColor: <span class="cl">AppColors</span>.surfaceContainerHighest,
+      shape: <span class="cl">RoundedRectangleBorder</span>(
+          borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">20</span>)),
+      title: <span class="cl">Text</span>(<span class="str">'حذف الطبيب؟'</span>,
+          style: <span class="cl">AppTextStyles</span>.headlineMd()),
+      content: <span class="cl">Text</span>(
+          <span class="str">'سيتم حذف ملف ${doctor.name} نهائياً.'</span>,
+          style: <span class="cl">AppTextStyles</span>.bodyMd()),
+      actions: [
+        <span class="cl">TextButton</span>(
+          onPressed: () =&gt; <span class="cl">Navigator</span>.pop(context),
+          child: <span class="cl">Text</span>(<span class="str">'إلغاء'</span>,
+              style: <span class="cl">AppTextStyles</span>.labelMd()
+                  .copyWith(color: <span class="cl">AppColors</span>.primary)),
+        ),
+        <span class="cl">TextButton</span>(
+          onPressed: () {
+            <span class="cl">Navigator</span>.pop(context);
+            <span class="cm">// استدعاء منطق الحذف من provider/bloc</span>
+          },
+          child: <span class="cl">Text</span>(<span class="str">'حذف'</span>,
+              style: <span class="cl">AppTextStyles</span>.labelMd()
+                  .copyWith(color: <span class="kw">const</span> <span class="cl">Color</span>(<span class="nm">0xFFFFB4AB</span>))),
+        ),
+      ],
+    ),
+  );
+}</pre>
+        </div>
+
+        <div class="info-box warn">
+          <span class="info-icon">⚠️</span>
+          <p><strong>BackdropFilter مع Bottom Sheet:</strong> إضافة <code>BackdropFilter</code> على الـ <code>barrierColor</code> مباشرة غير مدعومة في Flutter. لتحقيق blur للخلفية، استخدم <code>Stack</code> مع <code>BackdropFilter</code> يدوياً، أو استخدم مكتبة <code>modal_bottom_sheet</code>.</p>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SECTION 23: Blur Backdrop للـ Bottom Sheet -->
+      <div class="section" id="sheetblur">
+        <div class="section-label">
+          <div class="section-num">23</div>
+          <h2 class="section-title">Blur الخلفية عند فتح الـ Bottom Sheet</h2>
+        </div>
+        <p class="section-desc">
+          في الشاشة الجديدة، عند فتح الـ Bottom Sheet تظهر خلفية ضبابية (blur + تعتيم). لتحقيق هذا في Flutter نستخدم <code>Overlay</code> مخصصاً مع <code>BackdropFilter</code> بدلاً من الـ barrier الافتراضي.
+        </p>
+
+        <div class="code-wrap">
+          <div class="code-header"><span>Bottom Sheet بـ Blur Backdrop مخصص</span><span class="lang-tag">dart</span></div>
+<pre><span class="cm">// ── نسخة متقدمة من _openDoctorBottomSheet ────</span>
+<span class="kw">void</span> _openDoctorBottomSheetWithBlur(
+  <span class="cl">BuildContext</span> context, {
+  <span class="kw">required</span> <span class="cl">Doctor</span> doctor,
+}) {
+  <span class="kw">late</span> <span class="cl">OverlayEntry</span> blurOverlay;
+
+  <span class="cm">// 1. نُنشئ طبقة الـ blur أولاً</span>
+  blurOverlay = <span class="cl">OverlayEntry</span>(
+    builder: (_) =&gt; <span class="cl">GestureDetector</span>(
+      onTap: () {
+        <span class="cl">Navigator</span>.pop(context);   <span class="cm">// يُغلق الـ Sheet</span>
+        blurOverlay.remove();
+      },
+      child: <span class="cl">BackdropFilter</span>(
+        filter: <span class="cl">ImageFilter</span>.blur(sigmaX: <span class="nm">4</span>, sigmaY: <span class="nm">4</span>),
+        child: <span class="cl">Container</span>(
+          color: <span class="cl">AppColors</span>.background.withOpacity(<span class="nm">0.7</span>),
+        ),
+      ),
+    ),
+  );
+
+  <span class="cm">// 2. نُضيفها للـ Overlay</span>
+  <span class="cl">Overlay</span>.of(context).insert(blurOverlay);
+
+  <span class="cm">// 3. نفتح الـ Sheet فوقها</span>
+  showModalBottomSheet(
+    context: context,
+    backgroundColor: <span class="cl">Colors</span>.transparent,
+    barrierColor: <span class="cl">Colors</span>.transparent,  <span class="cm">// ← شفاف (لأن الـ blur overlay تتولى ذلك)</span>
+    isScrollControlled: <span class="kw">true</span>,
+    enableDrag: <span class="kw">true</span>,
+    builder: (ctx) =&gt; <span class="cl">DoctorOptionsSheet</span>(doctor: doctor),
+  ).whenComplete(() =&gt; blurOverlay.remove());  <span class="cm">// ← حذف الـ blur عند الإغلاق</span>
+}</pre>
+        </div>
+
+        <div class="info-box tip">
+          <span class="info-icon">💡</span>
+          <p><strong>تأثير الانزلاق الداخلي للـ Sheet:</strong> Flutter يُضيف تلقائياً تأثير <code>SlideTransition</code> من الأسفل للأعلى عند استخدام <code>showModalBottomSheet</code>. يمكن تخصيصه بـ <code>transitionAnimationController</code> parameter.</p>
+        </div>
+
+        <!-- مقارنة الخيارات المرئية لشريط السحب -->
+        <div style="margin-top:24px;">
+          <h3 style="font-size:16px;font-weight:700;color:var(--primary);margin-bottom:14px;">📱 مكونات الـ Bottom Sheet مشروحة</h3>
+          <div class="glass" style="padding:24px;display:flex;flex-direction:column;gap:0;border-radius:20px;overflow:hidden;">
+
+            <!-- Drag handle -->
+            <div style="text-align:center;padding:14px 0 6px;border-bottom:1px solid var(--outline);">
+              <div style="width:48px;height:5px;background:rgba(136,147,138,.3);border-radius:999px;margin:0 auto 8px;"></div>
+              <span style="font-size:11px;color:var(--on-surface-var);">Drag Handle — Container 48×5px، radius 999px</span>
+            </div>
+
+            <!-- Option 1 -->
+            <div style="display:flex;align-items:center;gap:16px;padding:16px;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;transition:background .2s;" onmouseover="this.style.background='rgba(15,48,31,.8)'" onmouseout="this.style.background='transparent'">
+              <span style="font-size:22px;">👁</span>
+              <span style="font-size:15px;color:var(--on-surface);">عرض الملف</span>
+              <span style="margin-right:auto;font-size:11px;color:var(--on-surface-var);text-align:left;">hover → surfaceContainerHigh</span>
+            </div>
+
+            <!-- Option 2 -->
+            <div style="display:flex;align-items:center;gap:16px;padding:16px;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;transition:background .2s;" onmouseover="this.style.background='rgba(15,48,31,.8)'" onmouseout="this.style.background='transparent'">
+              <span style="font-size:22px;">✏️</span>
+              <span style="font-size:15px;color:var(--on-surface);">تعديل البيانات</span>
+              <span style="margin-right:auto;font-size:11px;color:var(--on-surface-var);text-align:left;">hover → surfaceContainerHigh</span>
+            </div>
+
+            <!-- Option 3 - Destructive -->
+            <div style="display:flex;align-items:center;gap:16px;padding:16px;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;transition:background .2s;" onmouseover="this.style.background='rgba(255,180,171,.08)'" onmouseout="this.style.background='transparent'">
+              <span style="font-size:22px;filter:hue-rotate(0deg);">🗑️</span>
+              <span style="font-size:15px;color:#ffb4ab;">حذف</span>
+              <span style="margin-right:auto;font-size:11px;color:var(--on-surface-var);text-align:left;">isDestructive → error color + red hover</span>
+            </div>
+
+            <!-- Cancel button -->
+            <div style="padding:12px 0 4px;">
+              <div style="background:var(--surface);border-radius:16px;padding:16px;text-align:center;color:var(--on-surface-var);font-size:14px;font-weight:600;cursor:pointer;">إلغاء</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- جدول التحديثات الجديدة -->
+        <div style="margin-top:36px;">
+          <h3 style="font-size:18px;font-weight:700;color:var(--primary);margin-bottom:16px;">🆕 ملخص التغييرات الجديدة</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>المكوّن الجديد</th>
+                <th>الـ Widget / API</th>
+                <th>الملف المقترح</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>زر ⋮ القائمة</td>
+                <td><code>_MoreButton (StatefulWidget)</code></td>
+                <td><code>doctor_card.dart</code></td>
+              </tr>
+              <tr>
+                <td>صف الأزرار المحدّث</td>
+                <td><code>Row + Expanded + _MoreButton</code></td>
+                <td><code>doctor_card.dart</code></td>
+              </tr>
+              <tr>
+                <td>Modal Bottom Sheet</td>
+                <td><code>showModalBottomSheet</code></td>
+                <td><code>doctor_options_sheet.dart</code></td>
+              </tr>
+              <tr>
+                <td>Drag Handle</td>
+                <td><code>Container 48×5px</code></td>
+                <td><code>doctor_options_sheet.dart</code></td>
+              </tr>
+              <tr>
+                <td>خيار عرض الملف</td>
+                <td><code>_SheetOption(icon: visibility)</code></td>
+                <td><code>doctor_options_sheet.dart</code></td>
+              </tr>
+              <tr>
+                <td>خيار تعديل البيانات</td>
+                <td><code>_SheetOption(icon: edit)</code></td>
+                <td><code>doctor_options_sheet.dart</code></td>
+              </tr>
+              <tr>
+                <td>خيار الحذف (أحمر)</td>
+                <td><code>_SheetOption(isDestructive: true)</code></td>
+                <td><code>doctor_options_sheet.dart</code></td>
+              </tr>
+              <tr>
+                <td>Dialog تأكيد الحذف</td>
+                <td><code>showDialog + AlertDialog</code></td>
+                <td><code>doctor_options_sheet.dart</code></td>
+              </tr>
+              <tr>
+                <td>Blur الخلفية</td>
+                <td><code>Overlay + BackdropFilter</code></td>
+                <td><code>doctor_options_sheet.dart</code></td>
+              </tr>
+              <tr>
+                <td>Hover على خيارات الـ Sheet</td>
+                <td><code>MouseRegion + AnimatedContainer</code></td>
+                <td><code>doctor_options_sheet.dart</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div><!-- end main col -->
+
+    <!-- TOC Sidebar -->
+    <div>
+      <div class="toc-wrap glass" style="padding:20px;">
+        <div class="toc-title">محتويات الدليل</div>
+        <a href="#overview"    class="toc-link">0 — نظرة عامة</a>
+        <a href="#colors"      class="toc-link">1 — نظام الألوان</a>
+        <a href="#typography"  class="toc-link">2 — الخطوط</a>
+        <a href="#particles"   class="toc-link">3 — الجسيمات المتحركة</a>
+        <a href="#appbar"      class="toc-link">4 — AppBar الزجاجي</a>
+        <a href="#search"      class="toc-link">5 — حقل البحث</a>
+        <a href="#chips"       class="toc-link">6 — شرائح التصفية</a>
+        <a href="#card"        class="toc-link">7 — بطاقة الطبيب</a>
+        <a href="#button"      class="toc-link">8 — زر الحجز</a>
+        <a href="#bottomnav"   class="toc-link">9 — Bottom Nav</a>
+        <a href="#deps"        class="toc-link">10 — pubspec.yaml</a>
+        <a href="#structure"   class="toc-link">11 — بنية المجلدات</a>
+        <a href="#model"       class="toc-link">12 — نموذج البيانات</a>
+        <a href="#spacing"     class="toc-link">13 — نظام المسافات</a>
+        <a href="#biorow"      class="toc-link">14 — تفاصيل البطاقة</a>
+        <a href="#mainbody"    class="toc-link">15 — تجميع المحتوى</a>
+        <a href="#filterlogic" class="toc-link">16 — منطق البحث</a>
+        <a href="#hover3d"     class="toc-link">17 — Hover 3D Tilt</a>
+        <a href="#shimmer"     class="toc-link">18 — Shimmer Loading</a>
+        <a href="#maindart"    class="toc-link">19 — main.dart</a>
+        <a href="#workflow"    class="toc-link">20 — خلاصة العمل</a>
+        <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--outline);">
+          <div class="toc-title" style="color:var(--secondary);">🆕 تحديث جديد</div>
+          <a href="#morebtn"     class="toc-link" style="color:var(--secondary);">21 — زر ⋮ القائمة</a>
+          <a href="#bottomsheet" class="toc-link" style="color:var(--secondary);">22 — Bottom Sheet</a>
+          <a href="#sheetblur"   class="toc-link" style="color:var(--secondary);">23 — Blur الخلفية</a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end layout -->
+</div><!-- end page-wrap -->
+
+<script>
+// ─── Particle canvas ──────────────────────────
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [];
+const COLORS = ['rgba(16,185,129,', 'rgba(64,231,140,', 'rgba(128,216,166,'];
+
+function resize() {
+  W = canvas.width  = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+function spawnParticle() {
+  const sx = Math.random() * W;
+  const sy = Math.random() * H;
+  return {
+    x: sx, y: sy,
+    tx: sx + (Math.random() - .5) * 220,
+    ty: sy + (Math.random() - .5) * 220,
+    size: Math.random() * 3 + 1.5,
+    speed: .003 + Math.random() * .004,
+    progress: 0,
+    color: COLORS[Math.floor(Math.random()*COLORS.length)],
+  };
+}
+
+for (let i = 0; i < 25; i++) particles.push(spawnParticle());
+
+let pulseP = 0;
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+
+  // pulse
+  pulseP = (pulseP + .0014) % 1;
+  const pr = pulseP * Math.max(W, H) * 1.5;
+  const po = (1 - pulseP) * .12;
+  ctx.beginPath();
+  ctx.arc(W/2, H/2, pr, 0, Math.PI*2);
+  ctx.strokeStyle = `rgba(64,231,140,${po})`;
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+
+  // particles
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+    p.progress += p.speed;
+    if (p.progress >= 1) { particles[i] = spawnParticle(); continue; }
+
+    const t = p.progress;
+    const cx2 = p.x + (p.tx - p.x) * t;
+    const cy2 = p.y + (p.ty - p.y) * t;
+    const op = t < .5 ? (t/.5)*.55 : (1 - (t-.5)/.5)*.55;
+
+    ctx.beginPath();
+    ctx.arc(cx2, cy2, p.size, 0, Math.PI*2);
+    ctx.fillStyle = p.color + op + ')';
+    ctx.shadowColor = p.color + '.6)';
+    ctx.shadowBlur = 6;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  }
+  requestAnimationFrame(draw);
+}
+draw();
+
+// ─── Active TOC link ──────────────────────────
+const sections = document.querySelectorAll('.section');
+const tocLinks  = document.querySelectorAll('.toc-link');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      tocLinks.forEach(l => l.classList.remove('active'));
+      const match = document.querySelector(`.toc-link[href="#${e.target.id}"]`);
+      if (match) match.classList.add('active');
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
