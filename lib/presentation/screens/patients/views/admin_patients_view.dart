@@ -90,8 +90,8 @@ class _AdminPatientsViewState extends State<AdminPatientsView> {
             if (value == 'delete') _deletePatient(context, patient.id);
           },
           itemBuilder: (context) => [
-            const PopupMenuItem(value: 'edit', child: Row(children: [Icon(Icons.edit), SizedBox(width: 8), Text(AppStrings.edit)])),
-            const PopupMenuItem(value: 'delete', child: Row(children: [Icon(Icons.delete, color: Colors.red), SizedBox(width: 8), Text(AppStrings.delete, style: TextStyle(color: Colors.red))])),
+            const PopupMenuItem(value: 'edit', child: Row(children: [Icon(Icons.edit), SizedBox(width: 8), Flexible(child: Text(AppStrings.edit, overflow: TextOverflow.ellipsis))])),
+            const PopupMenuItem(value: 'delete', child: Row(children: [Icon(Icons.delete, color: Colors.red), SizedBox(width: 8), Flexible(child: Text(AppStrings.delete, style: TextStyle(color: Colors.red), overflow: TextOverflow.ellipsis))])),
           ],
         ),
       ),
