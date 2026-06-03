@@ -25,6 +25,7 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> with 
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    _tabController.addListener(() => setState(() {}));
   }
 
   @override
@@ -44,7 +45,7 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> with 
         Expanded(
           child: BlocBuilder<AppointmentBloc, AppointmentState>(
             builder: (context, state) {
-              if (state is AppointmentLoading && _tabController.index == 0) {
+              if (state is AppointmentLoading) {
                 return const SkeletonList();
               }
               if (state is AppointmentLoaded) {
@@ -61,13 +62,9 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> with 
                   children: [
                     _buildTabBar(colors),
                     Expanded(
-                      child: TabBarView(
-                        controller: _tabController,
-                        children: [
-                          _buildList(upcoming, colors, isUpcoming: true),
-                          _buildList(past, colors, isUpcoming: false),
-                        ],
-                      ),
+                      child: _tabController.index == 0
+                          ? _buildList(upcoming, colors, isUpcoming: true)
+                          : _buildList(past, colors, isUpcoming: false),
                     ),
                   ],
                 );
