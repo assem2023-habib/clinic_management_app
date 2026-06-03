@@ -79,27 +79,23 @@ class PatientDoctorProfileView extends StatelessWidget {
 
   void _showReviewDialog(BuildContext context) {
     final doctor = profile.doctor;
-    final bottom = MediaQuery.of(context).viewInsets.bottom;
 
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (_) => Padding(
-        padding: EdgeInsets.only(bottom: bottom),
-        child: RatingBottomSheet(
-          doctor: doctor,
-          onSubmit: (rating, comment) {
-            context.read<RatingBloc>().add(RatingCreate(
-              type: 'doctor',
-              rateableId: doctor.id,
-              rateableType: 'App\\Models\\Doctor',
-              rating: rating,
-              comment: comment.isNotEmpty ? comment : null,
-            ));
-            showAppToast(context, 'تم إرسال تقييمك ✓');
-          },
-        ),
+      builder: (_) => RatingBottomSheet(
+        doctor: doctor,
+        onSubmit: (rating, comment) {
+          context.read<RatingBloc>().add(RatingCreate(
+            type: 'doctor',
+            rateableId: doctor.id,
+            rateableType: 'App\\Models\\Doctor',
+            rating: rating,
+            comment: comment.isNotEmpty ? comment : null,
+          ));
+          showAppToast(context, 'تم إرسال تقييمك ✓');
+        },
       ),
     );
   }

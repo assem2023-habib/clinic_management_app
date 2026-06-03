@@ -21,6 +21,8 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
     with SingleTickerProviderStateMixin {
   late AnimationController _ratingCtrl;
   final _commentCtrl = TextEditingController();
+  final _scrollCtrl = ScrollController();
+  final _focusNode = FocusNode();
   int _targetRating = 0;
 
   @override
@@ -31,13 +33,30 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
       duration: const Duration(milliseconds: 600),
       upperBound: 5,
     )..addListener(() => setState(() {}));
+    _focusNode.addListener(_onFocusChange);
   }
 
   @override
   void dispose() {
     _ratingCtrl.dispose();
     _commentCtrl.dispose();
+    _scrollCtrl.dispose();
+    _focusNode.dispose();
     super.dispose();
+  }
+
+  void _onFocusChange() {
+    if (_focusNode.hasFocus) {
+      Future.delayed(const Duration(milliseconds: 400), () {
+        if (_scrollCtrl.hasClients) {
+          _scrollCtrl.animateTo(
+            _scrollCtrl.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeOut,
+          );
+        }
+      });
+    }
   }
 
   void _onStarTap(int i) {
@@ -69,6 +88,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
             ),
             padding: EdgeInsets.only(bottom: bottomPad),
             child: SingleChildScrollView(
+              controller: _scrollCtrl,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -203,6 +223,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
         ),
         child: TextField(
           controller: _commentCtrl,
+          focusNode: _focusNode,
           maxLines: 3,
           style: TextStyle(color: colors.textPrimary, fontSize: 14),
           decoration: InputDecoration(
