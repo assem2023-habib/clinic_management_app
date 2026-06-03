@@ -21,11 +21,16 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
     with SingleTickerProviderStateMixin {
   late AnimationController _ratingCtrl;
   final _commentCtrl = TextEditingController();
+  int _targetRating = 0;
 
   @override
   void initState() {
     super.initState();
-    _ratingCtrl = AnimationController(vsync: this, duration: const Duration(milliseconds: 600));
+    _ratingCtrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+      upperBound: 5,
+    )..addListener(() => setState(() {}));
   }
 
   @override
@@ -37,20 +42,19 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
 
   void _onStarTap(int i) {
     final target = (i + 1).toDouble();
-    if ((_ratingCtrl.value.ceil().toDouble()) == target) return;
+    if (_ratingCtrl.value == target) return;
+    _targetRating = i + 1;
     _ratingCtrl.animateTo(target, duration: const Duration(milliseconds: 600), curve: Curves.easeOutCubic);
   }
-
-  int get _rating => _ratingCtrl.value.ceil().clamp(0, 5);
 
   @override
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
     final bottomPad = MediaQuery.of(context).padding.bottom + 16;
-    final height = MediaQuery.of(context).size.height * 0.52;
+    final maxH = MediaQuery.of(context).size.height * 0.52;
 
     return Container(
-      height: height,
+      constraints: BoxConstraints(maxHeight: maxH),
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
       ),
@@ -64,20 +68,23 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
               border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.08))),
             ),
             padding: EdgeInsets.only(bottom: bottomPad),
-            child: Column(
-              children: [
-                _dragHandle(),
-                const SizedBox(height: 16),
-                _header(colors),
-                const SizedBox(height: 6),
-                _doctorName(colors),
-                const SizedBox(height: 24),
-                _starsRow(),
-                const SizedBox(height: 24),
-                _commentField(colors),
-                const SizedBox(height: 16),
-                _sendButton(colors),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _dragHandle(),
+                  const SizedBox(height: 16),
+                  _header(colors),
+                  const SizedBox(height: 6),
+                  _doctorName(colors),
+                  const SizedBox(height: 24),
+                  _starsRow(),
+                  const SizedBox(height: 24),
+                  _commentField(colors),
+                  const SizedBox(height: 16),
+                  _sendButton(colors),
+                ],
+              ),
             ),
           ),
         ),
@@ -138,55 +145,50 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
   }
 
   Widget _starsRow() {
-    return AnimatedBuilder(
-      animation: _ratingCtrl,
-      builder: (context, child) {
-        final val = _ratingCtrl.value;
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(5, (i) {
-            final starNum = i + 1;
-            final isFull = starNum <= val.floor();
-            final fraction = starNum == val.ceil() && !isFull ? val - val.floor() : (isFull ? 1.0 : 0.0);
-            final isActive = isFull || fraction > 0.001;
+    final val = _ratingCtrl.value;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(5, (i) {
+        final starNum = i + 1;
+        final isFull = starNum <= val.floor();
+        final fraction = starNum == val.ceil() && !isFull ? val - val.floor() : (isFull ? 1.0 : 0.0);
+        final isActive = isFull || fraction > 0.001;
 
-            final scale = isFull ? 1.0 : (starNum == val.ceil() ? 0.85 + fraction * 0.15 : 0.85);
-            return GestureDetector(
-              onTap: () => _onStarTap(i),
-              child: Transform.scale(
-                scale: scale,
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  margin: const EdgeInsets.symmetric(horizontal: 5),
-                  width: 52,
-                  height: 52,
-                  decoration: BoxDecoration(
-                    color: isActive ? Colors.amber.withValues(alpha: 0.12) : Colors.white.withValues(alpha: 0.04),
-                    borderRadius: BorderRadius.circular(14),
-                    border: Border.all(
-                      color: isActive ? Colors.amber.withValues(alpha: 0.3) : Colors.white.withValues(alpha: 0.06),
-                    ),
-                  ),
-                  child: Center(
-                    child: SizedBox(
-                      width: 28, height: 28,
-                      child: Stack(
-                        children: [
-                          Icon(Icons.star_outline_rounded, color: Colors.white38, size: 28),
-                          ClipRect(
-                            clipper: _StarClipper(fraction),
-                            child: Icon(Icons.star_rounded, color: Colors.amber, size: 28),
-                          ),
-                        ],
+        final scale = isFull ? 1.0 : (starNum == val.ceil() ? 0.85 + fraction * 0.15 : 0.85);
+        return GestureDetector(
+          onTap: () => _onStarTap(i),
+          child: Transform.scale(
+            scale: scale,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              margin: const EdgeInsets.symmetric(horizontal: 5),
+              width: 52,
+              height: 52,
+              decoration: BoxDecoration(
+                color: isActive ? Colors.amber.withValues(alpha: 0.12) : Colors.white.withValues(alpha: 0.04),
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(
+                  color: isActive ? Colors.amber.withValues(alpha: 0.3) : Colors.white.withValues(alpha: 0.06),
+                ),
+              ),
+              child: Center(
+                child: SizedBox(
+                  width: 28, height: 28,
+                  child: Stack(
+                    children: [
+                      Icon(Icons.star_outline_rounded, color: Colors.white38, size: 28),
+                      ClipRect(
+                        clipper: _StarClipper(fraction),
+                        child: Icon(Icons.star_rounded, color: Colors.amber, size: 28),
                       ),
-                    ),
+                    ],
                   ),
                 ),
               ),
-            );
-          }),
+            ),
+          ),
         );
-      },
+      }),
     );
   }
 
@@ -215,12 +217,13 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
   }
 
   Widget _sendButton(AppColorSet colors) {
+    final canSend = _targetRating > 0;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: GestureDetector(
-        onTap: _rating > 0
+        onTap: canSend
             ? () {
-                widget.onSubmit(_rating, _commentCtrl.text.trim());
+                widget.onSubmit(_targetRating, _commentCtrl.text.trim());
                 Navigator.pop(context);
               }
             : null,
@@ -228,12 +231,12 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
           duration: const Duration(milliseconds: 250),
           height: 52,
           decoration: BoxDecoration(
-            gradient: _rating > 0
+            gradient: canSend
                 ? const LinearGradient(colors: [Color(0xFF006D44), Color(0xFF00CA73)])
                 : null,
-            color: _rating > 0 ? null : Colors.white.withValues(alpha: 0.06),
+            color: canSend ? null : Colors.white.withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(16),
-            boxShadow: _rating > 0
+            boxShadow: canSend
                 ? [BoxShadow(color: const Color(0xFF00CA73).withValues(alpha: 0.3), blurRadius: 16)]
                 : [],
           ),
@@ -245,14 +248,14 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
-                  color: _rating > 0 ? Colors.white : colors.textSecondary.withValues(alpha: 0.5),
+                  color: canSend ? Colors.white : colors.textSecondary.withValues(alpha: 0.5),
                 ),
               ),
               const SizedBox(width: 10),
               Icon(
                 Icons.send_rounded,
                 size: 20,
-                color: _rating > 0 ? Colors.white : colors.textSecondary.withValues(alpha: 0.5),
+                color: canSend ? Colors.white : colors.textSecondary.withValues(alpha: 0.5),
               ),
             ],
           ),
