@@ -122,15 +122,21 @@ class DoctorRepositoryImpl implements DoctorRepository {
     if (remoteDataSource != null) {
       try {
         final doctor = await remoteDataSource!.getDoctorById(id);
-        final reviews = await dataSource.getDoctorReviews(id);
+        final reviews = doctor.recentReviews.isNotEmpty
+            ? doctor.recentReviews
+            : await dataSource.getDoctorReviews(id);
         final now = DateTime.now();
         final slots = dataSource.getDoctorSlots(id, DateTime(now.year, now.month));
-        return DoctorProfileEntity(doctor: doctor, reviews: reviews, availableSlots: slots.map((s) => TimeSlotEntity(
-          id: s.id,
-          date: now,
-          time: '${s.startTime} - ${s.endTime}',
-          isAvailable: s.isActive,
-        )).toList());
+        return DoctorProfileEntity(
+          doctor: doctor,
+          reviews: reviews,
+          availableSlots: slots.map((s) => TimeSlotEntity(
+            id: s.id,
+            date: now,
+            time: '${s.startTime} - ${s.endTime}',
+            isAvailable: s.isActive,
+          )).toList(),
+        );
       } catch (_) {}
     }
     final doctor = dataSource.doctorById(id);
@@ -138,12 +144,16 @@ class DoctorRepositoryImpl implements DoctorRepository {
     final reviews = dataSource.getDoctorReviews(id);
     final now = DateTime.now();
     final slots = dataSource.getDoctorSlots(id, DateTime(now.year, now.month));
-    return DoctorProfileEntity(doctor: doctor, reviews: reviews, availableSlots: slots.map((s) => TimeSlotEntity(
-      id: s.id,
-      date: now,
-      time: '${s.startTime} - ${s.endTime}',
-      isAvailable: s.isActive,
-    )).toList());
+    return DoctorProfileEntity(
+      doctor: doctor,
+      reviews: reviews,
+      availableSlots: slots.map((s) => TimeSlotEntity(
+        id: s.id,
+        date: now,
+        time: '${s.startTime} - ${s.endTime}',
+        isAvailable: s.isActive,
+      )).toList(),
+    );
   }
 
   @override

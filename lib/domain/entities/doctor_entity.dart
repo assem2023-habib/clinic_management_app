@@ -2,6 +2,7 @@ import 'package:clinic_management_app/domain/entities/user_entity.dart';
 import 'package:clinic_management_app/domain/entities/role_entity.dart';
 import 'package:clinic_management_app/domain/entities/specialization_entity.dart';
 import 'package:clinic_management_app/domain/entities/doctor_schedule_entity.dart';
+import 'package:clinic_management_app/domain/entities/review_entity.dart';
 
 class DoctorEntity extends UserEntity {
   final SpecializationEntity? specialization;
@@ -9,6 +10,7 @@ class DoctorEntity extends UserEntity {
   final List<DoctorScheduleEntity> schedules;
   final double? rating;
   final int? reviewsCount;
+  final List<ReviewEntity> recentReviews;
   final List<String> services;
   final String? bio;
   final String? clinicAddress;
@@ -43,6 +45,7 @@ class DoctorEntity extends UserEntity {
     this.schedules = const [],
     this.rating,
     this.reviewsCount,
+    this.recentReviews = const [],
     this.services = const [],
     this.bio,
     this.clinicAddress,
@@ -56,6 +59,7 @@ class DoctorEntity extends UserEntity {
 
   String get name => fullName;
   String get specialty => specialization?.nameAr ?? '';
+
   int get experienceYears => experienceMonths != null ? experienceMonths! ~/ 12 : 0;
   bool get isAvailable => isActive;
 
@@ -63,6 +67,7 @@ class DoctorEntity extends UserEntity {
     SpecializationEntity? specialization,
     int? experienceMonths,
     List<DoctorScheduleEntity> schedules = const [],
+    List<ReviewEntity> recentReviews = const [],
   }) {
     return DoctorEntity(
       id: user.id,
@@ -86,6 +91,7 @@ class DoctorEntity extends UserEntity {
       specialization: specialization,
       experienceMonths: experienceMonths,
       schedules: schedules,
+      recentReviews: recentReviews,
     );
   }
 
@@ -114,6 +120,7 @@ class DoctorEntity extends UserEntity {
     List<DoctorScheduleEntity>? schedules,
     double? rating,
     int? reviewsCount,
+    List<ReviewEntity>? recentReviews,
     List<String>? services,
     String? bio,
     String? clinicAddress,
@@ -148,6 +155,7 @@ class DoctorEntity extends UserEntity {
       schedules: schedules ?? this.schedules,
       rating: rating ?? this.rating,
       reviewsCount: reviewsCount ?? this.reviewsCount,
+      recentReviews: recentReviews ?? this.recentReviews,
       services: services ?? this.services,
       bio: bio ?? this.bio,
       clinicAddress: clinicAddress ?? this.clinicAddress,
@@ -168,6 +176,7 @@ class DoctorEntity extends UserEntity {
     schedules,
     rating,
     reviewsCount,
+    recentReviews,
     services,
     bio,
     clinicAddress,
@@ -179,3 +188,4 @@ class DoctorEntity extends UserEntity {
     surgeriesCount,
   ];
 }
+

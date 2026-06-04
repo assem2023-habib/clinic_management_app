@@ -46,6 +46,7 @@ import 'package:clinic_management_app/presentation/screens/suspended/suspended_s
 import 'package:clinic_management_app/presentation/screens/unauthorized/unauthorized_screen.dart';
 import 'package:clinic_management_app/presentation/screens/service_stopped/service_stopped_screen.dart';
 import 'package:clinic_management_app/presentation/screens/patient_welcome/patient_welcome_screen.dart';
+import 'package:clinic_management_app/presentation/screens/supervision/supervision_requests_screen.dart';
 
 Route<dynamic> _buildRoute(Widget screen) {
   return PageRouteBuilder(
@@ -194,6 +195,8 @@ class _MyAppState extends State<MyApp> {
                   screen = const UploadFilesScreen();
                 case AppRoutes.patientWelcome:
                   screen = const PatientWelcomeScreen();
+                case AppRoutes.supervisionRequests:
+                  screen = const SupervisionRequestsScreen();
                 default:
                   screen = const RoleSelectionScreen();
               }

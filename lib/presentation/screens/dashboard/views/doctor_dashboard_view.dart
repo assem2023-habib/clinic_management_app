@@ -71,7 +71,7 @@ class DoctorDashboardView extends StatelessWidget {
                 Row(children: [
                   Expanded(child: ActionButton(icon: Icons.folder, label: AppStrings.medicalRecords, color: colors.accent, onPressed: () => Navigator.pushNamed(context, AppRoutes.medicalRecords))),
                   const SizedBox(width: 12),
-                  Expanded(child: ActionButton(icon: Icons.description, label: AppStrings.medicalReport, color: colors.primaryDark, onPressed: () {})),
+                  Expanded(child: ActionButton(icon: Icons.supervisor_account, label: AppStrings.supervisionRequests, color: colors.primaryDark, onPressed: () => Navigator.pushNamed(context, AppRoutes.supervisionRequests))),
                 ]),
               ],
             ),

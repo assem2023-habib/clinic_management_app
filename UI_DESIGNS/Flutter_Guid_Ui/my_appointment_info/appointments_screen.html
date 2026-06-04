@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
+<title>مواعيدي — Vitality</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Manrope:wght@400;600;700;800&family=Material+Symbols+Outlined:wght,FILL@300..700,0..1&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#00180b; --surf:#032515; --surf-low:#002111; --surf-high:#0f301f;
+  --surf-highest:#1b3b29; --surf-lowest:#001207;
+  --primary:#80d8a6; --primary-c:#006d44; --on-primary-c:#93ecb8;
+  --secondary:#40e78c; --sec-c:#00ca73; --tertiary:#ffb3b1;
+  --on-surface:#c6ebd1; --on-surf-var:#bec9bf;
+  --outline:#88938a; --outline-var:#3f4942; --error:#ffb4ab;
+  --glass:rgba(1,43,23,.42); --glass-b:rgba(255,255,255,.07);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--on-surface);min-height:100vh;overflow-x:hidden}
+
+/* ── Ambient BG ─────────────────────── */
+.ambient{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.15;animation:floatorb 20s infinite ease-in-out alternate}
+.orb1{width:380px;height:380px;background:var(--primary-c);top:-100px;right:-80px}
+.orb2{width:280px;height:280px;background:var(--primary);bottom:-60px;left:-60px;animation-delay:-6s}
+.orb3{width:240px;height:240px;background:var(--secondary);top:40%;left:25%;opacity:.08;animation-delay:-11s}
+@keyframes floatorb{
+  0%{transform:translate(0,0) scale(1)}
+  50%{transform:translate(40px,25px) scale(1.1)}
+  100%{transform:translate(-25px,45px) scale(.92)}
+}
+.particle{position:absolute;border-radius:50%;background:rgba(128,216,166,.4);animation:rise 15s infinite linear}
+@keyframes rise{
+  0%{transform:translateY(100vh) scale(0);opacity:0}
+  10%{opacity:1;transform:translateY(90vh) scale(1)}
+  90%{opacity:1;transform:translateY(10vh) scale(1)}
+  100%{transform:translateY(0) scale(0);opacity:0}
+}
+
+/* ── App Shell ──────────────────────── */
+.shell{position:relative;z-index:1;max-width:430px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column}
+
+/* ── Top App Bar ────────────────────── */
+.topbar{
+  position:sticky;top:0;z-index:50;height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 16px;
+  background:rgba(0,24,11,.68);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.topbar-center{font-family:'Cairo',sans-serif;font-size:22px;font-weight:700;color:var(--on-surface)}
+.topbar-actions{display:flex;gap:4px}
+.icon-btn{width:40px;height:40px;border-radius:50%;border:none;background:transparent;cursor:pointer;color:var(--on-surf-var);display:flex;align-items:center;justify-content:center;transition:background .2s,transform .15s}
+.icon-btn:hover{background:rgba(128,216,166,.1);color:var(--primary)}
+.icon-btn:active{transform:scale(.9)}
+
+/* ── Scroll Body ────────────────────── */
+.body-scroll{flex:1;overflow-y:auto;padding:24px 16px 96px}
+.body-scroll::-webkit-scrollbar{display:none}
+
+/* ── Search ─────────────────────────── */
+.search-wrap{position:relative;margin-bottom:16px}
+.search-icon{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--on-surf-var);font-size:20px;pointer-events:none;transition:color .25s}
+.search-wrap:focus-within .search-icon{color:var(--primary)}
+.search-inp{
+  width:100%;height:48px;
+  background:rgba(1,43,23,.5);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;
+  padding:0 48px 0 14px;
+  color:var(--on-surface);font-family:'Cairo',sans-serif;font-size:15px;
+  outline:none;direction:rtl;transition:border-color .25s,box-shadow .3s;
+}
+.search-inp::placeholder{color:rgba(190,201,191,.45)}
+.search-inp:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(128,216,166,.12)}
+
+/* ── Filter Chips ───────────────────── */
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:8px}
+.chips::-webkit-scrollbar{display:none}
+.chip{
+  padding:7px 18px;border-radius:999px;white-space:nowrap;
+  font-family:'Cairo',sans-serif;font-size:13px;font-weight:600;
+  border:1px solid rgba(255,255,255,.06);
+  background:var(--surf-high);color:var(--on-surf-var);
+  cursor:pointer;transition:background .2s,color .2s,box-shadow .2s,transform .12s;
+}
+.chip:hover{color:var(--primary)}
+.chip:active{transform:scale(.95)}
+.chip.active{background:var(--primary-c);color:var(--on-primary-c);border-color:transparent;box-shadow:0 0 14px rgba(0,109,68,.4)}
+
+/* ── Timeline ───────────────────────── */
+.timeline{position:relative;margin-top:8px}
+.timeline::before{
+  content:'';position:absolute;top:0;bottom:0;right:19px;
+  width:2px;
+  background:linear-gradient(to bottom,var(--primary-c) 0%,rgba(0,109,68,.1) 100%);
+  z-index:0;
+}
+
+/* ── Timeline Row ───────────────────── */
+.tl-row{position:relative;padding-right:48px;margin-bottom:24px}
+.tl-dot{
+  position:absolute;right:13px;top:22px;
+  width:14px;height:14px;border-radius:50%;
+  background:var(--primary);
+  box-shadow:0 0 12px rgba(128,216,166,.6);
+  z-index:2;border:3px solid var(--bg);
+}
+.tl-dot.pending{background:var(--outline);box-shadow:none;width:12px;height:12px;right:14px}
+.tl-dot.done{background:var(--on-surf-var);box-shadow:none;width:10px;height:10px;right:15px}
+
+.tl-date{margin-bottom:6px;font-size:12px;font-weight:600}
+.tl-date.upcoming{color:var(--primary)}
+.tl-date.past{color:var(--on-surf-var)}
+
+/* ── Month Divider ──────────────────── */
+.month-div{
+  display:flex;align-items:center;gap:12px;
+  padding-right:48px;margin:8px 0 20px;
+}
+.month-pill{
+  background:rgba(1,43,23,.6);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:999px;
+  padding:4px 14px;
+  font-size:12px;font-weight:600;color:var(--on-surf-var);
+  white-space:nowrap;z-index:1;
+}
+.month-line{flex:1;height:1px;background:linear-gradient(to left,rgba(255,255,255,.06),transparent)}
+
+/* ── Appointment Card ───────────────── */
+.appt-card{
+  background:var(--glass);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--glass-b);
+  border-radius:16px;
+  padding:16px;
+  cursor:pointer;
+  transition:transform .25s,box-shadow .25s,border-color .25s;
+}
+.appt-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 36px rgba(0,109,68,.2);
+  border-color:rgba(128,216,166,.25);
+}
+.appt-card:active{transform:scale(.985)}
+.appt-card.featured{
+  background:radial-gradient(circle,rgba(0,109,68,.25) 0%,rgba(0,33,17,.5) 100%),
+             radial-gradient(rgba(128,216,166,.04) 1px,transparent 0) 0 0/20px 20px;
+  border-color:rgba(128,216,166,.22);
+  box-shadow:rgba(128,216,166,.12) 0 0 20px inset,rgba(0,24,11,.5) 0 8px 32px;
+}
+.appt-card.past-card{
+  background:rgba(0,18,7,.35);
+  border-color:transparent;
+  opacity:.72;
+}
+
+/* card top row */
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;gap:8px}
+.card-left{display:flex;gap:12px;align-items:center;flex:1;min-width:0}
+.doc-avatar{width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.1);overflow:hidden;flex-shrink:0;background:var(--surf-high);display:flex;align-items:center;justify-content:center}
+.doc-avatar img{width:100%;height:100%;object-fit:cover}
+.doc-name{font-size:18px;font-weight:700;color:var(--on-surface);line-height:1.2;margin-bottom:3px}
+.doc-spec{font-size:13px;color:var(--on-surf-var);display:flex;align-items:center;gap:4px}
+.doc-spec .mi{font-size:15px}
+
+/* status badges */
+.badge{
+  display:flex;align-items:center;gap:5px;
+  padding:4px 10px;border-radius:999px;
+  font-size:12px;font-weight:700;white-space:nowrap;
+  border-width:1px;border-style:solid;flex-shrink:0;
+}
+.badge-confirmed{background:rgba(128,216,166,.15);color:var(--primary);border-color:rgba(128,216,166,.3)}
+.badge-pending{background:rgba(255,179,177,.15);color:var(--tertiary);border-color:rgba(255,179,177,.3)}
+.badge-done{background:rgba(64,231,140,.15);color:var(--secondary);border-color:rgba(64,231,140,.3)}
+
+/* divider */
+.card-divider{height:1px;background:linear-gradient(to right,transparent,rgba(255,255,255,.09),transparent);margin:12px 0}
+
+/* card bottom row */
+.card-bottom{display:flex;justify-content:space-between;align-items:center}
+.time-info{display:flex;align-items:center;gap:10px}
+.time-icon-box{
+  width:36px;height:36px;
+  background:var(--surf-high);
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+}
+.time-label{font-size:11px;color:var(--on-surf-var);margin-bottom:2px}
+.time-value{font-size:14px;font-weight:700;color:var(--on-surface)}
+.more-btn{
+  width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.06);
+  background:var(--surf-high);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--on-surf-var);transition:background .2s,color .2s,transform .15s;
+}
+.more-btn:hover{background:var(--surf-highest);color:var(--primary)}
+.more-btn:active{transform:scale(.88)}
+
+/* ── Material icon helper ────────────── */
+.mi{font-family:'Material Symbols Outlined';font-style:normal;line-height:1;white-space:nowrap;direction:ltr;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;user-select:none}
+.mi-fill{font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24}
+
+/* ── Bottom Nav ─────────────────────── */
+.bottom-nav{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  width:100%;max-width:430px;height:68px;z-index:50;
+  display:flex;justify-content:space-around;align-items:center;
+  padding:0 8px 4px;
+  background:rgba(0,24,11,.65);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-top:1px solid rgba(255,255,255,.07);
+}
+.nav-it{
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  font-size:11px;font-weight:600;color:var(--on-surf-var);
+  cursor:pointer;padding:6px 14px;border-radius:12px;
+  transition:color .2s,background .2s,transform .12s;user-select:none;
+}
+.nav-it .mi{font-size:22px}
+.nav-it:hover{color:var(--primary)}
+.nav-it:active{transform:scale(.88)}
+.nav-it.active{background:rgba(0,109,68,.22);color:var(--secondary)}
+.nav-it.active .mi{font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24}
+
+/* ── Overlay ────────────────────────── */
+.overlay{
+  position:fixed;inset:0;z-index:60;
+  background:rgba(0,24,11,.75);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.overlay.show{opacity:1;pointer-events:auto}
+
+/* ── Bottom Sheet ───────────────────── */
+.bsheet{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(102%);
+  width:100%;max-width:430px;z-index:70;
+  background:var(--surf-highest);
+  border-radius:28px 28px 0 0;
+  border-top:1px solid rgba(255,255,255,.09);
+  padding:0 16px 36px;
+  transition:transform .34s cubic-bezier(.32,1,.22,1);
+}
+.bsheet.open{transform:translateX(-50%) translateY(0)}
+.drag-handle{width:44px;height:5px;background:rgba(136,147,138,.25);border-radius:999px;margin:14px auto 18px}
+
+.sheet-header{display:flex;align-items:center;gap:12px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:10px}
+.sheet-ava{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.1);overflow:hidden;flex-shrink:0;background:var(--surf-high);display:flex;align-items:center;justify-content:center}
+.sheet-ava img{width:100%;height:100%;object-fit:cover}
+.sheet-doc-label{font-size:11px;color:var(--on-surf-var);font-weight:500;margin-bottom:2px}
+.sheet-doc-nm{font-size:16px;font-weight:700;color:var(--on-surface)}
+
+.sopt{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 12px;border-radius:14px;
+  cursor:pointer;color:var(--on-surface);
+  font-size:15px;font-weight:500;
+  transition:background .18s;margin-bottom:4px;border:none;width:100%;background:transparent;
+  font-family:'Cairo',sans-serif;text-align:right;direction:rtl;
+}
+.sopt .mi{font-size:22px;flex-shrink:0;color:var(--on-surf-var)}
+.sopt:hover{background:var(--surf-high)}
+.sopt:hover .mi{color:var(--primary)}
+.sopt:active{background:rgba(255,255,255,.04)}
+.sopt.danger{color:var(--error)}
+.sopt.danger .mi{color:var(--error)}
+.sopt.danger:hover{background:rgba(255,180,171,.08)}
+
+.sheet-cancel{
+  width:100%;margin-top:8px;padding:14px;
+  background:var(--surf-low);border:none;border-radius:14px;
+  color:var(--on-surf-var);font-family:'Cairo',sans-serif;
+  font-size:14px;font-weight:700;cursor:pointer;
+  transition:background .2s;
+}
+.sheet-cancel:hover{background:var(--surf-high)}
+
+/* ── Delete Dialog ──────────────────── */
+.dlg-overlay{
+  position:fixed;inset:0;z-index:80;
+  background:rgba(0,24,11,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  display:flex;align-items:center;justify-content:center;padding:24px;
+  opacity:0;pointer-events:none;transition:opacity .25s;
+}
+.dlg-overlay.show{opacity:1;pointer-events:auto}
+.dlg-box{
+  width:100%;max-width:320px;
+  background:var(--surf-highest);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:24px;padding:28px 22px 20px;
+  transform:scale(.9) translateY(16px);
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+.dlg-overlay.show .dlg-box{transform:scale(1) translateY(0)}
+.dlg-icon{width:56px;height:56px;border-radius:16px;background:rgba(255,180,171,.1);border:1px solid rgba(255,180,171,.22);display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.dlg-icon .mi{font-size:28px;color:var(--error)}
+.dlg-title{font-size:19px;font-weight:700;color:var(--on-surface);text-align:center;margin-bottom:8px}
+.dlg-body{font-size:13px;color:var(--on-surf-var);text-align:center;line-height:1.7;margin-bottom:22px}
+.dlg-body strong{color:var(--primary)}
+.dlg-acts{display:flex;gap:10px}
+.dlg-btn{flex:1;height:46px;border-radius:13px;border:none;cursor:pointer;font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;transition:opacity .2s,transform .15s}
+.dlg-btn:active{transform:scale(.96)}
+.dlg-btn.dlg-cancel{background:var(--surf-high);color:var(--on-surf-var)}
+.dlg-btn.dlg-cancel:hover{opacity:.8}
+.dlg-btn.dlg-del{background:rgba(255,180,171,.12);border:1px solid rgba(255,180,171,.25);color:var(--error)}
+.dlg-btn.dlg-del:hover{background:rgba(255,180,171,.22)}
+
+/* ── Toast ──────────────────────────── */
+.toast{
+  position:fixed;bottom:82px;left:50%;transform:translateX(-50%) translateY(18px);
+  background:var(--surf-highest);border:1px solid rgba(128,216,166,.18);
+  border-radius:999px;padding:10px 22px 10px 16px;
+  font-size:13px;font-weight:600;color:var(--on-surface);
+  z-index:100;opacity:0;display:flex;align-items:center;gap:8px;
+  box-shadow:0 8px 28px rgba(0,0,0,.45);
+  transition:opacity .28s,transform .3s cubic-bezier(.34,1.4,.64,1);
+  pointer-events:none;white-space:nowrap;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.t-dot{width:7px;height:7px;border-radius:50%;background:var(--secondary);flex-shrink:0}
+
+/* ── Empty State ────────────────────── */
+.empty{display:none;flex-direction:column;align-items:center;padding:48px 16px;gap:10px;text-align:center}
+.empty.show{display:flex}
+.empty-icon{font-size:44px;line-height:1;opacity:.3}
+.empty-title{font-size:15px;font-weight:700;color:var(--on-surface)}
+.empty-sub{font-size:13px;color:var(--on-surf-var)}
+
+/* ── Reschedule Dialog ──────────────── */
+.resched-overlay{
+  position:fixed;inset:0;z-index:80;
+  background:rgba(0,24,11,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  display:flex;align-items:flex-end;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .25s;
+}
+.resched-overlay.show{opacity:1;pointer-events:auto}
+.resched-box{
+  width:100%;max-width:430px;
+  background:var(--surf-highest);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:28px 28px 0 0;padding:0 20px 36px;
+  transform:translateY(100%);
+  transition:transform .34s cubic-bezier(.32,1,.22,1);
+}
+.resched-overlay.show .resched-box{transform:translateY(0)}
+.resched-title{font-size:18px;font-weight:700;color:var(--on-surface);padding:20px 4px 16px;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:20px}
+.time-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.tslot{
+  padding:10px 6px;border-radius:12px;text-align:center;
+  font-size:13px;font-weight:600;cursor:pointer;
+  background:var(--surf-high);color:var(--on-surf-var);
+  border:1px solid rgba(255,255,255,.06);
+  transition:background .2s,color .2s,border-color .2s;
+}
+.tslot:hover{background:rgba(0,109,68,.25);color:var(--primary);border-color:rgba(128,216,166,.2)}
+.tslot.sel{background:var(--primary-c);color:var(--on-primary-c);border-color:transparent}
+.resched-confirm{
+  width:100%;height:48px;background:var(--primary-c);
+  border:none;border-radius:14px;
+  color:var(--on-primary-c);font-family:'Cairo',sans-serif;
+  font-size:15px;font-weight:700;cursor:pointer;
+  transition:opacity .2s,box-shadow .2s;
+}
+.resched-confirm:hover{box-shadow:0 0 20px rgba(0,109,68,.5);opacity:.92}
+</style>
+</head>
+<body>
+
+<!-- Ambient BG -->
+<div class="ambient">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div id="ptcl"></div>
+</div>
+
+<div class="shell">
+
+  <!-- Top Bar -->
+  <header class="topbar">
+    <div class="topbar-actions">
+      <button class="icon-btn"><span class="mi">tune</span></button>
+      <button class="icon-btn"><span class="mi">search</span></button>
+    </div>
+    <span class="topbar-center">مواعيدي</span>
+    <button class="icon-btn"><span class="mi">menu</span></button>
+  </header>
+
+  <!-- Body -->
+  <main class="body-scroll">
+
+    <!-- Search -->
+    <div class="search-wrap">
+      <span class="mi search-icon">search</span>
+      <input class="search-inp" id="srch" placeholder="ابحث عن طبيب أو تخصص..." type="text"/>
+    </div>
+
+    <!-- Chips -->
+    <div class="chips" id="chips">
+      <button class="chip active" data-f="all">الكل</button>
+      <button class="chip" data-f="upcoming">القادمة</button>
+      <button class="chip" data-f="done">المكتملة</button>
+      <button class="chip" data-f="cancelled">الملغاة</button>
+    </div>
+
+    <!-- Timeline -->
+    <div class="timeline" id="timeline">
+
+      <!-- ── Appointment 1: Confirmed ── -->
+      <div class="tl-row" data-status="upcoming" data-name="د. سمير منصور" data-spec="استشاري أمراض القلب">
+        <div class="tl-dot"></div>
+        <div class="tl-date upcoming">غداً &bull; 15 أكتوبر 2023</div>
+        <div class="appt-card" onclick="cardClick(this)">
+          <div class="card-top">
+            <div class="card-left">
+              <div class="doc-avatar">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDu_paWUyL0yDHxZdNF-0nuZs1_ktqWM-C1DXwWfZZHhgf65jgfCelHzBfgOnE6LYFLg1uTx5MN6UoJPUFh3ynMUs0xGYzkj55LXlyLVW97YCzYedFQmKX-UoZrDHrvWanRTxOwOkWTtQ9Sz9LpN44BgXMe2IAGdTD5auxYsYBjkEw6J3GYjLb3eqMAJR8aNgNlkhMLvANYgve6WdFSyCVy98TEW5zKin1gFrvfe4v2sz1YAfDt4lwgig4ZlYOwtaUmRWWJI1sBldw" alt="د. سمير"/>
+              </div>
+              <div>
+                <div class="doc-name">د. سمير منصور</div>
+                <div class="doc-spec"><span class="mi" style="font-size:15px">cardiology</span>استشاري أمراض القلب</div>
+              </div>
+            </div>
+            <span class="badge badge-confirmed"><span class="mi mi-fill" style="font-size:14px">check_circle</span>مؤكد</span>
+          </div>
+          <div class="card-divider"></div>
+          <div class="card-bottom">
+            <div class="time-info">
+              <div class="time-icon-box"><span class="mi" style="color:var(--primary);font-size:20px">schedule</span></div>
+              <div>
+                <div class="time-label">الوقت</div>
+                <div class="time-value">09:30 صباحاً</div>
+              </div>
+            </div>
+            <button class="more-btn" onclick="openSheet(event,'د. سمير منصور','https://lh3.googleusercontent.com/aida-public/AB6AXuDu_paWUyL0yDHxZdNF-0nuZs1_ktqWM-C1DXwWfZZHhgf65jgfCelHzBfgOnE6LYFLg1uTx5MN6UoJPUFh3ynMUs0xGYzkj55LXlyLVW97YCzYedFQmKX-UoZrDHrvWanRTxOwOkWTtQ9Sz9LpN44BgXMe2IAGdTD5auxYsYBjkEw6J3GYjLb3eqMAJR8aNgNlkhMLvANYgve6WdFSyCVy98TEW5zKin1gFrvfe4v2sz1YAfDt4lwgig4ZlYOwtaUmRWWJI1sBldw')">
+              <span class="mi">more_vert</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Appointment 2: Pending (Featured) ── -->
+      <div class="tl-row" data-status="upcoming" data-name="د. ليلى عبد الرحمن" data-spec="أخصائية الطب النفسي">
+        <div class="tl-dot pending"></div>
+        <div class="tl-date past">الخميس &bull; 18 أكتوبر 2023</div>
+        <div class="appt-card featured" onclick="cardClick(this)">
+          <div class="card-top">
+            <div class="card-left">
+              <div class="doc-avatar" style="background:var(--surf-high)">
+                <span class="mi" style="font-size:26px;color:var(--on-surf-var)">psychiatry</span>
+              </div>
+              <div>
+                <div class="doc-name">د. ليلى عبد الرحمن</div>
+                <div class="doc-spec"><span class="mi" style="font-size:15px">psychology</span>أخصائية الطب النفسي</div>
+              </div>
+            </div>
+            <span class="badge badge-pending"><span class="mi" style="font-size:14px">schedule</span>قيد الانتظار</span>
+          </div>
+          <div class="card-divider"></div>
+          <div class="card-bottom">
+            <div class="time-info">
+              <div class="time-icon-box"><span class="mi" style="color:var(--outline);font-size:20px">schedule</span></div>
+              <div>
+                <div class="time-label">الوقت</div>
+                <div class="time-value">04:15 عصراً</div>
+              </div>
+            </div>
+            <button class="more-btn" onclick="openSheet(event,'د. ليلى عبد الرحمن',null)">
+              <span class="mi">more_vert</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Month Divider ── -->
+      <div class="month-div">
+        <span class="month-pill">نوفمبر 2023</span>
+        <div class="month-line"></div>
+      </div>
+
+      <!-- ── Appointment 3: Done (Past) ── -->
+      <div class="tl-row" data-status="done" data-name="د. طارق محمود" data-spec="جراحة العظام">
+        <div class="tl-dot done"></div>
+        <div class="tl-date past">2 نوفمبر 2023</div>
+        <div class="appt-card past-card" onclick="cardClick(this)">
+          <div class="card-top">
+            <div class="card-left">
+              <div class="doc-avatar" style="background:var(--surf)">
+                <span class="mi" style="font-size:26px;color:var(--on-surf-var)">orthopedics</span>
+              </div>
+              <div>
+                <div class="doc-name" style="color:var(--on-surf-var);font-size:16px">د. طارق محمود</div>
+                <div class="doc-spec"><span class="mi" style="font-size:15px">skeleton</span>جراحة العظام</div>
+              </div>
+            </div>
+            <span class="badge badge-done"><span class="mi mi-fill" style="font-size:14px">done_all</span>مكتمل</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /timeline -->
+
+    <!-- Empty state -->
+    <div class="empty" id="empty">
+      <span class="empty-icon">📅</span>
+      <div class="empty-title">لا توجد مواعيد</div>
+      <div class="empty-sub">جرّب تصفية مختلفة أو البحث بكلمة أخرى</div>
+    </div>
+
+  </main>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <div class="nav-it" onclick="setNav(this)"><span class="mi">home</span><span>الرئيسية</span></div>
+    <div class="nav-it active" onclick="setNav(this)"><span class="mi">calendar_month</span><span>مواعيدي</span></div>
+    <div class="nav-it" onclick="setNav(this)"><span class="mi">description</span><span>السجلات</span></div>
+    <div class="nav-it" onclick="setNav(this)"><span class="mi">person</span><span>حسابي</span></div>
+  </nav>
+
+</div><!-- /shell -->
+
+<!-- Overlay -->
+<div class="overlay" id="ov" onclick="closeSheet()"></div>
+
+<!-- Bottom Sheet -->
+<div class="bsheet" id="bs">
+  <div class="drag-handle"></div>
+  <div class="sheet-header">
+    <div class="sheet-ava" id="shAva">
+      <span class="mi" style="font-size:22px;color:var(--on-surf-var)">person</span>
+    </div>
+    <div>
+      <div class="sheet-doc-label">الخيارات المتاحة لـ</div>
+      <div class="sheet-doc-nm" id="shName">—</div>
+    </div>
+  </div>
+  <button class="sopt" onclick="shAction('reschedule')"><span class="mi">edit_calendar</span>تعديل الموعد</button>
+  <button class="sopt" onclick="shAction('reminder')"><span class="mi">notifications</span>تفعيل التذكير</button>
+  <button class="sopt" onclick="shAction('details')"><span class="mi">info</span>تفاصيل الموعد</button>
+  <button class="sopt danger" onclick="shAction('cancel')"><span class="mi">event_busy</span>إلغاء الموعد</button>
+  <button class="sheet-cancel" onclick="closeSheet()">إلغاء</button>
+</div>
+
+<!-- Reschedule Sheet -->
+<div class="resched-overlay" id="reschedOv" onclick="closeResched(event)">
+  <div class="resched-box" onclick="event.stopPropagation()">
+    <div class="drag-handle"></div>
+    <div class="resched-title">اختر وقتاً جديداً لـ <span id="reschedName" style="color:var(--primary)"></span></div>
+    <div class="time-slots">
+      <div class="tslot" onclick="selSlot(this)">08:00 ص</div>
+      <div class="tslot" onclick="selSlot(this)">09:30 ص</div>
+      <div class="tslot" onclick="selSlot(this)">10:00 ص</div>
+      <div class="tslot" onclick="selSlot(this)">11:30 ص</div>
+      <div class="tslot" onclick="selSlot(this)">01:00 م</div>
+      <div class="tslot" onclick="selSlot(this)">03:00 م</div>
+      <div class="tslot" onclick="selSlot(this)">04:15 م</div>
+      <div class="tslot" onclick="selSlot(this)">05:30 م</div>
+      <div class="tslot" onclick="selSlot(this)">06:00 م</div>
+    </div>
+    <button class="resched-confirm" onclick="confirmResched()">تأكيد الموعد الجديد</button>
+  </div>
+</div>
+
+<!-- Delete / Cancel Dialog -->
+<div class="dlg-overlay" id="dlgOv" onclick="closeDlg(event)">
+  <div class="dlg-box" onclick="event.stopPropagation()">
+    <div class="dlg-icon"><span class="mi">event_busy</span></div>
+    <div class="dlg-title">إلغاء الموعد؟</div>
+    <div class="dlg-body">هل تريد إلغاء موعد<br/><strong id="dlgName">—</strong>؟<br/>لا يمكن التراجع عن هذا الإجراء.</div>
+    <div class="dlg-acts">
+      <button class="dlg-btn dlg-cancel" onclick="closeDlg()">رجوع</button>
+      <button class="dlg-btn dlg-del" onclick="confirmCancel()">إلغاء الموعد</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"><span class="t-dot"></span><span id="toastMsg"></span></div>
+
+<script>
+/* ── Particles ─────────────────────────────── */
+(function(){
+  const c=document.getElementById('ptcl');
+  for(let i=0;i<35;i++){
+    const d=document.createElement('div');
+    d.className='particle';
+    d.style.cssText=`left:${Math.random()*100}vw;animation-delay:${Math.random()*15}s;animation-duration:${10+Math.random()*10}s;width:${1+Math.random()*3}px;height:${d.style.width}`;
+    c.appendChild(d);
+  }
+})();
+
+/* ── Filter Chips ──────────────────────────── */
+let activeFilter='all';
+document.getElementById('chips').addEventListener('click',e=>{
+  const ch=e.target.closest('.chip');
+  if(!ch)return;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  ch.classList.add('active');
+  activeFilter=ch.dataset.f;
+  applyFilters();
+});
+
+/* ── Search ────────────────────────────────── */
+let sTimer;
+document.getElementById('srch').addEventListener('input',e=>{
+  clearTimeout(sTimer);
+  sTimer=setTimeout(()=>applyFilters(e.target.value.trim().toLowerCase()),220);
+});
+
+function applyFilters(q=''){
+  const rows=document.querySelectorAll('.tl-row');
+  let visible=0;
+  rows.forEach(r=>{
+    const st=r.dataset.status;
+    const nm=r.dataset.name.toLowerCase();
+    const sp=r.dataset.spec.toLowerCase();
+    const fMatch=activeFilter==='all'||st===activeFilter;
+    const qMatch=!q||nm.includes(q)||sp.includes(q);
+    const show=fMatch&&qMatch;
+    r.style.display=show?'':'none';
+    if(show)visible++;
+  });
+  // hide month dividers if no items after them visible
+  document.querySelectorAll('.month-div').forEach(d=>{
+    let nxt=d.nextElementSibling;
+    let has=false;
+    while(nxt&&!nxt.classList.contains('month-div')){
+      if(nxt.classList.contains('tl-row')&&nxt.style.display!=='none')has=true;
+      nxt=nxt.nextElementSibling;
+    }
+    d.style.display=has?'':'none';
+  });
+  document.getElementById('empty').classList.toggle('show',visible===0);
+}
+
+/* ── Card click (details ripple) ──────────── */
+function cardClick(el){
+  el.style.transition='transform .1s';
+  el.style.transform='scale(.983)';
+  setTimeout(()=>{ el.style.transform=''; },150);
+}
+
+/* ── Bottom Sheet ──────────────────────────── */
+let curDoctor='', curImg=null;
+
+function openSheet(ev,name,img){
+  ev.stopPropagation();
+  curDoctor=name; curImg=img;
+  document.getElementById('shName').textContent=name;
+  const ava=document.getElementById('shAva');
+  if(img){
+    ava.innerHTML=`<img src="${img}" alt="${name}" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>`;
+  } else {
+    ava.innerHTML=`<span class="mi" style="font-size:22px;color:var(--on-surf-var)">person</span>`;
+  }
+  document.getElementById('ov').classList.add('show');
+  document.getElementById('bs').classList.add('open');
+  document.querySelector('.body-scroll').style.overflow='hidden';
+}
+
+function closeSheet(){
+  document.getElementById('ov').classList.remove('show');
+  document.getElementById('bs').classList.remove('open');
+  document.querySelector('.body-scroll').style.overflow='';
+}
+
+function shAction(a){
+  closeSheet();
+  if(a==='cancel'){
+    document.getElementById('dlgName').textContent=curDoctor;
+    document.getElementById('dlgOv').classList.add('show');
+    return;
+  }
+  if(a==='reschedule'){
+    document.getElementById('reschedName').textContent=curDoctor;
+    document.getElementById('reschedOv').classList.add('show');
+    document.querySelector('.body-scroll').style.overflow='hidden';
+    return;
+  }
+  const msgs={
+    reminder:`🔔 تم تفعيل التذكير لموعد ${curDoctor}`,
+    details:`📋 جاري فتح تفاصيل موعد ${curDoctor}`,
+  };
+  toast(msgs[a]||'');
+}
+
+/* swipe-down close */
+let sy0=0;
+const bs=document.getElementById('bs');
+bs.addEventListener('touchstart',e=>{sy0=e.touches[0].clientY},{passive:true});
+bs.addEventListener('touchmove',e=>{if(e.touches[0].clientY-sy0>60)closeSheet()},{passive:true});
+
+/* ── Cancel Dialog ─────────────────────────── */
+function closeDlg(e){
+  if(e&&e.target!==document.getElementById('dlgOv'))return;
+  document.getElementById('dlgOv').classList.remove('show');
+}
+function confirmCancel(){
+  document.getElementById('dlgOv').classList.remove('show');
+  // find and fade-out the row
+  document.querySelectorAll('.tl-row').forEach(r=>{
+    if(r.dataset.name===curDoctor){
+      r.style.transition='opacity .35s,transform .35s';
+      r.style.opacity='0';r.style.transform='scale(.95)';
+      setTimeout(()=>{r.remove();applyFilters();},360);
+    }
+  });
+  toast(`✅ تم إلغاء موعد ${curDoctor}`);
+}
+
+/* ── Reschedule Sheet ──────────────────────── */
+let selSlotEl=null;
+function selSlot(el){
+  document.querySelectorAll('.tslot').forEach(t=>t.classList.remove('sel'));
+  el.classList.add('sel');
+  selSlotEl=el;
+}
+function closeResched(e){
+  if(e&&e.target!==document.getElementById('reschedOv'))return;
+  document.getElementById('reschedOv').classList.remove('show');
+  document.querySelector('.body-scroll').style.overflow='';
+  selSlotEl=null;
+  document.querySelectorAll('.tslot').forEach(t=>t.classList.remove('sel'));
+}
+function confirmResched(){
+  if(!selSlotEl){toast('⚠️ اختر وقتاً أولاً');return;}
+  const newTime=selSlotEl.textContent;
+  // update card time display
+  document.querySelectorAll('.tl-row').forEach(r=>{
+    if(r.dataset.name===curDoctor){
+      const tv=r.querySelector('.time-value');
+      if(tv)tv.textContent=newTime;
+    }
+  });
+  document.getElementById('reschedOv').classList.remove('show');
+  document.querySelector('.body-scroll').style.overflow='';
+  selSlotEl=null;
+  document.querySelectorAll('.tslot').forEach(t=>t.classList.remove('sel'));
+  toast(`📅 تم تعديل موعد ${curDoctor} إلى ${newTime}`);
+}
+
+/* ── Bottom Nav ────────────────────────────── */
+function setNav(el){
+  document.querySelectorAll('.nav-it').forEach(n=>n.classList.remove('active'));
+  el.classList.add('active');
+}
+
+/* ── Toast ─────────────────────────────────── */
+let tt;
+function toast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toastMsg').textContent=msg;
+  t.classList.remove('show');
+  void t.offsetWidth;
+  t.classList.add('show');
+  clearTimeout(tt);
+  tt=setTimeout(()=>t.classList.remove('show'),2800);
+}
+</script>
+</body>
+</html>

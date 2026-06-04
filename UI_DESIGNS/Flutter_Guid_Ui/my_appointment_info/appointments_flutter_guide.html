@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>دليل Flutter — شاشة مواعيدي</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Manrope:wght@700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#00180b;--surf:#032515;--surf-low:#002111;--surf-high:#0f301f;
+  --surf-highest:#1b3b29;--primary:#80d8a6;--primary-c:#006d44;
+  --on-primary-c:#93ecb8;--secondary:#40e78c;--tertiary:#ffb3b1;
+  --on-surface:#c6ebd1;--on-sv:#bec9bf;--outline:#88938a;
+  --outline-var:#3f4942;--error:#ffb4ab;
+  --glass:rgba(1,43,23,.44);--glass-b:rgba(255,255,255,.08);
+  --code:#001207;--amber:#ffd166;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:var(--on-surface);overflow-x:hidden;line-height:1.7}
+
+/* Ambient */
+#bgc{position:fixed;inset:0;pointer-events:none;z-index:0}
+.cp{position:fixed;top:50%;left:50%;width:2px;height:2px;border-radius:50%;background:rgba(64,231,140,.14);animation:cp 7s infinite ease-out;pointer-events:none;z-index:0}
+@keyframes cp{0%{transform:translate(-50%,-50%) scale(0);opacity:.5}100%{transform:translate(-50%,-50%) scale(600);opacity:0}}
+
+.pw{position:relative;z-index:1;max-width:1160px;margin:0 auto;padding:0 24px 80px}
+
+/* Top bar */
+.topbar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(0,24,11,.8);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--outline-var);
+  padding:14px 24px;display:flex;align-items:center;justify-content:space-between;
+}
+.tb-brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:var(--primary)}
+.fl-logo{width:26px;height:26px;background:linear-gradient(135deg,#54C5F8,#01579B);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;font-family:'JetBrains Mono',monospace}
+.pb{padding:4px 14px;border-radius:999px;font-size:12px;font-weight:700;background:rgba(128,216,166,.12);border:1px solid rgba(128,216,166,.2);color:var(--primary)}
+
+/* Hero */
+.hero{text-align:center;padding:90px 0 52px}
+.hbadge{display:inline-flex;align-items:center;gap:8px;background:rgba(128,216,166,.1);border:1px solid rgba(128,216,166,.22);border-radius:999px;padding:6px 18px;font-size:13px;font-weight:600;color:var(--primary);margin-bottom:26px;letter-spacing:.04em}
+.hdot{width:7px;height:7px;border-radius:50%;background:var(--secondary);animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-family:'Manrope',sans-serif;font-size:clamp(30px,4.5vw,52px);font-weight:800;line-height:1.15;letter-spacing:-.02em;background:linear-gradient(135deg,#9cf5c1,#40e78c,#80d8a6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:18px}
+.hero p{color:var(--on-sv);font-size:17px;max-width:600px;margin:0 auto 36px}
+.hchips{display:flex;flex-wrap:wrap;justify-content:center;gap:9px}
+.hchip{display:inline-flex;align-items:center;gap:5px;padding:5px 15px;border-radius:999px;font-size:12px;font-weight:600;border:1px solid var(--outline-var);color:var(--on-sv);background:var(--surf)}
+
+/* Layout */
+.layout{display:grid;grid-template-columns:1fr 210px;gap:48px;align-items:start}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.toc-wrap{display:none}}
+
+/* TOC */
+.toc-wrap{position:sticky;top:80px;max-height:calc(100vh - 110px);overflow-y:auto}
+.toc-wrap::-webkit-scrollbar{width:4px}
+.toc-wrap::-webkit-scrollbar-thumb{background:var(--outline-var);border-radius:4px}
+.toc-title{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--on-sv);margin-bottom:12px;text-transform:uppercase}
+.tl{display:block;font-size:13px;color:var(--on-sv);text-decoration:none;padding:5px 0 5px 12px;border-right:2px solid transparent;transition:color .2s,border-color .2s;margin-bottom:2px}
+.tl:hover{color:var(--primary);border-right-color:var(--primary-c)}
+.tl.active{color:var(--primary);border-right-color:var(--primary);font-weight:600}
+.tl-new{color:var(--secondary) !important;border-right-color:rgba(64,231,140,.35) !important}
+.toc-sep{margin-top:10px;padding-top:10px;border-top:1px solid var(--outline-var)}
+
+/* Sections */
+.sec{margin-top:68px}
+.sec-label{display:flex;align-items:center;gap:13px;margin-bottom:22px}
+.snum{width:36px;height:36px;border-radius:50%;background:var(--primary-c);color:var(--primary);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.stitle{font-family:'Manrope',sans-serif;font-size:24px;font-weight:700;color:var(--on-surface)}
+.sdesc{color:var(--on-sv);font-size:15px;max-width:820px;margin-bottom:24px;line-height:1.8}
+
+/* Glass */
+.glass{background:var(--glass);backdrop-filter:blur(14px);border:1px solid var(--glass-b);border-radius:16px;padding:24px}
+
+/* Code */
+.cw{border-radius:10px;overflow:hidden;margin:18px 0;border:1px solid var(--outline-var)}
+.ch{background:var(--surf-high);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--on-sv);border-bottom:1px solid var(--outline-var)}
+.ltag{background:rgba(128,216,166,.15);color:var(--primary);padding:2px 10px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600}
+pre{background:var(--code);padding:20px 22px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:13.5px;line-height:1.75}
+pre::-webkit-scrollbar{height:5px}
+pre::-webkit-scrollbar-thumb{background:var(--outline-var);border-radius:10px}
+.kw{color:#7dd3fc}.cl{color:#86efac}.pr{color:#fda4af}.str{color:#fde68a}.cm{color:#6b7280;font-style:italic}.nm{color:#a78bfa}.fn{color:#67e8f9}
+
+/* Tables */
+table{width:100%;border-collapse:collapse;font-size:14px;margin:16px 0}
+th{background:var(--surf-high);color:var(--primary);text-align:right;padding:10px 15px;font-weight:700;border-bottom:2px solid var(--primary-c)}
+td{padding:10px 15px;border-bottom:1px solid var(--outline-var);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,.02)}
+td code{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--secondary);background:rgba(64,231,140,.1);padding:1px 7px;border-radius:5px}
+
+/* Info boxes */
+.ib{display:flex;gap:13px;padding:14px 18px;border-radius:10px;margin:14px 0}
+.ib.tip{background:rgba(128,216,166,.07);border:1px solid rgba(128,216,166,.18)}
+.ib.warn{background:rgba(255,209,102,.06);border:1px solid rgba(255,209,102,.18)}
+.ib.err{background:rgba(255,180,171,.06);border:1px solid rgba(255,180,171,.18)}
+.ii{font-size:19px;flex-shrink:0;margin-top:2px}
+.ib p{font-size:13.5px;color:var(--on-sv)}
+.ib strong{color:var(--on-surface)}
+
+/* Compare grid */
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+@media(max-width:580px){.cgrid{grid-template-columns:1fr}}
+.ccard{background:var(--surf);border:1px solid var(--outline-var);border-radius:10px;padding:18px}
+.ccard h4{font-size:13px;font-weight:700;color:var(--primary);margin-bottom:10px;display:flex;align-items:center;gap:7px}
+
+/* Steps */
+.steps{counter-reset:step}
+.si{display:flex;gap:16px;position:relative;padding-bottom:28px}
+.si:last-child{padding-bottom:0}
+.si::before{content:'';position:absolute;right:17px;top:36px;width:2px;height:calc(100% - 36px);background:linear-gradient(to bottom,var(--primary-c),transparent)}
+.si:last-child::before{display:none}
+.sn{width:34px;height:34px;border-radius:50%;background:var(--primary-c);color:var(--primary);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;flex-shrink:0}
+.sb h4{font-size:15px;font-weight:700;margin-bottom:5px;color:var(--on-surface)}
+.sb p{font-size:13.5px;color:var(--on-sv)}
+
+/* Effect row */
+.efrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:18px 0}
+.efc{background:var(--surf);border:1px solid var(--outline-var);border-radius:10px;padding:18px;text-align:center;transition:border-color .3s,transform .3s;cursor:default}
+.efc:hover{border-color:rgba(128,216,166,.35);transform:translateY(-3px)}
+.efi{font-size:30px;margin-bottom:9px}
+.efc h4{font-size:13px;font-weight:700;color:var(--primary);margin-bottom:5px}
+.efc p{font-size:12px;color:var(--on-sv);line-height:1.6}
+
+/* Tags */
+.tag{display:inline-flex;align-items:center;gap:5px;padding:3px 11px;border-radius:999px;font-size:12px;font-weight:600}
+.tg{background:rgba(128,216,166,.1);color:var(--primary);border:1px solid rgba(128,216,166,.2)}
+.ta{background:rgba(255,209,102,.1);color:var(--amber);border:1px solid rgba(255,209,102,.2)}
+.tr{background:rgba(255,180,171,.1);color:var(--error);border:1px solid rgba(255,180,171,.2)}
+
+/* Divider */
+.div{height:1px;background:linear-gradient(90deg,transparent,var(--outline-var),transparent);margin:52px 0}
+
+/* Details */
+details{background:var(--surf);border:1px solid var(--outline-var);border-radius:10px;margin-bottom:10px;overflow:hidden}
+details summary{padding:13px 17px;font-weight:600;font-size:13.5px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;list-style:none;color:var(--on-surface);transition:background .2s}
+details summary:hover{background:var(--surf-high)}
+details summary::after{content:'▸';color:var(--primary);transition:transform .25s}
+details[open] summary::after{transform:rotate(90deg)}
+.db{padding:0 17px 17px}
+
+/* Phone demo */
+.phone-wrap{display:flex;justify-content:center;padding:32px 0}
+.phone{width:300px;background:var(--bg);border:2px solid var(--surf-highest);border-radius:34px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.04)}
+.pbar{background:rgba(0,24,11,.75);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.06)}
+.pbar h3{font-size:15px;font-weight:700;color:var(--primary)}
+.pbody{padding:14px}
+.psrch{background:rgba(1,43,23,.5);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:9px 12px;font-size:12px;color:var(--on-sv);margin-bottom:12px}
+.pchips{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto}
+.pchips::-webkit-scrollbar{display:none}
+.pchip{padding:4px 13px;border-radius:999px;font-size:11px;font-weight:600;border:1px solid rgba(255,255,255,.05);background:var(--surf-high);color:var(--on-sv)}
+.pchip.act{background:var(--primary-c);color:var(--on-primary-c);border-color:transparent}
+/* mini timeline */
+.ptl{position:relative;padding-right:32px}
+.ptl::before{content:'';position:absolute;top:0;bottom:0;right:11px;width:2px;background:linear-gradient(to bottom,var(--primary-c),transparent)}
+.ptl-row{position:relative;margin-bottom:14px}
+.ptl-dot{position:absolute;right:6px;top:14px;width:10px;height:10px;border-radius:50%;background:var(--primary);border:2px solid var(--bg);z-index:2;box-shadow:0 0 8px rgba(128,216,166,.5)}
+.ptl-dot.pend{background:var(--outline);box-shadow:none}
+.ptl-date{font-size:10px;color:var(--primary);margin-bottom:4px}
+.ptl-card{background:var(--glass);border:1px solid var(--glass-b);border-radius:12px;padding:10px;display:flex;justify-content:space-between;align-items:center}
+.ptl-card.feat{border-color:rgba(128,216,166,.2);box-shadow:rgba(128,216,166,.1) 0 0 14px inset}
+.ptl-nm{font-size:12px;font-weight:700;color:var(--on-surface)}
+.ptl-sp{font-size:10px;color:var(--primary)}
+.badge-sm{padding:2px 7px;border-radius:999px;font-size:10px;font-weight:700}
+.bc{background:rgba(128,216,166,.15);color:var(--primary);border:1px solid rgba(128,216,166,.25)}
+.bp{background:rgba(255,179,177,.15);color:var(--tertiary);border:1px solid rgba(255,179,177,.25)}
+.pnav{background:rgba(0,24,11,.7);backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-around;padding:10px 0 12px}
+.pni{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;color:var(--on-sv);cursor:pointer;padding:4px 10px;border-radius:10px;transition:color .2s,background .2s}
+.pni.act{background:rgba(0,109,68,.2);color:var(--secondary)}
+.pni svg{width:18px;height:18px}
+</style>
+</head>
+<body>
+<canvas id="bgc"></canvas>
+<div class="cp"></div>
+
+<div class="topbar">
+  <div class="tb-brand"><div class="fl-logo">F</div>دليل Flutter — شاشة مواعيدي</div>
+  <div style="display:flex;gap:8px"><span class="pb">Flutter 3.x</span><span class="pb">Dart 3</span></div>
+</div>
+
+<div class="pw">
+  <div class="hero">
+    <div class="hbadge"><span class="hdot"></span>دليل شامل — شاشة مواعيدي</div>
+    <h1>بناء شاشة "مواعيدي"<br/>بـ Flutter من الصفر</h1>
+    <p>شرح كل Section بالتفصيل: من Timeline الـ appointments، الـ status badges، Bottom Sheet الخيارات، Reschedule Sheet، وكل التأثيرات</p>
+    <div class="hchips">
+      <span class="hchip">🗓 Timeline Custom Painter</span>
+      <span class="hchip">🏷️ Status Badges</span>
+      <span class="hchip">💎 Glassmorphism Cards</span>
+      <span class="hchip">📋 Bottom Sheet</span>
+      <span class="hchip">🔄 Reschedule Flow</span>
+    </div>
+  </div>
+
+  <div class="layout">
+  <div>
+
+  <!-- ─── 0: نظرة عامة ─── -->
+  <div class="sec" id="overview">
+    <div class="sec-label"><div class="snum">0</div><h2 class="stitle">نظرة عامة على بنية الشاشة</h2></div>
+    <p class="sdesc">شاشة "مواعيدي" أكثر تعقيداً من شاشة البحث لأنها تعتمد على <strong>Timeline</strong> مخصص بـ <code>CustomPainter</code>، كروت بثلاثة أحوال مختلفة (مؤكد/انتظار/مكتمل)، وتدفق كامل للتعديل والإلغاء.</p>
+
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="pbar">
+          <span style="font-size:14px;color:var(--on-sv)">⚙ 🔍</span>
+          <h3>مواعيدي</h3>
+          <span style="font-size:14px;color:var(--on-sv)">☰</span>
+        </div>
+        <div class="pbody">
+          <div class="psrch">ابحث عن طبيب أو تخصص...</div>
+          <div class="pchips">
+            <span class="pchip act">الكل</span>
+            <span class="pchip">القادمة</span>
+            <span class="pchip">المكتملة</span>
+            <span class="pchip">الملغاة</span>
+          </div>
+          <div class="ptl">
+            <div class="ptl-row">
+              <div class="ptl-dot"></div>
+              <div class="ptl-date">غداً • 15 أكتوبر</div>
+              <div class="ptl-card">
+                <div><div class="ptl-nm">د. سمير منصور</div><div class="ptl-sp">أمراض القلب</div></div>
+                <span class="badge-sm bc">مؤكد</span>
+              </div>
+            </div>
+            <div class="ptl-row">
+              <div class="ptl-dot pend"></div>
+              <div class="ptl-date" style="color:var(--on-sv)">الخميس • 18 أكتوبر</div>
+              <div class="ptl-card feat">
+                <div><div class="ptl-nm">د. ليلى عبد الرحمن</div><div class="ptl-sp">الطب النفسي</div></div>
+                <span class="badge-sm bp">انتظار</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pnav">
+          <div class="pni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Home</div>
+          <div class="pni act"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>مواعيدي</div>
+          <div class="pni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg>سجلات</div>
+          <div class="pni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4"/></svg>حسابي</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cw"><div class="ch"><span>هيكل الشاشة الرئيسي</span><span class="ltag">dart</span></div>
+<pre><span class="kw">class</span> <span class="cl">AppointmentsScreen</span> <span class="kw">extends</span> <span class="cl">StatefulWidget</span> {
+  <span class="kw">const</span> <span class="cl">AppointmentsScreen</span>({<span class="kw">super</span>.key});
+  <span class="kw">@override</span>
+  <span class="cl">State</span>&lt;<span class="cl">AppointmentsScreen</span>&gt; createState() =&gt; _<span class="cl">AppointmentsScreenState</span>();
+}
+
+<span class="kw">class</span> _<span class="cl">AppointmentsScreenState</span> <span class="kw">extends</span> <span class="cl">State</span>&lt;<span class="cl">AppointmentsScreen</span>&gt;
+    <span class="kw">with</span> <span class="cl">TickerProviderStateMixin</span> {
+
+  <span class="cl">String</span> _filter = <span class="str">'all'</span>;      <span class="cm">// all | upcoming | done | cancelled</span>
+  <span class="cl">String</span> _searchQ = <span class="str">''</span>;
+  <span class="kw">late</span> <span class="cl">AnimationController</span> _ambientCtrl;  <span class="cm">// للجسيمات</span>
+  <span class="kw">late</span> <span class="cl">AnimationController</span> _entranceCtrl; <span class="cm">// entrance للكروت</span>
+
+  <span class="kw">@override</span>
+  <span class="cl">Widget</span> build(<span class="cl">BuildContext</span> context) =&gt;
+    <span class="cl">Directionality</span>(
+      textDirection: <span class="cl">TextDirection</span>.rtl,
+      child: <span class="cl">Scaffold</span>(
+        backgroundColor: <span class="cl">AppColors</span>.background,
+        extendBodyBehindAppBar: <span class="kw">true</span>,
+        extendBody: <span class="kw">true</span>,
+        appBar: _buildGlassAppBar(),
+        bottomNavigationBar: _buildGlassBottomNav(),
+        body: <span class="cl">Stack</span>(children: [
+          <span class="kw">const</span> <span class="cl">AmbientBackground</span>(),  <span class="cm">// orbs + particles</span>
+          _buildScrollBody(),
+        ]),
+      ),
+    );
+}</pre></div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- ─── 1: نموذج البيانات ─── -->
+  <div class="sec" id="model">
+    <div class="sec-label"><div class="snum">1</div><h2 class="stitle">نموذج البيانات — Appointment Model</h2></div>
+    <p class="sdesc">نموذج البيانات يحمل كل معلومات الموعد مع <code>AppointmentStatus</code> enum يتحكم في لون البادج وشكل نقطة الـ Timeline.</p>
+    <div class="cw"><div class="ch"><span>lib/features/appointments/data/appointment_model.dart</span><span class="ltag">dart</span></div>
+<pre><span class="kw">enum</span> <span class="cl">AppointmentStatus</span> {
+  confirmed,   <span class="cm">// مؤكد  — أخضر</span>
+  pending,     <span class="cm">// قيد الانتظار — برتقالي/وردي</span>
+  completed,   <span class="cm">// مكتمل — secondary</span>
+  cancelled;   <span class="cm">// ملغي  — error</span>
+
+  <span class="cl">String</span> <span class="fn">label</span>() =&gt; <span class="kw">switch</span>(<span class="kw">this</span>){
+    confirmed  =&gt; <span class="str">'مؤكد'</span>,
+    pending    =&gt; <span class="str">'قيد الانتظار'</span>,
+    completed  =&gt; <span class="str">'مكتمل'</span>,
+    cancelled  =&gt; <span class="str">'ملغي'</span>,
+  };
+
+  <span class="cl">Color</span> <span class="fn">color</span>() =&gt; <span class="kw">switch</span>(<span class="kw">this</span>){
+    confirmed  =&gt; <span class="cl">AppColors</span>.primary,
+    pending    =&gt; <span class="cl">AppColors</span>.tertiary,
+    completed  =&gt; <span class="cl">AppColors</span>.secondary,
+    cancelled  =&gt; <span class="cl">AppColors</span>.error,
+  };
+
+  <span class="cl">IconData</span> <span class="fn">icon</span>() =&gt; <span class="kw">switch</span>(<span class="kw">this</span>){
+    confirmed  =&gt; <span class="cl">Icons</span>.check_circle,
+    pending    =&gt; <span class="cl">Icons</span>.schedule,
+    completed  =&gt; <span class="cl">Icons</span>.done_all,
+    cancelled  =&gt; <span class="cl">Icons</span>.cancel,
+  };
+}
+
+<span class="kw">class</span> <span class="cl">Appointment</span> {
+  <span class="kw">final</span> <span class="cl">String</span>            id;
+  <span class="kw">final</span> <span class="cl">String</span>            doctorName;
+  <span class="kw">final</span> <span class="cl">String</span>            specialty;
+  <span class="kw">final</span> <span class="cl">String</span>?           imageUrl;
+  <span class="kw">final</span> <span class="cl">IconData</span>?         specialtyIcon;
+  <span class="kw">final</span> <span class="cl">DateTime</span>          dateTime;
+  <span class="kw">final</span> <span class="cl">AppointmentStatus</span> status;
+  <span class="kw">final</span> <span class="kw">bool</span>              isFeatured;  <span class="cm">// يطبّق gradient خاص</span>
+
+  <span class="kw">const</span> <span class="cl">Appointment</span>({
+    <span class="kw">required this</span>.id,          <span class="kw">required this</span>.doctorName,
+    <span class="kw">required this</span>.specialty,   <span class="kw">required this</span>.dateTime,
+    <span class="kw">required this</span>.status,
+    <span class="kw">this</span>.imageUrl,             <span class="kw">this</span>.specialtyIcon,
+    <span class="kw">this</span>.isFeatured = <span class="kw">false</span>,
+  });
+}
+
+<span class="cm">// ── Mock Data ─────────────────────────────────</span>
+<span class="kw">final</span> kAppointments = [
+  <span class="cl">Appointment</span>(
+    id: <span class="str">'a1'</span>, doctorName: <span class="str">'د. سمير منصور'</span>,
+    specialty: <span class="str">'استشاري أمراض القلب'</span>,
+    imageUrl: <span class="str">'https://...'</span>,
+    dateTime: <span class="cl">DateTime</span>.now().add(<span class="kw">const</span> <span class="cl">Duration</span>(days: <span class="nm">1</span>, hours: <span class="nm">9</span>, minutes: <span class="nm">30</span>)),
+    status: <span class="cl">AppointmentStatus</span>.confirmed,
+  ),
+  <span class="cl">Appointment</span>(
+    id: <span class="str">'a2'</span>, doctorName: <span class="str">'د. ليلى عبد الرحمن'</span>,
+    specialty: <span class="str">'أخصائية الطب النفسي'</span>,
+    specialtyIcon: <span class="cl">Icons</span>.psychology,
+    dateTime: <span class="cl">DateTime</span>.now().add(<span class="kw">const</span> <span class="cl">Duration</span>(days: <span class="nm">4</span>, hours: <span class="nm">16</span>, minutes: <span class="nm">15</span>)),
+    status: <span class="cl">AppointmentStatus</span>.pending,
+    isFeatured: <span class="kw">true</span>,
+  ),
+  <span class="cl">Appointment</span>(
+    id: <span class="str">'a3'</span>, doctorName: <span class="str">'د. طارق محمود'</span>,
+    specialty: <span class="str">'جراحة العظام'</span>,
+    specialtyIcon: <span class="cl">Icons</span>.accessibility_new,
+    dateTime: <span class="cl">DateTime</span>(2023, 11, 2),
+    status: <span class="cl">AppointmentStatus</span>.completed,
+  ),
+];</pre></div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- ─── 2: Timeline الرأسي ─── -->
+  <div class="sec" id="timeline">
+    <div class="sec-label"><div class="snum">2</div><h2 class="stitle">Timeline الرأسي — Custom Painter</h2></div>
+    <p class="sdesc">الـ Timeline هو الخط الأخضر الرأسي مع النقاط الدائرية. يُرسم بـ <code>CustomPainter</code> ويتغير شكل كل نقطة ولونها حسب الـ status.</p>
+    <div class="efrow">
+      <div class="efc"><div class="efi">🟢</div><h4>مؤكد (Confirmed)</h4><p>نقطة كبيرة خضراء مع glow، ring أبيض حول النقطة</p></div>
+      <div class="efc"><div class="efi">⚪</div><h4>انتظار (Pending)</h4><p>نقطة أصغر رمادية بدون glow</p></div>
+      <div class="efc"><div class="efi">⬜</div><h4>مكتمل (Done)</h4><p>نقطة صغيرة جداً باهتة شفافة</p></div>
+    </div>
+    <div class="cw"><div class="ch"><span>lib/widgets/timeline_painter.dart</span><span class="ltag">dart</span></div>
+<pre><span class="kw">class</span> <span class="cl">TimelinePainter</span> <span class="kw">extends</span> <span class="cl">CustomPainter</span> {
+  <span class="kw">final</span> <span class="cl">AppointmentStatus</span> status;
+  <span class="kw">final</span> <span class="kw">bool</span> isFirst;
+  <span class="kw">final</span> <span class="kw">bool</span> isLast;
+
+  <span class="kw">const</span> <span class="cl">TimelinePainter</span>({
+    <span class="kw">required this</span>.status,
+    <span class="kw">this</span>.isFirst = <span class="kw">false</span>,
+    <span class="kw">this</span>.isLast  = <span class="kw">false</span>,
+  });
+
+  <span class="kw">@override</span>
+  <span class="kw">void</span> paint(<span class="cl">Canvas</span> canvas, <span class="cl">Size</span> size) {
+    <span class="kw">const</span> lineX = <span class="nm">19.0</span>;   <span class="cm">// موقع الخط أفقياً من اليمين</span>
+    <span class="kw">const</span> dotY  = <span class="nm">22.0</span>;   <span class="cm">// موقع النقطة عمودياً</span>
+
+    <span class="cm">// ── رسم الخط الرأسي ─────────────────────</span>
+    <span class="kw">if</span> (!isLast) {
+      <span class="kw">final</span> linePaint = <span class="cl">Paint</span>()
+        ..shader = <span class="cl">LinearGradient</span>(
+          begin: <span class="cl">Alignment</span>.topCenter,
+          end:   <span class="cl">Alignment</span>.bottomCenter,
+          colors: [
+            <span class="kw">const</span> <span class="cl">Color</span>(<span class="nm">0xFF006D44</span>),
+            <span class="kw">const</span> <span class="cl">Color</span>(<span class="nm">0xFF006D44</span>).withOpacity(.<span class="nm">15</span>),
+          ],
+        ).createShader(<span class="cl">Rect</span>.fromLTWH(lineX, dotY, <span class="nm">2</span>, size.height - dotY))
+        ..strokeWidth = <span class="nm">2</span>
+        ..style = <span class="cl">PaintingStyle</span>.stroke;
+
+      canvas.drawLine(
+        <span class="cl">Offset</span>(lineX, dotY + <span class="nm">8</span>),
+        <span class="cl">Offset</span>(lineX, size.height),
+        linePaint,
+      );
+    }
+
+    <span class="cm">// ── رسم النقطة حسب الـ status ───────────</span>
+    <span class="kw">switch</span> (status) {
+      <span class="kw">case</span> <span class="cl">AppointmentStatus</span>.confirmed:
+        <span class="cm">// النقطة الكبيرة الخضراء مع glow</span>
+        canvas.drawCircle(
+          <span class="cl">Offset</span>(lineX, dotY),
+          <span class="nm">7</span>,
+          <span class="cl">Paint</span>()
+            ..color = <span class="kw">const</span> <span class="cl">Color</span>(<span class="nm">0xFF80D8A6</span>)
+            ..maskFilter = <span class="kw">const</span> <span class="cl">MaskFilter</span>.blur(<span class="cl">BlurStyle</span>.normal, <span class="nm">4</span>),
+        );
+        <span class="cm">// ring خارجي</span>
+        canvas.drawCircle(
+          <span class="cl">Offset</span>(lineX, dotY), <span class="nm">7</span>,
+          <span class="cl">Paint</span>()..color = <span class="kw">const</span> <span class="cl">Color</span>(<span class="nm">0xFF80D8A6</span>),
+        );
+        canvas.drawCircle(
+          <span class="cl">Offset</span>(lineX, dotY), <span class="nm">10</span>,
+          <span class="cl">Paint</span>()
+            ..color = <span class="cl">AppColors</span>.background
+            ..style = <span class="cl">PaintingStyle</span>.stroke
+            ..strokeWidth = <span class="nm">3</span>,
+        );
+
+      <span class="kw">case</span> <span class="cl">AppointmentStatus</span>.pending:
+        canvas.drawCircle(
+          <span class="cl">Offset</span>(lineX, dotY), <span class="nm">5</span>,
+          <span class="cl">Paint</span>()..color = <span class="kw">const</span> <span class="cl">Color</span>(<span class="nm">0xFF88938A</span>),  <span class="cm">// outline</span>
+        );
+
+      <span class="kw">case</span> <span class="cl">AppointmentStatus</span>.completed:
+        canvas.drawCircle(
+          <span class="cl">Offset</span>(lineX, dotY), <span class="nm">4</span>,
+          <span class="cl">Paint</span>()..color = <span class="kw">const</span> <span class="cl">Color</span>(<span class="nm">0xFFBEC9BF</span>).withOpacity(.<span class="nm">6</span>),
+        );
+
+      <span class="kw">case</span> <span class="cl">AppointmentStatus</span>.cancelled:
+        canvas.drawCircle(
+          <span class="cl">Offset</span>(lineX, dotY), <span class="nm">5</span>,
+          <span class="cl">Paint</span>()..color = <span class="kw">const</span> <span class="cl">Color</span>(<span class="nm">0xFFFFB4AB</span>).withOpacity(.<span class="nm">7</span>),
+        );
+    }
+  }
+
+  <span class="kw">@override</span>
+  <span class="kw">bool</span> shouldRepaint(<span class="kw">covariant</span> <span class="cl">CustomPainter</span> old) =&gt; <span class="kw">false</span>;
+}</pre></div>
+
+    <div class="cw"><div class="ch"><span>استخدام TimelinePainter داخل الـ Row</span><span class="ltag">dart</span></div>
+<pre><span class="kw">class</span> <span class="cl">AppointmentTimelineRow</span> <span class="kw">extends</span> <span class="cl">StatelessWidget</span> {
+  <span class="kw">final</span> <span class="cl">Appointment</span> appointment;
+  <span class="kw">final</span> <span class="kw">bool</span> isFirst, isLast;
+
+  <span class="kw">const</span> <span class="cl">AppointmentTimelineRow</span>({
+    <span class="kw">super</span>.key, <span class="kw">required this</span>.appointment,
+    <span class="kw">this</span>.isFirst=<span class="kw">false</span>, <span class="kw">this</span>.isLast=<span class="kw">false</span>,
+  });
+
+  <span class="kw">@override</span>
+  <span class="cl">Widget</span> build(<span class="cl">BuildContext</span> context) {
+    <span class="kw">return</span> <span class="cl">IntrinsicHeight</span>(  <span class="cm">// ← مهم: يمدّ الـ painter لارتفاع الكارد</span>
+      child: <span class="cl">Row</span>(
+        crossAxisAlignment: <span class="cl">CrossAxisAlignment</span>.stretch,
+        children: [
+          <span class="cm">// ── عمود الـ Timeline (38px عرضاً) ──</span>
+          <span class="cl">SizedBox</span>(
+            width: <span class="nm">38</span>,
+            child: <span class="cl">CustomPaint</span>(
+              painter: <span class="cl">TimelinePainter</span>(
+                status:  appointment.status,
+                isFirst: isFirst,
+                isLast:  isLast,
+              ),
+            ),
+          ),
+          <span class="cm">// ── الكارد ──────────────────────────</span>
+          <span class="cl">Expanded</span>(
+            child: <span class="cl">Padding</span>(
+              padding: <span class="kw">const</span> <span class="cl">EdgeInsets</span>.only(bottom: <span class="nm">20</span>),
+              child: <span class="cl">Column</span>(
+                crossAxisAlignment: <span class="cl">CrossAxisAlignment</span>.start,
+                children: [
+                  <span class="cl">_DateLabel</span>(appointment: appointment),
+                  <span class="kw">const</span> <span class="cl">SizedBox</span>(height: <span class="nm">6</span>),
+                  <span class="cl">AppointmentCard</span>(appointment: appointment),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}</pre></div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- ─── 3: بطاقة الموعد ─── -->
+  <div class="sec" id="card">
+    <div class="sec-label"><div class="snum">3</div><h2 class="stitle">بطاقة الموعد — Appointment Card</h2></div>
+    <p class="sdesc">البطاقة تدعم ثلاثة أنماط مرئية مختلفة: عادية، <strong>featured</strong> (gradient خاص مع dot pattern)، و<strong>past</strong> (شفافية مخفضة). كلها تشترك في نفس الـ widget لكن مع خصائص مختلفة.</p>
+
+    <div class="cgrid">
+      <div class="ccard"><h4>✅ بطاقة عادية (Confirmed)</h4><p style="font-size:13px;color:var(--on-sv)">Glass bg بسيط، border أبيض 7%، hover يضيف shadow أخضر</p></div>
+      <div class="ccard"><h4>⭐ بطاقة Featured (Pending)</h4><p style="font-size:13px;color:var(--on-sv)">Radial gradient + dot pattern + border أخضر + inset glow</p></div>
+    </div>
+
+    <div class="cw"><div class="ch"><span>lib/widgets/appointment_card.dart</span><span class="ltag">dart</span></div>
+<pre><span class="kw">class</span> <span class="cl">AppointmentCard</span> <span class="kw">extends</span> <span class="cl">StatefulWidget</span> {
+  <span class="kw">final</span> <span class="cl">Appointment</span> appointment;
+  <span class="kw">const</span> <span class="cl">AppointmentCard</span>({<span class="kw">super</span>.key, <span class="kw">required this</span>.appointment});
+  <span class="kw">@override</span>
+  <span class="cl">State</span>&lt;<span class="cl">AppointmentCard</span>&gt; createState() =&gt; _<span class="cl">AppointmentCardState</span>();
+}
+
+<span class="kw">class</span> _<span class="cl">AppointmentCardState</span> <span class="kw">extends</span> <span class="cl">State</span>&lt;<span class="cl">AppointmentCard</span>&gt;
+    <span class="kw">with</span> <span class="cl">SingleTickerProviderStateMixin</span> {
+
+  <span class="kw">bool</span> _hov = <span class="kw">false</span>;
+  <span class="kw">late</span> <span class="cl">AnimationController</span> _entrCtrl;
+  <span class="kw">late</span> <span class="cl">Animation</span>&lt;<span class="kw">double</span>&gt; _opacity;
+  <span class="kw">late</span> <span class="cl">Animation</span>&lt;<span class="cl">Offset</span>&gt; _slide;
+
+  <span class="kw">@override</span>
+  <span class="kw">void</span> initState() {
+    <span class="kw">super</span>.initState();
+    _entrCtrl = <span class="cl">AnimationController</span>(vsync:<span class="kw">this</span>, duration:<span class="kw">const</span> <span class="cl">Duration</span>(ms:<span class="nm">550</span>));
+    _opacity  = <span class="cl">CurvedAnimation</span>(parent:_entrCtrl, curve:<span class="cl">Curves</span>.easeOut);
+    _slide    = <span class="cl">Tween</span>&lt;<span class="cl">Offset</span>&gt;(begin:<span class="kw">const</span> <span class="cl">Offset</span>(<span class="nm">0</span>,.<span class="nm">25</span>), end:<span class="cl">Offset</span>.zero)
+        .animate(<span class="cl">CurvedAnimation</span>(parent:_entrCtrl, curve:<span class="cl">Curves</span>.easeOut));
+    <span class="cl">Future</span>.delayed(<span class="kw">const</span> <span class="cl">Duration</span>(ms:<span class="nm">120</span>), ()=>mounted?_entrCtrl.forward():null);
+  }
+
+  <span class="kw">@override</span>
+  <span class="kw">void</span> dispose(){ _entrCtrl.dispose(); <span class="kw">super</span>.dispose(); }
+
+  <span class="cl">BoxDecoration</span> _decoration() {
+    <span class="kw">final</span> apt = widget.appointment;
+    <span class="kw">if</span> (apt.status == <span class="cl">AppointmentStatus</span>.completed) {
+      <span class="kw">return</span> <span class="cl">BoxDecoration</span>(
+        color: <span class="kw">const</span> <span class="cl">Color</span>(<span class="nm">0xFF001207</span>).withOpacity(.<span class="nm">35</span>),
+        borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">16</span>),
+      );
+    }
+    <span class="kw">if</span> (apt.isFeatured) {
+      <span class="kw">return</span> <span class="cl">BoxDecoration</span>(
+        borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">16</span>),
+        gradient: <span class="cl">RadialGradient</span>(
+          colors: [
+            <span class="kw">const</span> <span class="cl">Color</span>(<span class="nm">0xFF006D44</span>).withOpacity(.<span class="nm">25</span>),
+            <span class="kw">const</span> <span class="cl">Color</span>(<span class="nm">0xFF002111</span>).withOpacity(.<span class="nm">5</span>),
+          ],
+        ),
+        border: <span class="cl">Border</span>.all(color: <span class="kw">const</span> <span class="cl">Color</span>(<span class="nm">0xFF80D8A6</span>).withOpacity(.<span class="nm">22</span>)),
+        boxShadow: [
+          <span class="cl">BoxShadow</span>(
+            color: <span class="kw">const</span> <span class="cl">Color</span>(<span class="nm">0xFF80D8A6</span>).withOpacity(.<span class="nm">12</span>),
+            blurRadius: <span class="nm">20</span>, spreadRadius: -<span class="nm">4</span>,
+          ),
+        ],
+      );
+    }
+    <span class="cm">// عادية glass</span>
+    <span class="kw">return</span> <span class="cl">BoxDecoration</span>(
+      color: <span class="kw">const</span> <span class="cl">Color</span>(<span class="nm">0xFF012B17</span>).withOpacity(.<span class="nm">42</span>),
+      borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">16</span>),
+      border: <span class="cl">Border</span>.all(color: <span class="cl">Colors</span>.white.withOpacity(.<span class="nm">07</span>)),
+      boxShadow: _hov ? [<span class="cl">BoxShadow</span>(
+        color: <span class="kw">const</span> <span class="cl">Color</span>(<span class="nm">0xFF006D44</span>).withOpacity(.<span class="nm">2</span>),
+        blurRadius: <span class="nm">36</span>,
+      )] : [],
+    );
+  }
+
+  <span class="kw">@override</span>
+  <span class="cl">Widget</span> build(<span class="cl">BuildContext</span> context) {
+    <span class="kw">return</span> <span class="cl">FadeTransition</span>(opacity:_opacity,
+      child: <span class="cl">SlideTransition</span>(position:_slide,
+        child: <span class="cl">MouseRegion</span>(
+          onEnter:(_)=>setState(()=>_hov=<span class="kw">true</span>),
+          onExit: (_)=>setState(()=>_hov=<span class="kw">false</span>),
+          child: <span class="cl">AnimatedScale</span>(
+            scale: _hov ? <span class="nm">1.015</span> : <span class="nm">1.0</span>,
+            duration:<span class="kw">const</span> <span class="cl">Duration</span>(ms:<span class="nm">250</span>),
+            child: <span class="cl">ClipRRect</span>(
+              borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">16</span>),
+              child: <span class="cl">BackdropFilter</span>(
+                filter:<span class="cl">ImageFilter</span>.blur(sigmaX:<span class="nm">16</span>,sigmaY:<span class="nm">16</span>),
+                child: <span class="cl">AnimatedContainer</span>(
+                  duration:<span class="kw">const</span> <span class="cl">Duration</span>(ms:<span class="nm">260</span>),
+                  decoration: _decoration(),
+                  padding:<span class="kw">const</span> <span class="cl">EdgeInsets</span>.all(<span class="nm">16</span>),
+                  child: <span class="cl">Column</span>(children:[
+                    _buildTop(),
+                    _buildDivider(),
+                    _buildBottom(),
+                  ]),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}</pre></div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- ─── 4: Status Badges ─── -->
+  <div class="sec" id="badges">
+    <div class="sec-label"><div class="snum">4</div><h2 class="stitle">Status Badges — بادجات الحالة</h2></div>
+    <p class="sdesc">كل موعد له badge يظهر حالته. البادج يستخدم لون الـ status مع شفافية 15% للخلفية و30% للـ border.</p>
+    <div class="cw"><div class="ch"><span>StatusBadge widget</span><span class="ltag">dart</span></div>
+<pre><span class="kw">class</span> <span class="cl">StatusBadge</span> <span class="kw">extends</span> <span class="cl">StatelessWidget</span> {
+  <span class="kw">final</span> <span class="cl">AppointmentStatus</span> status;
+  <span class="kw">const</span> <span class="cl">StatusBadge</span>(<span class="kw">this</span>.status, {<span class="kw">super</span>.key});
+
+  <span class="kw">@override</span>
+  <span class="cl">Widget</span> build(<span class="cl">BuildContext</span> context) {
+    <span class="kw">final</span> color = status.color();
+    <span class="kw">return</span> <span class="cl">Container</span>(
+      padding: <span class="kw">const</span> <span class="cl">EdgeInsets</span>.symmetric(horizontal: <span class="nm">10</span>, vertical: <span class="nm">4</span>),
+      decoration: <span class="cl">BoxDecoration</span>(
+        color:  color.withOpacity(.<span class="nm">15</span>),
+        border: <span class="cl">Border</span>.all(color: color.withOpacity(.<span class="nm">3</span>)),
+        borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">999</span>),
+      ),
+      child: <span class="cl">Row</span>(mainAxisSize:<span class="cl">MainAxisSize</span>.min, children:[
+        <span class="cl">Icon</span>(status.icon(), color:color, size:<span class="nm">14</span>),
+        <span class="kw">const</span> <span class="cl">SizedBox</span>(width:<span class="nm">5</span>),
+        <span class="cl">Text</span>(status.label(),
+          style: <span class="cl">AppTextStyles</span>.labelSm().copyWith(color:color, fontWeight:<span class="cl">FontWeight</span>.w700)),
+      ]),
+    );
+  }
+}</pre></div>
+    <table>
+      <thead><tr><th>الحالة</th><th>اللون</th><th>الأيقونة</th><th>المظهر</th></tr></thead>
+      <tbody>
+        <tr><td>مؤكد</td><td><code>primary #80d8a6</code></td><td><code>check_circle</code></td><td><span class="tag tg">مؤكد ✓</span></td></tr>
+        <tr><td>انتظار</td><td><code>tertiary #ffb3b1</code></td><td><code>schedule</code></td><td><span class="tag" style="background:rgba(255,179,177,.15);color:var(--tertiary);border:1px solid rgba(255,179,177,.3)">قيد الانتظار ⏰</span></td></tr>
+        <tr><td>مكتمل</td><td><code>secondary #40e78c</code></td><td><code>done_all</code></td><td><span class="tag" style="background:rgba(64,231,140,.15);color:var(--secondary);border:1px solid rgba(64,231,140,.3)">مكتمل ✓✓</span></td></tr>
+        <tr><td>ملغي</td><td><code>error #ffb4ab</code></td><td><code>cancel</code></td><td><span class="tag tr">ملغي ✗</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- ─── 5: Month Divider ─── -->
+  <div class="sec" id="divider">
+    <div class="sec-label"><div class="snum">5</div><h2 class="stitle">فاصل الشهر — Month Divider</h2></div>
+    <p class="sdesc">بين كل مجموعة مواعيد يظهر فاصل يحمل اسم الشهر والسنة. مبني بـ <code>Row</code> يضم pill زجاجية وخطاً متلاشياً.</p>
+    <div class="cw"><div class="ch"><span>MonthDivider widget</span><span class="ltag">dart</span></div>
+<pre><span class="kw">class</span> <span class="cl">MonthDivider</span> <span class="kw">extends</span> <span class="cl">StatelessWidget</span> {
+  <span class="kw">final</span> <span class="cl">String</span> monthLabel;  <span class="cm">// مثل: "نوفمبر 2023"</span>
+  <span class="kw">const</span> <span class="cl">MonthDivider</span>({<span class="kw">super</span>.key, <span class="kw">required this</span>.monthLabel});
+
+  <span class="kw">@override</span>
+  <span class="cl">Widget</span> build(<span class="cl">BuildContext</span> context) {
+    <span class="kw">return</span> <span class="cl">Padding</span>(
+      padding: <span class="kw">const</span> <span class="cl">EdgeInsets</span>.symmetric(vertical: <span class="nm">12</span>),
+      child: <span class="cl">Row</span>(children: [
+        <span class="cm">// ── Pill الشهر ──────────────────────</span>
+        <span class="cl">ClipRRect</span>(
+          borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">999</span>),
+          child: <span class="cl">BackdropFilter</span>(
+            filter: <span class="cl">ImageFilter</span>.blur(sigmaX: <span class="nm">8</span>, sigmaY: <span class="nm">8</span>),
+            child: <span class="cl">Container</span>(
+              padding: <span class="kw">const</span> <span class="cl">EdgeInsets</span>.symmetric(horizontal:<span class="nm">14</span>, vertical:<span class="nm">5</span>),
+              decoration: <span class="cl">BoxDecoration</span>(
+                color: <span class="kw">const</span> <span class="cl">Color</span>(<span class="nm">0xFF012B17</span>).withOpacity(.<span class="nm">6</span>),
+                border: <span class="cl">Border</span>.all(color: <span class="cl">Colors</span>.white.withOpacity(.<span class="nm">06</span>)),
+                borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">999</span>),
+              ),
+              child: <span class="cl">Text</span>(monthLabel,
+                style: <span class="cl">AppTextStyles</span>.labelSm()
+                    .copyWith(color: <span class="cl">AppColors</span>.onSurfaceVariant)),
+            ),
+          ),
+        ),
+        <span class="kw">const</span> <span class="cl">SizedBox</span>(width: <span class="nm">12</span>),
+        <span class="cm">// ── الخط المتلاشي ───────────────────</span>
+        <span class="cl">Expanded</span>(
+          child: <span class="cl">Container</span>(
+            height: <span class="nm">1</span>,
+            decoration: <span class="cl">BoxDecoration</span>(
+              gradient: <span class="cl">LinearGradient</span>(
+                colors: [
+                  <span class="cl">Colors</span>.white.withOpacity(.<span class="nm">08</span>),
+                  <span class="cl">Colors</span>.transparent,
+                ],
+              ),
+            ),
+          ),
+        ),
+      ]),
+    );
+  }
+}</pre></div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- ─── 6: Bottom Sheet الخيارات ─── -->
+  <div class="sec" id="options-sheet">
+    <div class="sec-label"><div class="snum">6</div><h2 class="stitle">Bottom Sheet الخيارات — Appointment Options</h2></div>
+    <p class="sdesc">يُفتح عند الضغط على ⋮ ويحتوي على: تعديل الموعد، تفعيل التذكير، تفاصيل الموعد، إلغاء الموعد (أحمر). مبني بـ <code>showModalBottomSheet</code>.</p>
+    <div class="cw"><div class="ch"><span>lib/widgets/appointment_options_sheet.dart</span><span class="ltag">dart</span></div>
+<pre><span class="kw">void</span> showAppointmentOptions(<span class="cl">BuildContext</span> ctx, <span class="cl">Appointment</span> apt) {
+  showModalBottomSheet(
+    context: ctx,
+    backgroundColor: <span class="cl">Colors</span>.transparent,
+    barrierColor: <span class="cl">AppColors</span>.background.withOpacity(.<span class="nm">78</span>),
+    isScrollControlled: <span class="kw">true</span>,
+    enableDrag: <span class="kw">true</span>,
+    shape: <span class="kw">const</span> <span class="cl">RoundedRectangleBorder</span>(
+      borderRadius: <span class="cl">BorderRadius</span>.vertical(top: <span class="cl">Radius</span>.circular(<span class="nm">28</span>)),
+    ),
+    builder: (_) =&gt; <span class="cl">AppointmentOptionsSheet</span>(appointment: apt),
+  );
+}
+
+<span class="kw">class</span> <span class="cl">AppointmentOptionsSheet</span> <span class="kw">extends</span> <span class="cl">StatelessWidget</span> {
+  <span class="kw">final</span> <span class="cl">Appointment</span> appointment;
+  <span class="kw">const</span> <span class="cl">AppointmentOptionsSheet</span>({<span class="kw">super</span>.key, <span class="kw">required this</span>.appointment});
+
+  <span class="kw">@override</span>
+  <span class="cl">Widget</span> build(<span class="cl">BuildContext</span> context) {
+    <span class="kw">return</span> <span class="cl">Container</span>(
+      decoration: <span class="kw">const</span> <span class="cl">BoxDecoration</span>(
+        color: <span class="cl">AppColors</span>.surfaceContainerHighest,
+        borderRadius: <span class="cl">BorderRadius</span>.vertical(top: <span class="cl">Radius</span>.circular(<span class="nm">28</span>)),
+        border: <span class="cl">Border</span>(top: <span class="cl">BorderSide</span>(color: <span class="cl">Color</span>(<span class="nm">0x14FFFFFF</span>))),
+      ),
+      padding: <span class="kw">const</span> <span class="cl">EdgeInsets</span>.fromLTRB(<span class="nm">16</span>,<span class="nm">0</span>,<span class="nm">16</span>,<span class="nm">32</span>),
+      child: <span class="cl">Column</span>(mainAxisSize:<span class="cl">MainAxisSize</span>.min, children:[
+        <span class="cm">// Drag handle</span>
+        <span class="cl">Center</span>(child: <span class="cl">Container</span>(
+          margin: <span class="kw">const</span> <span class="cl">EdgeInsets</span>.symmetric(vertical:<span class="nm">14</span>),
+          width:<span class="nm">44</span>,height:<span class="nm">5</span>,
+          decoration: <span class="cl">BoxDecoration</span>(
+            color: <span class="cl">AppColors</span>.outlineVariant.withOpacity(.<span class="nm">28</span>),
+            borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">999</span>),
+          ),
+        )),
+        <span class="cm">// Doctor header</span>
+        _SheetDocHeader(appointment: appointment),
+        <span class="kw">const</span> <span class="cl">SizedBox</span>(height:<span class="nm">10</span>),
+        <span class="cl">_SheetOption</span>(icon:<span class="cl">Icons</span>.edit_calendar_outlined, label:<span class="str">'تعديل الموعد'</span>,
+          onTap:()=&gt;{ <span class="cl">Navigator</span>.pop(context); _openReschedule(context,appointment); }),
+        <span class="cl">_SheetOption</span>(icon:<span class="cl">Icons</span>.notifications_outlined, label:<span class="str">'تفعيل التذكير'</span>,
+          onTap:()=&gt;{ <span class="cl">Navigator</span>.pop(context); }),
+        <span class="cl">_SheetOption</span>(icon:<span class="cl">Icons</span>.info_outlined, label:<span class="str">'تفاصيل الموعد'</span>,
+          onTap:()=&gt;{ <span class="cl">Navigator</span>.pop(context); }),
+        <span class="cl">_SheetOption</span>(icon:<span class="cl">Icons</span>.event_busy, label:<span class="str">'إلغاء الموعد'</span>,
+          isDestructive:<span class="kw">true</span>,
+          onTap:()=&gt;{ <span class="cl">Navigator</span>.pop(context); _confirmCancel(context,appointment); }),
+        <span class="kw">const</span> <span class="cl">SizedBox</span>(height:<span class="nm">8</span>),
+        <span class="cm">// زر الإلغاء</span>
+        <span class="cl">SizedBox</span>(width:<span class="kw">double</span>.infinity,
+          child:<span class="cl">TextButton</span>(
+            onPressed:()=&gt;<span class="cl">Navigator</span>.pop(context),
+            style:<span class="cl">TextButton</span>.styleFrom(
+              backgroundColor:<span class="cl">AppColors</span>.surfaceContainerLow,
+              padding:<span class="kw">const</span> <span class="cl">EdgeInsets</span>.symmetric(vertical:<span class="nm">15</span>),
+              shape:<span class="cl">RoundedRectangleBorder</span>(borderRadius:<span class="cl">BorderRadius</span>.circular(<span class="nm">14</span>)),
+            ),
+            child:<span class="cl">Text</span>(<span class="str">'إلغاء'</span>,style:<span class="cl">AppTextStyles</span>.labelMd()
+              .copyWith(color:<span class="cl">AppColors</span>.onSurfaceVariant)),
+          ),
+        ),
+      ]),
+    );
+  }
+}</pre></div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- ─── 7: Reschedule Sheet ─── -->
+  <div class="sec" id="reschedule">
+    <div class="sec-label"><div class="snum">7</div><h2 class="stitle">Reschedule Sheet — تعديل الموعد</h2></div>
+    <p class="sdesc">Sheet ثانٍ يُفتح فوق الأول. يعرض شبكة من الأوقات المتاحة في Grid 3 أعمدة. الوقت المختار يتحول للون <code>primary-container</code>. زر التأكيد يُحدّث الوقت في الكارد مباشرة.</p>
+    <div class="cw"><div class="ch"><span>RescheduleSheet widget</span><span class="ltag">dart</span></div>
+<pre><span class="kw">class</span> <span class="cl">RescheduleSheet</span> <span class="kw">extends</span> <span class="cl">StatefulWidget</span> {
+  <span class="kw">final</span> <span class="cl">Appointment</span> appointment;
+  <span class="kw">const</span> <span class="cl">RescheduleSheet</span>({<span class="kw">super</span>.key, <span class="kw">required this</span>.appointment});
+  <span class="kw">@override</span>
+  <span class="cl">State</span>&lt;<span class="cl">RescheduleSheet</span>&gt; createState() =&gt; _<span class="cl">RescheduleSheetState</span>();
+}
+
+<span class="kw">class</span> _<span class="cl">RescheduleSheetState</span> <span class="kw">extends</span> <span class="cl">State</span>&lt;<span class="cl">RescheduleSheet</span>&gt; {
+  <span class="cl">String</span>? _selectedTime;
+
+  <span class="kw">static const</span> _slots = [
+    <span class="str">'08:00 ص'</span>,<span class="str">'09:30 ص'</span>,<span class="str">'10:00 ص'</span>,
+    <span class="str">'11:30 ص'</span>,<span class="str">'01:00 م'</span>,<span class="str">'03:00 م'</span>,
+    <span class="str">'04:15 م'</span>,<span class="str">'05:30 م'</span>,<span class="str">'06:00 م'</span>,
+  ];
+
+  <span class="kw">@override</span>
+  <span class="cl">Widget</span> build(<span class="cl">BuildContext</span> context) {
+    <span class="kw">return</span> <span class="cl">Container</span>(
+      decoration: <span class="kw">const</span> <span class="cl">BoxDecoration</span>(
+        color: <span class="cl">AppColors</span>.surfaceContainerHighest,
+        borderRadius: <span class="cl">BorderRadius</span>.vertical(top: <span class="cl">Radius</span>.circular(<span class="nm">28</span>)),
+      ),
+      padding: <span class="kw">const</span> <span class="cl">EdgeInsets</span>.fromLTRB(<span class="nm">20</span>,<span class="nm">0</span>,<span class="nm">20</span>,<span class="nm">32</span>),
+      child: <span class="cl">Column</span>(mainAxisSize:<span class="cl">MainAxisSize</span>.min, children:[
+        _DragHandle(),
+        <span class="cl">Text</span>(<span class="str">'اختر وقتاً جديداً'</span>,
+          style:<span class="cl">AppTextStyles</span>.headlineMd()),
+        <span class="kw">const</span> <span class="cl">SizedBox</span>(height:<span class="nm">20</span>),
+
+        <span class="cm">// Grid الأوقات — 3 أعمدة</span>
+        <span class="cl">GridView</span>.count(
+          shrinkWrap: <span class="kw">true</span>,
+          physics: <span class="kw">const</span> <span class="cl">NeverScrollableScrollPhysics</span>(),
+          crossAxisCount: <span class="nm">3</span>,
+          crossAxisSpacing: <span class="nm">10</span>,
+          mainAxisSpacing: <span class="nm">10</span>,
+          childAspectRatio: <span class="nm">2.2</span>,
+          children: _slots.map((slot) {
+            <span class="kw">final</span> selected = _selectedTime == slot;
+            <span class="kw">return</span> <span class="cl">GestureDetector</span>(
+              onTap: () =&gt; setState(() =&gt; _selectedTime = slot),
+              child: <span class="cl">AnimatedContainer</span>(
+                duration: <span class="kw">const</span> <span class="cl">Duration</span>(ms: <span class="nm">200</span>),
+                decoration: <span class="cl">BoxDecoration</span>(
+                  color: selected
+                      ? <span class="cl">AppColors</span>.primaryContainer
+                      : <span class="cl">AppColors</span>.surfaceContainerHigh,
+                  borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">12</span>),
+                  border: selected
+                      ? <span class="kw">null</span>
+                      : <span class="cl">Border</span>.all(color: <span class="cl">Colors</span>.white.withOpacity(.<span class="nm">06</span>)),
+                ),
+                alignment: <span class="cl">Alignment</span>.center,
+                child: <span class="cl">Text</span>(slot,
+                  style: <span class="cl">AppTextStyles</span>.labelMd().copyWith(
+                    color: selected
+                        ? <span class="cl">AppColors</span>.onPrimaryContainer
+                        : <span class="cl">AppColors</span>.onSurfaceVariant,
+                  ),
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+
+        <span class="kw">const</span> <span class="cl">SizedBox</span>(height:<span class="nm">20</span>),
+        <span class="cl">SizedBox</span>(width:<span class="kw">double</span>.infinity,
+          child: <span class="cl">ElevatedButton</span>(
+            onPressed: _selectedTime==<span class="kw">null</span>
+                ? <span class="kw">null</span>
+                : ()=&gt;{ <span class="cl">Navigator</span>.pop(context, _selectedTime) },
+            style: <span class="cl">ElevatedButton</span>.styleFrom(
+              backgroundColor: <span class="cl">AppColors</span>.primaryContainer,
+              minimumSize: <span class="kw">const</span> <span class="cl">Size</span>(<span class="kw">double</span>.infinity, <span class="nm">48</span>),
+              shape: <span class="cl">RoundedRectangleBorder</span>(
+                borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">14</span>)),
+            ),
+            child: <span class="cl">Text</span>(<span class="str">'تأكيد الموعد الجديد'</span>,
+              style: <span class="cl">AppTextStyles</span>.headlineMd()
+                  .copyWith(color:<span class="cl">AppColors</span>.onPrimaryContainer)),
+          ),
+        ),
+      ]),
+    );
+  }
+}</pre></div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- ─── 8: Filter + Search ─── -->
+  <div class="sec" id="filter">
+    <div class="sec-label"><div class="snum">8</div><h2 class="stitle">الفلترة والبحث — Filter Logic</h2></div>
+    <p class="sdesc">البحث والفلترة مشتركان في getter واحد. نستخدم Riverpod أو setState بسيطة.</p>
+    <div class="cw"><div class="ch"><span>منطق الفلترة</span><span class="ltag">dart</span></div>
+<pre><span class="cm">// في _AppointmentsScreenState</span>
+
+<span class="cl">List</span>&lt;<span class="kw">dynamic</span>&gt; <span class="kw">get</span> _filteredItems {
+  <span class="kw">final</span> q = _searchQ.trim().toLowerCase();
+  <span class="kw">final</span> filtered = kAppointments.where((a) {
+    <span class="kw">final</span> statusMatch = _filter == <span class="str">'all'</span>
+        || (_filter == <span class="str">'upcoming'</span>  && (a.status==confirmed||a.status==pending))
+        || (_filter == <span class="str">'done'</span>      && a.status==completed)
+        || (_filter == <span class="str">'cancelled'</span> && a.status==cancelled);
+
+    <span class="kw">final</span> textMatch = q.isEmpty
+        || a.doctorName.toLowerCase().contains(q)
+        || a.specialty.toLowerCase().contains(q);
+
+    <span class="kw">return</span> statusMatch && textMatch;
+  }).toList();
+
+  <span class="cm">// أضف فواصل الشهر تلقائياً حسب groupBy</span>
+  <span class="kw">return</span> _insertMonthDividers(filtered);
+}
+
+<span class="cl">List</span>&lt;<span class="kw">dynamic</span>&gt; _insertMonthDividers(<span class="cl">List</span>&lt;<span class="cl">Appointment</span>&gt; list) {
+  <span class="kw">final</span> result = &lt;<span class="kw">dynamic</span>&gt;[];
+  <span class="cl">String</span>? lastMonth;
+  <span class="kw">for</span> (<span class="kw">final</span> a <span class="kw">in</span> list) {
+    <span class="kw">final</span> m = <span class="str">'${a.dateTime.month}/${a.dateTime.year}'</span>;
+    <span class="kw">if</span> (m != lastMonth) {
+      lastMonth = m;
+      result.add(<span class="cl">MonthLabel</span>(a.dateTime));  <span class="cm">// سيُعرض كـ MonthDivider</span>
+    }
+    result.add(a);
+  }
+  <span class="kw">return</span> result;
+}</pre></div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- ─── 9: Ambient Background ─── -->
+  <div class="sec" id="ambient">
+    <div class="sec-label"><div class="snum">9</div><h2 class="stitle">الخلفية الجوية — Ambient Background</h2></div>
+    <p class="sdesc">الخلفية تستخدم نمطاً مختلفاً عن الجسيمات السابقة: <strong>Glow Orbs</strong> (كرات ضوء تتحرك ببطء) + <strong>Floating Particles</strong> ترتفع من الأسفل. يمنح شعوراً بعمق وحيوية.</p>
+    <div class="efrow">
+      <div class="efc"><div class="efi">🌟</div><h4>Glow Orb 1</h4><p>دائرة 380px، primary-container، أعلى يمين، blur 80px</p></div>
+      <div class="efc"><div class="efi">💚</div><h4>Glow Orb 2</h4><p>دائرة 280px، primary، أسفل يسار، delay -6s</p></div>
+      <div class="efc"><div class="efi">✨</div><h4>Particles Rising</h4><p>جسيمات صغيرة ترتفع من أسفل للأعلى وتتلاشى</p></div>
+    </div>
+    <div class="cw"><div class="ch"><span>AmbientBackground widget</span><span class="ltag">dart</span></div>
+<pre><span class="kw">class</span> <span class="cl">AmbientBackground</span> <span class="kw">extends</span> <span class="cl">StatefulWidget</span> {
+  <span class="kw">const</span> <span class="cl">AmbientBackground</span>({<span class="kw">super</span>.key});
+  <span class="kw">@override</span>
+  <span class="cl">State</span>&lt;<span class="cl">AmbientBackground</span>&gt; createState() =&gt; _<span class="cl">AmbientBgState</span>();
+}
+
+<span class="kw">class</span> _<span class="cl">AmbientBgState</span> <span class="kw">extends</span> <span class="cl">State</span>&lt;<span class="cl">AmbientBackground</span>&gt;
+    <span class="kw">with</span> <span class="cl">TickerProviderStateMixin</span> {
+
+  <span class="kw">late</span> <span class="cl">AnimationController</span> _orb1Ctrl, _orb2Ctrl, _orb3Ctrl;
+
+  <span class="kw">@override</span>
+  <span class="kw">void</span> initState() {
+    <span class="kw">super</span>.initState();
+    <span class="kw">void</span> <span class="fn">mkOrb</span>(<span class="cl">AnimationController</span> c) {
+      c..forward()..addStatusListener((s) {
+        <span class="kw">if</span> (s == <span class="cl">AnimationStatus</span>.completed) c.reverse();
+        <span class="kw">if</span> (s == <span class="cl">AnimationStatus</span>.dismissed)  c.forward();
+      });
+    }
+    _orb1Ctrl = <span class="cl">AnimationController</span>(vsync:<span class="kw">this</span>, duration:<span class="kw">const</span> <span class="cl">Duration</span>(seconds:<span class="nm">20</span>));
+    _orb2Ctrl = <span class="cl">AnimationController</span>(vsync:<span class="kw">this</span>, duration:<span class="kw">const</span> <span class="cl">Duration</span>(seconds:<span class="nm">18</span>));
+    _orb3Ctrl = <span class="cl">AnimationController</span>(vsync:<span class="kw">this</span>, duration:<span class="kw">const</span> <span class="cl">Duration</span>(seconds:<span class="nm">22</span>));
+    mkOrb(_orb1Ctrl); mkOrb(_orb2Ctrl); mkOrb(_orb3Ctrl);
+  }
+
+  <span class="kw">@override</span>
+  <span class="kw">void</span> dispose(){
+    _orb1Ctrl.dispose();_orb2Ctrl.dispose();_orb3Ctrl.dispose();
+    <span class="kw">super</span>.dispose();
+  }
+
+  <span class="kw">@override</span>
+  <span class="cl">Widget</span> build(<span class="cl">BuildContext</span> context) {
+    <span class="kw">return</span> <span class="cl">Positioned</span>.fill(
+      child: <span class="cl">Stack</span>(children: [
+        <span class="cl">AnimatedBuilder</span>(animation:_orb1Ctrl, builder:(_,__)=&gt;
+          <span clas          <span class="cl">Positioned</span>(
+            top:  <span class="cl">Tween</span>(<span class="kw">begin</span>:-<span class="nm">80.0</span>, end:-<span class="nm">30.0</span>).evaluate(_orb1Ctrl),
+            right: <span class="cl">Tween</span>(<span class="kw">begin</span>:-<span class="nm">80.0</span>, end: <span class="nm">20.0</span>).evaluate(_orb1Ctrl),
+            child: _Orb(size:<span class="nm">380</span>, color:<span class="kw">const</span> <span class="cl">Color</span>(<span class="nm">0xFF006D44</span>)),
+          ),
+        ),
+        <span class="cl">AnimatedBuilder</span>(animation:_orb2Ctrl, builder:(_,__)=&gt;
+          <span class="cl">Positioned</span>(
+            bottom: <span class="cl">Tween</span>(<span class="kw">begin</span>:-<span class="nm">50.0</span>, end:<span class="nm">30.0</span>).evaluate(_orb2Ctrl),
+            left:   <span class="cl">Tween</span>(<span class="kw">begin</span>:-<span class="nm">50.0</span>, end:<span class="nm">20.0</span>).evaluate(_orb2Ctrl),
+            child: _Orb(size:<span class="nm">280</span>, color:<span class="kw">const</span> <span class="cl">Color</span>(<span class="nm">0xFF80D8A6</span>)),
+          ),
+        ),
+        <span class="cl">AnimatedBuilder</span>(animation:_orb3Ctrl, builder:(_,__)=&gt;
+          <span class="cl">Positioned</span>(
+            top:  <span class="cl">Tween</span>(<span class="kw">begin</span>: size.height*<span class="nm">0.35</span>, end: size.height*<span class="nm">0.45</span>).evaluate(_orb3Ctrl),
+            left: <span class="cl">Tween</span>(<span class="kw">begin</span>: size.width *<span class="nm">0.25</span>, end: size.width *<span class="nm">0.35</span>).evaluate(_orb3Ctrl),
+            child: _Orb(size:<span class="nm">240</span>, color:<span class="kw">const</span> <span class="cl">Color</span>(<span class="nm">0xFF40E78C</span>), opacity:<span class="nm">0.08</span>),
+          ),
+        ),
+        <span class="kw">const</span> <span class="cl">RisingParticles</span>(count:<span class="nm">30</span>),
+      ]),
+    );
+  }
+}
+
+<span class="cm">// ── Glow Orb Widget ───────────────────────────</span>
+<span class="kw">class</span> _Orb <span class="kw">extends</span> <span class="cl">StatelessWidget</span> {
+  <span class="kw">final</span> <span class="kw">double</span> size;
+  <span class="kw">final</span> <span class="cl">Color</span>  color;
+  <span class="kw">final</span> <span class="kw">double</span> opacity;
+
+  <span class="kw">const</span> _Orb({<span class="kw">required this</span>.size, <span class="kw">required this</span>.color, <span class="kw">this</span>.opacity = <span class="nm">0.15</span>});
+
+  <span class="kw">@override</span>
+  <span class="cl">Widget</span> build(<span class="cl">BuildContext</span> context) =&gt;
+    <span class="cl">Container</span>(
+      width: size, height: size,
+      decoration: <span class="cl">BoxDecoration</span>(
+        shape: <span class="cl">BoxShape</span>.circle,
+        color: color.withOpacity(opacity),
+      ),
+      <span class="cm">// ImageFilter.blur يُطبَّق على طبقة الـ Widget ليس الـ backdrop</span>
+    );
+}
+
+<span class="cm">// ── Rising Particles ──────────────────────────</span>
+<span class="kw">class</span> <span class="cl">RisingParticles</span> <span class="kw">extends</span> <span class="cl">StatefulWidget</span> {
+  <span class="kw">final</span> <span class="kw">int</span> count;
+  <span class="kw">const</span> <span class="cl">RisingParticles</span>({<span class="kw">super</span>.key, <span class="kw">this</span>.count = <span class="nm">30</span>});
+  <span class="kw">@override</span>
+  <span class="cl">State</span>&lt;<span class="cl">RisingParticles</span>&gt; createState() =&gt; _<span class="cl">RisingParticlesState</span>();
+}
+
+<span class="kw">class</span> _<span class="cl">RisingParticlesState</span> <span class="kw">extends</span> <span class="cl">State</span>&lt;<span class="cl">RisingParticles</span>&gt;
+    <span class="kw">with</span> <span class="cl">SingleTickerProviderStateMixin</span> {
+
+  <span class="kw">late</span> <span class="cl">AnimationController</span> _ctrl;
+  <span class="kw">final</span> _rand = <span class="cl">Random</span>();
+  <span class="kw">late</span> <span class="cl">List</span>&lt;<span class="cl">_RisingParticle</span>&gt; _particles;
+
+  <span class="kw">@override</span>
+  <span class="kw">void</span> initState() {
+    <span class="kw">super</span>.initState();
+    _ctrl = <span class="cl">AnimationController</span>(vsync: <span class="kw">this</span>, duration: <span class="kw">const</span> <span class="cl">Duration</span>(seconds: <span class="nm">1</span>))
+      ..addListener(_tick)..repeat();
+    _particles = <span class="cl">List</span>.generate(widget.count, (_) =&gt; _makeParticle());
+  }
+
+  <span class="cl">_RisingParticle</span> _makeParticle() =&gt; _<span class="cl">RisingParticle</span>(
+    x:       _rand.nextDouble(),
+    progress: _rand.nextDouble(),
+    size:    <span class="nm">1</span> + _rand.nextDouble() * <span class="nm">3</span>,
+    speed:   (<span class="nm">10</span> + _rand.nextDouble() * <span class="nm">10</span>) / <span class="nm">1000</span>,
+  );
+
+  <span class="kw">void</span> _tick() {
+    setState(() {
+      <span class="kw">for</span> (<span class="kw">var</span> i = <span class="nm">0</span>; i &lt; _particles.length; i++) {
+        _particles[i].progress += _particles[i].speed;
+        <span class="kw">if</span> (_particles[i].progress &gt;= <span class="nm">1.0</span>) {
+          _particles[i] = _makeParticle()..progress = <span class="nm">0</span>;
+        }
+      }
+    });
+  }
+
+  <span class="kw">@override</span>
+  <span class="kw">void</span> dispose() { _ctrl.dispose(); <span class="kw">super</span>.dispose(); }
+
+  <span class="kw">@override</span>
+  <span class="cl">Widget</span> build(<span class="cl">BuildContext</span> context) =&gt;
+    <span class="cl">RepaintBoundary</span>(  <span class="cm">// ← مهم للأداء</span>
+      child: <span class="cl">CustomPaint</span>(
+        painter: _<span class="cl">RisingPainter</span>(_particles),
+        size: <span class="cl">Size</span>.infinite,
+      ),
+    );
+}
+
+<span class="kw">class</span> _<span class="cl">RisingParticle</span> {
+  <span class="kw">double</span> x, progress, size, speed;
+  _<span class="cl">RisingParticle</span>({<span class="kw">required this</span>.x, <span class="kw">required this</span>.progress,
+                    <span class="kw">required this</span>.size, <span class="kw">required this</span>.speed});
+}
+
+<span class="kw">class</span> _<span class="cl">RisingPainter</span> <span class="kw">extends</span> <span class="cl">CustomPainter</span> {
+  <span class="kw">final</span> <span class="cl">List</span>&lt;<span class="cl">_RisingParticle</span>&gt; particles;
+  <span class="kw">const</span> _<span class="cl">RisingPainter</span>(<span class="kw">this</span>.particles);
+
+  <span class="kw">@override</span>
+  <span class="kw">void</span> paint(<span class="cl">Canvas</span> canvas, <span class="cl">Size</span> size) {
+    <span class="kw">for</span> (<span class="kw">final</span> p <span class="kw">in</span> particles) {
+      <span class="kw">final</span> t = p.progress;
+      <span class="kw">final</span> y = size.height * (<span class="nm">1</span> - t);  <span class="cm">// يرتفع من الأسفل للأعلى</span>
+      <span class="cm">// fade in 10%، ثابت حتى 90%، ثم fade out</span>
+      <span class="kw">final</span> op = t &lt; .<span class="nm">1</span> ? t / .<span class="nm">1</span> : (t &gt; .<span class="nm">9</span> ? (<span class="nm">1</span> - t) / .<span class="nm">1</span> : <span class="nm">1.0</span>);
+      canvas.drawCircle(
+        <span class="cl">Offset</span>(size.width * p.x, y), p.size / <span class="nm">2</span>,
+        <span class="cl">Paint</span>()..color = <span class="kw">const</span> <span class="cl">Color</span>(<span class="nm">0xFF80D8A6</span>).withOpacity(op * .<span class="nm">4</span>),
+      );
+    }
+  }
+
+  <span class="kw">@override</span>
+  <span class="kw">bool</span> shouldRepaint(<span class="kw">covariant</span> <span class="cl">CustomPainter</span> _) =&gt; <span class="kw">true</span>;
+}</pre></div>
+
+    <div class="ib warn"><span class="ii">⚠️</span><p><strong>أداء الـ Orbs:</strong> غلّف كل <code>AnimatedBuilder</code> بـ <code>RepaintBoundary</code> لمنع إعادة رسم كامل الشاشة. الـ Rising Particles تستخدم <code>RepaintBoundary</code> تلقائياً.</p></div>
+  </div><!-- /sec ambient -->
+
+  <div class="div"></div>
+
+  <!-- ─── 10: Shimmer Skeleton ─── -->
+  <div class="sec" id="shimmer">
+    <div class="sec-label"><div class="snum">10</div><h2 class="stitle">حالة التحميل — Shimmer Skeleton</h2></div>
+    <p class="sdesc">أثناء جلب المواعيد من الـ API، نعرض هيكلاً وهمياً يحاكي شكل البطاقة مع تأثير Shimmer متحرك يُحاكي بيانات قادمة.</p>
+    <div class="cw"><div class="ch"><span>AppointmentCardSkeleton</span><span class="ltag">dart</span></div>
+<pre><span class="kw">class</span> <span class="cl">AppointmentCardSkeleton</span> <span class="kw">extends</span> <span class="cl">StatefulWidget</span> {
+  <span class="kw">const</span> <span class="cl">AppointmentCardSkeleton</span>({<span class="kw">super</span>.key});
+  <span class="kw">@override</span>
+  <span class="cl">State</span>&lt;<span class="cl">AppointmentCardSkeleton</span>&gt; createState() =&gt; _<span class="cl">SkeletonState</span>();
+}
+
+<span class="kw">class</span> _<span class="cl">SkeletonState</span> <span class="kw">extends</span> <span class="cl">State</span>&lt;<span class="cl">AppointmentCardSkeleton</span>&gt;
+    <span class="kw">with</span> <span class="cl">SingleTickerProviderStateMixin</span> {
+
+  <span class="kw">late</span> <span class="cl">AnimationController</span> _ctrl;
+  <span class="kw">late</span> <span class="cl">Animation</span>&lt;<span class="kw">double</span>&gt;  _anim;
+
+  <span class="kw">@override</span>
+  <span class="kw">void</span> initState() {
+    <span class="kw">super</span>.initState();
+    _ctrl = <span class="cl">AnimationController</span>(
+      vsync: <span class="kw">this</span>, duration: <span class="kw">const</span> <span class="cl">Duration</span>(ms: <span class="nm">1500</span>),
+    )..repeat();
+    _anim = <span class="cl">Tween</span>(<span class="kw">begin</span>: -<span class="nm">2.0</span>, end: <span class="nm">2.0</span>)
+        .animate(<span class="cl">CurvedAnimation</span>(parent:_ctrl, curve:<span class="cl">Curves</span>.linear));
+  }
+
+  <span class="kw">@override</span>
+  <span class="kw">void</span> dispose() { _ctrl.dispose(); <span class="kw">super</span>.dispose(); }
+
+  <span class="cl">Widget</span> _box(<span class="kw">double</span> w, <span class="kw">double</span> h, {<span class="kw">double</span> r=<span class="nm">8</span>}) =&gt;
+    <span class="cl">AnimatedBuilder</span>(animation:_anim, builder:(_,__)=&gt;
+      <span class="cl">Container</span>(
+        width:w, height:h,
+        decoration: <span class="cl">BoxDecoration</span>(
+          borderRadius: <span class="cl">BorderRadius</span>.circular(r),
+          gradient: <span class="cl">LinearGradient</span>(
+            stops: <span class="kw">const</span> [<span class="nm">0</span>,.<span class="nm">5</span>,<span class="nm">1</span>],
+            colors: <span class="kw">const</span> [
+              <span class="cl">Color</span>(<span class="nm">0xFF0F301F</span>),
+              <span class="cl">Color</span>(<span class="nm">0xFF1B3B29</span>),
+              <span class="cl">Color</span>(<span class="nm">0xFF0F301F</span>),
+            ],
+            transform: <span class="cl">GradientRotation</span>(_anim.value),
+          ),
+        ),
+      ),
+    );
+
+  <span class="kw">@override</span>
+  <span class="cl">Widget</span> build(<span class="cl">BuildContext</span> context) =&gt; <span class="cl">Container</span>(
+    padding: <span class="kw">const</span> <span class="cl">EdgeInsets</span>.all(<span class="nm">16</span>),
+    decoration: <span class="cl">BoxDecoration</span>(
+      color: <span class="cl">AppColors</span>.glassBg,
+      borderRadius: <span class="cl">BorderRadius</span>.circular(<span class="nm">16</span>),
+      border: <span class="cl">Border</span>.all(color:<span class="cl">AppColors</span>.glassBorder),
+    ),
+    child: <span class="cl">Column</span>(crossAxisAlignment:<span class="cl">CrossAxisAlignment</span>.stretch, children:[
+      <span class="cl">Row</span>(children:[
+        _box(<span class="nm">48</span>,<span class="nm">48</span>,r:<span class="nm">24</span>),                       <span class="cm">// avatar دائري</span>
+        <span class="kw">const</span> <span class="cl">SizedBox</span>(width:<span class="nm">12</span>),
+        <span class="cl">Expanded</span>(child:<span class="cl">Column</span>(
+          crossAxisAlignment:<span class="cl">CrossAxisAlignment</span>.end, children:[
+          _box(<span class="nm">140</span>,<span class="nm">18</span>),                         <span class="cm">// اسم الطبيب</span>
+          <span class="kw">const</span> <span class="cl">SizedBox</span>(height:<span class="nm">6</span>),
+          _box(<span class="nm">100</span>,<span class="nm">13</span>),                         <span class="cm">// التخصص</span>
+        ])),
+        <span class="kw">const</span> <span class="cl">SizedBox</span>(width:<span class="nm">10</span>),
+        _box(<span class="nm">64</span>,<span class="nm">26</span>,r:<span class="nm">999</span>),                     <span class="cm">// badge</span>
+      ]),
+      <span class="kw">const</span> <span class="cl">SizedBox</span>(height:<span class="nm">14</span>),
+      _box(<span class="kw">double</span>.infinity,<span class="nm">1</span>),                 <span class="cm">// divider</span>
+      <span class="kw">const</span> <span class="cl">SizedBox</span>(height:<span class="nm">14</span>),
+      <span class="cl">Row</span>(children:[
+        _box(<span class="nm">36</span>,<span class="nm">36</span>,r:<span class="nm">10</span>),                      <span class="cm">// time icon box</span>
+        <span class="kw">const</span> <span class="cl">SizedBox</span>(width:<span class="nm">10</span>),
+        <span class="cl">Column</span>(crossAxisAlignment:<span class="cl">CrossAxisAlignment</span>.start, children:[
+          _box(<span class="nm">40</span>,<span class="nm">11</span>),                          <span class="cm">// label "الوقت"</span>
+          <span class="kw">const</span> <span class="cl">SizedBox</span>(height:<span class="nm">5</span>),
+          _box(<span class="nm">80</span>,<span class="nm">15</span>),                          <span class="cm">// القيمة</span>
+        ]),
+        <span class="kw">const</span> <span class="cl">Spacer</span>(),
+        _box(<span class="nm">38</span>,<span class="nm">38</span>,r:<span class="nm">19</span>),                     <span class="cm">// more btn</span>
+      ]),
+    ]),
+  );
+}
+
+<span class="cm">// ── الاستخدام في الشاشة ──────────────────────</span>
+<span class="cl">Widget</span> _buildBody() {
+  <span class="kw">if</span> (_isLoading) {
+    <span class="kw">return</span> <span class="cl">ListView</span>.separated(
+      padding: <span class="kw">const</span> <span class="cl">EdgeInsets</span>.all(<span class="nm">16</span>),
+      itemCount: <span class="nm">3</span>,
+      separatorBuilder: (_, __) =&gt; <span class="kw">const</span> <span class="cl">SizedBox</span>(height: <span class="nm">20</span>),
+      itemBuilder: (_, __) =&gt; <span class="cl">Row</span>(children: [
+        <span class="kw">const</span> <span class="cl">SizedBox</span>(width:<span class="nm">38</span>),  <span class="cm">// timeline space</span>
+        <span class="kw">const</span> <span class="cl">Expanded</span>(child:<span class="cl">AppointmentCardSkeleton</span>()),
+      ]),
+    );
+  }
+  <span class="kw">return</span> _buildTimeline();
+}</pre></div>
+  </div><!-- /sec shimmer -->
+
+  <div class="div"></div>
+
+  <!-- ─── 11: pubspec.yaml + main.dart ─── -->
+  <div class="sec" id="setup">
+    <div class="sec-label"><div class="snum">11</div><h2 class="stitle">الإعداد الكامل — pubspec.yaml + main.dart</h2></div>
+    <p class="sdesc">كل ما تحتاجه لتشغيل شاشة مواعيدي من الصفر بالمكتبات الصحيحة وإعدادات RTL.</p>
+
+    <div class="cw"><div class="ch"><span>pubspec.yaml</span><span class="ltag">yaml</span></div>
+<pre>name: vitality_app
+description: Vitality Healthcare — Appointments Screen
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: '>=3.10.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  google_fonts: ^6.2.1          # Manrope + Cairo
+  cached_network_image: ^3.3.1  # صور الأطباء مع cache
+  intl: ^0.19.0                 # تنسيق التواريخ بالعربية
+  flutter_riverpod: ^2.5.1      # State management (اختياري)
+
+flutter:
+  uses-material-design: true
+  
+  # Material Symbols
+  fonts:
+    - family: MaterialSymbolsOutlined
+      fonts:
+        - asset: fonts/MaterialSymbolsOutlined.ttf</pre></div>
+
+    <div class="cw"><div class="ch"><span>lib/main.dart</span><span class="ltag">dart</span></div>
+<pre><span class="kw">import</span> <span class="str">'package:flutter/material.dart'</span>;
+<span class="kw">import</span> <span class="str">'package:flutter/services.dart'</span>;
+<span class="kw">import</span> <span class="str">'package:google_fonts/google_fonts.dart'</span>;
+<span class="kw">import</span> <span class="str">'features/appointments/presentation/appointments_screen.dart'</span>;
+<span class="kw">import</span> <span class="str">'core/theme/app_colors.dart'</span>;
+
+<span class="kw">void</span> main() {
+  <span class="cl">WidgetsFlutterBinding</span>.ensureInitialized();
+
+  <span class="cm">// Immersive mode — الشاشة تمتد خلف status bar</span>
+  <span class="cl">SystemChrome</span>.setSystemUIOverlayStyle(<span class="kw">const</span> <span class="cl">SystemUiOverlayStyle</span>(
+    statusBarColor:            <span class="cl">Colors</span>.transparent,
+    statusBarBrightness:       <span class="cl">Brightness</span>.dark,
+    statusBarIconBrightness:   <span class="cl">Brightness</span>.light,
+    systemNavigationBarColor:  <span class="cl">Colors</span>.transparent,
+  ));
+  <span class="cl">SystemChrome</span>.setEnabledSystemUIMode(<span class="cl">SystemUiMode</span>.edgeToEdge);
+
+  runApp(<span class="kw">const</span> <span class="cl">VitalityApp</span>());
+}
+
+<span class="kw">class</span> <span class="cl">VitalityApp</span> <span class="kw">extends</span> <span class="cl">StatelessWidget</span> {
+  <span class="kw">const</span> <span class="cl">VitalityApp</span>({<span class="kw">super</span>.key});
+
+  <span class="kw">@override</span>
+  <span class="cl">Widget</span> build(<span class="cl">BuildContext</span> context) =&gt; <span class="cl">MaterialApp</span>(
+    title: <span class="str">'Vitality'</span>,
+    debugShowCheckedModeBanner: <span class="kw">false</span>,
+
+    <span class="cm">// RTL عربي — يُطبَّق على كامل التطبيق</span>
+    locale: <span class="kw">const</span> <span class="cl">Locale</span>(<span class="str">'ar'</span>),
+    supportedLocales: <span class="kw">const</span> [<span class="cl">Locale</span>(<span class="str">'ar'</span>), <span class="cl">Locale</span>(<span class="str">'en'</span>)],
+    builder: (ctx, child) =&gt; <span class="cl">Directionality</span>(
+      textDirection: <span class="cl">TextDirection</span>.rtl,
+      child: child!,
+    ),
+
+    themeMode:  <span class="cl">ThemeMode</span>.dark,
+    darkTheme:  _darkTheme(),
+    home: <span class="kw">const</span> <span class="cl">AppointmentsScreen</span>(),
+  );
+
+  <span class="cl">ThemeData</span> _darkTheme() =&gt; <span class="cl">ThemeData</span>(
+    useMaterial3: <span class="kw">true</span>,
+    brightness: <span class="cl">Brightness</span>.dark,
+    scaffoldBackgroundColor: <span class="cl">AppColors</span>.background,
+    colorScheme: <span class="kw">const</span> <span class="cl">ColorScheme</span>.dark(
+      primary:          <span class="cl">AppColors</span>.primary,
+      primaryContainer: <span class="cl">AppColors</span>.primaryContainer,
+      secondary:        <span class="cl">AppColors</span>.secondary,
+      tertiary:         <span class="cl">AppColors</span>.tertiary,
+      error:            <span class="cl">AppColors</span>.error,
+      surface:          <span class="cl">AppColors</span>.surface,
+      onSurface:        <span class="cl">AppColors</span>.onSurface,
+    ),
+    textTheme: <span class="cl">GoogleFonts</span>.cairoTextTheme(
+      <span class="cl">ThemeData</span>.dark().textTheme,
+    ).apply(bodyColor: <span class="cl">AppColors</span>.onSurface),
+    splashColor:    <span class="cl">AppColors</span>.primary.withOpacity(.<span class="nm">08</span>),
+    highlightColor: <span class="cl">Colors</span>.transparent,
+    pageTransitionsTheme: <span class="kw">const</span> <span class="cl">PageTransitionsTheme</span>(builders: {
+      <span class="cl">TargetPlatform</span>.android: <span class="cl">FadeUpwardsPageTransitionsBuilder</span>(),
+      <span class="cl">TargetPlatform</span>.iOS:     <span class="cl">CupertinoPageTransitionsBuilder</span>(),
+    }),
+  );
+}</pre></div>
+  </div><!-- /sec setup -->
+
+  <div class="div"></div>
+
+  <!-- ─── 12: بنية المجلدات + خلاصة ─── -->
+  <div class="sec" id="workflow">
+    <div class="sec-label"><div class="snum">12</div><h2 class="stitle">بنية المجلدات + خلاصة الخطوات</h2></div>
+
+    <div class="cw"><div class="ch"><span>Project Structure</span><span class="ltag">bash</span></div>
+<pre>lib/
+├── core/
+│   └── theme/
+│       ├── app_colors.dart        <span class="cm"># كل ألوان Vitality</span>
+│       ├── app_text_styles.dart   <span class="cm"># Cairo + Manrope scale</span>
+│       └── app_spacing.dart       <span class="cm"># 8px grid constants</span>
+│
+├── features/
+│   └── appointments/
+│       ├── data/
+│       │   ├── appointment_model.dart    <span class="cm"># Model + enum</span>
+│       │   └── appointments_repo.dart   <span class="cm"># API calls</span>
+│       └── presentation/
+│           ├── screens/
+│           │   └── appointments_screen.dart
+│           └── widgets/
+│               ├── ambient_background.dart   <span class="cm"># Orbs + Particles</span>
+│               ├── timeline_painter.dart     <span class="cm"># CustomPainter</span>
+│               ├── appointment_timeline_row.dart
+│               ├── appointment_card.dart     <span class="cm"># 3 أنماط</span>
+│               ├── status_badge.dart
+│               ├── month_divider.dart
+│               ├── appointment_options_sheet.dart
+│               ├── reschedule_sheet.dart
+│               ├── appointment_card_skeleton.dart
+│               └── rising_particles.dart
+│
+└── main.dart</pre></div>
+
+    <p class="sdesc">الترتيب الصحيح لبناء كل شيء من الصفر:</p>
+    <div class="steps">
+      <div class="si"><div class="sn">1</div><div class="sb"><h4>الـ Design System</h4><p>ابدأ بـ <code>app_colors</code> + <code>app_text_styles</code> + <code>app_spacing</code>. لا تكتب رقماً واحداً بشكل مباشر في الكود.</p></div></div>
+      <div class="si"><div class="sn">2</div><div class="sb"><h4>نموذج البيانات</h4><p><code>Appointment</code> model + <code>AppointmentStatus</code> enum مع كل الـ helpers (<code>label()</code>, <code>color()</code>, <code>icon()</code>).</p></div></div>
+      <div class="si"><div class="sn">3</div><div class="sb"><h4>StatusBadge</h4><p>أبسط widget — اختبره مستقلاً قبل الانتقال لأي شيء آخر.</p></div></div>
+      <div class="si"><div class="sn">4</div><div class="sb"><h4>TimelinePainter</h4><p>ارسم الخط والنقاط بـ <code>CustomPainter</code>. اختبر كل status على حدة.</p></div></div>
+      <div class="si"><div class="sn">5</div><div class="sb"><h4>AppointmentCard (الأنماط الثلاثة)</h4><p>normal ← featured ← past. كل نمط يختلف فقط في الـ <code>BoxDecoration</code>.</p></div></div>
+      <div class="si"><div class="sn">6</div><div class="sb"><h4>AppointmentTimelineRow</h4><p>استخدم <code>IntrinsicHeight</code> + <code>Row</code> لدمج Painter والكارد.</p></div></div>
+      <div class="si"><div class="sn">7</div><div class="sb"><h4>MonthDivider</h4><p>Pill زجاجية + خط متلاشي. بسيطة جداً.</p></div></div>
+      <div class="si"><div class="sn">8</div><div class="sb"><h4>Scaffold الرئيسي</h4><p>AppBar زجاجي + <code>CustomScrollView</code> بـ <code>SliverList</code> تستخدم <code>_insertMonthDividers()</code>.</p></div></div>
+      <div class="si"><div class="sn">9</div><div class="sb"><h4>Options Sheet + Reschedule Sheet</h4><p><code>showModalBottomSheet</code>. أغلق الـ Options قبل فتح الـ Reschedule.</p></div></div>
+      <div class="si"><div class="sn">10</div><div class="sb"><h4>Shimmer + Filter Logic</h4><p>Skeleton للتحميل + getter مشترك للفلترة والبحث.</p></div></div>
+      <div class="si"><div class="sn">11</div><div class="sb"><h4>AmbientBackground</h4><p>Glow Orbs + Rising Particles. أضف <code>RepaintBoundary</code> وتحقق من الـ FPS.</p></div></div>
+      <div class="si"><div class="sn">12</div><div class="sb"><h4>main.dart + pubspec</h4><p>اضبط RTL، Dark Theme، Immersive mode. اختبر على iOS وAndroid وChrome.</p></div></div>
+    </div>
+
+    <div style="margin-top:32px">
+      <h3 style="font-size:17px;font-weight:700;color:var(--primary);margin-bottom:14px">📊 جدول التأثيرات الكامل</h3>
+      <table>
+        <thead><tr><th>التأثير</th><th>الـ Widget / API</th><th>المنصة</th><th>الحالة</th></tr></thead>
+        <tbody>
+          <tr><td>Glow Orbs متحركة</td><td><code>AnimationController + Positioned</code></td><td>الكل</td><td><span class="tag tg">✓ مكتمل</span></td></tr>
+          <tr><td>Rising Particles</td><td><code>CustomPainter + RepaintBoundary</code></td><td>الكل</td><td><span class="tag tg">✓ مكتمل</span></td></tr>
+          <tr><td>Glass AppBar</td><td><code>BackdropFilter + PreferredSize</code></td><td>الكل</td><td><span class="tag tg">✓ مكتمل</span></td></tr>
+          <tr><td>Timeline Line (gradient)</td><td><code>CustomPainter + LinearGradient</code></td><td>الكل</td><td><span class="tag tg">✓ مكتمل</span></td></tr>
+          <tr><td>Timeline Dots (3 أنواع)</td><td><code>CustomPainter + MaskFilter blur</code></td><td>الكل</td><td><span class="tag tg">✓ مكتمل</span></td></tr>
+          <tr><td>Glass Card عادية</td><td><code>BackdropFilter + ClipRRect</code></td><td>الكل</td><td><span class="tag tg">✓ مكتمل</span></td></tr>
+          <tr><td>Featured Card Gradient</td><td><code>RadialGradient + inset BoxShadow</code></td><td>الكل</td><td><span class="tag tg">✓ مكتمل</span></td></tr>
+          <tr><td>Past Card (Opacity)</td><td><code>Opacity + minimal BoxDecoration</code></td><td>الكل</td><td><span class="tag tg">✓ مكتمل</span></td></tr>
+          <tr><td>Status Badges (4 أنواع)</td><td><code>Container + enum helpers</code></td><td>الكل</td><td><span class="tag tg">✓ مكتمل</span></td></tr>
+          <tr><td>Card Entrance Animation</td><td><code>SlideTransition + FadeTransition</code></td><td>الكل</td><td><span class="tag tg">✓ مكتمل</span></td></tr>
+          <tr><td>Card Hover</td><td><code>MouseRegion + AnimatedScale</code></td><td>ويب/ديسكتوب</td><td><span class="tag tg">✓ مكتمل</span></td></tr>
+          <tr><td>Month Divider</td><td><code>BackdropFilter Pill + LinearGradient</code></td><td>الكل</td><td><span class="tag tg">✓ مكتمل</span></td></tr>
+          <tr><td>Options Bottom Sheet</td><td><code>showModalBottomSheet + enableDrag</code></td><td>الكل</td><td><span class="tag tg">✓ مكتمل</span></td></tr>
+          <tr><td>Hover على خيارات الـ Sheet</td><td><code>MouseRegion + AnimatedContainer</code></td><td>ويب/ديسكتوب</td><td><span class="tag tg">✓ مكتمل</span></td></tr>
+          <tr><td>Reschedule Grid</td><td><code>GridView.count + AnimatedContainer</code></td><td>الكل</td><td><span class="tag tg">✓ مكتمل</span></td></tr>
+          <tr><td>Cancel Dialog</td><td><code>showDialog + AnimatedScale</code></td><td>الكل</td><td><span class="tag tg">✓ مكتمل</span></td></tr>
+          <tr><td>Shimmer Skeleton</td><td><code>LinearGradient + GradientRotation</code></td><td>الكل</td><td><span class="tag tg">✓ مكتمل</span></td></tr>
+          <tr><td>Filter Chips</td><td><code>AnimatedContainer + GestureDetector</code></td><td>الكل</td><td><span class="tag tg">✓ مكتمل</span></td></tr>
+          <tr><td>Search Debounce</td><td><code>Timer + setState</code></td><td>الكل</td><td><span class="tag tg">✓ مكتمل</span></td></tr>
+          <tr><td>Glass Bottom Nav</td><td><code>BackdropFilter + AnimatedSwitcher</code></td><td>الكل</td><td><span class="tag tg">✓ مكتمل</span></td></tr>
+          <tr><td>RTL/Arabic</td><td><code>Directionality.rtl + Locale('ar')</code></td><td>الكل</td><td><span class="tag tg">✓ مكتمل</span></td></tr>
+          <tr><td>Immersive Status Bar</td><td><code>SystemChrome.edgeToEdge</code></td><td>موبايل</td><td><span class="tag tg">✓ مكتمل</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- FAQ -->
+    <div style="margin-top:28px">
+      <h3 style="font-size:17px;font-weight:700;color:var(--primary);margin-bottom:13px">❓ أسئلة شائعة</h3>
+      <details><summary>كيف أجعل الـ Timeline يمتد بطول الكارد بالضبط؟</summary>
+        <div class="db"><p style="font-size:13.5px;color:var(--on-sv);margin-top:10px">غلّف الـ <code>Row</code> الذي يضم عمود الـ Timeline والكارد بـ <code>IntrinsicHeight</code>. هذا يجبر كلا العمودين على أخذ ارتفاع الأطول بينهما.</p></div></details>
+      <details><summary>لماذا التاريخ "غداً" يظهر باللون الأخضر بينما "الخميس" رمادي؟</summary>
+        <div class="db"><p style="font-size:13.5px;color:var(--on-sv);margin-top:10px">نقارن تاريخ الموعد بـ <code>DateTime.now()</code>. إذا كان خلال 48 ساعة القادمة يأخذ لون <code>primary</code>، وإلا <code>onSurfaceVariant</code>. <code>final isUpcoming = appt.dateTime.difference(DateTime.now()).inHours < 48;</code></p></div></details>
+      <details><summary>كيف أفتح Reschedule Sheet فوق Options Sheet؟</summary>
+        <div class="db"><p style="font-size:13.5px;color:var(--on-sv);margin-top:10px">أغلق الـ Options Sheet بـ <code>Navigator.pop(context)</code> أولاً، ثم افتح الـ Reschedule Sheet بـ <code>showModalBottomSheet</code> مع <code>useRootNavigator: true</code> لضمان الظهور فوق كل شيء.</p></div></details>
+      <details><summary>كيف أنسّق التاريخ بالعربية "غداً • 15 أكتوبر"؟</summary>
+        <div class="db"><p style="font-size:13.5px;color:var(--on-sv);margin-top:10px">استخدم مكتبة <code>intl</code>: <code>DateFormat('d MMMM yyyy', 'ar').format(dateTime)</code>. للتحقق من "غداً": قارن <code>DateUtils.isSameDay(dateTime, DateTime.now().add(Duration(days:1)))</code>.</p></div></details>
+      <details><summary>ما الفرق بين BackdropFilter للـ Orbs وللـ Glass Cards؟</summary>
+        <div class="db"><p style="font-size:13.5px;color:var(--on-sv);margin-top:10px">الـ Orbs لا تحتاج <code>BackdropFilter</code> فعلياً — نستخدم <code>filter: blur(80px)</code> في CSS أو مجرد <code>Container</code> مع <code>color.withOpacity(0.15)</code> في Flutter لأن الـ orb نفسها شفافة. أما Glass Cards فتحتاج <code>BackdropFilter</code> الحقيقي لطمس ما خلفها.</p></div></details>
+    </div>
+
+  </div><!-- /sec workflow -->
+
+  </div><!-- /main col -->
+
+  <!-- TOC -->
+  <div>
+    <div class="toc-wrap glass" style="padding:18px">
+      <div class="toc-title">محتويات الدليل</div>
+      <a href="#overview"      class="tl">0 — نظرة عامة</a>
+      <a href="#model"         class="tl">1 — نموذج البيانات</a>
+      <a href="#timeline"      class="tl">2 — Timeline Painter</a>
+      <a href="#card"          class="tl">3 — بطاقة الموعد</a>
+      <a href="#badges"        class="tl">4 — Status Badges</a>
+      <a href="#divider"       class="tl">5 — فاصل الشهر</a>
+      <a href="#options-sheet" class="tl">6 — Options Sheet</a>
+      <a href="#reschedule"    class="tl">7 — Reschedule Sheet</a>
+      <a href="#filter"        class="tl">8 — فلترة وبحث</a>
+      <a href="#ambient"       class="tl">9 — Ambient Background</a>
+      <a href="#shimmer"       class="tl">10 — Shimmer Skeleton</a>
+      <a href="#setup"         class="tl">11 — pubspec + main.dart</a>
+      <a href="#workflow"      class="tl">12 — بنية المجلدات</a>
+    </div>
+  </div>
+
+  </div><!-- /layout -->
+</div><!-- /pw -->
+
+<script>
+const cv=document.getElementById('bgc'),ct=cv.getContext('2d');
+let W,H,pts=[];
+const PC=['rgba(16,185,129,','rgba(64,231,140,','rgba(128,216,166,'];
+function rsz(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight}
+rsz();window.addEventListener('resize',rsz);
+function mkPt(){const sx=Math.random()*W,sy=Math.random()*H;return{x:sx,y:sy,tx:sx+(Math.random()-.5)*200,ty:sy+(Math.random()-.5)*200,sz:Math.random()*3+1.2,sp:.003+Math.random()*.004,t:0,c:PC[Math.floor(Math.random()*3)]}}
+for(let i=0;i<22;i++)pts.push(mkPt());
+let pu=0;
+(function loop(){
+  ct.clearRect(0,0,W,H);
+  pu=(pu+.0012)%1;const pr=pu*Math.max(W,H)*1.5,po=(1-pu)*.09;
+  ct.beginPath();ct.arc(W/2,H/2,pr,0,Math.PI*2);
+  ct.strokeStyle=`rgba(64,231,140,${po})`;ct.lineWidth=1.5;ct.stroke();
+  for(let i=pts.length-1;i>=0;i--){const p=pts[i];p.t+=p.sp;if(p.t>=1){pts[i]=mkPt();continue}
+  const cx=p.x+(p.tx-p.x)*p.t,cy=p.y+(p.ty-p.y)*p.t,op=p.t<.5?(p.t/.5)*.5:(1-(p.t-.5)/.5)*.5;
+  ct.beginPath();ct.arc(cx,cy,p.sz,0,Math.PI*2);ct.fillStyle=p.c+op+')';ct.shadowColor=p.c+'.4)';ct.shadowBlur=4;ct.fill();ct.shadowBlur=0}
+  requestAnimationFrame(loop);
+})();
+
+const secs=document.querySelectorAll('.sec'),tls=document.querySelectorAll('.tl');
+const ob=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){tls.forEach(l=>l.classList.remove('active'));const m=document.querySelector(`.tl[href="#${e.target.id}"]`);if(m)m.classList.add('active')}})},{rootMargin:'-25% 0px -65% 0px'});
+secs.forEach(s=>ob.observe(s));
+</script>
+</body>
+</html>

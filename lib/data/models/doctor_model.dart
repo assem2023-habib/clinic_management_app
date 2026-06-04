@@ -1,8 +1,10 @@
 import 'package:clinic_management_app/data/models/user_model.dart';
 import 'package:clinic_management_app/data/models/specialization_model.dart';
 import 'package:clinic_management_app/data/models/doctor_schedule_model.dart';
+import 'package:clinic_management_app/data/models/review_model.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
 import 'package:clinic_management_app/domain/entities/specialization_entity.dart';
+import 'package:clinic_management_app/domain/entities/review_entity.dart';
 
 class DoctorModel extends DoctorEntity {
   const DoctorModel({
@@ -27,6 +29,9 @@ class DoctorModel extends DoctorEntity {
     super.specialization,
     super.experienceMonths,
     super.schedules = const [],
+    super.rating,
+    super.reviewsCount,
+    super.recentReviews = const [],
   });
 
   factory DoctorModel.fromMap(Map<String, dynamic> map) {
@@ -47,6 +52,25 @@ class DoctorModel extends DoctorEntity {
       schedules = (source['schedules'] as List)
           .map((s) => DoctorScheduleModel.fromMap(s as Map<String, dynamic>))
           .toList();
+    }
+
+    double? ratingVal;
+    int? reviewsCountVal;
+    List<ReviewModel> recentReviewsVal = const [];
+
+    final ratingMap = source['rating'];
+    if (ratingMap != null) {
+      if (ratingMap is Map<String, dynamic>) {
+        ratingVal = (ratingMap['avg'] as num?)?.toDouble();
+        reviewsCountVal = (ratingMap['count'] as num?)?.toInt();
+        if (ratingMap['recent'] != null && ratingMap['recent'] is List) {
+          recentReviewsVal = (ratingMap['recent'] as List)
+              .map((r) => ReviewModel.fromMap(r as Map<String, dynamic>))
+              .toList();
+        }
+      } else if (ratingMap is num) {
+        ratingVal = ratingMap.toDouble();
+      }
     }
 
     return DoctorModel(
@@ -71,6 +95,10 @@ class DoctorModel extends DoctorEntity {
       specialization: specialization,
       experienceMonths: experienceMonths,
       schedules: schedules,
+      rating: ratingVal,
+      reviewsCount: reviewsCountVal,
+      recentReviews: recentReviewsVal,
     );
   }
 }
+

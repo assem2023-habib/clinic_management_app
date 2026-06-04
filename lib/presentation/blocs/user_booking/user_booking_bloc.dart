@@ -121,7 +121,7 @@ class UserBookingBloc extends Bloc<UserBookingEvent, UserBookingState> {
     emit(current.copyWith(selectedDate: event.date, selectedSlotId: null));
   }
 
-  void _onSelectSlot(UserBookingSelectSlot event, Emitter<UserBookingState> emit) {
+  Future<void> _onSelectSlot(UserBookingSelectSlot event, Emitter<UserBookingState> emit) async {
     final current = state;
     if (current is! UserBookingLoaded) return;
     emit(current.copyWith(selectedSlotId: event.slotId));
@@ -130,20 +130,16 @@ class UserBookingBloc extends Bloc<UserBookingEvent, UserBookingState> {
   Future<void> _onConfirm(UserBookingConfirm event, Emitter<UserBookingState> emit) async {
     emit(UserBookingBooking());
     try {
-      final id = const Uuid().v4();
-      await appointmentRepository.addAppointment(AppointmentEntity(
-        id: id,
-        patientId: event.patientId,
-        patientName: '',
-        doctorId: event.doctorId,
-        doctorName: '',
-        date: event.date.toIso8601String(),
-        timeSlot: event.timeSlot,
-        status: AppointmentStatus.scheduled,
-        notes: event.notes,
-      ));
+      final dateStr = '${event.date.year}-${event.date.month.toString().padLeft(2, '0')}-${event.date.day.toString().padLeft(2, '0')}';
+
+      final appointment = await appointmentRepository.requestAppointment(
+        event.doctorId,
+        preferredDate: dateStr,
+        reason: event.notes,
+      );
+
       emit(UserBookingConfirmed(
-        appointmentId: id,
+        appointmentId: appointment.id,
         doctor: event.doctorEntity,
         patientName: event.patientName,
         date: event.date,

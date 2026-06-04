@@ -649,4 +649,28 @@ class AppStrings {
   static const mrNavRecords = 'السجل';
   static const mrNavVitals = 'المؤشرات';
   static const mrNavProfile = 'الملف';
+
+  // Supervision
+  static const supervisionRequests = 'طَلَبَاتُ الإِشْرَافِ';
+  static const supervisingDoctors = 'الأَطِبَّاءُ المُشْرِفُونَ';
+  static const supervisedPatients = 'المَرْضَى الخَاضِعُونَ لِلإِشْرَافِ';
+  static const pendingRequests = 'الطَّلَبَاتُ المُعَلَّقَةُ';
+  static const incomingRequests = 'الطَّلَبَاتُ الوَارِدَةُ';
+  static const requestSupervision = 'طَلَبُ إِشْرَافٍ طِبِّيٍّ';
+  static const cancelRequest = 'إِلْغَاءُ الطَّلَبِ';
+  static const approveRequest = 'مُوَافَقَةٌ';
+  static const rejectRequest = 'رَفْضٌ';
+  static const removeSupervision = 'إِنْهَاءُ الإِشْرَافِ';
+  static const mySupervisingDoctor = 'طَبِيبِي المُشْرِفُ';
+  static const pendingSupervisionRequest = 'طَلَبُ إِشْرَافٍ مُعَلَّقٌ';
+  static const supervisionRequestSent = 'تَمَّ إِرْسَالُ طَلَبِ الإِشْرَافِ';
+  static const supervisionRequestCancelled = 'تَمَّ إِلْغَاءُ طَلَبِ الإِشْرَافِ';
+  static const supervisionRequestApproved = 'تَمَّتِ المُوَافَقَةُ عَلَى الطَّلَبِ';
+  static const supervisionRequestRejected = 'تَمَّ رَفْضُ الطَّلَبِ';
+  static const supervisionRemoved = 'تَمَّ إِنْهَاءُ الإِشْرَافِ';
+  static const noSupervisingDoctors = 'لا يُوجَدُ أَطِبَّاءُ مُشْرِفُونَ';
+  static const noSupervisedPatients = 'لا يُوجَدُ مَرْضَى تَحْتَ الإِشْرَافِ';
+  static const noPendingRequests = 'لا تُوجَدُ طَلَبَاتٌ مُعَلَّقَةٌ';
+  static const pending = 'مُعَلَّقٌ';
+  static const active = 'نَشِطٌ';
 }

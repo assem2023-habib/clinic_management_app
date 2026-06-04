@@ -105,13 +105,14 @@ class AppDrawer extends StatelessWidget {
       _MenuItem(icon: Icons.folder_rounded, title: AppStrings.medicalRecords, route: AppRoutes.medicalRecords),
       _MenuItem(icon: Icons.settings_rounded, title: AppStrings.settings, route: AppRoutes.settings),
       _MenuItem(icon: Icons.person_rounded, title: AppStrings.myProfile, route: AppRoutes.profile),
+      _MenuItem(icon: Icons.supervisor_account_rounded, title: AppStrings.supervisionRequests, route: AppRoutes.supervisionRequests),
     ];
 
     final roleRoutes = <UserRole, Set<String>>{
       UserRole.admin:        {AppRoutes.dashboard, AppRoutes.doctors, AppRoutes.patients, AppRoutes.appointments, AppRoutes.medicalRecords, AppRoutes.settings, AppRoutes.profile},
-      UserRole.doctor:       {AppRoutes.dashboard, AppRoutes.patients, AppRoutes.appointments, AppRoutes.medicalRecords, AppRoutes.settings, AppRoutes.profile},
+      UserRole.doctor:       {AppRoutes.dashboard, AppRoutes.patients, AppRoutes.appointments, AppRoutes.medicalRecords, AppRoutes.settings, AppRoutes.profile, AppRoutes.supervisionRequests},
       UserRole.receptionist: {AppRoutes.dashboard, AppRoutes.doctors, AppRoutes.patients, AppRoutes.appointments, AppRoutes.medicalRecords, AppRoutes.settings, AppRoutes.profile},
-      UserRole.patient:      {AppRoutes.dashboard, AppRoutes.doctors, AppRoutes.appointments, AppRoutes.medicalRecords, AppRoutes.settings, AppRoutes.profile},
+      UserRole.patient:      {AppRoutes.dashboard, AppRoutes.doctors, AppRoutes.appointments, AppRoutes.medicalRecords, AppRoutes.settings, AppRoutes.profile, AppRoutes.supervisionRequests},
     };
 
     final allowed = roleRoutes[role] ?? roleRoutes[UserRole.patient]!;
