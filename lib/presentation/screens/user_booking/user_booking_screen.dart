@@ -14,6 +14,7 @@ import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dar
 import 'package:clinic_management_app/presentation/screens/appointment_confirmation/confirmation_data.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/widgets/glass_card.dart';
+import 'package:clinic_management_app/presentation/widgets/appointments/ambient_background.dart';
 
 class UserBookingScreen extends StatefulWidget {
   final String doctorId;
@@ -81,10 +82,11 @@ class _UserBookingScreenState extends State<UserBookingScreen>
           appointmentRepository: RepositoryProvider.of<AppointmentRepository>(context),
         )..add(UserBookingLoad(widget.doctorId)),
         child: Scaffold(
-          backgroundColor: colors.background,
+          backgroundColor: Colors.transparent,
           extendBodyBehindAppBar: true,
           appBar: _buildAppBar(colors),
-          body: role != UserRole.patient
+          body: AmbientBackground(
+            child: role != UserRole.patient
               ? Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -156,6 +158,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
                     return const SizedBox.shrink();
                   },
                 ),
+        ),
         ),
       ),
     );
