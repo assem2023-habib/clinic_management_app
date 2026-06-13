@@ -557,9 +557,10 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
 
   Widget _buildDoctorList(
       AppColorSet colors, List<DoctorEntity> doctors, bool canManage) {
-    return ListView.builder(
+    return ListView.separated(
       padding: const EdgeInsets.fromLTRB(16, 10, 16, 100),
       itemCount: doctors.length,
+      separatorBuilder: (_, _) => const SizedBox(height: 16),
       itemBuilder: (_, i) {
         final doctor = doctors[i];
         return DoctorGlassCard(

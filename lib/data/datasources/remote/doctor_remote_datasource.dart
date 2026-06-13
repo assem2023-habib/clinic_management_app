@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:clinic_management_app/core/services/api_service.dart';
 import 'package:clinic_management_app/data/models/doctor_model.dart';
 import 'package:clinic_management_app/data/models/specialization_model.dart';
@@ -21,12 +22,14 @@ class DoctorRemoteDataSource {
       if (isActive != null) 'is_active': isActive,
     };
     final response = await _api.get('/doctors', queryParameters: queryParams);
+    debugPrint('📡 [DoctorRemoteDataSource] GET /doctors response: ${response.data}');
     final data = response.data['data'] as List<dynamic>? ?? [];
     return data.map((e) => DoctorModel.fromMap(e as Map<String, dynamic>)).toList();
   }
 
   Future<DoctorModel> getDoctorById(String id) async {
     final response = await _api.get('/doctors/$id');
+    debugPrint('📡 [DoctorRemoteDataSource] GET /doctors/$id response: ${response.data}');
     final data = response.data['data'] as Map<String, dynamic>;
     return DoctorModel.fromMap(data);
   }
