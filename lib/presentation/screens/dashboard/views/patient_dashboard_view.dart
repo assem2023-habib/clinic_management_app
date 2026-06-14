@@ -10,6 +10,7 @@ import 'package:clinic_management_app/presentation/widgets/dashboard/dashboard_g
 import 'package:clinic_management_app/presentation/widgets/dashboard/recent_appointments.dart';
 import 'package:clinic_management_app/presentation/widgets/dashboard/stat_card.dart';
 import 'package:clinic_management_app/presentation/widgets/animated_card.dart';
+import 'package:clinic_management_app/presentation/widgets/skeleton/dashboard_skeleton.dart';
 
 class PatientDashboardView extends StatelessWidget {
   const PatientDashboardView({super.key});
@@ -18,76 +19,101 @@ class PatientDashboardView extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
     return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AnimatedCard(index: 0, child: const DashboardGreeting()),
-          const SizedBox(height: 24),
-          BlocBuilder<DashboardBloc, DashboardState>(
-            builder: (context, state) {
-              if (state is DashboardLoaded) {
-                final d = state.data;
-                return Column(
-                  children: [
-                    _buildAppointmentsGrid(colors,
-                      d.appointments.upcoming ?? d.appointments.byStatus['confirmed'],
-                      d.appointments.byStatus['pending'],
-                      d.appointments.byStatus['completed'],
-                      d.appointments.byStatus['cancelled'] ?? d.appointments.byStatus['cancelled'],
-                    ),
-                    const SizedBox(height: 16),
-                    _buildClinicGrid(colors,
-                      d.doctors?.total,
-                      d.totalPrescriptions,
-                      d.ratings?.average,
-                    ),
-                  ],
-                );
-              }
-              return _buildAppointmentsGrid(colors, null, null, null, null);
-            },
-          ),
-          const SizedBox(height: 24),
-          AnimatedCard(
-            index: 2,
-            child: Column(
+      child: BlocBuilder<DashboardBloc, DashboardState>(
+        builder: (context, state) {
+          if (state is DashboardLoading || state is DashboardInitial) {
+            return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(AppStrings.quickActions, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
-                const SizedBox(height: 12),
-                Row(children: [
-                  Expanded(child: ActionButton(icon: Icons.calendar_month, label: AppStrings.myAppointments, color: colors.primary, onPressed: () => Navigator.pushNamed(context, AppRoutes.appointments))),
-                  const SizedBox(width: 12),
-                  Expanded(child: ActionButton(icon: Icons.folder, label: AppStrings.myRecords, color: colors.secondary, onPressed: () => Navigator.pushNamed(context, AppRoutes.medicalRecords))),
-                ]),
-                const SizedBox(height: 12),
-                Row(children: [
-                  Expanded(child: ActionButton(icon: Icons.person, label: AppStrings.myFile, color: colors.accent, onPressed: () => Navigator.pushNamed(context, AppRoutes.profile))),
-                  const SizedBox(width: 12),
-                  Expanded(child: ActionButton(icon: Icons.settings, label: AppStrings.settings, color: colors.primaryDark, onPressed: () => Navigator.pushNamed(context, AppRoutes.settings))),
-                ]),
-                const SizedBox(height: 12),
-                Row(children: [
-                  Expanded(child: ActionButton(icon: Icons.supervisor_account, label: AppStrings.supervisionRequests, color: colors.success, onPressed: () => Navigator.pushNamed(context, AppRoutes.supervisionRequests))),
-                  const SizedBox(width: 12),
-                  const Expanded(child: SizedBox()),
-                ]),
+                AnimatedCard(index: 0, child: const DashboardGreeting()),
+                const SizedBox(height: 24),
+                const DashboardSkeleton(),
               ],
-            ),
-          ),
-          const SizedBox(height: 24),
-          AnimatedCard(
-            index: 3,
-            child: Column(
+            );
+          }
+          if (state is DashboardError) {
+            return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(AppStrings.latestAppointments, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
-                const SizedBox(height: 12),
-                const RecentAppointments(),
+                AnimatedCard(index: 0, child: const DashboardGreeting()),
+                const SizedBox(height: 24),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
+                  child: Center(
+                    child: Text(
+                      state.message,
+                      style: TextStyle(color: colors.error, fontSize: 14),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
               ],
-            ),
-          ),
-        ],
+            );
+          }
+          if (state is DashboardLoaded) {
+            final d = state.data;
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AnimatedCard(index: 0, child: const DashboardGreeting()),
+                const SizedBox(height: 24),
+                _buildAppointmentsGrid(colors,
+                  d.appointments.upcoming ?? d.appointments.byStatus['confirmed'],
+                  d.appointments.byStatus['pending'],
+                  d.appointments.byStatus['completed'],
+                  d.appointments.byStatus['cancelled'] ?? d.appointments.byStatus['cancelled'],
+                ),
+                const SizedBox(height: 16),
+                _buildClinicGrid(colors,
+                  d.doctors?.total,
+                  d.totalPrescriptions,
+                  d.ratings?.average,
+                ),
+                const SizedBox(height: 24),
+                AnimatedCard(
+                  index: 2,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(AppStrings.quickActions, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+                      const SizedBox(height: 12),
+                      Row(children: [
+                        Expanded(child: ActionButton(icon: Icons.calendar_month, label: AppStrings.myAppointments, color: colors.primary, onPressed: () => Navigator.pushNamed(context, AppRoutes.appointments))),
+                        const SizedBox(width: 12),
+                        Expanded(child: ActionButton(icon: Icons.folder, label: AppStrings.myRecords, color: colors.secondary, onPressed: () => Navigator.pushNamed(context, AppRoutes.medicalRecords))),
+                      ]),
+                      const SizedBox(height: 12),
+                      Row(children: [
+                        Expanded(child: ActionButton(icon: Icons.person, label: AppStrings.myFile, color: colors.accent, onPressed: () => Navigator.pushNamed(context, AppRoutes.profile))),
+                        const SizedBox(width: 12),
+                        Expanded(child: ActionButton(icon: Icons.settings, label: AppStrings.settings, color: colors.primaryDark, onPressed: () => Navigator.pushNamed(context, AppRoutes.settings))),
+                      ]),
+                      const SizedBox(height: 12),
+                      Row(children: [
+                        Expanded(child: ActionButton(icon: Icons.supervisor_account, label: AppStrings.supervisionRequests, color: colors.success, onPressed: () => Navigator.pushNamed(context, AppRoutes.supervisionRequests))),
+                        const SizedBox(width: 12),
+                        const Expanded(child: SizedBox()),
+                      ]),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 24),
+                AnimatedCard(
+                  index: 3,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(AppStrings.latestAppointments, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+                      const SizedBox(height: 12),
+                      const RecentAppointments(),
+                    ],
+                  ),
+                ),
+              ],
+            );
+          }
+          return const SizedBox.shrink();
+        },
       ),
     );
   }
