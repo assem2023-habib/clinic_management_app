@@ -6,7 +6,6 @@ import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_state.dart';
-import 'package:clinic_management_app/presentation/widgets/appointments/ambient_background.dart';
 import 'package:clinic_management_app/presentation/widgets/appointments/appointment_card_skeleton.dart';
 import 'package:clinic_management_app/presentation/widgets/appointments/appointment_options_sheet.dart';
 import 'package:clinic_management_app/presentation/widgets/appointments/appointment_timeline_row.dart';
@@ -35,30 +34,28 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
 
   @override
   Widget build(BuildContext context) {
-    return AmbientBackground(
-      child: BlocBuilder<AppointmentBloc, AppointmentState>(
-        builder: (context, state) {
-          if (state is AppointmentLoading) {
-            return _buildSkeleton();
-          }
-          if (state is AppointmentLoaded) {
-            return _buildContent(state.appointments);
-          }
-          if (state is AppointmentError) {
-            return Center(
-              child: Text(state.message,
-                style: TextStyle(color: AppColors.of(context).error, fontSize: 14)),
-            );
-          }
-          return _buildContent([]);
-        },
-      ),
+    return BlocBuilder<AppointmentBloc, AppointmentState>(
+      builder: (context, state) {
+        if (state is AppointmentLoading) {
+          return _buildSkeleton();
+        }
+        if (state is AppointmentLoaded) {
+          return _buildContent(state.appointments);
+        }
+        if (state is AppointmentError) {
+          return Center(
+            child: Text(state.message,
+              style: TextStyle(color: AppColors.of(context).error, fontSize: 14)),
+          );
+        }
+        return _buildContent([]);
+      },
     );
   }
 
   Widget _buildSkeleton() {
     return ListView.builder(
-      padding: const EdgeInsets.fromLTRB(20, 60, 20, 100),
+      padding: const EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.xl, AppSpacing.md, 100),
       itemCount: 5,
       itemBuilder: (_, i) => Padding(
         padding: EdgeInsets.only(top: i == 0 ? 0 : 12, bottom: 20),
@@ -122,7 +119,7 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
 
   Widget _buildSearchBar(AppColorSet c) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(AppSpacing.md, 48, AppSpacing.md, AppSpacing.sm),
+      padding: const EdgeInsets.fromLTRB(AppSpacing.md, 14, AppSpacing.md, AppSpacing.sm),
       child: Container(
         height: 46,
         decoration: BoxDecoration(

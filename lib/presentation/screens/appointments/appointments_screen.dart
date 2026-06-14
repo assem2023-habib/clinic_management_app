@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
-import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
 import 'package:clinic_management_app/presentation/screens/appointment_confirmation/confirmation_data.dart';
-import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
 import 'package:clinic_management_app/presentation/widgets/appointment_form_dialog.dart';
+import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_event.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_bloc.dart';
@@ -37,11 +36,24 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
   Widget build(BuildContext context) {
     final role = context.watch<AuthCubit>().state.role;
     final isDoctor = role == UserRole.doctor;
+
     return AppShell(
-      title: AppStrings.appointments,
+      showDrawer: true,
       currentRoute: AppRoutes.appointments,
-      header: isDoctor ? const DrAppointmentsHeader() : null,
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+      extendBody: true,
+      useGlassAppBar: !isDoctor,
+      showParticleBg: true,
+      starMode: true,
+      particleCount: 60,
+      glassTitle: AppStrings.myAppointments,
+      customHeader: isDoctor ? const DrAppointmentsHeader() : null,
+      body: switch (role) {
+        UserRole.admin => const AdminAppointmentsView(),
+        UserRole.doctor => const DoctorAppointmentsView(),
+        UserRole.receptionist => const ReceptionistAppointmentsView(),
+        UserRole.patient => const PatientAppointmentsView(),
+        null => const AdminAppointmentsView(),
+      },
       floatingActionButton: switch (role) {
         UserRole.admin || UserRole.receptionist => FloatingActionButton(
           onPressed: () async {
@@ -53,13 +65,6 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
           child: const Icon(Icons.add),
         ),
         _ => null,
-      },
-      body: switch (role) {
-        UserRole.admin => const AdminAppointmentsView(),
-        UserRole.doctor => const DoctorAppointmentsView(),
-        UserRole.receptionist => const ReceptionistAppointmentsView(),
-        UserRole.patient => const PatientAppointmentsView(),
-        null => const AdminAppointmentsView(),
       },
     );
   }

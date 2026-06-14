@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -12,10 +11,9 @@ import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_event.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_state.dart';
-import 'package:clinic_management_app/presentation/widgets/app_drawer.dart';
 import 'package:clinic_management_app/presentation/widgets/doctor_form_dialog.dart';
 import 'package:clinic_management_app/presentation/widgets/doctor_glass_card.dart';
-import 'package:clinic_management_app/presentation/widgets/particle_background.dart';
+import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
 
 class DoctorsScreen extends StatefulWidget {
   const DoctorsScreen({super.key});
@@ -331,45 +329,39 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
     final role = context.watch<AuthCubit>().state.role;
     final canManage = role == UserRole.admin || role == UserRole.receptionist;
 
-    return Scaffold(
-      extendBodyBehindAppBar: true,
+    return AppShell(
+      showDrawer: true,
       extendBody: true,
-      drawer: const AppDrawer(),
-      body: Stack(
+      useGlassAppBar: true,
+      glassTitle: 'البحث عن طبيب',
+      showParticleBg: true,
+      body: Column(
         children: [
-          const ParticleBackground(),
-          SafeArea(
-            child: Column(
-              children: [
-                _buildGlassAppBar(colors),
-                _buildSearchBar(colors),
-                _buildCategoryChips(colors),
-                Expanded(
-                  child: BlocBuilder<DoctorBloc, DoctorState>(
-                    builder: (context, state) {
-                      if (state is DoctorLoading) {
-                        return const GlassSkeletonList();
-                      }
-                      if (state is DoctorLoaded) {
-                        final filtered = _selectedCategory == 'all'
-                            ? state.doctors
-                            : state.doctors.where((d) =>
-                                d.specialty.contains(_selectedCategory)).toList();
-                        if (filtered.isEmpty) {
-                          return _buildEmptyState(colors);
-                        }
-                        return _buildDoctorList(colors, filtered, canManage);
-                      }
-                      if (state is DoctorError) {
-                        return Center(
-                          child: Text(state.message, style: TextStyle(color: colors.error)),
-                        );
-                      }
-                      return _buildEmptyState(colors);
-                    },
-                  ),
-                ),
-              ],
+          _buildSearchBar(colors),
+          _buildCategoryChips(colors),
+          Expanded(
+            child: BlocBuilder<DoctorBloc, DoctorState>(
+              builder: (context, state) {
+                if (state is DoctorLoading) {
+                  return const GlassSkeletonList();
+                }
+                if (state is DoctorLoaded) {
+                  final filtered = _selectedCategory == 'all'
+                      ? state.doctors
+                      : state.doctors.where((d) =>
+                          d.specialty.contains(_selectedCategory)).toList();
+                  if (filtered.isEmpty) {
+                    return _buildEmptyState(colors);
+                  }
+                  return _buildDoctorList(colors, filtered, canManage);
+                }
+                if (state is DoctorError) {
+                  return Center(
+                    child: Text(state.message, style: TextStyle(color: colors.error)),
+                  );
+                }
+                return _buildEmptyState(colors);
+              },
             ),
           ),
         ],
@@ -381,67 +373,6 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
               child: const Icon(Icons.add, color: Colors.white),
             )
           : null,
-    );
-  }
-
-  Widget _buildGlassAppBar(AppColorSet colors) {
-    return ClipRect(
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-        child: Container(
-          padding: EdgeInsets.only(
-            left: AppSpacing.md,
-            right: AppSpacing.md,
-            top: MediaQuery.of(context).padding.top + 4,
-            bottom: 12,
-          ),
-          decoration: BoxDecoration(
-            color: const Color(0xFF002111).withValues(alpha: 0.55),
-            border: Border(bottom: BorderSide(color: Colors.white.withValues(alpha: 0.06))),
-          ),
-          child: Row(
-            children: [
-              Builder(
-                builder: (ctx) => GestureDetector(
-                  onTap: () => Scaffold.of(ctx).openDrawer(),
-                  child: Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF012B17),
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
-                    ),
-                    child: const Icon(Icons.menu_rounded, color: Colors.white, size: 22),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  'البحث عن طبيب',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
-                    color: colors.textPrimary,
-                  ),
-                ),
-              ),
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFF006D44), Color(0xFF00CA73)],
-                  ),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const Icon(Icons.person, color: Colors.white, size: 20),
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 
