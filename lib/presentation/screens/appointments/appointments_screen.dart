@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
@@ -40,7 +41,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
       title: AppStrings.appointments,
       currentRoute: AppRoutes.appointments,
       header: isDoctor ? const DrAppointmentsHeader() : null,
-      padding: isDoctor ? EdgeInsets.zero : null,
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
       floatingActionButton: switch (role) {
         UserRole.admin || UserRole.receptionist => FloatingActionButton(
           onPressed: () async {

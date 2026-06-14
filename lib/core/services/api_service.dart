@@ -41,14 +41,14 @@ class ApiService {
         onError: (error, handler) async {
         if (error.response?.statusCode == 429) {
           onRateLimit?.call();
-          handler.next(error);
+          handler.resolve(Response(requestOptions: error.requestOptions, statusCode: 429, data: {}));
           return;
         }
         if (error.type == DioExceptionType.connectionError ||
             error.type == DioExceptionType.connectionTimeout ||
             error.type == DioExceptionType.receiveTimeout) {
           onNetworkError?.call();
-          handler.next(error);
+          handler.resolve(Response(requestOptions: error.requestOptions, statusCode: 0, data: {}));
           return;
         }
         if (error.response?.statusCode == 401) {
@@ -66,18 +66,18 @@ class ApiService {
           }
           await clearTokens();
           onSessionExpired?.call();
-          handler.next(error);
+          handler.resolve(Response(requestOptions: error.requestOptions, statusCode: 401, data: {}));
           return;
         }
         if (error.response?.statusCode == 403) {
           onForbidden?.call();
-          handler.next(error);
+          handler.resolve(Response(requestOptions: error.requestOptions, statusCode: 403, data: {}));
           return;
         }
         final statusCode = error.response?.statusCode;
         if (statusCode != null && statusCode >= 500 && statusCode < 600) {
           onServerError?.call();
-          handler.next(error);
+          handler.resolve(Response(requestOptions: error.requestOptions, statusCode: statusCode, data: {}));
           return;
         }
         handler.next(error);

@@ -101,7 +101,7 @@ class AppDrawer extends StatelessWidget {
       _MenuItem(icon: Icons.dashboard_rounded, title: AppStrings.dashboard, route: AppRoutes.dashboard),
       _MenuItem(icon: Icons.local_hospital_rounded, title: AppStrings.doctors, route: AppRoutes.doctors),
       _MenuItem(icon: Icons.people_rounded, title: AppStrings.patients, route: AppRoutes.patients),
-      _MenuItem(icon: Icons.calendar_month_rounded, title: AppStrings.appointments, route: AppRoutes.appointments),
+      _MenuItem(icon: Icons.calendar_month_rounded, title: AppStrings.myAppointments, route: AppRoutes.appointments),
       _MenuItem(icon: Icons.folder_rounded, title: AppStrings.medicalRecords, route: AppRoutes.medicalRecords),
       _MenuItem(icon: Icons.settings_rounded, title: AppStrings.settings, route: AppRoutes.settings),
       _MenuItem(icon: Icons.person_rounded, title: AppStrings.myProfile, route: AppRoutes.profile),
