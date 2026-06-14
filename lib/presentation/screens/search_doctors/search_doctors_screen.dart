@@ -123,7 +123,6 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: _buildBottomNav(),
     );
   }
 
@@ -302,81 +301,5 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
     );
   }
 
-  Widget _buildBottomNav() {
-    return Container(
-      decoration: BoxDecoration(
-        color: const Color(0xFF032515).withValues(alpha: 0.4),
-        border: Border(
-          top: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
-        ),
-      ),
-      child: SafeArea(
-        top: false,
-        child: SizedBox(
-          height: 80,
-          child: Row(
-            children: [
-              _bottomNavItem(0, Icons.home_rounded, AppStrings.sdBottomHome),
-              _bottomNavItem(1, Icons.search_rounded, AppStrings.sdBottomSearch, isActive: true),
-              _bottomNavItem(2, Icons.calendar_today_rounded, AppStrings.sdBottomAppointments),
-              _bottomNavItem(3, Icons.person_rounded, AppStrings.sdBottomProfile),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 
-  Widget _bottomNavItem(int index, IconData icon, String label, {bool isActive = false}) {
-    return Expanded(
-      child: GestureDetector(
-        onTap: () => _onTabSelected(index),
-        child: Container(
-          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
-          decoration: BoxDecoration(
-            color: isActive
-                ? const Color(0xFF006D44)
-                : Colors.transparent,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                icon,
-                size: 24,
-                color: isActive
-                    ? const Color(0xFF93ECB8)
-                    : const Color(0xFFBEC9BF),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  color: isActive
-                      ? const Color(0xFF93ECB8)
-                      : const Color(0xFFBEC9BF),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _onTabSelected(int index) {
-    switch (index) {
-      case 0:
-        Navigator.pushReplacementNamed(context, AppRoutes.dashboard);
-      case 1:
-        break;
-      case 2:
-        Navigator.pushReplacementNamed(context, AppRoutes.appointments);
-      case 3:
-        Navigator.pushReplacementNamed(context, AppRoutes.profile);
-    }
-  }
 }
