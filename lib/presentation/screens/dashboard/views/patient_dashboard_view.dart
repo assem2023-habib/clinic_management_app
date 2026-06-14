@@ -3,12 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/presentation/blocs/dashboard/dashboard_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/dashboard/dashboard_state.dart';
 import 'package:clinic_management_app/presentation/widgets/dashboard/action_button.dart';
 import 'package:clinic_management_app/presentation/widgets/dashboard/dashboard_greeting.dart';
+import 'package:clinic_management_app/presentation/widgets/dashboard/glass_stat_card.dart';
 import 'package:clinic_management_app/presentation/widgets/dashboard/recent_appointments.dart';
-import 'package:clinic_management_app/presentation/widgets/dashboard/stat_card.dart';
 import 'package:clinic_management_app/presentation/widgets/animated_card.dart';
 import 'package:clinic_management_app/presentation/widgets/skeleton/dashboard_skeleton.dart';
 
@@ -52,26 +53,24 @@ class PatientDashboardView extends StatelessWidget {
           }
           if (state is DashboardLoaded) {
             final d = state.data;
+            final a = d.appointments;
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AnimatedCard(index: 0, child: const DashboardGreeting()),
                 const SizedBox(height: 24),
-                _buildAppointmentsGrid(colors,
-                  d.appointments.upcoming ?? d.appointments.byStatus['confirmed'],
-                  d.appointments.byStatus['pending'],
-                  d.appointments.byStatus['completed'],
-                  d.appointments.byStatus['cancelled'] ?? d.appointments.byStatus['cancelled'],
-                ),
-                const SizedBox(height: 16),
-                _buildClinicGrid(colors,
-                  d.doctors?.total,
-                  d.totalPrescriptions,
-                  d.ratings?.average,
-                ),
+                _sectionTitle(colors, AppStrings.appointments),
+                const SizedBox(height: 12),
+                _buildAppointmentsGrid(colors, a.total, a.upcoming,
+                    a.byStatus['completed'], a.byStatus['cancelled']),
+                const SizedBox(height: 24),
+                _sectionTitle(colors, AppStrings.myFile),
+                const SizedBox(height: 12),
+                _buildMedicalGrid(colors,
+                    d.doctors?.total, d.totalMedicalRecords, d.totalPrescriptions),
                 const SizedBox(height: 24),
                 AnimatedCard(
-                  index: 2,
+                  index: 6,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -99,7 +98,7 @@ class PatientDashboardView extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 AnimatedCard(
-                  index: 3,
+                  index: 7,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -118,61 +117,57 @@ class PatientDashboardView extends StatelessWidget {
     );
   }
 
-  Widget _buildAppointmentsGrid(AppColorSet colors, int? upcoming, int? pending, int? completed, int? cancelled) {
-    return AnimatedCard(
-      index: 1,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _sectionTitle(AppColorSet colors, String title) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+      child: Text(
+        title,
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w700,
+          color: colors.textPrimary,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAppointmentsGrid(AppColorSet colors, int? total, int? upcoming, int? completed, int? cancelled) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+      child: GridView.count(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        crossAxisCount: 2,
+        crossAxisSpacing: 12,
+        mainAxisSpacing: 12,
+        childAspectRatio: 1.4,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 12),
-            child: Text(AppStrings.appointments, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colors.textPrimary)),
-          ),
-          GridView.count(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisCount: 2,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
-            childAspectRatio: 1.5,
-            children: [
-              StatCard(title: AppStrings.upcomingAppts, icon: Icons.event, color: colors.primary, value: upcoming?.toString()),
-              StatCard(title: AppStrings.pendingAppts, icon: Icons.pending_actions, color: colors.warning, value: pending?.toString()),
-              StatCard(title: AppStrings.completedAppts, icon: Icons.check_circle, color: colors.success, value: completed?.toString()),
-              StatCard(title: AppStrings.cancelledAppts, icon: Icons.cancel, color: colors.error, value: cancelled?.toString()),
-            ],
-          ),
+          GlassStatCard(index: 0, title: AppStrings.totalAppts, icon: Icons.event, color: colors.primary, value: total?.toString()),
+          GlassStatCard(index: 1, title: AppStrings.upcomingAppts, icon: Icons.schedule, color: colors.warning, value: upcoming?.toString()),
+          GlassStatCard(index: 2, title: AppStrings.completedAppts, icon: Icons.check_circle, color: colors.success, value: completed?.toString()),
+          GlassStatCard(index: 3, title: AppStrings.cancelledAppts, icon: Icons.cancel, color: colors.error, value: cancelled?.toString()),
         ],
       ),
     );
   }
 
-  Widget _buildClinicGrid(AppColorSet colors, int? doctors, int? prescriptions, double? avgRating) {
-    return AnimatedCard(
-      index: 1,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildMedicalGrid(AppColorSet colors, int? doctors, int? records, int? prescriptions) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+      child: GridView.count(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        crossAxisCount: 3,
+        crossAxisSpacing: 12,
+        mainAxisSpacing: 12,
+        childAspectRatio: 1.0,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 12),
-            child: Text('العيادة', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colors.textPrimary)),
-          ),
-          GridView.count(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisCount: 2,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
-            childAspectRatio: 1.5,
-            children: [
-              StatCard(title: AppStrings.totalDoctors, icon: Icons.medical_services, color: colors.primary, value: doctors?.toString()),
-              StatCard(title: AppStrings.totalPrescriptions, icon: Icons.description, color: colors.secondary, value: prescriptions?.toString()),
-              StatCard(title: AppStrings.averageRating, icon: Icons.star, color: colors.warning, value: avgRating?.toStringAsFixed(1)),
-              StatCard(title: AppStrings.medicalRecords, icon: Icons.folder, color: colors.accent, value: null),
-            ],
-          ),
+          GlassStatCard(index: 4, title: AppStrings.totalDoctors, icon: Icons.medical_services, color: colors.primary, value: doctors?.toString()),
+          GlassStatCard(index: 5, title: AppStrings.medicalRecords, icon: Icons.folder, color: colors.accent, value: records?.toString()),
+          GlassStatCard(index: 6, title: AppStrings.totalPrescriptions, icon: Icons.description, color: colors.secondary, value: prescriptions?.toString()),
         ],
       ),
     );
   }
 }
+

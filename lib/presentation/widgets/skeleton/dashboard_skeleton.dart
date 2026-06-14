@@ -10,36 +10,32 @@ class DashboardSkeleton extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
     return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.md, AppSpacing.md, AppSpacing.lg),
+      padding: const EdgeInsets.fromLTRB(AppSpacing.md, 0, AppSpacing.md, AppSpacing.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _greetingSkeleton(colors),
-          const SizedBox(height: 24),
-          _cardSkeleton(
-            colors,
-            child: GridView.count(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 2,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              childAspectRatio: 1.5,
-              children: List.generate(4, (_) => _statSkeleton(colors)),
-            ),
+          SkeletonLine(width: 200, height: 18),
+          const SizedBox(height: 12),
+          GridView.count(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 2,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            childAspectRatio: 1.4,
+            children: List.generate(4, (_) => _statSkeleton(colors)),
           ),
-          const SizedBox(height: 16),
-          _cardSkeleton(
-            colors,
-            child: GridView.count(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 2,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              childAspectRatio: 1.5,
-              children: List.generate(4, (_) => _statSkeleton(colors)),
-            ),
+          const SizedBox(height: 24),
+          SkeletonLine(width: 160, height: 18),
+          const SizedBox(height: 12),
+          GridView.count(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 3,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            childAspectRatio: 1.0,
+            children: List.generate(3, (_) => _statSkeleton(colors)),
           ),
           const SizedBox(height: 24),
           _quickActionsSkeleton(colors),
@@ -59,17 +55,6 @@ class DashboardSkeleton extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _greetingSkeleton(AppColorSet colors) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SkeletonLine(width: 220, height: 26),
-        const SizedBox(height: 6),
-        SkeletonLine(width: 100, height: 14),
-      ],
     );
   }
 
@@ -160,3 +145,4 @@ class DashboardSkeleton extends StatelessWidget {
     );
   }
 }
+

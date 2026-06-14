@@ -14,9 +14,9 @@ UsersStats _usersStats(Map<String, dynamic>? m) => UsersStats(
 );
 
 AppointmentsStats _appointmentsStats(Map<String, dynamic>? m) {
-  final byStatusRaw = m?['by_status'] as Map<String, dynamic>?;
-  final byStatus = <String, int>{};
-  if (byStatusRaw != null) {
+  final Map<String, int> byStatus = {};
+  final byStatusRaw = m?['by_status'];
+  if (byStatusRaw is Map) {
     for (final e in byStatusRaw.entries) {
       byStatus[e.key] = (e.value as num?)?.toInt() ?? 0;
     }
