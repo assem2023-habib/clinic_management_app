@@ -486,6 +486,9 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
 
   Widget _buildDoctorList(
       AppColorSet colors, List<DoctorEntity> doctors, bool canManage) {
+    final role = context.watch<AuthCubit>().state.role;
+    final isPatient = role == UserRole.patient;
+
     return ListView.separated(
       padding: const EdgeInsets.fromLTRB(16, 10, 16, 100),
       itemCount: doctors.length,
@@ -495,12 +498,19 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
         return DoctorGlassCard(
           doctor: doctor,
           animDelay: Duration(milliseconds: 80 * i),
+          showSupervision: isPatient,
           onBook: canManage
               ? null
               : () => Navigator.pushNamed(
                   context, AppRoutes.userBooking, arguments: doctor.id),
           onMore: canManage
               ? () => _openSheet(colors, doctor)
+              : null,
+          onSupervisionRequest: isPatient
+              ? () {
+                  // TODO: Wire supervision request via SupervisionBloc
+                  showAppToast(context, AppStrings.supervisionRequestSent);
+                }
               : null,
         );
       },

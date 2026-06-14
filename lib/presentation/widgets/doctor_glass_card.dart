@@ -10,7 +10,9 @@ class DoctorGlassCard extends StatefulWidget {
   final Duration animDelay;
   final VoidCallback? onBook;
   final VoidCallback? onMore;
+  final VoidCallback? onSupervisionRequest;
   final bool showMore;
+  final bool showSupervision;
 
   const DoctorGlassCard({
     super.key,
@@ -18,7 +20,9 @@ class DoctorGlassCard extends StatefulWidget {
     this.animDelay = Duration.zero,
     this.onBook,
     this.onMore,
+    this.onSupervisionRequest,
     this.showMore = true,
+    this.showSupervision = false,
   });
 
   @override
@@ -31,6 +35,9 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
   late AnimationController _entranceCtrl;
   late Animation<double> _opacity;
   late Animation<Offset> _slide;
+  late AnimationController _supervisionCtrl;
+  late Animation<double> _supervisionScale;
+  late Animation<double> _supervisionFade;
 
   @override
   void initState() {
@@ -44,14 +51,26 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
       begin: const Offset(0, 0.3),
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _entranceCtrl, curve: Curves.easeOutCubic));
+
+    _supervisionCtrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+    _supervisionScale = CurvedAnimation(parent: _supervisionCtrl, curve: Curves.elasticOut);
+    _supervisionFade = CurvedAnimation(parent: _supervisionCtrl, curve: Curves.easeOut);
+
     Future.delayed(widget.animDelay, () {
       if (mounted) _entranceCtrl.forward();
+    });
+    Future.delayed(widget.animDelay + const Duration(milliseconds: 300), () {
+      if (mounted && widget.showSupervision) _supervisionCtrl.forward();
     });
   }
 
   @override
   void dispose() {
     _entranceCtrl.dispose();
+    _supervisionCtrl.dispose();
     super.dispose();
   }
 
@@ -255,54 +274,154 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
 
   Widget _buildActions() {
     final colors = AppColors.of(context);
+    final status = widget.doctor.supervisionRequestStatus;
 
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Expanded(
-          child: GestureDetector(
-            onTapDown: (_) {},
-            onTapUp: (_) => widget.onBook?.call(),
-            child: Container(
-              height: 48,
-              decoration: BoxDecoration(
-                color: colors.primaryDark,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: colors.primaryDark.withValues(alpha: 0.35),
-                    blurRadius: 14,
+        Row(
+          children: [
+            Expanded(
+              child: GestureDetector(
+                onTapDown: (_) {},
+                onTapUp: (_) => widget.onBook?.call(),
+                child: Container(
+                  height: 48,
+                  decoration: BoxDecoration(
+                    color: colors.primaryDark,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: colors.primaryDark.withValues(alpha: 0.35),
+                        blurRadius: 14,
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                AppStrings.sdBookAppointment,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  color: colors.primaryLight,
+                  alignment: Alignment.center,
+                  child: Text(
+                    AppStrings.sdBookAppointment,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: colors.primaryLight,
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
-        if (widget.showMore) ...[
-          const SizedBox(width: 10),
-          GestureDetector(
-            onTap: widget.onMore,
-            child: Container(
-              width: 48,
-              height: 48,
-              decoration: BoxDecoration(
-                color: const Color(0xFF032515).withValues(alpha: 0.45),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
+            if (widget.showMore) ...[
+              const SizedBox(width: 10),
+              GestureDetector(
+                onTap: widget.onMore,
+                child: Container(
+                  width: 48,
+                  height: 48,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF032515).withValues(alpha: 0.45),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
+                  ),
+                  child: Icon(Icons.more_vert, color: colors.textPrimary),
+                ),
               ),
-              child: Icon(Icons.more_vert, color: colors.textPrimary),
+            ],
+          ],
+        ),
+        if (widget.showSupervision) ...[
+          const SizedBox(height: 10),
+          FadeTransition(
+            opacity: _supervisionFade,
+            child: ScaleTransition(
+              scale: _supervisionScale,
+              child: _buildSupervisionButton(colors, status),
             ),
           ),
         ],
       ],
+    );
+  }
+
+  Widget _buildSupervisionButton(AppColorSet colors, String? status) {
+    final bool hasActiveRequest = status == 'approved';
+    final bool hasPendingRequest = status == 'pending';
+    final bool hasRejectedRequest = status == 'rejected';
+    final bool hasCancelledRequest = status == 'cancelled';
+
+    Color bgColor;
+    String label;
+    VoidCallback? onTap;
+
+    if (hasActiveRequest) {
+      bgColor = colors.primary.withValues(alpha: 0.15);
+      label = AppStrings.supervisingYou;
+      onTap = null;
+    } else if (hasPendingRequest) {
+      bgColor = Colors.amber.withValues(alpha: 0.15);
+      label = AppStrings.supervisionPending;
+      onTap = null;
+    } else if (hasRejectedRequest) {
+      bgColor = colors.error.withValues(alpha: 0.1);
+      label = AppStrings.requestAgain;
+      onTap = widget.onSupervisionRequest;
+    } else if (hasCancelledRequest) {
+      bgColor = colors.textSecondary.withValues(alpha: 0.1);
+      label = AppStrings.requestSupervision;
+      onTap = widget.onSupervisionRequest;
+    } else {
+      bgColor = colors.secondary.withValues(alpha: 0.15);
+      label = AppStrings.requestSupervision;
+      onTap = widget.onSupervisionRequest;
+    }
+
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 250),
+        height: 42,
+        decoration: BoxDecoration(
+          color: bgColor,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: hasActiveRequest
+                ? colors.primary.withValues(alpha: 0.3)
+                : hasPendingRequest
+                    ? Colors.amber.withValues(alpha: 0.3)
+                    : Colors.white.withValues(alpha: 0.06),
+          ),
+        ),
+        alignment: Alignment.center,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              hasActiveRequest
+                  ? Icons.shield_rounded
+                  : hasPendingRequest
+                      ? Icons.hourglass_top_rounded
+                      : Icons.person_add_alt_1_rounded,
+              size: 16,
+              color: hasActiveRequest
+                  ? colors.primary
+                  : hasPendingRequest
+                      ? Colors.amber.shade300
+                      : colors.textPrimary,
+            ),
+            const SizedBox(width: 6),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: hasActiveRequest
+                    ? colors.primary
+                    : hasPendingRequest
+                        ? Colors.amber.shade300
+                        : colors.textPrimary,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

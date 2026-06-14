@@ -4,7 +4,6 @@ import 'package:clinic_management_app/data/models/doctor_schedule_model.dart';
 import 'package:clinic_management_app/data/models/review_model.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
 import 'package:clinic_management_app/domain/entities/specialization_entity.dart';
-import 'package:clinic_management_app/domain/entities/review_entity.dart';
 
 class DoctorModel extends DoctorEntity {
   const DoctorModel({
@@ -32,6 +31,7 @@ class DoctorModel extends DoctorEntity {
     super.rating,
     super.reviewsCount,
     super.recentReviews = const [],
+    super.supervisionRequestStatus,
   });
 
   factory DoctorModel.fromMap(Map<String, dynamic> map) {
@@ -57,6 +57,7 @@ class DoctorModel extends DoctorEntity {
     double? ratingVal;
     int? reviewsCountVal;
     List<ReviewModel> recentReviewsVal = const [];
+    String? supervisionRequestStatus;
 
     final ratingMap = source['rating'];
     if (ratingMap != null) {
@@ -71,6 +72,11 @@ class DoctorModel extends DoctorEntity {
       } else if (ratingMap is num) {
         ratingVal = ratingMap.toDouble();
       }
+    }
+
+    final sr = source['supervision_request'] as Map<String, dynamic>?;
+    if (sr != null && sr['has_request'] == true) {
+      supervisionRequestStatus = sr['status'] as String?;
     }
 
     return DoctorModel(
@@ -98,6 +104,7 @@ class DoctorModel extends DoctorEntity {
       rating: ratingVal,
       reviewsCount: reviewsCountVal,
       recentReviews: recentReviewsVal,
+      supervisionRequestStatus: supervisionRequestStatus,
     );
   }
 }

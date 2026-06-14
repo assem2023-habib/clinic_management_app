@@ -674,4 +674,10 @@ class AppStrings {
   static const noPendingRequests = 'لا تُوجَدُ طَلَبَاتٌ مُعَلَّقَةٌ';
   static const pending = 'مُعَلَّقٌ';
   static const active = 'نَشِطٌ';
+
+  // Doctor Glass Card Supervision
+  static const supervisingYou = 'مُشْرِفٌ عَلَيْكَ';
+  static const supervisionPending = 'قَيْدُ المُرَاجَعَةِ';
+  static const supervisionRejected = 'تَمَّ الرَّفْضُ';
+  static const requestAgain = 'إِعَادَةُ الطَّلَبِ';
 }

@@ -20,6 +20,7 @@ class DoctorEntity extends UserEntity {
   final String? education;
   final int? patientsCount;
   final int? surgeriesCount;
+  final String? supervisionRequestStatus;
 
   const DoctorEntity({
     required super.id,
@@ -55,6 +56,7 @@ class DoctorEntity extends UserEntity {
     this.education,
     this.patientsCount,
     this.surgeriesCount,
+    this.supervisionRequestStatus,
   });
 
   String get name => fullName;
@@ -68,6 +70,7 @@ class DoctorEntity extends UserEntity {
     int? experienceMonths,
     List<DoctorScheduleEntity> schedules = const [],
     List<ReviewEntity> recentReviews = const [],
+    String? supervisionRequestStatus,
   }) {
     return DoctorEntity(
       id: user.id,
@@ -92,6 +95,7 @@ class DoctorEntity extends UserEntity {
       experienceMonths: experienceMonths,
       schedules: schedules,
       recentReviews: recentReviews,
+      supervisionRequestStatus: supervisionRequestStatus,
     );
   }
 
@@ -130,6 +134,7 @@ class DoctorEntity extends UserEntity {
     String? education,
     int? patientsCount,
     int? surgeriesCount,
+    String? supervisionRequestStatus,
   }) {
     return DoctorEntity(
       id: id ?? this.id,
@@ -165,6 +170,7 @@ class DoctorEntity extends UserEntity {
       education: education ?? this.education,
       patientsCount: patientsCount ?? this.patientsCount,
       surgeriesCount: surgeriesCount ?? this.surgeriesCount,
+      supervisionRequestStatus: supervisionRequestStatus ?? this.supervisionRequestStatus,
     );
   }
 
@@ -186,6 +192,7 @@ class DoctorEntity extends UserEntity {
     education,
     patientsCount,
     surgeriesCount,
+    supervisionRequestStatus,
   ];
 }
 
