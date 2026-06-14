@@ -395,6 +395,7 @@ class AppStrings {
   static const roleSelectionSystemName = 'نِظَامُ إِدَارَةِ العِيَادَةِ';
 
   // Rating Screen
+  static const appRatings = 'تقييمات التطبيق';
   static const ratingsTitle = 'التقييمات';
   static const noReviews = 'لا توجد مراجعات';
   static const noMoreReviews = 'لا توجد مراجعات إضافية';

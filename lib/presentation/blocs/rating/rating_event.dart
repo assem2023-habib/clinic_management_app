@@ -11,9 +11,10 @@ abstract class RatingEvent extends Equatable {
 class RatingLoad extends RatingEvent {
   final String? doctorId;
   final String? raterId;
-  const RatingLoad({this.doctorId, this.raterId});
+  final List<String>? types;
+  const RatingLoad({this.doctorId, this.raterId, this.types});
   @override
-  List<Object?> get props => [doctorId, raterId];
+  List<Object?> get props => [doctorId, raterId, types];
 }
 
 class RatingFilterChanged extends RatingEvent {

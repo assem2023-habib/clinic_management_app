@@ -26,11 +26,15 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
       if (repository != null) {
         final response = await repository!.getAllRatings(filter: RatingFilter(
           raterId: event.raterId,
+          types: event.types,
           limit: 100,
         ));
         ratings = response.ratings;
       } else {
-        ratings = _mockRatings;
+        ratings = _mockRatings.where((r) {
+          if (event.types != null) return event.types!.contains(r.type);
+          return true;
+        }).toList();
       }
       final dist = _computeDistribution(ratings);
       final avg = _computeAverage(ratings);

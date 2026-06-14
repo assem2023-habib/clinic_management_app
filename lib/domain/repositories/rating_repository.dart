@@ -2,6 +2,7 @@ import 'package:clinic_management_app/domain/entities/rating_entity.dart';
 
 class RatingFilter {
   final String? type;
+  final List<String>? types;
   final String? raterId;
   final String? rateableId;
   final String? rateableType;
@@ -11,6 +12,7 @@ class RatingFilter {
 
   const RatingFilter({
     this.type,
+    this.types,
     this.raterId,
     this.rateableId,
     this.rateableType,
@@ -21,7 +23,11 @@ class RatingFilter {
 
   Map<String, dynamic> toQueryParams() {
     final params = <String, dynamic>{};
-    if (type != null) params['type'] = type;
+    if (types != null && types!.isNotEmpty) {
+      params['type'] = types;
+    } else if (type != null) {
+      params['type'] = type;
+    }
     if (raterId != null) params['rater_id'] = raterId;
     if (rateableId != null) params['rateable_id'] = rateableId;
     if (rateableType != null) params['rateable_type'] = rateableType;

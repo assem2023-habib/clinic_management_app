@@ -161,8 +161,13 @@ class _MyAppState extends State<MyApp> {
                 case AppRoutes.deleteAccount:
                   screen = const DeleteAccountScreen();
                 case AppRoutes.rating:
-                  final ratingDoctorId = settings.arguments as String?;
-                  screen = RatingScreen(doctorId: ratingDoctorId);
+                  final args = settings.arguments;
+                  if (args is Map && args['isAppRating'] == true) {
+                    screen = const RatingScreen(isAppRating: true);
+                  } else {
+                    final ratingDoctorId = args as String?;
+                    screen = RatingScreen(doctorId: ratingDoctorId);
+                  }
                 case AppRoutes.searchDoctors:
                   screen = const SearchDoctorsScreen();
                 case AppRoutes.services:

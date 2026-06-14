@@ -6,6 +6,7 @@ import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/rating/rating_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/rating/rating_event.dart';
 import 'package:clinic_management_app/presentation/blocs/rating/rating_state.dart';
+import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
 import 'package:clinic_management_app/presentation/widgets/empty_data/empty_data_widget.dart';
 import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
 import 'package:clinic_management_app/presentation/screens/rating/widgets/rating_summary_section.dart';
@@ -15,8 +16,9 @@ import 'package:clinic_management_app/presentation/screens/rating/widgets/rating
 
 class RatingScreen extends StatefulWidget {
   final String? doctorId;
+  final bool isAppRating;
 
-  const RatingScreen({super.key, this.doctorId});
+  const RatingScreen({super.key, this.doctorId, this.isAppRating = false});
 
   @override
   State<RatingScreen> createState() => _RatingScreenState();
@@ -29,7 +31,11 @@ class _RatingScreenState extends State<RatingScreen> {
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
-    context.read<RatingBloc>().add(RatingLoad(doctorId: widget.doctorId));
+    if (widget.isAppRating) {
+      context.read<RatingBloc>().add(const RatingLoad(types: ['service', 'center', 'appointment_system']));
+    } else {
+      context.read<RatingBloc>().add(RatingLoad(doctorId: widget.doctorId));
+    }
   }
 
   @override
@@ -49,25 +55,10 @@ class _RatingScreenState extends State<RatingScreen> {
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
 
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_forward_rounded),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(AppStrings.ratingsTitle),
-        actions: [
-          IconButton(icon: Icon(Icons.search_rounded, color: colors.textSecondary), onPressed: () {}),
-          Padding(
-            padding: const EdgeInsets.only(left: AppSpacing.sm),
-            child: CircleAvatar(
-              radius: 18,
-              backgroundColor: colors.primary.withValues(alpha: 0.15),
-              child: Icon(Icons.person_rounded, size: 20, color: colors.primary),
-            ),
-          ),
-        ],
-      ),
+    return AppShell(
+      showBackButton: true,
+      useGlassAppBar: true,
+      glassTitle: widget.isAppRating ? AppStrings.appRatings : AppStrings.ratingsTitle,
       body: BlocBuilder<RatingBloc, RatingState>(
         builder: (context, state) {
           if (state.isLoading) {
@@ -78,7 +69,11 @@ class _RatingScreenState extends State<RatingScreen> {
           }
 
           return RefreshIndicator(
-            onRefresh: () async => context.read<RatingBloc>().add(RatingLoad(doctorId: widget.doctorId)),
+            onRefresh: () async => context.read<RatingBloc>().add(
+              widget.isAppRating
+                  ? const RatingLoad(types: ['service', 'center', 'appointment_system'])
+                  : RatingLoad(doctorId: widget.doctorId),
+            ),
             child: CustomScrollView(
               controller: _scrollController,
               slivers: [
@@ -122,6 +117,7 @@ class _RatingScreenState extends State<RatingScreen> {
                         child: RatingReviewCard(
                           review: review,
                           isLiked: state.likedReviewIds.contains(review.id),
+                          showActions: !widget.isAppRating,
                           onToggleLike: () => context.read<RatingBloc>().add(RatingToggleLike(review.id)),
                           onFlag: () {
                             ScaffoldMessenger.of(context).showSnackBar(

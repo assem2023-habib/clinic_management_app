@@ -7,6 +7,7 @@ import 'package:clinic_management_app/domain/entities/rating_entity.dart';
 class RatingReviewCard extends StatelessWidget {
   final RatingEntity review;
   final bool isLiked;
+  final bool showActions;
   final VoidCallback? onToggleLike;
   final VoidCallback? onFlag;
 
@@ -14,6 +15,7 @@ class RatingReviewCard extends StatelessWidget {
     super.key,
     required this.review,
     this.isLiked = false,
+    this.showActions = true,
     this.onToggleLike,
     this.onFlag,
   });
@@ -90,43 +92,45 @@ class RatingReviewCard extends StatelessWidget {
             review.comment ?? '',
             style: TextStyle(fontSize: 14, color: colors.textSecondary, height: 1.6),
           ),
-          const SizedBox(height: AppSpacing.sm),
-          Row(
-            children: [
-              GestureDetector(
-                onTap: onToggleLike,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.xs),
-                  decoration: BoxDecoration(
-                    color: colors.divider.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(AppSpacing.sm),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        isLiked ? Icons.thumb_up_rounded : Icons.thumb_up_outlined,
-                        size: 14,
-                        color: isLiked ? colors.primary : colors.textSecondary,
-                      ),
-                    ],
+          if (showActions) ...[
+            const SizedBox(height: AppSpacing.sm),
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: onToggleLike,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.xs),
+                    decoration: BoxDecoration(
+                      color: colors.divider.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(AppSpacing.sm),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          isLiked ? Icons.thumb_up_rounded : Icons.thumb_up_outlined,
+                          size: 14,
+                          color: isLiked ? colors.primary : colors.textSecondary,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(width: AppSpacing.sm),
-              GestureDetector(
-                onTap: onFlag,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.xs),
-                  decoration: BoxDecoration(
-                    color: colors.divider.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(AppSpacing.sm),
+                const SizedBox(width: AppSpacing.sm),
+                GestureDetector(
+                  onTap: onFlag,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.xs),
+                    decoration: BoxDecoration(
+                      color: colors.divider.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(AppSpacing.sm),
+                    ),
+                    child: Icon(Icons.flag_outlined, size: 14, color: colors.textSecondary),
                   ),
-                  child: Icon(Icons.flag_outlined, size: 14, color: colors.textSecondary),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
+          ],
         ],
       ),
     );
