@@ -29,7 +29,6 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
   final _searchFocus = FocusNode();
   bool _isSearchFocused = false;
   String _selectedCategory = 'all';
-  int _bottomNavIndex = 0;
 
   final List<Map<String, String>> _categories = [
     {'key': 'all', 'label': 'الكل'},
@@ -375,7 +374,6 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: _buildGlassBottomNav(colors),
       floatingActionButton: canManage
           ? FloatingActionButton(
               onPressed: () => _showDoctorForm(context),
@@ -599,73 +597,6 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
     );
   }
 
-  Widget _buildGlassBottomNav(AppColorSet colors) {
-    final items = [
-      ('Home', Icons.home_rounded, Icons.home_outlined),
-      (AppStrings.doctors, Icons.medical_services_rounded, Icons.medical_services_outlined),
-      (AppStrings.medicalRecords, Icons.folder_rounded, Icons.folder_outlined),
-      (AppStrings.myProfile, Icons.person_rounded, Icons.person_outlined),
-    ];
-    return ClipRect(
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 24, sigmaY: 24),
-        child: Container(
-          padding: EdgeInsets.only(
-            left: AppSpacing.md,
-            right: AppSpacing.md,
-            top: 6,
-            bottom: MediaQuery.of(context).padding.bottom + 6,
-          ),
-          decoration: BoxDecoration(
-            color: const Color(0xFF002111).withValues(alpha: 0.7),
-            border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.06))),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: List.generate(items.length, (i) {
-              final isActive = _bottomNavIndex == i;
-              return GestureDetector(
-                onTap: () => setState(() => _bottomNavIndex = i),
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 250),
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  decoration: BoxDecoration(
-                    color: isActive
-                        ? const Color(0xFF00CA73).withValues(alpha: 0.12)
-                        : Colors.transparent,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        isActive ? items[i].$2 : items[i].$3,
-                        size: 22,
-                        color: isActive
-                            ? const Color(0xFF00CA73)
-                            : colors.textSecondary.withValues(alpha: 0.6),
-                      ),
-                      if (isActive) ...[
-                        const SizedBox(width: 6),
-                        Text(
-                          items[i].$1,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: const Color(0xFF00CA73),
-                          ),
-                        ),
-                      ],
-                    ],
-                  ),
-                ),
-              );
-            }),
-          ),
-        ),
-      ),
-    );
-  }
 }
 
 class GlassSkeletonList extends StatelessWidget {
