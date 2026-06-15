@@ -92,7 +92,13 @@ class AppointmentEntity extends Equatable {
     String? updatedAt,
     PatientEntity? patient,
     DoctorEntity? doctor,
+    String? patientId,
+    String? patientName,
     String? patientPhone,
+    String? doctorId,
+    String? doctorName,
+    String? date,
+    String? timeSlot,
   }) {
     return AppointmentEntity(
       id: id ?? this.id,
@@ -107,7 +113,13 @@ class AppointmentEntity extends Equatable {
       updatedAt: updatedAt ?? this.updatedAt,
       patient: patient ?? this.patient,
       doctor: doctor ?? this.doctor,
+      patientId: patientId ?? this.patientId,
+      patientName: patientName ?? this.patientName,
       patientPhone: patientPhone ?? this.patientPhone,
+      doctorId: doctorId ?? this.doctorId,
+      doctorName: doctorName ?? this.doctorName,
+      date: date ?? this.date,
+      timeSlot: timeSlot ?? this.timeSlot,
     );
   }
 

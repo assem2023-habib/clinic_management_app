@@ -233,6 +233,14 @@ class AppointmentRepositoryImpl implements AppointmentRepository {
       .toList());
   }
 
+  @override
+  Stream<List<AppointmentEntity>> watchRtdbAppointmentsByDate(String doctorId, String date) {
+    if (rtdbService != null) {
+      return rtdbService!.watchBookedAppointmentsByDate(doctorId, date).map((list) => list.cast<AppointmentEntity>());
+    }
+    return const Stream.empty();
+  }
+
   AppointmentModel _toModel(AppointmentEntity entity) {
     return AppointmentModel(
       id: entity.id,

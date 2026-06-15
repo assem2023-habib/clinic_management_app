@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:uuid/uuid.dart';
 import 'package:clinic_management_app/domain/repositories/doctor_repository.dart';
 import 'package:clinic_management_app/domain/repositories/appointment_repository.dart';
 import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
@@ -24,6 +23,8 @@ class UserBookingBloc extends Bloc<UserBookingEvent, UserBookingState> {
     on<UserBookingConfirm>(_onConfirm);
   }
 
+  Set<String> _relevantDates = {};
+
   Future<void> _onLoad(UserBookingLoad event, Emitter<UserBookingState> emit) async {
     emit(UserBookingLoading());
     try {
@@ -35,6 +36,7 @@ class UserBookingBloc extends Bloc<UserBookingEvent, UserBookingState> {
       final now = DateTime.now();
       final dates = List.generate(7, (i) => DateTime(now.year, now.month, now.day + i));
       final allSlots = _generateSlots(dates);
+      _relevantDates = dates.map((d) => '${d.year}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}').toSet();
 
       emit(UserBookingLoaded(
         doctor: doer,
@@ -49,7 +51,10 @@ class UserBookingBloc extends Bloc<UserBookingEvent, UserBookingState> {
           if (isClosed) return;
           final current = state;
           if (current is UserBookingLoaded) {
-            final updated = _mergeBooked(current.allSlots, bookedAppts);
+            final filtered = bookedAppts.where((a) =>
+              a.appointmentDate != null && _relevantDates.contains(a.appointmentDate)
+            ).toList();
+            final updated = _mergeBooked(current.allSlots, filtered);
             emit(current.copyWith(allSlots: updated));
           }
         },

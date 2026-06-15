@@ -22,4 +22,5 @@ abstract class AppointmentRepository {
   Future<void> suggestAlternative(String appointmentId, String message);
   Future<List<BookedSlotEntity>> getBookedSlots(String doctorId, {String? date, String? fromDate, String? toDate});
   Stream<List<AppointmentEntity>> watchRtdbAppointments(String doctorId);
+  Stream<List<AppointmentEntity>> watchRtdbAppointmentsByDate(String doctorId, String date);
 }

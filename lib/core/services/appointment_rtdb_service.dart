@@ -28,6 +28,22 @@ class AppointmentRtdbService {
     });
   }
 
+  Stream<List<AppointmentModel>> watchBookedAppointmentsByDate(String doctorId, String date) {
+    final ref = _database.ref('${_bookedPath(doctorId)}/$date');
+    return ref.onValue.map((event) {
+      final snapshot = event.snapshot;
+      if (snapshot.value == null) return <AppointmentModel>[];
+      final appointments = <AppointmentModel>[];
+      final data = snapshot.value as Map<dynamic, dynamic>;
+      data.forEach((appId, appData) {
+        if (appData is Map) {
+          appointments.add(AppointmentModel.fromRtdbMap(appData));
+        }
+      });
+      return appointments;
+    });
+  }
+
   Future<Map<String, dynamic>?> readDoctorMeta(String doctorId) async {
     final snapshot = await _database.ref('/doctors/$doctorId').once();
     return snapshot.snapshot.value as Map<String, dynamic>?;

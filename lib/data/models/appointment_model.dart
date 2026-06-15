@@ -88,19 +88,25 @@ class AppointmentModel extends AppointmentEntity {
   }
 
   factory AppointmentModel.fromRtdbMap(Map<dynamic, dynamic> map) {
+    final appointmentDate = map['appointment_date'] as String?;
+    final startTime = map['start_time'] as String?;
+    final endTime = map['end_time'] as String?;
+    String? timeSlot;
+    if (startTime != null && endTime != null) {
+      timeSlot = '$startTime - $endTime';
+    }
     return AppointmentModel(
       id: map['id'] as String? ?? '',
       status: AppointmentStatus.fromString(map['status'] as String? ?? 'requested'),
       reason: map['reason'] as String?,
       notes: map['notes'] as String?,
-      appointmentDate: map['appointment_date'] as String?,
-      startTime: map['start_time'] as String?,
-      endTime: map['end_time'] as String?,
+      appointmentDate: appointmentDate,
+      startTime: startTime,
+      endTime: endTime,
       createdAt: map['synced_at'] as String?,
-      patientId: map['patient_id'] as String?,
-      patientName: map['patient_name'] as String?,
-      patientPhone: map['patient_phone'] as String?,
       doctorId: map['doctor_id'] as String?,
+      date: appointmentDate,
+      timeSlot: timeSlot,
     );
   }
 
