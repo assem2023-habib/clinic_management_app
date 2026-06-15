@@ -14,6 +14,7 @@ class RegisterReceptionistRequest extends RegisterPatientRequest {
     super.address,
     required super.gender,
     super.birthdayDate,
+    super.cityId,
     this.shiftStart,
     this.shiftEnd,
   });

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/doctor_profile_entity.dart';
 import 'package:clinic_management_app/presentation/widgets/doctor_profile/profile_header.dart';
@@ -29,12 +30,12 @@ class AdminDoctorProfileView extends StatelessWidget {
     final doctor = profile.doctor;
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: AppSpacing.cardPadding,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ProfileHeader(doctor: doctor),
-          const SizedBox(height: 16),
+          const SizedBox(height: AppSpacing.md),
           Row(
             children: [
               Expanded(
@@ -64,21 +65,21 @@ class AdminDoctorProfileView extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppSpacing.lg),
           ProfileStatsGrid(doctor: doctor),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppSpacing.lg),
           ProfileAboutSection(doctor: doctor, isEditable: true),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppSpacing.lg),
           if (doctor.services.isNotEmpty) ...[
             ProfileServicesSection(doctor: doctor, isEditable: true),
-            const SizedBox(height: 24),
+            const SizedBox(height: AppSpacing.lg),
           ],
           ProfileScheduleSection(
             slots: profile.availableSlots,
             canManage: true,
             onToggleSlot: (slotId) => onToggleSlot?.call(),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppSpacing.lg),
           ProfileReviewsSection(
             reviews: profile.reviews,
             averageRating: doctor.rating,

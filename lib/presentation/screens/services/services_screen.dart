@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
@@ -19,14 +20,15 @@ class _ServicesScreenState extends State<ServicesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return AppShell(
       useGlassAppBar: true,
       glassTitle: AppStrings.srMedicalServices,
       glassTrailing: CircleAvatar(
         radius: 20,
-        backgroundColor: const Color(0xFF032515).withValues(alpha: 0.6),
+        backgroundColor: colors.cardBg.withValues(alpha: 0.6),
         child: IconButton(
-          icon: const Icon(Icons.notifications_outlined, color: Color(0xFF80D8A6), size: 22),
+          icon: Icon(Icons.notifications_outlined, color: colors.primary, size: 22),
           onPressed: () => Navigator.pushNamed(context, AppRoutes.notifications),
           padding: EdgeInsets.zero,
           constraints: const BoxConstraints(),
@@ -35,7 +37,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           border: Border(
-            top: BorderSide(color: Colors.white.withValues(alpha: 0.08)),
+            top: BorderSide(color: colors.divider.withValues(alpha: 0.08)),
           ),
         ),
         child: BottomNavigationBar(
@@ -46,9 +48,9 @@ class _ServicesScreenState extends State<ServicesScreen> {
               Navigator.pushNamed(context, AppRoutes.medicalRecords);
             }
           },
-          backgroundColor: const Color(0xFF0D1F15),
-          selectedItemColor: const Color(0xFF80D8A6),
-          unselectedItemColor: const Color(0xFFBBCABF),
+          backgroundColor: colors.bottomNavBg,
+          selectedItemColor: colors.bottomNavSelected,
+          unselectedItemColor: colors.bottomNavUnselected,
           type: BottomNavigationBarType.fixed,
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: AppStrings.srBottomHome),

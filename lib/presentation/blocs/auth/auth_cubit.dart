@@ -174,6 +174,7 @@ class AuthCubit extends Cubit<AuthState> {
     required String firstName, required String lastName, required String username,
     required String email, required String password, String? phone,
     String? address, required String gender, String? birthdayDate,
+    String? cityId,
   }) async {
     emit(const AuthLoading());
     if (_authRepository == null) {
@@ -185,6 +186,7 @@ class AuthCubit extends Cubit<AuthState> {
         firstName: firstName, lastName: lastName, username: username,
         email: email, password: password, phone: phone, address: address,
         gender: gender, birthdayDate: birthdayDate,
+        cityId: cityId,
       );
       final response = await _authRepository.registerPatient(request);
       if (response.isAuthenticated && response.user != null) {
@@ -203,6 +205,7 @@ class AuthCubit extends Cubit<AuthState> {
     required String firstName, required String lastName, required String username,
     required String email, required String password, String? phone,
     String? address, required String gender, String? birthdayDate,
+    String? cityId,
     required String specializationId, required int experienceMonths,
   }) async {
     emit(const AuthLoading());
@@ -215,6 +218,7 @@ class AuthCubit extends Cubit<AuthState> {
         firstName: firstName, lastName: lastName, username: username,
         email: email, password: password, phone: phone, address: address,
         gender: gender, birthdayDate: birthdayDate,
+        cityId: cityId,
         specializationId: specializationId, experienceMonths: experienceMonths,
       );
       final response = await _authRepository.registerDoctor(request);
@@ -234,6 +238,7 @@ class AuthCubit extends Cubit<AuthState> {
     required String firstName, required String lastName, required String username,
     required String email, required String password, String? phone,
     String? address, required String gender, String? birthdayDate,
+    String? cityId,
     String? shiftStart, String? shiftEnd,
   }) async {
     emit(const AuthLoading());
@@ -246,6 +251,7 @@ class AuthCubit extends Cubit<AuthState> {
         firstName: firstName, lastName: lastName, username: username,
         email: email, password: password, phone: phone, address: address,
         gender: gender, birthdayDate: birthdayDate,
+        cityId: cityId,
         shiftStart: shiftStart, shiftEnd: shiftEnd,
       );
       final response = await _authRepository.registerReceptionist(request);

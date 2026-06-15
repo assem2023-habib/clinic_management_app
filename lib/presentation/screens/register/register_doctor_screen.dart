@@ -7,6 +7,7 @@ import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/presentation/widgets/phone_field.dart';
 import 'package:clinic_management_app/presentation/widgets/date_picker_field.dart';
 import 'package:clinic_management_app/presentation/widgets/specialization_picker_field.dart';
+import 'package:clinic_management_app/presentation/widgets/country_city_picker_field.dart';
 
 class RegisterDoctorScreen extends StatefulWidget {
   const RegisterDoctorScreen({super.key});
@@ -28,6 +29,7 @@ class _RegisterDoctorScreenState extends State<RegisterDoctorScreen> {
   final _experienceController = TextEditingController();
   String _gender = 'male';
   String? _specialization;
+  String? _cityId;
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
 
@@ -66,6 +68,7 @@ class _RegisterDoctorScreenState extends State<RegisterDoctorScreen> {
           : null,
       address: _addressController.text.isEmpty ? null : _addressController.text,
       gender: _gender,
+      cityId: _cityId,
       specializationId: _specialization ?? '',
       experienceMonths: int.tryParse(_experienceController.text) ?? 0,
       birthdayDate: _birthdayController.text.isEmpty
@@ -113,6 +116,11 @@ class _RegisterDoctorScreenState extends State<RegisterDoctorScreen> {
                     PhoneField(key: _phoneState, hintText: AppStrings.phoneOptional),
                     const SizedBox(height: 16),
                     _buildTextField(controller: _addressController, label: AppStrings.addressOptional, prefixIcon: Icons.location_on_outlined),
+                    const SizedBox(height: 16),
+                    CountryCityPickerField(
+                      cityId: _cityId,
+                      onCityChanged: (v) => setState(() => _cityId = v),
+                    ),
                     const SizedBox(height: 16),
                     DatePickerField(
                       controller: _birthdayController,

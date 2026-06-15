@@ -6,7 +6,9 @@ import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/utils/app_toast.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
+import 'package:clinic_management_app/domain/entities/specialization_entity.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
+import 'package:clinic_management_app/domain/repositories/specialization_repository.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_event.dart';
@@ -26,21 +28,23 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
   final _searchController = TextEditingController();
   final _searchFocus = FocusNode();
   bool _isSearchFocused = false;
-  String _selectedCategory = 'all';
-
-  final List<Map<String, String>> _categories = [
-    {'key': 'all', 'label': 'الكل'},
-    {'key': 'قلب', 'label': 'القلب'},
-    {'key': 'أعصاب', 'label': 'الأعصاب'},
-    {'key': 'عيون', 'label': 'العيون'},
-    {'key': 'أسنان', 'label': 'الأسنان'},
-  ];
+  String? _selectedSpecializationId;
+  List<SpecializationEntity> _specializations = [];
 
   @override
   void initState() {
     super.initState();
     context.read<DoctorBloc>().add(DoctorLoadAll());
     _searchFocus.addListener(() => setState(() => _isSearchFocused = _searchFocus.hasFocus));
+    _loadSpecializations();
+  }
+
+  Future<void> _loadSpecializations() async {
+    try {
+      final repo = RepositoryProvider.of<SpecializationRepository>(context);
+      final specs = await repo.getAllSpecializations();
+      if (mounted) setState(() => _specializations = specs);
+    } catch (_) {}
   }
 
   @override
@@ -346,14 +350,10 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                   return const GlassSkeletonList();
                 }
                 if (state is DoctorLoaded) {
-                  final filtered = _selectedCategory == 'all'
-                      ? state.doctors
-                      : state.doctors.where((d) =>
-                          d.specialty.contains(_selectedCategory)).toList();
-                  if (filtered.isEmpty) {
+                  if (state.doctors.isEmpty) {
                     return _buildEmptyState(colors);
                   }
-                  return _buildDoctorList(colors, filtered, canManage);
+                  return _buildDoctorList(colors, state.doctors, canManage);
                 }
                 if (state is DoctorError) {
                   return Center(
@@ -406,6 +406,9 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
             style: TextStyle(color: colors.textPrimary, fontSize: 14),
             onChanged: (value) {
               context.read<DoctorBloc>().add(DoctorSearch(value));
+              if (value.isNotEmpty) {
+                setState(() => _selectedSpecializationId = null);
+              }
             },
             decoration: InputDecoration(
               hintText: 'ابحث عن اسم الطبيب أو التخصص...',
@@ -440,18 +443,26 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
   }
 
   Widget _buildCategoryChips(AppColorSet colors) {
+    final chips = <_SpecChip>[
+      _SpecChip(id: null, label: AppStrings.dpFilterAll),
+      ..._specializations.map((s) => _SpecChip(id: s.id, label: s.nameAr)),
+    ];
+
     return SizedBox(
       height: 42,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        itemCount: _categories.length,
+        itemCount: chips.length,
         separatorBuilder: (_, _) => const SizedBox(width: 8),
         itemBuilder: (_, i) {
-          final cat = _categories[i];
-          final isActive = _selectedCategory == cat['key'];
+          final chip = chips[i];
+          final isActive = _selectedSpecializationId == chip.id;
           return GestureDetector(
-            onTap: () => setState(() => _selectedCategory = cat['key']!),
+            onTap: () {
+              setState(() => _selectedSpecializationId = chip.id);
+              context.read<DoctorBloc>().add(DoctorLoadAll(specializationId: chip.id));
+            },
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 250),
               curve: Curves.easeOut,
@@ -468,7 +479,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                 ),
               ),
               child: Text(
-                cat['label']!,
+                chip.label,
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
@@ -538,6 +549,12 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
     );
   }
 
+}
+
+class _SpecChip {
+  final String? id;
+  final String label;
+  const _SpecChip({this.id, required this.label});
 }
 
 class GlassSkeletonList extends StatelessWidget {

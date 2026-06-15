@@ -18,7 +18,7 @@ class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
   Future<void> _onLoadAll(DoctorLoadAll event, Emitter<DoctorState> emit) async {
     emit(DoctorLoading());
     try {
-      final doctors = await repository.getAllDoctors();
+      final doctors = await repository.getAllDoctors(specializationId: event.specializationId);
       emit(DoctorLoaded(doctors));
     } catch (e) {
       emit(DoctorError(e.toString()));

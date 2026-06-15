@@ -14,6 +14,7 @@ class RegisterDoctorRequest extends RegisterPatientRequest {
     super.address,
     required super.gender,
     super.birthdayDate,
+    super.cityId,
     required this.specializationId,
     required this.experienceMonths,
   });

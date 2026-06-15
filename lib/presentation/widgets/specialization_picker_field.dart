@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/domain/entities/specialization_entity.dart';
 
-const _specializations = {
+const _fallbackSpecs = {
   'cardiology': AppStrings.specCardiology,
   'dermatology': AppStrings.specDermatology,
   'neurology': AppStrings.specNeurology,
@@ -36,15 +37,26 @@ class SpecializationPickerField extends StatelessWidget {
   final String? value;
   final ValueChanged<String> onChanged;
   final String? Function(String?)? validator;
+  final List<SpecializationEntity>? specializations;
 
   const SpecializationPickerField({
     super.key,
     this.value,
     required this.onChanged,
     this.validator,
+    this.specializations,
   });
 
-  String? get _label => value != null ? _specializations[value] : null;
+  bool get _useApiData => specializations != null && specializations!.isNotEmpty;
+
+  String? get _label {
+    if (value == null) return null;
+    if (_useApiData) {
+      final match = specializations!.where((s) => s.id == value).firstOrNull;
+      return match?.nameAr;
+    }
+    return _fallbackSpecs[value];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +94,8 @@ class SpecializationPickerField extends StatelessWidget {
       ),
       builder: (ctx) {
         final searchCtrl = TextEditingController();
-        var filtered = _specializations.entries.toList();
+        var filteredApi = specializations?.toList() ?? [];
+        var filteredFallback = _fallbackSpecs.entries.toList();
 
         return StatefulBuilder(
           builder: (ctx, setSheetState) {
@@ -92,8 +105,7 @@ class SpecializationPickerField extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    width: 40,
-                    height: 4,
+                    width: 40, height: 4,
                     decoration: BoxDecoration(
                       color: colors.divider,
                       borderRadius: BorderRadius.circular(2),
@@ -102,38 +114,65 @@ class SpecializationPickerField extends StatelessWidget {
                   const SizedBox(height: 16),
                   Text(
                     AppStrings.chooseSpecialty,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: colors.textPrimary,
-                    ),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: colors.textPrimary),
                   ),
                   const SizedBox(height: 12),
                   TextField(
                     controller: searchCtrl,
                     onChanged: (v) {
                       setSheetState(() {
-                        filtered = _specializations.entries
-                            .where((e) =>
-                                e.value.contains(v) || e.key.contains(v))
-                            .toList();
+                        if (_useApiData) {
+                          filteredApi = specializations!
+                              .where((s) => s.nameAr.contains(v) || s.nameEn.contains(v) || s.slug.contains(v))
+                              .toList();
+                        } else {
+                          filteredFallback = _fallbackSpecs.entries
+                              .where((e) => e.value.contains(v) || e.key.contains(v))
+                              .toList();
+                        }
                       });
                     },
                     decoration: InputDecoration(
                       hintText: AppStrings.search,
                       hintStyle: TextStyle(color: colors.textLight),
                       prefixIcon: Icon(Icons.search_rounded, color: colors.textSecondary),
-                      filled: true,
-                      fillColor: colors.inputBg,
+                      filled: true, fillColor: colors.inputBg,
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                     ),
                   ),
                   const SizedBox(height: 8),
                   Flexible(
                     child: ListView.builder(
-                      itemCount: filtered.length,
+                      itemCount: _useApiData ? filteredApi.length : filteredFallback.length,
                       itemBuilder: (_, i) {
-                        final e = filtered[i];
+                        if (_useApiData) {
+                          final spec = filteredApi[i];
+                          final isSelected = spec.id == value;
+                          return Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              ListTile(
+                                leading: Icon(_specializationIcon(spec.slug),
+                                    color: isSelected ? colors.primary : colors.textSecondary, size: 24),
+                                title: Text(spec.nameAr, style: TextStyle(color: colors.textPrimary)),
+                                subtitle: Text(spec.nameEn, style: TextStyle(color: colors.textSecondary, fontSize: 12)),
+                                trailing: isSelected
+                                    ? Icon(Icons.check_circle_rounded, color: colors.primary, size: 22)
+                                    : null,
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                selected: isSelected,
+                                selectedTileColor: colors.primary.withValues(alpha: 0.08),
+                                onTap: () {
+                                  onChanged(spec.id);
+                                  Navigator.pop(ctx);
+                                },
+                              ),
+                              if (i < filteredApi.length - 1)
+                                Divider(height: 1, indent: 16, endIndent: 16, color: colors.divider.withValues(alpha: 0.3)),
+                            ],
+                          );
+                        }
+                        final e = filteredFallback[i];
                         final isSelected = e.key == value;
                         return Column(
                           mainAxisSize: MainAxisSize.min,
@@ -153,13 +192,8 @@ class SpecializationPickerField extends StatelessWidget {
                                 Navigator.pop(ctx);
                               },
                             ),
-                            if (i < filtered.length - 1)
-                              Divider(
-                                height: 1,
-                                indent: 16,
-                                endIndent: 16,
-                                color: colors.divider.withValues(alpha: 0.3),
-                              ),
+                            if (i < filteredFallback.length - 1)
+                              Divider(height: 1, indent: 16, endIndent: 16, color: colors.divider.withValues(alpha: 0.3)),
                           ],
                         );
                       },

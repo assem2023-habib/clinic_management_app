@@ -262,8 +262,14 @@ class AppStrings {
   // Specialization picker
   static const chooseSpecialty = 'اخْتَرِ التَّخَصُّصَ';
 
-  // Phone field
+  // Country / City picker
   static const chooseCountry = 'اخْتَرِ الدَّوْلَةَ';
+  static const chooseCity = 'اخْتَرِ الْمَدِينَةَ';
+  static const countryCity = 'الدَّوْلَةُ / الْمَدِينَةُ';
+  static const chooseCountryCity = 'اخْتَرِ الدَّوْلَةَ وَالْمَدِينَةَ';
+  static const loading = 'جَارِي التَّحْمِيلُ...';
+
+  // Phone field
   static const countriesSyria = 'سوريا';
   static const countriesEgypt = 'مصر';
   static const countriesSaudi = 'السعودية';
