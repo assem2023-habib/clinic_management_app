@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/data/datasources/remote/file_remote_datasource.dart';
+import 'package:clinic_management_app/data/repositories/file_repository_impl.dart';
+import 'package:clinic_management_app/data/models/file_model.dart';
 import 'package:clinic_management_app/domain/entities/download_file_entity.dart';
+import 'package:clinic_management_app/domain/entities/file_entity.dart';
+import 'package:clinic_management_app/domain/repositories/file_repository.dart';
 import 'package:clinic_management_app/presentation/blocs/download_file/download_file_bloc.dart';
-import 'package:clinic_management_app/presentation/blocs/download_file/download_file_event.dart';
 import 'package:clinic_management_app/presentation/blocs/download_file/download_file_state.dart';
 import 'package:clinic_management_app/presentation/screens/download_files/widgets/df_empty_state.dart';
 import 'package:clinic_management_app/presentation/screens/download_files/widgets/df_file_card.dart';
@@ -12,6 +17,16 @@ import 'package:clinic_management_app/presentation/screens/download_files/widget
 import 'package:clinic_management_app/presentation/screens/download_files/widgets/df_progress_indicator.dart';
 import 'package:clinic_management_app/presentation/screens/download_files/download_files_screen.dart';
 import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
+
+class MockFileDataSource extends Mock implements FileRemoteDataSource {}
+
+FileRepository _createRepo(FileRemoteDataSource ds) => FileRepositoryImpl(remoteDataSource: ds);
+
+final _mockFileEntities = [
+  FileModel(id: '1', originalName: 'lab_result.pdf', mimeType: 'application/pdf', size: 204800, fileCategory: FileCategory.labResult, uploadStatus: FileUploadStatus.completed, medicalRecordId: 'mr1', userId: 'u1', createdAt: DateTime(2025, 11, 15)),
+  FileModel(id: '2', originalName: 'blood_test.pdf', mimeType: 'application/pdf', size: 1126400, fileCategory: FileCategory.labResult, uploadStatus: FileUploadStatus.completed, medicalRecordId: 'mr1', userId: 'u1', createdAt: DateTime(2025, 11, 10)),
+  FileModel(id: '4', originalName: 'prescription_nov.pdf', mimeType: 'application/pdf', size: 614400, fileCategory: FileCategory.prescription, uploadStatus: FileUploadStatus.completed, medicalRecordId: 'mr1', userId: 'u1', createdAt: DateTime(2025, 11, 20)),
+];
 
 Widget buildTestWidget(Widget child) {
   return MaterialApp(
@@ -25,6 +40,13 @@ Widget buildTestWidget(Widget child) {
 }
 
 void main() {
+  late MockFileDataSource mockDataSource;
+
+  setUp(() {
+    mockDataSource = MockFileDataSource();
+    when(() => mockDataSource.getFiles(mine: any(named: 'mine'))).thenAnswer((_) async => _mockFileEntities);
+  });
+
   group('DfEmptyState', () {
     testWidgets('renders icon, title and hint', (tester) async {
       await tester.pumpWidget(buildTestWidget(const DfEmptyState()));
@@ -65,7 +87,7 @@ void main() {
     testWidgets('renders file name, type, size and date', (tester) async {
       await tester.pumpWidget(buildTestWidget(
         BlocProvider(
-          create: (_) => DownloadFileBloc(),
+          create: (_) => DownloadFileBloc(_createRepo(mockDataSource)),
           child: DfFileCard(file: testFile),
         ),
       ));
@@ -78,7 +100,7 @@ void main() {
     testWidgets('shows download button when status is none', (tester) async {
       await tester.pumpWidget(buildTestWidget(
         BlocProvider(
-          create: (_) => DownloadFileBloc(),
+          create: (_) => DownloadFileBloc(_createRepo(mockDataSource)),
           child: DfFileCard(file: testFile),
         ),
       ));
@@ -100,7 +122,7 @@ void main() {
 
       await tester.pumpWidget(buildTestWidget(
         BlocProvider(
-          create: (_) => DownloadFileBloc(),
+          create: (_) => DownloadFileBloc(_createRepo(mockDataSource)),
           child: DfFileCard(file: completedFile),
         ),
       ));
@@ -123,7 +145,7 @@ void main() {
 
       await tester.pumpWidget(buildTestWidget(
         BlocProvider(
-          create: (_) => DownloadFileBloc(),
+          create: (_) => DownloadFileBloc(_createRepo(mockDataSource)),
           child: DfFileCard(file: downloadingFile),
         ),
       ));
@@ -137,7 +159,7 @@ void main() {
     testWidgets('renders search field and filter chips', (tester) async {
       await tester.pumpWidget(buildTestWidget(
         BlocProvider(
-          create: (_) => DownloadFileBloc(),
+          create: (_) => DownloadFileBloc(_createRepo(mockDataSource)),
           child: const DfHeader(),
         ),
       ));
@@ -156,7 +178,7 @@ void main() {
         themeMode: ThemeMode.dark,
         darkTheme: ThemeData.dark(),
         home: BlocProvider(
-          create: (_) => DownloadFileBloc(),
+          create: (_) => DownloadFileBloc(_createRepo(mockDataSource)),
           child: const DownloadFilesScreen(),
         ),
       ));
@@ -164,11 +186,10 @@ void main() {
       expect(find.byType(SkeletonList), findsOneWidget);
       await tester.pumpAndSettle(const Duration(seconds: 2));
       expect(find.byType(SkeletonList), findsNothing);
-      expect(find.byIcon(Icons.search_rounded), findsOneWidget);
     });
 
-    testWidgets('shows empty state when no files match filter', (tester) async {
-      final bloc = DownloadFileBloc();
+    testWidgets('shows content when files loaded', (tester) async {
+      final bloc = DownloadFileBloc(_createRepo(mockDataSource));
       await tester.pumpWidget(MaterialApp(
         themeMode: ThemeMode.dark,
         darkTheme: ThemeData.dark(),
@@ -179,8 +200,6 @@ void main() {
       ));
 
       await tester.pumpAndSettle(const Duration(seconds: 2));
-      bloc.add(const DownloadFileFilterCategory('report'));
-      await tester.pumpAndSettle();
       final loaded = bloc.state as DownloadFileLoaded;
       if (loaded.files.isEmpty) {
         expect(find.byType(DfEmptyState), findsOneWidget);

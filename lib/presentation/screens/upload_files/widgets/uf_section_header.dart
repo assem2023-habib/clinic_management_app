@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 
 class UfSectionHeader extends StatelessWidget {
   final String label;
@@ -14,16 +15,12 @@ class UfSectionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Row(
       children: [
         Text(
           label,
-          style: const TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-            color: Color(0xFFBBCABF),
-            letterSpacing: 0.05,
-          ),
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: colors.textLight, letterSpacing: 0.05),
         ),
         const Spacer(),
         if (actionLabel != null)
@@ -31,11 +28,7 @@ class UfSectionHeader extends StatelessWidget {
             onTap: onAction,
             child: Text(
               actionLabel!,
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: Color(0xFF4EDEA3),
-              ),
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: colors.primary),
             ),
           ),
       ],

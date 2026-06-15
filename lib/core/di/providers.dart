@@ -67,7 +67,11 @@ import 'package:clinic_management_app/presentation/blocs/patient/patient_bloc.da
 import 'package:clinic_management_app/presentation/blocs/profile/profile_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/location/location_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/rating/rating_bloc.dart';
+import 'package:clinic_management_app/data/datasources/remote/file_remote_datasource.dart';
+import 'package:clinic_management_app/data/repositories/file_repository_impl.dart';
+import 'package:clinic_management_app/domain/repositories/file_repository.dart';
 import 'package:clinic_management_app/presentation/blocs/download_file/download_file_bloc.dart';
+import 'package:clinic_management_app/presentation/blocs/file/file_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/notification/notification_bloc.dart';
 
 class AppProviders {
@@ -126,6 +130,9 @@ class AppProviders {
       RepositoryProvider<ImageRepository>(create: (_) => ImageRepositoryImpl(
         remoteDataSource: ImageRemoteDataSource(apiService),
       )),
+      RepositoryProvider<FileRepository>(create: (_) => FileRepositoryImpl(
+        remoteDataSource: FileRemoteDataSource(apiService),
+      )),
     ];
   }
 
@@ -142,7 +149,8 @@ class AppProviders {
       BlocProvider<LocationCubit>(create: (ctx) => LocationCubit(locationRepository: RepositoryProvider.of<LocationRepository>(ctx))..loadCountries()),
       BlocProvider<DashboardBloc>(create: (ctx) => DashboardBloc(RepositoryProvider.of<DashboardRepository>(ctx))),
       BlocProvider<RatingBloc>(create: (ctx) => RatingBloc(repository: RepositoryProvider.of<RatingRepository>(ctx))),
-      BlocProvider<DownloadFileBloc>(create: (_) => DownloadFileBloc()),
+      BlocProvider<DownloadFileBloc>(create: (ctx) => DownloadFileBloc(RepositoryProvider.of<FileRepository>(ctx))),
+      BlocProvider<FileBloc>(create: (ctx) => FileBloc(RepositoryProvider.of<FileRepository>(ctx))),
       BlocProvider<NotificationBloc>(create: (ctx) => NotificationBloc(RepositoryProvider.of<NotificationRepository>(ctx))),
       BlocProvider<PrescriptionBloc>(create: (ctx) => PrescriptionBloc(RepositoryProvider.of<PrescriptionRepository>(ctx))),
       BlocProvider<RbacBloc>(create: (ctx) => RbacBloc(RepositoryProvider.of<RbacRepository>(ctx))),

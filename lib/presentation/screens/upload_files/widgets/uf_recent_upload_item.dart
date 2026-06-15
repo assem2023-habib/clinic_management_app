@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class UfRecentUploadItem extends StatelessWidget {
   final IconData icon;
@@ -18,12 +20,13 @@ class UfRecentUploadItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Opacity(
       opacity: opacity,
       child: Container(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(AppSpacing.sm),
         decoration: BoxDecoration(
-          color: const Color(0xFF032515).withValues(alpha: 0.6),
+          color: colors.cardBg.withValues(alpha: 0.6),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
         ),
@@ -33,42 +36,31 @@ class UfRecentUploadItem extends StatelessWidget {
               width: 40,
               height: 40,
               decoration: BoxDecoration(
-                color: const Color(0xFF032515),
+                color: colors.cardBg,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(icon, size: 24, color: iconColor),
             ),
-            const SizedBox(width: 16),
+            const SizedBox(width: AppSpacing.md),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     fileName,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Color(0xFFC6EBD1),
-                    ),
+                    style: TextStyle(fontSize: 16, color: colors.textPrimary),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 2),
                   Text(
                     subtitle,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFFBBCABF),
-                    ),
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: colors.textLight),
                   ),
                 ],
               ),
             ),
-            const Icon(
-              Icons.check_circle_rounded,
-              size: 24,
-              color: Color(0xFF4EDEA3),
-            ),
+            Icon(Icons.check_circle_rounded, size: 24, color: colors.primary),
           ],
         ),
       ),
