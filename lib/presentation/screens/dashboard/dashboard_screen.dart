@@ -8,6 +8,9 @@ import 'package:clinic_management_app/core/theme/theme_provider.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/dashboard/dashboard_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/dashboard/dashboard_event.dart';
+import 'package:clinic_management_app/presentation/blocs/notification/notification_bloc.dart';
+import 'package:clinic_management_app/presentation/blocs/notification/notification_event.dart';
+import 'package:clinic_management_app/presentation/blocs/notification/notification_state.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
 import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
 import 'package:clinic_management_app/presentation/screens/dashboard/views/admin_dashboard_view.dart';
@@ -29,12 +32,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
   void initState() {
     super.initState();
     context.read<DashboardBloc>().add(DashboardLoad());
+    context.read<NotificationBloc>().add(const NotificationLoadAll(limit: 1));
   }
 
   @override
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
     final role = context.watch<AuthCubit>().state.role;
+    final notifState = context.watch<NotificationBloc>().state;
+    final unreadCount = notifState is NotificationLoaded ? notifState.unreadCount : 0;
+
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, _) {
@@ -46,6 +53,33 @@ class _DashboardScreenState extends State<DashboardScreen> {
         title: AppStrings.dashboard,
         currentRoute: AppRoutes.dashboard,
         actions: [
+          Stack(
+            children: [
+              IconButton(
+                icon: const Icon(Icons.notifications_outlined),
+                onPressed: () => Navigator.pushNamed(context, AppRoutes.notifications),
+              ),
+              if (unreadCount > 0)
+                Positioned(
+                  top: 6,
+                  right: 6,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF00FF85),
+                      borderRadius: BorderRadius.circular(999),
+                      border: Border.all(color: colors.surface, width: 1.5),
+                    ),
+                    constraints: const BoxConstraints(minWidth: 16, minHeight: 14),
+                    child: Text(
+                      unreadCount > 99 ? '99+' : '$unreadCount',
+                      style: const TextStyle(fontSize: 9, fontWeight: FontWeight.w700, color: Colors.black),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+            ],
+          ),
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {

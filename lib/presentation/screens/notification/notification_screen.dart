@@ -3,11 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/domain/entities/notification_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/notification/notification_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/notification/notification_event.dart';
 import 'package:clinic_management_app/presentation/blocs/notification/notification_state.dart';
-import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
+import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -27,73 +28,27 @@ class _NotificationScreenState extends State<NotificationScreen> {
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
 
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            _buildAppBar(context, colors),
-            Expanded(
-              child: BlocBuilder<NotificationBloc, NotificationState>(
-                builder: (context, state) {
-                  if (state is NotificationLoading) {
-                    return const Padding(
-                      padding: EdgeInsets.all(AppSpacing.lg),
-                      child: SkeletonList(count: 6),
-                    );
-                  }
-                  if (state is NotificationLoaded) {
-                    return _buildContent(context, colors, state);
-                  }
-                  return const SizedBox.shrink();
-                },
-              ),
-            ),
-          ],
+    return AppShell(
+      currentRoute: AppRoutes.notifications,
+      useGlassAppBar: true,
+      glassTitle: AppStrings.ntTitle,
+      showParticleBg: true,
+      glassActions: [
+        GestureDetector(
+          onTap: () => context.read<NotificationBloc>().add(const NotificationMarkAllRead()),
+          child: Icon(Icons.done_all_rounded, color: colors.primary, size: 22),
         ),
-      ),
-    );
-  }
-
-  Widget _buildAppBar(BuildContext context, AppColorSet colors) {
-    return Container(
-      width: double.infinity,
-      height: 64,
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
-      decoration: BoxDecoration(
-        color: colors.surface.withValues(alpha: 0.7),
-        border: Border(bottom: BorderSide(color: colors.divider.withValues(alpha: 0.1))),
-      ),
-      child: Row(
-        children: [
-          Material(
-            color: Colors.transparent,
-            child: InkWell(
-              borderRadius: BorderRadius.circular(20),
-              onTap: () => Navigator.of(context).pop(),
-              child: Container(
-                width: 40, height: 40, alignment: Alignment.center,
-                child: Icon(Icons.arrow_back_rounded, color: colors.textPrimary, size: 24),
-              ),
-            ),
-          ),
-          const Spacer(),
-          Text(
-            AppStrings.ntTitle,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: colors.textPrimary),
-          ),
-          const Spacer(),
-          Material(
-            color: Colors.transparent,
-            child: InkWell(
-              borderRadius: BorderRadius.circular(20),
-              onTap: () => context.read<NotificationBloc>().add(const NotificationMarkAllRead()),
-              child: Container(
-                width: 40, height: 40, alignment: Alignment.center,
-                child: Icon(Icons.done_all_rounded, color: colors.primary, size: 22),
-              ),
-            ),
-          ),
-        ],
+      ],
+      body: BlocBuilder<NotificationBloc, NotificationState>(
+        builder: (context, state) {
+          if (state is NotificationLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (state is NotificationLoaded) {
+            return _buildContent(context, colors, state);
+          }
+          return const SizedBox.shrink();
+        },
       ),
     );
   }
@@ -179,9 +134,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
       separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.sm),
       itemBuilder: (context, index) {
         final notification = state.notifications[index];
-        return _NotificationCard(
+        return _AnimatedNotificationCard(
           notification: notification,
-          onTap: () => context.read<NotificationBloc>().add(NotificationMarkRead(notification.id)),
           onDelete: () => context.read<NotificationBloc>().add(NotificationDelete(notification.id)),
         );
       },
@@ -214,20 +168,62 @@ class _NotificationScreenState extends State<NotificationScreen> {
   }
 }
 
-class _NotificationCard extends StatelessWidget {
+class _AnimatedNotificationCard extends StatefulWidget {
   final NotificationEntity notification;
-  final VoidCallback onTap;
   final VoidCallback onDelete;
 
-  const _NotificationCard({required this.notification, required this.onTap, required this.onDelete});
+  const _AnimatedNotificationCard({required this.notification, required this.onDelete});
+
+  @override
+  State<_AnimatedNotificationCard> createState() => _AnimatedNotificationCardState();
+}
+
+class _AnimatedNotificationCardState extends State<_AnimatedNotificationCard>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animCtrl;
+  late Animation<double> _dotScale;
+  late Animation<double> _dotFade;
+  bool _isAnimating = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _animCtrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 350),
+    );
+    _dotScale = Tween<double>(begin: 1.0, end: 0.0).animate(
+      CurvedAnimation(parent: _animCtrl, curve: Curves.easeInOut),
+    );
+    _dotFade = Tween<double>(begin: 1.0, end: 0.0).animate(
+      CurvedAnimation(parent: _animCtrl, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _animCtrl.dispose();
+    super.dispose();
+  }
+
+  void _handleTap() {
+    if (_isAnimating || widget.notification.isRead) return;
+    setState(() => _isAnimating = true);
+    _animCtrl.forward().then((_) {
+      if (mounted) {
+        context.read<NotificationBloc>().add(NotificationMarkRead(widget.notification.id));
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
-    final typeData = _typeData(notification.type);
+    final typeData = _typeData(widget.notification.type);
+    final isRead = widget.notification.isRead || _isAnimating;
 
     return Dismissible(
-      key: Key(notification.id),
+      key: Key(widget.notification.id),
       direction: DismissDirection.endToStart,
       background: Container(
         alignment: Alignment.centerRight,
@@ -238,15 +234,16 @@ class _NotificationCard extends StatelessWidget {
         ),
         child: const Icon(Icons.delete_outline_rounded, color: Colors.red),
       ),
-      onDismissed: (_) => onDelete(),
+      onDismissed: (_) => widget.onDelete(),
       child: GestureDetector(
-        onTap: onTap,
-        child: Container(
+        onTap: _handleTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 350),
           padding: const EdgeInsets.all(AppSpacing.md),
           decoration: BoxDecoration(
-            color: notification.isRead ? colors.surface.withValues(alpha: 0.5) : colors.cardBg,
+            color: isRead ? colors.surface.withValues(alpha: 0.5) : colors.cardBg,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: notification.isRead ? colors.divider.withValues(alpha: 0.05) : colors.divider.withValues(alpha: 0.12)),
+            border: Border.all(color: isRead ? colors.divider.withValues(alpha: 0.05) : colors.divider.withValues(alpha: 0.12)),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -261,15 +258,21 @@ class _NotificationCard extends StatelessWidget {
                     ),
                     child: Icon(typeData.icon, size: 22, color: typeData.color),
                   ),
-                  if (!notification.isRead)
+                  if (!widget.notification.isRead)
                     Positioned(
                       top: 0, right: 0,
-                      child: Container(
-                        width: 10, height: 10,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color(0xFF00FF85),
-                          boxShadow: [BoxShadow(color: Color(0xFF00FF85), blurRadius: 6)],
+                      child: FadeTransition(
+                        opacity: _dotFade,
+                        child: ScaleTransition(
+                          scale: _dotScale,
+                          child: Container(
+                            width: 10, height: 10,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color(0xFF00FF85),
+                              boxShadow: [BoxShadow(color: Color(0xFF00FF85), blurRadius: 6)],
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -280,11 +283,11 @@ class _NotificationCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(notification.title, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+                    Text(widget.notification.title, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: colors.textPrimary)),
                     const SizedBox(height: 4),
-                    Text(notification.message, style: TextStyle(fontSize: 13, color: colors.textSecondary, height: 1.4), maxLines: 2, overflow: TextOverflow.ellipsis),
+                    Text(widget.notification.message, style: TextStyle(fontSize: 13, color: colors.textSecondary, height: 1.4), maxLines: 2, overflow: TextOverflow.ellipsis),
                     const SizedBox(height: 6),
-                    Text(_formatTimestamp(notification.timestamp), style: TextStyle(fontSize: 11, color: colors.textLight.withValues(alpha: 0.5))),
+                    Text(_formatTimestamp(widget.notification.timestamp), style: TextStyle(fontSize: 11, color: colors.textLight.withValues(alpha: 0.5))),
                   ],
                 ),
               ),
