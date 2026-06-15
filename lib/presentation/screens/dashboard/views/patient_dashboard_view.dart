@@ -91,7 +91,7 @@ class PatientDashboardView extends StatelessWidget {
                       Row(children: [
                         Expanded(child: ActionButton(icon: Icons.supervisor_account, label: AppStrings.supervisionRequests, color: colors.success, onPressed: () => Navigator.pushNamed(context, AppRoutes.supervisionRequests))),
                         const SizedBox(width: 12),
-                        const Expanded(child: SizedBox()),
+                        Expanded(child: ActionButton(icon: Icons.file_download, label: AppStrings.dfTitle, color: colors.secondary, onPressed: () => Navigator.pushNamed(context, AppRoutes.downloadFiles))),
                       ]),
                     ],
                   ),
