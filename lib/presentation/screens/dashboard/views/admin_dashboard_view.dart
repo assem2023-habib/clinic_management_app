@@ -79,7 +79,7 @@ class AdminDashboardView extends StatelessWidget {
                 Row(children: [
                   Expanded(child: ActionButton(icon: Icons.person_add, label: AppStrings.addDoctor, color: colors.primary, onPressed: () => Navigator.pushNamed(context, AppRoutes.doctors))),
                   const SizedBox(width: 12),
-                  Expanded(child: ActionButton(icon: Icons.person_add_alt_1, label: AppStrings.addPatient, color: colors.secondary, onPressed: () => Navigator.pushNamed(context, AppRoutes.patients))),
+                  Expanded(child: ActionButton(icon: Icons.people, label: AppStrings.patients, color: colors.secondary, onPressed: () => Navigator.pushNamed(context, AppRoutes.patients))),
                 ]),
                 const SizedBox(height: 12),
                 Row(children: [

@@ -97,10 +97,11 @@ class AppDrawer extends StatelessWidget {
 
   Widget _buildMenuItems(BuildContext context, AppColorSet colors) {
     final role = context.watch<AuthCubit>().state.role;
+    final patientsLabel = role == UserRole.doctor ? AppStrings.myPatients : AppStrings.patients;
     final allItems = [
       _MenuItem(icon: Icons.dashboard_rounded, title: AppStrings.dashboard, route: AppRoutes.dashboard),
       _MenuItem(icon: Icons.local_hospital_rounded, title: AppStrings.doctors, route: AppRoutes.doctors),
-      _MenuItem(icon: Icons.people_rounded, title: AppStrings.patients, route: AppRoutes.patients),
+      _MenuItem(icon: Icons.people_rounded, title: patientsLabel, route: AppRoutes.patients),
       _MenuItem(icon: Icons.calendar_month_rounded, title: AppStrings.myAppointments, route: AppRoutes.myAppointments),
       _MenuItem(icon: Icons.folder_rounded, title: AppStrings.medicalRecords, route: AppRoutes.medicalRecords),
       _MenuItem(icon: Icons.settings_rounded, title: AppStrings.settings, route: AppRoutes.settings),
