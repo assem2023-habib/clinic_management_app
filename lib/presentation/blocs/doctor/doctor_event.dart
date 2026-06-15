@@ -32,3 +32,9 @@ class DoctorDelete extends DoctorEvent {
   @override
   List<Object?> get props => [id];
 }
+class DoctorLoadPatientAppointments extends DoctorEvent {
+  final String patientId;
+  const DoctorLoadPatientAppointments(this.patientId);
+  @override
+  List<Object?> get props => [patientId];
+}

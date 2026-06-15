@@ -183,4 +183,14 @@ class DoctorRepositoryImpl implements DoctorRepository {
       createdAt: review.createdAt, updatedAt: review.updatedAt,
     ));
   }
+
+  @override
+  Future<List<DoctorEntity>> getDoctorsWithAppointments({required String patientId}) async {
+    if (remoteDataSource != null) {
+      try {
+        return await remoteDataSource!.getDoctorsWithAppointments(patientId: patientId);
+      } catch (_) {}
+    }
+    return dataSource.allDoctors;
+  }
 }

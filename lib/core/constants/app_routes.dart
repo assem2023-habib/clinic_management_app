@@ -34,4 +34,5 @@ class AppRoutes {
   static const uploadFiles = '/upload-files';
   static const patientWelcome = '/patient-welcome';
   static const supervisionRequests = '/supervision-requests';
+  static const myAppointments = '/my-appointments';
 }

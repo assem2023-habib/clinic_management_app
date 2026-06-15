@@ -12,6 +12,7 @@ class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
     on<DoctorAdd>(_onAdd);
     on<DoctorUpdate>(_onUpdate);
     on<DoctorDelete>(_onDelete);
+    on<DoctorLoadPatientAppointments>(_onLoadPatientAppointments);
   }
 
   Future<void> _onLoadAll(DoctorLoadAll event, Emitter<DoctorState> emit) async {
@@ -57,6 +58,16 @@ class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
     try {
       await repository.deleteDoctor(event.id);
       final doctors = await repository.getAllDoctors();
+      emit(DoctorLoaded(doctors));
+    } catch (e) {
+      emit(DoctorError(e.toString()));
+    }
+  }
+
+  Future<void> _onLoadPatientAppointments(DoctorLoadPatientAppointments event, Emitter<DoctorState> emit) async {
+    emit(DoctorLoading());
+    try {
+      final doctors = await repository.getDoctorsWithAppointments(patientId: event.patientId);
       emit(DoctorLoaded(doctors));
     } catch (e) {
       emit(DoctorError(e.toString()));

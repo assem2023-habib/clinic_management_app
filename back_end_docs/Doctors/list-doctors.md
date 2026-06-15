@@ -28,6 +28,12 @@
 | `date_to` | `date` | — | birthday_date إلى |
 | `is_active` | `boolean` | — | فلترة بالحالة (true/false) |
 | `limit` | `integer` | `20` | عدد العناصر (max: 100) |
+| `has_appointments` | `boolean` | — | أطباء لديهم مواعيد (true) أو ليس لديهم (false) |
+| `appointment_status` | `string`/`array` | — | فلترة بحالة الموعد. مفرد (`?appointment_status=accepted`) أو متعدد (`?appointment_status[]=set&appointment_status[]=accepted`) |
+| `appointment_date` | `date` | — | أطباء لديهم مواعيد في تاريخ محدد (Y-m-d) |
+| `appointment_from_date` | `date` | — | أطباء لديهم مواعيد من هذا التاريخ |
+| `appointment_to_date` | `date` | — | أطباء لديهم مواعيد حتى هذا التاريخ |
+| `appointment_patient_id` | `string`/`array` (UUID) | — | أطباء لديهم مواعيد مع مريض/مرضى معينين (User UUID) |
 
 ---
 
@@ -52,22 +58,13 @@ public function index(Request $request): JsonResponse
         ->when($request->date_from, fn ($q, $v) => $q->where('birthday_date', '>=', $v))
         ->when($request->date_to, fn ($q, $v) => $q->where('birthday_date', '<=', $v))
         ->when($request->has('is_active'), fn ($q) => $q->where('is_active', $request->boolean('is_active')))
+        ->when($request->filled('has_appointments'), fn ($q) => $request->boolean('has_appointments') ? $q->whereHas('doctor.appointments') : $q->whereDoesntHave('doctor.appointments'))
+        ->when($request->filled('appointment_status'), fn ($q) => $q->whereHas('doctor.appointments', fn ($q) => $q->whereIn('status', (array) $request->appointment_status)))
+        ->when($request->filled('appointment_date'), fn ($q) => $q->whereHas('doctor.appointments', fn ($q) => $q->whereDate('appointment_date', $request->appointment_date)))
+        ->when($request->filled('appointment_from_date'), fn ($q) => $q->whereHas('doctor.appointments', fn ($q) => $q->whereDate('appointment_date', '>=', $request->appointment_from_date)))
+        ->when($request->filled('appointment_to_date'), fn ($q) => $q->whereHas('doctor.appointments', fn ($q) => $q->whereDate('appointment_date', '<=', $request->appointment_to_date)))
+        ->when($request->filled('appointment_patient_id'), fn ($q) => $q->whereHas('doctor.appointments', fn ($q) => $q->whereIn('patient_id', Patient::whereIn('user_id', (array) $request->appointment_patient_id)->pluck('id'))))
         ->paginate(min($limit, 100));
-
-    if ($patient = $request->user()?->patient) {
-        $doctorIds = $doctors->pluck('doctor.id')->filter();
-        $supervisionRequests = SupervisionRequest::where('patient_id', $patient->id)
-            ->whereIn('doctor_id', $doctorIds)
-            ->get()
-            ->keyBy('doctor_id');
-
-        $doctors->each(function ($user) use ($supervisionRequests) {
-            $doctor = $user->doctor;
-            if ($doctor && $supervisionRequests->has($doctor->id)) {
-                $doctor->supervision_request_status = $supervisionRequests->get($doctor->id)->status->value;
-            }
-        });
-    }
 
     return ApiResponse::success(
         DoctorResource::collection($doctors),
@@ -87,10 +84,14 @@ public function index(Request $request): JsonResponse
  6. if gender → where gender
  7. if date_from/to → where birthday_date >= / <=
  8. if is_active → where is_active
- 9. paginate(min(limit, 100))
-10. if patient → load supervision requests for all doctors in page
-11. DoctorResource::collection()
-12. return 200
+ 9. if has_appointments → whereHas/whereDoesntHave doctor.appointments
+10. if appointment_status → whereHas doctor.appointments whereIn status
+11. if appointment_date → whereHas doctor.appointments whereDate
+12. if appointment_from_date/to_date → whereHas doctor.appointments date range
+13. if appointment_patient_id → whereHas doctor.appointments with patient(s)
+14. paginate(min(limit, 100))
+15. DoctorResource::collection()
+16. return 200
 ```
 
 ---
@@ -103,7 +104,6 @@ public function index(Request $request): JsonResponse
 - `specialization`
 - `experience_months`
 - `schedules`
-- `supervision_request` — يظهر فقط لدور `Patient`
 - `rating` (avg, count, recent) — فقط في show
 
 > **ملاحظة:** في قائمة الأطباء `rating` يكون `{"avg": 0, "count": 0, "recent": []}` لأن بيانات التقييمات تُحمّل فقط في show.
@@ -151,10 +151,6 @@ public function index(Request $request): JsonResponse
                     "is_active": true
                 }
             ],
-            "supervision_request": {
-                "has_request": false,
-                "status": null
-            },
             "rating": {
                 "avg": 0,
                 "count": 0,

@@ -27,6 +27,21 @@ class DoctorRemoteDataSource {
     return data.map((e) => DoctorModel.fromMap(e as Map<String, dynamic>)).toList();
   }
 
+  Future<List<DoctorModel>> getDoctorsWithAppointments({required String patientId, List<String>? status, String? date, String? fromDate, String? toDate}) async {
+    final queryParams = <String, dynamic>{
+      'has_appointments': true,
+      'appointment_patient_id[]': patientId,
+      if (status != null && status.isNotEmpty) 'appointment_status[]': status,
+      if (date != null) 'appointment_date': date,
+      if (fromDate != null) 'appointment_from_date': fromDate,
+      if (toDate != null) 'appointment_to_date': toDate,
+    };
+    final response = await _api.get('/doctors', queryParameters: queryParams);
+    debugPrint('📡 [DoctorRemoteDataSource] GET /doctors (with appointments) response: ${response.data}');
+    final data = response.data['data'] as List<dynamic>? ?? [];
+    return data.map((e) => DoctorModel.fromMap(e as Map<String, dynamic>)).toList();
+  }
+
   Future<DoctorModel> getDoctorById(String id) async {
     final response = await _api.get('/doctors/$id');
     debugPrint('📡 [DoctorRemoteDataSource] GET /doctors/$id response: ${response.data}');

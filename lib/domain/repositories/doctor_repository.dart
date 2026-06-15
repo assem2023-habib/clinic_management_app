@@ -17,4 +17,5 @@ abstract class DoctorRepository {
   Future<List<DoctorScheduleEntity>> getDoctorSlots(String doctorId, DateTime month);
   Future<void> toggleSlotAvailability(String slotId);
   Future<void> addReview(String doctorId, ReviewEntity review);
+  Future<List<DoctorEntity>> getDoctorsWithAppointments({required String patientId});
 }

@@ -101,7 +101,7 @@ class AppDrawer extends StatelessWidget {
       _MenuItem(icon: Icons.dashboard_rounded, title: AppStrings.dashboard, route: AppRoutes.dashboard),
       _MenuItem(icon: Icons.local_hospital_rounded, title: AppStrings.doctors, route: AppRoutes.doctors),
       _MenuItem(icon: Icons.people_rounded, title: AppStrings.patients, route: AppRoutes.patients),
-      _MenuItem(icon: Icons.calendar_month_rounded, title: AppStrings.myAppointments, route: AppRoutes.appointments),
+      _MenuItem(icon: Icons.calendar_month_rounded, title: AppStrings.myAppointments, route: AppRoutes.myAppointments),
       _MenuItem(icon: Icons.folder_rounded, title: AppStrings.medicalRecords, route: AppRoutes.medicalRecords),
       _MenuItem(icon: Icons.settings_rounded, title: AppStrings.settings, route: AppRoutes.settings),
       _MenuItem(icon: Icons.person_rounded, title: AppStrings.myProfile, route: AppRoutes.profile),
@@ -113,7 +113,7 @@ class AppDrawer extends StatelessWidget {
       UserRole.admin:        {AppRoutes.dashboard, AppRoutes.doctors, AppRoutes.patients, AppRoutes.appointments, AppRoutes.medicalRecords, AppRoutes.settings, AppRoutes.profile, AppRoutes.rating},
       UserRole.doctor:       {AppRoutes.dashboard, AppRoutes.patients, AppRoutes.appointments, AppRoutes.medicalRecords, AppRoutes.settings, AppRoutes.profile, AppRoutes.supervisionRequests, AppRoutes.rating},
       UserRole.receptionist: {AppRoutes.dashboard, AppRoutes.doctors, AppRoutes.patients, AppRoutes.appointments, AppRoutes.medicalRecords, AppRoutes.settings, AppRoutes.profile, AppRoutes.rating},
-      UserRole.patient:      {AppRoutes.dashboard, AppRoutes.doctors, AppRoutes.appointments, AppRoutes.medicalRecords, AppRoutes.settings, AppRoutes.profile, AppRoutes.supervisionRequests, AppRoutes.rating},
+      UserRole.patient:      {AppRoutes.dashboard, AppRoutes.doctors, AppRoutes.myAppointments, AppRoutes.medicalRecords, AppRoutes.settings, AppRoutes.profile, AppRoutes.supervisionRequests, AppRoutes.rating},
     };
 
     final allowed = roleRoutes[role] ?? roleRoutes[UserRole.patient]!;
