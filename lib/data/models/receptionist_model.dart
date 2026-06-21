@@ -50,6 +50,7 @@ class ReceptionistModel extends ReceptionistEntity {
       'username': username, 'email': email,
       'phone': phone, 'address': address,
       'gender': gender, 'birthday_date': birthdayDate,
+      'city_id': cityId, 'country_id': countryId,
       'shift_start': shiftStart, 'shift_end': shiftEnd,
     };
   }
@@ -60,6 +61,7 @@ class ReceptionistModel extends ReceptionistEntity {
       'username': username, 'email': email,
       'phone': phone, 'address': address,
       'gender': gender, 'birthday_date': birthdayDate,
+      'city_id': cityId, 'country_id': countryId,
       'shift_start': shiftStart, 'shift_end': shiftEnd,
     };
   }
