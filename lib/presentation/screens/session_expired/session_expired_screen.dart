@@ -2,6 +2,7 @@ import 'dart:math' show pi;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show SystemNavigator;
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
@@ -49,8 +50,9 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Scaffold(
-      backgroundColor: const Color(0xFF00180B),
+      backgroundColor: colors.scaffoldBg,
       body: SafeArea(
         child: Stack(
           children: [
@@ -61,7 +63,7 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 64),
+                    const SizedBox(height: AppSpacing.appBarHeight),
                     _buildIconSection(),
                     const SizedBox(height: AppSpacing.md),
                     _buildContent(),
@@ -91,6 +93,7 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
   }
 
   Widget _buildIconSection() {
+    final colors = AppColors.of(context);
     return SizedBox(
       width: 160,
       height: 160,
@@ -121,7 +124,7 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
               ),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFF00FF85).withValues(alpha: 0.03),
+                  color: colors.neonGreen.withValues(alpha: 0.03),
                   blurRadius: 40,
                 ),
               ],
@@ -147,18 +150,18 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
           Positioned(
             top: 0,
             right: 0,
-            child: Container(
-              width: 32,
-              height: 32,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Color(0xFF10B981),
-              ),
-              child: const Icon(
-                Icons.lock_rounded,
-                size: 20,
-                color: Color(0xFF00180B),
-              ),
+              child: Container(
+                width: 32,
+                height: 32,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Color(0xFF10B981),
+                ),
+                child: Icon(
+                  Icons.lock_rounded,
+                  size: AppSpacing.iconSmall,
+                  color: colors.scaffoldBg,
+                ),
             ),
           ),
         ],
@@ -189,28 +192,29 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
   }
 
   Widget _buildContent() {
+    final colors = AppColors.of(context);
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
         color: const Color(0xFF0F301F).withValues(alpha: 0.4),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
         border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF00FF85).withValues(alpha: 0.03),
+            color: colors.neonGreen.withValues(alpha: 0.03),
             blurRadius: 40,
           ),
         ],
       ),
       child: Column(
         children: [
-          const Text(
+          Text(
             AppStrings.sesTitle,
             style: TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.w600,
-              color: Color(0xFFC6EBD1),
+              color: colors.textPrimary,
             ),
             textAlign: TextAlign.center,
           ),
@@ -218,7 +222,7 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
           const Text(
             AppStrings.sesMessage,
             style: TextStyle(
-              fontSize: 16,
+              fontSize: AppSpacing.bodyLarge,
               color: Color(0xFFBBCABF),
               height: 1.5,
             ),
@@ -241,16 +245,16 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF10B981),
               foregroundColor: const Color(0xFF00422B),
-              padding: const EdgeInsets.symmetric(vertical: 16),
+              padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
               ),
               elevation: 0,
               shadowColor: const Color(0xFF10B981).withValues(alpha: 0.3),
             ),
             child: const Text(
               AppStrings.sesLogin,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600),
             ),
           ),
         ),
@@ -264,14 +268,14 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
             style: OutlinedButton.styleFrom(
               foregroundColor: const Color(0xFFC6EBD1),
               side: const BorderSide(color: Color(0xFF3C4A42)),
-              padding: const EdgeInsets.symmetric(vertical: 16),
+              padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
               ),
             ),
             child: const Text(
               AppStrings.sesGoHome,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600),
             ),
           ),
         ),
@@ -285,14 +289,14 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
               side: BorderSide(
                 color: const Color(0xFF3C4A42).withValues(alpha: 0.3),
               ),
-              padding: const EdgeInsets.symmetric(vertical: 16),
+              padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
               ),
             ),
             child: const Text(
               AppStrings.sesCloseApp,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600),
             ),
           ),
         ),
@@ -304,7 +308,7 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
     return const Text(
       AppStrings.sesFooter,
       style: TextStyle(
-        fontSize: 12,
+        fontSize: AppSpacing.bodySmall,
         fontWeight: FontWeight.w600,
         color: Color(0xFFBBCABF),
         letterSpacing: 0.05,

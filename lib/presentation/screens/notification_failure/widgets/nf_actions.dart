@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class NfActions extends StatelessWidget {
   final VoidCallback? onRetry;
@@ -19,18 +20,18 @@ class NfActions extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF10B981),
                 foregroundColor: const Color(0xFF003824),
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
                 elevation: 0,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.refresh_rounded, size: 20),
-                  const SizedBox(width: 8),
+                  const Icon(Icons.refresh_rounded, size: AppSpacing.iconSmall),
+                  const SizedBox(width: AppSpacing.sm),
                   const Text(
                     'إِعَادَةُ المُحَاوَلَةِ',
-                    style: TextStyle(fontFamily: 'Sora', fontSize: 16, fontWeight: FontWeight.w600),
+                    style: TextStyle(fontFamily: 'Sora', fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600),
                   ),
                 ],
               ),

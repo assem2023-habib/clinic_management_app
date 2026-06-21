@@ -38,7 +38,7 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
     final centralSize = screenWidth * 0.48;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF002111),
+      backgroundColor: colors.surface,
       body: Stack(
         children: [
           _buildStarfield(),
@@ -46,7 +46,7 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
           SafeArea(
             child: Column(
               children: [
-                const SizedBox(height: 64),
+                const SizedBox(height: AppSpacing.appBarHeight),
                 Expanded(
                   child: SingleChildScrollView(
                     child: Padding(
@@ -60,7 +60,7 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
                           const SizedBox(height: 24),
                           _buildActions(),
                           const SizedBox(height: 24),
-                          _buildSignalMeter(),
+                          _buildSignalMeter(colors),
                           const SizedBox(height: AppSpacing.xl),
                         ],
                       ),
@@ -156,7 +156,7 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
               return _buildPulseRing(size, 2, (_ringController.value + 0.66) % 1.0);
             },
           ),
-          _buildBioCore(size),
+          _buildBioCore(size, colors),
         ],
       ),
     );
@@ -180,14 +180,14 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
     );
   }
 
-  Widget _buildBioCore(double size) {
+  Widget _buildBioCore(double size, AppColorSet colors) {
     final coreSize = size * 0.5;
     return Container(
       width: coreSize,
       height: coreSize,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: const Color(0xFF002111).withValues(alpha: 0.7),
+        color: colors.surface.withValues(alpha: 0.7),
         border: Border.all(
           color: const Color(0xFF00FF85).withValues(alpha: 0.4),
         ),
@@ -224,11 +224,11 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
       children: [
         Text(
           AppStrings.wcTitle,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Sora',
-            fontSize: 24,
+            fontSize: AppSpacing.titleError,
             fontWeight: FontWeight.w600,
-            color: Color(0xFFE5E2E1),
+            color: const Color(0xFFE5E2E1),
           ),
           textAlign: TextAlign.center,
         ),
@@ -239,7 +239,7 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
             AppStrings.wcMessage,
             style: const TextStyle(
               fontFamily: 'Manrope',
-              fontSize: 16,
+              fontSize: AppSpacing.bodyLarge,
               fontWeight: FontWeight.w400,
               color: Color(0xFFC2C8C1),
               height: 1.5,
@@ -256,14 +256,14 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
       children: [
         SizedBox(
           width: double.infinity,
-          height: 56,
+          height: AppSpacing.buttonHeight,
           child: ElevatedButton(
             onPressed: null,
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white.withValues(alpha: 0.1),
               disabledBackgroundColor: Colors.white.withValues(alpha: 0.1),
               disabledForegroundColor: const Color(0xFFE5E2E1),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
               elevation: 0,
             ),
             child: Row(
@@ -277,10 +277,10 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
                     color: const Color(0xFFABCFB6),
                   ),
                 ),
-                const SizedBox(width: 8),
+                const SizedBox(width: AppSpacing.sm),
                 const Text(
                   AppStrings.wcWaiting,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                  style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w700),
                 ),
               ],
             ),
@@ -289,7 +289,7 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
         const SizedBox(height: AppSpacing.sm),
         SizedBox(
           width: double.infinity,
-          height: 56,
+          height: AppSpacing.buttonHeight,
           child: OutlinedButton(
             onPressed: widget.onRetry,
             style: OutlinedButton.styleFrom(
@@ -297,16 +297,16 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
               side: BorderSide(
                 color: const Color(0xFF00FF85).withValues(alpha: 0.4),
               ),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.refresh_rounded, size: 20),
-                const SizedBox(width: 8),
+                Icon(Icons.refresh_rounded, size: AppSpacing.iconSmall),
+                const SizedBox(width: AppSpacing.sm),
                 const Text(
                   AppStrings.wcRetry,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                  style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w700),
                 ),
               ],
             ),
@@ -316,12 +316,12 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
     );
   }
 
-  Widget _buildSignalMeter() {
+  Widget _buildSignalMeter(AppColorSet colors) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        color: const Color(0xFF002111).withValues(alpha: 0.7),
-        borderRadius: BorderRadius.circular(9999),
+        color: colors.surface.withValues(alpha: 0.7),
+      borderRadius: BorderRadius.circular(9999),
         border: Border.all(color: Colors.white.withValues(alpha: 0.15)),
         boxShadow: [
           BoxShadow(
@@ -351,7 +351,7 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
             AppStrings.wcSignalStrength,
             style: TextStyle(
               fontFamily: 'JetBrains Mono',
-              fontSize: 12,
+              fontSize: AppSpacing.bodySmall,
               fontWeight: FontWeight.w500,
               letterSpacing: 0.05,
               color: Color(0xFFC2C8C1),

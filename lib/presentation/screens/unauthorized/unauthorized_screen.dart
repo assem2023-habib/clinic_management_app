@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'unauthorized_painters.dart';
 import 'widgets/ua_icon_section.dart';
@@ -18,8 +20,9 @@ class UnauthorizedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Scaffold(
-      backgroundColor: const Color(0xFF00180B),
+      backgroundColor: colors.scaffoldBg,
       body: SafeArea(
         child: Stack(
           children: [
@@ -32,9 +35,9 @@ class UnauthorizedScreen extends StatelessWidget {
             ),
             Column(
               children: [
-                _buildAppBar(context),
+                _buildAppBar(context, colors),
                 Expanded(child: _buildContent()),
-                _buildFooter(),
+                _buildFooter(colors),
               ],
             ),
           ],
@@ -43,10 +46,10 @@ class UnauthorizedScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildAppBar(BuildContext context) {
+  Widget _buildAppBar(BuildContext context, AppColorSet colors) {
     return Container(
       width: double.infinity,
-      height: 64,
+      height: AppSpacing.appBarHeight,
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Align(
         alignment: Alignment.centerRight,
@@ -56,13 +59,13 @@ class UnauthorizedScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(999),
             onTap: () => Navigator.of(context).pop(),
             child: Container(
-              width: 40,
-              height: 40,
+              width: AppSpacing.iconContainer,
+              height: AppSpacing.iconContainer,
               alignment: Alignment.center,
-              child: const Icon(
+              child: Icon(
                 Icons.arrow_forward_rounded,
-                color: Color(0xFFC6EBD1),
-                size: 24,
+                color: colors.textPrimary,
+                size: AppSpacing.iconSize,
               ),
             ),
           ),
@@ -78,34 +81,34 @@ class UnauthorizedScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 40),
+            SizedBox(height: AppSpacing.xl + AppSpacing.sm),
             const UaIconSection(),
-            const SizedBox(height: 40),
+            SizedBox(height: AppSpacing.xl + AppSpacing.sm),
             const UaContent(),
-            const SizedBox(height: 32),
+            const SizedBox(height: AppSpacing.xl),
             UaActions(onLogin: onLogin, onGoHome: onGoHome),
-            const SizedBox(height: 32),
+            const SizedBox(height: AppSpacing.xl),
             const UaDataNodes(),
-            const SizedBox(height: 40),
+            SizedBox(height: AppSpacing.xl + AppSpacing.sm),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildFooter() {
+  Widget _buildFooter(AppColorSet colors) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 24),
+      padding: const EdgeInsets.symmetric(vertical: AppSpacing.lg),
       decoration: const BoxDecoration(
         border: Border(top: BorderSide(color: Colors.white, width: 0.5)),
       ),
-      child: const Text(
+      child: Text(
         AppStrings.uaFooter,
         style: TextStyle(
-          fontSize: 12,
+          fontSize: AppSpacing.bodySmall,
           fontWeight: FontWeight.w600,
-          color: Color(0xFFBBCABF),
+          color: colors.sage,
         ),
         textAlign: TextAlign.center,
       ),

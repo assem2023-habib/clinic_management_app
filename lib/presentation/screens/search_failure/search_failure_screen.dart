@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/presentation/screens/search_failure/widgets/sf_actions.dart';
 import 'package:clinic_management_app/presentation/screens/search_failure/widgets/sf_content_card.dart';
 import 'package:clinic_management_app/presentation/screens/search_failure/widgets/sf_icon_section.dart';
@@ -11,8 +12,9 @@ class SearchFailureScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Scaffold(
-      backgroundColor: const Color(0xFF00180B),
+      backgroundColor: colors.scaffoldBg,
       body: SafeArea(
         child: Column(
           children: [
@@ -25,9 +27,9 @@ class SearchFailureScreen extends StatelessWidget {
                     onPressed: onBack ?? () => Navigator.pop(context),
                   ),
                   const Spacer(),
-                  const Text(
+                  Text(
                     'البَحْثُ',
-                    style: TextStyle(fontFamily: 'Sora', fontSize: 18, fontWeight: FontWeight.w600, color: Color(0xFFC6EBD1)),
+                    style: TextStyle(fontFamily: 'Sora', fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary),
                   ),
                   const SizedBox(width: 48),
                 ],

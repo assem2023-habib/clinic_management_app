@@ -83,6 +83,7 @@ class _OfflineScreenState extends State<OfflineScreen>
   }
 
   Widget _buildBackground(Size screenSize) {
+    final colors = AppColors.of(context);
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -91,7 +92,7 @@ class _OfflineScreenState extends State<OfflineScreen>
           center: Alignment.center,
           radius: 1.2,
           colors: [
-            const Color(0xFF002111),
+            colors.surface,
             const Color(0xFF131313),
           ],
           stops: const [0.0, 1.0],
@@ -111,10 +112,11 @@ class _OfflineScreenState extends State<OfflineScreen>
   }
 
   Widget _buildParticles() {
+    final colors = AppColors.of(context);
     return Positioned.fill(
       child: IgnorePointer(
         child: CustomPaint(
-          painter: _ParticlePainter(),
+          painter: _ParticlePainter(colors),
         ),
       ),
     );
@@ -122,7 +124,7 @@ class _OfflineScreenState extends State<OfflineScreen>
 
   Widget _buildHeader(AppColorSet colors) {
     return Container(
-      height: 64,
+      height: AppSpacing.appBarHeight,
       decoration: BoxDecoration(
         color: const Color(0xFF131313).withValues(alpha: 0.7),
         border: Border(
@@ -149,20 +151,21 @@ class _OfflineScreenState extends State<OfflineScreen>
               AppStrings.appName,
               style: TextStyle(
                 fontFamily: 'Sora',
-                fontSize: 24,
+                fontSize: AppSpacing.titleError,
                 fontWeight: FontWeight.w600,
                 color: colors.primary,
               ),
               textAlign: TextAlign.center,
             ),
           ),
-          const SizedBox(width: 48),
+          const SizedBox(width: AppSpacing.xxl),
         ],
       ),
     );
   }
 
   Widget _buildIllustration() {
+    final colors = AppColors.of(context);
     return AnimatedBuilder(
       animation: _pulseAnimation,
       builder: (context, child) {
@@ -182,10 +185,10 @@ class _OfflineScreenState extends State<OfflineScreen>
               height: MediaQuery.of(context).size.width * 0.6,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: const Color(0xFF00E476).withValues(alpha: 0.04),
+                color: colors.vibrantGreen.withValues(alpha: 0.04),
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFF00E476).withValues(alpha: 0.06),
+                    color: colors.vibrantGreen.withValues(alpha: 0.06),
                     blurRadius: 100,
                     spreadRadius: 30,
                   ),
@@ -210,19 +213,20 @@ class _OfflineScreenState extends State<OfflineScreen>
   }
 
   Widget _buildFallbackIcon() {
+    final colors = AppColors.of(context);
     return Container(
       width: MediaQuery.of(context).size.width * 0.45,
       height: MediaQuery.of(context).size.width * 0.45,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: const Color(0xFF002111).withValues(alpha: 0.5),
+        color: colors.surface.withValues(alpha: 0.5),
         border: Border.all(
-          color: const Color(0xFF00FF85).withValues(alpha: 0.3),
+          color: colors.neonGreen.withValues(alpha: 0.3),
           width: 1.5,
         ),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF00FF85).withValues(alpha: 0.15),
+            color: colors.neonGreen.withValues(alpha: 0.15),
             blurRadius: 40,
             spreadRadius: 10,
           ),
@@ -231,18 +235,19 @@ class _OfflineScreenState extends State<OfflineScreen>
       child: Icon(
         Icons.signal_cellular_off_rounded,
         size: 72,
-        color: const Color(0xFF00FF85).withValues(alpha: 0.7),
+        color: colors.neonGreen.withValues(alpha: 0.7),
       ),
     );
   }
 
   Widget _buildGlassCard() {
+    final colors = AppColors.of(context);
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
-        color: const Color(0xFF002111).withValues(alpha: 0.7),
-        borderRadius: BorderRadius.circular(12),
+        color: colors.surface.withValues(alpha: 0.7),
+        borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
         border: Border.all(
           color: Colors.white.withValues(alpha: 0.15),
         ),
@@ -251,12 +256,12 @@ class _OfflineScreenState extends State<OfflineScreen>
         children: [
           Text(
             AppStrings.olTitle,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Sora',
-              fontSize: 24,
+              fontSize: AppSpacing.titleError,
               fontWeight: FontWeight.w600,
               height: 1.3,
-              color: Color(0xFFABCFB6),
+              color: colors.sage,
             ),
             textAlign: TextAlign.center,
           ),
@@ -265,11 +270,11 @@ class _OfflineScreenState extends State<OfflineScreen>
             padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
             child: Text(
               AppStrings.olMessage,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Manrope',
-                fontSize: 16,
+                fontSize: AppSpacing.bodyLarge,
                 fontWeight: FontWeight.w400,
-                color: Color(0xFFC2C8C1),
+                color: colors.borderLight,
                 height: 1.5,
               ),
               textAlign: TextAlign.center,
@@ -283,28 +288,29 @@ class _OfflineScreenState extends State<OfflineScreen>
   }
 
   Widget _buildActions() {
+    final colors = AppColors.of(context);
     return Column(
       children: [
         SizedBox(
           width: double.infinity,
-          height: 56,
+          height: AppSpacing.buttonHeight,
           child: ElevatedButton(
             onPressed: widget.onRetry ?? () => Navigator.of(context).pop(),
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF00E476),
-              foregroundColor: const Color(0xFF00210C),
-              disabledBackgroundColor: const Color(0xFF00E476).withValues(alpha: 0.5),
-              disabledForegroundColor: const Color(0xFF00210C).withValues(alpha: 0.5),
+              backgroundColor: colors.vibrantGreen,
+              foregroundColor: colors.surfaceDarker,
+              disabledBackgroundColor: colors.vibrantGreen.withValues(alpha: 0.5),
+              disabledForegroundColor: colors.surfaceDarker.withValues(alpha: 0.5),
               elevation: 0,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
               ),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.refresh_rounded, size: 20),
-                const SizedBox(width: 8),
+                const Icon(Icons.refresh_rounded, size: AppSpacing.iconSmall),
+                const SizedBox(width: AppSpacing.sm),
                 Text(
                   AppStrings.olRetry,
                   style: const TextStyle(
@@ -319,25 +325,25 @@ class _OfflineScreenState extends State<OfflineScreen>
         const SizedBox(height: AppSpacing.sm),
         SizedBox(
           width: double.infinity,
-          height: 56,
+          height: AppSpacing.buttonHeight,
           child: TextButton(
             onPressed: widget.onShowCached ?? () => Navigator.of(context).pop(),
             style: TextButton.styleFrom(
-              foregroundColor: const Color(0xFFABCFB6),
+              foregroundColor: colors.sage,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
               ),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.cached_rounded, size: 20),
-                const SizedBox(width: 8),
+                const Icon(Icons.cached_rounded, size: AppSpacing.iconSmall),
+                const SizedBox(width: AppSpacing.sm),
                 Text(
                   AppStrings.olShowCached,
                   style: const TextStyle(
                     fontFamily: 'JetBrains Mono',
-                    fontSize: 12,
+                    fontSize: AppSpacing.bodySmall,
                     fontWeight: FontWeight.w500,
                     letterSpacing: 0.5,
                   ),
@@ -362,12 +368,12 @@ class _OfflineScreenState extends State<OfflineScreen>
               size: 16,
               color: colors.textSecondary.withValues(alpha: 0.4),
             ),
-            const SizedBox(width: 8),
+            const SizedBox(width: AppSpacing.sm),
             Text(
               AppStrings.olSignalLost,
               style: TextStyle(
                 fontFamily: 'JetBrains Mono',
-                fontSize: 12,
+                fontSize: AppSpacing.bodySmall,
                 fontWeight: FontWeight.w500,
                 letterSpacing: 0.5,
                 color: colors.textSecondary.withValues(alpha: 0.4),
@@ -384,12 +390,12 @@ class _OfflineScreenState extends State<OfflineScreen>
               size: 16,
               color: colors.textSecondary.withValues(alpha: 0.4),
             ),
-            const SizedBox(width: 8),
+            const SizedBox(width: AppSpacing.sm),
             Text(
               AppStrings.olServerUnreachable,
               style: TextStyle(
                 fontFamily: 'JetBrains Mono',
-                fontSize: 12,
+                fontSize: AppSpacing.bodySmall,
                 fontWeight: FontWeight.w500,
                 letterSpacing: 0.5,
                 color: colors.textSecondary.withValues(alpha: 0.4),
@@ -434,10 +440,14 @@ class _ScanlinePainter extends CustomPainter {
 }
 
 class _ParticlePainter extends CustomPainter {
+  final AppColorSet colors;
+
+  const _ParticlePainter(this.colors);
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = const Color(0xFF00E476).withValues(alpha: 0.12);
+      ..color = colors.vibrantGreen.withValues(alpha: 0.12);
     canvas.drawCircle(
       Offset(size.width * 0.2, size.height * 0.25),
       2,
@@ -446,12 +456,12 @@ class _ParticlePainter extends CustomPainter {
     canvas.drawCircle(
       Offset(size.width * 0.75, size.height * 0.7),
       3,
-      paint..color = const Color(0xFFABCFB6).withValues(alpha: 0.08),
+      paint..color = colors.sage.withValues(alpha: 0.08),
     );
     canvas.drawCircle(
       Offset(size.width * 0.5, size.height * 0.85),
       1.5,
-      paint..color = const Color(0xFF00E476).withValues(alpha: 0.12),
+      paint..color = colors.vibrantGreen.withValues(alpha: 0.12),
     );
   }
 

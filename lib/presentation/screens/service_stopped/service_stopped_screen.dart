@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 
 class ServiceStoppedScreen extends StatefulWidget {
@@ -32,8 +34,9 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Scaffold(
-      backgroundColor: const Color(0xFF00180B),
+      backgroundColor: colors.scaffoldBg,
       body: Stack(
         children: [
           const _ParticleLayer(),
@@ -49,9 +52,9 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const SizedBox(height: 24),
+                      const SizedBox(height: AppSpacing.lg),
                       _buildStatusBadge(),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: AppSpacing.lg),
                       _buildIconComposition(),
                       const SizedBox(height: 40),
                       _buildTitle(),
@@ -139,12 +142,12 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
               shape: BoxShape.circle,
             ),
           ),
-          const SizedBox(width: 6),
+          SizedBox(width: AppSpacing.xs + 2),
           Text(
             AppStrings.ssStatusOffline,
             style: const TextStyle(
               fontFamily: 'Sora',
-              fontSize: 12,
+              fontSize: AppSpacing.bodySmall,
               fontWeight: FontWeight.w600,
               letterSpacing: 0.05,
               color: Color(0xFFFFDAD6),
@@ -156,6 +159,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
   }
 
   Widget _buildIconComposition() {
+    final colors = AppColors.of(context);
     return SizedBox(
       width: 192,
       height: 192,
@@ -191,7 +195,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
             height: 128,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: const Color(0xFF032515).withValues(alpha: 0.6),
+              color: colors.cardBg.withValues(alpha: 0.6),
               border: Border.all(
                 color: Colors.white.withValues(alpha: 0.08),
               ),
@@ -214,8 +218,8 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
             child: Container(
               width: 40,
               height: 40,
-              decoration: const BoxDecoration(
-                color: Color(0xFF00180B),
+              decoration: BoxDecoration(
+                color: colors.scaffoldBg,
                 shape: BoxShape.circle,
               ),
               child: Container(
@@ -228,7 +232,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
                 ),
                 child: const Icon(
                   Icons.construction_rounded,
-                  size: 20,
+                  size: AppSpacing.iconSmall,
                   color: Color(0xFFFFB4AB),
                 ),
               ),
@@ -271,6 +275,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
   }
 
   Widget _buildActions() {
+    final colors = AppColors.of(context);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -279,11 +284,11 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
           height: 48,
           child: ElevatedButton.icon(
             onPressed: widget.onRetry,
-            icon: const Icon(Icons.refresh_rounded, size: 20),
+            icon: const Icon(Icons.refresh_rounded, size: AppSpacing.iconSmall),
             label: const Text(
               AppStrings.ssRetry,
               style: TextStyle(
-                fontSize: 14,
+                fontSize: AppSpacing.bodyMedium,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -293,34 +298,34 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
               elevation: 0,
               shadowColor: const Color(0xFF10B981).withValues(alpha: 0.2),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
               ),
             ),
           ),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: AppSpacing.sm + 4),
         SizedBox(
           width: 240,
           height: 48,
           child: OutlinedButton.icon(
             onPressed: () => Navigator.of(context)
                 .pushReplacementNamed(AppRoutes.dashboard),
-            icon: const Icon(Icons.home_rounded, size: 20),
+            icon: const Icon(Icons.home_rounded, size: AppSpacing.iconSmall),
             label: const Text(
               AppStrings.ssGoHome,
               style: TextStyle(
-                fontSize: 14,
+                fontSize: AppSpacing.bodyMedium,
                 fontWeight: FontWeight.w500,
               ),
             ),
             style: OutlinedButton.styleFrom(
-              backgroundColor: const Color(0xFF032515).withValues(alpha: 0.6),
+              backgroundColor: colors.cardBg.withValues(alpha: 0.6),
               foregroundColor: const Color(0xFF4EDEA3),
               side: BorderSide(
                 color: Colors.white.withValues(alpha: 0.08),
               ),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
               ),
             ),
           ),
@@ -334,7 +339,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
       AppStrings.ssErrorCode,
       style: TextStyle(
         fontFamily: 'Sora',
-        fontSize: 12,
+        fontSize: AppSpacing.bodySmall,
         fontWeight: FontWeight.w600,
         letterSpacing: 0.05,
         color: Color(0xFF86948A),

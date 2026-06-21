@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class DpActionButtons extends StatelessWidget {
   final VoidCallback? onBackground;
@@ -7,11 +9,12 @@ class DpActionButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Column(
       children: [
         SizedBox(
           width: double.infinity,
-          height: 56,
+          height: AppSpacing.buttonHeight,
           child: ElevatedButton(
             onPressed: onBackground ?? () => Navigator.pop(context),
             style: ElevatedButton.styleFrom(
@@ -30,7 +33,7 @@ class DpActionButtons extends StatelessWidget {
         const SizedBox(height: 12),
         SizedBox(
           width: double.infinity,
-          height: 56,
+          height: AppSpacing.buttonHeight,
           child: TextButton(
             onPressed: onCancel ?? () => Navigator.pop(context),
             style: TextButton.styleFrom(
@@ -38,7 +41,7 @@ class DpActionButtons extends StatelessWidget {
                 borderRadius: BorderRadius.circular(28),
                 side: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
               ),
-              foregroundColor: const Color(0xFFC6EBD1),
+              foregroundColor: colors.textPrimary,
             ),
             child: const Text(
               '\u0625\u0644\u063a\u0627\u0621 \u0627\u0644\u0639\u0645\u0644\u064a\u0629',

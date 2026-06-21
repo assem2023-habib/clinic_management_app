@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'suspended_painters.dart';
 import 'widgets/sp_background.dart';
@@ -64,8 +65,9 @@ class _SuspendedScreenState extends State<SuspendedScreen>
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Scaffold(
-      backgroundColor: const Color(0xFF00180B),
+      backgroundColor: colors.scaffoldBg,
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
@@ -96,7 +98,7 @@ class _SuspendedScreenState extends State<SuspendedScreen>
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
-                const SizedBox(height: 64),
+                const SizedBox(height: AppSpacing.appBarHeight),
                 const SpIconSection(),
                 const SizedBox(height: AppSpacing.md),
                 const SpContentCard(),
@@ -119,7 +121,7 @@ class _SuspendedScreenState extends State<SuspendedScreen>
   Widget _buildAppBar() {
     return Container(
       width: double.infinity,
-      height: 64,
+      height: AppSpacing.appBarHeight,
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Align(
         alignment: Alignment.centerRight,
@@ -129,13 +131,13 @@ class _SuspendedScreenState extends State<SuspendedScreen>
             borderRadius: BorderRadius.circular(20),
             onTap: () => Navigator.of(context).pop(),
             child: Container(
-              width: 40,
-              height: 40,
+              width: AppSpacing.iconContainer,
+              height: AppSpacing.iconContainer,
               alignment: Alignment.center,
               child: const Icon(
                 Icons.arrow_forward_rounded,
                 color: Color(0xFF4EDEA3),
-                size: 24,
+                size: AppSpacing.iconSize,
               ),
             ),
           ),

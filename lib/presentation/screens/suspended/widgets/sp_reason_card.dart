@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 
@@ -7,12 +8,13 @@ class SpReasonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(AppSpacing.sm),
       decoration: BoxDecoration(
-        color: const Color(0xFF032515).withValues(alpha: 0.6),
-        borderRadius: BorderRadius.circular(12),
+        color: colors.cardBg.withValues(alpha: 0.6),
+        borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
         border: Border.all(
           color: Colors.white.withValues(alpha: 0.05),
         ),
@@ -23,18 +25,18 @@ class SpReasonCard extends StatelessWidget {
           const Text(
             AppStrings.spReasonLabel,
             style: TextStyle(
-              fontSize: 12,
+              fontSize: AppSpacing.bodySmall,
               fontWeight: FontWeight.w600,
               color: Color(0xFF4EDEA3),
               letterSpacing: 0.05,
             ),
           ),
           const SizedBox(height: 4),
-          const Text(
+          Text(
             AppStrings.spReasonValue,
             style: TextStyle(
-              fontSize: 16,
-              color: Color(0xFFC6EBD1),
+              fontSize: AppSpacing.bodyLarge,
+              color: colors.textPrimary,
             ),
           ),
         ],

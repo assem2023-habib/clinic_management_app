@@ -39,6 +39,11 @@ abstract class AppColorSet {
   Color get scaffoldBg;
   Color get skeletonBase;
   Color get skeletonShimmer;
+  Color get vibrantGreen;
+  Color get neonGreen;
+  Color get sage;
+  Color get borderLight;
+  Color get surfaceDarker;
 }
 
 class VitalityLight implements AppColorSet {
@@ -127,6 +132,21 @@ class VitalityLight implements AppColorSet {
 
   @override
   Color get skeletonShimmer => const Color(0x4DFFFFFF);
+
+  @override
+  Color get vibrantGreen => const Color(0xFF00E476);
+
+  @override
+  Color get neonGreen => const Color(0xFF00FF85);
+
+  @override
+  Color get sage => const Color(0xFFABCFB6);
+
+  @override
+  Color get borderLight => const Color(0xFFC2C8C1);
+
+  @override
+  Color get surfaceDarker => const Color(0xFFF0F3FF);
 }
 
 class VitalityDark implements AppColorSet {
@@ -215,4 +235,19 @@ class VitalityDark implements AppColorSet {
 
   @override
   Color get skeletonShimmer => const Color(0x1AFFFFFF);
+
+  @override
+  Color get vibrantGreen => const Color(0xFF00E476);
+
+  @override
+  Color get neonGreen => const Color(0xFF00FF85);
+
+  @override
+  Color get sage => const Color(0xFFABCFB6);
+
+  @override
+  Color get borderLight => const Color(0xFFC2C8C1);
+
+  @override
+  Color get surfaceDarker => const Color(0xFF00210C);
 }

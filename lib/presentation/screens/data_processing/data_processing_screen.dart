@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'data_processing_painters.dart';
 import 'widgets/dp_analysis_card.dart';
 import 'widgets/dp_action_buttons.dart';
@@ -93,8 +95,9 @@ class _DataProcessingScreenState extends State<DataProcessingScreen> with Ticker
   @override
   Widget build(BuildContext context) {
     final breathingScale = 1.0 + _breathingController.value * 0.1;
+    final colors = AppColors.of(context);
     return Scaffold(
-      backgroundColor: const Color(0xFF00180B),
+      backgroundColor: colors.scaffoldBg,
       body: Stack(
         children: [
           if (_viewSize != Size.zero)
@@ -168,11 +171,11 @@ class _DataProcessingScreenState extends State<DataProcessingScreen> with Ticker
                       ],
                     ),
                     const SizedBox(height: 20),
-                    const Text(
+                    Text(
                       '\u062a\u062d\u0644\u064a\u0644 \u0627\u0644\u0628\u064a\u0627\u0646\u0627\u062a \u0627\u0644\u0635\u062d\u064a\u0629',
                       style: TextStyle(
                         fontFamily: 'Sora', fontSize: 28, fontWeight: FontWeight.w600,
-                        color: Color(0xFFC6EBD1),
+                        color: colors.textPrimary,
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -182,15 +185,15 @@ class _DataProcessingScreenState extends State<DataProcessingScreen> with Ticker
                       child: Text(
                         '\u062c\u0627\u0631\u064a \u0625\u0646\u0634\u0627\u0621 \u062a\u0642\u0631\u064a\u0631\u0643 \u0627\u0644\u0635\u062d\u064a \u0627\u0644\u0634\u0627\u0645\u0644 \u0628\u0627\u0633\u062a\u062e\u062f\u0627\u0645 \u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a...',
                         style: TextStyle(
-                          fontFamily: 'Sora', fontSize: 16, fontWeight: FontWeight.w400,
+                          fontFamily: 'Sora', fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w400,
                           color: Color(0xFFBBCABF),
                         ),
                         textAlign: TextAlign.center,
                       ),
                     ),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: AppSpacing.xxl),
                     DpAnalysisCard(percent: _percent, breathingScale: breathingScale),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: AppSpacing.xxl),
                     DpActionButtons(
                       onBackground: widget.onBackground,
                       onCancel: widget.onCancel,

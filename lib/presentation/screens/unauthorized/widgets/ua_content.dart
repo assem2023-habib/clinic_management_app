@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 
 class UaContent extends StatelessWidget {
@@ -6,6 +8,7 @@ class UaContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Column(
       children: [
         const Text(
@@ -18,13 +21,13 @@ class UaContent extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 12),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
             AppStrings.uaMessage,
             style: TextStyle(
-              fontSize: 18,
-              color: Color(0xFFBBCABF),
+              fontSize: AppSpacing.titleMedium,
+              color: colors.sage,
               height: 1.5,
             ),
             textAlign: TextAlign.center,

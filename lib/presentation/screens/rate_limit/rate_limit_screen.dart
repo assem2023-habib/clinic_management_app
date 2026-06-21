@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/screens/rate_limit/rate_limit_painters.dart';
@@ -62,12 +63,13 @@ class _RateLimitScreenState extends State<RateLimitScreen>
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Scaffold(
       body: Stack(
         children: [
-          const DecoratedBox(
-            decoration: BoxDecoration(color: Color(0xFF00180B)),
-            child: SizedBox.expand(),
+          DecoratedBox(
+            decoration: BoxDecoration(color: colors.scaffoldBg),
+            child: const SizedBox.expand(),
           ),
           _buildPulsingCircles(),
           _buildAtmosphericGlows(),
@@ -89,9 +91,9 @@ class _RateLimitScreenState extends State<RateLimitScreen>
                       const SizedBox(height: AppSpacing.xxl),
                       _buildContent(),
                       const SizedBox(height: AppSpacing.lg),
-                      _buildTimerCard(),
+                      _buildTimerCard(colors: colors),
                       const SizedBox(height: AppSpacing.sm),
-                      _buildActions(),
+                      _buildActions(colors: colors),
                       const SizedBox(height: AppSpacing.xl),
                     ],
                   ),
@@ -259,11 +261,11 @@ class _RateLimitScreenState extends State<RateLimitScreen>
         children: [
           Text(
             AppStrings.rlTitle,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Sora',
-              fontSize: 24,
+              fontSize: AppSpacing.titleError,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF36FF8B),
+              color: const Color(0xFF36FF8B),
             ),
             textAlign: TextAlign.center,
           ),
@@ -272,7 +274,7 @@ class _RateLimitScreenState extends State<RateLimitScreen>
             AppStrings.rlMessage,
             style: const TextStyle(
               fontFamily: 'Manrope',
-              fontSize: 16,
+              fontSize: AppSpacing.bodyLarge,
               fontWeight: FontWeight.w400,
               color: Color(0xFFC2C8C1),
               height: 1.5,
@@ -284,13 +286,13 @@ class _RateLimitScreenState extends State<RateLimitScreen>
     );
   }
 
-  Widget _buildTimerCard() {
+  Widget _buildTimerCard({required AppColorSet colors}) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(AppSpacing.md),
       decoration: BoxDecoration(
-        color: const Color(0xFF002111).withValues(alpha: 0.7),
-        borderRadius: BorderRadius.circular(12),
+        color: colors.surface.withValues(alpha: 0.7),
+        borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
         border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
       ),
       child: Column(
@@ -300,23 +302,23 @@ class _RateLimitScreenState extends State<RateLimitScreen>
             children: [
               Text(
                 AppStrings.rlWaitingTimer,
-                style: const TextStyle(
-                  fontFamily: 'JetBrains Mono',
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  letterSpacing: 0.5,
-                  color: Color(0xFF36FF8B),
-                ),
+              style: const TextStyle(
+                fontFamily: 'JetBrains Mono',
+                fontSize: AppSpacing.bodySmall,
+                fontWeight: FontWeight.w500,
+                letterSpacing: 0.5,
+                color: Color(0xFF36FF8B),
               ),
-              Text(
-                _isReady
-                    ? AppStrings.rlReadyNow
-                    : '$_remaining ${AppStrings.rlSecond}',
-                style: TextStyle(
-                  fontFamily: 'JetBrains Mono',
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  letterSpacing: 0.5,
+            ),
+            Text(
+              _isReady
+                  ? AppStrings.rlReadyNow
+                  : '$_remaining ${AppStrings.rlSecond}',
+              style: TextStyle(
+                fontFamily: 'JetBrains Mono',
+                fontSize: AppSpacing.bodySmall,
+                fontWeight: FontWeight.w500,
+                letterSpacing: 0.5,
                   color: _isReady
                       ? const Color(0xFF36FF8B)
                       : const Color(0xFFE5E2E1),
@@ -329,12 +331,12 @@ class _RateLimitScreenState extends State<RateLimitScreen>
             borderRadius: BorderRadius.circular(9999),
             child: SizedBox(
               width: double.infinity,
-              height: 6,
+              height: AppSpacing.bulletSize,
               child: Stack(
                 children: [
                   Container(
                     width: double.infinity,
-                    height: 6,
+                    height: AppSpacing.bulletSize,
                     color: Colors.white.withValues(alpha: 0.08),
                   ),
                   AnimatedContainer(
@@ -343,7 +345,7 @@ class _RateLimitScreenState extends State<RateLimitScreen>
                     width: _progress *
                         MediaQuery.of(context).size.width *
                         0.85,
-                    height: 6,
+                    height: AppSpacing.bulletSize,
                     decoration: BoxDecoration(
                       color: const Color(0xFF36FF8B),
                       borderRadius: BorderRadius.circular(9999),
@@ -365,23 +367,23 @@ class _RateLimitScreenState extends State<RateLimitScreen>
     );
   }
 
-  Widget _buildActions() {
+  Widget _buildActions({required AppColorSet colors}) {
     return Column(
       children: [
         SizedBox(
           width: double.infinity,
-          height: 56,
+          height: AppSpacing.buttonHeight,
           child: ElevatedButton(
             onPressed: _isReady ? (widget.onRetry ?? () {}) : null,
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF36FF8B),
-              foregroundColor: const Color(0xFF002111),
+              foregroundColor: colors.surface,
               disabledBackgroundColor: Colors.white.withValues(alpha: 0.04),
               disabledForegroundColor:
                   const Color(0xFFC2C8C1).withValues(alpha: 0.5),
               elevation: 0,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
               ),
             ),
             child: Row(
@@ -389,19 +391,19 @@ class _RateLimitScreenState extends State<RateLimitScreen>
               children: [
                 Icon(
                   Icons.refresh_rounded,
-                  size: 20,
+                  size: AppSpacing.iconSmall,
                   color: _isReady
-                      ? const Color(0xFF002111)
+                      ? colors.surface
                       : const Color(0xFFC2C8C1).withValues(alpha: 0.5),
                 ),
-                const SizedBox(width: 8),
+                const SizedBox(width: AppSpacing.sm),
                 Text(
                   AppStrings.rlRetry,
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: AppSpacing.bodyLarge,
                     fontWeight: FontWeight.w700,
                     color: _isReady
-                        ? const Color(0xFF002111)
+                        ? colors.surface
                         : const Color(0xFFC2C8C1).withValues(alpha: 0.5),
                   ),
                 ),
@@ -423,7 +425,7 @@ class _RateLimitScreenState extends State<RateLimitScreen>
             AppStrings.rlContactSupport,
             style: const TextStyle(
               fontFamily: 'JetBrains Mono',
-              fontSize: 12,
+              fontSize: AppSpacing.bodySmall,
               fontWeight: FontWeight.w500,
               letterSpacing: 0.5,
             ),

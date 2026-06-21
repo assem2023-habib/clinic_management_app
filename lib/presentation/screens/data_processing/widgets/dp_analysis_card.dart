@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import '../data_processing_painters.dart';
 
 class DpAnalysisCard extends StatelessWidget {
@@ -13,7 +14,7 @@ class DpAnalysisCard extends StatelessWidget {
       padding: const EdgeInsets.all(40),
       decoration: BoxDecoration(
         color: const Color(0xFF1B3B29).withValues(alpha: 0.4),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
         border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
         boxShadow: [
           BoxShadow(
@@ -53,7 +54,7 @@ class DpAnalysisCard extends StatelessWidget {
                       const Text(
                         'مُكْتَمِل',
                         style: TextStyle(
-                          fontFamily: 'Sora', fontSize: 12, fontWeight: FontWeight.w600,
+                          fontFamily: 'Sora', fontSize: AppSpacing.bodySmall, fontWeight: FontWeight.w600,
                           color: Color(0xFFBBCABF), letterSpacing: 0.05,
                         ),
                       ),
@@ -96,7 +97,7 @@ class DpAnalysisCard extends StatelessWidget {
           const Text(
             '\u064a\u062a\u0645 \u0627\u0644\u0622\u0646 \u0645\u0639\u0627\u0644\u062c\u0629 48 \u0646\u0642\u0637\u0629 \u0628\u064a\u0627\u0646\u064a\u0629 \u062d\u064a\u0648\u064a\u0629',
             style: TextStyle(
-              fontFamily: 'Sora', fontSize: 16, fontWeight: FontWeight.w400,
+              fontFamily: 'Sora', fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w400,
               color: Color(0xFFBBCABF),
             ),
             textAlign: TextAlign.center,

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class NfContentCard extends StatelessWidget {
   final String title;
@@ -8,12 +10,13 @@ class NfContentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 24),
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: const Color(0xFF032515).withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(16),
+        color: colors.cardBg.withValues(alpha: 0.5),
+        borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
         border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
       ),
       child: Column(

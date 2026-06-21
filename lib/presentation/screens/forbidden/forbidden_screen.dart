@@ -6,7 +6,7 @@ import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 
 const double _marginMobile = 20.0;
-const double _gutter = 16.0;
+const double _gutter = AppSpacing.md;
 
 class ForbiddenScreen extends StatelessWidget {
   final VoidCallback? onContactSupport;
@@ -67,7 +67,7 @@ class ForbiddenScreen extends StatelessWidget {
   Widget _buildAppBar(BuildContext context, AppColorSet colors) {
     return Container(
       width: double.infinity,
-      height: 64,
+      height: AppSpacing.appBarHeight,
       padding: const EdgeInsets.symmetric(horizontal: _marginMobile),
       decoration: BoxDecoration(
         color: colors.surface.withValues(alpha: 0.95),
@@ -81,10 +81,10 @@ class ForbiddenScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               onTap: () => Navigator.of(context).pop(),
               child: Container(
-                width: 40,
-                height: 40,
+                width: AppSpacing.iconContainer,
+                height: AppSpacing.iconContainer,
                 alignment: Alignment.center,
-                child: Icon(Icons.arrow_forward_rounded, color: colors.primary, size: 24),
+                child: Icon(Icons.arrow_forward_rounded, color: colors.primary, size: AppSpacing.iconSize),
               ),
             ),
           ),
@@ -92,7 +92,7 @@ class ForbiddenScreen extends StatelessWidget {
           Text(
             AppStrings.appName,
             style: TextStyle(
-              fontSize: 24,
+              fontSize: AppSpacing.titleError,
               fontWeight: FontWeight.w700,
               color: colors.primary,
             ),
@@ -104,10 +104,10 @@ class ForbiddenScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               onTap: () {},
               child: Container(
-                width: 40,
-                height: 40,
+                width: AppSpacing.iconContainer,
+                height: AppSpacing.iconContainer,
                 alignment: Alignment.center,
-                child: Icon(Icons.help_outline_rounded, color: colors.textLight, size: 22),
+                child: Icon(Icons.help_outline_rounded, color: colors.textLight, size: AppSpacing.iconSmall + 2),
               ),
             ),
           ),
@@ -175,7 +175,7 @@ class ForbiddenScreen extends StatelessWidget {
       padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
         color: colors.surface.withValues(alpha: 0.6),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
         border: Border.all(color: colors.divider.withValues(alpha: 0.08)),
       ),
       child: Column(
@@ -193,7 +193,7 @@ class ForbiddenScreen extends StatelessWidget {
           Text(
             AppStrings.fbMessage,
             style: TextStyle(
-              fontSize: 16,
+              fontSize: AppSpacing.bodyLarge,
               color: colors.textSecondary,
               height: 1.5,
             ),
@@ -212,18 +212,18 @@ class ForbiddenScreen extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () => Navigator.of(context).pushReplacementNamed(AppRoutes.dashboard),
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF10B981),
+              backgroundColor: colors.vibrantGreen,
               foregroundColor: Colors.black,
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
               elevation: 0,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.home_rounded, size: 22),
+                Icon(Icons.home_rounded, size: AppSpacing.iconSmall + 2),
                 const SizedBox(width: AppSpacing.sm),
-                Text(AppStrings.fbGoHome, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                Text(AppStrings.fbGoHome, style: const TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600)),
               ],
             ),
           ),
@@ -236,15 +236,15 @@ class ForbiddenScreen extends StatelessWidget {
             style: OutlinedButton.styleFrom(
               foregroundColor: colors.primary,
               side: BorderSide(color: colors.primary.withValues(alpha: 0.3)),
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.support_agent_rounded, size: 22),
+                Icon(Icons.support_agent_rounded, size: AppSpacing.iconSmall + 2),
                 const SizedBox(width: AppSpacing.sm),
-                Text(AppStrings.fbContactSupport, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                Text(AppStrings.fbContactSupport, style: const TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600)),
               ],
             ),
           ),
@@ -282,25 +282,25 @@ class ForbiddenScreen extends StatelessWidget {
       padding: const EdgeInsets.all(AppSpacing.md),
       decoration: BoxDecoration(
         color: colors.surface.withValues(alpha: 0.6),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
         border: Border.all(color: colors.divider.withValues(alpha: 0.08)),
       ),
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(AppSpacing.sm),
             decoration: BoxDecoration(
               color: colors.cardBg,
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(AppSpacing.sm),
             ),
-            child: Icon(icon, size: 18, color: colors.primary),
+            child: Icon(icon, size: AppSpacing.titleMedium, color: colors.primary),
           ),
           const SizedBox(width: AppSpacing.sm),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: colors.textPrimary)),
+                Text(label, style: TextStyle(fontSize: AppSpacing.bodySmall, fontWeight: FontWeight.w500, color: colors.textPrimary)),
                 Text(value, style: TextStyle(fontSize: 11, color: colors.textSecondary, fontFamily: 'monospace')),
               ],
             ),
@@ -315,13 +315,13 @@ class ForbiddenScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         _dot(colors, 0.4),
-        const SizedBox(width: 8),
+        const SizedBox(width: AppSpacing.sm),
         _dot(colors, 0.6),
-        const SizedBox(width: 8),
+        const SizedBox(width: AppSpacing.sm),
         _dot(colors, 1.0),
-        const SizedBox(width: 8),
+        const SizedBox(width: AppSpacing.sm),
         _dot(colors, 0.6),
-        const SizedBox(width: 8),
+        const SizedBox(width: AppSpacing.sm),
         _dot(colors, 0.4),
       ],
     );
@@ -329,8 +329,8 @@ class ForbiddenScreen extends StatelessWidget {
 
   Widget _dot(AppColorSet colors, double opacity) {
     return Container(
-      width: 6,
-      height: 6,
+      width: AppSpacing.bulletSize,
+      height: AppSpacing.bulletSize,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: colors.primary.withValues(alpha: opacity),

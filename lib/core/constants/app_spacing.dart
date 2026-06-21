@@ -26,10 +26,15 @@ class AppSpacing {
   static const double iconSmall = 20;
   static const double confirmationIconSize = 96;
   static const double titleLarge = 26;
+  static const double titleError = 24;
   static const double titleMedium = 18;
+  static const double bodyLarge = 16;
   static const double bodyMedium = 14;
   static const double bodySmall = 12;
   static const double bulletSize = 6;
   static const double bottomNavHeight = 100;
+  static const double appBarHeight = 64;
+  static const double buttonHeight = 56;
+  static const double iconContainer = 40;
   static const double drawerHeaderHeight = 180;
 }
