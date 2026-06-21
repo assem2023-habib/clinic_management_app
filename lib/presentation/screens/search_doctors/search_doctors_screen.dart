@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
+import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_bloc.dart';
@@ -54,8 +56,9 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Scaffold(
-      backgroundColor: const Color(0xFF00180B),
+      backgroundColor: colors.scaffoldBg,
       body: SafeArea(
         child: Column(
           children: [
@@ -65,9 +68,9 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
                 builder: (context, state) {
                   if (state is DoctorLoading && !_showAllDoctors) {
                     _showAllDoctors = true;
-                    return const Center(
+                    return Center(
                       child: CircularProgressIndicator(
-                        color: Color(0xFF80D8A6),
+                        color: colors.primary,
                       ),
                     );
                   }
@@ -77,14 +80,14 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
                         : <DoctorEntity>[];
                     final filtered = _filterDoctors(doctors);
                     return SingleChildScrollView(
-                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
+                      padding: const EdgeInsets.fromLTRB(AppSpacing.md, 0, AppSpacing.md, AppSpacing.bottomNavHeight),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           _buildSearchSection(),
                           const SizedBox(height: 12),
                           _buildFilterChips(),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: AppSpacing.md),
                           _buildResultsCount(filtered.length),
                           const SizedBox(height: 12),
                           if (state is DoctorLoading && doctors.isEmpty)
@@ -112,7 +115,7 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
                     return Center(
                       child: Text(
                         state.message,
-                        style: const TextStyle(color: Color(0xFFC6EBD1)),
+                        style: TextStyle(color: colors.textPrimary),
                       ),
                     );
                   }

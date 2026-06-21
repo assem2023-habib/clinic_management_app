@@ -45,7 +45,7 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
         if (state is AppointmentError) {
           return Center(
             child: Text(state.message,
-              style: TextStyle(color: AppColors.of(context).error, fontSize: 14)),
+              style: TextStyle(color: AppColors.of(context).error, fontSize: AppSpacing.bodyMedium)),
           );
         }
         return _buildContent([]);
@@ -131,11 +131,11 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
           controller: _searchCtrl,
           focusNode: _focusNode,
           onChanged: (v) => setState(() => _searchQuery = v),
-          style: TextStyle(color: c.textPrimary, fontSize: 14),
+          style: TextStyle(color: c.textPrimary, fontSize: AppSpacing.bodyMedium),
           decoration: InputDecoration(
             hintText: AppStrings.search,
-            hintStyle: TextStyle(color: c.textLight.withValues(alpha: 0.7), fontSize: 14),
-            prefixIcon: Icon(Icons.search_rounded, size: 20,
+            hintStyle: TextStyle(color: c.textLight.withValues(alpha: 0.7), fontSize: AppSpacing.bodyMedium),
+            prefixIcon: Icon(Icons.search_rounded, size: AppSpacing.iconSmall,
               color: c.textLight.withValues(alpha: 0.7)),
             suffixIcon: _searchQuery.isNotEmpty
                 ? IconButton(
@@ -158,7 +158,7 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
       padding: const EdgeInsets.all(2),
       decoration: BoxDecoration(
         color: c.cardBg.withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
       ),
       child: Row(
         children: [
@@ -173,7 +173,7 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 alignment: Alignment.center,
-                child: Text(AppStrings.upcomingAppts, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: c.textPrimary)),
+                child: Text(AppStrings.upcomingAppts, style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600, color: c.textPrimary)),
               ),
             ),
           ),
@@ -188,7 +188,7 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 alignment: Alignment.center,
-                child: Text(AppStrings.previousVisits, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: c.textPrimary)),
+                child: Text(AppStrings.previousVisits, style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600, color: c.textPrimary)),
               ),
             ),
           ),

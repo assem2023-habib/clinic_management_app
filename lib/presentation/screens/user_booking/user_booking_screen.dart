@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
@@ -92,7 +93,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.lock_outline_rounded, size: 64, color: colors.textLight),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: AppSpacing.md),
                       Text(AppStrings.bookingPatientOnly, style: TextStyle(color: colors.textSecondary)),
                     ],
                   ),
@@ -132,15 +133,15 @@ class _UserBookingScreenState extends State<UserBookingScreen>
                         children: [
                           SingleChildScrollView(
                             padding: const EdgeInsets.only(
-                              top: 100, left: 16, right: 16, bottom: 120,
+                              top: 100, left: AppSpacing.md, right: AppSpacing.md, bottom: 120,
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 _buildDateSection(colors, state, context),
-                                const SizedBox(height: 32),
+                                const SizedBox(height: AppSpacing.xl),
                                 _buildDoctorCard(colors, state.doctor),
-                                const SizedBox(height: 32),
+                                const SizedBox(height: AppSpacing.xl),
                                 SlideTransition(
                                   position: _slotSlide,
                                   child: FadeTransition(
@@ -166,7 +167,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
 
   PreferredSizeWidget _buildAppBar(AppColorSet colors) {
     return PreferredSize(
-      preferredSize: const Size.fromHeight(64),
+      preferredSize: Size.fromHeight(AppSpacing.appBarHeight),
       child: FadeTransition(
         opacity: _headerFade,
         child: ClipRect(
@@ -174,7 +175,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
             color: colors.surface.withValues(alpha: 0.7),
             child: SafeArea(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
                 child: Row(
                   children: [
                     _GlassIconButton(
@@ -187,7 +188,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
                         child: Text(
                           AppStrings.bookingTitle,
                           style: TextStyle(
-                            fontSize: 24,
+                            fontSize: AppSpacing.titleError,
                             fontWeight: FontWeight.w700,
                             color: colors.primary,
                           ),
@@ -250,7 +251,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
             ),
           ],
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: AppSpacing.md),
         SizedBox(
           height: 96,
           child: ListView.separated(
@@ -288,7 +289,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
               Positioned(
                 bottom: -4, left: -4,
                 child: Container(
-                  width: 16, height: 16,
+                  width: AppSpacing.md, height: AppSpacing.md,
                   decoration: BoxDecoration(
                     color: doctor.isAvailable ? colors.secondary : colors.textLight,
                     shape: BoxShape.circle,
@@ -298,7 +299,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
               ),
             ],
           ),
-          const SizedBox(width: 16),
+          const SizedBox(width: AppSpacing.md),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -311,18 +312,18 @@ class _UserBookingScreenState extends State<UserBookingScreen>
                     color: colors.textPrimary,
                   ),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: AppSpacing.xs),
                 Text(
                   doctor.specialty,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: AppSpacing.bodyMedium,
                     color: colors.textSecondary,
                   ),
                 ),
               ],
             ),
           ),
-          Icon(Icons.verified, color: colors.primary, size: 24),
+          Icon(Icons.verified, color: colors.primary, size: AppSpacing.iconSize),
         ],
       ),
     );
@@ -341,7 +342,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
     return Column(
       children: [
         _buildSlotGrid(colors, 'الفترة الصباحية', Icons.light_mode, morning, state.selectedSlotId, context),
-        const SizedBox(height: 32),
+        const SizedBox(height: AppSpacing.xl),
         _buildSlotGrid(colors, 'الفترة المسائية', Icons.dark_mode, evening, state.selectedSlotId, context),
       ],
     );
@@ -353,13 +354,13 @@ class _UserBookingScreenState extends State<UserBookingScreen>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _SectionHeader(title: title, icon: icon, colors: colors),
-          const SizedBox(height: 16),
+          const SizedBox(height: AppSpacing.md),
           Center(
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 24),
+              padding: const EdgeInsets.symmetric(vertical: AppSpacing.lg),
               child: Text(
                 'لا توجد مواعيد متاحة',
-                style: TextStyle(color: colors.textSecondary, fontSize: 14),
+                style: TextStyle(color: colors.textSecondary, fontSize: AppSpacing.bodyMedium),
               ),
             ),
           ),
@@ -371,7 +372,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _SectionHeader(title: title, icon: icon, colors: colors),
-        const SizedBox(height: 16),
+        const SizedBox(height: AppSpacing.md),
         GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
@@ -412,7 +413,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
             ],
           ),
         ),
-        padding: EdgeInsets.fromLTRB(16, 32, 16, MediaQuery.of(context).padding.bottom + 24),
+        padding: EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.xl, AppSpacing.md, MediaQuery.of(context).padding.bottom + AppSpacing.lg),
         child: ScaleTransition(
           scale: _confirmScale,
           child: AnimatedOpacity(
@@ -435,22 +436,22 @@ class _UserBookingScreenState extends State<UserBookingScreen>
               },
               onTapCancel: () => _confirmBtnController.reverse(),
               child: Container(
-                height: 56,
+                height: AppSpacing.buttonHeight,
                 decoration: BoxDecoration(
                   color: colors.primary,
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
                   boxShadow: [
                     BoxShadow(
                       color: colors.primary.withValues(alpha: 0.25),
                       blurRadius: 24,
-                      offset: const Offset(0, 8),
+                      offset: const Offset(0, AppSpacing.sm),
                     ),
                   ],
                 ),
                 child: state is UserBookingBooking
                     ? Center(
                         child: SizedBox(
-                          width: 24, height: 24,
+                          width: AppSpacing.iconSize, height: AppSpacing.iconSize,
                           child: CircularProgressIndicator(
                             color: colors.primaryDark,
                             strokeWidth: 2,
@@ -463,7 +464,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
                           Text(
                             'تأكيد الحجز',
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: AppSpacing.titleMedium,
                               fontWeight: FontWeight.w700,
                               color: colors.primaryDark,
                             ),
@@ -506,7 +507,7 @@ class _DateCard extends StatelessWidget {
         width: 56,
         decoration: BoxDecoration(
           color: isSelected ? colors.primaryDark : colors.cardBg.withValues(alpha: 0.4),
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
           border: Border.all(
             color: isSelected ? colors.primary : colors.divider.withValues(alpha: 0.08),
           ),
@@ -530,7 +531,7 @@ class _DateCard extends StatelessWidget {
                     : colors.textSecondary,
               ),
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: AppSpacing.xs),
             Text(
               dayNumber,
               style: TextStyle(
@@ -607,7 +608,7 @@ class _SlotCardState extends State<_SlotCard>
             color: widget.isSelected
                 ? widget.colors.primaryDark
                 : widget.colors.cardBg.withValues(alpha: 0.4),
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
             border: Border.all(
               color: widget.isSelected
                   ? widget.colors.primary
@@ -635,7 +636,7 @@ class _SlotCardState extends State<_SlotCard>
                           ? widget.colors.chipText
                           : widget.colors.primary,
                     ),
-                    const SizedBox(width: 8),
+                    const SizedBox(width: AppSpacing.sm),
                     Text(
                       widget.time,
                       style: TextStyle(
@@ -649,9 +650,9 @@ class _SlotCardState extends State<_SlotCard>
                   ],
                 ),
                 if (widget.isBooked)
-                  Icon(Icons.lock, size: 16, color: widget.colors.textSecondary)
+                  Icon(Icons.lock, size: AppSpacing.md, color: widget.colors.textSecondary)
                 else if (widget.isSelected)
-                  Icon(Icons.check_circle, size: 16, color: widget.colors.chipText)
+                  Icon(Icons.check_circle, size: AppSpacing.md, color: widget.colors.chipText)
                 else
                   Text(
                     'متاح',
@@ -685,8 +686,8 @@ class _SectionHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(icon, color: colors.primary, size: 16),
-        const SizedBox(width: 8),
+        Icon(icon, color: colors.primary, size: AppSpacing.md),
+        const SizedBox(width: AppSpacing.sm),
         Text(
           title,
           style: TextStyle(
@@ -717,13 +718,13 @@ class _GlassIconButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 40, height: 40,
+        width: AppSpacing.iconContainer, height: AppSpacing.iconContainer,
         decoration: BoxDecoration(
           color: colors.cardBg.withValues(alpha: 0.5),
           shape: BoxShape.circle,
           border: Border.all(color: colors.divider.withValues(alpha: 0.08)),
         ),
-        child: Icon(icon, color: colors.primary, size: 20),
+        child: Icon(icon, color: colors.primary, size: AppSpacing.iconSmall),
       ),
     );
   }

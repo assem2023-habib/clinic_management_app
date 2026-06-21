@@ -56,7 +56,7 @@ class DoctorBookingCard extends StatelessWidget {
                 Text(
                   doctor.name,
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: AppSpacing.titleMedium,
                     fontWeight: FontWeight.w600,
                     color: colors.textPrimary,
                   ),
@@ -65,7 +65,7 @@ class DoctorBookingCard extends StatelessWidget {
                 Text(
                   doctor.specialty,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: AppSpacing.bodyMedium,
                     color: colors.textSecondary,
                   ),
                 ),

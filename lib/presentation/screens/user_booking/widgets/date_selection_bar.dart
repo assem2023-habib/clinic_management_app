@@ -45,13 +45,13 @@ class DateSelectionBar extends StatelessWidget {
             Material(
               color: Colors.transparent,
               child: InkWell(
-                borderRadius: BorderRadius.circular(24),
+                borderRadius: BorderRadius.circular(AppSpacing.lg),
                 onTap: onCalendarTap,
                 child: Container(
                   padding: const EdgeInsets.all(AppSpacing.sm),
                   decoration: BoxDecoration(
                     color: colors.cardBg,
-                    borderRadius: BorderRadius.circular(24),
+                    borderRadius: BorderRadius.circular(AppSpacing.lg),
                     border: Border.all(color: colors.divider.withValues(alpha: 0.3)),
                   ),
                   child: Icon(Icons.calendar_month_rounded, color: colors.primary, size: 22),

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
@@ -54,9 +55,9 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
                 }).toList();
                 if (filtered.isEmpty) return const EmptyDataWidget(icon: Icons.calendar_month_outlined, title: AppStrings.noData, compact: true);
                 return ListView.separated(
-                  padding: const EdgeInsets.all(16),
+                  padding: AppSpacing.screenPadding,
                   itemCount: filtered.length,
-                  separatorBuilder: (_, _) => const SizedBox(height: 8),
+                  separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.sm),
                   itemBuilder: (context, index) => AnimatedCard(
                     index: index,
                     child: _buildAppointmentCard(filtered[index], colors),
@@ -74,7 +75,7 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
 
   Widget _buildCalendarHeader(AppColorSet colors) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: AppSpacing.screenPadding,
       child: GlassCard(
         padding: const EdgeInsets.all(12),
         child: Row(
@@ -91,7 +92,7 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
                 children: [
                   Text(DateFormat('EEEE').format(_selectedDate), style: TextStyle(fontSize: 13, color: colors.textLight)),
                   const SizedBox(height: 2),
-                  Text(DateFormat('yyyy-MM-dd').format(_selectedDate), style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: colors.textPrimary)),
+                  Text(DateFormat('yyyy-MM-dd').format(_selectedDate), style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.bold, color: colors.textPrimary)),
                 ],
               ),
             ),
@@ -119,7 +120,7 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
               CircleAvatar(
                 radius: 22,
                 backgroundColor: statusColor.withValues(alpha: 0.2),
-                child: Icon(_statusIcon(statusValue), color: statusColor, size: 20),
+                child: Icon(_statusIcon(statusValue), color: statusColor, size: AppSpacing.iconSmall),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -144,7 +145,7 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
                   Text(appt.date!, style: TextStyle(fontSize: 12, color: colors.textLight)),
                 ],
                 if (appt.timeSlot != null) ...[
-                  const SizedBox(width: 16),
+                  const SizedBox(width: AppSpacing.md),
                   Icon(Icons.schedule_rounded, size: 14, color: colors.textLight),
                   const SizedBox(width: 4),
                   Text(appt.timeSlot!, style: TextStyle(fontSize: 12, color: colors.textLight)),

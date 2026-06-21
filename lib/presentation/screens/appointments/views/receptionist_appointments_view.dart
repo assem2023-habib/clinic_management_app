@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/core/utils/helpers.dart';
 import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
@@ -53,9 +54,9 @@ class _ReceptionistAppointmentsViewState extends State<ReceptionistAppointmentsV
                 }).toList();
                 if (filtered.isEmpty) return const EmptyDataWidget(icon: Icons.calendar_month_outlined, title: AppStrings.noData, compact: true);
                 return ListView.separated(
-                  padding: const EdgeInsets.all(16),
+                  padding: AppSpacing.screenPadding,
                   itemCount: filtered.length,
-                  separatorBuilder: (_, _) => const SizedBox(height: 8),
+                  separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.sm),
                   itemBuilder: (context, index) => AnimatedCard(
                     index: index,
                     child: _buildAppointmentCard(filtered[index], colors),
@@ -73,7 +74,7 @@ class _ReceptionistAppointmentsViewState extends State<ReceptionistAppointmentsV
 
   Widget _buildCalendarHeader(AppColorSet colors) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: AppSpacing.screenPadding,
       child: GlassCard(
         padding: const EdgeInsets.all(12),
         child: Row(
@@ -90,7 +91,7 @@ class _ReceptionistAppointmentsViewState extends State<ReceptionistAppointmentsV
                 children: [
                   Text(DateFormat('EEEE').format(_selectedDate), style: TextStyle(fontSize: 13, color: colors.textLight)),
                   const SizedBox(height: 2),
-                  Text(DateFormat('yyyy-MM-dd').format(_selectedDate), style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: colors.textPrimary)),
+                  Text(DateFormat('yyyy-MM-dd').format(_selectedDate), style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.bold, color: colors.textPrimary)),
                 ],
               ),
             ),
@@ -118,7 +119,7 @@ class _ReceptionistAppointmentsViewState extends State<ReceptionistAppointmentsV
               CircleAvatar(
                 radius: 22,
                 backgroundColor: statusColor.withValues(alpha: 0.2),
-                child: Icon(_statusIcon(statusValue), color: statusColor, size: 20),
+                child: Icon(_statusIcon(statusValue), color: statusColor, size: AppSpacing.iconSmall),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -143,7 +144,7 @@ class _ReceptionistAppointmentsViewState extends State<ReceptionistAppointmentsV
                   Text(appt.date!, style: TextStyle(fontSize: 12, color: colors.textLight)),
                 ],
                 if (appt.timeSlot != null) ...[
-                  const SizedBox(width: 16),
+                  const SizedBox(width: AppSpacing.md),
                   Icon(Icons.schedule_rounded, size: 14, color: colors.textLight),
                   const SizedBox(width: 4),
                   Text(appt.timeSlot!, style: TextStyle(fontSize: 12, color: colors.textLight)),
@@ -156,12 +157,12 @@ class _ReceptionistAppointmentsViewState extends State<ReceptionistAppointmentsV
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               _smallAction(colors, AppStrings.edit, Icons.edit_rounded, colors.primary, () => _showEditForm(appt)),
-              const SizedBox(width: 8),
+              const SizedBox(width: AppSpacing.sm),
               _smallAction(colors, AppStrings.complete, Icons.check_circle_rounded, colors.success, () {
                 context.read<AppointmentBloc>().add(AppointmentUpdateStatus(appt.id, AppointmentStatus.completed));
                 showSnackBar(context, AppStrings.statusUpdated);
               }),
-              const SizedBox(width: 8),
+              const SizedBox(width: AppSpacing.sm),
               _smallAction(colors, AppStrings.cancel, Icons.cancel_rounded, colors.error, () {
                 context.read<AppointmentBloc>().add(AppointmentUpdateStatus(appt.id, AppointmentStatus.cancelled));
                 showSnackBar(context, AppStrings.statusUpdated);
@@ -184,7 +185,7 @@ class _ReceptionistAppointmentsViewState extends State<ReceptionistAppointmentsV
           foregroundColor: color,
           side: BorderSide(color: color.withValues(alpha: 0.3)),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-          padding: const EdgeInsets.symmetric(horizontal: 8),
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
         ),
       ),
     );
@@ -192,8 +193,8 @@ class _ReceptionistAppointmentsViewState extends State<ReceptionistAppointmentsV
 
   Widget _buildStatusBadge(AppColorSet colors, Color color, String label) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(color: color.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(12)),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: 4),
+      decoration: BoxDecoration(color: color.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
       child: Text(label, style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600)),
     );
   }

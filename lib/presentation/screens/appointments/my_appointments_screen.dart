@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_bloc.dart';
@@ -56,24 +57,24 @@ class _MyAppointmentsScreenState extends State<MyAppointmentsScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(Icons.calendar_month_rounded, size: 64, color: colors.textSecondary.withValues(alpha: 0.3)),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: AppSpacing.md),
                     Text(
                       'لا توجد مواعيد حالياً',
                       style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: colors.textSecondary),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: AppSpacing.sm),
                     Text(
                       'احجز موعداً مع أحد أطبائنا',
-                      style: TextStyle(fontSize: 14, color: colors.textSecondary.withValues(alpha: 0.6)),
+                      style: TextStyle(fontSize: AppSpacing.bodyMedium, color: colors.textSecondary.withValues(alpha: 0.6)),
                     ),
                   ],
                 ),
               );
             }
             return ListView.separated(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 100),
+              padding: const EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.md, AppSpacing.md, 100),
               itemCount: doctors.length,
-              separatorBuilder: (_, _) => const SizedBox(height: 16),
+              separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.md),
               itemBuilder: (_, i) {
                 final doctor = doctors[i];
                 return DoctorGlassCard(

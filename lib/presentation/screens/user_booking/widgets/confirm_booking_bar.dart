@@ -45,8 +45,8 @@ class ConfirmBookingBar extends StatelessWidget {
             onPressed: isEnabled && !isLoading ? onConfirm : null,
             icon: isLoading
                 ? SizedBox(
-                    width: 20,
-                    height: 20,
+                    width: AppSpacing.iconSmall,
+                    height: AppSpacing.iconSmall,
                     child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
                   )
                 : const Icon(Icons.event_available_rounded, size: 22),
