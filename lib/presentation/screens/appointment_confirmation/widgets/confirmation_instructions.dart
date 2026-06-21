@@ -16,12 +16,12 @@ class ConfirmationInstructions extends StatelessWidget {
         Text(
           AppStrings.importantInstructions,
           style: TextStyle(
-            fontSize: 14,
+            fontSize: AppSpacing.bodyMedium,
             fontWeight: FontWeight.w600,
             color: colors.textPrimary,
           ),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
         _instructionItem(context, AppStrings.instructionArriveEarly),
         const SizedBox(height: AppSpacing.sm),
         _instructionItem(context, AppStrings.instructionBringId),
@@ -35,8 +35,8 @@ class ConfirmationInstructions extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
-          width: 6,
-          height: 6,
+          width: AppSpacing.bulletSize,
+          height: AppSpacing.bulletSize,
           decoration: BoxDecoration(
             color: colors.secondary,
             shape: BoxShape.circle,
@@ -46,7 +46,7 @@ class ConfirmationInstructions extends StatelessWidget {
         Expanded(
           child: Text(
             text,
-            style: TextStyle(fontSize: 14, color: colors.textSecondary),
+            style: TextStyle(fontSize: AppSpacing.bodyMedium, color: colors.textSecondary),
           ),
         ),
       ],

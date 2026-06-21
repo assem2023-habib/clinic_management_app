@@ -23,12 +23,12 @@ class ConfirmationHeader extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: 96,
-          height: 96,
+          width: AppSpacing.confirmationIconSize,
+          height: AppSpacing.confirmationIconSize,
           decoration: BoxDecoration(
             color: colors.warning,
             shape: BoxShape.circle,
-            boxShadow: [BoxShadow(color: colors.warning.withValues(alpha: 0.3), blurRadius: 40)],
+            boxShadow: [BoxShadow(color: colors.warning.withValues(alpha: 0.3), blurRadius: AppSpacing.xxl)],
           ),
           child: Icon(Icons.hourglass_top_rounded, color: Colors.white, size: AppSpacing.xxl),
         ),
@@ -36,7 +36,7 @@ class ConfirmationHeader extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-            fontSize: 26,
+            fontSize: AppSpacing.titleLarge,
             fontWeight: FontWeight.w700,
             color: colors.primary,
           ),
@@ -46,7 +46,7 @@ class ConfirmationHeader extends StatelessWidget {
         Text(
           subtitle,
           style: TextStyle(
-            fontSize: 14,
+            fontSize: AppSpacing.bodyMedium,
             color: colors.textSecondary,
           ),
           textAlign: TextAlign.center,

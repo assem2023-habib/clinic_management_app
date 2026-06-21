@@ -29,13 +29,13 @@ class ConfirmationDetailsCard extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(AppSpacing.sm),
                 child: CircleAvatar(
-                  radius: 28,
+                  radius: AppSpacing.avatarMedium,
                   backgroundColor: colors.primary.withValues(alpha: 0.15),
                   backgroundImage: doctor.imageUrl != null
                       ? NetworkImage(doctor.imageUrl!)
                       : null,
                   child: doctor.imageUrl == null
-                      ? Icon(Icons.person_rounded, size: 28, color: colors.primary)
+                      ? Icon(Icons.person_rounded, size: AppSpacing.avatarMedium, color: colors.primary)
                       : null,
                 ),
               ),
@@ -46,12 +46,12 @@ class ConfirmationDetailsCard extends StatelessWidget {
                   children: [
                     Text(
                       doctor.name,
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary),
+                      style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w600, color: colors.textPrimary),
                     ),
-                    const SizedBox(height: 2),
+                    const SizedBox(height: AppSpacing.xs / 2),
                     Text(
                       doctor.specialty,
-                      style: TextStyle(fontSize: 14, color: colors.secondary),
+                      style: TextStyle(fontSize: AppSpacing.bodyMedium, color: colors.secondary),
                     ),
                   ],
                 ),
@@ -67,14 +67,14 @@ class ConfirmationDetailsCard extends StatelessWidget {
             AppStrings.historyLabel,
             _formatDate(data.date),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
           _buildDetailRow(
             context,
             Icons.schedule_rounded,
             AppStrings.timeLabel,
             _formatTime(data.timeSlot),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
           _buildDetailRow(
             context,
             Icons.location_on_rounded,
@@ -87,7 +87,7 @@ class ConfirmationDetailsCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(AppSpacing.sm),
             child: Container(
               width: double.infinity,
-              height: 100,
+              height: AppSpacing.confirmationIconSize + AppSpacing.xs,
               decoration: BoxDecoration(
                 color: colors.surface,
                 border: Border.all(color: colors.divider.withValues(alpha: 0.2)),
@@ -125,30 +125,30 @@ class ConfirmationDetailsCard extends StatelessWidget {
     return Row(
       crossAxisAlignment: isMultiLine ? CrossAxisAlignment.start : CrossAxisAlignment.center,
       children: [
-        Container(
-          padding: const EdgeInsets.all(6),
-          decoration: BoxDecoration(
-            color: colors.surface,
-            borderRadius: BorderRadius.circular(AppSpacing.sm),
-            border: Border.all(color: colors.divider.withValues(alpha: 0.1)),
+          Container(
+            padding: const EdgeInsets.all(AppSpacing.sm - 2),
+            decoration: BoxDecoration(
+              color: colors.surface,
+              borderRadius: BorderRadius.circular(AppSpacing.sm),
+              border: Border.all(color: colors.divider.withValues(alpha: 0.1)),
+            ),
+            child: Icon(icon, size: AppSpacing.titleMedium, color: colors.primary),
           ),
-          child: Icon(icon, size: 18, color: colors.primary),
-        ),
-        const SizedBox(width: 12),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(label, style: TextStyle(fontSize: 12, color: colors.textLight)),
+          const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(label, style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textLight)),
             const SizedBox(height: 2),
             isMultiLine
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: value.split('\n').map((line) => Text(
                       line,
-                      style: TextStyle(fontSize: 14, color: colors.textPrimary),
+                      style: TextStyle(fontSize: AppSpacing.bodyMedium, color: colors.textPrimary),
                     )).toList(),
                   )
-                : Text(value, style: TextStyle(fontSize: 14, color: colors.textPrimary)),
+                : Text(value, style: TextStyle(fontSize: AppSpacing.bodyMedium, color: colors.textPrimary)),
           ],
         ),
       ],

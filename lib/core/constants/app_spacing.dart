@@ -20,6 +20,16 @@ class AppSpacing {
   static const double buttonRadius = 12;
   static const double inputRadius = 12;
   static const double avatarSize = 48;
+  static const double avatarMedium = 28;
+  static const double avatarSmall = 18;
   static const double iconSize = 24;
+  static const double iconSmall = 20;
+  static const double confirmationIconSize = 96;
+  static const double titleLarge = 26;
+  static const double titleMedium = 18;
+  static const double bodyMedium = 14;
+  static const double bodySmall = 12;
+  static const double bulletSize = 6;
+  static const double bottomNavHeight = 100;
   static const double drawerHeaderHeight = 180;
 }

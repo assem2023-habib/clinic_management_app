@@ -30,17 +30,17 @@ class AppointmentConfirmationScreen extends StatelessWidget {
         title: const Text(AppStrings.confirmAppointment),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(left: 12),
+            padding: const EdgeInsets.only(left: AppSpacing.sm + AppSpacing.xs),
             child: CircleAvatar(
-              radius: 18,
+              radius: AppSpacing.avatarSmall,
               backgroundColor: colors.primary.withValues(alpha: 0.15),
-              child: Icon(Icons.person_rounded, size: 20, color: colors.primary),
+              child: Icon(Icons.person_rounded, size: AppSpacing.iconSmall, color: colors.primary),
             ),
           ),
         ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.sm, AppSpacing.md, 100),
+        padding: const EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.sm, AppSpacing.md, AppSpacing.bottomNavHeight),
         child: Column(
           children: [
             ConfirmationHeader(role: role),
@@ -55,7 +55,7 @@ class AppointmentConfirmationScreen extends StatelessWidget {
         padding: EdgeInsets.only(
           left: AppSpacing.md,
           right: AppSpacing.md,
-          top: 12,
+          top: AppSpacing.sm + AppSpacing.xs,
           bottom: MediaQuery.of(context).padding.bottom + AppSpacing.sm,
         ),
         decoration: BoxDecoration(

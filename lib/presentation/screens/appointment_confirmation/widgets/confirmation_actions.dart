@@ -36,8 +36,8 @@ class ConfirmationActions extends StatelessWidget {
             height: AppSpacing.xxl,
             child: ElevatedButton.icon(
               onPressed: () => Navigator.pushNamed(context, primaryRoute),
-              icon: const Icon(Icons.event_note_rounded, size: 20),
-              label: Text(primaryLabel, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+              icon: const Icon(Icons.event_note_rounded, size: AppSpacing.iconSmall),
+              label: Text(primaryLabel, style: const TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: colors.primary,
                 foregroundColor: Colors.white,
@@ -46,14 +46,14 @@ class ConfirmationActions extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(width: 12),
+        const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
         Expanded(
           child: SizedBox(
             height: AppSpacing.xxl,
             child: OutlinedButton.icon(
               onPressed: onAddToCalendar,
-              icon: Icon(Icons.calendar_today_rounded, size: 20, color: colors.primary),
-              label: Text(AppStrings.addToCalendar, style: TextStyle(fontSize: 14, color: colors.primary)),
+              icon: Icon(Icons.calendar_today_rounded, size: AppSpacing.iconSmall, color: colors.primary),
+              label: Text(AppStrings.addToCalendar, style: TextStyle(fontSize: AppSpacing.bodyMedium, color: colors.primary)),
               style: OutlinedButton.styleFrom(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
                 side: BorderSide(color: colors.primary.withValues(alpha: 0.3)),
