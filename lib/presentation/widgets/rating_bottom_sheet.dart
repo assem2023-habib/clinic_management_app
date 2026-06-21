@@ -83,7 +83,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
           filter: ImageFilter.blur(sigmaX: 24, sigmaY: 24),
           child: Container(
             decoration: BoxDecoration(
-              color: const Color(0xFF002111).withValues(alpha: 0.88),
+              color: colors.surface.withValues(alpha: 0.88),
               border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.08))),
             ),
             padding: EdgeInsets.only(bottom: bottomPad),
@@ -118,7 +118,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
       width: 48,
       height: 5,
       decoration: BoxDecoration(
-        color: const Color(0xFF88938A).withValues(alpha: 0.28),
+        color: colors.textLight.withValues(alpha: 0.28),
         borderRadius: BorderRadius.circular(999),
       ),
     );
@@ -133,9 +133,9 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
             width: 44,
             height: 44,
             decoration: BoxDecoration(
-              gradient: const LinearGradient(colors: [Color(0xFF006D44), Color(0xFF00CA73)]),
+              gradient: LinearGradient(colors: [colors.primaryDark, colors.accent]),
               borderRadius: BorderRadius.circular(14),
-              boxShadow: [BoxShadow(color: const Color(0xFF00CA73).withValues(alpha: 0.25), blurRadius: 10)],
+              boxShadow: [BoxShadow(color: colors.accent.withValues(alpha: 0.25), blurRadius: 10)],
             ),
             child: const Icon(Icons.star_rounded, color: Colors.white, size: 24),
           ),
@@ -253,12 +253,12 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
           height: 52,
           decoration: BoxDecoration(
             gradient: canSend
-                ? const LinearGradient(colors: [Color(0xFF006D44), Color(0xFF00CA73)])
+                ? LinearGradient(colors: [colors.primaryDark, colors.accent])
                 : null,
             color: canSend ? null : Colors.white.withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(16),
             boxShadow: canSend
-                ? [BoxShadow(color: const Color(0xFF00CA73).withValues(alpha: 0.3), blurRadius: 16)]
+                ? [BoxShadow(color: colors.accent.withValues(alpha: 0.3), blurRadius: 16)]
                 : [],
           ),
           child: Row(
