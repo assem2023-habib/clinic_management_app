@@ -25,20 +25,25 @@ class DrLiveQueue extends StatefulWidget {
 }
 
 class _DrLiveQueueState extends State<DrLiveQueue> {
+  String? _userId;
+  late final AppointmentBloc _appointmentBloc;
+
   @override
   void initState() {
     super.initState();
+    _appointmentBloc = context.read<AppointmentBloc>();
     final userId = context.read<AuthCubit>().state.userId;
     if (userId != null) {
-      context.read<AppointmentBloc>().add(AppointmentWatchRtdb(userId));
+      _userId = userId;
+      _appointmentBloc.add(AppointmentWatchRtdb(userId));
     }
   }
 
   @override
   void dispose() {
-    final userId = context.read<AuthCubit>().state.userId;
+    final userId = _userId;
     if (userId != null) {
-      context.read<AppointmentBloc>().add(AppointmentStopRtdb(userId));
+      _appointmentBloc.add(AppointmentStopRtdb(userId));
     }
     super.dispose();
   }
