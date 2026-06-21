@@ -26,11 +26,11 @@ class ConfirmationHeader extends StatelessWidget {
           width: 96,
           height: 96,
           decoration: BoxDecoration(
-            color: colors.primaryDark,
+            color: colors.warning,
             shape: BoxShape.circle,
-            boxShadow: [BoxShadow(color: colors.primary.withValues(alpha: 0.3), blurRadius: 40)],
+            boxShadow: [BoxShadow(color: colors.warning.withValues(alpha: 0.3), blurRadius: 40)],
           ),
-          child: Icon(Icons.check_circle_rounded, color: Colors.white, size: AppSpacing.xxl),
+          child: Icon(Icons.hourglass_top_rounded, color: Colors.white, size: AppSpacing.xxl),
         ),
         const SizedBox(height: AppSpacing.lg),
         Text(

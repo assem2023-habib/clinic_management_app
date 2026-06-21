@@ -118,9 +118,9 @@ class AppStrings {
 
   // Appointment Confirmation Screen
   static const confirmAppointment = 'تَأْكِيدُ المَوْعِدِ';
-  static const confirmationPatientTitle = 'تَمَّ تَأْكِيدُ حَجْزِكَ بِنَجَاحٍ!';
+  static const confirmationPatientTitle = 'طَلَبُكَ قَيْدُ المُرَاجَعَةِ';
   static const confirmationDoctorTitle = 'تَمَّ تَأْكِيدُ المَوْعِدِ بِنَجَاحٍ!';
-  static const confirmationPatientSubtitle = 'تَمَّ إِرْسَالُ تَفَاصِيلِ المَوْعِدِ إِلَى بَرِيدِكَ الإِلِكْتْرُونِيِّ وَهَاتِفِكَ المَحْمُولِ.';
+  static const confirmationPatientSubtitle = 'سَيَقُومُ الطَّبِيبُ بِمُرَاجَعَةِ طَلَبِكَ وَتَأْكِيدِ المَوْعِدِ لاحِقاً';
   static const confirmationDoctorSubtitle = 'تَمَّ حِفْظُ المَوْعِدِ فِي جَدْوَلِ المَوَاعِيدِ.';
   static const goToMyAppointments = 'الذَّهَابُ إِلَى مَوَاعِيدِي';
   static const viewMySchedule = 'عَرْضُ جَدْوَلِ مَوَاعِيدِي';
