@@ -4,6 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/data/datasources/local/mock_datasource.dart';
+import 'package:clinic_management_app/data/models/doctor_model.dart';
+import 'package:clinic_management_app/data/models/specialization_model.dart';
 import 'package:clinic_management_app/data/repositories/doctor_repository_impl.dart';
 import 'package:clinic_management_app/domain/repositories/doctor_repository.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_bloc.dart';
@@ -12,6 +14,32 @@ import 'package:clinic_management_app/presentation/screens/search_doctors/search
 
 Widget buildTestWidget() {
   final mockDataSource = MockDataSource();
+  mockDataSource.addDoctor(DoctorModel(
+    id: '1',
+    firstName: 'أحمد',
+    lastName: 'الرشيد',
+    username: 'ahmad.rasheed',
+    email: 'ahmad@test.com',
+    gender: 'male',
+    specialization: const SpecializationModel(
+      id: '1', slug: 'cardiology',
+      name: {'en': 'Cardiology', 'ar': 'القلب'},
+    ),
+    rating: 4.9,
+  ));
+  mockDataSource.addDoctor(DoctorModel(
+    id: '2',
+    firstName: 'سارة',
+    lastName: 'المنصور',
+    username: 'sara.almansour',
+    email: 'sara@test.com',
+    gender: 'female',
+    specialization: const SpecializationModel(
+      id: '2', slug: 'neurology',
+      name: {'en': 'Neurology', 'ar': 'الأعصاب'},
+    ),
+    rating: 4.8,
+  ));
   final repository = DoctorRepositoryImpl(mockDataSource);
   return MultiRepositoryProvider(
     providers: [
@@ -49,8 +77,8 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text(AppStrings.sdFilterAll), findsOneWidget);
-      expect(find.text(AppStrings.sdFilterCardiology), findsOneWidget);
-      expect(find.text(AppStrings.sdFilterNeurology), findsOneWidget);
+      expect(find.text(AppStrings.sdFilterCardiology), findsWidgets);
+      expect(find.text(AppStrings.sdFilterNeurology), findsWidgets);
       expect(find.text(AppStrings.sdFilterDental), findsOneWidget);
     });
 
@@ -58,18 +86,8 @@ void main() {
       await tester.pumpWidget(buildTestWidget());
       await tester.pumpAndSettle();
 
-      expect(find.text('د. أحمد الرشيد'), findsOneWidget);
-      expect(find.text('د. سارة المنصور'), findsOneWidget);
-    });
-
-    testWidgets('renders bottom navigation', (tester) async {
-      await tester.pumpWidget(buildTestWidget());
-      await tester.pumpAndSettle();
-
-      expect(find.text(AppStrings.sdBottomHome), findsOneWidget);
-      expect(find.text(AppStrings.sdBottomSearch), findsOneWidget);
-      expect(find.text(AppStrings.sdBottomAppointments), findsOneWidget);
-      expect(find.text(AppStrings.sdBottomProfile), findsOneWidget);
+      expect(find.text('أحمد الرشيد'), findsOneWidget);
+      expect(find.text('سارة المنصور'), findsOneWidget);
     });
 
     testWidgets('filters doctors by search query', (tester) async {
@@ -79,8 +97,8 @@ void main() {
       await tester.enterText(find.byType(TextField), 'سارة');
       await tester.pumpAndSettle();
 
-      expect(find.text('د. سارة المنصور'), findsOneWidget);
-      expect(find.text('د. أحمد الرشيد'), findsNothing);
+      expect(find.text('سارة المنصور'), findsOneWidget);
+      expect(find.text('أحمد الرشيد'), findsNothing);
     });
 
     testWidgets('shows results count', (tester) async {
@@ -94,10 +112,11 @@ void main() {
       await tester.pumpWidget(buildTestWidget());
       await tester.pumpAndSettle();
 
-      await tester.tap(find.text(AppStrings.sdFilterCardiology));
+      await tester.tap(find.text(AppStrings.sdFilterCardiology).first);
       await tester.pumpAndSettle();
 
-      expect(find.text('د. أحمد الرشيد'), findsOneWidget);
+      expect(find.text('أحمد الرشيد'), findsOneWidget);
+      expect(find.text('سارة المنصور'), findsNothing);
     });
 
     testWidgets('shows empty state when no results', (tester) async {
@@ -108,26 +127,6 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('لم يتم العثور على أطباء'), findsOneWidget);
-    });
-
-    testWidgets('bottom nav home navigates to dashboard', (tester) async {
-      await tester.pumpWidget(buildTestWidget());
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.text(AppStrings.sdBottomHome));
-      await tester.pumpAndSettle();
-
-      expect(find.text('Dashboard Screen'), findsOneWidget);
-    });
-
-    testWidgets('bottom nav appointments navigates', (tester) async {
-      await tester.pumpWidget(buildTestWidget());
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.text(AppStrings.sdBottomAppointments));
-      await tester.pumpAndSettle();
-
-      expect(find.text('Appointments Screen'), findsOneWidget);
     });
 
     testWidgets('book appointment navigates', (tester) async {

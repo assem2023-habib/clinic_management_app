@@ -103,7 +103,12 @@ class DownloadFileBloc extends Bloc<DownloadFileEvent, DownloadFileState> {
       result = result.where((f) => f.category == _currentCategory).toList();
     }
     if (_currentQuery.isNotEmpty) {
-      result = result.where((f) => f.name.toLowerCase().contains(_currentQuery.toLowerCase())).toList();
+      final q = _currentQuery.toLowerCase();
+      result = result.where((f) =>
+        f.name.toLowerCase().contains(q) ||
+        f.category.toLowerCase().contains(q) ||
+        f.type.toLowerCase().contains(q),
+      ).toList();
     }
     return result;
   }

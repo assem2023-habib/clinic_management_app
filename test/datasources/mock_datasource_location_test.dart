@@ -13,12 +13,12 @@ void main() {
       final countries = dataSource.allCountries;
       expect(countries.length, 22);
       expect(countries.first.nameAr, 'سُورِيَا');
-      expect(countries.last.nameEn, 'Germany');
+      expect(countries.last.nameEn, 'Comoros');
     });
 
-    test('allCities returns 36 cities', () {
+    test('allCities returns 41 cities', () {
       final cities = dataSource.allCities;
-      expect(cities.length, 36);
+      expect(cities.length, 41);
     });
 
     test('citiesByCountry filters correctly', () {
