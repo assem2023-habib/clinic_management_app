@@ -111,9 +111,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color: phase <= 0.5
-                  ? const Color(0xFF4EDEA3).withValues(alpha: 0.2)
-                  : const Color(0xFF4EDEA3).withValues(alpha: 0.1),
+              color: const Color(0xFF4EDEA3).withValues(alpha: 0.2),
             ),
           ),
         ),
@@ -122,13 +120,14 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
   }
 
   Widget _buildStatusBadge() {
+    final badgeColors = AppColors.of(context);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       decoration: BoxDecoration(
         color: const Color(0xFF93000A),
         borderRadius: BorderRadius.circular(9999),
         border: Border.all(
-          color: const Color(0xFFFFB4AB).withValues(alpha: 0.2),
+          color: badgeColors.error.withValues(alpha: 0.2),
         ),
       ),
       child: Row(
@@ -137,20 +136,20 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
           Container(
             width: 8,
             height: 8,
-            decoration: const BoxDecoration(
-              color: Color(0xFFFFB4AB),
+            decoration: BoxDecoration(
+              color: badgeColors.error,
               shape: BoxShape.circle,
             ),
           ),
           SizedBox(width: AppSpacing.xs + 2),
           Text(
             AppStrings.ssStatusOffline,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Sora',
               fontSize: AppSpacing.bodySmall,
               fontWeight: FontWeight.w600,
               letterSpacing: 0.05,
-              color: Color(0xFFFFDAD6),
+              color: const Color(0xFFFFDAD6),
             ),
           ),
         ],
@@ -169,6 +168,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
           AnimatedBuilder(
             animation: _pulseController,
             builder: (context, _) {
+              final pulseColors = AppColors.of(context);
               final t = _pulseController.value;
               final scale = 1.0 + t * 0.05;
               final opacity = 1.0 - t * 0.3;
@@ -182,7 +182,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.all(
-                        color: const Color(0xFF4EDEA3).withValues(alpha: 0.2),
+                        color: pulseColors.mint.withValues(alpha: 0.2),
                       ),
                     ),
                   ),
@@ -201,15 +201,15 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
               ),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFF10B981).withValues(alpha: 0.15),
+                  color: colors.emerald.withValues(alpha: 0.15),
                   blurRadius: 50,
                 ),
               ],
             ),
-            child: const Icon(
+            child: Icon(
               Icons.cloud_off_rounded,
               size: 80,
-              color: Color(0xFF4EDEA3),
+              color: colors.mint,
             ),
           ),
           Positioned(
@@ -227,13 +227,13 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: const Color(0xFF3C4A42),
+                    color: colors.borderDark,
                   ),
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.construction_rounded,
                   size: AppSpacing.iconSmall,
-                  color: Color(0xFFFFB4AB),
+                  color: colors.error,
                 ),
               ),
             ),
@@ -244,13 +244,14 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
   }
 
   Widget _buildTitle() {
-    return const Text(
+    final colors = AppColors.of(context);
+    return Text(
       AppStrings.ssTitle,
       style: TextStyle(
         fontFamily: 'Sora',
         fontSize: 28,
         fontWeight: FontWeight.w600,
-        color: Color(0xFF4EDEA3),
+        color: colors.mint,
         height: 1.2,
       ),
       textAlign: TextAlign.center,
@@ -258,15 +259,16 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
   }
 
   Widget _buildMessage() {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 12),
+    final colors = AppColors.of(context);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Text(
         AppStrings.ssMessage,
         style: TextStyle(
           fontFamily: 'Sora',
           fontSize: 18,
           fontWeight: FontWeight.w400,
-          color: Color(0xFFBBCABF),
+          color: colors.textMuted,
           height: 1.5,
         ),
         textAlign: TextAlign.center,
@@ -293,10 +295,10 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
               ),
             ),
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF10B981),
-              foregroundColor: const Color(0xFF00422B),
+              backgroundColor: colors.emerald,
+              foregroundColor: colors.buttonTextDark,
               elevation: 0,
-              shadowColor: const Color(0xFF10B981).withValues(alpha: 0.2),
+              shadowColor: colors.emerald.withValues(alpha: 0.2),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
               ),
@@ -320,7 +322,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
             ),
             style: OutlinedButton.styleFrom(
               backgroundColor: colors.cardBg.withValues(alpha: 0.6),
-              foregroundColor: const Color(0xFF4EDEA3),
+              foregroundColor: colors.mint,
               side: BorderSide(
                 color: Colors.white.withValues(alpha: 0.08),
               ),
@@ -335,14 +337,15 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
   }
 
   Widget _buildErrorCode() {
-    return const Text(
+    final errorColors = AppColors.of(context);
+    return Text(
       AppStrings.ssErrorCode,
       style: TextStyle(
         fontFamily: 'Sora',
         fontSize: AppSpacing.bodySmall,
         fontWeight: FontWeight.w600,
         letterSpacing: 0.05,
-        color: Color(0xFF86948A),
+        color: errorColors.textLight,
       ),
     );
   }

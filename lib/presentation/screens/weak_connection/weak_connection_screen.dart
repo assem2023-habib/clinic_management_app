@@ -42,7 +42,7 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
       body: Stack(
         children: [
           _buildStarfield(),
-          _buildAmbientGlows(context),
+          _buildAmbientGlows(context, colors),
           SafeArea(
             child: Column(
               children: [
@@ -56,9 +56,9 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
                           const SizedBox(height: AppSpacing.xl),
                           _buildCentralElement(centralSize, colors),
                           const SizedBox(height: 48),
-                          _buildContent(),
+                          _buildContent(colors),
                           const SizedBox(height: 24),
-                          _buildActions(),
+                          _buildActions(colors),
                           const SizedBox(height: 24),
                           _buildSignalMeter(colors),
                           const SizedBox(height: AppSpacing.xl),
@@ -85,7 +85,7 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
     );
   }
 
-  Widget _buildAmbientGlows(BuildContext context) {
+  Widget _buildAmbientGlows(BuildContext context, AppColorSet colors) {
     final size = MediaQuery.of(context).size;
     return Stack(
       children: [
@@ -97,10 +97,10 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
             height: 200,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: const Color(0xFF00FF85).withValues(alpha: 0.04),
+              color: colors.neonGreen.withValues(alpha: 0.04),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFF00FF85).withValues(alpha: 0.05),
+                  color: colors.neonGreen.withValues(alpha: 0.05),
                   blurRadius: 100,
                   spreadRadius: 50,
                 ),
@@ -116,10 +116,10 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
             height: 140,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: const Color(0xFFABCFB6).withValues(alpha: 0.03),
+              color: colors.sage.withValues(alpha: 0.03),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFFABCFB6).withValues(alpha: 0.04),
+                  color: colors.sage.withValues(alpha: 0.04),
                   blurRadius: 80,
                   spreadRadius: 40,
                 ),
@@ -189,11 +189,11 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
         shape: BoxShape.circle,
         color: colors.surface.withValues(alpha: 0.7),
         border: Border.all(
-          color: const Color(0xFF00FF85).withValues(alpha: 0.4),
+          color: colors.neonGreen.withValues(alpha: 0.4),
         ),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF00FF85).withValues(alpha: 0.2),
+            color: colors.neonGreen.withValues(alpha: 0.2),
             blurRadius: 30,
             spreadRadius: 5,
           ),
@@ -205,13 +205,13 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
           height: coreSize * 0.65,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: const Color(0xFF00FF85).withValues(alpha: 0.1),
+            color: colors.neonGreen.withValues(alpha: 0.1),
           ),
           child: Center(
             child: Icon(
               Icons.wifi_off_rounded,
               size: coreSize * 0.4,
-              color: const Color(0xFF00FF85),
+              color: colors.neonGreen,
             ),
           ),
         ),
@@ -219,7 +219,7 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(AppColorSet colors) {
     return Column(
       children: [
         Text(
@@ -228,7 +228,7 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
             fontFamily: 'Sora',
             fontSize: AppSpacing.titleError,
             fontWeight: FontWeight.w600,
-            color: const Color(0xFFE5E2E1),
+            color: colors.textDisabled,
           ),
           textAlign: TextAlign.center,
         ),
@@ -237,11 +237,11 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
             AppStrings.wcMessage,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Manrope',
               fontSize: AppSpacing.bodyLarge,
               fontWeight: FontWeight.w400,
-              color: Color(0xFFC2C8C1),
+              color: colors.textDim,
               height: 1.5,
             ),
             textAlign: TextAlign.center,
@@ -251,7 +251,7 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
     );
   }
 
-  Widget _buildActions() {
+  Widget _buildActions(AppColorSet colors) {
     return Column(
       children: [
         SizedBox(
@@ -262,7 +262,7 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white.withValues(alpha: 0.1),
               disabledBackgroundColor: Colors.white.withValues(alpha: 0.1),
-              disabledForegroundColor: const Color(0xFFE5E2E1),
+              disabledForegroundColor: colors.textDisabled,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
               elevation: 0,
             ),
@@ -274,7 +274,7 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
                   height: 20,
                   child: CircularProgressIndicator(
                     strokeWidth: 2.5,
-                    color: const Color(0xFFABCFB6),
+                    color: colors.sage,
                   ),
                 ),
                 const SizedBox(width: AppSpacing.sm),
@@ -293,9 +293,9 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
           child: OutlinedButton(
             onPressed: widget.onRetry,
             style: OutlinedButton.styleFrom(
-              foregroundColor: const Color(0xFF00FF85),
+              foregroundColor: colors.neonGreen,
               side: BorderSide(
-                color: const Color(0xFF00FF85).withValues(alpha: 0.4),
+                color: colors.neonGreen.withValues(alpha: 0.4),
               ),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
             ),
@@ -325,7 +325,7 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
         border: Border.all(color: Colors.white.withValues(alpha: 0.15)),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF00FF85).withValues(alpha: 0.05),
+            color: colors.neonGreen.withValues(alpha: 0.05),
             blurRadius: 20,
           ),
         ],
@@ -347,14 +347,14 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
             ),
           ),
           const SizedBox(width: 12),
-          const Text(
+          Text(
             AppStrings.wcSignalStrength,
             style: TextStyle(
               fontFamily: 'JetBrains Mono',
               fontSize: AppSpacing.bodySmall,
               fontWeight: FontWeight.w500,
               letterSpacing: 0.05,
-              color: Color(0xFFC2C8C1),
+              color: colors.textDim,
             ),
           ),
         ],
@@ -363,11 +363,12 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
   }
 
   Widget _signalBar(double height, double opacity, {Color? color}) {
+    final signalColor = color ?? const Color(0xFF00FF85);
     return Container(
       width: 4,
       height: height,
       decoration: BoxDecoration(
-        color: (color ?? const Color(0xFF00FF85)).withValues(alpha: opacity),
+        color: signalColor.withValues(alpha: opacity),
         borderRadius: BorderRadius.circular(2),
       ),
     );

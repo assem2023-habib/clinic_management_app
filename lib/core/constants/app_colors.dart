@@ -44,6 +44,13 @@ abstract class AppColorSet {
   Color get sage;
   Color get borderLight;
   Color get surfaceDarker;
+  Color get emerald;
+  Color get mint;
+  Color get textMuted;
+  Color get textDim;
+  Color get textDisabled;
+  Color get borderDark;
+  Color get buttonTextDark;
 }
 
 class VitalityLight implements AppColorSet {
@@ -147,6 +154,27 @@ class VitalityLight implements AppColorSet {
 
   @override
   Color get surfaceDarker => const Color(0xFFF0F3FF);
+
+  @override
+  Color get emerald => const Color(0xFF10B981);
+
+  @override
+  Color get mint => const Color(0xFF4EDEA3);
+
+  @override
+  Color get textMuted => const Color(0xFFBBCABF);
+
+  @override
+  Color get textDim => const Color(0xFFC2C8C1);
+
+  @override
+  Color get textDisabled => const Color(0xFFE5E2E1);
+
+  @override
+  Color get borderDark => const Color(0xFF3C4A42);
+
+  @override
+  Color get buttonTextDark => const Color(0xFF00422B);
 }
 
 class VitalityDark implements AppColorSet {
@@ -250,4 +278,25 @@ class VitalityDark implements AppColorSet {
 
   @override
   Color get surfaceDarker => const Color(0xFF00210C);
+
+  @override
+  Color get emerald => const Color(0xFF10B981);
+
+  @override
+  Color get mint => const Color(0xFF4EDEA3);
+
+  @override
+  Color get textMuted => const Color(0xFFBBCABF);
+
+  @override
+  Color get textDim => const Color(0xFFC2C8C1);
+
+  @override
+  Color get textDisabled => const Color(0xFFE5E2E1);
+
+  @override
+  Color get borderDark => const Color(0xFF3C4A42);
+
+  @override
+  Color get buttonTextDark => const Color(0xFF00422B);
 }

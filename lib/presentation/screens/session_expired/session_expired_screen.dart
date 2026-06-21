@@ -129,10 +129,10 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
                 ),
               ],
             ),
-            child: const Icon(
+            child: Icon(
               Icons.timer_off_rounded,
               size: 64,
-              color: Color(0xFF4EDEA3),
+              color: colors.mint,
             ),
           ).animate(onInit: (c) => c.repeat(reverse: true))
             .scale(
@@ -153,9 +153,9 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
               child: Container(
                 width: 32,
                 height: 32,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Color(0xFF10B981),
+                  color: colors.emerald,
                 ),
                 child: Icon(
                   Icons.lock_rounded,
@@ -173,6 +173,7 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
     return AnimatedBuilder(
       animation: _rippleController,
       builder: (context, child) {
+        final rippleColors = AppColors.of(context);
         final t = (_rippleController.value + startOffset) % 1.0;
         final scale = 1.0 + t * 0.6;
         final opacity = (1.0 - t) * 0.4;
@@ -182,7 +183,7 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color: const Color(0xFF10B981).withValues(alpha: opacity),
+              color: rippleColors.emerald.withValues(alpha: opacity),
               width: 2,
             ),
           ),
@@ -219,11 +220,11 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: AppSpacing.sm),
-          const Text(
+          Text(
             AppStrings.sesMessage,
             style: TextStyle(
               fontSize: AppSpacing.bodyLarge,
-              color: Color(0xFFBBCABF),
+              color: colors.textMuted,
               height: 1.5,
             ),
             textAlign: TextAlign.center,
@@ -234,6 +235,7 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
   }
 
   Widget _buildActions() {
+    final colors = AppColors.of(context);
     return Column(
       children: [
         SizedBox(
@@ -243,14 +245,14 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
                 () => Navigator.of(context)
                     .pushReplacementNamed(AppRoutes.login),
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF10B981),
-              foregroundColor: const Color(0xFF00422B),
+              backgroundColor: colors.emerald,
+              foregroundColor: colors.buttonTextDark,
               padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
               ),
               elevation: 0,
-              shadowColor: const Color(0xFF10B981).withValues(alpha: 0.3),
+              shadowColor: colors.emerald.withValues(alpha: 0.3),
             ),
             child: const Text(
               AppStrings.sesLogin,
@@ -266,8 +268,8 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
                 () => Navigator.of(context)
                     .pushReplacementNamed(AppRoutes.dashboard),
             style: OutlinedButton.styleFrom(
-              foregroundColor: const Color(0xFFC6EBD1),
-              side: const BorderSide(color: Color(0xFF3C4A42)),
+              foregroundColor: colors.textPrimary,
+              side: BorderSide(color: colors.borderDark),
               padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
@@ -285,9 +287,9 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
           child: OutlinedButton(
             onPressed: widget.onCloseApp ?? () => SystemNavigator.pop(),
             style: OutlinedButton.styleFrom(
-              foregroundColor: const Color(0xFFC6EBD1),
+              foregroundColor: colors.textPrimary,
               side: BorderSide(
-                color: const Color(0xFF3C4A42).withValues(alpha: 0.3),
+                color: colors.borderDark.withValues(alpha: 0.3),
               ),
               padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
               shape: RoundedRectangleBorder(
@@ -305,12 +307,13 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
   }
 
   Widget _buildFooter() {
-    return const Text(
+    final colors = AppColors.of(context);
+    return Text(
       AppStrings.sesFooter,
       style: TextStyle(
         fontSize: AppSpacing.bodySmall,
         fontWeight: FontWeight.w600,
-        color: Color(0xFFBBCABF),
+        color: colors.textMuted,
         letterSpacing: 0.05,
       ),
       textAlign: TextAlign.center,
@@ -358,6 +361,7 @@ class _SessionParticlePainter extends CustomPainter {
     final rng = _SeededRandom(42);
     final paint = Paint()
       ..color = const Color(0xFF4EDEA3).withValues(alpha: 0.3);
+
     for (var i = 0; i < 40; i++) {
       final x = rng.next() * size.width;
       final y = rng.next() * size.height;
