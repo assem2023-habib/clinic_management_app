@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
 
@@ -16,12 +17,13 @@ class SdDoctorCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     final showVerified = (doctor.rating ?? 0) >= 4.5;
 
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFF032515).withValues(alpha: 0.4),
+        color: colors.cardBg.withValues(alpha: 0.4),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
       ),
@@ -31,7 +33,7 @@ class SdDoctorCard extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildAvatar(showVerified),
+              _buildAvatar(showVerified, colors),
               const SizedBox(width: 16),
               Expanded(
                 child: Column(
@@ -43,10 +45,10 @@ class SdDoctorCard extends StatelessWidget {
                         Expanded(
                           child: Text(
                             doctor.name,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w700,
-                              color: Color(0xFFC6EBD1),
+                              color: colors.textPrimary,
                             ),
                           ),
                         ),
@@ -63,15 +65,15 @@ class SdDoctorCard extends StatelessWidget {
                               Icon(
                                 Icons.star_rounded,
                                 size: 16,
-                                color: const Color(0xFF40E78C),
+                                color: colors.secondary,
                               ),
                               const SizedBox(width: 2),
                               Text(
                                 (doctor.rating ?? 0).toStringAsFixed(1),
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w500,
-                                  color: Color(0xFFC6EBD1),
+                                  color: colors.textPrimary,
                                 ),
                               ),
                             ],
@@ -82,10 +84,10 @@ class SdDoctorCard extends StatelessWidget {
                     const SizedBox(height: 4),
                     Text(
                       doctor.specialty,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color: Color(0xFF80D8A6),
+                        color: colors.primary,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -94,16 +96,16 @@ class SdDoctorCard extends StatelessWidget {
                         Icon(
                           Icons.location_on_rounded,
                           size: 16,
-                          color: const Color(0xFF88938A),
+                          color: colors.textLight,
                         ),
                         const SizedBox(width: 4),
                         Expanded(
                           child: Text(
                             doctor.clinicAddress ?? doctor.clinicName ?? '',
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
-                              color: Color(0xFF88938A),
+                              color: colors.textLight,
                             ),
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -119,10 +121,10 @@ class SdDoctorCard extends StatelessWidget {
             const SizedBox(height: 12),
             Text(
               doctor.bio!,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
-                color: Color(0xFFBEC9BF),
+                color: colors.textSecondary,
                 height: 1.5,
               ),
               maxLines: 2,
@@ -138,8 +140,8 @@ class SdDoctorCard extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: onBook,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF006D44),
-                      foregroundColor: const Color(0xFF93ECB8),
+                      backgroundColor: colors.primaryDark,
+                      foregroundColor: colors.primaryLight,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -162,17 +164,17 @@ class SdDoctorCard extends StatelessWidget {
                 child: OutlinedButton(
                   onPressed: onChat,
                   style: OutlinedButton.styleFrom(
-                    backgroundColor: const Color(0xFF032515).withValues(alpha: 0.4),
-                    foregroundColor: const Color(0xFF80D8A6),
+                    backgroundColor: colors.cardBg.withValues(alpha: 0.4),
+                    foregroundColor: colors.primary,
                     side: BorderSide(
-                      color: const Color(0xFF80D8A6).withValues(alpha: 0.2),
+                      color: colors.primary.withValues(alpha: 0.2),
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                     padding: EdgeInsets.zero,
                   ),
-                  child: const Icon(Icons.chat_rounded, size: 20),
+                  child: Icon(Icons.chat_rounded, size: 20, color: colors.primary),
                 ),
               ),
             ],
@@ -182,7 +184,7 @@ class SdDoctorCard extends StatelessWidget {
     );
   }
 
-  Widget _buildAvatar(bool showVerified) {
+  Widget _buildAvatar(bool showVerified, AppColorSet colors) {
     return Stack(
       children: [
         Container(
@@ -192,7 +194,7 @@ class SdDoctorCard extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: const Color(0xFF006D44),
+              color: colors.primaryDark,
               width: 2,
             ),
           ),
@@ -202,9 +204,9 @@ class SdDoctorCard extends StatelessWidget {
                 ? Image.network(
                     doctor.imageUrl!,
                     fit: BoxFit.cover,
-                    errorBuilder: (_, _, _) => _buildAvatarFallback(),
+                    errorBuilder: (_, _, _) => _buildAvatarFallback(colors),
                   )
-                : _buildAvatarFallback(),
+                : _buildAvatarFallback(colors),
           ),
         ),
         if (showVerified)
@@ -214,14 +216,14 @@ class SdDoctorCard extends StatelessWidget {
             child: Container(
               width: 24,
               height: 24,
-              decoration: const BoxDecoration(
-                color: Color(0xFF00CA73),
+              decoration: BoxDecoration(
+                color: colors.accent,
                 shape: BoxShape.circle,
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.verified_rounded,
                 size: 14,
-                color: Color(0xFF004E29),
+                color: const Color(0xFF004E29),
               ),
             ),
           ),
@@ -229,13 +231,13 @@ class SdDoctorCard extends StatelessWidget {
     );
   }
 
-  Widget _buildAvatarFallback() {
+  Widget _buildAvatarFallback(AppColorSet colors) {
     return Container(
-      color: const Color(0xFF006D44).withValues(alpha: 0.2),
-      child: const Icon(
+      color: colors.primaryDark.withValues(alpha: 0.2),
+      child: Icon(
         Icons.person_rounded,
         size: 40,
-        color: Color(0xFF80D8A6),
+        color: colors.primary,
       ),
     );
   }
