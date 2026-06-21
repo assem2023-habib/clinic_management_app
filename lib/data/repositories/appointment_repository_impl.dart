@@ -229,7 +229,7 @@ class AppointmentRepositoryImpl implements AppointmentRepository {
       return rtdbService!.watchBookedAppointments(doctorId).map((list) => list.cast<AppointmentEntity>());
     }
     return Stream.value(localDataSource.allAppointments
-      .where((a) => a.doctor?.id == doctorId)
+      .where((a) => (a.doctor?.id ?? a.doctorId) == doctorId)
       .toList());
   }
 

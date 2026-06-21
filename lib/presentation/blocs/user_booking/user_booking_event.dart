@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
+import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
 
 abstract class UserBookingEvent extends Equatable {
   const UserBookingEvent();
@@ -47,4 +48,12 @@ class UserBookingConfirm extends UserBookingEvent {
   });
   @override
   List<Object?> get props => [patientId, patientName, doctorId, doctorEntity, date, timeSlot, notes];
+}
+
+class RtdbAppointmentData extends UserBookingEvent {
+  final List<AppointmentEntity> appointments;
+  final Set<String> relevantDates;
+  const RtdbAppointmentData(this.appointments, this.relevantDates);
+  @override
+  List<Object?> get props => [appointments, relevantDates];
 }

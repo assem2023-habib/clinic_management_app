@@ -18,12 +18,11 @@ class UserBookingBloc extends Bloc<UserBookingEvent, UserBookingState> {
     required this.appointmentRepository,
   }) : super(UserBookingInitial()) {
     on<UserBookingLoad>(_onLoad);
+    on<RtdbAppointmentData>(_onRtdbData);
     on<UserBookingSelectDate>(_onSelectDate);
     on<UserBookingSelectSlot>(_onSelectSlot);
     on<UserBookingConfirm>(_onConfirm);
   }
-
-  Set<String> _relevantDates = {};
 
   Future<void> _onLoad(UserBookingLoad event, Emitter<UserBookingState> emit) async {
     emit(UserBookingLoading());
@@ -36,7 +35,7 @@ class UserBookingBloc extends Bloc<UserBookingEvent, UserBookingState> {
       final now = DateTime.now();
       final dates = List.generate(7, (i) => DateTime(now.year, now.month, now.day + i));
       final allSlots = _generateSlots(dates);
-      _relevantDates = dates.map((d) => '${d.year}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}').toSet();
+      final relevantDates = dates.map((d) => '${d.year}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}').toSet();
 
       emit(UserBookingLoaded(
         doctor: doer,
@@ -49,20 +48,24 @@ class UserBookingBloc extends Bloc<UserBookingEvent, UserBookingState> {
       _rtdbSubscription = appointmentRepository.watchRtdbAppointments(event.doctorId).listen(
         (bookedAppts) {
           if (isClosed) return;
-          final current = state;
-          if (current is UserBookingLoaded) {
-            final filtered = bookedAppts.where((a) =>
-              a.appointmentDate != null && _relevantDates.contains(a.appointmentDate)
-            ).toList();
-            final updated = _mergeBooked(current.allSlots, filtered);
-            emit(current.copyWith(allSlots: updated));
-          }
+          add(RtdbAppointmentData(bookedAppts, relevantDates));
         },
         onError: (_) {},
       );
     } catch (e) {
       emit(UserBookingError(e.toString()));
     }
+  }
+
+  void _onRtdbData(RtdbAppointmentData event, Emitter<UserBookingState> emit) {
+    if (isClosed) return;
+    final current = state;
+    if (current is! UserBookingLoaded) return;
+    final filtered = event.appointments.where((a) =>
+      a.appointmentDate != null && event.relevantDates.contains(a.appointmentDate)
+    ).toList();
+    final updated = _mergeBooked(current.allSlots, filtered);
+    emit(current.copyWith(allSlots: updated));
   }
 
   List<TimeSlotEntity> _generateSlots(List<DateTime> dates) {
