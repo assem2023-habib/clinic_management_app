@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/core/utils/app_toast.dart';
 import 'package:clinic_management_app/domain/entities/doctor_profile_entity.dart';
@@ -88,26 +89,26 @@ class _PatientDoctorProfileViewState extends State<PatientDoctorProfileView> {
         }
       },
       child: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: AppSpacing.screenPadding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ProfileHeader(doctor: doctor),
-            const SizedBox(height: 16),
+            const SizedBox(height: AppSpacing.md),
             _buildSupervisionBadge(colors),
-            const SizedBox(height: 24),
+            const SizedBox(height: AppSpacing.lg),
             ProfileStatsGrid(doctor: doctor),
-            const SizedBox(height: 24),
+            const SizedBox(height: AppSpacing.lg),
             ProfileAboutSection(doctor: doctor),
-            const SizedBox(height: 24),
+            const SizedBox(height: AppSpacing.lg),
             if (doctor.services.isNotEmpty) ...[
               ProfileServicesSection(doctor: doctor),
-              const SizedBox(height: 24),
+              const SizedBox(height: AppSpacing.lg),
             ],
             ProfileQualificationsSection(doctor: doctor),
-            const SizedBox(height: 24),
+            const SizedBox(height: AppSpacing.lg),
             ProfileScheduleSection(slots: widget.profile.availableSlots),
-            const SizedBox(height: 24),
+            const SizedBox(height: AppSpacing.lg),
             ProfileReviewsSection(
               reviews: widget.profile.reviews,
               averageRating: doctor.rating,
@@ -115,18 +116,18 @@ class _PatientDoctorProfileViewState extends State<PatientDoctorProfileView> {
               canAddReview: true,
               onAddReview: () => _showReviewDialog(context),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: AppSpacing.lg),
             SizedBox(
               width: double.infinity,
               height: 52,
               child: ElevatedButton.icon(
                 onPressed: widget.onBookAppointment,
                 icon: const Icon(Icons.event_available_rounded, size: 22),
-                label: Text(AppStrings.bookAppointment, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                label: Text(AppStrings.bookAppointment, style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600)),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: colors.primary,
                   foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.cardRadius)),
                 ),
               ),
             ),
@@ -179,8 +180,8 @@ class _PatientDoctorProfileViewState extends State<PatientDoctorProfileView> {
                 CreateSupervisionRequestEvent(patientId, widget.profile.doctor.id),
               );
             },
-            icon: const Icon(Icons.supervisor_account_rounded, size: 20),
-            label: Text(AppStrings.requestSupervision, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+            icon: const Icon(Icons.supervisor_account_rounded, size: AppSpacing.iconSmall),
+            label: Text(AppStrings.requestSupervision, style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600)),
             style: OutlinedButton.styleFrom(
               foregroundColor: colors.primary,
               side: BorderSide(color: colors.primary, width: 1.5),
@@ -239,7 +240,7 @@ class _SupervisionBadgeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: 12),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(14),
@@ -253,7 +254,7 @@ class _SupervisionBadgeCard extends StatelessWidget {
             child: Text(
               label,
               style: TextStyle(
-                fontSize: 14,
+                fontSize: AppSpacing.bodyMedium,
                 fontWeight: FontWeight.w600,
                 color: color,
               ),
@@ -271,10 +272,10 @@ class _SupervisionBadgeCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(actionIcon, size: 14, color: color),
-                    const SizedBox(width: 4),
+                    const SizedBox(width: AppSpacing.xs),
                     Text(
                       actionLabel,
-                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: color),
+                      style: TextStyle(fontSize: AppSpacing.bodySmall, fontWeight: FontWeight.w600, color: color),
                     ),
                   ],
                 ),

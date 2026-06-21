@@ -45,7 +45,7 @@ class AdminDoctorProfileView extends StatelessWidget {
                   label: Text(AppStrings.editProfile, style: TextStyle(color: colors.primary)),
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 12),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
                     side: BorderSide(color: colors.primary.withValues(alpha: 0.3)),
                   ),
                 ),
@@ -58,7 +58,7 @@ class AdminDoctorProfileView extends StatelessWidget {
                   label: Text(AppStrings.deleteDoctor, style: TextStyle(color: colors.error)),
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 12),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
                     side: BorderSide(color: colors.error.withValues(alpha: 0.3)),
                   ),
                 ),

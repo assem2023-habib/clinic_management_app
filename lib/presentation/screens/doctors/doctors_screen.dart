@@ -80,7 +80,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
             height: 5,
             margin: const EdgeInsets.symmetric(vertical: 14),
             decoration: BoxDecoration(
-              color: const Color(0xFF88938A).withValues(alpha: 0.28),
+              color: colors.textLight.withValues(alpha: 0.28),
               borderRadius: BorderRadius.circular(999),
             ),
           ),
@@ -92,10 +92,10 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                   width: 46,
                   height: 46,
                   decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFF006D44), Color(0xFF40E78C)],
+                    gradient: LinearGradient(
+                      colors: [colors.primaryDark, colors.secondary],
                     ),
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
                   ),
                   child: const Icon(Icons.person, color: Colors.white),
                 ),
@@ -114,7 +114,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                     Text(
                       'د. ${doctor.name}',
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: AppSpacing.bodyLarge,
                         fontWeight: FontWeight.w700,
                         color: colors.textPrimary,
                       ),
@@ -161,14 +161,14 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
               margin: AppSpacing.listPadding,
               padding: const EdgeInsets.symmetric(vertical: 15),
               decoration: BoxDecoration(
-                color: const Color(0xFF002111),
-                borderRadius: BorderRadius.circular(12),
+                color: colors.surface,
+                borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
               ),
               child: Text(
                 AppStrings.cancel,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: AppSpacing.bodyMedium,
                   fontWeight: FontWeight.w600,
                   color: colors.textSecondary,
                 ),
@@ -191,15 +191,15 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
       onTap: onTap,
       child: Container(
         margin: AppSpacing.listPadding,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: 15),
         child: Row(
           children: [
             Icon(icon, size: 22, color: isDanger ? colors.error : colors.textPrimary),
-            const SizedBox(width: 16),
+            const SizedBox(width: AppSpacing.md),
             Text(
               label,
               style: TextStyle(
-                fontSize: 16,
+                fontSize: AppSpacing.bodyLarge,
                 fontWeight: FontWeight.w500,
                 color: isDanger ? colors.error : colors.textPrimary,
               ),
@@ -251,12 +251,12 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                     'هل أنت متأكد من حذف ملف\nد. ${doctor.name}؟\nلا يمكن التراجع عن هذا الإجراء.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: AppSpacing.bodyMedium,
                       height: 1.65,
                       color: colors.textSecondary,
                     ),
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: AppSpacing.lg),
                   Row(
                     children: [
                       Expanded(
@@ -272,7 +272,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                               child: Text(
                                 AppStrings.cancel,
                                 style: TextStyle(
-                                  fontSize: 14,
+                                  fontSize: AppSpacing.bodyMedium,
                                   fontWeight: FontWeight.w700,
                                   color: colors.textSecondary,
                                 ),
@@ -300,7 +300,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                               child: Text(
                                 AppStrings.delete,
                                 style: TextStyle(
-                                  fontSize: 14,
+                                  fontSize: AppSpacing.bodyMedium,
                                   fontWeight: FontWeight.w700,
                                   color: colors.error,
                                 ),
@@ -369,7 +369,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
       floatingActionButton: canManage
           ? FloatingActionButton(
               onPressed: () => _showDoctorForm(context),
-              backgroundColor: const Color(0xFF00CA73),
+              backgroundColor: colors.accent,
               child: const Icon(Icons.add, color: Colors.white),
             )
           : null,
@@ -389,12 +389,12 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
             borderRadius: BorderRadius.circular(14),
             border: Border.all(
               color: _isSearchFocused
-                  ? const Color(0xFF00CA73).withValues(alpha: 0.6)
+                  ? colors.accent.withValues(alpha: 0.6)
                   : Colors.white.withValues(alpha: 0.06),
             ),
             boxShadow: _isSearchFocused
                 ? [BoxShadow(
-                    color: const Color(0xFF00CA73).withValues(alpha: 0.15),
+                    color: colors.accent.withValues(alpha: 0.15),
                     blurRadius: 16,
                     spreadRadius: 1,
                   )]
@@ -403,7 +403,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
           child: TextField(
             controller: _searchController,
             focusNode: _searchFocus,
-            style: TextStyle(color: colors.textPrimary, fontSize: 14),
+            style: TextStyle(color: colors.textPrimary, fontSize: AppSpacing.bodyMedium),
             onChanged: (value) {
               context.read<DoctorBloc>().add(DoctorSearch(value));
               if (value.isNotEmpty) {
@@ -412,16 +412,16 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
             },
             decoration: InputDecoration(
               hintText: 'ابحث عن اسم الطبيب أو التخصص...',
-              hintStyle: TextStyle(color: colors.textSecondary.withValues(alpha: 0.6), fontSize: 14),
+              hintStyle: TextStyle(color: colors.textSecondary.withValues(alpha: 0.6), fontSize: AppSpacing.bodyMedium),
               prefixIcon: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 200),
                 child: Icon(
                   _isSearchFocused ? Icons.search_rounded : Icons.search_rounded,
                   key: ValueKey(_isSearchFocused),
                   size: 22,
-                  color: _isSearchFocused
-                      ? const Color(0xFF00CA73)
-                      : colors.textSecondary.withValues(alpha: 0.6),
+              color: _isSearchFocused
+                  ? colors.accent
+                  : colors.textSecondary.withValues(alpha: 0.6),
                 ),
               ),
               suffixIcon: _searchController.text.isNotEmpty
@@ -430,7 +430,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                         _searchController.clear();
                         context.read<DoctorBloc>().add(DoctorSearch(''));
                       },
-                      child: Icon(Icons.close_rounded, size: 20, color: colors.textSecondary),
+                      child: Icon(Icons.close_rounded, size: AppSpacing.iconSmall, color: colors.textSecondary),
                     )
                   : null,
               border: InputBorder.none,
@@ -452,9 +452,9 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
       height: 42,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
         itemCount: chips.length,
-        separatorBuilder: (_, _) => const SizedBox(width: 8),
+        separatorBuilder: (_, _) => const SizedBox(width: AppSpacing.sm),
         itemBuilder: (_, i) {
           final chip = chips[i];
           final isActive = _selectedSpecializationId == chip.id;
@@ -468,13 +468,13 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
               curve: Curves.easeOut,
               padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
               decoration: BoxDecoration(
-                color: isActive
-                    ? const Color(0xFF00CA73).withValues(alpha: 0.15)
-                    : Colors.white.withValues(alpha: 0.04),
+                  color: isActive
+                      ? colors.accent.withValues(alpha: 0.15)
+                      : Colors.white.withValues(alpha: 0.04),
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
                   color: isActive
-                      ? const Color(0xFF00CA73).withValues(alpha: 0.4)
+                      ? colors.accent.withValues(alpha: 0.4)
                       : Colors.white.withValues(alpha: 0.06),
                 ),
               ),
@@ -484,7 +484,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                   fontSize: 13,
                   fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
                   color: isActive
-                      ? const Color(0xFF00CA73)
+                      ? colors.accent
                       : colors.textSecondary,
                 ),
               ),
@@ -503,7 +503,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
     return ListView.separated(
       padding: const EdgeInsets.fromLTRB(16, 10, 16, 100),
       itemCount: doctors.length,
-      separatorBuilder: (_, _) => const SizedBox(height: 16),
+      separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.md),
       itemBuilder: (_, i) {
         final doctor = doctors[i];
         return DoctorGlassCard(
@@ -534,12 +534,12 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(Icons.search_off_rounded, size: 56, color: colors.textSecondary.withValues(alpha: 0.4)),
-          const SizedBox(height: 16),
+          const SizedBox(height: AppSpacing.md),
           Text(
             AppStrings.noData,
             style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: colors.textSecondary),
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: AppSpacing.bulletSize),
           Text(
             'جرّب البحث بكلمة مختلفة',
             style: TextStyle(fontSize: 13, color: colors.textSecondary.withValues(alpha: 0.6)),
@@ -563,10 +563,10 @@ class GlassSkeletonList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
       itemCount: 3,
       itemBuilder: (_, i) => Padding(
-        padding: const EdgeInsets.only(bottom: 16),
+        padding: const EdgeInsets.only(bottom: AppSpacing.md),
         child: Container(
           height: 280,
           decoration: BoxDecoration(
@@ -588,9 +588,9 @@ class GlassSkeletonList extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SkeletonContainer(width: 60, height: 14),
-                          const SizedBox(height: 8),
+                          const SizedBox(height: AppSpacing.sm),
                           SkeletonContainer(width: 140, height: 18),
-                          const SizedBox(height: 6),
+                          const SizedBox(height: AppSpacing.bulletSize),
                           SkeletonContainer(width: 100, height: 14),
                         ],
                       ),
@@ -599,7 +599,7 @@ class GlassSkeletonList extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 SkeletonContainer(width: 180, height: 14),
-                const SizedBox(height: 8),
+                const SizedBox(height: AppSpacing.sm),
                 SkeletonContainer(width: double.infinity, height: 14),
               ],
             ),
