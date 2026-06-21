@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 
@@ -327,7 +328,7 @@ class _OfflineScreenState extends State<OfflineScreen>
           width: double.infinity,
           height: AppSpacing.buttonHeight,
           child: TextButton(
-            onPressed: widget.onShowCached ?? () => Navigator.of(context).pop(),
+            onPressed: widget.onShowCached ?? () => Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.dashboard, (route) => false),
             style: TextButton.styleFrom(
               foregroundColor: colors.sage,
               shape: RoundedRectangleBorder(

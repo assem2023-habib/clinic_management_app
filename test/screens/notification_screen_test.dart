@@ -161,7 +161,7 @@ void main() {
       await tester.pumpWidget(buildTestWidget(bloc));
       await tester.pump();
       expect(find.text(AppStrings.ntTitle), findsOneWidget);
-      expect(find.byIcon(Icons.arrow_back_rounded), findsOneWidget);
+      expect(find.byIcon(Icons.menu_rounded), findsOneWidget);
       bloc.close();
       await tester.pumpWidget(const SizedBox());
       await tester.pump(const Duration(seconds: 3));
@@ -215,6 +215,7 @@ void main() {
       bloc.add(const NotificationDelete('7'));
       await tester.pump();
       bloc.add(const NotificationDelete('8'));
+      await tester.pump();
       await tester.pump();
 
       expect(find.text(AppStrings.ntEmptyTitle), findsOneWidget);

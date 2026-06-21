@@ -51,7 +51,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       _allNotifications.addAll(newNotifications);
       _currentPage = nextPage;
       _hasMore = newNotifications.length >= 20;
-      emit(NotificationLoaded(_allNotifications, activeCategory: _currentCategory, unreadCount: unreadCount, currentPage: _currentPage, hasMore: _hasMore));
+      emit(NotificationLoaded(List.of(_allNotifications), activeCategory: _currentCategory, unreadCount: unreadCount, currentPage: _currentPage, hasMore: _hasMore));
     } catch (_) {}
   }
 
@@ -116,6 +116,6 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
 
   NotificationLoaded _buildLoaded() {
     final unread = _allNotifications.where((n) => !n.isRead).length;
-    return NotificationLoaded(_allNotifications, activeCategory: _currentCategory, unreadCount: unread, currentPage: _currentPage, hasMore: _hasMore);
+    return NotificationLoaded(List.of(_allNotifications), activeCategory: _currentCategory, unreadCount: unread, currentPage: _currentPage, hasMore: _hasMore);
   }
 }
