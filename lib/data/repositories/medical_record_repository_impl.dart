@@ -9,10 +9,10 @@ class MedicalRecordRepositoryImpl implements MedicalRecordRepository {
   MedicalRecordRepositoryImpl({this.remoteDataSource});
 
   @override
-  Future<List<MedicalRecordEntity>> getAllRecords({String? patientId, String? doctorId}) async {
+  Future<List<MedicalRecordEntity>> getAllRecords({String? patientId, String? doctorId, int page = 1, int limit = 20}) async {
     if (remoteDataSource != null) {
       try {
-        return await remoteDataSource!.getMedicalRecords(patientId: patientId, doctorId: doctorId);
+        return await remoteDataSource!.getMedicalRecords(patientId: patientId, doctorId: doctorId, page: page, limit: limit);
       } catch (_) {}
     }
     return _mockRecords.where((r) {
