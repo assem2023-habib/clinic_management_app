@@ -25,6 +25,7 @@ class SearchDoctorsScreen extends StatefulWidget {
 
 class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
   final _searchController = TextEditingController();
+  final _scrollController = ScrollController();
   Timer? _searchDebounce;
   String _query = '';
   String _selectedFilter = AppStrings.sdFilterAll;
@@ -41,12 +42,24 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
   void initState() {
     super.initState();
     context.read<DoctorBloc>().add(DoctorLoadAll());
+    _scrollController.addListener(_onScroll);
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 200) {
+      final state = context.read<DoctorBloc>().state;
+      if (state is DoctorLoaded && state.hasMore && !state.isLoadingMore) {
+        context.read<DoctorBloc>().add(DoctorLoadMore());
+      }
+    }
   }
 
   @override
   void dispose() {
     _searchDebounce?.cancel();
     _searchController.dispose();
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -86,36 +99,65 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
                         ? state.doctors
                         : <DoctorEntity>[];
                     final filtered = _filterDoctors(doctors);
-                    return SingleChildScrollView(
-                      padding: const EdgeInsets.fromLTRB(AppSpacing.md, 0, AppSpacing.md, AppSpacing.bottomNavHeight),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _buildSearchSection(colors),
-                          const SizedBox(height: 12),
-                          _buildFilterChips(colors),
-                          const SizedBox(height: AppSpacing.md),
-                          _buildResultsCount(filtered.length, colors),
-                          const SizedBox(height: 12),
-                          if (state is DoctorLoading && doctors.isEmpty)
-                            const SkeletonList()
-                          else if (filtered.isEmpty)
-                            _buildEmptyState(colors)
-                          else
-                            ...filtered.map((doctor) => Padding(
-                                  padding: const EdgeInsets.only(bottom: 12),
-                                  child: SdDoctorCard(
-                                    doctor: doctor,
-                                    onBook: () => Navigator.pushNamed(
-                                      context,
-                                      AppRoutes.userBooking,
-                                      arguments: doctor.id,
-                                    ),
-                                    onChat: () {},
+
+                    if (state is DoctorLoading && doctors.isEmpty) {
+                      return const SkeletonList();
+                    }
+                    final isLoadingMore = state is DoctorLoaded && state.isLoadingMore;
+
+                    if (filtered.isEmpty && !isLoadingMore) {
+                      return SingleChildScrollView(
+                        padding: const EdgeInsets.fromLTRB(AppSpacing.md, 0, AppSpacing.md, AppSpacing.bottomNavHeight),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildSearchSection(colors),
+                            const SizedBox(height: 12),
+                            _buildFilterChips(colors),
+                            const SizedBox(height: AppSpacing.md),
+                            _buildResultsCount(0, colors),
+                            const SizedBox(height: 12),
+                            _buildEmptyState(colors),
+                          ],
+                        ),
+                      );
+                    }
+                    return Column(
+                      children: [
+                        _buildSearchSection(colors),
+                        const SizedBox(height: 12),
+                        _buildFilterChips(colors),
+                        const SizedBox(height: AppSpacing.md),
+                        _buildResultsCount(filtered.length, colors),
+                        const SizedBox(height: 12),
+                        Expanded(
+                          child: ListView.builder(
+                            controller: _scrollController,
+                            padding: const EdgeInsets.only(bottom: AppSpacing.bottomNavHeight),
+                            itemCount: filtered.length + (isLoadingMore ? 1 : 0),
+                            itemBuilder: (context, index) {
+                              if (index == filtered.length) {
+                                return const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 16),
+                                  child: Center(child: CircularProgressIndicator()),
+                                );
+                              }
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 12),
+                                child: SdDoctorCard(
+                                  doctor: filtered[index],
+                                  onBook: () => Navigator.pushNamed(
+                                    context,
+                                    AppRoutes.userBooking,
+                                    arguments: filtered[index].id,
                                   ),
-                                )),
-                        ],
-                      ),
+                                  onChat: () {},
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     );
                   }
                   if (state is DoctorError) {

@@ -13,6 +13,9 @@ class DoctorLoadAll extends DoctorEvent {
   @override
   List<Object?> get props => [specializationId];
 }
+class DoctorLoadMore extends DoctorEvent {
+  const DoctorLoadMore();
+}
 class DoctorSearch extends DoctorEvent {
   final String query;
   const DoctorSearch(this.query);

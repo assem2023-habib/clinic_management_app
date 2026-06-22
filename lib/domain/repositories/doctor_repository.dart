@@ -4,7 +4,7 @@ import 'package:clinic_management_app/domain/entities/review_entity.dart';
 import 'package:clinic_management_app/domain/entities/doctor_schedule_entity.dart';
 
 abstract class DoctorRepository {
-  Future<List<DoctorEntity>> getAllDoctors({String? search, String? specializationId});
+  Future<List<DoctorEntity>> getAllDoctors({String? search, String? specializationId, int page = 1, int limit = 20});
   Future<DoctorEntity?> getDoctorById(String id);
   Future<void> addDoctor(DoctorEntity doctor);
   Future<void> updateDoctor(DoctorEntity doctor);

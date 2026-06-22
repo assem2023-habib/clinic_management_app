@@ -13,9 +13,11 @@ class DoctorLoading extends DoctorState {}
 
 class DoctorLoaded extends DoctorState {
   final List<DoctorEntity> doctors;
-  const DoctorLoaded(this.doctors);
+  final bool isLoadingMore;
+  final bool hasMore;
+  const DoctorLoaded(this.doctors, {this.isLoadingMore = false, this.hasMore = false});
   @override
-  List<Object?> get props => [doctors];
+  List<Object?> get props => [doctors, isLoadingMore, hasMore];
 }
 
 class DoctorError extends DoctorState {

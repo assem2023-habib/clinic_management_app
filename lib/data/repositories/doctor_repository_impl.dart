@@ -16,10 +16,10 @@ class DoctorRepositoryImpl implements DoctorRepository {
   DoctorRepositoryImpl(this.dataSource, {this.remoteDataSource});
 
   @override
-  Future<List<DoctorEntity>> getAllDoctors({String? search, String? specializationId}) async {
+  Future<List<DoctorEntity>> getAllDoctors({String? search, String? specializationId, int page = 1, int limit = 20}) async {
     if (remoteDataSource != null) {
       try {
-        return await remoteDataSource!.getDoctors(search: search, specializationId: specializationId);
+        return await remoteDataSource!.getDoctors(search: search, specializationId: specializationId, page: page, limit: limit);
       } catch (_) {}
     }
     if (search != null && search.isNotEmpty) {
