@@ -109,7 +109,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
                     child: Container(
                       padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF012B17).withValues(alpha: 0.4),
+                        color: colors.surfaceDark.withValues(alpha: 0.4),
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
                       ),
@@ -225,11 +225,11 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
       height: 80,
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [Color(0xFF003921), Color(0xFF006D44)],
+          colors: [colors.gradientGreen, colors.primaryDark],
         ),
         borderRadius: BorderRadius.circular(14),
       ),
-      child: const Icon(Icons.person_rounded, size: 36, color: Color(0xFF80D8A6)),
+      child: const Icon(Icons.person_rounded, size: 36, color: colors.primary),
     );
   }
 
@@ -317,7 +317,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
                   width: 48,
                   height: 48,
                   decoration: BoxDecoration(
-                    color: const Color(0xFF032515).withValues(alpha: 0.45),
+                    color: colors.cardBg.withValues(alpha: 0.45),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
                   ),
@@ -467,12 +467,12 @@ class _PulsingDotState extends State<_PulsingDot>
         width: 12,
         height: 12,
         decoration: BoxDecoration(
-          color: const Color(0xFF40E78C),
+          color: colors.secondary,
           shape: BoxShape.circle,
-          border: Border.all(color: const Color(0xFF00180B), width: 2),
+          border: Border.all(color: colors.scaffoldBg, width: 2),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFF40E78C).withValues(alpha: 0.5),
+              color: colors.secondary.withValues(alpha: 0.5),
               blurRadius: 6,
             ),
           ],

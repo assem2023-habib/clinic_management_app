@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
@@ -16,11 +17,11 @@ class SrCategoryGrid extends StatelessWidget {
           children: [
             const Text(
               AppStrings.srCategories,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Color(0xFFC6EBD1)),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: colors.textPrimary),
             ),
             TextButton(
               onPressed: () {},
-              child: const Text(AppStrings.srViewAll, style: TextStyle(color: Color(0xFF80D8A6), fontSize: 13)),
+              child: const Text(AppStrings.srViewAll, style: TextStyle(color: colors.primary, fontSize: 13)),
             ),
           ],
         ),

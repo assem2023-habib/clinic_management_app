@@ -67,7 +67,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
     const radius28 = BorderRadius.vertical(top: Radius.circular(28));
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFF1B3B29),
+        color: colors.surfaceMedium,
         borderRadius: radius28,
         border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.08))),
       ),
@@ -220,7 +220,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
             child: Container(
               padding: const EdgeInsets.all(22),
               decoration: BoxDecoration(
-                color: const Color(0xFF1B3B29),
+                color: colors.surfaceMedium,
                 borderRadius: BorderRadius.circular(24),
                 border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
               ),
@@ -265,7 +265,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                           child: Container(
                             height: 48,
                             decoration: BoxDecoration(
-                              color: const Color(0xFF0F301F),
+                              color: colors.surfaceDense,
                               borderRadius: BorderRadius.circular(14),
                             ),
                             child: Center(
@@ -385,7 +385,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
           duration: const Duration(milliseconds: 250),
           curve: Curves.easeOut,
           decoration: BoxDecoration(
-            color: const Color(0xFF0F301F).withValues(alpha: 0.65),
+            color: colors.surfaceDense.withValues(alpha: 0.65),
             borderRadius: BorderRadius.circular(14),
             border: Border.all(
               color: _isSearchFocused
@@ -570,7 +570,7 @@ class GlassSkeletonList extends StatelessWidget {
         child: Container(
           height: 280,
           decoration: BoxDecoration(
-            color: const Color(0xFF012B17).withValues(alpha: 0.3),
+            color: colors.surfaceDark.withValues(alpha: 0.3),
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
           ),
@@ -627,7 +627,7 @@ class SkeletonContainer extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        color: const Color(0xFF0F301F),
+        color: colors.surfaceDense,
         borderRadius: BorderRadius.circular(borderRadius),
       ),
     );

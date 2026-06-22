@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
@@ -35,7 +36,7 @@ class SrFeaturedBanner extends StatelessWidget {
                     begin: Alignment.centerRight,
                     end: Alignment.centerLeft,
                     colors: [
-                      const Color(0xFF032515).withValues(alpha: 0.9),
+                      colors.cardBg.withValues(alpha: 0.9),
                       Colors.transparent,
                     ],
                   ),
@@ -61,7 +62,7 @@ class SrFeaturedBanner extends StatelessWidget {
                     AppStrings.srBannerSubtitle,
                     style: TextStyle(
                       fontSize: 14,
-                      color: Color(0xFFBBCABF),
+                      color: colors.textMuted,
                     ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,

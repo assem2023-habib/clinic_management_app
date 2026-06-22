@@ -62,7 +62,7 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            _buildHeader(),
+            _buildHeader(colors),
             Expanded(
               child: BlocBuilder<DoctorBloc, DoctorState>(
                 builder: (context, state) {
@@ -84,16 +84,16 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _buildSearchSection(),
+                          _buildSearchSection(colors),
                           const SizedBox(height: 12),
-                          _buildFilterChips(),
+                          _buildFilterChips(colors),
                           const SizedBox(height: AppSpacing.md),
-                          _buildResultsCount(filtered.length),
+                          _buildResultsCount(filtered.length, colors),
                           const SizedBox(height: 12),
                           if (state is DoctorLoading && doctors.isEmpty)
                             const SkeletonList()
                           else if (filtered.isEmpty)
-                            _buildEmptyState()
+                            _buildEmptyState(colors)
                           else
                             ...filtered.map((doctor) => Padding(
                                   padding: const EdgeInsets.only(bottom: 12),
@@ -129,12 +129,12 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(AppColorSet colors) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       height: 64,
       decoration: BoxDecoration(
-        color: const Color(0xFF00180B).withValues(alpha: 0.4),
+        color: colors.scaffoldBg.withValues(alpha: 0.4),
         border: Border(
           bottom: BorderSide(color: Colors.white.withValues(alpha: 0.06)),
         ),
@@ -144,55 +144,55 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
           IconButton(
             onPressed: () => Navigator.pop(context),
             icon: const Icon(Icons.arrow_back_rounded),
-            color: const Color(0xFF80D8A6),
+            color: colors.primary,
           ),
           const SizedBox(width: 8),
-          const Expanded(
+          Expanded(
             child: Text(
               AppStrings.sdTitle,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w700,
-                color: Color(0xFF80D8A6),
+                color: colors.primary,
               ),
             ),
           ),
           IconButton(
             onPressed: () {},
             icon: const Icon(Icons.more_vert_rounded),
-            color: const Color(0xFFBEC9BF),
+            color: colors.divider,
           ),
         ],
       ),
     );
   }
 
-  Widget _buildSearchSection() {
+  Widget _buildSearchSection(AppColorSet colors) {
     return Row(
       children: [
         Expanded(
           child: Container(
             height: 48,
             decoration: BoxDecoration(
-              color: const Color(0xFF002111),
+              color: colors.surface,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
             ),
             child: TextField(
               controller: _searchController,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
-                color: Color(0xFFC6EBD1),
+                color: colors.textPrimary,
               ),
               decoration: InputDecoration(
                 hintText: AppStrings.sdSearchHint,
-                hintStyle: const TextStyle(
-                  color: Color(0xFF88938A),
+                hintStyle: TextStyle(
+                  color: colors.textLight,
                 ),
-                prefixIcon: const Icon(
+                prefixIcon: Icon(
                   Icons.search_rounded,
-                  color: Color(0xFF88938A),
+                  color: colors.textLight,
                 ),
                 border: InputBorder.none,
                 contentPadding: const EdgeInsets.symmetric(
@@ -211,21 +211,21 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
           width: 48,
           height: 48,
           decoration: BoxDecoration(
-            color: const Color(0xFF032515).withValues(alpha: 0.4),
+            color: colors.cardBg.withValues(alpha: 0.4),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
           ),
           child: IconButton(
             onPressed: () {},
             icon: const Icon(Icons.filter_list_rounded),
-            color: const Color(0xFF80D8A6),
+            color: colors.primary,
           ),
         ),
       ],
     );
   }
 
-  Widget _buildFilterChips() {
+  Widget _buildFilterChips(AppColorSet colors) {
     return SizedBox(
       height: 32,
       child: ListView.separated(
@@ -241,8 +241,8 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
                 color: isSelected
-                    ? const Color(0xFF006D44)
-                    : const Color(0xFF032515).withValues(alpha: 0.4),
+                    ? colors.primaryDark
+                    : colors.cardBg.withValues(alpha: 0.4),
                 borderRadius: BorderRadius.circular(9999),
                 border: isSelected
                     ? null
@@ -255,8 +255,8 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                     color: isSelected
-                        ? const Color(0xFF93ECB8)
-                        : const Color(0xFFBEC9BF),
+                        ? colors.primaryLight
+                        : colors.divider,
                   ),
                 ),
               ),
@@ -267,18 +267,18 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
     );
   }
 
-  Widget _buildResultsCount(int count) {
+  Widget _buildResultsCount(int count, AppColorSet colors) {
     return Text(
       '${AppStrings.sdResultsCount} $count ${AppStrings.sdDoctor}',
-      style: const TextStyle(
+      style: TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w500,
-        color: Color(0xFFBEC9BF),
+        color: colors.divider,
       ),
     );
   }
 
-  Widget _buildEmptyState() {
+  Widget _buildEmptyState(AppColorSet colors) {
     return Padding(
       padding: const EdgeInsets.only(top: 48),
       child: Center(
@@ -287,15 +287,15 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
             Icon(
               Icons.search_off_rounded,
               size: 64,
-              color: const Color(0xFF88938A).withValues(alpha: 0.5),
+              color: colors.textLight.withValues(alpha: 0.5),
             ),
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'لم يتم العثور على أطباء',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
-                color: Color(0xFF88938A),
+                color: colors.textLight,
               ),
             ),
           ],

@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
@@ -33,7 +34,7 @@ class _SrCategoryCardState extends State<SrCategoryCard> {
         child: Container(
           padding: const EdgeInsets.all(AppSpacing.lg),
           decoration: BoxDecoration(
-            color: const Color(0xFF032515).withValues(alpha: 0.4),
+            color: colors.cardBg.withValues(alpha: 0.4),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
           ),
@@ -44,9 +45,9 @@ class _SrCategoryCardState extends State<SrCategoryCard> {
                 height: 64,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: const Color(0xFF006D44).withValues(alpha: 0.2),
+                  color: colors.primaryDark.withValues(alpha: 0.2),
                 ),
-                child: Icon(widget.icon, color: const Color(0xFF80D8A6), size: 32),
+                child: Icon(widget.icon, color: colors.primary, size: 32),
               ),
               const SizedBox(height: AppSpacing.md),
               Text(
@@ -54,7 +55,7 @@ class _SrCategoryCardState extends State<SrCategoryCard> {
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xFFC6EBD1),
+                  color: colors.textPrimary,
                 ),
                 textAlign: TextAlign.center,
               ),
