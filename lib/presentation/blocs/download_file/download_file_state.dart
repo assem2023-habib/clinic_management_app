@@ -14,9 +14,21 @@ class DownloadFileLoading extends DownloadFileState {}
 class DownloadFileLoaded extends DownloadFileState {
   final List<DownloadFileEntity> files;
   final String activeCategory;
-  const DownloadFileLoaded(this.files, {this.activeCategory = 'all'});
+  final bool isLoadingMore;
+  final bool hasMore;
+  final int page;
+  const DownloadFileLoaded(this.files, {this.activeCategory = 'all', this.isLoadingMore = false, this.hasMore = true, this.page = 1});
+  DownloadFileLoaded copyWith({List<DownloadFileEntity>? files, String? activeCategory, bool? isLoadingMore, bool? hasMore, int? page}) {
+    return DownloadFileLoaded(
+      files ?? this.files,
+      activeCategory: activeCategory ?? this.activeCategory,
+      isLoadingMore: isLoadingMore ?? this.isLoadingMore,
+      hasMore: hasMore ?? this.hasMore,
+      page: page ?? this.page,
+    );
+  }
   @override
-  List<Object?> get props => [files, activeCategory];
+  List<Object?> get props => [files, activeCategory, isLoadingMore, hasMore, page];
 }
 
 class DownloadFileError extends DownloadFileState {

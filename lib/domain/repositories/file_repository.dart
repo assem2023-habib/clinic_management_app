@@ -1,7 +1,7 @@
 import 'package:clinic_management_app/domain/entities/file_entity.dart';
 
 abstract class FileRepository {
-  Future<List<FileEntity>> getFiles({bool? mine});
+  Future<List<FileEntity>> getFiles({bool? mine, int page = 1, int limit = 20});
   Future<FileEntity> getFile(String id);
   Future<FileEntity> uploadFile({
     required String filePath,

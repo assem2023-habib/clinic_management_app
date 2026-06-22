@@ -22,10 +22,32 @@ class DownloadFilesScreen extends StatefulWidget {
 }
 
 class _DownloadFilesScreenState extends State<DownloadFilesScreen> {
+  final _scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
     context.read<DownloadFileBloc>().add(const DownloadFileLoadAll());
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (!_scrollController.hasClients) return;
+    final max = _scrollController.position.maxScrollExtent;
+    final current = _scrollController.position.pixels;
+    if (current >= max - 200) {
+      final state = context.read<DownloadFileBloc>().state;
+      if (state is DownloadFileLoaded && !state.isLoadingMore && state.hasMore) {
+        context.read<DownloadFileBloc>().add(DownloadFileLoadMore(page: state.page + 1));
+      }
+    }
   }
 
   @override
@@ -42,13 +64,21 @@ class _DownloadFilesScreenState extends State<DownloadFilesScreen> {
             return RefreshIndicator(
               onRefresh: () async => context.read<DownloadFileBloc>().add(const DownloadFileLoadAll()),
               child: ListView.separated(
+                controller: _scrollController,
                 padding: const EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.md, AppSpacing.md, AppSpacing.lg),
-                itemCount: state.files.length + 1,
+                itemCount: state.files.length + 1 + (state.isLoadingMore ? 1 : 0),
                 separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.sm),
                 itemBuilder: (context, index) {
                   if (index == 0) return const DfHeader();
-                  final file = state.files[index - 1];
-                  return AnimatedCard(index: index - 1, child: DfFileCard(file: file));
+                  final fileIdx = index - 1;
+                  if (fileIdx >= state.files.length) {
+                    return const Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
+                    );
+                  }
+                  final file = state.files[fileIdx];
+                  return AnimatedCard(index: fileIdx, child: DfFileCard(file: file));
                 },
               ),
             );

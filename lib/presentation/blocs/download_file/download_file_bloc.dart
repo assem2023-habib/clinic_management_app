@@ -10,6 +10,7 @@ class DownloadFileBloc extends Bloc<DownloadFileEvent, DownloadFileState> {
 
   DownloadFileBloc(this._repository) : super(DownloadFileInitial()) {
     on<DownloadFileLoadAll>(_onLoadAll);
+    on<DownloadFileLoadMore>(_onLoadMore);
     on<DownloadFileSearch>(_onSearch);
     on<DownloadFileFilterCategory>(_onFilterCategory);
     on<DownloadFileStart>(_onStartDownload);
@@ -25,11 +26,26 @@ class DownloadFileBloc extends Bloc<DownloadFileEvent, DownloadFileState> {
   Future<void> _onLoadAll(DownloadFileLoadAll event, Emitter<DownloadFileState> emit) async {
     emit(DownloadFileLoading());
     try {
-      final files = await _repository.getFiles(mine: true);
+      final files = await _repository.getFiles(mine: true, page: event.page, limit: event.limit);
       _allFiles = files.map(_mapToDownloadEntity).toList();
-      emit(DownloadFileLoaded(_filtered(), activeCategory: _currentCategory));
+      final hasMore = files.length >= event.limit;
+      emit(DownloadFileLoaded(_filtered(), activeCategory: _currentCategory, hasMore: hasMore, page: event.page));
     } catch (_) {
       emit(DownloadFileError('Failed to load files'));
+    }
+  }
+
+  Future<void> _onLoadMore(DownloadFileLoadMore event, Emitter<DownloadFileState> emit) async {
+    if (state is! DownloadFileLoaded || (state as DownloadFileLoaded).isLoadingMore) return;
+    final current = state as DownloadFileLoaded;
+    emit(current.copyWith(isLoadingMore: true));
+    try {
+      final newFiles = await _repository.getFiles(mine: true, page: event.page, limit: event.limit);
+      _allFiles = [..._allFiles, ...newFiles.map(_mapToDownloadEntity)];
+      final hasMore = newFiles.length >= event.limit;
+      emit(DownloadFileLoaded(_filtered(), activeCategory: _currentCategory, hasMore: hasMore, page: event.page));
+    } catch (_) {
+      emit(current.copyWith(isLoadingMore: false));
     }
   }
 

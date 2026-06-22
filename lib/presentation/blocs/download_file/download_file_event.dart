@@ -7,7 +7,19 @@ abstract class DownloadFileEvent extends Equatable {
 }
 
 class DownloadFileLoadAll extends DownloadFileEvent {
-  const DownloadFileLoadAll();
+  final int page;
+  final int limit;
+  const DownloadFileLoadAll({this.page = 1, this.limit = 20});
+  @override
+  List<Object?> get props => [page, limit];
+}
+
+class DownloadFileLoadMore extends DownloadFileEvent {
+  final int page;
+  final int limit;
+  const DownloadFileLoadMore({this.page = 1, this.limit = 20});
+  @override
+  List<Object?> get props => [page, limit];
 }
 
 class DownloadFileSearch extends DownloadFileEvent {

@@ -8,6 +8,7 @@ class FileBloc extends Bloc<FileEvent, FileState> {
 
   FileBloc(this._repository) : super(FileInitial()) {
     on<FileLoadAll>(_onLoadAll);
+    on<FileLoadMore>(_onLoadMore);
     on<FileUploadDirect>(_onUploadDirect);
     on<FileChunkedInit>(_onChunkedInit);
     on<FileChunkedUploadChunk>(_onChunkedUploadChunk);
@@ -20,10 +21,25 @@ class FileBloc extends Bloc<FileEvent, FileState> {
   Future<void> _onLoadAll(FileLoadAll event, Emitter<FileState> emit) async {
     emit(FileLoading());
     try {
-      final files = await _repository.getFiles(mine: event.mine);
-      emit(FileLoaded(files));
+      final files = await _repository.getFiles(mine: event.mine, page: event.page, limit: event.limit);
+      final hasMore = files.length >= event.limit;
+      emit(FileLoaded(files, hasMore: hasMore, page: event.page));
     } catch (e) {
       emit(FileError(e.toString()));
+    }
+  }
+
+  Future<void> _onLoadMore(FileLoadMore event, Emitter<FileState> emit) async {
+    if (state is! FileLoaded || (state as FileLoaded).isLoadingMore) return;
+    final current = state as FileLoaded;
+    emit(current.copyWith(isLoadingMore: true));
+    try {
+      final newFiles = await _repository.getFiles(mine: event.mine, page: event.page, limit: event.limit);
+      final all = [...current.files, ...newFiles];
+      final hasMore = newFiles.length >= event.limit;
+      emit(FileLoaded(all, hasMore: hasMore, page: event.page));
+    } catch (e) {
+      emit(current.copyWith(isLoadingMore: false));
     }
   }
 

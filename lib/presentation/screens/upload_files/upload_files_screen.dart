@@ -23,10 +23,32 @@ class UploadFilesScreen extends StatefulWidget {
 }
 
 class _UploadFilesScreenState extends State<UploadFilesScreen> {
+  final _scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
     context.read<FileBloc>().add(const FileLoadAll());
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (!_scrollController.hasClients) return;
+    final max = _scrollController.position.maxScrollExtent;
+    final current = _scrollController.position.pixels;
+    if (current >= max - 200) {
+      final state = context.read<FileBloc>().state;
+      if (state is FileLoaded && !state.isLoadingMore && state.hasMore) {
+        context.read<FileBloc>().add(FileLoadMore(page: state.page + 1));
+      }
+    }
   }
 
   void _pickAndUpload() {
@@ -120,31 +142,12 @@ class _UploadFilesScreenState extends State<UploadFilesScreen> {
 
   Widget _buildFileList(BuildContext context, List<FileEntity> files) {
     final colors = AppColors.of(context);
-    return RefreshIndicator(
-      onRefresh: () async => context.read<FileBloc>().add(const FileLoadAll()),
-      child: ListView(
-        padding: const EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.sm, AppSpacing.md, 80),
-        children: [
-          if (files.isNotEmpty) ...[
-            AnimatedCard(
-              index: 0,
-              child: UfSectionHeader(label: AppStrings.ufRecentUploadsLabel),
-            ),
-            const SizedBox(height: AppSpacing.sm),
-            ...files.asMap().entries.map((entry) => Padding(
-              padding: const EdgeInsets.only(bottom: AppSpacing.sm),
-              child: AnimatedCard(
-                index: entry.key + 1,
-                child: UfRecentUploadItem(
-                  icon: _iconForType(entry.value.mimeType),
-                  iconColor: colors.primary,
-                  fileName: entry.value.originalName,
-                  subtitle: entry.value.sizeFormatted,
-                ),
-              ),
-            )),
-            const SizedBox(height: AppSpacing.md),
-          ] else ...[
+    if (files.isEmpty) {
+      return RefreshIndicator(
+        onRefresh: () async => context.read<FileBloc>().add(const FileLoadAll()),
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.sm, AppSpacing.md, 80),
+          children: [
             AnimatedCard(
               index: 0,
               child: Center(
@@ -160,13 +163,59 @@ class _UploadFilesScreenState extends State<UploadFilesScreen> {
                 ),
               ),
             ),
+            const SizedBox(height: AppSpacing.md),
+            const AnimatedCard(index: 1, child: UfSecurityCard()),
+            const SizedBox(height: 32),
           ],
-          AnimatedCard(
-            index: files.length + 1,
-            child: const UfSecurityCard(),
-          ),
-          const SizedBox(height: 32),
-        ],
+        ),
+      );
+    }
+    final state = context.read<FileBloc>().state;
+    final isLoadingMore = state is FileLoaded && state.isLoadingMore;
+    return RefreshIndicator(
+      onRefresh: () async => context.read<FileBloc>().add(const FileLoadAll()),
+      child: ListView.builder(
+        controller: _scrollController,
+        padding: const EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.sm, AppSpacing.md, 80),
+        itemCount: files.length + 1 + (isLoadingMore ? 1 : 0),
+        itemBuilder: (_, i) {
+          if (i == 0) {
+            return Column(
+              children: [
+                const AnimatedCard(index: 0, child: UfSectionHeader(label: AppStrings.ufRecentUploadsLabel)),
+                const SizedBox(height: AppSpacing.sm),
+              ],
+            );
+          }
+          final fileIdx = i - 1;
+          if (fileIdx >= files.length) {
+            return Column(
+              children: [
+                if (isLoadingMore)
+                  const Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
+                  ),
+                const SizedBox(height: AppSpacing.md),
+                AnimatedCard(index: i, child: const UfSecurityCard()),
+                const SizedBox(height: 32),
+              ],
+            );
+          }
+          final file = files[fileIdx];
+          return Padding(
+            padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+            child: AnimatedCard(
+              index: i,
+              child: UfRecentUploadItem(
+                icon: _iconForType(file.mimeType),
+                iconColor: colors.primary,
+                fileName: file.originalName,
+                subtitle: file.sizeFormatted,
+              ),
+            ),
+          );
+        },
       ),
     );
   }

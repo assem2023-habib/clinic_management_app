@@ -8,10 +8,10 @@ class FileRepositoryImpl implements FileRepository {
   FileRepositoryImpl({this.remoteDataSource});
 
   @override
-  Future<List<FileEntity>> getFiles({bool? mine}) async {
+  Future<List<FileEntity>> getFiles({bool? mine, int page = 1, int limit = 20}) async {
     if (remoteDataSource != null) {
       try {
-        return await remoteDataSource!.getFiles(mine: mine);
+        return await remoteDataSource!.getFiles(mine: mine, page: page, limit: limit);
       } catch (_) {}
     }
     return [];

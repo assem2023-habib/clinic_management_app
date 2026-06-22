@@ -13,9 +13,20 @@ class FileLoading extends FileState {}
 
 class FileLoaded extends FileState {
   final List<FileEntity> files;
-  const FileLoaded(this.files);
+  final bool isLoadingMore;
+  final bool hasMore;
+  final int page;
+  const FileLoaded(this.files, {this.isLoadingMore = false, this.hasMore = true, this.page = 1});
+  FileLoaded copyWith({List<FileEntity>? files, bool? isLoadingMore, bool? hasMore, int? page}) {
+    return FileLoaded(
+      files ?? this.files,
+      isLoadingMore: isLoadingMore ?? this.isLoadingMore,
+      hasMore: hasMore ?? this.hasMore,
+      page: page ?? this.page,
+    );
+  }
   @override
-  List<Object?> get props => [files];
+  List<Object?> get props => [files, isLoadingMore, hasMore, page];
 }
 
 class FileUploadProgress extends FileState {

@@ -8,8 +8,8 @@ class FileRemoteDataSource {
 
   FileRemoteDataSource(this._api);
 
-  Future<List<FileModel>> getFiles({bool? mine}) async {
-    final query = <String, dynamic>{};
+  Future<List<FileModel>> getFiles({bool? mine, int page = 1, int limit = 20}) async {
+    final query = <String, dynamic>{'page': page, 'limit': limit};
     if (mine == true) query['mine'] = '1';
     final response = await _api.get('/files', queryParameters: query.isNotEmpty ? query : null);
     final data = response.data['data'] as List<dynamic>? ?? [];

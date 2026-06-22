@@ -9,9 +9,20 @@ abstract class FileEvent extends Equatable {
 
 class FileLoadAll extends FileEvent {
   final bool mine;
-  const FileLoadAll({this.mine = true});
+  final int page;
+  final int limit;
+  const FileLoadAll({this.mine = true, this.page = 1, this.limit = 20});
   @override
-  List<Object?> get props => [mine];
+  List<Object?> get props => [mine, page, limit];
+}
+
+class FileLoadMore extends FileEvent {
+  final bool mine;
+  final int page;
+  final int limit;
+  const FileLoadMore({this.mine = true, this.page = 1, this.limit = 20});
+  @override
+  List<Object?> get props => [mine, page, limit];
 }
 
 class FileUploadDirect extends FileEvent {
