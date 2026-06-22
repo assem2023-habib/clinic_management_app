@@ -14,47 +14,45 @@ class AppTheme {
         brightness: brightness,
         primary: colors.primary,
         onPrimary: brightness == Brightness.light ? Colors.white : const Color(0xFF003921),
-        primaryContainer: brightness == Brightness.light
-            ? const Color(0xFF006D44)
-            : const Color(0xFF006D44),
-        onPrimaryContainer: const Color(0xFF93ECB8),
+        primaryContainer: colors.primaryDark,
+        onPrimaryContainer: colors.primaryLight,
         secondary: colors.secondary,
-        onSecondary: brightness == Brightness.light ? Colors.white : const Color(0xFF00391C),
+        onSecondary: brightness == Brightness.light ? Colors.white : colors.timelineBg,
         secondaryContainer: brightness == Brightness.light
             ? const Color(0xFFD6E3DC)
-            : const Color(0xFF00CA73),
+            : colors.accent,
         onSecondaryContainer: brightness == Brightness.light
             ? const Color(0xFF596560)
-            : const Color(0xFF004E29),
+            : colors.verifiedIconBg,
         tertiary: brightness == Brightness.light
             ? const Color(0xFF00531C)
-            : const Color(0xFFFFB3B1),
+            : colors.warning,
         onTertiary: Colors.white,
         error: colors.error,
         onError: brightness == Brightness.light ? Colors.white : const Color(0xFF690005),
         errorContainer: brightness == Brightness.light
-            ? const Color(0xFFFFDAD6)
-            : const Color(0xFF93000A),
+            ? colors.errorLight
+            : colors.errorRed,
         onErrorContainer: brightness == Brightness.light
-            ? const Color(0xFF93000A)
-            : const Color(0xFFFFDAD6),
+            ? colors.errorRed
+            : colors.errorLight,
         surface: colors.surface,
         onSurface: colors.textPrimary,
         surfaceContainerLowest: brightness == Brightness.light
-            ? const Color(0xFFFFFFFF)
+            ? Colors.white
             : const Color(0xFF001207),
         surfaceContainerLow: brightness == Brightness.light
             ? const Color(0xFFF0F3FF)
-            : const Color(0xFF002111),
+            : colors.surface,
         surfaceContainer: brightness == Brightness.light
             ? const Color(0xFFE7EEFE)
-            : const Color(0xFF032515),
+            : colors.cardBg,
         surfaceContainerHigh: brightness == Brightness.light
             ? const Color(0xFFE2E8F8)
-            : const Color(0xFF0F301F),
+            : colors.surfaceDark,
         surfaceContainerHighest: brightness == Brightness.light
             ? const Color(0xFFDCE2F3)
-            : const Color(0xFF1B3B29),
+            : colors.surfaceDark,
         outline: colors.textLight,
         outlineVariant: colors.divider,
       ),
