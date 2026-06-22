@@ -12,8 +12,8 @@ class PrescriptionRemoteDataSource {
     final queryParams = <String, dynamic>{
       'page': page,
       'limit': limit,
-      if (search != null) 'search': search,
-      if (manufacturer != null) 'manufacturer': manufacturer,
+      'search': ?search,
+      'manufacturer': ?manufacturer,
     };
     final response = await _api.get('/medicines', queryParameters: queryParams);
     final data = response.data['data'] as List<dynamic>? ?? [];

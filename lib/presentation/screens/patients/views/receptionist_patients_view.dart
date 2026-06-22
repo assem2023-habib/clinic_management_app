@@ -48,7 +48,7 @@ class _ReceptionistPatientsViewState extends State<ReceptionistPatientsView> {
                 return ListView.separated(
                   padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm),
                   itemCount: state.patients.length,
-                  separatorBuilder: (_, __) => const SizedBox(height: 8),
+                  separatorBuilder: (_, _) => const SizedBox(height: 8),
                   itemBuilder: (context, index) => AnimatedCard(
                     index: index,
                     child: _buildPatientCard(state.patients[index], colors),
@@ -102,12 +102,12 @@ class _ReceptionistPatientsViewState extends State<ReceptionistPatientsView> {
     showDialog(context: context, builder: (_) => PatientFormDialog(patient: patient));
   }
 
-  void _deletePatient(BuildContext context, String id) {
-    showDeleteDialog(context).then((confirmed) {
-      if (confirmed == true) {
-        context.read<PatientBloc>().add(PatientDelete(id));
-        showSnackBar(context, AppStrings.patientDeleted);
-      }
-    });
+  Future<void> _deletePatient(BuildContext context, String id) async {
+    final confirmed = await showDeleteDialog(context);
+    if (!context.mounted) return;
+    if (confirmed == true) {
+      context.read<PatientBloc>().add(PatientDelete(id));
+      showSnackBar(context, AppStrings.patientDeleted);
+    }
   }
 }

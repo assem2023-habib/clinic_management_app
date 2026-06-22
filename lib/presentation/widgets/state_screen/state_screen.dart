@@ -71,7 +71,7 @@ class StateScreen extends StatelessWidget {
                       if (statusChips != null || bottomWidget != null) ...[
                         const SizedBox(height: AppSpacing.xxl),
                         if (statusChips != null) _buildStatusRow(colors),
-                        if (bottomWidget != null) bottomWidget!,
+                        ?bottomWidget,
                       ],
                       const SizedBox(height: AppSpacing.lg),
                     ],

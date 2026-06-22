@@ -68,10 +68,10 @@ class RatingRepositoryImpl implements RatingRepository {
       try {
         final json = await remoteDataSource!.createRating({
           'type': type,
-          if (rateableId != null) 'rateable_id': rateableId,
-          if (rateableType != null) 'rateable_type': rateableType,
+          'rateable_id': ?rateableId,
+          'rateable_type': ?rateableType,
           'rating': rating,
-          if (comment != null) 'comment': comment,
+          'comment': ?comment,
         });
         final data = json['data'] as Map<String, dynamic>;
         return RatingModel.fromMap(data);
@@ -100,7 +100,7 @@ class RatingRepositoryImpl implements RatingRepository {
       try {
         final json = await remoteDataSource!.updateRating(id, {
           'rating': rating,
-          if (comment != null) 'comment': comment,
+          'comment': ?comment,
         });
         final data = json['data'] as Map<String, dynamic>;
         return RatingModel.fromMap(data);

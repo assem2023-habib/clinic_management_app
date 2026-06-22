@@ -124,7 +124,7 @@ class DoctorRepositoryImpl implements DoctorRepository {
         final doctor = await remoteDataSource!.getDoctorById(id);
         final reviews = doctor.recentReviews.isNotEmpty
             ? doctor.recentReviews
-            : await dataSource.getDoctorReviews(id);
+            : dataSource.getDoctorReviews(id);
         final now = DateTime.now();
         final slots = dataSource.getDoctorSlots(id, DateTime(now.year, now.month));
         return DoctorProfileEntity(

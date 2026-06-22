@@ -5,7 +5,7 @@ import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
 
 class ProfileStatsGrid extends StatelessWidget {
   final DoctorEntity doctor;
-  final List<_StatItem> Function()? extraStats;
+  final List<StatItem> Function()? extraStats;
 
   const ProfileStatsGrid({super.key, required this.doctor, this.extraStats});
 
@@ -14,9 +14,9 @@ class ProfileStatsGrid extends StatelessWidget {
     final colors = AppColors.of(context);
 
     final defaultStats = [
-      _StatItem(label: AppStrings.experience, value: '${doctor.experienceYears}+', icon: Icons.work_history_rounded, color: colors.primary),
-      _StatItem(label: AppStrings.doctorPatients, value: '${doctor.patientsCount}+', icon: Icons.people_rounded, color: colors.secondary),
-      _StatItem(label: AppStrings.surgeries, value: '${doctor.surgeriesCount}', icon: Icons.biotech_rounded, color: colors.primary),
+      StatItem(label: AppStrings.experience, value: '${doctor.experienceYears}+', icon: Icons.work_history_rounded, color: colors.primary),
+      StatItem(label: AppStrings.doctorPatients, value: '${doctor.patientsCount}+', icon: Icons.people_rounded, color: colors.secondary),
+      StatItem(label: AppStrings.surgeries, value: '${doctor.surgeriesCount}', icon: Icons.biotech_rounded, color: colors.primary),
     ];
 
     final stats = extraStats?.call() ?? defaultStats;
@@ -72,10 +72,10 @@ class ProfileStatsGrid extends StatelessWidget {
   }
 }
 
-class _StatItem {
+class StatItem {
   final String label;
   final String value;
   final IconData icon;
   final Color color;
-  const _StatItem({required this.label, required this.value, required this.icon, required this.color});
+  const StatItem({required this.label, required this.value, required this.icon, required this.color});
 }

@@ -200,6 +200,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ],
                 ),
               );
+              if (!mounted) return;
               if (confirmed == true) {
                 Navigator.pushNamed(context, AppRoutes.deleteAccount);
               }

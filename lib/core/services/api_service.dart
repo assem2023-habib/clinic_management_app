@@ -1,3 +1,5 @@
+import 'dart:developer' as dev;
+
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -28,7 +30,7 @@ class ApiService {
         requestBody: true,
         responseBody: true,
         error: true,
-        logPrint: (obj) => print('[API] $obj'),
+        logPrint: (obj) => dev.log('[API] $obj'),
       ),
       InterceptorsWrapper(
         onRequest: (options, handler) async {

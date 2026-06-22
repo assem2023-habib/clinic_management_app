@@ -41,7 +41,7 @@ class DrStatsCards extends StatelessWidget {
           label: AppStrings.daPatientsWaiting,
           value: waitingPatients.toString().padLeft(2, '0'),
           valueColor: colors.textPrimary,
-          trailing: Text('${emergencyCount} ${AppStrings.daEmergencyCases}',
+          trailing: Text('$emergencyCount ${AppStrings.daEmergencyCases}',
             style: TextStyle(fontSize: 11, color: colors.error)),
           highlightBorder: true,
         ),

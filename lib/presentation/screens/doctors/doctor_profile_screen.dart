@@ -76,6 +76,7 @@ class DoctorProfileScreen extends StatelessWidget {
                 onEditProfile: () {},
                 onDeleteDoctor: () async {
                   final confirm = await showDeleteDialog(context);
+                  if (!context.mounted) return;
                   if (confirm == true) {
                     Navigator.pop(context);
                   }

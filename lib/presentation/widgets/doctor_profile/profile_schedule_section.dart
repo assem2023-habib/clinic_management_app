@@ -55,8 +55,11 @@ class ProfileScheduleSection extends StatelessWidget {
             runSpacing: 8,
             children: morningSlots.map((slot) => GestureDetector(
               onTap: () {
-                if (canManage) onToggleSlot?.call(slot.id);
-                else if (slot.isAvailable) onSelectSlot?.call(slot);
+                if (canManage) {
+                  onToggleSlot?.call(slot.id);
+                } else if (slot.isAvailable) {
+                  onSelectSlot?.call(slot);
+                }
               },
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -97,8 +100,11 @@ class ProfileScheduleSection extends StatelessWidget {
             runSpacing: 8,
             children: eveningSlots.map((slot) => GestureDetector(
               onTap: () {
-                if (canManage) onToggleSlot?.call(slot.id);
-                else if (slot.isAvailable) onSelectSlot?.call(slot);
+                if (canManage) {
+                  onToggleSlot?.call(slot.id);
+                } else if (slot.isAvailable) {
+                  onSelectSlot?.call(slot);
+                }
               },
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),

@@ -9,14 +9,14 @@ class UserRemoteDataSource {
   Future<List<UserModel>> getUsers({int page = 1, int limit = 20, String? role, String? search, String? gender, bool? isActive, String? dateFrom, String? dateTo, String? sort, String? order}) async {
     final queryParams = <String, dynamic>{
       'page': page, 'limit': limit,
-      if (role != null) 'role': role,
-      if (search != null) 'search': search,
-      if (gender != null) 'gender': gender,
-      if (isActive != null) 'is_active': isActive,
-      if (dateFrom != null) 'date_from': dateFrom,
-      if (dateTo != null) 'date_to': dateTo,
-      if (sort != null) 'sort': sort,
-      if (order != null) 'order': order,
+      'role': ?role,
+      'search': ?search,
+      'gender': ?gender,
+      'is_active': ?isActive,
+      'date_from': ?dateFrom,
+      'date_to': ?dateTo,
+      'sort': ?sort,
+      'order': ?order,
     };
     final response = await _api.get('/users', queryParameters: queryParams);
     final data = response.data['data'] as List<dynamic>? ?? [];

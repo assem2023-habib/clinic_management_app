@@ -318,7 +318,9 @@ class _AppointmentSchedulePageState extends State<AppointmentSchedulePage>
   // ── تغيير اليوم ──
   void _onDateSelected(DateItem item) {
     setState(() {
-      for (var d in _dates) d.isSelected = false;
+      for (var d in _dates) {
+        d.isSelected = false;
+      }
       item.isSelected = true;
       _selectedDate = item.date;
       _selectedSlotTime = null;
@@ -369,7 +371,7 @@ class _AppointmentSchedulePageState extends State<AppointmentSchedulePage>
         opacity: _headerFade,
         child: ClipRect(
           child: Container(
-            color: AppColors.surface.withOpacity(0.7),
+            color: AppColors.surface.withValues(alpha: 0.7),
             child: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -465,7 +467,7 @@ class _AppointmentSchedulePageState extends State<AppointmentSchedulePage>
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: _dates.length,
-            separatorBuilder: (_, __) => const SizedBox(width: 12),
+            separatorBuilder: (_, _) => const SizedBox(width: 12),
             itemBuilder: (context, i) => _DateCard(
               item: _dates[i],
               onTap: () => _onDateSelected(_dates[i]),
@@ -492,7 +494,7 @@ class _AppointmentSchedulePageState extends State<AppointmentSchedulePage>
                   width: 64,
                   height: 64,
                   fit: BoxFit.cover,
-                  errorBuilder: (_, __, ___) => Container(
+                  errorBuilder: (_, _, _) => Container(
                     width: 64, height: 64,
                     decoration: BoxDecoration(
                       color: AppColors.primaryContainer,
@@ -597,7 +599,7 @@ class _AppointmentSchedulePageState extends State<AppointmentSchedulePage>
           end: Alignment.topCenter,
           colors: [
             AppColors.background,
-            AppColors.background.withOpacity(0.0),
+            AppColors.background.withValues(alpha: 0.0),
           ],
         ),
       ),
@@ -621,7 +623,7 @@ class _AppointmentSchedulePageState extends State<AppointmentSchedulePage>
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withOpacity(0.25),
+                    color: AppColors.primary.withValues(alpha: 0.25),
                     blurRadius: 24,
                     offset: const Offset(0, 8),
                   ),
@@ -692,7 +694,7 @@ class _DateCard extends StatelessWidget {
           ),
           boxShadow: item.isSelected
               ? [BoxShadow(
-                  color: AppColors.primaryContainer.withOpacity(0.2),
+                  color: AppColors.primaryContainer.withValues(alpha: 0.2),
                   blurRadius: 12,
                 )]
               : [],
@@ -707,7 +709,7 @@ class _DateCard extends StatelessWidget {
                 fontSize: 11,
                 fontWeight: FontWeight.w500,
                 color: item.isSelected
-                    ? AppColors.onPrimaryContainer.withOpacity(0.8)
+                    ? AppColors.onPrimaryContainer.withValues(alpha: 0.8)
                     : AppColors.onSurfaceVariant,
               ),
             ),
@@ -795,7 +797,7 @@ class _SlotCardState extends State<_SlotCard>
             ),
             boxShadow: isSelected
                 ? [BoxShadow(
-                    color: AppColors.primaryContainer.withOpacity(0.3),
+                    color: AppColors.primaryContainer.withValues(alpha: 0.3),
                     blurRadius: 12,
                   )]
                 : [],
@@ -857,7 +859,7 @@ class _GlassCard extends StatelessWidget {
   final Widget child;
   final EdgeInsetsGeometry? padding;
 
-  const _GlassCard({required this.child, this.padding});
+  const _GlassCard({required this.child}) : padding = null;
 
   @override
   Widget build(BuildContext context) {

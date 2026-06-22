@@ -89,7 +89,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
           ),
           TextButton(
-            onPressed: () => _completeOnboarding(context),
+            onPressed: _completeOnboarding,
             child: Text(
               AppStrings.skip, 
               style: TextStyle(color: colors.textSecondary, fontSize: 14),
@@ -116,7 +116,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: ElevatedButton(
               onPressed: () {
                 if (isLast) {
-                  _completeOnboarding(context);
+                  _completeOnboarding();
                 } else {
                   _pageController.nextPage(
                     duration: const Duration(milliseconds: 400),
@@ -156,10 +156,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
           const SizedBox(height: 16),
           TextButton(
-            onPressed: () {
-              context.read<OnboardingCubit>().completeOnboarding().then((_) {
-                Navigator.pushReplacementNamed(context, AppRoutes.login);
-              });
+            onPressed: () async {
+              await context.read<OnboardingCubit>().completeOnboarding();
+              if (!mounted) return;
+              Navigator.pushReplacementNamed(context, AppRoutes.login);
             },
             child: Text(
               AppStrings.haveAccountLogin,
@@ -194,9 +194,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  void _completeOnboarding(BuildContext context) {
-    context.read<OnboardingCubit>().completeOnboarding().then((_) {
-      Navigator.pushReplacementNamed(context, AppRoutes.login);
-    });
+  Future<void> _completeOnboarding() async {
+    await context.read<OnboardingCubit>().completeOnboarding();
+    if (!mounted) return;
+    Navigator.pushReplacementNamed(context, AppRoutes.login);
   }
 }

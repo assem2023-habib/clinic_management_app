@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/core/utils/app_toast.dart';
-import 'package:clinic_management_app/domain/entities/supervision_entity.dart';
-import 'package:clinic_management_app/domain/entities/supervision_request_entity.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/supervision/supervision_bloc.dart';

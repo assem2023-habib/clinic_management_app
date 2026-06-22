@@ -8,7 +8,7 @@ class RbacRemoteDataSource {
   RbacRemoteDataSource(this._api);
 
   Future<List<RoleModel>> getRoles({int page = 1, int limit = 20, String? search}) async {
-    final queryParams = <String, dynamic>{'page': page, 'limit': limit, if (search != null) 'search': search};
+    final queryParams = <String, dynamic>{'page': page, 'limit': limit, 'search': ?search};
     final response = await _api.get('/roles', queryParameters: queryParams);
     final data = response.data['data'] as List<dynamic>? ?? [];
     return data.map((e) => RoleModel.fromMap(e as Map<String, dynamic>)).toList();
@@ -45,8 +45,8 @@ class RbacRemoteDataSource {
   Future<List<PermissionModel>> getPermissions({int page = 1, int limit = 50, String? group, String? search}) async {
     final queryParams = <String, dynamic>{
       'page': page, 'limit': limit,
-      if (group != null) 'group': group,
-      if (search != null) 'search': search,
+      'group': ?group,
+      'search': ?search,
     };
     final response = await _api.get('/permissions', queryParameters: queryParams);
     final data = response.data['data'] as List<dynamic>? ?? [];

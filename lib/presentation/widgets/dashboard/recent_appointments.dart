@@ -29,7 +29,7 @@ class RecentAppointments extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: recent.length,
-            separatorBuilder: (_, __) => const SizedBox(height: 8),
+            separatorBuilder: (_, _) => const SizedBox(height: 8),
             itemBuilder: (context, index) {
               final a = recent[index];
               return Card(
@@ -38,8 +38,8 @@ class RecentAppointments extends StatelessWidget {
                     backgroundColor: _statusColor(colors, a.status.toValue()),
                     child: const Icon(Icons.event, color: Colors.white),
                   ),
-                  title: Text('${a.patientName ?? ''}'),
-                  subtitle: Text('${a.doctorName ?? ''}'),
+                  title: Text(a.patientName ?? ''),
+                  subtitle: Text(a.doctorName ?? ''),
                   trailing: _statusBadge(colors, a.status.toValue()),
                 ),
               );

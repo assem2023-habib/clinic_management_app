@@ -12,14 +12,14 @@ class DoctorRemoteDataSource {
   Future<List<DoctorModel>> getDoctors({int page = 1, int limit = 20, String? search, String? specializationId, int? experienceFrom, int? experienceTo, String? gender, String? dateFrom, String? dateTo, bool? isActive}) async {
     final queryParams = <String, dynamic>{
       'page': page, 'limit': limit,
-      if (search != null) 'search': search,
-      if (specializationId != null) 'specialization_id': specializationId,
-      if (experienceFrom != null) 'experience_from': experienceFrom,
-      if (experienceTo != null) 'experience_to': experienceTo,
-      if (gender != null) 'gender': gender,
-      if (dateFrom != null) 'date_from': dateFrom,
-      if (dateTo != null) 'date_to': dateTo,
-      if (isActive != null) 'is_active': isActive,
+      'search': ?search,
+      'specialization_id': ?specializationId,
+      'experience_from': ?experienceFrom,
+      'experience_to': ?experienceTo,
+      'gender': ?gender,
+      'date_from': ?dateFrom,
+      'date_to': ?dateTo,
+      'is_active': ?isActive,
     };
     final response = await _api.get('/doctors', queryParameters: queryParams);
     debugPrint('📡 [DoctorRemoteDataSource] GET /doctors response: ${response.data}');
@@ -32,9 +32,9 @@ class DoctorRemoteDataSource {
       'has_appointments': true,
       'appointment_patient_id[]': patientId,
       if (status != null && status.isNotEmpty) 'appointment_status[]': status,
-      if (date != null) 'appointment_date': date,
-      if (fromDate != null) 'appointment_from_date': fromDate,
-      if (toDate != null) 'appointment_to_date': toDate,
+      'appointment_date': ?date,
+      'appointment_from_date': ?fromDate,
+      'appointment_to_date': ?toDate,
     };
     final response = await _api.get('/doctors', queryParameters: queryParams);
     debugPrint('📡 [DoctorRemoteDataSource] GET /doctors (with appointments) response: ${response.data}');
@@ -85,9 +85,9 @@ class DoctorRemoteDataSource {
   Future<List<SpecializationModel>> getSpecializations({int page = 1, int limit = 50, String? search, String? slug, bool? isActive}) async {
     final queryParams = <String, dynamic>{
       'page': page, 'limit': limit,
-      if (search != null) 'search': search,
-      if (slug != null) 'slug': slug,
-      if (isActive != null) 'is_active': isActive,
+      'search': ?search,
+      'slug': ?slug,
+      'is_active': ?isActive,
     };
     final response = await _api.get('/specializations', queryParameters: queryParams);
     final data = response.data['data'] as List<dynamic>? ?? [];

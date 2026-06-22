@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
-import 'package:clinic_management_app/domain/entities/user_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/medical_record/medical_record_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/prescription/prescription_bloc.dart';

@@ -11,9 +11,9 @@ class AppointmentRemoteDataSource {
     final queryParams = <String, dynamic>{
       'page': page,
       'limit': limit,
-      if (doctorId != null) 'doctor_id': doctorId,
-      if (status != null) 'status': status,
-      if (date != null) 'date': date,
+      'doctor_id': ?doctorId,
+      'status': ?status,
+      'date': ?date,
     };
     final response = await _api.get('/appointments', queryParameters: queryParams);
     final data = response.data['data'] as List<dynamic>? ?? [];
@@ -30,8 +30,8 @@ class AppointmentRemoteDataSource {
     final queryParams = <String, dynamic>{
       'page': page,
       'limit': limit,
-      if (date != null) 'date': date,
-      if (status != null) 'status': status,
+      'date': ?date,
+      'status': ?status,
     };
     final response = await _api.get('/doctors/$doctorId/appointments', queryParameters: queryParams);
     final data = response.data['data'] as List<dynamic>? ?? [];
@@ -78,9 +78,9 @@ class AppointmentRemoteDataSource {
     final queryParams = <String, dynamic>{
       'page': page,
       'limit': limit,
-      if (date != null) 'date': date,
-      if (fromDate != null) 'from_date': fromDate,
-      if (toDate != null) 'to_date': toDate,
+      'date': ?date,
+      'from_date': ?fromDate,
+      'to_date': ?toDate,
     };
     final response = await _api.get('/doctors/$doctorId/booked-slots', queryParameters: queryParams);
     final data = response.data['data'] as List<dynamic>? ?? [];

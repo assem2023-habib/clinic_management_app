@@ -20,18 +20,18 @@ class SupervisionRemoteDataSource {
   }
 
   Future<List<Map<String, dynamic>>> getAvailableDoctors(String patientId, {String? specializationId}) async {
-    final queryParams = <String, dynamic>{if (specializationId != null) 'specialization_id': specializationId};
+    final queryParams = <String, dynamic>{'specialization_id': ?specializationId};
     final response = await _api.get('/patients/$patientId/available-doctors', queryParameters: queryParams);
     final data = response.data['data'] as List<dynamic>? ?? [];
     return data.cast<Map<String, dynamic>>();
   }
 
   Future<void> assignPatientToDoctor(String doctorId, String patientId, {String? notes}) async {
-    await _api.post('/doctors/$doctorId/patients', data: {'patient_id': patientId, if (notes != null) 'notes': notes});
+    await _api.post('/doctors/$doctorId/patients', data: {'patient_id': patientId, 'notes': ?notes});
   }
 
   Future<void> selfAssignPatient(String doctorId, String patientId, {String? notes}) async {
-    await _api.post('/doctors/$doctorId/patients/self', data: {'patient_id': patientId, if (notes != null) 'notes': notes});
+    await _api.post('/doctors/$doctorId/patients/self', data: {'patient_id': patientId, 'notes': ?notes});
   }
 
   Future<void> bulkAssignPatients(String doctorId, List<String> patientIds) async {
@@ -59,7 +59,7 @@ class SupervisionRemoteDataSource {
   }
 
   Future<List<SupervisionRequestModel>> getDoctorRequests(String doctorId, {String? status}) async {
-    final queryParams = <String, dynamic>{if (status != null) 'status': status};
+    final queryParams = <String, dynamic>{'status': ?status};
     final response = await _api.get('/doctors/$doctorId/supervision-requests', queryParameters: queryParams);
     final data = response.data['data'] as List<dynamic>? ?? [];
     return data.map((e) => SupervisionRequestModel.fromMap(e as Map<String, dynamic>)).toList();

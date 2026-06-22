@@ -10,10 +10,10 @@ class PatientRemoteDataSource {
     final queryParams = <String, dynamic>{
       'page': page,
       'limit': limit,
-      if (search != null) 'search': search,
-      if (gender != null) 'gender': gender,
-      if (dateFrom != null) 'date_from': dateFrom,
-      if (dateTo != null) 'date_to': dateTo,
+      'search': ?search,
+      'gender': ?gender,
+      'date_from': ?dateFrom,
+      'date_to': ?dateTo,
       if (isActive != null) 'is_active': isActive ? '1' : '0',
     };
     final response = await _api.get('/patients', queryParameters: queryParams);

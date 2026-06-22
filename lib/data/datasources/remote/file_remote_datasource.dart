@@ -33,7 +33,7 @@ class FileRemoteDataSource {
       'file': await MultipartFile.fromFile(filePath, filename: fileName),
       'medical_record_id': medicalRecordId,
       'file_category': category.apiValue,
-      if (checksum != null) 'checksum': checksum,
+      'checksum': ?checksum,
     });
     final response = await _api.upload('/files', formData);
     final data = response.data['data'] as Map<String, dynamic>;
@@ -54,7 +54,7 @@ class FileRemoteDataSource {
       'original_name': originalName,
       'mime_type': mimeType,
       'file_size': fileSize,
-      if (checksum != null) 'checksum': checksum,
+      'checksum': ?checksum,
     });
     return response.data['data'] as Map<String, dynamic>;
   }
@@ -74,7 +74,7 @@ class FileRemoteDataSource {
 
   Future<FileModel> completeUpload(String fileId, {String? checksum}) async {
     final response = await _api.post('/files/$fileId/complete', data: {
-      if (checksum != null) 'checksum': checksum,
+      'checksum': ?checksum,
     });
     final data = response.data['data'] as Map<String, dynamic>;
     return FileModel.fromMap(data);

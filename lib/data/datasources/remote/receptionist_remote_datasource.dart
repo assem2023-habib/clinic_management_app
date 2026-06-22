@@ -9,9 +9,9 @@ class ReceptionistRemoteDataSource {
   Future<List<ReceptionistModel>> getReceptionists({int page = 1, int limit = 20, String? search, String? gender, bool? isActive}) async {
     final queryParams = <String, dynamic>{
       'page': page, 'limit': limit,
-      if (search != null) 'search': search,
-      if (gender != null) 'gender': gender,
-      if (isActive != null) 'is_active': isActive,
+      'search': ?search,
+      'gender': ?gender,
+      'is_active': ?isActive,
     };
     final response = await _api.get('/receptionists', queryParameters: queryParams);
     final data = response.data['data'] as List<dynamic>? ?? [];

@@ -114,7 +114,7 @@ class DoctorDashboardView extends StatelessWidget {
               StatCard(title: AppStrings.totalPatients, icon: Icons.people, color: colors.primary, value: total?.toString()),
               StatCard(title: AppStrings.newThisMonth, icon: Icons.fiber_new, color: colors.accent, value: newThisMonth?.toString()),
               StatCard(title: AppStrings.registeredToday, icon: Icons.today, color: colors.warning, value: registeredToday?.toString()),
-              StatCard(title: AppStrings.newPatients, icon: Icons.person_add, color: colors.secondary, value: newThisMonth != null ? '${newThisMonth}' : null),
+              StatCard(title: AppStrings.newPatients, icon: Icons.person_add, color: colors.secondary, value: newThisMonth != null ? '$newThisMonth' : null),
             ],
           ),
         ],
