@@ -12,7 +12,7 @@ class DpSecurityFooter extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.lg),
       decoration: const BoxDecoration(
-        border: Border(top: BorderSide(color: Color(0x0DFFFFFF))),
+        border: Border(top: BorderSide(color: colors.glassHighlight)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -30,7 +30,7 @@ class DpSecurityFooter extends StatelessWidget {
         Container(
           width: 32, height: 32,
           decoration: BoxDecoration(
-            color: const Color(0xFF1B3B29),
+            color: colors.surfaceMedium,
             borderRadius: BorderRadius.circular(AppSpacing.sm),
           ),
           child: Icon(icon, size: 16, color: colors.textPrimary),
@@ -43,7 +43,7 @@ class DpSecurityFooter extends StatelessWidget {
               fontFamily: 'Sora', fontSize: 10, fontWeight: FontWeight.w600, color: colors.textPrimary,
             )),
             Text(subtitle, style: const TextStyle(
-              fontFamily: 'Sora', fontSize: 8, fontWeight: FontWeight.w600, color: Color(0xFFBBCABF),
+              fontFamily: 'Sora', fontSize: 8, fontWeight: FontWeight.w600, color: colors.textMuted,
             )),
           ],
         ),

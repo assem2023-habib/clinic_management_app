@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 
@@ -13,11 +14,12 @@ class UfBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Container(
       height: 80,
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
       decoration: BoxDecoration(
-        color: const Color(0xFF032515),
+        color: colors.cardBg,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
       ),
       child: Row(
@@ -43,8 +45,8 @@ class UfBottomNav extends StatelessWidget {
             icon,
             size: 24,
             color: isActive
-                ? const Color(0xFF4EDEA3)
-                : const Color(0xFFBBCABF),
+                ? colors.mint
+                : colors.textMuted,
           ),
           const SizedBox(height: 4),
           Text(
@@ -53,8 +55,8 @@ class UfBottomNav extends StatelessWidget {
               fontSize: 12,
               fontWeight: FontWeight.w600,
               color: isActive
-                  ? const Color(0xFF4EDEA3)
-                  : const Color(0xFFBBCABF),
+                  ? colors.mint
+                  : colors.textMuted,
             ),
           ),
         ],
@@ -68,20 +70,20 @@ class UfBottomNav extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
         decoration: BoxDecoration(
-          color: const Color(0xFF0B513D),
+          color: colors.cardBorder,
           borderRadius: BorderRadius.circular(999),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, size: 24, color: const Color(0xFF83C2A9)),
+            Icon(icon, size: 24, color: colors.iconGreen),
             const SizedBox(height: 4),
             Text(
               label,
               style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
-                color: Color(0xFF83C2A9),
+                color: colors.iconGreen,
               ),
             ),
           ],

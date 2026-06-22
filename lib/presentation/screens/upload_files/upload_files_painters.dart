@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class SeededRandom {
@@ -15,7 +16,7 @@ class UfParticlePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final rng = SeededRandom(42);
     final paint = Paint()
-      ..color = const Color(0xFF10B981).withValues(alpha: 0.2);
+      ..color = AppColors.dark.emerald.withValues(alpha: 0.2);
     for (var i = 0; i < 20; i++) {
       final x = rng.next() * size.width;
       final y = rng.next() * size.height;

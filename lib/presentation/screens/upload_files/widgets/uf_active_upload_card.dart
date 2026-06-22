@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
@@ -20,10 +21,11 @@ class UfActiveUploadCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Container(
       padding: const EdgeInsets.all(AppSpacing.md),
       decoration: BoxDecoration(
-        color: const Color(0xFF032515).withValues(alpha: 0.6),
+        color: colors.cardBg.withValues(alpha: 0.6),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
       ),
@@ -37,16 +39,16 @@ class UfActiveUploadCard extends StatelessWidget {
                 width: 56,
                 height: 56,
                 decoration: BoxDecoration(
-                  color: const Color(0xFF0B513D),
+                  color: colors.cardBorder,
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                    color: const Color(0xFF4EDEA3).withValues(alpha: 0.2),
+                    color: colors.mint.withValues(alpha: 0.2),
                   ),
                 ),
                 child: const Icon(
                   Icons.description_rounded,
                   size: 32,
-                  color: Color(0xFF4EDEA3),
+                  color: colors.mint,
                 ),
               ),
               const SizedBox(width: 16),
@@ -59,7 +61,7 @@ class UfActiveUploadCard extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFFC6EBD1),
+                        color: colors.textPrimary,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -69,7 +71,7 @@ class UfActiveUploadCard extends StatelessWidget {
                       '$fileSize • ${AppStrings.ufProcessing}',
                       style: const TextStyle(
                         fontSize: 14,
-                        color: Color(0xFFBBCABF),
+                        color: colors.textMuted,
                       ),
                     ),
                   ],
@@ -85,7 +87,7 @@ class UfActiveUploadCard extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w700,
-                  color: Color(0xFF4EDEA3),
+                  color: colors.mint,
                 ),
               ),
               const Spacer(),
@@ -93,7 +95,7 @@ class UfActiveUploadCard extends StatelessWidget {
                 '${AppStrings.ufRemaining} ${remainingSeconds}s',
                 style: const TextStyle(
                   fontSize: 12,
-                  color: Color(0xFFBBCABF),
+                  color: colors.textMuted,
                 ),
               ),
             ],
@@ -103,16 +105,16 @@ class UfActiveUploadCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(999),
             child: Container(
               height: 8,
-              color: const Color(0xFF1B3B29),
+              color: colors.surfaceMedium,
               child: FractionallySizedBox(
                 alignment: Alignment.centerLeft,
                 widthFactor: progress / 100,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: const Color(0xFF4EDEA3),
+                    color: colors.mint,
                     boxShadow: [
                       BoxShadow(
-                        color: const Color(0xFF10B981).withValues(alpha: 0.4),
+                        color: colors.emerald.withValues(alpha: 0.4),
                         blurRadius: 15,
                       ),
                     ],
@@ -127,7 +129,7 @@ class UfActiveUploadCard extends StatelessWidget {
             child: OutlinedButton(
               onPressed: onCancel,
               style: OutlinedButton.styleFrom(
-                foregroundColor: const Color(0xFFBBCABF),
+                foregroundColor: colors.textMuted,
                 side: BorderSide(
                   color: Colors.white.withValues(alpha: 0.15),
                 ),
