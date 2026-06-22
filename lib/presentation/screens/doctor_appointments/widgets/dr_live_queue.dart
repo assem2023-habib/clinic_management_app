@@ -74,58 +74,66 @@ class _DrLiveQueueState extends State<DrLiveQueue> {
           return (a.timeSlot ?? '').compareTo(b.timeSlot ?? '');
         });
 
-        return SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: AppSpacing.md),
-              _buildGreeting(colors, userName, waiting),
-              const SizedBox(height: AppSpacing.md),
-              DrStatsCards(
-                totalToday: totalToday,
-                waitingPatients: waiting,
-                emergencyCount: emergencyCount,
-                availableDoctors: _availableDoctorCount(context),
-                totalDoctors: _totalDoctorCount(context),
+        return CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: AppSpacing.md),
+                    _buildGreeting(colors, userName, waiting),
+                    const SizedBox(height: AppSpacing.md),
+                    DrStatsCards(
+                      totalToday: totalToday,
+                      waitingPatients: waiting,
+                      emergencyCount: emergencyCount,
+                      availableDoctors: _availableDoctorCount(context),
+                      totalDoctors: _totalDoctorCount(context),
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    DrQuickActions(
+                      onRegisterPatient: () {},
+                      onAddAppointment: () => Navigator.pushNamed(context, AppRoutes.userBooking),
+                      onManageSchedule: () {},
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(AppStrings.daLiveQueue,
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+                        TextButton(
+                          onPressed: () {},
+                          child: Text(AppStrings.daViewAll, style: TextStyle(color: colors.primary, fontSize: 13)),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: AppSpacing.sm),
+                  ],
+                ),
               ),
-              const SizedBox(height: AppSpacing.lg),
-              DrQuickActions(
-                onRegisterPatient: () {},
-                onAddAppointment: () => Navigator.pushNamed(context, AppRoutes.userBooking),
-                onManageSchedule: () {},
-              ),
-              const SizedBox(height: AppSpacing.lg),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(AppStrings.daLiveQueue,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(AppStrings.daViewAll, style: TextStyle(color: colors.primary, fontSize: 13)),
-                  ),
-                ],
-              ),
-              const SizedBox(height: AppSpacing.sm),
-              if (todayAppts.isEmpty)
-                const EmptyDataWidget(icon: Icons.event_busy_rounded, title: AppStrings.daNoApptsToday, compact: true)
-              else
-                Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: colors.cardBg.withValues(alpha: 0.4),
-                    borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
-                    border: Border.all(color: colors.divider.withValues(alpha: 0.08)),
-                  ),
-                  child: Column(
-                    children: todayAppts.asMap().entries.map((entry) {
-                      final appt = entry.value;
-                      final isLast = entry.key == todayAppts.length - 1;
+            ),
+            if (todayAppts.isEmpty)
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+                  child: const EmptyDataWidget(icon: Icons.event_busy_rounded, title: AppStrings.daNoApptsToday, compact: true),
+                ),
+              )
+            else
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+                sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      final appt = todayAppts[index];
+                      final isLast = index == todayAppts.length - 1;
                       return Column(
                         children: [
                           DrQueueItem(
-                            queueNumber: entry.key + 1,
+                            queueNumber: index + 1,
                             patientName: appt.patientName ?? '',
                             doctorName: '${AppStrings.daWithDoctor} ${appt.doctorName ?? ''}',
                             checkInTime: appt.timeSlot ?? '',
@@ -135,12 +143,13 @@ class _DrLiveQueueState extends State<DrLiveQueue> {
                             Divider(height: 1, color: colors.divider.withValues(alpha: 0.05)),
                         ],
                       );
-                    }).toList(),
+                    },
+                    childCount: todayAppts.length,
                   ),
                 ),
-              const SizedBox(height: AppSpacing.xxl),
-            ],
-          ),
+              ),
+            const SliverToBoxAdapter(child: SizedBox(height: AppSpacing.sm)),
+          ],
         );
       },
     );

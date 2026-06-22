@@ -261,6 +261,8 @@ void main() {
         doctorBloc: doctorBloc,
       ));
       await tester.pump();
+      await tester.drag(find.byType(CustomScrollView), const Offset(0, -400));
+      await tester.pump();
 
       expect(find.text(AppStrings.daLiveQueue), findsOneWidget);
       expect(find.text('مريض 1'), findsOneWidget);
@@ -292,6 +294,8 @@ void main() {
         appointmentBloc: appointmentBloc,
         doctorBloc: doctorBloc,
       ));
+      await tester.pump();
+      await tester.drag(find.byType(CustomScrollView), const Offset(0, -100));
       await tester.pump();
 
       expect(find.byIcon(Icons.event_busy_rounded), findsOneWidget);
