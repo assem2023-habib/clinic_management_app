@@ -17,7 +17,7 @@ class DateSelectionBar extends StatelessWidget {
     this.onCalendarTap,
   });
 
-  static const _dayNames = [AppStrings.dayMonday, AppStrings.dayTuesday, AppStrings.dayWednesday, AppStrings.dayThursday, AppStrings.dayFriday, AppStrings.daySaturday, AppStrings.daySunday];
+  static final _dayNames = [AppStrings.dayMonday, AppStrings.dayTuesday, AppStrings.dayWednesday, AppStrings.dayThursday, AppStrings.dayFriday, AppStrings.daySaturday, AppStrings.daySunday];
 
   String _dayName(DateTime date) => _dayNames[date.weekday - 1];
 
@@ -118,7 +118,7 @@ class DateSelectionBar extends StatelessWidget {
   }
 
   String _monthName(int month) {
-    const months = [
+    final months = [
       AppStrings.monthJan, AppStrings.monthFeb, AppStrings.monthMar, AppStrings.monthApr, AppStrings.monthMay, AppStrings.monthJun,
       AppStrings.monthJul, AppStrings.monthAug, AppStrings.monthSep, AppStrings.monthOct, AppStrings.monthNov, AppStrings.monthDec
     ];

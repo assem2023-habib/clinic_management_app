@@ -182,7 +182,7 @@ class _UploadFilesScreenState extends State<UploadFilesScreen> {
           if (i == 0) {
             return Column(
               children: [
-                const AnimatedCard(index: 0, child: UfSectionHeader(label: AppStrings.ufRecentUploadsLabel)),
+                 AnimatedCard(index: 0, child: UfSectionHeader(label: AppStrings.ufRecentUploadsLabel)),
                 const SizedBox(height: AppSpacing.sm),
               ],
             );

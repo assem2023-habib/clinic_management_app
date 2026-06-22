@@ -164,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         color: colors.surface,
                                       ),
                                     )
-                                  : const Text(
+                                  :  Text(
                                       AppStrings.login,
                                       style: TextStyle(fontSize: 16, color: Colors.white),
                                     ),

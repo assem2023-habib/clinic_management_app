@@ -17,7 +17,7 @@ class CountryCode {
   });
 }
 
-const _countries = [
+final _countries = [
   CountryCode(flag: '🇸🇾', code: 'SY', dialCode: '+963', name: AppStrings.countriesSyria),
   CountryCode(flag: '🇪🇬', code: 'EG', dialCode: '+20', name: AppStrings.countriesEgypt),
   CountryCode(flag: '🇸🇦', code: 'SA', dialCode: '+966', name: AppStrings.countriesSaudi),

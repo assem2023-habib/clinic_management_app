@@ -55,7 +55,7 @@ class _DoctorRecordsViewState extends State<DoctorRecordsView> {
         }
         if (state is MedicalRecordLoaded) {
           if (state.records.isEmpty) {
-            return const EmptyDataWidget(icon: Icons.folder_open_rounded, title: AppStrings.noRecords, compact: true);
+            return  EmptyDataWidget(icon: Icons.folder_open_rounded, title: AppStrings.noRecords, compact: true);
           }
           return ListView.separated(
             controller: _scrollController,
@@ -79,7 +79,7 @@ class _DoctorRecordsViewState extends State<DoctorRecordsView> {
         if (state is MedicalRecordError) {
           return Center(child: Text(state.message, style: TextStyle(color: colors.error)));
         }
-        return const EmptyDataWidget(icon: Icons.folder_open_rounded, title: AppStrings.noRecords, compact: true);
+        return  EmptyDataWidget(icon: Icons.folder_open_rounded, title: AppStrings.noRecords, compact: true);
       },
     );
   }

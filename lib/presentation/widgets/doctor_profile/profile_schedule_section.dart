@@ -137,7 +137,7 @@ class ProfileScheduleSection extends StatelessWidget {
           ),
         ],
         if (slots.isEmpty)
-          const EmptyDataWidget(icon: Icons.event_available_rounded, title: AppStrings.noAvailableSlots, compact: true),
+           EmptyDataWidget(icon: Icons.event_available_rounded, title: AppStrings.noAvailableSlots, compact: true),
       ],
     );
   }

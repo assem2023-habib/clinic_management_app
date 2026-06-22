@@ -6,6 +6,7 @@ import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/core/theme/theme_provider.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
+import 'package:clinic_management_app/presentation/blocs/language/language_cubit.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -26,6 +27,7 @@ class AppDrawer extends StatelessWidget {
             child: _buildMenuItems(context, colors),
           ),
           _buildThemeToggle(context, colors),
+          _buildLanguageToggle(context, colors),
           _buildLogout(context, colors),
         ],
       ),
@@ -174,6 +176,30 @@ class AppDrawer extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildLanguageToggle(BuildContext context, AppColorSet colors) {
+    final locale = context.watch<LanguageCubit>().state;
+    final isEn = locale.languageCode == 'en';
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(top: BorderSide(color: colors.divider.withValues(alpha: 0.3))),
+      ),
+      child: ListTile(
+        leading: const Icon(Icons.language_rounded, size: 22),
+        title: Text(
+          isEn ? AppStrings.english : AppStrings.arabic,
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: colors.textPrimary),
+        ),
+        trailing: Text(
+          isEn ? '🇬🇧' : '🇸🇦',
+          style: const TextStyle(fontSize: 16),
+        ),
+        onTap: () {
+          context.read<LanguageCubit>().setLocale(isEn ? 'ar' : 'en');
+        },
+      ),
     );
   }
 

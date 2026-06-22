@@ -119,7 +119,7 @@ class _DrLiveQueueState extends State<DrLiveQueue> {
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
-                  child: const EmptyDataWidget(icon: Icons.event_busy_rounded, title: AppStrings.daNoApptsToday, compact: true),
+                  child:  EmptyDataWidget(icon: Icons.event_busy_rounded, title: AppStrings.daNoApptsToday, compact: true),
                 ),
               )
             else

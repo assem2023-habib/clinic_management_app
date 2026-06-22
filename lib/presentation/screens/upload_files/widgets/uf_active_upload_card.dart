@@ -141,7 +141,7 @@ class UfActiveUploadCard extends StatelessWidget {
                   vertical: 8,
                 ),
               ),
-              child: const Text(AppStrings.ufCancelUpload),
+              child:  Text(AppStrings.ufCancelUpload),
             ),
           ),
         ],

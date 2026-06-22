@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/core/theme/theme_provider.dart';
+import 'package:clinic_management_app/presentation/blocs/language/language_cubit.dart';
 import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -39,7 +41,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               AppStrings.preferences,
               [
                 _buildThemeTile(themeProvider),
-                _buildTile(Icons.language, AppStrings.language, AppStrings.arabic),
+                _buildLanguageTile(),
                 _buildTile(Icons.backup, AppStrings.backup, AppStrings.backupDescription),
               ],
             ),
@@ -78,13 +80,60 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Widget _buildTile(IconData icon, String title, String subtitle) {
+  Widget _buildTile(IconData icon, String title, String subtitle, {VoidCallback? onTap}) {
     return ListTile(
       leading: Icon(icon, color: AppColors.of(context).primary),
       title: Text(title),
       subtitle: Text(subtitle),
       trailing: const Icon(Icons.chevron_right),
-      onTap: () {},
+      onTap: onTap,
+    );
+  }
+
+  Widget _buildLanguageTile() {
+    final locale = context.watch<LanguageCubit>().state;
+    final isEn = locale.languageCode == 'en';
+    final subtitle = isEn ? AppStrings.english : AppStrings.arabic;
+    final flag = isEn ? '🇬🇧' : '🇸🇦';
+    return ListTile(
+      leading: Icon(Icons.language, color: AppColors.of(context).primary),
+      title: Text(AppStrings.language),
+      subtitle: Text('$subtitle  $flag'),
+      trailing: const Icon(Icons.chevron_right),
+      onTap: () => _showLanguageDialog(context),
+    );
+  }
+
+  void _showLanguageDialog(BuildContext context) {
+    final current = context.read<LanguageCubit>().state.languageCode;
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(AppStrings.language),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Text('🇸🇦', style: TextStyle(fontSize: 24)),
+              title: const Text('العربية'),
+              trailing: current == 'ar' ? Icon(Icons.check, color: AppColors.of(context).primary) : null,
+              onTap: () {
+                context.read<LanguageCubit>().setLocale('ar');
+                Navigator.pop(ctx);
+              },
+            ),
+            ListTile(
+              leading: const Text('🇬🇧', style: TextStyle(fontSize: 24)),
+              title: const Text('English'),
+              trailing: current == 'en' ? Icon(Icons.check, color: AppColors.of(context).primary) : null,
+              onTap: () {
+                context.read<LanguageCubit>().setLocale('en');
+                Navigator.pop(ctx);
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 

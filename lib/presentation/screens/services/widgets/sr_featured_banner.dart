@@ -50,7 +50,7 @@ class SrFeaturedBanner extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
+                   Text(
                     AppStrings.srBannerTitle,
                     style: TextStyle(
                       fontSize: 22,

@@ -43,7 +43,7 @@ class TimeSlotGrid extends StatelessWidget {
           _buildSlotGrid(context, eveningSlots),
         ],
         if (slots.isEmpty)
-          const EmptyDataWidget(icon: Icons.schedule_rounded, title: AppStrings.bookingNoSlots, compact: true),
+           EmptyDataWidget(icon: Icons.schedule_rounded, title: AppStrings.bookingNoSlots, compact: true),
       ],
     );
   }

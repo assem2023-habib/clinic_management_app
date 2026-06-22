@@ -278,7 +278,7 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
                   ),
                 ),
                 const SizedBox(width: AppSpacing.sm),
-                const Text(
+                 Text(
                   AppStrings.wcWaiting,
                   style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w700),
                 ),
@@ -304,7 +304,7 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
               children: [
                 Icon(Icons.refresh_rounded, size: AppSpacing.iconSmall),
                 const SizedBox(width: AppSpacing.sm),
-                const Text(
+                 Text(
                   AppStrings.wcRetry,
                   style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w700),
                 ),

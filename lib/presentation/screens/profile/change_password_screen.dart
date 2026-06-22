@@ -33,7 +33,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     if (!_formKey.currentState!.validate()) return;
     if (_newPasswordController.text != _confirmPasswordController.text) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text(AppStrings.passwordsNotMatch)),
+         SnackBar(content: Text(AppStrings.passwordsNotMatch)),
       );
       return;
     }
@@ -54,7 +54,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         listener: (context, state) {
           if (state.passwordChanged) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text(AppStrings.passwordChanged)),
+               SnackBar(content: Text(AppStrings.passwordChanged)),
             );
             Navigator.pop(context);
           }
@@ -109,7 +109,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       ),
                       child: state.isSaving
                           ? SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: colors.surface))
-                          : const Text(AppStrings.save, style: TextStyle(fontSize: 16)),
+                          :  Text(AppStrings.save, style: TextStyle(fontSize: 16)),
                     ),
                   ],
                 ),

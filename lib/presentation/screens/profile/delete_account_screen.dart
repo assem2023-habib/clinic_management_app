@@ -26,7 +26,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
   void _submit() {
     if (_passwordController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text(AppStrings.enterPasswordToDelete)),
+         SnackBar(content: Text(AppStrings.enterPasswordToDelete)),
       );
       return;
     }
@@ -99,7 +99,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                     ),
                     child: state.isSaving
                         ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-                        : const Text(AppStrings.deleteAccountTitle, style: TextStyle(fontSize: 16)),
+                        :  Text(AppStrings.deleteAccountTitle, style: TextStyle(fontSize: 16)),
                   ),
                 ],
               ),

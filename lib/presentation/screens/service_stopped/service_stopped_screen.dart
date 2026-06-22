@@ -287,7 +287,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
           child: ElevatedButton.icon(
             onPressed: widget.onRetry,
             icon: const Icon(Icons.refresh_rounded, size: AppSpacing.iconSmall),
-            label: const Text(
+            label:  Text(
               AppStrings.ssRetry,
               style: TextStyle(
                 fontSize: AppSpacing.bodyMedium,
@@ -313,7 +313,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
             onPressed: () => Navigator.of(context)
                 .pushReplacementNamed(AppRoutes.dashboard),
             icon: const Icon(Icons.home_rounded, size: AppSpacing.iconSmall),
-            label: const Text(
+            label:  Text(
               AppStrings.ssGoHome,
               style: TextStyle(
                 fontSize: AppSpacing.bodyMedium,

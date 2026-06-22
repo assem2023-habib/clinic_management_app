@@ -52,7 +52,7 @@ class _ReceptionistAppointmentsViewState extends State<ReceptionistAppointmentsV
                   final d = a.date;
                   return d != null && d.startsWith(DateFormat('yyyy-MM-dd').format(_selectedDate));
                 }).toList();
-                if (filtered.isEmpty) return const EmptyDataWidget(icon: Icons.calendar_month_outlined, title: AppStrings.noData, compact: true);
+                if (filtered.isEmpty) return  EmptyDataWidget(icon: Icons.calendar_month_outlined, title: AppStrings.noData, compact: true);
                 return ListView.separated(
                   padding: AppSpacing.screenPadding,
                   itemCount: filtered.length,
@@ -64,7 +64,7 @@ class _ReceptionistAppointmentsViewState extends State<ReceptionistAppointmentsV
                 );
               }
               if (state is AppointmentError) return Center(child: Text(state.message, style: TextStyle(color: colors.error)));
-              return const EmptyDataWidget(icon: Icons.calendar_month_outlined, title: AppStrings.noData, compact: true);
+              return  EmptyDataWidget(icon: Icons.calendar_month_outlined, title: AppStrings.noData, compact: true);
             },
           ),
         ),

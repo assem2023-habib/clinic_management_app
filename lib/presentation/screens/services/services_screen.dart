@@ -52,7 +52,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
           selectedItemColor: colors.bottomNavSelected,
           unselectedItemColor: colors.bottomNavUnselected,
           type: BottomNavigationBarType.fixed,
-          items: const [
+          items:  [
             BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: AppStrings.srBottomHome),
             BottomNavigationBarItem(icon: Icon(Icons.medical_services_rounded), label: AppStrings.srBottomServices),
             BottomNavigationBarItem(icon: Icon(Icons.description_rounded), label: AppStrings.srBottomRecords),

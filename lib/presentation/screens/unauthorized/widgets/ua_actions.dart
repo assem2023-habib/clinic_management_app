@@ -27,7 +27,7 @@ class UaActions extends StatelessWidget {
                 () => Navigator.of(context)
                     .pushReplacementNamed(AppRoutes.login),
             icon: Icon(Icons.login_rounded, size: AppSpacing.iconSmall + 2),
-            label: const Text(AppStrings.uaLogin),
+            label:  Text(AppStrings.uaLogin),
             style: ElevatedButton.styleFrom(
               backgroundColor: colors.neonGreen,
               foregroundColor: colors.buttonTextDark,
@@ -48,7 +48,7 @@ class UaActions extends StatelessWidget {
                 () => Navigator.of(context)
                     .pushReplacementNamed(AppRoutes.dashboard),
             icon: Icon(Icons.home_rounded, size: AppSpacing.iconSmall + 2),
-            label: const Text(AppStrings.uaGoHome),
+            label:  Text(AppStrings.uaGoHome),
             style: OutlinedButton.styleFrom(
               foregroundColor: colors.textPrimary,
               side: BorderSide(

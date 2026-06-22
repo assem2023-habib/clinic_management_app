@@ -113,7 +113,7 @@ class _RatingScreenState extends State<RatingScreen> {
                   ),
                 ),
                 if (state.displayedReviews.isEmpty)
-                  const SliverToBoxAdapter(
+                   SliverToBoxAdapter(
                     child: Padding(
                       padding: EdgeInsets.symmetric(vertical: 24),
                       child: EmptyDataWidget(icon: Icons.rate_review_outlined, title: AppStrings.noReviews, compact: true),
@@ -150,7 +150,7 @@ class _RatingScreenState extends State<RatingScreen> {
                     ),
                   ),
                 if (!state.hasMore && state.displayedReviews.isNotEmpty)
-                  const SliverToBoxAdapter(
+                   SliverToBoxAdapter(
                     child: Padding(
                       padding: EdgeInsets.symmetric(vertical: 24),
                       child: EmptyDataWidget(icon: Icons.rate_review_outlined, title: AppStrings.noMoreReviews, compact: true),

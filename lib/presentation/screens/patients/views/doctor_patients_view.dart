@@ -76,7 +76,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
               if (state is PatientLoading) return const SkeletonList();
               if (state is PatientLoaded) {
                 final filtered = _filterPatients(state.patients);
-                if (filtered.isEmpty) return const EmptyDataWidget(icon: Icons.people_outline_rounded, title: AppStrings.dpNoPatients, subtitle: AppStrings.dpNoPatientsHint, compact: true);
+                if (filtered.isEmpty) return  EmptyDataWidget(icon: Icons.people_outline_rounded, title: AppStrings.dpNoPatients, subtitle: AppStrings.dpNoPatientsHint, compact: true);
                 return RefreshIndicator(
                   onRefresh: () async => context.read<PatientBloc>().add(PatientLoadAll()),
                   child: ListView.separated(
@@ -123,7 +123,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
                 ),
               );
               }
-              return const EmptyDataWidget(icon: Icons.people_outline_rounded, title: AppStrings.dpNoPatients, subtitle: AppStrings.dpNoPatientsHint, compact: true);
+              return  EmptyDataWidget(icon: Icons.people_outline_rounded, title: AppStrings.dpNoPatients, subtitle: AppStrings.dpNoPatientsHint, compact: true);
             },
           ),
         ),

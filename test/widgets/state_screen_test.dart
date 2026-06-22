@@ -151,7 +151,7 @@ void main() {
   group('OfflineScreen style integration', () {
     testWidgets('renders offline illustration icon', (tester) async {
       await tester.pumpWidget(buildTestWidget(
-        const StateScreen(
+         StateScreen(
           showAppBar: false,
           title: AppStrings.olTitle,
           message: AppStrings.olMessage,

@@ -32,13 +32,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
           decoration: InputDecoration(labelText: label),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text(AppStrings.cancel)),
+          TextButton(onPressed: () => Navigator.pop(ctx), child:  Text(AppStrings.cancel)),
           ElevatedButton(
             onPressed: () {
               Navigator.pop(ctx);
               context.read<ProfileCubit>().updateProfile({fieldKey: controller.text});
             },
-            child: const Text(AppStrings.save),
+            child:  Text(AppStrings.save),
           ),
         ],
       ),
@@ -71,9 +71,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text(AppStrings.failedToLoadProfile),
+                   Text(AppStrings.failedToLoadProfile),
                   const SizedBox(height: 16),
-                  ElevatedButton(onPressed: () => context.read<ProfileCubit>().loadProfile(), child: const Text(AppStrings.retry)),
+                  ElevatedButton(onPressed: () => context.read<ProfileCubit>().loadProfile(), child:  Text(AppStrings.retry)),
                 ],
               ),
             );
@@ -172,7 +172,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: ElevatedButton.icon(
             onPressed: () => Navigator.pushNamed(context, AppRoutes.changePassword),
             icon: const Icon(Icons.lock_outline_rounded),
-            label: const Text(AppStrings.changePassword),
+            label:  Text(AppStrings.changePassword),
             style: ElevatedButton.styleFrom(
               backgroundColor: colors.surface,
               foregroundColor: colors.textPrimary,
@@ -192,11 +192,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
               final confirmed = await showDialog<bool>(
                 context: context,
                 builder: (ctx) => AlertDialog(
-                  title: const Text(AppStrings.deleteAccount),
-                  content: const Text(AppStrings.deleteAccountConfirm),
+                  title:  Text(AppStrings.deleteAccount),
+                  content:  Text(AppStrings.deleteAccountConfirm),
                   actions: [
-                    TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text(AppStrings.cancel)),
-                    ElevatedButton(onPressed: () => Navigator.pop(ctx, true), child: const Text(AppStrings.confirmDeletion)),
+                    TextButton(onPressed: () => Navigator.pop(ctx, false), child:  Text(AppStrings.cancel)),
+                    ElevatedButton(onPressed: () => Navigator.pop(ctx, true), child:  Text(AppStrings.confirmDeletion)),
                   ],
                 ),
               );
@@ -206,7 +206,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               }
             },
             icon: const Icon(Icons.delete_forever_rounded),
-            label: const Text(AppStrings.deleteAccount),
+            label:  Text(AppStrings.deleteAccount),
             style: ElevatedButton.styleFrom(
               backgroundColor: colors.error.withValues(alpha: 0.1),
               foregroundColor: colors.error,

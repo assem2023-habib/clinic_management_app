@@ -46,7 +46,7 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
     if (!_formKey.currentState!.validate()) return;
     if (_passwordController.text != _confirmPasswordController.text) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text(AppStrings.passwordsNotMatch)),
+         SnackBar(content: Text(AppStrings.passwordsNotMatch)),
       );
       return;
     }
@@ -75,7 +75,7 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
     return Scaffold(
-      appBar: AppBar(title: const Text(AppStrings.registerPatientTitle)),
+      appBar: AppBar(title:  Text(AppStrings.registerPatientTitle)),
       body: BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state.isAuthenticated) {
@@ -124,7 +124,7 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                         prefixIcon: Icon(Icons.wc_rounded, color: colors.textSecondary),
                       ),
-                      items: const [
+                      items:  [
                         DropdownMenuItem(value: 'male', child: Text(AppStrings.male)),
                         DropdownMenuItem(value: 'female', child: Text(AppStrings.female)),
                       ],
@@ -144,12 +144,12 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                       ),
                       child: state.isLoading
                           ? SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: colors.surface))
-                          : const Text(AppStrings.register, style: TextStyle(fontSize: 16)),
+                          :  Text(AppStrings.register, style: TextStyle(fontSize: 16)),
                     ),
                     const SizedBox(height: 16),
                     TextButton(
                       onPressed: () => Navigator.pushReplacementNamed(context, AppRoutes.login),
-                      child: const Text(AppStrings.haveAccountLogin2),
+                      child:  Text(AppStrings.haveAccountLogin2),
                     ),
                   ],
                 ),

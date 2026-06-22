@@ -156,8 +156,8 @@ class ConfirmationDetailsCard extends StatelessWidget {
   }
 
   String _formatDate(DateTime date) {
-    const dayNames = [AppStrings.dayMonday, AppStrings.dayTuesday, AppStrings.dayWednesday, AppStrings.dayThursday, AppStrings.dayFriday, AppStrings.daySaturday, AppStrings.daySunday];
-    const monthNames = [
+    final dayNames = [AppStrings.dayMonday, AppStrings.dayTuesday, AppStrings.dayWednesday, AppStrings.dayThursday, AppStrings.dayFriday, AppStrings.daySaturday, AppStrings.daySunday];
+    final monthNames = [
       AppStrings.monthJan, AppStrings.monthFeb, AppStrings.monthMar, AppStrings.monthApr, AppStrings.monthMay, AppStrings.monthJun,
       AppStrings.monthJul, AppStrings.monthAug, AppStrings.monthSep, AppStrings.monthOct, AppStrings.monthNov, AppStrings.monthDec
     ];

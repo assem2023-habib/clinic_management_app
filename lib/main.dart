@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:clinic_management_app/core/services/api_service.dart';
@@ -9,6 +10,7 @@ import 'package:clinic_management_app/core/theme/app_theme.dart';
 import 'package:clinic_management_app/core/theme/theme_provider.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/data/datasources/local/mock_datasource.dart';
+import 'package:clinic_management_app/presentation/blocs/language/language_cubit.dart';
 import 'package:clinic_management_app/presentation/screens/splash_screen.dart';
 import 'package:clinic_management_app/presentation/screens/login/login_screen.dart';
 import 'package:clinic_management_app/presentation/screens/onboarding/onboarding_screen.dart';
@@ -110,11 +112,22 @@ class _MyAppState extends State<MyApp> {
         mockDataSource: mockDataSource,
       ),
       child: MultiBlocProvider(
-        providers: AppProviders.blocProviders(context),
+        providers: [
+          ...AppProviders.blocProviders(context),
+          BlocProvider(create: (_) => LanguageCubit()),
+        ],
         child: ListenableBuilder(
           listenable: _themeProvider,
-          builder: (context, _) => MaterialApp(
+          builder: (context, _) => BlocBuilder<LanguageCubit, Locale>(
+            builder: (context, locale) => MaterialApp(
             title: 'Clinic Management',
+            locale: locale,
+            supportedLocales: const [Locale('ar'), Locale('en')],
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
             themeMode: _themeProvider.themeMode,
@@ -210,6 +223,7 @@ class _MyAppState extends State<MyApp> {
             },
           ),
         ),
+      ),
       ),
     );
   }

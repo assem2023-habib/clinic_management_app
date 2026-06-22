@@ -30,7 +30,7 @@ void main() {
 
   setUp(() {
     mockDataSource = MockFileDataSource();
-    when(() => mockDataSource.getFiles(mine: any(named: 'mine'))).thenAnswer((_) async => _mockFiles);
+    when(() => mockDataSource.getFiles(mine: any(named: 'mine'), page: any(named: 'page'), limit: any(named: 'limit'))).thenAnswer((_) async => _mockFiles);
     bloc = DownloadFileBloc(_createRepo(mockDataSource));
   });
 
@@ -57,6 +57,56 @@ void main() {
       final loaded = bloc.state as DownloadFileLoaded;
       expect(loaded.files.length, 8);
       expect(loaded.activeCategory, 'all');
+      expect(loaded.hasMore, false);
+    });
+  });
+
+  group('DownloadFileLoadMore', () {
+    test('appends more files', () async {
+      final page2 = [
+        FileModel(id: '9', originalName: 'extra.pdf', mimeType: 'application/pdf', size: 100, fileCategory: FileCategory.document, uploadStatus: FileUploadStatus.completed, medicalRecordId: 'mr1', userId: 'u1', createdAt: DateTime(2026, 1, 1)),
+      ];
+      when(() => mockDataSource.getFiles(mine: any(named: 'mine'), page: 2, limit: any(named: 'limit'))).thenAnswer((_) async => page2);
+
+      bloc.add(const DownloadFileLoadAll());
+      await Future.delayed(const Duration(milliseconds: 100));
+
+      bloc.add(const DownloadFileLoadMore(page: 2));
+      await Future.delayed(const Duration(milliseconds: 100));
+      final state = bloc.state as DownloadFileLoaded;
+      expect(state.files.length, 9);
+    });
+
+    test('does nothing when state is not DownloadFileLoaded', () {
+      bloc.add(const DownloadFileLoadMore());
+      expect(bloc.state, isA<DownloadFileInitial>());
+    });
+
+    test('sets isLoadingMore immediately after LoadMore event', () async {
+      bloc.add(const DownloadFileLoadAll());
+      await Future.delayed(const Duration(milliseconds: 100));
+      expect(bloc.state, isA<DownloadFileLoaded>());
+
+      when(() => mockDataSource.getFiles(mine: any(named: 'mine'), page: 2, limit: any(named: 'limit'))).thenAnswer((_) async {
+        await Future.delayed(const Duration(milliseconds: 100));
+        return [];
+      });
+      bloc.add(const DownloadFileLoadMore(page: 2));
+      await Future.delayed(const Duration(milliseconds: 10));
+      expect((bloc.state as DownloadFileLoaded).isLoadingMore, true);
+    });
+
+    test('maintains existing files on error', () async {
+      when(() => mockDataSource.getFiles(mine: any(named: 'mine'), page: 2, limit: any(named: 'limit'))).thenThrow(Exception('fail'));
+
+      bloc.add(const DownloadFileLoadAll());
+      await Future.delayed(const Duration(milliseconds: 100));
+
+      bloc.add(const DownloadFileLoadMore(page: 2));
+      await Future.delayed(const Duration(milliseconds: 100));
+      final state = bloc.state as DownloadFileLoaded;
+      expect(state.files.length, 8);
+      expect(state.isLoadingMore, false);
     });
   });
 

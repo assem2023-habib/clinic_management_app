@@ -229,8 +229,8 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
   }
 
   Widget _buildFilterChips(AppColorSet c) {
-    const filters = <AppointmentStatus?>[null, AppointmentStatus.confirmed, AppointmentStatus.pending, AppointmentStatus.completed, AppointmentStatus.cancelled];
-    const labels = [AppStrings.dpFilterAll, AppStrings.confirmedAppts, AppStrings.pendingAppointments, AppStrings.completedAppts, AppStrings.cancelledAppts];
+    final filters = <AppointmentStatus?>[null, AppointmentStatus.confirmed, AppointmentStatus.pending, AppointmentStatus.completed, AppointmentStatus.cancelled];
+    final labels = [AppStrings.dpFilterAll, AppStrings.confirmedAppts, AppStrings.pendingAppointments, AppStrings.completedAppts, AppStrings.cancelledAppts];
 
     return Container(
       height: 40,
@@ -283,7 +283,7 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
       final parts = entry.key.split('-');
       String monthLabel;
       if (parts.length == 2) {
-        const months = ['', AppStrings.monthJan, AppStrings.monthFeb, AppStrings.monthMar,
+        final months = ['', AppStrings.monthJan, AppStrings.monthFeb, AppStrings.monthMar,
           AppStrings.monthApr, AppStrings.monthMay, AppStrings.monthJun,
           AppStrings.monthJul, AppStrings.monthAug, AppStrings.monthSep,
           AppStrings.monthOct, AppStrings.monthNov, AppStrings.monthDec];

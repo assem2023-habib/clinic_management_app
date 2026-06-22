@@ -27,7 +27,7 @@ class AppointmentConfirmationScreen extends StatelessWidget {
           icon: const Icon(Icons.arrow_forward_rounded),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(AppStrings.confirmAppointment),
+        title:  Text(AppStrings.confirmAppointment),
         actions: [
           Padding(
             padding: const EdgeInsets.only(left: AppSpacing.sm + AppSpacing.xs),
@@ -67,7 +67,7 @@ class AppointmentConfirmationScreen extends StatelessWidget {
           doctorId: data.doctor.id,
           onAddToCalendar: () {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text(AppStrings.addedToCalendar)),
+               SnackBar(content: Text(AppStrings.addedToCalendar)),
             );
           },
         ),

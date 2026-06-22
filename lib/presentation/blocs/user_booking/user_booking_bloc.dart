@@ -29,7 +29,7 @@ class UserBookingBloc extends Bloc<UserBookingEvent, UserBookingState> {
     try {
       final doer = await doctorRepository.getDoctorById(event.doctorId);
       if (doer == null) {
-        emit(const UserBookingError(AppStrings.bookingDoctorNotFound));
+        emit( UserBookingError(AppStrings.bookingDoctorNotFound));
         return;
       }
       final now = DateTime.now();

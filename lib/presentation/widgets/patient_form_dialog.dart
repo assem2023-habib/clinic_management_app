@@ -95,18 +95,18 @@ class _PatientFormDialogState extends State<PatientFormDialog> {
                 onChanged: (v) => setState(() => _gender = v!),
               ),
               const SizedBox(height: 12),
-              TextFormField(controller: _phoneController, decoration: const InputDecoration(labelText: AppStrings.phone), keyboardType: TextInputType.phone, validator: (v) => v!.isEmpty ? AppStrings.required : null),
+              TextFormField(controller: _phoneController, decoration:  InputDecoration(labelText: AppStrings.phone), keyboardType: TextInputType.phone, validator: (v) => v!.isEmpty ? AppStrings.required : null),
               const SizedBox(height: 12),
-              TextFormField(controller: _emailController, decoration: const InputDecoration(labelText: AppStrings.email), keyboardType: TextInputType.emailAddress, validator: (v) => v!.isEmpty ? AppStrings.required : null),
+              TextFormField(controller: _emailController, decoration:  InputDecoration(labelText: AppStrings.email), keyboardType: TextInputType.emailAddress, validator: (v) => v!.isEmpty ? AppStrings.required : null),
               const SizedBox(height: 12),
-              TextFormField(controller: _addressController, decoration: const InputDecoration(labelText: AppStrings.address)),
+              TextFormField(controller: _addressController, decoration:  InputDecoration(labelText: AppStrings.address)),
             ],
           ),
         ),
       ),
       actions: [
-        TextButton(onPressed: () => Navigator.pop(context), child: const Text(AppStrings.cancel)),
-        ElevatedButton(onPressed: _submit, child: const Text(AppStrings.save)),
+        TextButton(onPressed: () => Navigator.pop(context), child:  Text(AppStrings.cancel)),
+        ElevatedButton(onPressed: _submit, child:  Text(AppStrings.save)),
       ],
     );
   }

@@ -17,7 +17,7 @@ class _DfHeaderState extends State<DfHeader> {
   final _searchController = TextEditingController();
   String _activeCategory = 'all';
 
-  static const _categories = [
+  static final _categories = [
     ('all', AppStrings.dfCategoryAll),
     ('report', AppStrings.dfCategoryReports),
     ('lab', AppStrings.dfCategoryLab),

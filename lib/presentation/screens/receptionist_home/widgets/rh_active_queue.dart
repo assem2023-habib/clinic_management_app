@@ -54,7 +54,7 @@ class RhActiveQueue extends StatelessWidget {
             ),
             const SizedBox(height: AppSpacing.md),
             if (todayAppts.isEmpty)
-              const EmptyDataWidget(icon: Icons.event_busy_rounded, title: AppStrings.rhNoApptsToday, compact: true)
+               EmptyDataWidget(icon: Icons.event_busy_rounded, title: AppStrings.rhNoApptsToday, compact: true)
             else
               ListView.builder(
                 shrinkWrap: true,

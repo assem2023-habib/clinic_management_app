@@ -23,7 +23,7 @@ class RecentAppointments extends StatelessWidget {
         if (state is AppointmentLoaded) {
           final recent = state.appointments.take(limit).toList();
           if (recent.isEmpty) {
-            return const EmptyDataWidget(icon: Icons.event_busy_rounded, title: AppStrings.noAppointments, compact: true);
+            return  EmptyDataWidget(icon: Icons.event_busy_rounded, title: AppStrings.noAppointments, compact: true);
           }
           return ListView.separated(
             shrinkWrap: true,
@@ -46,7 +46,7 @@ class RecentAppointments extends StatelessWidget {
             },
           );
         }
-        return const EmptyDataWidget(icon: Icons.event_busy_rounded, title: AppStrings.noAppointments, compact: true);
+        return  EmptyDataWidget(icon: Icons.event_busy_rounded, title: AppStrings.noAppointments, compact: true);
       },
     );
   }

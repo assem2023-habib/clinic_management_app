@@ -71,7 +71,7 @@ class _ReceptionistPatientsViewState extends State<ReceptionistPatientsView> {
             builder: (context, state) {
               if (state is PatientLoading) return const SkeletonList();
               if (state is PatientLoaded) {
-                if (state.patients.isEmpty) return const EmptyDataWidget(icon: Icons.people_outline_rounded, title: AppStrings.noData, compact: true);
+                if (state.patients.isEmpty) return  EmptyDataWidget(icon: Icons.people_outline_rounded, title: AppStrings.noData, compact: true);
                 return ListView.separated(
                   controller: _scrollController,
                   padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm),
@@ -92,7 +92,7 @@ class _ReceptionistPatientsViewState extends State<ReceptionistPatientsView> {
                 );
               }
               if (state is PatientError) return Center(child: Text(state.message, style: TextStyle(color: colors.error)));
-              return const EmptyDataWidget(icon: Icons.people_outline_rounded, title: AppStrings.noData, compact: true);
+              return  EmptyDataWidget(icon: Icons.people_outline_rounded, title: AppStrings.noData, compact: true);
             },
           ),
         ),
@@ -126,8 +126,8 @@ class _ReceptionistPatientsViewState extends State<ReceptionistPatientsView> {
             if (value == 'delete') _deletePatient(context, patient.id);
           },
           itemBuilder: (context) => [
-            const PopupMenuItem(value: 'edit', child: Row(children: [Icon(Icons.edit), SizedBox(width: 8), Flexible(child: Text(AppStrings.edit, overflow: TextOverflow.ellipsis))])),
-            const PopupMenuItem(value: 'delete', child: Row(children: [Icon(Icons.delete, color: Colors.red), SizedBox(width: 8), Flexible(child: Text(AppStrings.delete, style: TextStyle(color: Colors.red), overflow: TextOverflow.ellipsis))])),
+             PopupMenuItem(value: 'edit', child: Row(children: [Icon(Icons.edit), SizedBox(width: 8), Flexible(child: Text(AppStrings.edit, overflow: TextOverflow.ellipsis))])),
+             PopupMenuItem(value: 'delete', child: Row(children: [Icon(Icons.delete, color: Colors.red), SizedBox(width: 8), Flexible(child: Text(AppStrings.delete, style: TextStyle(color: Colors.red), overflow: TextOverflow.ellipsis))])),
           ],
         ),
       ),

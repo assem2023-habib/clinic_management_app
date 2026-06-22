@@ -24,7 +24,7 @@ class SpActions extends StatelessWidget {
           child: ElevatedButton.icon(
             onPressed: onContactSupport,
             icon: const Icon(Icons.support_agent_rounded, size: 22),
-            label: const Text(AppStrings.spContactSupport),
+            label:  Text(AppStrings.spContactSupport),
             style: ElevatedButton.styleFrom(
               backgroundColor: colors.emerald,
               foregroundColor: colors.buttonTextDark,
@@ -42,7 +42,7 @@ class SpActions extends StatelessWidget {
           child: OutlinedButton.icon(
             onPressed: onLogout ?? () => Navigator.of(context).pop(),
             icon: const Icon(Icons.logout_rounded, size: 22),
-            label: const Text(AppStrings.spLogout),
+            label:  Text(AppStrings.spLogout),
             style: OutlinedButton.styleFrom(
               foregroundColor: colors.mint,
               side: BorderSide(

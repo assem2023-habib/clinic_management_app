@@ -89,7 +89,7 @@ class _DateLabel extends StatelessWidget {
         label = 'غداً';
         isUpcoming = true;
       } else if (diff < 7 && diff > 0) {
-        const days = [
+        final days = [
           AppStrings.dayMonday, AppStrings.dayTuesday, AppStrings.dayWednesday,
           AppStrings.dayThursday, AppStrings.dayFriday, AppStrings.daySaturday,
           AppStrings.daySunday,
@@ -117,7 +117,7 @@ class _DateLabel extends StatelessWidget {
   }
 
   String _monthName(int m) {
-    const months = [
+    final months = [
       '', AppStrings.monthJan, AppStrings.monthFeb, AppStrings.monthMar,
       AppStrings.monthApr, AppStrings.monthMay, AppStrings.monthJun,
       AppStrings.monthJul, AppStrings.monthAug, AppStrings.monthSep,

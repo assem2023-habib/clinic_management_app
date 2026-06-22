@@ -26,7 +26,7 @@ class ServerErrorScreen extends StatelessWidget {
         isPrimary: false,
         onTap: () => Navigator.of(context).pushReplacementNamed(AppRoutes.dashboard),
       ),
-      statusChips: const [
+      statusChips:  [
         StatusChip(icon: Icons.cloud_off_rounded, label: AppStrings.seServerBusy),
         StatusChip(icon: Icons.refresh_rounded, label: AppStrings.seTryAgain),
       ],

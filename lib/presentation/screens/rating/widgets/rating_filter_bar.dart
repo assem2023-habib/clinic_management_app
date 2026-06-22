@@ -14,7 +14,7 @@ class RatingFilterBar extends StatelessWidget {
     required this.onFilterChanged,
   });
 
-  static const _filters = [
+  static final _filters = [
     (filter: RatingFilterOption.newest, label: AppStrings.filterNewest),
     (filter: RatingFilterOption.highest, label: AppStrings.filterHighest),
     (filter: RatingFilterOption.withPhotos, label: AppStrings.filterWithPhotos),

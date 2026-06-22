@@ -80,7 +80,7 @@ class _AppointmentFormDialogState extends State<AppointmentFormDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text(AppStrings.addAppointment),
+      title:  Text(AppStrings.addAppointment),
       content: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -92,7 +92,7 @@ class _AppointmentFormDialogState extends State<AppointmentFormDialog> {
                   if (state is DoctorLoaded) {
                     return DropdownButtonFormField<String>(
                       initialValue: _selectedDoctorId,
-                      decoration: const InputDecoration(labelText: AppStrings.doctors),
+                      decoration:  InputDecoration(labelText: AppStrings.doctors),
                       items: state.doctors.map((d) => DropdownMenuItem(value: d.id, child: Text(d.name))).toList(),
                       onChanged: (v) => setState(() => _selectedDoctorId = v),
                       validator: (v) => v == null ? AppStrings.required : null,
@@ -107,7 +107,7 @@ class _AppointmentFormDialogState extends State<AppointmentFormDialog> {
                   if (state is PatientLoaded) {
                     return DropdownButtonFormField<String>(
                       initialValue: _selectedPatientId,
-                      decoration: const InputDecoration(labelText: AppStrings.patients),
+                      decoration:  InputDecoration(labelText: AppStrings.patients),
                       items: state.patients.map((p) => DropdownMenuItem(value: p.id, child: Text(p.name))).toList(),
                       onChanged: (v) => setState(() => _selectedPatientId = v),
                       validator: (v) => v == null ? AppStrings.required : null,
@@ -119,7 +119,7 @@ class _AppointmentFormDialogState extends State<AppointmentFormDialog> {
               const SizedBox(height: 12),
               TextFormField(
                 readOnly: true,
-                decoration: const InputDecoration(labelText: AppStrings.date, suffixIcon: Icon(Icons.calendar_today)),
+                decoration:  InputDecoration(labelText: AppStrings.date, suffixIcon: Icon(Icons.calendar_today)),
                 controller: TextEditingController(text: DateFormat('yyyy-MM-dd').format(_selectedDate)),
                 onTap: () async {
                   final date = await showDatePicker(context: context, initialDate: _selectedDate, firstDate: DateTime.now(), lastDate: DateTime.now().add(const Duration(days: 365)));
@@ -129,21 +129,21 @@ class _AppointmentFormDialogState extends State<AppointmentFormDialog> {
               const SizedBox(height: 12),
               DropdownButtonFormField<String>(
                 initialValue: _selectedTime,
-                decoration: const InputDecoration(labelText: AppStrings.time),
+                decoration:  InputDecoration(labelText: AppStrings.time),
                 items: ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30']
                     .map((t) => DropdownMenuItem(value: t, child: Text(t)))
                     .toList(),
                 onChanged: (v) => setState(() => _selectedTime = v!),
               ),
               const SizedBox(height: 12),
-              TextFormField(controller: _notesController, decoration: const InputDecoration(labelText: AppStrings.notesLabel), maxLines: 2),
+              TextFormField(controller: _notesController, decoration:  InputDecoration(labelText: AppStrings.notesLabel), maxLines: 2),
             ],
           ),
         ),
       ),
       actions: [
-        TextButton(onPressed: () => Navigator.pop(context), child: const Text(AppStrings.cancel)),
-        ElevatedButton(onPressed: _submit, child: const Text(AppStrings.save)),
+        TextButton(onPressed: () => Navigator.pop(context), child:  Text(AppStrings.cancel)),
+        ElevatedButton(onPressed: _submit, child:  Text(AppStrings.save)),
       ],
     );
   }

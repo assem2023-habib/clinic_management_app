@@ -31,7 +31,7 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
   String _selectedFilter = AppStrings.sdFilterAll;
   bool _showAllDoctors = false;
 
-  static const _filters = [
+  static final _filters = [
     AppStrings.sdFilterAll,
     AppStrings.sdFilterCardiology,
     AppStrings.sdFilterNeurology,

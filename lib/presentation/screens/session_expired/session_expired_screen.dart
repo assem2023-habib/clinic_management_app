@@ -254,7 +254,7 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
               elevation: 0,
               shadowColor: colors.emerald.withValues(alpha: 0.3),
             ),
-            child: const Text(
+            child:  Text(
               AppStrings.sesLogin,
               style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600),
             ),
@@ -275,7 +275,7 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
                 borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
               ),
             ),
-            child: const Text(
+            child:  Text(
               AppStrings.sesGoHome,
               style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600),
             ),
@@ -296,7 +296,7 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
                 borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
               ),
             ),
-            child: const Text(
+            child:  Text(
               AppStrings.sesCloseApp,
               style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600),
             ),
