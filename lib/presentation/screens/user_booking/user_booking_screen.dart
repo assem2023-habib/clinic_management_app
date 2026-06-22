@@ -408,8 +408,8 @@ class _UserBookingScreenState extends State<UserBookingScreen>
             begin: Alignment.bottomCenter,
             end: Alignment.topCenter,
             colors: [
-              colors.background,
-              colors.background.withValues(alpha: 0.0),
+              colors.scaffoldBg,
+              colors.scaffoldBg.withValues(alpha: 0.0),
             ],
           ),
         ),

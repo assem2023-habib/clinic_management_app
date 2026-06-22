@@ -186,10 +186,10 @@ class _OfflineScreenState extends State<OfflineScreen>
               height: MediaQuery.of(context).size.width * 0.6,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: colors.vibrantGreen.withValues(alpha: 0.04),
+                color: colors.neonGreen.withValues(alpha: 0.04),
                 boxShadow: [
                   BoxShadow(
-                    color: colors.vibrantGreen.withValues(alpha: 0.06),
+                    color: colors.neonGreen.withValues(alpha: 0.06),
                     blurRadius: 100,
                     spreadRadius: 30,
                   ),
@@ -298,10 +298,10 @@ class _OfflineScreenState extends State<OfflineScreen>
           child: ElevatedButton(
             onPressed: widget.onRetry ?? () => Navigator.of(context).pop(),
             style: ElevatedButton.styleFrom(
-              backgroundColor: colors.vibrantGreen,
-              foregroundColor: colors.surfaceDarker,
-              disabledBackgroundColor: colors.vibrantGreen.withValues(alpha: 0.5),
-              disabledForegroundColor: colors.surfaceDarker.withValues(alpha: 0.5),
+              backgroundColor: colors.neonGreen,
+              foregroundColor: colors.buttonFg,
+              disabledBackgroundColor: colors.neonGreen.withValues(alpha: 0.5),
+              disabledForegroundColor: colors.buttonFg.withValues(alpha: 0.5),
               elevation: 0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
@@ -448,7 +448,7 @@ class _ParticlePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = colors.vibrantGreen.withValues(alpha: 0.12);
+      ..color = colors.neonGreen.withValues(alpha: 0.12);
     canvas.drawCircle(
       Offset(size.width * 0.2, size.height * 0.25),
       2,
@@ -462,7 +462,7 @@ class _ParticlePainter extends CustomPainter {
     canvas.drawCircle(
       Offset(size.width * 0.5, size.height * 0.85),
       1.5,
-      paint..color = colors.vibrantGreen.withValues(alpha: 0.12),
+      paint..color = colors.neonGreen.withValues(alpha: 0.12),
     );
   }
 

@@ -142,10 +142,10 @@ class _DataProcessingScreenState extends State<DataProcessingScreen> with Ticker
               child: Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: colors.dataProcessGreen.withValues(alpha: 0.1),
+                  color: colors.mint.withValues(alpha: 0.1),
                   boxShadow: [
                     BoxShadow(
-                      color: colors.dataProcessGreen.withValues(alpha: 0.1),
+                      color: colors.mint.withValues(alpha: 0.1),
                       blurRadius: 100,
                       spreadRadius: 0,
                     ),

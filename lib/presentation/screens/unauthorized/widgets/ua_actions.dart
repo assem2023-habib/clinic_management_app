@@ -29,13 +29,13 @@ class UaActions extends StatelessWidget {
             icon: Icon(Icons.login_rounded, size: AppSpacing.iconSmall + 2),
             label: const Text(AppStrings.uaLogin),
             style: ElevatedButton.styleFrom(
-              backgroundColor: colors.vibrantGreen,
+              backgroundColor: colors.neonGreen,
               foregroundColor: colors.buttonTextDark,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(999),
               ),
               elevation: 0,
-              shadowColor: colors.vibrantGreen.withValues(alpha: 0.3),
+              shadowColor: colors.neonGreen.withValues(alpha: 0.3),
             ),
           ),
         ),

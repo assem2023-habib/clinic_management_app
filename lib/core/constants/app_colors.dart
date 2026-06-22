@@ -16,7 +16,6 @@ abstract class AppColorSet {
   Color get primaryLight;
   Color get secondary;
   Color get accent;
-  Color get background;
   Color get surface;
   Color get cardBg;
   Color get error;
@@ -35,23 +34,19 @@ abstract class AppColorSet {
   Color get bottomNavUnselected;
   Color get chipBg;
   Color get chipText;
-  Color get overlay;
   Color get scaffoldBg;
   Color get skeletonBase;
   Color get skeletonShimmer;
-  Color get vibrantGreen;
   Color get neonGreen;
   Color get sage;
   Color get borderLight;
-  Color get surfaceDarker;
+  Color get buttonFg;
   Color get emerald;
   Color get mint;
   Color get textMuted;
-  Color get textDim;
   Color get textDisabled;
   Color get borderDark;
   Color get buttonTextDark;
-  Color get brightGreen;
   Color get surfaceDark;
   Color get surfaceMedium;
   Color get surfaceDense;
@@ -67,9 +62,7 @@ abstract class AppColorSet {
   Color get glassBorder;
   Color get glassHighlight;
   Color get timelineBg;
-  Color get gradientGreen;
   Color get verifiedIconBg;
-  Color get dataProcessGreen;
 }
 
 class VitalityLight implements AppColorSet {
@@ -89,9 +82,6 @@ class VitalityLight implements AppColorSet {
 
   @override
   Color get accent => const Color(0xFF006E28);
-
-  @override
-  Color get background => const Color(0xFFF9F9FF);
 
   @override
   Color get surface => const Color(0xFFFFFFFF);
@@ -148,9 +138,6 @@ class VitalityLight implements AppColorSet {
   Color get chipText => const Color(0xFF006D44);
 
   @override
-  Color get overlay => const Color(0x40000000);
-
-  @override
   Color get scaffoldBg => const Color(0xFFF9F9FF);
 
   @override
@@ -159,8 +146,6 @@ class VitalityLight implements AppColorSet {
   @override
   Color get skeletonShimmer => const Color(0x4DFFFFFF);
 
-  @override
-  Color get vibrantGreen => const Color(0xFF00E476);
 
   @override
   Color get neonGreen => const Color(0xFF00FF85);
@@ -172,7 +157,7 @@ class VitalityLight implements AppColorSet {
   Color get borderLight => const Color(0xFFC2C8C1);
 
   @override
-  Color get surfaceDarker => const Color(0xFFF0F3FF);
+  Color get buttonFg => const Color(0xFFF0F3FF);
 
   @override
   Color get emerald => const Color(0xFF10B981);
@@ -183,8 +168,6 @@ class VitalityLight implements AppColorSet {
   @override
   Color get textMuted => const Color(0xFFBBCABF);
 
-  @override
-  Color get textDim => const Color(0xFFC2C8C1);
 
   @override
   Color get textDisabled => const Color(0xFFE5E2E1);
@@ -195,8 +178,6 @@ class VitalityLight implements AppColorSet {
   @override
   Color get buttonTextDark => const Color(0xFF00422B);
 
-  @override
-  Color get brightGreen => const Color(0xFF36FF8B);
 
   @override
   Color get surfaceDark => const Color(0xFF012B17);
@@ -243,14 +224,10 @@ class VitalityLight implements AppColorSet {
   @override
   Color get timelineBg => const Color(0xFF00391C);
 
-  @override
-  Color get gradientGreen => const Color(0xFF003921);
 
   @override
   Color get verifiedIconBg => const Color(0xFF004E29);
 
-  @override
-  Color get dataProcessGreen => const Color(0xFF45DFA4);
 }
 
 class VitalityDark implements AppColorSet {
@@ -270,9 +247,6 @@ class VitalityDark implements AppColorSet {
 
   @override
   Color get accent => const Color(0xFF00CA73);
-
-  @override
-  Color get background => const Color(0xFF00180B);
 
   @override
   Color get surface => const Color(0xFF002111);
@@ -329,9 +303,6 @@ class VitalityDark implements AppColorSet {
   Color get chipText => const Color(0xFF93ECB8);
 
   @override
-  Color get overlay => const Color(0x80000000);
-
-  @override
   Color get scaffoldBg => const Color(0xFF00180B);
 
   @override
@@ -340,8 +311,6 @@ class VitalityDark implements AppColorSet {
   @override
   Color get skeletonShimmer => const Color(0x1AFFFFFF);
 
-  @override
-  Color get vibrantGreen => const Color(0xFF00E476);
 
   @override
   Color get neonGreen => const Color(0xFF00FF85);
@@ -353,7 +322,7 @@ class VitalityDark implements AppColorSet {
   Color get borderLight => const Color(0xFFC2C8C1);
 
   @override
-  Color get surfaceDarker => const Color(0xFF00210C);
+  Color get buttonFg => const Color(0xFF00210C);
 
   @override
   Color get emerald => const Color(0xFF10B981);
@@ -364,8 +333,6 @@ class VitalityDark implements AppColorSet {
   @override
   Color get textMuted => const Color(0xFFBBCABF);
 
-  @override
-  Color get textDim => const Color(0xFFC2C8C1);
 
   @override
   Color get textDisabled => const Color(0xFFE5E2E1);
@@ -376,8 +343,6 @@ class VitalityDark implements AppColorSet {
   @override
   Color get buttonTextDark => const Color(0xFF00422B);
 
-  @override
-  Color get brightGreen => const Color(0xFF36FF8B);
 
   @override
   Color get surfaceDark => const Color(0xFF012B17);
@@ -424,12 +389,8 @@ class VitalityDark implements AppColorSet {
   @override
   Color get timelineBg => const Color(0xFF00391C);
 
-  @override
-  Color get gradientGreen => const Color(0xFF003921);
 
   @override
   Color get verifiedIconBg => const Color(0xFF004E29);
 
-  @override
-  Color get dataProcessGreen => const Color(0xFF45DFA4);
 }

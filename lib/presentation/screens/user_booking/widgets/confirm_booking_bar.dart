@@ -31,8 +31,8 @@ class ConfirmBookingBar extends StatelessWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            colors.background.withValues(alpha: 0.0),
-            colors.background,
+            colors.scaffoldBg.withValues(alpha: 0.0),
+            colors.scaffoldBg,
           ],
         ),
       ),

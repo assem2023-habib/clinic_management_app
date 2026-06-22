@@ -225,7 +225,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
       height: 80,
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [colors.gradientGreen, colors.primaryDark],
+          colors: [colors.primaryDark, colors.primaryDark],
         ),
         borderRadius: BorderRadius.circular(14),
       ),

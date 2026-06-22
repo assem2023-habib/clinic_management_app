@@ -15,7 +15,7 @@ class ClockPainter extends CustomPainter {
     final innerRadius = radius - 8;
 
     final shadowPaint = Paint()
-      ..color = AppColors.dark.brightGreen.withValues(alpha: 0.3)
+      ..color = AppColors.dark.neonGreen.withValues(alpha: 0.3)
       ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 12);
 
     canvas.drawCircle(center, radius, shadowPaint);
@@ -28,8 +28,8 @@ class ClockPainter extends CustomPainter {
         colors: [
           AppColors.dark.surface,
           AppColors.dark.surface,
-          AppColors.dark.brightGreen,
-          AppColors.dark.brightGreen,
+          AppColors.dark.neonGreen,
+          AppColors.dark.neonGreen,
         ],
         stops: [0.0, progress, progress, 1.0],
       ).createShader(rect);
@@ -95,7 +95,7 @@ class DashedCirclePainter extends CustomPainter {
     final center = size.center(Offset.zero);
     final radius = size.width / 2 - 4;
     final paint = Paint()
-      ..color = AppColors.dark.brightGreen.withValues(alpha: 0.2)
+      ..color = AppColors.dark.neonGreen.withValues(alpha: 0.2)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1;
 

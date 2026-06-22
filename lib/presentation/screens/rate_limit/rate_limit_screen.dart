@@ -140,7 +140,7 @@ class _RateLimitScreenState extends State<RateLimitScreen>
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color: colors.brightGreen.withValues(alpha: 0.15),
+              color: colors.neonGreen.withValues(alpha: 0.15),
             ),
           ),
         ),
@@ -161,10 +161,10 @@ class _RateLimitScreenState extends State<RateLimitScreen>
                 height: 384,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: colors.brightGreen.withValues(alpha: 0.06),
+                  color: colors.neonGreen.withValues(alpha: 0.06),
                   boxShadow: [
                     BoxShadow(
-                      color: colors.brightGreen.withValues(alpha: 0.04),
+                      color: colors.neonGreen.withValues(alpha: 0.04),
                       blurRadius: 120,
                       spreadRadius: 40,
                     ),
@@ -234,10 +234,10 @@ class _RateLimitScreenState extends State<RateLimitScreen>
             height: 192,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: colors.brightGreen.withValues(alpha: 0.03),
+              color: colors.neonGreen.withValues(alpha: 0.03),
               boxShadow: [
                 BoxShadow(
-                  color: colors.brightGreen.withValues(alpha: 0.05),
+                  color: colors.neonGreen.withValues(alpha: 0.05),
                   blurRadius: 80,
                   spreadRadius: 20,
                 ),
@@ -247,7 +247,7 @@ class _RateLimitScreenState extends State<RateLimitScreen>
           Icon(
             Icons.medical_services_rounded,
             size: 72,
-            color: colors.brightGreen.withValues(alpha: 0.8),
+            color: colors.neonGreen.withValues(alpha: 0.8),
           ),
         ],
       ),
@@ -265,7 +265,7 @@ class _RateLimitScreenState extends State<RateLimitScreen>
               fontFamily: 'Sora',
               fontSize: AppSpacing.titleError,
               fontWeight: FontWeight.w600,
-              color: colors.brightGreen,
+              color: colors.neonGreen,
             ),
             textAlign: TextAlign.center,
           ),
@@ -276,7 +276,7 @@ class _RateLimitScreenState extends State<RateLimitScreen>
               fontFamily: 'Manrope',
               fontSize: AppSpacing.bodyLarge,
               fontWeight: FontWeight.w400,
-              color: colors.textDim,
+              color: colors.textMuted,
               height: 1.5,
             ),
             textAlign: TextAlign.center,
@@ -307,7 +307,7 @@ class _RateLimitScreenState extends State<RateLimitScreen>
                 fontSize: AppSpacing.bodySmall,
                 fontWeight: FontWeight.w500,
                 letterSpacing: 0.5,
-                color: colors.brightGreen,
+                color: colors.neonGreen,
               ),
             ),
             Text(
@@ -320,7 +320,7 @@ class _RateLimitScreenState extends State<RateLimitScreen>
                 fontWeight: FontWeight.w500,
                 letterSpacing: 0.5,
                   color: _isReady
-                      ? colors.brightGreen
+                      ? colors.neonGreen
                       : colors.textDisabled,
                 ),
               ),
@@ -347,11 +347,11 @@ class _RateLimitScreenState extends State<RateLimitScreen>
                         0.85,
                     height: AppSpacing.bulletSize,
                     decoration: BoxDecoration(
-                      color: colors.brightGreen,
+                      color: colors.neonGreen,
                       borderRadius: BorderRadius.circular(9999),
                       boxShadow: [
                         BoxShadow(
-                          color: colors.brightGreen
+                          color: colors.neonGreen
                               .withValues(alpha: 0.3),
                           blurRadius: 8,
                         ),
@@ -376,11 +376,11 @@ class _RateLimitScreenState extends State<RateLimitScreen>
           child: ElevatedButton(
             onPressed: _isReady ? (widget.onRetry ?? () {}) : null,
             style: ElevatedButton.styleFrom(
-              backgroundColor: colors.brightGreen,
+              backgroundColor: colors.neonGreen,
               foregroundColor: colors.surface,
               disabledBackgroundColor: Colors.white.withValues(alpha: 0.04),
               disabledForegroundColor:
-                  colors.textDim.withValues(alpha: 0.5),
+                  colors.textMuted.withValues(alpha: 0.5),
               elevation: 0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
@@ -394,7 +394,7 @@ class _RateLimitScreenState extends State<RateLimitScreen>
                   size: AppSpacing.iconSmall,
                   color: _isReady
                       ? colors.surface
-                      : colors.textDim.withValues(alpha: 0.5),
+                      : colors.textMuted.withValues(alpha: 0.5),
                 ),
                 const SizedBox(width: AppSpacing.sm),
                 Text(
@@ -404,7 +404,7 @@ class _RateLimitScreenState extends State<RateLimitScreen>
                     fontWeight: FontWeight.w700,
                     color: _isReady
                         ? colors.surface
-                        : colors.textDim.withValues(alpha: 0.5),
+                        : colors.textMuted.withValues(alpha: 0.5),
                   ),
                 ),
               ],
@@ -415,7 +415,7 @@ class _RateLimitScreenState extends State<RateLimitScreen>
         TextButton(
           onPressed: widget.onContactSupport,
           style: TextButton.styleFrom(
-            foregroundColor: colors.textDim,
+            foregroundColor: colors.textMuted,
             padding: const EdgeInsets.symmetric(
               horizontal: AppSpacing.sm,
               vertical: AppSpacing.sm,

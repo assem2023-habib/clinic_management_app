@@ -212,7 +212,7 @@ class ForbiddenScreen extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () => Navigator.of(context).pushReplacementNamed(AppRoutes.dashboard),
             style: ElevatedButton.styleFrom(
-              backgroundColor: colors.vibrantGreen,
+              backgroundColor: colors.neonGreen,
               foregroundColor: Colors.black,
               padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
