@@ -9,19 +9,20 @@ class SrCategoryGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
+Text(
               AppStrings.srCategories,
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: colors.textPrimary),
             ),
             TextButton(
               onPressed: () {},
-              child: const Text(AppStrings.srViewAll, style: TextStyle(color: colors.primary, fontSize: 13)),
+              child: Text(AppStrings.srViewAll, style: TextStyle(color: colors.primary, fontSize: 13)),
             ),
           ],
         ),

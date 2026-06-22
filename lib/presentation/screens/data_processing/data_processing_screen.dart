@@ -163,7 +163,7 @@ class _DataProcessingScreenState extends State<DataProcessingScreen> with Ticker
                     Row(
                       children: [
                         IconButton(
-                          icon: const Icon(Icons.arrow_back_rounded, color: colors.textMuted),
+                          icon: Icon(Icons.arrow_back_rounded, color: colors.textMuted),
                           onPressed: widget.onCancel ?? () => Navigator.pop(context),
                         ),
                         const Spacer(),
@@ -180,7 +180,7 @@ class _DataProcessingScreenState extends State<DataProcessingScreen> with Ticker
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 8),
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.symmetric(horizontal: 40),
                       child: Text(
                         '\u062c\u0627\u0631\u064a \u0625\u0646\u0634\u0627\u0621 \u062a\u0642\u0631\u064a\u0631\u0643 \u0627\u0644\u0635\u062d\u064a \u0627\u0644\u0634\u0627\u0645\u0644 \u0628\u0627\u0633\u062a\u062e\u062f\u0627\u0645 \u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a...',

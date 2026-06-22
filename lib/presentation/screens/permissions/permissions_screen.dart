@@ -89,11 +89,11 @@ class _PermissionsScreenState extends State<PermissionsScreen>
                   child: Row(
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.arrow_back, color: colors.mint),
+                        icon: Icon(Icons.arrow_back, color: colors.mint),
                         onPressed: () => Navigator.pop(context),
                       ),
                       const Spacer(),
-                      const Text('Vitals Monitor', style: TextStyle(fontFamily: 'Sora', fontSize: 24, fontWeight: FontWeight.w700, color: colors.mint)),
+                      Text('Vitals Monitor', style: TextStyle(fontFamily: 'Sora', fontSize: 24, fontWeight: FontWeight.w700, color: colors.mint)),
                       const SizedBox(width: 40),
                     ],
                   ),
@@ -105,9 +105,9 @@ class _PermissionsScreenState extends State<PermissionsScreen>
                   padding: const EdgeInsets.symmetric(horizontal: 32),
                   child: Column(
                     children: [
-                      const Text('الصَّلاحِيَاتُ المَطْلُوبَةُ', textAlign: TextAlign.center, style: TextStyle(fontFamily: 'Sora', fontSize: 28, fontWeight: FontWeight.w600, height: 1.2, color: colors.textPrimary)),
+                      Text('الصَّلاحِيَاتُ المَطْلُوبَةُ', textAlign: TextAlign.center, style: TextStyle(fontFamily: 'Sora', fontSize: 28, fontWeight: FontWeight.w600, height: 1.2, color: colors.textPrimary)),
                       const SizedBox(height: 12),
-                      const Text('لِلْحُصُولِ عَلَى أَفْضَلِ تَجْرِبَةٍ طِبِّيَّةٍ دَقِيقَةٍ، نَحْتَاجُ إِلَى الوُصُولِ لِبَعْضِ الصَّلاحِيَاتِ الأَسَاسِيَّةِ.', textAlign: TextAlign.center, style: TextStyle(fontFamily: 'Sora', fontSize: 16, fontWeight: FontWeight.w400, height: 1.5, color: colors.textMuted)),
+                      Text('لِلْحُصُولِ عَلَى أَفْضَلِ تَجْرِبَةٍ طِبِّيَّةٍ دَقِيقَةٍ، نَحْتَاجُ إِلَى الوُصُولِ لِبَعْضِ الصَّلاحِيَاتِ الأَسَاسِيَّةِ.', textAlign: TextAlign.center, style: TextStyle(fontFamily: 'Sora', fontSize: 16, fontWeight: FontWeight.w400, height: 1.5, color: colors.textMuted)),
                     ],
                   ),
                 ),

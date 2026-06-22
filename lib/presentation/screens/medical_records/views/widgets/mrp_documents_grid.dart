@@ -32,7 +32,7 @@ class MrpDocumentCard extends StatelessWidget {
               color: colors.cardBg,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: const Center(
+            child: Center(
               child: Icon(
                 Icons.description_rounded,
                 size: 48,
@@ -43,7 +43,7 @@ class MrpDocumentCard extends StatelessWidget {
           const SizedBox(height: 12),
           Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
               color: colors.textPrimary,
@@ -53,7 +53,7 @@ class MrpDocumentCard extends StatelessWidget {
           ),
           Text(
             subtitle,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w500,
               color: colors.divider,
@@ -89,13 +89,13 @@ class MrpUploadButton extends StatelessWidget {
         ),
         child: Column(
           children: [
-            const Icon(
+            Icon(
               Icons.upload_file_rounded,
               size: 32,
               color: colors.primary,
             ),
             const SizedBox(height: 8),
-            const Text(
+            Text(
               AppStrings.mrUploadDocument,
               style: TextStyle(
                 fontSize: 14,
@@ -103,7 +103,7 @@ class MrpUploadButton extends StatelessWidget {
                 color: colors.textPrimary,
               ),
             ),
-            const Text(
+            Text(
               AppStrings.mrUploadHint,
               style: TextStyle(
                 fontSize: 12,

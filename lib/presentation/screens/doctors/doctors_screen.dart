@@ -562,6 +562,7 @@ class GlassSkeletonList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
       itemCount: 3,
@@ -623,6 +624,7 @@ class SkeletonContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Container(
       width: width,
       height: height,

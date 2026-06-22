@@ -75,7 +75,7 @@ class _AppToastOverlayState extends State<_AppToastOverlay>
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 11),
             decoration: BoxDecoration(
-              color: colors.surfaceDark,
+              color: widget.colors.surfaceDark,
               borderRadius: BorderRadius.circular(999),
               border: Border.all(color: widget.colors.primary.withValues(alpha: 0.2)),
               boxShadow: [

@@ -35,14 +35,14 @@ class PsPermissionItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text(title, style: const TextStyle(fontFamily: 'Sora', fontSize: 14, fontWeight: FontWeight.w500, color: colors.textPrimary)),
+                Text(title, style: TextStyle(fontFamily: 'Sora', fontSize: 14, fontWeight: FontWeight.w500, color: colors.textPrimary)),
                 const SizedBox(height: 2),
-                Text(hint, style: const TextStyle(fontFamily: 'Sora', fontSize: 12, fontWeight: FontWeight.w600, letterSpacing: 0.5, color: colors.textMuted)),
+                Text(hint, style: TextStyle(fontFamily: 'Sora', fontSize: 12, fontWeight: FontWeight.w600, letterSpacing: 0.5, color: colors.textMuted)),
               ],
             ),
           ),
           const SizedBox(width: 8),
-          const Icon(Icons.cancel_rounded, size: 20, color: colors.error),
+          Icon(Icons.cancel_rounded, size: 20, color: colors.error),
         ],
       ),
     );

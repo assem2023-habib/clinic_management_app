@@ -10,6 +10,7 @@ class SrFeaturedBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -58,7 +59,7 @@ class SrFeaturedBanner extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: AppSpacing.sm),
-                  const Text(
+Text(
                     AppStrings.srBannerSubtitle,
                     style: TextStyle(
                       fontSize: 14,

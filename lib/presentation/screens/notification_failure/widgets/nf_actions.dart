@@ -44,7 +44,7 @@ class NfActions extends StatelessWidget {
             width: double.infinity,
             child: TextButton(
               onPressed: onBack ?? () => Navigator.pop(context),
-              child: const Text(
+              child: Text(
                 'العَوْدَةُ لِلإِشْعَارَاتِ',
                 style: TextStyle(fontFamily: 'Sora', fontSize: 15, fontWeight: FontWeight.w500, color: colors.textMuted),
               ),

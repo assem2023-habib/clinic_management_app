@@ -24,7 +24,7 @@ class SfContentCard extends StatelessWidget {
           Text(
             title,
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Sora',
               fontSize: 22,
               fontWeight: FontWeight.w600,
@@ -36,7 +36,7 @@ class SfContentCard extends StatelessWidget {
           Text(
             message,
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Sora',
               fontSize: 15,
               fontWeight: FontWeight.w400,

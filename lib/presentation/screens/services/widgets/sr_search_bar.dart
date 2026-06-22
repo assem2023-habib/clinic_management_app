@@ -33,6 +33,7 @@ class _SrSearchBarState extends State<SrSearchBar> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
       decoration: BoxDecoration(
@@ -46,7 +47,7 @@ class _SrSearchBarState extends State<SrSearchBar> {
       ),
       child: Row(
         children: [
-          const Icon(Icons.search_rounded, color: colors.textMuted, size: 22),
+          Icon(Icons.search_rounded, color: colors.textMuted, size: 22),
           const SizedBox(width: AppSpacing.sm),
           Expanded(
             child: TextField(
@@ -55,7 +56,7 @@ class _SrSearchBarState extends State<SrSearchBar> {
               onChanged: widget.onSearch,
               decoration: InputDecoration(
                 hintText: AppStrings.srSearchHint,
-                hintStyle: const TextStyle(
+hintStyle: TextStyle(
                   color: colors.textMuted,
                   fontSize: 14,
                 ),
@@ -63,11 +64,11 @@ class _SrSearchBarState extends State<SrSearchBar> {
                 isDense: true,
                 contentPadding: EdgeInsets.zero,
               ),
-              style: const TextStyle(fontSize: 14, color: colors.textPrimary),
+              style: TextStyle(fontSize: 14, color: colors.textPrimary),
             ),
           ),
           const SizedBox(width: AppSpacing.sm),
-          const Icon(Icons.tune_rounded, color: colors.primary, size: 22),
+          Icon(Icons.tune_rounded, color: colors.primary, size: 22),
         ],
       ),
     );

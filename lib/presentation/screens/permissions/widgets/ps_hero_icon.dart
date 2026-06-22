@@ -25,18 +25,18 @@ class PsHeroIcon extends StatelessWidget {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                const Icon(Icons.shield_rounded, size: 80, color: colors.mint),
+                Icon(Icons.shield_rounded, size: 80, color: colors.mint),
                 Positioned(
                   bottom: 0,
                   right: 0,
                   child: Container(
                     width: 32,
                     height: 32,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: colors.emerald,
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                     ),
-                    child: const Icon(Icons.add, size: 18, color: colors.scaffoldBg),
+                    child: Icon(Icons.add, size: 18, color: colors.scaffoldBg),
                   ),
                 ),
               ],

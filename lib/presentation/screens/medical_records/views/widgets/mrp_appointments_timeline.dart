@@ -62,7 +62,7 @@ class MrpTimelineItem extends StatelessWidget {
                 children: [
                   Text(
                     date,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
                       color: colors.primary,
@@ -77,7 +77,7 @@ class MrpTimelineItem extends StatelessWidget {
                         children: [
                           Text(
                             doctorName,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
                               color: colors.textPrimary,
@@ -85,7 +85,7 @@ class MrpTimelineItem extends StatelessWidget {
                           ),
                           Text(
                             specialty,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
                               color: colors.divider,
@@ -104,7 +104,7 @@ class MrpTimelineItem extends StatelessWidget {
                         ),
                         child: Text(
                           AppStrings.mrVisitDone,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                             color: colors.divider,

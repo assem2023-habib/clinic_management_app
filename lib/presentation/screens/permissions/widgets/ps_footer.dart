@@ -20,7 +20,7 @@ class PsFooter extends StatelessWidget {
             child: ElevatedButton(
               onPressed: onGoToSettings ?? () {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
+                  SnackBar(
                     content: Text('يَرْجَى تَفْعِيلُ الصَّلاحِيَاتِ مِنْ إِعْدَادَاتِ الجِهَازِ', textAlign: TextAlign.center),
                     behavior: SnackBarBehavior.floating,
                     backgroundColor: colors.surfaceDark,
@@ -34,7 +34,7 @@ class PsFooter extends StatelessWidget {
                 side: BorderSide(color: colors.mint.withValues(alpha: 0.3)),
                 elevation: 0,
               ),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.settings, size: 20, color: colors.mint),
@@ -54,7 +54,7 @@ class PsFooter extends StatelessWidget {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
                 side: BorderSide(color: colors.mint.withValues(alpha: 0.3)),
               ),
-              child: const Text('المُحَاوَلَةُ لَاحِقاً', style: TextStyle(fontFamily: 'Sora', fontSize: 16, fontWeight: FontWeight.w400, color: colors.mint)),
+              child: Text('المُحَاوَلَةُ لَاحِقاً', style: TextStyle(fontFamily: 'Sora', fontSize: 16, fontWeight: FontWeight.w400, color: colors.mint)),
             ),
           ),
         ],

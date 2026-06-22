@@ -92,7 +92,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _dragHandle(),
+                  _dragHandle(colors),
                   const SizedBox(height: 16),
                   _header(colors),
                   const SizedBox(height: 6),
@@ -112,7 +112,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
     );
   }
 
-  Widget _dragHandle() {
+  Widget _dragHandle(AppColorSet colors) {
     return Container(
       margin: const EdgeInsets.only(top: 12),
       width: 48,

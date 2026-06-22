@@ -38,7 +38,7 @@ class SfIconSection extends StatelessWidget {
                 color: colors.warning.withValues(alpha: 0.2),
               ),
             ),
-            child: const Icon(
+            child: Icon(
               Icons.search_off_rounded,
               size: 64,
               color: colors.warning,

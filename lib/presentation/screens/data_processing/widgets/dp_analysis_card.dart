@@ -43,17 +43,17 @@ class DpAnalysisCard extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Icons.memory, size: 40, color: colors.mint),
+                      Icon(Icons.memory, size: 40, color: colors.mint),
                       const SizedBox(height: 4),
                       Text(
                         '${(percent * 100).round()}%',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Sora', fontSize: 40, fontWeight: FontWeight.w700,
                           color: colors.mint, height: 1,
                         ),
                       ),
                       const SizedBox(height: 4),
-                      const Text(
+                      Text(
                         'مُكْتَمِل',
                         style: TextStyle(
                           fontFamily: 'Sora', fontSize: AppSpacing.bodySmall, fontWeight: FontWeight.w600,
@@ -85,7 +85,7 @@ class DpAnalysisCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 12),
-                const Text(
+                Text(
                   '\u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a \u064a\u062d\u0644\u0644 \u0627\u0644\u0628\u064a\u0627\u0646\u0627\u062a...',
                   style: TextStyle(
                     fontFamily: 'Sora', fontSize: 14, fontWeight: FontWeight.w500,
@@ -96,7 +96,7 @@ class DpAnalysisCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          const Text(
+          Text(
             '\u064a\u062a\u0645 \u0627\u0644\u0622\u0646 \u0645\u0639\u0627\u0644\u062c\u0629 48 \u0646\u0642\u0637\u0629 \u0628\u064a\u0627\u0646\u064a\u0629 \u062d\u064a\u0648\u064a\u0629',
             style: TextStyle(
               fontFamily: 'Sora', fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w400,

@@ -23,7 +23,7 @@ class SearchFailureScreen extends StatelessWidget {
               child: Row(
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.arrow_back_rounded, color: colors.textMuted),
+                    icon: Icon(Icons.arrow_back_rounded, color: colors.textMuted),
                     onPressed: onBack ?? () => Navigator.pop(context),
                   ),
                   const Spacer(),

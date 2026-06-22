@@ -23,6 +23,7 @@ class _SrCategoryCardState extends State<SrCategoryCard> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return GestureDetector(
       onTap: widget.onTap,
       onTapDown: (_) => setState(() => _isPressed = true),
@@ -52,7 +53,7 @@ class _SrCategoryCardState extends State<SrCategoryCard> {
               const SizedBox(height: AppSpacing.md),
               Text(
                 widget.label,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                   color: colors.textPrimary,

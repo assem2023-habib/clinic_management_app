@@ -11,7 +11,7 @@ class DpSecurityFooter extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.lg),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         border: Border(top: BorderSide(color: colors.glassHighlight)),
       ),
       child: Row(
@@ -42,7 +42,7 @@ class DpSecurityFooter extends StatelessWidget {
             Text(title, style: TextStyle(
               fontFamily: 'Sora', fontSize: 10, fontWeight: FontWeight.w600, color: colors.textPrimary,
             )),
-            Text(subtitle, style: const TextStyle(
+            Text(subtitle, style: TextStyle(
               fontFamily: 'Sora', fontSize: 8, fontWeight: FontWeight.w600, color: colors.textMuted,
             )),
           ],

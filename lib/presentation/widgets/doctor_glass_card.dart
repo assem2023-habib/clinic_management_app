@@ -76,6 +76,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return FadeTransition(
       opacity: _opacity,
       child: SlideTransition(
@@ -220,16 +221,17 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
   }
 
   Widget _buildAvatarFallback() {
+    final colors = AppColors.of(context);
     return Container(
       width: 80,
       height: 80,
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
+        gradient: LinearGradient(
           colors: [colors.primaryDark, colors.primaryDark],
         ),
         borderRadius: BorderRadius.circular(14),
       ),
-      child: const Icon(Icons.person_rounded, size: 36, color: colors.primary),
+      child: Icon(Icons.person_rounded, size: 36, color: colors.primary),
     );
   }
 
@@ -461,6 +463,7 @@ class _PulsingDotState extends State<_PulsingDot>
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return FadeTransition(
       opacity: _opacityAnim,
       child: Container(

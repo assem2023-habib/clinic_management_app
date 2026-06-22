@@ -28,16 +28,16 @@ class MrpBottomNav extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildTab(0, Icons.home_rounded, AppStrings.mrNavHome),
-          _buildActiveTab(1, Icons.history_rounded, AppStrings.mrNavRecords),
-          _buildTab(2, Icons.monitor_heart_rounded, AppStrings.mrNavVitals),
-          _buildTab(3, Icons.person_rounded, AppStrings.mrNavProfile),
+          _buildTab(colors, 0, Icons.home_rounded, AppStrings.mrNavHome),
+          _buildActiveTab(colors, 1, Icons.history_rounded, AppStrings.mrNavRecords),
+          _buildTab(colors, 2, Icons.monitor_heart_rounded, AppStrings.mrNavVitals),
+          _buildTab(colors, 3, Icons.person_rounded, AppStrings.mrNavProfile),
         ],
       ),
     );
   }
 
-  Widget _buildTab(int index, IconData icon, String label) {
+  Widget _buildTab(AppColorSet colors, int index, IconData icon, String label) {
     final isActive = index == activeIndex;
     return GestureDetector(
       onTap: () => onTabSelected?.call(index),
@@ -67,7 +67,7 @@ class MrpBottomNav extends StatelessWidget {
     );
   }
 
-  Widget _buildActiveTab(int index, IconData icon, String label) {
+  Widget _buildActiveTab(AppColorSet colors, int index, IconData icon, String label) {
     return GestureDetector(
       onTap: () => onTabSelected?.call(index),
       child: Container(
@@ -83,7 +83,7 @@ class MrpBottomNav extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               label,
-              style: const TextStyle(
+            style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
                 color: colors.timelineBg,

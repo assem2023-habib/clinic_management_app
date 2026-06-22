@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
 
@@ -8,7 +9,7 @@ class OnboardingItem {
   final String title;
   final String subtitle;
 
-  const OnboardingItem({
+  OnboardingItem({
     required this.icon,
     required this.iconColor,
     required this.title,
@@ -18,19 +19,19 @@ class OnboardingItem {
 
 class OnboardingData {
   static List<OnboardingItem> get adminSteps => [
-        const OnboardingItem(
+        OnboardingItem(
           icon: Icons.admin_panel_settings_rounded,
           iconColor: AppColors.dark.primary,
           title: AppStrings.onboardingWelcomeTitle,
           subtitle: AppStrings.onboardingWelcomeSubtitle,
         ),
-        const OnboardingItem(
+        OnboardingItem(
           icon: Icons.calendar_month_rounded,
           iconColor: AppColors.dark.secondary,
           title: AppStrings.onboardingScheduleTitle,
           subtitle: AppStrings.onboardingScheduleSubtitle,
         ),
-        const OnboardingItem(
+        OnboardingItem(
           icon: Icons.dashboard_customize_rounded,
           iconColor: AppColors.dark.primaryLight,
           title: AppStrings.onboardingDashboardTitle,
@@ -39,19 +40,19 @@ class OnboardingData {
       ];
 
   static List<OnboardingItem> get doctorSteps => [
-        const OnboardingItem(
+        OnboardingItem(
           icon: Icons.local_hospital_rounded,
           iconColor: AppColors.dark.primary,
           title: AppStrings.onboardingDoctorWelcomeTitle,
           subtitle: AppStrings.onboardingDoctorWelcomeSubtitle,
         ),
-        const OnboardingItem(
+        OnboardingItem(
           icon: Icons.schedule_rounded,
           iconColor: AppColors.dark.secondary,
           title: AppStrings.onboardingDoctorScheduleTitle,
           subtitle: AppStrings.onboardingDoctorScheduleSubtitle,
         ),
-        const OnboardingItem(
+        OnboardingItem(
           icon: Icons.connect_without_contact_rounded,
           iconColor: AppColors.dark.primaryLight,
           title: AppStrings.onboardingDoctorCommunicationTitle,
@@ -60,19 +61,19 @@ class OnboardingData {
       ];
 
   static List<OnboardingItem> get receptionistSteps => [
-        const OnboardingItem(
+        OnboardingItem(
           icon: Icons.assignment_ind_rounded,
           iconColor: AppColors.dark.primary,
           title: AppStrings.onboardingReceptionistTitle,
           subtitle: AppStrings.onboardingReceptionistSubtitle,
         ),
-        const OnboardingItem(
+        OnboardingItem(
           icon: Icons.calendar_month_rounded,
           iconColor: AppColors.dark.secondary,
           title: AppStrings.onboardingReceptionistApptsTitle,
           subtitle: AppStrings.onboardingReceptionistApptsSubtitle,
         ),
-        const OnboardingItem(
+        OnboardingItem(
           icon: Icons.contact_phone_rounded,
           iconColor: AppColors.dark.primaryLight,
           title: AppStrings.onboardingReceptionistCoordTitle,
@@ -81,19 +82,19 @@ class OnboardingData {
       ];
 
   static List<OnboardingItem> get patientSteps => [
-        const OnboardingItem(
+        OnboardingItem(
           icon: Icons.person_pin_rounded,
           iconColor: AppColors.dark.primary,
           title: AppStrings.onboardingPatientTitle,
           subtitle: AppStrings.onboardingPatientSubtitle,
         ),
-        const OnboardingItem(
+        OnboardingItem(
           icon: Icons.calendar_today_rounded,
           iconColor: AppColors.dark.secondary,
           title: AppStrings.onboardingPatientApptsTitle,
           subtitle: AppStrings.onboardingPatientApptsSubtitle,
         ),
-        const OnboardingItem(
+        OnboardingItem(
           icon: Icons.health_and_safety_rounded,
           iconColor: AppColors.dark.primaryLight,
           title: AppStrings.onboardingPatientRecordsTitle,

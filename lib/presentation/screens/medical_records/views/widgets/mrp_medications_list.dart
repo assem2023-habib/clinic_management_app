@@ -41,7 +41,7 @@ class MrpMedicationCard extends StatelessWidget {
               children: [
                 Text(
                   name,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                     color: colors.textPrimary,
@@ -50,7 +50,7 @@ class MrpMedicationCard extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   dosage,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
                     color: colors.divider,
@@ -59,7 +59,7 @@ class MrpMedicationCard extends StatelessWidget {
               ],
             ),
           ),
-          const Icon(
+          Icon(
             Icons.chevron_left_rounded,
             size: 24,
             color: colors.divider,

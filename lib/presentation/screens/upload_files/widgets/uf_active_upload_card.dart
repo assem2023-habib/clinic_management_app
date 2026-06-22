@@ -45,7 +45,7 @@ class UfActiveUploadCard extends StatelessWidget {
                     color: colors.mint.withValues(alpha: 0.2),
                   ),
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.description_rounded,
                   size: 32,
                   color: colors.mint,
@@ -58,7 +58,7 @@ class UfActiveUploadCard extends StatelessWidget {
                   children: [
                     Text(
                       fileName,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w600,
                         color: colors.textPrimary,
@@ -69,7 +69,7 @@ class UfActiveUploadCard extends StatelessWidget {
                     const SizedBox(height: 4),
                     Text(
                       '$fileSize • ${AppStrings.ufProcessing}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 14,
                         color: colors.textMuted,
                       ),
@@ -84,7 +84,7 @@ class UfActiveUploadCard extends StatelessWidget {
             children: [
               Text(
                 '${progress.round()}% ${AppStrings.ufProgressComplete}',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w700,
                   color: colors.mint,
@@ -93,10 +93,10 @@ class UfActiveUploadCard extends StatelessWidget {
               const Spacer(),
               Text(
                 '${AppStrings.ufRemaining} ${remainingSeconds}s',
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: colors.textMuted,
-                ),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: colors.textMuted,
+                  ),
               ),
             ],
           ),

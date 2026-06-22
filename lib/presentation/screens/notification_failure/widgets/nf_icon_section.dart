@@ -38,7 +38,7 @@ class NfIconSection extends StatelessWidget {
                 color: colors.error.withValues(alpha: 0.2),
               ),
             ),
-            child: const Icon(
+            child: Icon(
               Icons.notifications_off_rounded,
               size: 64,
               color: colors.error,

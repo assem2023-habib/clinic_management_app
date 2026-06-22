@@ -34,7 +34,7 @@ class MrpPatientSummary extends StatelessWidget {
                 width: 2,
               ),
             ),
-            child: const CircleAvatar(
+            child: CircleAvatar(
               backgroundColor: colors.cardBg,
               child: Icon(
                 Icons.person_rounded,
@@ -49,7 +49,7 @@ class MrpPatientSummary extends StatelessWidget {
             children: [
               Text(
                 name,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w600,
                   color: colors.textPrimary,
@@ -58,7 +58,7 @@ class MrpPatientSummary extends StatelessWidget {
               const SizedBox(height: 4),
               Row(
                 children: [
-                  _buildTag('$age ${AppStrings.dpYear}'),
+                  _buildTag('$age ${AppStrings.dpYear}', colors),
                 ],
               ),
             ],
@@ -68,7 +68,7 @@ class MrpPatientSummary extends StatelessWidget {
     );
   }
 
-  Widget _buildTag(String text) {
+  Widget _buildTag(String text, AppColorSet colors) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       decoration: BoxDecoration(
@@ -77,7 +77,7 @@ class MrpPatientSummary extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.w600,
           color: colors.primary,

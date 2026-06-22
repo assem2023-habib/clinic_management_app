@@ -25,16 +25,16 @@ class UfBottomNav extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildTab(0, Icons.grid_view_rounded, AppStrings.ufNavDashboard),
-          _buildTab(1, Icons.description_rounded, AppStrings.ufNavRecords),
-          _buildActiveTab(2, Icons.cloud_upload_rounded, AppStrings.ufNavUpload),
-          _buildTab(3, Icons.account_circle_rounded, AppStrings.ufNavProfile),
+          _buildTab(colors, 0, Icons.grid_view_rounded, AppStrings.ufNavDashboard),
+          _buildTab(colors, 1, Icons.description_rounded, AppStrings.ufNavRecords),
+          _buildActiveTab(colors, 2, Icons.cloud_upload_rounded, AppStrings.ufNavUpload),
+          _buildTab(colors, 3, Icons.account_circle_rounded, AppStrings.ufNavProfile),
         ],
       ),
     );
   }
 
-  Widget _buildTab(int index, IconData icon, String label) {
+  Widget _buildTab(AppColorSet colors, int index, IconData icon, String label) {
     final isActive = index == activeIndex;
     return GestureDetector(
       onTap: () => onTabSelected?.call(index),
@@ -64,7 +64,7 @@ class UfBottomNav extends StatelessWidget {
     );
   }
 
-  Widget _buildActiveTab(int index, IconData icon, String label) {
+  Widget _buildActiveTab(AppColorSet colors, int index, IconData icon, String label) {
     return GestureDetector(
       onTap: () => onTabSelected?.call(index),
       child: Container(
@@ -80,7 +80,7 @@ class UfBottomNav extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               label,
-              style: const TextStyle(
+            style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
                 color: colors.iconGreen,

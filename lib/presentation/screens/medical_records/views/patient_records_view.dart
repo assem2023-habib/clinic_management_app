@@ -51,6 +51,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
   }
 
   Widget _buildAppBar() {
+    final colors = AppColors.of(context);
     return Container(
       height: 64,
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -68,7 +69,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
                 width: 40,
                 height: 40,
                 alignment: Alignment.center,
-                child: const Icon(
+                child: Icon(
                   Icons.arrow_back_rounded,
                   color: colors.primary,
                   size: 24,
@@ -77,7 +78,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
             ),
           ),
           const SizedBox(width: 16),
-          const Text(
+          Text(
             AppStrings.mrTitle,
             style: TextStyle(
               fontSize: 24,
@@ -86,7 +87,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
             ),
           ),
           const Spacer(),
-          const Icon(
+          Icon(
             Icons.lock_rounded,
             size: 24,
             color: colors.primary,
@@ -127,6 +128,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
   }
 
   Widget _buildConditionsSection() {
+    final colors = AppColors.of(context);
     return BlocBuilder<MedicalRecordBloc, MedicalRecordState>(
       builder: (context, state) {
         if (state is MedicalRecordLoading) {
@@ -135,8 +137,8 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
         if (state is MedicalRecordLoaded) {
           final diagnoses = state.records.where((r) => r.diagnosis.isNotEmpty).map((r) => r.diagnosis).toSet().toList();
           if (diagnoses.isEmpty) {
-            return const Padding(
-              padding: EdgeInsets.symmetric(vertical: 8),
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
               child: Text('لا توجد تشخيصات مسجلة', style: TextStyle(color: colors.textLight)),
             );
           }
@@ -161,6 +163,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
   }
 
   Widget _buildMedicationsSection() {
+    final colors = AppColors.of(context);
     return BlocBuilder<PrescriptionBloc, PrescriptionState>(
       builder: (context, state) {
         final medicines = switch (state) {
@@ -168,8 +171,8 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
           _ => <dynamic>[],
         };
         if (medicines.isEmpty) {
-          return const Padding(
-            padding: EdgeInsets.symmetric(vertical: 8),
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
             child: Text('لا توجد أدوية مسجلة', style: TextStyle(color: colors.textLight)),
           );
         }
@@ -191,12 +194,13 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
   }
 
   Widget _buildTimelineSection() {
+    final colors = AppColors.of(context);
     return BlocBuilder<AppointmentBloc, AppointmentState>(
       builder: (context, state) {
         final appointments = state is AppointmentLoaded ? state.appointments : <dynamic>[];
         if (appointments.isEmpty) {
-          return const Padding(
-            padding: EdgeInsets.symmetric(vertical: 8),
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
             child: Text('لا توجد مواعيد سابقة', style: TextStyle(color: colors.textLight)),
           );
         }
@@ -227,11 +231,12 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
   }
 
   Widget _buildSectionTitle(String title, String? action) {
+    final colors = AppColors.of(context);
     return Row(
       children: [
         Text(
           title,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.w600,
             color: colors.textPrimary,
@@ -241,7 +246,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
         if (action != null)
           Text(
             action,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
               color: colors.primary,

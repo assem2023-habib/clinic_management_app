@@ -48,7 +48,7 @@ class _AppointmentCardState extends State<AppointmentCard> with SingleTickerProv
   BoxDecoration _decoration(AppColorSet c) {
     if (widget.isPast) {
       return BoxDecoration(
-        color: c.background.withValues(alpha: 0.35),
+        color: c.scaffoldBg.withValues(alpha: 0.35),
         borderRadius: const BorderRadius.all(Radius.circular(AppSpacing.cardRadius)),
       );
     }

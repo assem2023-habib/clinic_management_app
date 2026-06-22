@@ -91,14 +91,14 @@ class _PatientWelcomeScreenState extends State<PatientWelcomeScreen>
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.monitor_heart_rounded, size: 24, color: colors.mint),
+                          Icon(Icons.monitor_heart_rounded, size: 24, color: colors.mint),
                           const SizedBox(width: 6),
-                          const Text('Vitality', style: TextStyle(fontFamily: 'Sora', fontSize: 20, fontWeight: FontWeight.w700, color: colors.mint)),
+                          Text('Vitality', style: TextStyle(fontFamily: 'Sora', fontSize: 20, fontWeight: FontWeight.w700, color: colors.mint)),
                         ],
                       ),
                       TextButton(
                         onPressed: _goToDashboard,
-                        child: const Text(AppStrings.pwSkip, style: TextStyle(fontFamily: 'Sora', fontSize: 14, fontWeight: FontWeight.w500, color: colors.textMuted)),
+                        child: Text(AppStrings.pwSkip, style: TextStyle(fontFamily: 'Sora', fontSize: 14, fontWeight: FontWeight.w500, color: colors.textMuted)),
                       ),
                     ],
                   ),

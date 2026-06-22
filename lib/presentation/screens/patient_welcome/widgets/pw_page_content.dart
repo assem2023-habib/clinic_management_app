@@ -17,7 +17,7 @@ class PwPageContent extends StatelessWidget {
           Text(
             title,
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Sora',
               fontSize: 28,
               fontWeight: FontWeight.w600,
