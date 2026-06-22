@@ -48,8 +48,6 @@ abstract class AppColorSet {
   Color get borderDark;
   Color get buttonTextDark;
   Color get surfaceDark;
-  Color get surfaceMedium;
-  Color get surfaceDense;
   Color get buttonBg;
   Color get cardBorder;
   Color get purpleIcon;
@@ -168,7 +166,6 @@ class VitalityLight implements AppColorSet {
   @override
   Color get textMuted => const Color(0xFFBBCABF);
 
-
   @override
   Color get textDisabled => const Color(0xFFE5E2E1);
 
@@ -182,11 +179,7 @@ class VitalityLight implements AppColorSet {
   @override
   Color get surfaceDark => const Color(0xFF012B17);
 
-  @override
-  Color get surfaceMedium => const Color(0xFF1B3B29);
 
-  @override
-  Color get surfaceDense => const Color(0xFF0F301F);
 
   @override
   Color get buttonBg => const Color(0xFF003824);
@@ -331,11 +324,10 @@ class VitalityDark implements AppColorSet {
   Color get mint => const Color(0xFF4EDEA3);
 
   @override
-  Color get textMuted => const Color(0xFFBBCABF);
-
+  Color get textMuted => const Color(0xFF4C5A52);
 
   @override
-  Color get textDisabled => const Color(0xFFE5E2E1);
+  Color get textDisabled => const Color(0xFF2C3A32);
 
   @override
   Color get borderDark => const Color(0xFF3C4A42);
@@ -347,11 +339,7 @@ class VitalityDark implements AppColorSet {
   @override
   Color get surfaceDark => const Color(0xFF012B17);
 
-  @override
-  Color get surfaceMedium => const Color(0xFF1B3B29);
 
-  @override
-  Color get surfaceDense => const Color(0xFF0F301F);
 
   @override
   Color get buttonBg => const Color(0xFF003824);

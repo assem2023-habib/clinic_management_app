@@ -30,7 +30,7 @@ class DpSecurityFooter extends StatelessWidget {
         Container(
           width: 32, height: 32,
           decoration: BoxDecoration(
-            color: colors.surfaceMedium,
+            color: colors.surfaceDark,
             borderRadius: BorderRadius.circular(AppSpacing.sm),
           ),
           child: Icon(icon, size: 16, color: colors.textPrimary),

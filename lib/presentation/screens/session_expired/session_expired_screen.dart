@@ -118,7 +118,7 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
             height: 128,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: colors.surfaceDense.withValues(alpha: 0.4),
+              color: colors.surfaceDark.withValues(alpha: 0.4),
               border: Border.all(
                 color: Colors.white.withValues(alpha: 0.08),
               ),
@@ -198,7 +198,7 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
       width: double.infinity,
       padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
-        color: colors.surfaceDense.withValues(alpha: 0.4),
+        color: colors.surfaceDark.withValues(alpha: 0.4),
         borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
         border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
         boxShadow: [

@@ -23,7 +23,7 @@ class PsFooter extends StatelessWidget {
                   const SnackBar(
                     content: Text('يَرْجَى تَفْعِيلُ الصَّلاحِيَاتِ مِنْ إِعْدَادَاتِ الجِهَازِ', textAlign: TextAlign.center),
                     behavior: SnackBarBehavior.floating,
-                    backgroundColor: colors.surfaceDense,
+                    backgroundColor: colors.surfaceDark,
                   ),
                 );
               },

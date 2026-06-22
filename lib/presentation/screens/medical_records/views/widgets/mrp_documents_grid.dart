@@ -36,7 +36,7 @@ class MrpDocumentCard extends StatelessWidget {
               child: Icon(
                 Icons.description_rounded,
                 size: 48,
-                color: colors.surfaceMedium,
+                color: colors.surfaceDark,
               ),
             ),
           ),

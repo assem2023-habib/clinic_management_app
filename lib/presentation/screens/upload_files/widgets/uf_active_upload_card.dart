@@ -105,7 +105,7 @@ class UfActiveUploadCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(999),
             child: Container(
               height: 8,
-              color: colors.surfaceMedium,
+              color: colors.surfaceDark,
               child: FractionallySizedBox(
                 alignment: Alignment.centerLeft,
                 widthFactor: progress / 100,

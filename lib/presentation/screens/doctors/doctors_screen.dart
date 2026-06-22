@@ -67,7 +67,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
     const radius28 = BorderRadius.vertical(top: Radius.circular(28));
     return Container(
       decoration: BoxDecoration(
-        color: colors.surfaceMedium,
+        color: colors.surfaceDark,
         borderRadius: radius28,
         border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.08))),
       ),
@@ -220,7 +220,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
             child: Container(
               padding: const EdgeInsets.all(22),
               decoration: BoxDecoration(
-                color: colors.surfaceMedium,
+                color: colors.surfaceDark,
                 borderRadius: BorderRadius.circular(24),
                 border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
               ),
@@ -265,7 +265,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                           child: Container(
                             height: 48,
                             decoration: BoxDecoration(
-                              color: colors.surfaceDense,
+                              color: colors.surfaceDark,
                               borderRadius: BorderRadius.circular(14),
                             ),
                             child: Center(
@@ -385,7 +385,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
           duration: const Duration(milliseconds: 250),
           curve: Curves.easeOut,
           decoration: BoxDecoration(
-            color: colors.surfaceDense.withValues(alpha: 0.65),
+            color: colors.surfaceDark.withValues(alpha: 0.65),
             borderRadius: BorderRadius.circular(14),
             border: Border.all(
               color: _isSearchFocused
@@ -627,7 +627,7 @@ class SkeletonContainer extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        color: colors.surfaceDense,
+        color: colors.surfaceDark,
         borderRadius: BorderRadius.circular(borderRadius),
       ),
     );

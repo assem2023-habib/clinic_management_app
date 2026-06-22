@@ -15,7 +15,7 @@ class DpAnalysisCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(40),
       decoration: BoxDecoration(
-        color: colors.surfaceMedium.withValues(alpha: 0.4),
+        color: colors.surfaceDark.withValues(alpha: 0.4),
         borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
         border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
         boxShadow: [
@@ -70,7 +70,7 @@ class DpAnalysisCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             decoration: BoxDecoration(
-              color: colors.surfaceMedium,
+              color: colors.surfaceDark,
               borderRadius: BorderRadius.circular(24),
               border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
             ),

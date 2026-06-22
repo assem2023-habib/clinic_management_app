@@ -99,7 +99,7 @@ class MrpTimelineItem extends StatelessWidget {
                           vertical: 4,
                         ),
                         decoration: BoxDecoration(
-                          color: colors.surfaceMedium,
+                          color: colors.surfaceDark,
                           borderRadius: BorderRadius.circular(999),
                         ),
                         child: Text(
