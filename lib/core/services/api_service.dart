@@ -1,7 +1,7 @@
 import 'dart:developer' as dev;
 
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ApiService {
   late final Dio _dio;
@@ -88,30 +88,19 @@ class ApiService {
     ]);
   }
 
-  Future<String?> getToken() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_tokenKey);
-  }
+  final _storage = const FlutterSecureStorage();
 
-  Future<void> setToken(String token) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_tokenKey, token);
-  }
+  Future<String?> getToken() => _storage.read(key: _tokenKey);
 
-  Future<void> setRefreshToken(String token) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_refreshTokenKey, token);
-  }
+  Future<void> setToken(String token) => _storage.write(key: _tokenKey, value: token);
 
-  Future<String?> getRefreshToken() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_refreshTokenKey);
-  }
+  Future<void> setRefreshToken(String token) => _storage.write(key: _refreshTokenKey, value: token);
+
+  Future<String?> getRefreshToken() => _storage.read(key: _refreshTokenKey);
 
   Future<void> clearTokens() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(_tokenKey);
-    await prefs.remove(_refreshTokenKey);
+    await _storage.delete(key: _tokenKey);
+    await _storage.delete(key: _refreshTokenKey);
   }
 
   Future<bool> _tryRefreshToken() async {
