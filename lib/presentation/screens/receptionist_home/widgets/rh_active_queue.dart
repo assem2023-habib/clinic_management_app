@@ -56,10 +56,16 @@ class RhActiveQueue extends StatelessWidget {
             if (todayAppts.isEmpty)
               const EmptyDataWidget(icon: Icons.event_busy_rounded, title: AppStrings.rhNoApptsToday, compact: true)
             else
-              ...todayAppts.asMap().entries.map((entry) => Padding(
-                padding: EdgeInsets.only(bottom: entry.key < todayAppts.length - 1 ? AppSpacing.sm : 0),
-                child: RhQueueCard(appointment: entry.value, index: entry.key),
-              )),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: EdgeInsets.zero,
+                itemCount: todayAppts.length,
+                itemBuilder: (context, index) => Padding(
+                  padding: EdgeInsets.only(bottom: index < todayAppts.length - 1 ? AppSpacing.sm : 0),
+                  child: RhQueueCard(appointment: todayAppts[index], index: index),
+                ),
+              ),
           ],
         );
       },
