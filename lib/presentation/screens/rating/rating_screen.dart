@@ -77,82 +77,106 @@ class _RatingScreenState extends State<RatingScreen> {
             child: CustomScrollView(
               controller: _scrollController,
               slivers: [
-                SliverPadding(
-                  padding: EdgeInsets.only(
-                    left: AppSpacing.md,
-                    right: AppSpacing.md,
-                    top: AppSpacing.sm,
-                    bottom: 100,
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.sm, AppSpacing.md, 0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(flex: 3, child: RatingSummarySection(
+                          averageRating: state.averageRating,
+                          totalReviews: state.totalReviews,
+                          distribution: state.distribution,
+                        )),
+                        const SizedBox(width: AppSpacing.md),
+                        const Expanded(flex: 2, child: SizedBox(
+                          height: 180,
+                          child: RatingActionCard(),
+                        )),
+                      ],
+                    ),
                   ),
-                  sliver: SliverList(
-                    delegate: SliverChildListDelegate([
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(flex: 3, child: RatingSummarySection(
-                            averageRating: state.averageRating,
-                            totalReviews: state.totalReviews,
-                            distribution: state.distribution,
-                          )),
-                          const SizedBox(width: AppSpacing.md),
-                          const Expanded(flex: 2, child: SizedBox(
-                            height: 180,
-                            child: RatingActionCard(),
-                          )),
-                        ],
-                      ),
-                      const SizedBox(height: AppSpacing.lg),
-                      RatingFilterBar(
-                        currentFilter: state.currentFilter,
-                        onFilterChanged: (f) => context.read<RatingBloc>().add(RatingFilterChanged(f)),
-                      ),
-                      const SizedBox(height: AppSpacing.md),
-                      if (state.displayedReviews.isEmpty)
-                        const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 24),
-                          child: EmptyDataWidget(icon: Icons.rate_review_outlined, title: AppStrings.noReviews, compact: true),
+                ),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: AppSpacing.lg),
+                        RatingFilterBar(
+                          currentFilter: state.currentFilter,
+                          onFilterChanged: (f) => context.read<RatingBloc>().add(RatingFilterChanged(f)),
                         ),
-                      ...state.displayedReviews.map((review) => Padding(
-                        padding: const EdgeInsets.only(bottom: AppSpacing.md),
-                        child: RatingReviewCard(
-                          review: review,
-                          isLiked: state.likedReviewIds.contains(review.id),
-                          showActions: !widget.isAppRating,
-                          onToggleLike: () => context.read<RatingBloc>().add(RatingToggleLike(review.id)),
-                          onFlag: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(AppStrings.reviewReported)),
-                            );
-                          },
-                        ),
-                      )),
-                      if (state.isLoadingMore)
-                        const Padding(
-                          padding: EdgeInsets.symmetric(vertical: AppSpacing.md),
-                          child: Center(child: CircularProgressIndicator()),
-                        ),
-                      if (!state.hasMore && state.displayedReviews.isNotEmpty)
-                        const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 24),
-                          child: EmptyDataWidget(icon: Icons.rate_review_outlined, title: AppStrings.noMoreReviews, compact: true),
-                        ),
-                      if (state.hasMore && !state.isLoadingMore)
-                        Center(
-                          child: OutlinedButton(
-                            onPressed: () => context.read<RatingBloc>().add(const RatingLoadMore()),
-                            style: OutlinedButton.styleFrom(
-                              side: BorderSide(color: colors.primary),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(999)),
-                              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl, vertical: AppSpacing.sm),
-                            ),
-                            child: Text(
-                              AppStrings.loadMoreReviews,
-                              style: TextStyle(color: colors.primary, fontSize: 14, fontWeight: FontWeight.w600),
-                            ),
+                        const SizedBox(height: AppSpacing.md),
+                      ],
+                    ),
+                  ),
+                ),
+                if (state.displayedReviews.isEmpty)
+                  const SliverToBoxAdapter(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 24),
+                      child: EmptyDataWidget(icon: Icons.rate_review_outlined, title: AppStrings.noReviews, compact: true),
+                    ),
+                  )
+                else
+                  SliverPadding(
+                    padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+                    sliver: SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) => Padding(
+                          padding: const EdgeInsets.only(bottom: AppSpacing.md),
+                          child: RatingReviewCard(
+                            review: state.displayedReviews[index],
+                            isLiked: state.likedReviewIds.contains(state.displayedReviews[index].id),
+                            showActions: !widget.isAppRating,
+                            onToggleLike: () => context.read<RatingBloc>().add(RatingToggleLike(state.displayedReviews[index].id)),
+                            onFlag: () {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(AppStrings.reviewReported)),
+                              );
+                            },
                           ),
                         ),
-                      const SizedBox(height: AppSpacing.xxl),
-                    ]),
+                        childCount: state.displayedReviews.length,
+                      ),
+                    ),
+                  ),
+                if (state.isLoadingMore)
+                  const SliverToBoxAdapter(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: AppSpacing.md),
+                      child: Center(child: CircularProgressIndicator()),
+                    ),
+                  ),
+                if (!state.hasMore && state.displayedReviews.isNotEmpty)
+                  const SliverToBoxAdapter(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 24),
+                      child: EmptyDataWidget(icon: Icons.rate_review_outlined, title: AppStrings.noMoreReviews, compact: true),
+                    ),
+                  ),
+                if (state.hasMore && !state.isLoadingMore)
+                  SliverToBoxAdapter(
+                    child: Center(
+                      child: OutlinedButton(
+                        onPressed: () => context.read<RatingBloc>().add(const RatingLoadMore()),
+                        style: OutlinedButton.styleFrom(
+                          side: BorderSide(color: colors.primary),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(999)),
+                          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl, vertical: AppSpacing.sm),
+                        ),
+                        child: Text(
+                          AppStrings.loadMoreReviews,
+                          style: TextStyle(color: colors.primary, fontSize: 14, fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    ),
+                  ),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: AppSpacing.bottomNavHeight),
+                    child: const SizedBox.shrink(),
                   ),
                 ),
               ],
