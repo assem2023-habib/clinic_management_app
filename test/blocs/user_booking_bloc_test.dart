@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
 import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
-import 'package:clinic_management_app/domain/entities/time_slot_entity.dart';
 import 'package:clinic_management_app/domain/repositories/doctor_repository.dart';
 import 'package:clinic_management_app/domain/repositories/appointment_repository.dart';
 import 'package:clinic_management_app/presentation/blocs/user_booking/user_booking_bloc.dart';
@@ -37,14 +36,6 @@ AppointmentEntity _bookedAppt({
     appointmentDate: date,
     startTime: start,
     endTime: end,
-  );
-}
-
-TimeSlotEntity _slot(DateTime date, String time) {
-  return TimeSlotEntity(
-    id: '${date.toIso8601String().substring(0, 10)}_${time.split(' - ')[0]}',
-    date: date,
-    time: time,
   );
 }
 

@@ -24,7 +24,6 @@ class CountryCityPickerField extends StatefulWidget {
 
 class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
   CountryEntity? _selectedCountry;
-  CityEntity? _selectedCity;
   List<CountryEntity> _countries = [];
   bool _isLoading = false;
   String? _label;
@@ -263,7 +262,6 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
                               selectedTileColor: colors.primary.withValues(alpha: 0.08),
                               onTap: () {
                                 setState(() {
-                                  _selectedCity = city;
                                   _label = '${_selectedCountry?.nameAr} / ${city.nameAr}';
                                 });
                                 widget.onCityChanged(city.id);
