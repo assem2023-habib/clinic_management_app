@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -22,10 +24,12 @@ class DoctorPatientsView extends StatefulWidget {
 class _DoctorPatientsViewState extends State<DoctorPatientsView> {
   final _searchController = TextEditingController();
   final _scrollController = ScrollController();
+  Timer? _searchDebounce;
   String _activeFilter = 'all';
 
   @override
   void dispose() {
+    _searchDebounce?.cancel();
     _searchController.dispose();
     _scrollController.dispose();
     super.dispose();
@@ -176,9 +180,14 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
                 Icon(Icons.search_rounded, color: colors.textLight, size: 22),
                 const SizedBox(width: AppSpacing.sm),
                 Expanded(
-                  child: TextField(
-                    controller: _searchController,
-                    onChanged: (value) => context.read<PatientBloc>().add(PatientSearch(value)),
+                    child: TextField(
+                      controller: _searchController,
+                      onChanged: (value) {
+                        _searchDebounce?.cancel();
+                        _searchDebounce = Timer(const Duration(milliseconds: 300), () {
+                          context.read<PatientBloc>().add(PatientSearch(value));
+                        });
+                      },
                     decoration: InputDecoration(
                       hintText: AppStrings.dpSearchPatients,
                       hintStyle: TextStyle(color: colors.textLight.withValues(alpha: 0.5), fontSize: 14),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
@@ -23,6 +25,7 @@ class SearchDoctorsScreen extends StatefulWidget {
 
 class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
   final _searchController = TextEditingController();
+  Timer? _searchDebounce;
   String _query = '';
   String _selectedFilter = AppStrings.sdFilterAll;
   bool _showAllDoctors = false;
@@ -42,6 +45,7 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
 
   @override
   void dispose() {
+    _searchDebounce?.cancel();
     _searchController.dispose();
     super.dispose();
   }
@@ -219,7 +223,10 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
                 ),
               ),
               onChanged: (value) {
-                setState(() => _query = value);
+                _searchDebounce?.cancel();
+                _searchDebounce = Timer(const Duration(milliseconds: 200), () {
+                  setState(() => _query = value);
+                });
               },
             ),
           ),

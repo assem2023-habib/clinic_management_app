@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -27,6 +29,7 @@ class DoctorsScreen extends StatefulWidget {
 class _DoctorsScreenState extends State<DoctorsScreen> {
   final _searchController = TextEditingController();
   final _searchFocus = FocusNode();
+  Timer? _searchDebounce;
   bool _isSearchFocused = false;
   String? _selectedSpecializationId;
   List<SpecializationEntity> _specializations = [];
@@ -49,6 +52,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
 
   @override
   void dispose() {
+    _searchDebounce?.cancel();
     _searchController.dispose();
     _searchFocus.dispose();
     super.dispose();
@@ -405,7 +409,10 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
             focusNode: _searchFocus,
             style: TextStyle(color: colors.textPrimary, fontSize: AppSpacing.bodyMedium),
             onChanged: (value) {
-              context.read<DoctorBloc>().add(DoctorSearch(value));
+              _searchDebounce?.cancel();
+              _searchDebounce = Timer(const Duration(milliseconds: 300), () {
+                context.read<DoctorBloc>().add(DoctorSearch(value));
+              });
               if (value.isNotEmpty) {
                 setState(() => _selectedSpecializationId = null);
               }

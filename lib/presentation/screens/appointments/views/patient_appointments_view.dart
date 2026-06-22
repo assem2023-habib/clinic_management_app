@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -21,12 +23,14 @@ class PatientAppointmentsView extends StatefulWidget {
 class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
   final _searchCtrl = TextEditingController();
   final _focusNode = FocusNode();
+  Timer? _searchDebounce;
   String _searchQuery = '';
   AppointmentStatus? _statusFilter;
   bool _showUpcoming = true;
 
   @override
   void dispose() {
+    _searchDebounce?.cancel();
     _searchCtrl.dispose();
     _focusNode.dispose();
     super.dispose();
@@ -130,7 +134,12 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
         child: TextField(
           controller: _searchCtrl,
           focusNode: _focusNode,
-          onChanged: (v) => setState(() => _searchQuery = v),
+          onChanged: (v) {
+            _searchDebounce?.cancel();
+            _searchDebounce = Timer(const Duration(milliseconds: 200), () {
+              if (mounted) setState(() => _searchQuery = v);
+            });
+          },
           style: TextStyle(color: c.textPrimary, fontSize: AppSpacing.bodyMedium),
           decoration: InputDecoration(
             hintText: AppStrings.search,
