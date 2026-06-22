@@ -51,6 +51,25 @@ abstract class AppColorSet {
   Color get textDisabled;
   Color get borderDark;
   Color get buttonTextDark;
+  Color get brightGreen;
+  Color get surfaceDark;
+  Color get surfaceMedium;
+  Color get surfaceDense;
+  Color get buttonBg;
+  Color get cardBorder;
+  Color get purpleIcon;
+  Color get iconGray;
+  Color get iconGreen;
+  Color get errorRed;
+  Color get errorLight;
+  Color get splashBg;
+  Color get offlineBg;
+  Color get glassBorder;
+  Color get glassHighlight;
+  Color get timelineBg;
+  Color get gradientGreen;
+  Color get verifiedIconBg;
+  Color get dataProcessGreen;
 }
 
 class VitalityLight implements AppColorSet {
@@ -175,6 +194,63 @@ class VitalityLight implements AppColorSet {
 
   @override
   Color get buttonTextDark => const Color(0xFF00422B);
+
+  @override
+  Color get brightGreen => const Color(0xFF36FF8B);
+
+  @override
+  Color get surfaceDark => const Color(0xFF012B17);
+
+  @override
+  Color get surfaceMedium => const Color(0xFF1B3B29);
+
+  @override
+  Color get surfaceDense => const Color(0xFF0F301F);
+
+  @override
+  Color get buttonBg => const Color(0xFF003824);
+
+  @override
+  Color get cardBorder => const Color(0xFF0B513D);
+
+  @override
+  Color get purpleIcon => const Color(0xFF8B5CF6);
+
+  @override
+  Color get iconGray => const Color(0xFF8C928C);
+
+  @override
+  Color get iconGreen => const Color(0xFF83C2A9);
+
+  @override
+  Color get errorRed => const Color(0xFF93000A);
+
+  @override
+  Color get errorLight => const Color(0xFFFFDAD6);
+
+  @override
+  Color get splashBg => const Color(0xFF002E1A);
+
+  @override
+  Color get offlineBg => const Color(0xFF131313);
+
+  @override
+  Color get glassBorder => const Color(0x66032515);
+
+  @override
+  Color get glassHighlight => const Color(0x0DFFFFFF);
+
+  @override
+  Color get timelineBg => const Color(0xFF00391C);
+
+  @override
+  Color get gradientGreen => const Color(0xFF003921);
+
+  @override
+  Color get verifiedIconBg => const Color(0xFF004E29);
+
+  @override
+  Color get dataProcessGreen => const Color(0xFF45DFA4);
 }
 
 class VitalityDark implements AppColorSet {
@@ -299,4 +375,61 @@ class VitalityDark implements AppColorSet {
 
   @override
   Color get buttonTextDark => const Color(0xFF00422B);
+
+  @override
+  Color get brightGreen => const Color(0xFF36FF8B);
+
+  @override
+  Color get surfaceDark => const Color(0xFF012B17);
+
+  @override
+  Color get surfaceMedium => const Color(0xFF1B3B29);
+
+  @override
+  Color get surfaceDense => const Color(0xFF0F301F);
+
+  @override
+  Color get buttonBg => const Color(0xFF003824);
+
+  @override
+  Color get cardBorder => const Color(0xFF0B513D);
+
+  @override
+  Color get purpleIcon => const Color(0xFF8B5CF6);
+
+  @override
+  Color get iconGray => const Color(0xFF8C928C);
+
+  @override
+  Color get iconGreen => const Color(0xFF83C2A9);
+
+  @override
+  Color get errorRed => const Color(0xFF93000A);
+
+  @override
+  Color get errorLight => const Color(0xFFFFDAD6);
+
+  @override
+  Color get splashBg => const Color(0xFF002E1A);
+
+  @override
+  Color get offlineBg => const Color(0xFF131313);
+
+  @override
+  Color get glassBorder => const Color(0x66032515);
+
+  @override
+  Color get glassHighlight => const Color(0x0DFFFFFF);
+
+  @override
+  Color get timelineBg => const Color(0xFF00391C);
+
+  @override
+  Color get gradientGreen => const Color(0xFF003921);
+
+  @override
+  Color get verifiedIconBg => const Color(0xFF004E29);
+
+  @override
+  Color get dataProcessGreen => const Color(0xFF45DFA4);
 }

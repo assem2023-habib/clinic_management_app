@@ -71,8 +71,8 @@ class _RateLimitScreenState extends State<RateLimitScreen>
             decoration: BoxDecoration(color: colors.scaffoldBg),
             child: const SizedBox.expand(),
           ),
-          _buildPulsingCircles(),
-          _buildAtmosphericGlows(),
+          _buildPulsingCircles(colors),
+          _buildAtmosphericGlows(colors),
           _buildParticles(),
           SafeArea(
             child: Center(
@@ -87,9 +87,9 @@ class _RateLimitScreenState extends State<RateLimitScreen>
                       const SizedBox(height: AppSpacing.xl),
                       _buildAnalogClock(),
                       const SizedBox(height: AppSpacing.xl),
-                      _buildShieldIcon(),
+                      _buildShieldIcon(colors),
                       const SizedBox(height: AppSpacing.xxl),
-                      _buildContent(),
+                      _buildContent(colors),
                       const SizedBox(height: AppSpacing.lg),
                       _buildTimerCard(colors: colors),
                       const SizedBox(height: AppSpacing.sm),
@@ -106,7 +106,7 @@ class _RateLimitScreenState extends State<RateLimitScreen>
     );
   }
 
-  Widget _buildPulsingCircles() {
+  Widget _buildPulsingCircles(AppColorSet colors) {
     return Positioned.fill(
       child: IgnorePointer(
         child: AnimatedBuilder(
@@ -115,9 +115,9 @@ class _RateLimitScreenState extends State<RateLimitScreen>
             return Stack(
               alignment: Alignment.center,
               children: [
-                _pulseCircle(300, 0.0),
-                _pulseCircle(500, 0.25),
-                _pulseCircle(700, 0.5),
+                _pulseCircle(300, 0.0, colors),
+                _pulseCircle(500, 0.25, colors),
+                _pulseCircle(700, 0.5, colors),
               ],
             );
           },
@@ -126,7 +126,7 @@ class _RateLimitScreenState extends State<RateLimitScreen>
     );
   }
 
-  Widget _pulseCircle(double size, double delay) {
+  Widget _pulseCircle(double size, double delay, AppColorSet colors) {
     final t = (_pulseController.value + delay) % 1.0;
     final scale = 0.8 + 0.7 * t;
     final opacity = t <= 0.5 ? t * 2.0 * 0.5 : (1.0 - t) * 2.0 * 0.5;
@@ -140,7 +140,7 @@ class _RateLimitScreenState extends State<RateLimitScreen>
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color: const Color(0xFF36FF8B).withValues(alpha: 0.15),
+              color: colors.brightGreen.withValues(alpha: 0.15),
             ),
           ),
         ),
@@ -148,7 +148,7 @@ class _RateLimitScreenState extends State<RateLimitScreen>
     );
   }
 
-  Widget _buildAtmosphericGlows() {
+  Widget _buildAtmosphericGlows(AppColorSet colors) {
     return Positioned.fill(
       child: IgnorePointer(
         child: Stack(
@@ -161,10 +161,10 @@ class _RateLimitScreenState extends State<RateLimitScreen>
                 height: 384,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: const Color(0xFF36FF8B).withValues(alpha: 0.06),
+                  color: colors.brightGreen.withValues(alpha: 0.06),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFF36FF8B).withValues(alpha: 0.04),
+                      color: colors.brightGreen.withValues(alpha: 0.04),
                       blurRadius: 120,
                       spreadRadius: 40,
                     ),
@@ -180,10 +180,10 @@ class _RateLimitScreenState extends State<RateLimitScreen>
                 height: 384,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: const Color(0xFFABCFB6).withValues(alpha: 0.03),
+                  color: colors.sage.withValues(alpha: 0.03),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFFABCFB6).withValues(alpha: 0.02),
+                      color: colors.sage.withValues(alpha: 0.02),
                       blurRadius: 120,
                       spreadRadius: 40,
                     ),
@@ -217,7 +217,7 @@ class _RateLimitScreenState extends State<RateLimitScreen>
     );
   }
 
-  Widget _buildShieldIcon() {
+  Widget _buildShieldIcon(AppColorSet colors) {
     return SizedBox(
       width: 256,
       height: 256,
@@ -234,10 +234,10 @@ class _RateLimitScreenState extends State<RateLimitScreen>
             height: 192,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: const Color(0xFF36FF8B).withValues(alpha: 0.03),
+              color: colors.brightGreen.withValues(alpha: 0.03),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFF36FF8B).withValues(alpha: 0.05),
+                  color: colors.brightGreen.withValues(alpha: 0.05),
                   blurRadius: 80,
                   spreadRadius: 20,
                 ),
@@ -247,14 +247,14 @@ class _RateLimitScreenState extends State<RateLimitScreen>
           Icon(
             Icons.medical_services_rounded,
             size: 72,
-            color: const Color(0xFF36FF8B).withValues(alpha: 0.8),
+            color: colors.brightGreen.withValues(alpha: 0.8),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(AppColorSet colors) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
       child: Column(
@@ -265,18 +265,18 @@ class _RateLimitScreenState extends State<RateLimitScreen>
               fontFamily: 'Sora',
               fontSize: AppSpacing.titleError,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF36FF8B),
+              color: colors.brightGreen,
             ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: AppSpacing.sm),
           Text(
             AppStrings.rlMessage,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Manrope',
               fontSize: AppSpacing.bodyLarge,
               fontWeight: FontWeight.w400,
-              color: Color(0xFFC2C8C1),
+              color: colors.textDim,
               height: 1.5,
             ),
             textAlign: TextAlign.center,
@@ -302,12 +302,12 @@ class _RateLimitScreenState extends State<RateLimitScreen>
             children: [
               Text(
                 AppStrings.rlWaitingTimer,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'JetBrains Mono',
                 fontSize: AppSpacing.bodySmall,
                 fontWeight: FontWeight.w500,
                 letterSpacing: 0.5,
-                color: Color(0xFF36FF8B),
+                color: colors.brightGreen,
               ),
             ),
             Text(
@@ -320,8 +320,8 @@ class _RateLimitScreenState extends State<RateLimitScreen>
                 fontWeight: FontWeight.w500,
                 letterSpacing: 0.5,
                   color: _isReady
-                      ? const Color(0xFF36FF8B)
-                      : const Color(0xFFE5E2E1),
+                      ? colors.brightGreen
+                      : colors.textDisabled,
                 ),
               ),
             ],
@@ -347,11 +347,11 @@ class _RateLimitScreenState extends State<RateLimitScreen>
                         0.85,
                     height: AppSpacing.bulletSize,
                     decoration: BoxDecoration(
-                      color: const Color(0xFF36FF8B),
+                      color: colors.brightGreen,
                       borderRadius: BorderRadius.circular(9999),
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFF36FF8B)
+                          color: colors.brightGreen
                               .withValues(alpha: 0.3),
                           blurRadius: 8,
                         ),
@@ -376,11 +376,11 @@ class _RateLimitScreenState extends State<RateLimitScreen>
           child: ElevatedButton(
             onPressed: _isReady ? (widget.onRetry ?? () {}) : null,
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF36FF8B),
+              backgroundColor: colors.brightGreen,
               foregroundColor: colors.surface,
               disabledBackgroundColor: Colors.white.withValues(alpha: 0.04),
               disabledForegroundColor:
-                  const Color(0xFFC2C8C1).withValues(alpha: 0.5),
+                  colors.textDim.withValues(alpha: 0.5),
               elevation: 0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
@@ -394,7 +394,7 @@ class _RateLimitScreenState extends State<RateLimitScreen>
                   size: AppSpacing.iconSmall,
                   color: _isReady
                       ? colors.surface
-                      : const Color(0xFFC2C8C1).withValues(alpha: 0.5),
+                      : colors.textDim.withValues(alpha: 0.5),
                 ),
                 const SizedBox(width: AppSpacing.sm),
                 Text(
@@ -404,7 +404,7 @@ class _RateLimitScreenState extends State<RateLimitScreen>
                     fontWeight: FontWeight.w700,
                     color: _isReady
                         ? colors.surface
-                        : const Color(0xFFC2C8C1).withValues(alpha: 0.5),
+                        : colors.textDim.withValues(alpha: 0.5),
                   ),
                 ),
               ],
@@ -415,7 +415,7 @@ class _RateLimitScreenState extends State<RateLimitScreen>
         TextButton(
           onPressed: widget.onContactSupport,
           style: TextButton.styleFrom(
-            foregroundColor: const Color(0xFFC2C8C1),
+            foregroundColor: colors.textDim,
             padding: const EdgeInsets.symmetric(
               horizontal: AppSpacing.sm,
               vertical: AppSpacing.sm,

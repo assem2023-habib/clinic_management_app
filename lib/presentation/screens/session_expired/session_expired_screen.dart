@@ -118,7 +118,7 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
             height: 128,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: const Color(0xFF0F301F).withValues(alpha: 0.4),
+              color: colors.surfaceDense.withValues(alpha: 0.4),
               border: Border.all(
                 color: Colors.white.withValues(alpha: 0.08),
               ),
@@ -198,7 +198,7 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
       width: double.infinity,
       padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
-        color: const Color(0xFF0F301F).withValues(alpha: 0.4),
+        color: colors.surfaceDense.withValues(alpha: 0.4),
         borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
         border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
         boxShadow: [
@@ -334,11 +334,11 @@ class _RotatingGlowPainter extends CustomPainter {
       ..shader = SweepGradient(
         startAngle: rotationAngle,
         endAngle: rotationAngle + 2 * pi,
-        colors: const [
+        colors: [
           Colors.transparent,
-          Color(0xFF10B981),
+          AppColors.dark.emerald,
           Colors.transparent,
-          Color(0xFF10B981),
+          AppColors.dark.emerald,
           Colors.transparent,
         ],
         stops: [0.0, 0.25, 0.5, 0.75, 1.0],
@@ -360,7 +360,7 @@ class _SessionParticlePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final rng = _SeededRandom(42);
     final paint = Paint()
-      ..color = const Color(0xFF4EDEA3).withValues(alpha: 0.3);
+      ..color = AppColors.dark.mint.withValues(alpha: 0.3);
 
     for (var i = 0; i < 40; i++) {
       final x = rng.next() * size.width;

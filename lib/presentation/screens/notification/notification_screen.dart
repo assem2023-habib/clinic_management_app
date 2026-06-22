@@ -102,22 +102,22 @@ class _NotificationScreenState extends State<NotificationScreen> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
           decoration: BoxDecoration(
-            color: isActive ? const Color(0xFF00FF85).withValues(alpha: 0.15) : colors.cardBg,
+            color: isActive ? colors.neonGreen.withValues(alpha: 0.15) : colors.cardBg,
             borderRadius: BorderRadius.circular(9999),
             border: Border.all(
-              color: isActive ? const Color(0xFF00FF85).withValues(alpha: 0.5) : colors.divider.withValues(alpha: 0.1),
+              color: isActive ? colors.neonGreen.withValues(alpha: 0.5) : colors.divider.withValues(alpha: 0.1),
             ),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(label, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: isActive ? const Color(0xFF00FF85) : colors.textSecondary)),
+              Text(label, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: isActive ? colors.neonGreen : colors.textSecondary)),
               if (count != null && count > 0) ...[
                 const SizedBox(width: 6),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                  decoration: BoxDecoration(color: const Color(0xFF00FF85).withValues(alpha: 0.2), borderRadius: BorderRadius.circular(9999)),
-                  child: Text('$count', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: Color(0xFF00FF85))),
+                  decoration: BoxDecoration(color: colors.neonGreen.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(9999)),
+                  child: Text('$count', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: colors.neonGreen)),
                 ),
               ],
             ],
@@ -267,10 +267,10 @@ class _AnimatedNotificationCardState extends State<_AnimatedNotificationCard>
                           scale: _dotScale,
                           child: Container(
                             width: 10, height: 10,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: Color(0xFF00FF85),
-                              boxShadow: [BoxShadow(color: Color(0xFF00FF85), blurRadius: 6)],
+                              color: colors.neonGreen,
+                              boxShadow: [BoxShadow(color: colors.neonGreen, blurRadius: 6)],
                             ),
                           ),
                         ),
@@ -299,13 +299,14 @@ class _AnimatedNotificationCardState extends State<_AnimatedNotificationCard>
   }
 
   ({IconData icon, Color color}) _typeData(NotificationType type) {
+    final colors = AppColors.of(context);
     switch (type) {
       case NotificationType.appointment:
-        return (icon: Icons.calendar_today_rounded, color: const Color(0xFF00FF85));
+        return (icon: Icons.calendar_today_rounded, color: colors.neonGreen);
       case NotificationType.medical:
-        return (icon: Icons.medical_services_rounded, color: const Color(0xFFABCFB6));
+        return (icon: Icons.medical_services_rounded, color: colors.sage);
       case NotificationType.system:
-        return (icon: Icons.settings_rounded, color: const Color(0xFF8C928C));
+        return (icon: Icons.settings_rounded, color: colors.iconGray);
     }
   }
 

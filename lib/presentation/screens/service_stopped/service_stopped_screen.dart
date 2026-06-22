@@ -42,7 +42,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
           const _ParticleLayer(),
           AnimatedBuilder(
             animation: _pulseController,
-            builder: (context, _) => _buildPulsingCircles(),
+            builder: (context, _) => _buildPulsingCircles(colors),
           ),
           SafeArea(
             child: Center(
@@ -76,7 +76,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
     );
   }
 
-  Widget _buildPulsingCircles() {
+  Widget _buildPulsingCircles(AppColorSet colors) {
     final t = _pulseController.value;
     return IgnorePointer(
       child: Center(
@@ -86,8 +86,8 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
           child: Stack(
             alignment: Alignment.center,
             children: [
-              _pulseCircle(t, 0.0),
-              _pulseCircle(t, 0.375),
+              _pulseCircle(t, 0.0, colors),
+              _pulseCircle(t, 0.375, colors),
             ],
           ),
         ),
@@ -95,7 +95,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
     );
   }
 
-  Widget _pulseCircle(double t, double delay) {
+  Widget _pulseCircle(double t, double delay, AppColorSet colors) {
     final phase = (t + delay) % 1.0;
     final scale = 0.8 + phase * 1.0;
     final opacity = phase <= 0.5
@@ -111,7 +111,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color: const Color(0xFF4EDEA3).withValues(alpha: 0.2),
+              color: colors.mint.withValues(alpha: 0.2),
             ),
           ),
         ),
@@ -124,7 +124,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       decoration: BoxDecoration(
-        color: const Color(0xFF93000A),
+        color: badgeColors.errorRed,
         borderRadius: BorderRadius.circular(9999),
         border: Border.all(
           color: badgeColors.error.withValues(alpha: 0.2),
@@ -149,7 +149,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
               fontSize: AppSpacing.bodySmall,
               fontWeight: FontWeight.w600,
               letterSpacing: 0.05,
-              color: const Color(0xFFFFDAD6),
+              color: badgeColors.errorLight,
             ),
           ),
         ],
@@ -379,7 +379,7 @@ class _ServiceStoppedParticlePainter extends CustomPainter {
         Offset(x, y),
         radius,
         Paint()
-          ..color = const Color(0xFF10B981).withValues(alpha: alpha)
+          ..color = AppColors.dark.emerald.withValues(alpha: alpha)
           ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 2),
       );
     }

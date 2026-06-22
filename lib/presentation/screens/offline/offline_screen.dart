@@ -94,7 +94,7 @@ class _OfflineScreenState extends State<OfflineScreen>
           radius: 1.2,
           colors: [
             colors.surface,
-            const Color(0xFF131313),
+            colors.offlineBg,
           ],
           stops: const [0.0, 1.0],
         ),
@@ -127,7 +127,7 @@ class _OfflineScreenState extends State<OfflineScreen>
     return Container(
       height: AppSpacing.appBarHeight,
       decoration: BoxDecoration(
-        color: const Color(0xFF131313).withValues(alpha: 0.7),
+        color: colors.offlineBg.withValues(alpha: 0.7),
         border: Border(
           bottom: BorderSide(
             color: Colors.white.withValues(alpha: 0.15),

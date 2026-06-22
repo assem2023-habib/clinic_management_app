@@ -1,5 +1,6 @@
 import 'dart:math' show pi, cos, sin;
 import 'package:flutter/material.dart';
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 
 class ClockPainter extends CustomPainter {
   final double progress;
@@ -14,7 +15,7 @@ class ClockPainter extends CustomPainter {
     final innerRadius = radius - 8;
 
     final shadowPaint = Paint()
-      ..color = const Color(0xFF36FF8B).withValues(alpha: 0.3)
+      ..color = AppColors.dark.brightGreen.withValues(alpha: 0.3)
       ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 12);
 
     canvas.drawCircle(center, radius, shadowPaint);
@@ -24,11 +25,11 @@ class ClockPainter extends CustomPainter {
         center: Alignment.center,
         startAngle: -pi / 2,
         endAngle: 3 * pi / 2,
-        colors: const [
-          Color(0xFF002111),
-          Color(0xFF002111),
-          Color(0xFF36FF8B),
-          Color(0xFF36FF8B),
+        colors: [
+          AppColors.dark.surface,
+          AppColors.dark.surface,
+          AppColors.dark.brightGreen,
+          AppColors.dark.brightGreen,
         ],
         stops: [0.0, progress, progress, 1.0],
       ).createShader(rect);
@@ -55,7 +56,7 @@ class ClockPainter extends CustomPainter {
         inner,
         outer,
         Paint()
-          ..color = const Color(0xFF002111).withValues(alpha: 0.5)
+          ..color = AppColors.dark.surface.withValues(alpha: 0.5)
           ..strokeWidth = 2,
       );
     }
@@ -68,7 +69,7 @@ class ClockPainter extends CustomPainter {
       Offset(0, 0),
       Offset(0, -(radius * 0.45)),
       Paint()
-        ..color = const Color(0xFF002111)
+        ..color = AppColors.dark.surface
         ..strokeWidth = 4
         ..strokeCap = StrokeCap.round,
     );
@@ -78,7 +79,7 @@ class ClockPainter extends CustomPainter {
       center,
       4,
       Paint()
-        ..color = const Color(0xFF002111)
+        ..color = AppColors.dark.surface
         ..style = PaintingStyle.fill,
     );
   }
@@ -94,7 +95,7 @@ class DashedCirclePainter extends CustomPainter {
     final center = size.center(Offset.zero);
     final radius = size.width / 2 - 4;
     final paint = Paint()
-      ..color = const Color(0xFF36FF8B).withValues(alpha: 0.2)
+      ..color = AppColors.dark.brightGreen.withValues(alpha: 0.2)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1;
 
@@ -134,7 +135,7 @@ class ParticlePainter extends CustomPainter {
         Offset(x, y),
         radius,
         Paint()
-          ..color = const Color(0xFF10B981)
+          ..color = AppColors.dark.emerald
               .withValues(alpha: 0.15 + rng.next() * 0.2),
       );
     }

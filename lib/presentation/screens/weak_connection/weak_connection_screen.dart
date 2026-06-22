@@ -141,19 +141,19 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
           ListenableBuilder(
             listenable: _ringController,
             builder: (context, _) {
-              return _buildPulseRing(size, 0, _ringController.value);
+              return _buildPulseRing(size, 0, _ringController.value, colors);
             },
           ),
           ListenableBuilder(
             listenable: _ringController,
             builder: (context, _) {
-              return _buildPulseRing(size, 1, (_ringController.value + 0.33) % 1.0);
+              return _buildPulseRing(size, 1, (_ringController.value + 0.33) % 1.0, colors);
             },
           ),
           ListenableBuilder(
             listenable: _ringController,
             builder: (context, _) {
-              return _buildPulseRing(size, 2, (_ringController.value + 0.66) % 1.0);
+              return _buildPulseRing(size, 2, (_ringController.value + 0.66) % 1.0, colors);
             },
           ),
           _buildBioCore(size, colors),
@@ -162,7 +162,7 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
     );
   }
 
-  Widget _buildPulseRing(double size, int index, double progress) {
+  Widget _buildPulseRing(double size, int index, double progress, AppColorSet colors) {
     final scale = 0.33 + progress * 0.87;
     final opacity = (1.0 - progress) * 0.5;
     return Transform.scale(
@@ -173,7 +173,7 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           border: Border.all(
-            color: const Color(0xFF00FF85).withValues(alpha: opacity),
+            color: colors.neonGreen.withValues(alpha: opacity),
           ),
         ),
       ),
@@ -338,11 +338,11 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                _signalBar(6, 0.2),
+                _signalBar(6, 0.2, colors),
                 const SizedBox(width: 3),
-                _signalBar(10, 0.2),
+                _signalBar(10, 0.2, colors),
                 const SizedBox(width: 3),
-                _signalBar(14, 0.4, color: Colors.red),
+                _signalBar(14, 0.4, colors, color: Colors.red),
               ],
             ),
           ),
@@ -362,8 +362,8 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
     );
   }
 
-  Widget _signalBar(double height, double opacity, {Color? color}) {
-    final signalColor = color ?? const Color(0xFF00FF85);
+  Widget _signalBar(double height, double opacity, AppColorSet colors, {Color? color}) {
+    final signalColor = color ?? colors.neonGreen;
     return Container(
       width: 4,
       height: height,
@@ -380,7 +380,7 @@ class _StarfieldPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final rng = _SeededRandom(42);
     final paint = Paint()
-      ..color = const Color(0xFF10B981).withValues(alpha: 0.12);
+      ..color = AppColors.dark.emerald.withValues(alpha: 0.12);
     for (var i = 0; i < 50; i++) {
       final x = rng.next() * size.width;
       final y = rng.next() * size.height;
