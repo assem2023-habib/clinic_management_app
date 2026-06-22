@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -35,6 +36,7 @@ class PwHeroSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return SizedBox(
       width: double.infinity,
       height: 300,
@@ -51,25 +53,25 @@ class PwHeroSection extends StatelessWidget {
                   width: 260, height: 260,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    border: Border.all(color: const Color(0xFF4EDEA3).withValues(alpha: 0.15)),
+                    border: Border.all(color: colors.mint.withValues(alpha: 0.15)),
                   ),
                 ),
                 Container(
                   width: 210, height: 210,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    border: Border.all(color: const Color(0xFF4EDEA3).withValues(alpha: 0.08)),
+                    border: Border.all(color: colors.mint.withValues(alpha: 0.08)),
                   ),
                 ),
                 Container(
                   width: 128, height: 128,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: const Color(0xFF032515).withValues(alpha: 0.5),
-                    border: Border.all(color: const Color(0xFF4EDEA3).withValues(alpha: 0.15)),
-                    boxShadow: [BoxShadow(color: const Color(0xFF4EDEA3).withValues(alpha: 0.08), blurRadius: 40)],
+                    color: colors.cardBg.withValues(alpha: 0.5),
+                    border: Border.all(color: colors.mint.withValues(alpha: 0.15)),
+                    boxShadow: [BoxShadow(color: colors.mint.withValues(alpha: 0.08), blurRadius: 40)],
                   ),
-                  child: Icon(icon, size: 64, color: const Color(0xFF4EDEA3)),
+                  child: Icon(icon, size: 64, color: colors.mint),
                 ),
               ],
             ),
@@ -103,9 +105,9 @@ class _FloatingChipWidget extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(width: 6, height: 6, decoration: const BoxDecoration(shape: BoxShape.circle, color: Color(0xFF10B981))),
+          Container(width: 6, height: 6, decoration: BoxDecoration(shape: BoxShape.circle, color: colors.emerald)),
           const SizedBox(width: 6),
-          Text(label, style: const TextStyle(fontFamily: 'Sora', fontSize: 11, fontWeight: FontWeight.w600, letterSpacing: 0.5, color: Color(0xFFC6EBD1))),
+          Text(label, style: TextStyle(fontFamily: 'Sora', fontSize: 11, fontWeight: FontWeight.w600, letterSpacing: 0.5, color: colors.textPrimary)),
         ],
       ),
     ).animate(delay: (delay * 1000).round().ms).shakeY(
