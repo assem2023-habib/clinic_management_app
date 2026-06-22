@@ -8,6 +8,7 @@ class PatientBloc extends Bloc<PatientEvent, PatientState> {
 
   PatientBloc(this.repository) : super(PatientInitial()) {
     on<PatientLoadAll>(_onLoadAll);
+    on<PatientLoadMore>(_onLoadMore);
     on<PatientSearch>(_onSearch);
     on<PatientAdd>(_onAdd);
     on<PatientUpdate>(_onUpdate);
@@ -17,17 +18,33 @@ class PatientBloc extends Bloc<PatientEvent, PatientState> {
   Future<void> _onLoadAll(PatientLoadAll event, Emitter<PatientState> emit) async {
     emit(PatientLoading());
     try {
-      final patients = await repository.getAllPatients();
-      emit(PatientLoaded(patients));
+      final patients = await repository.getAllPatients(page: event.page, limit: event.limit);
+      final hasMore = patients.length >= event.limit;
+      emit(PatientLoaded(patients, hasMore: hasMore, page: event.page));
     } catch (e) {
       emit(PatientError(e.toString()));
     }
   }
 
-  Future<void> _onSearch(PatientSearch event, Emitter<PatientState> emit) async {
+  Future<void> _onLoadMore(PatientLoadMore event, Emitter<PatientState> emit) async {
+    if (state is! PatientLoaded || (state as PatientLoaded).isLoadingMore) return;
+    final current = state as PatientLoaded;
+    emit(current.copyWith(isLoadingMore: true));
     try {
-      final patients = await repository.searchPatients(event.query);
-      emit(PatientLoaded(patients));
+      final newPatients = await repository.getAllPatients(page: event.page, limit: event.limit);
+      final all = [...current.patients, ...newPatients];
+      final hasMore = newPatients.length >= event.limit;
+      emit(PatientLoaded(all, hasMore: hasMore, page: event.page));
+    } catch (e) {
+      emit(current.copyWith(isLoadingMore: false));
+    }
+  }
+
+  Future<void> _onSearch(PatientSearch event, Emitter<PatientState> emit) async {
+    emit(PatientLoading());
+    try {
+      final patients = await repository.getAllPatients(query: event.query, page: 1, limit: 50);
+      emit(PatientLoaded(patients, hasMore: false, page: 1));
     } catch (e) {
       emit(PatientError(e.toString()));
     }

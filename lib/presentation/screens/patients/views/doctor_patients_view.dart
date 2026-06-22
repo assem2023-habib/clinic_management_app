@@ -28,11 +28,30 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
   String _activeFilter = 'all';
 
   @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
   void dispose() {
     _searchDebounce?.cancel();
     _searchController.dispose();
+    _scrollController.removeListener(_onScroll);
     _scrollController.dispose();
     super.dispose();
+  }
+
+  void _onScroll() {
+    if (!_scrollController.hasClients) return;
+    final max = _scrollController.position.maxScrollExtent;
+    final current = _scrollController.position.pixels;
+    if (current >= max - 200) {
+      final state = context.read<PatientBloc>().state;
+      if (state is PatientLoaded && !state.isLoadingMore && state.hasMore) {
+        context.read<PatientBloc>().add(PatientLoadMore(page: state.page + 1));
+      }
+    }
   }
 
   List<PatientEntity> _filterPatients(List<PatientEntity> patients) {
@@ -63,13 +82,20 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
                   child: ListView.separated(
                     controller: _scrollController,
                     padding: const EdgeInsets.fromLTRB(AppSpacing.md, 0, AppSpacing.md, AppSpacing.lg),
-                    itemCount: filtered.length + 1,
+                    itemCount: filtered.length + 1 + (state.isLoadingMore ? 1 : 0),
                     separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.sm),
                     itemBuilder: (context, index) {
                       if (index == 0) return _buildSearchAndFilters(colors);
-                      final patient = filtered[index - 1];
+                      final itemIdx = index - 1;
+                      if (itemIdx >= filtered.length) {
+                        return const Padding(
+                          padding: EdgeInsets.all(16),
+                          child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
+                        );
+                      }
+                      final patient = filtered[itemIdx];
                       return AnimatedCard(
-                        index: index - 1,
+                        index: itemIdx,
                         child: _buildPatientCard(patient, colors),
                       );
                     },

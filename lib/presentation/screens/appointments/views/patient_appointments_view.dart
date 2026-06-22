@@ -256,46 +256,43 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
       grouped[key]!.add(a);
     }
 
+    final flat = <({bool isDivider, String monthLabel, AppointmentEntity? apt, bool isFirst, bool isLast})>[];
+    for (final entry in grouped.entries) {
+      final parts = entry.key.split('-');
+      String monthLabel;
+      if (parts.length == 2) {
+        const months = ['', AppStrings.monthJan, AppStrings.monthFeb, AppStrings.monthMar,
+          AppStrings.monthApr, AppStrings.monthMay, AppStrings.monthJun,
+          AppStrings.monthJul, AppStrings.monthAug, AppStrings.monthSep,
+          AppStrings.monthOct, AppStrings.monthNov, AppStrings.monthDec];
+        monthLabel = '${months[int.parse(parts[1])]} ${parts[0]}';
+      } else {
+        monthLabel = entry.key;
+      }
+      flat.add((isDivider: true, monthLabel: monthLabel, apt: null, isFirst: false, isLast: false));
+      final apts = entry.value;
+      for (var i = 0; i < apts.length; i++) {
+        flat.add((isDivider: false, monthLabel: '', apt: apts[i], isFirst: i == 0, isLast: i == apts.length - 1));
+      }
+    }
+
     return ListView.builder(
       padding: const EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.sm, AppSpacing.md, 100),
-      itemCount: grouped.entries.length,
+      itemCount: flat.length,
       itemBuilder: (_, i) {
-        final entry = grouped.entries.elementAt(i);
-        final apts = entry.value;
-        final parts = entry.key.split('-');
-        String monthLabel;
-        if (parts.length == 2) {
-          const months = ['', AppStrings.monthJan, AppStrings.monthFeb, AppStrings.monthMar,
-            AppStrings.monthApr, AppStrings.monthMay, AppStrings.monthJun,
-            AppStrings.monthJul, AppStrings.monthAug, AppStrings.monthSep,
-            AppStrings.monthOct, AppStrings.monthNov, AppStrings.monthDec];
-          monthLabel = '${months[int.parse(parts[1])]} ${parts[0]}';
-        } else {
-          monthLabel = entry.key;
+        final item = flat[i];
+        if (item.isDivider) {
+          return MonthDivider(monthLabel: item.monthLabel);
         }
-
-        return Column(
-          children: [
-            MonthDivider(monthLabel: monthLabel),
-            ...apts.asMap().entries.map((e) {
-              final idx = e.key;
-              final apt = e.value;
-              final isFirst = idx == 0;
-              final isLast = idx == apts.length - 1;
-              final isPast = !_showUpcoming;
-              final isFeatured = _showUpcoming && idx == 0 && apt.status == AppointmentStatus.confirmed;
-
-              return AppointmentTimelineRow(
-                appointment: apt,
-                isFirst: isFirst,
-                isLast: isLast,
-                isFeatured: isFeatured,
-                isPast: isPast,
-                onMoreTap: () => _showOptions(apt),
-                onTap: () => _showOptions(apt),
-              );
-            }),
-          ],
+        final apt = item.apt!;
+        return AppointmentTimelineRow(
+          appointment: apt,
+          isFirst: item.isFirst,
+          isLast: item.isLast,
+          isFeatured: _showUpcoming && item.isFirst && apt.status == AppointmentStatus.confirmed,
+          isPast: !_showUpcoming,
+          onMoreTap: () => _showOptions(apt),
+          onTap: () => _showOptions(apt),
         );
       },
     );

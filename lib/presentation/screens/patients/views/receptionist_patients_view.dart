@@ -22,6 +22,33 @@ class ReceptionistPatientsView extends StatefulWidget {
 
 class _ReceptionistPatientsViewState extends State<ReceptionistPatientsView> {
   final _searchController = TextEditingController();
+  final _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (!_scrollController.hasClients) return;
+    final max = _scrollController.position.maxScrollExtent;
+    final current = _scrollController.position.pixels;
+    if (current >= max - 200) {
+      final state = context.read<PatientBloc>().state;
+      if (state is PatientLoaded && !state.isLoadingMore && state.hasMore) {
+        context.read<PatientBloc>().add(PatientLoadMore(page: state.page + 1));
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,13 +73,22 @@ class _ReceptionistPatientsViewState extends State<ReceptionistPatientsView> {
               if (state is PatientLoaded) {
                 if (state.patients.isEmpty) return const EmptyDataWidget(icon: Icons.people_outline_rounded, title: AppStrings.noData, compact: true);
                 return ListView.separated(
+                  controller: _scrollController,
                   padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm),
-                  itemCount: state.patients.length,
+                  itemCount: state.patients.length + (state.isLoadingMore ? 1 : 0),
                   separatorBuilder: (_, _) => const SizedBox(height: 8),
-                  itemBuilder: (context, index) => AnimatedCard(
-                    index: index,
-                    child: _buildPatientCard(state.patients[index], colors),
-                  ),
+                  itemBuilder: (context, index) {
+                    if (index >= state.patients.length) {
+                      return const Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
+                      );
+                    }
+                    return AnimatedCard(
+                      index: index,
+                      child: _buildPatientCard(state.patients[index], colors),
+                    );
+                  },
                 );
               }
               if (state is PatientError) return Center(child: Text(state.message, style: TextStyle(color: colors.error)));

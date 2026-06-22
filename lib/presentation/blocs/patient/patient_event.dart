@@ -7,7 +7,20 @@ abstract class PatientEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class PatientLoadAll extends PatientEvent {}
+class PatientLoadAll extends PatientEvent {
+  final int page;
+  final int limit;
+  const PatientLoadAll({this.page = 1, this.limit = 20});
+  @override
+  List<Object?> get props => [page, limit];
+}
+class PatientLoadMore extends PatientEvent {
+  final int page;
+  final int limit;
+  const PatientLoadMore({this.page = 1, this.limit = 20});
+  @override
+  List<Object?> get props => [page, limit];
+}
 class PatientSearch extends PatientEvent {
   final String query;
   const PatientSearch(this.query);

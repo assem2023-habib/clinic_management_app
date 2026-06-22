@@ -13,9 +13,20 @@ class PatientLoading extends PatientState {}
 
 class PatientLoaded extends PatientState {
   final List<PatientEntity> patients;
-  const PatientLoaded(this.patients);
+  final bool isLoadingMore;
+  final bool hasMore;
+  final int page;
+  const PatientLoaded(this.patients, {this.isLoadingMore = false, this.hasMore = true, this.page = 1});
+  PatientLoaded copyWith({List<PatientEntity>? patients, bool? isLoadingMore, bool? hasMore, int? page}) {
+    return PatientLoaded(
+      patients ?? this.patients,
+      isLoadingMore: isLoadingMore ?? this.isLoadingMore,
+      hasMore: hasMore ?? this.hasMore,
+      page: page ?? this.page,
+    );
+  }
   @override
-  List<Object?> get props => [patients];
+  List<Object?> get props => [patients, isLoadingMore, hasMore, page];
 }
 
 class PatientError extends PatientState {

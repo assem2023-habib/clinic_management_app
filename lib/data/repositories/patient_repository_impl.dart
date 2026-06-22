@@ -11,10 +11,10 @@ class PatientRepositoryImpl implements PatientRepository {
   PatientRepositoryImpl(this.dataSource, {this.remoteDataSource});
 
   @override
-  Future<List<PatientEntity>> getAllPatients({String? query, String? gender, bool? isActive}) async {
+  Future<List<PatientEntity>> getAllPatients({String? query, String? gender, bool? isActive, int page = 1, int limit = 20}) async {
     if (remoteDataSource != null) {
       try {
-        return await remoteDataSource!.getPatients(search: query, gender: gender, isActive: isActive);
+        return await remoteDataSource!.getPatients(search: query, gender: gender, isActive: isActive, page: page, limit: limit);
       } catch (_) {}
     }
     if (query != null && query.isNotEmpty) {
