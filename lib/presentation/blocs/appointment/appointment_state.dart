@@ -12,9 +12,20 @@ class AppointmentInitial extends AppointmentState {}
 class AppointmentLoading extends AppointmentState {}
 class AppointmentLoaded extends AppointmentState {
   final List<AppointmentEntity> appointments;
-  const AppointmentLoaded(this.appointments);
+  final bool isLoadingMore;
+  final bool hasMore;
+  final int page;
+  const AppointmentLoaded(this.appointments, {this.isLoadingMore = false, this.hasMore = true, this.page = 1});
+  AppointmentLoaded copyWith({List<AppointmentEntity>? appointments, bool? isLoadingMore, bool? hasMore, int? page}) {
+    return AppointmentLoaded(
+      appointments ?? this.appointments,
+      isLoadingMore: isLoadingMore ?? this.isLoadingMore,
+      hasMore: hasMore ?? this.hasMore,
+      page: page ?? this.page,
+    );
+  }
   @override
-  List<Object?> get props => [appointments];
+  List<Object?> get props => [appointments, isLoadingMore, hasMore, page];
 }
 class AppointmentError extends AppointmentState {
   final String message;

@@ -7,6 +7,7 @@ import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
+import 'package:clinic_management_app/presentation/blocs/appointment/appointment_event.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_state.dart';
 import 'package:clinic_management_app/presentation/widgets/appointments/appointment_card_skeleton.dart';
 import 'package:clinic_management_app/presentation/widgets/appointments/appointment_options_sheet.dart';
@@ -23,17 +24,38 @@ class PatientAppointmentsView extends StatefulWidget {
 class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
   final _searchCtrl = TextEditingController();
   final _focusNode = FocusNode();
+  final _scrollController = ScrollController();
   Timer? _searchDebounce;
   String _searchQuery = '';
   AppointmentStatus? _statusFilter;
   bool _showUpcoming = true;
 
   @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
   void dispose() {
     _searchDebounce?.cancel();
     _searchCtrl.dispose();
     _focusNode.dispose();
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
     super.dispose();
+  }
+
+  void _onScroll() {
+    if (!_scrollController.hasClients) return;
+    final max = _scrollController.position.maxScrollExtent;
+    final current = _scrollController.position.pixels;
+    if (current >= max - 200) {
+      final state = context.read<AppointmentBloc>().state;
+      if (state is AppointmentLoaded && !state.isLoadingMore && state.hasMore) {
+        context.read<AppointmentBloc>().add(AppointmentLoadMore(page: state.page + 1));
+      }
+    }
   }
 
   @override
@@ -44,7 +66,7 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
           return _buildSkeleton();
         }
         if (state is AppointmentLoaded) {
-          return _buildContent(state.appointments);
+          return _buildContent(state.appointments, state.isLoadingMore);
         }
         if (state is AppointmentError) {
           return Center(
@@ -52,7 +74,7 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
               style: TextStyle(color: AppColors.of(context).error, fontSize: AppSpacing.bodyMedium)),
           );
         }
-        return _buildContent([]);
+        return _buildContent([], false);
       },
     );
   }
@@ -68,7 +90,7 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
     );
   }
 
-  Widget _buildContent(List<AppointmentEntity> all) {
+  Widget _buildContent(List<AppointmentEntity> all, bool isLoadingMore) {
     final c = AppColors.of(context);
     final now = DateTime.now();
 
@@ -115,7 +137,7 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
                     ],
                   ),
                 )
-              : _buildTimelineList(filtered),
+              : _buildTimelineList(filtered, isLoadingMore),
         ),
       ],
     );
@@ -246,7 +268,7 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
     );
   }
 
-  Widget _buildTimelineList(List<AppointmentEntity> items) {
+  Widget _buildTimelineList(List<AppointmentEntity> items, bool isLoadingMore) {
     final grouped = <String, List<AppointmentEntity>>{};
     for (final a in items) {
       final d = a.date ?? a.appointmentDate ?? '';
@@ -277,9 +299,16 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
     }
 
     return ListView.builder(
+      controller: _scrollController,
       padding: const EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.sm, AppSpacing.md, 100),
-      itemCount: flat.length,
+      itemCount: flat.length + (isLoadingMore ? 1 : 0),
       itemBuilder: (_, i) {
+        if (i >= flat.length) {
+          return const Padding(
+            padding: EdgeInsets.all(16),
+            child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
+          );
+        }
         final item = flat[i];
         if (item.isDivider) {
           return MonthDivider(monthLabel: item.monthLabel);

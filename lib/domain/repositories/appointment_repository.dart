@@ -2,7 +2,7 @@ import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
 import 'package:clinic_management_app/domain/entities/booked_slot_entity.dart';
 
 abstract class AppointmentRepository {
-  Future<List<AppointmentEntity>> getAllAppointments();
+  Future<List<AppointmentEntity>> getAllAppointments({int page = 1, int limit = 10});
   Future<AppointmentEntity?> getAppointmentById(String id);
   Future<List<AppointmentEntity>> getAppointmentsByDate(DateTime date);
   Future<List<AppointmentEntity>> getAppointmentsByPatient(String patientId);

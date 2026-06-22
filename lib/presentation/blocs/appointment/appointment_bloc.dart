@@ -10,6 +10,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
 
   AppointmentBloc(this.repository) : super(AppointmentInitial()) {
     on<AppointmentLoadAll>(_onLoadAll);
+    on<AppointmentLoadMore>(_onLoadMore);
     on<AppointmentLoadByDate>(_onLoadByDate);
     on<AppointmentAdd>(_onAdd);
     on<AppointmentUpdate>(_onUpdate);
@@ -30,10 +31,25 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
   Future<void> _onLoadAll(AppointmentLoadAll event, Emitter<AppointmentState> emit) async {
     emit(AppointmentLoading());
     try {
-      final appointments = await repository.getAllAppointments();
-      emit(AppointmentLoaded(appointments));
+      final appointments = await repository.getAllAppointments(page: event.page, limit: event.limit);
+      final hasMore = appointments.length >= event.limit;
+      emit(AppointmentLoaded(appointments, hasMore: hasMore, page: event.page));
     } catch (e) {
       emit(AppointmentError(e.toString()));
+    }
+  }
+
+  Future<void> _onLoadMore(AppointmentLoadMore event, Emitter<AppointmentState> emit) async {
+    if (state is! AppointmentLoaded || (state as AppointmentLoaded).isLoadingMore) return;
+    final current = state as AppointmentLoaded;
+    emit(current.copyWith(isLoadingMore: true));
+    try {
+      final newAppts = await repository.getAllAppointments(page: event.page, limit: event.limit);
+      final all = [...current.appointments, ...newAppts];
+      final hasMore = newAppts.length >= event.limit;
+      emit(AppointmentLoaded(all, hasMore: hasMore, page: event.page));
+    } catch (e) {
+      emit(current.copyWith(isLoadingMore: false));
     }
   }
 
@@ -49,8 +65,8 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
   Future<void> _onAdd(AppointmentAdd event, Emitter<AppointmentState> emit) async {
     try {
       await repository.addAppointment(event.appointment);
-      final appointments = await repository.getAllAppointments();
-      emit(AppointmentLoaded(appointments));
+      final appointments = await repository.getAllAppointments(page: 1, limit: 10);
+      emit(AppointmentLoaded(appointments, hasMore: appointments.length >= 10, page: 1));
     } catch (e) {
       emit(AppointmentError(e.toString()));
     }
@@ -59,8 +75,8 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
   Future<void> _onUpdate(AppointmentUpdate event, Emitter<AppointmentState> emit) async {
     try {
       await repository.updateAppointment(event.appointment);
-      final appointments = await repository.getAllAppointments();
-      emit(AppointmentLoaded(appointments));
+      final appointments = await repository.getAllAppointments(page: 1, limit: 10);
+      emit(AppointmentLoaded(appointments, hasMore: appointments.length >= 10, page: 1));
     } catch (e) {
       emit(AppointmentError(e.toString()));
     }
@@ -69,8 +85,8 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
   Future<void> _onDelete(AppointmentDelete event, Emitter<AppointmentState> emit) async {
     try {
       await repository.deleteAppointment(event.id);
-      final appointments = await repository.getAllAppointments();
-      emit(AppointmentLoaded(appointments));
+      final appointments = await repository.getAllAppointments(page: 1, limit: 10);
+      emit(AppointmentLoaded(appointments, hasMore: appointments.length >= 10, page: 1));
     } catch (e) {
       emit(AppointmentError(e.toString()));
     }
@@ -79,8 +95,8 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
   Future<void> _onUpdateStatus(AppointmentUpdateStatus event, Emitter<AppointmentState> emit) async {
     try {
       await repository.updateAppointmentStatus(event.id, event.status);
-      final appointments = await repository.getAllAppointments();
-      emit(AppointmentLoaded(appointments));
+      final appointments = await repository.getAllAppointments(page: 1, limit: 10);
+      emit(AppointmentLoaded(appointments, hasMore: appointments.length >= 10, page: 1));
     } catch (e) {
       emit(AppointmentError(e.toString()));
     }
@@ -136,8 +152,8 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
     emit(AppointmentLoading());
     try {
       await repository.cancelAppointment(event.appointmentId);
-      final appointments = await repository.getAllAppointments();
-      emit(AppointmentLoaded(appointments));
+      final appointments = await repository.getAllAppointments(page: 1, limit: 10);
+      emit(AppointmentLoaded(appointments, hasMore: appointments.length >= 10, page: 1));
     } catch (e) {
       emit(AppointmentError(e.toString()));
     }
@@ -147,8 +163,8 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
     emit(AppointmentLoading());
     try {
       await repository.completeAppointment(event.appointmentId);
-      final appointments = await repository.getAllAppointments();
-      emit(AppointmentLoaded(appointments));
+      final appointments = await repository.getAllAppointments(page: 1, limit: 10);
+      emit(AppointmentLoaded(appointments, hasMore: appointments.length >= 10, page: 1));
     } catch (e) {
       emit(AppointmentError(e.toString()));
     }
@@ -158,8 +174,8 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
     emit(AppointmentLoading());
     try {
       await repository.suggestAlternative(event.appointmentId, event.message);
-      final appointments = await repository.getAllAppointments();
-      emit(AppointmentLoaded(appointments));
+      final appointments = await repository.getAllAppointments(page: 1, limit: 10);
+      emit(AppointmentLoaded(appointments, hasMore: appointments.length >= 10, page: 1));
     } catch (e) {
       emit(AppointmentError(e.toString()));
     }

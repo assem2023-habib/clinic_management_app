@@ -7,7 +7,21 @@ abstract class AppointmentEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class AppointmentLoadAll extends AppointmentEvent {}
+class AppointmentLoadAll extends AppointmentEvent {
+  final int page;
+  final int limit;
+  const AppointmentLoadAll({this.page = 1, this.limit = 10});
+  @override
+  List<Object?> get props => [page, limit];
+}
+
+class AppointmentLoadMore extends AppointmentEvent {
+  final int page;
+  final int limit;
+  const AppointmentLoadMore({this.page = 1, this.limit = 10});
+  @override
+  List<Object?> get props => [page, limit];
+}
 
 class AppointmentLoadByDate extends AppointmentEvent {
   final DateTime date;

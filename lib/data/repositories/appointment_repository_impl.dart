@@ -15,10 +15,10 @@ class AppointmentRepositoryImpl implements AppointmentRepository {
   AppointmentRepositoryImpl(this.localDataSource, {this.remoteDataSource, this.rtdbService});
 
   @override
-  Future<List<AppointmentEntity>> getAllAppointments() async {
+  Future<List<AppointmentEntity>> getAllAppointments({int page = 1, int limit = 10}) async {
     if (remoteDataSource != null) {
       try {
-        return await remoteDataSource!.getAppointments();
+        return await remoteDataSource!.getAppointments(page: page, limit: limit);
       } catch (_) {}
     }
     return localDataSource.allAppointments;
