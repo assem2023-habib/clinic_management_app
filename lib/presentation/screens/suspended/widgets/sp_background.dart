@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import '../suspended_painters.dart';
 
@@ -43,6 +44,7 @@ class SpBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return AnimatedBuilder(
       animation: Listenable.merge([particleController, pulseController]),
       builder: (context, child) {
@@ -64,9 +66,9 @@ class SpBackground extends StatelessWidget {
                     gradient: RadialGradient(
                       center: Alignment.center,
                       colors: [
-                        const Color(0xFF4EDEA3)
+                        colors.mint
                             .withValues(alpha: _pulseAlpha(t1)),
-                        const Color(0xFF4EDEA3).withValues(alpha: 0.0),
+                        colors.mint.withValues(alpha: 0.0),
                       ],
                       stops: const [0.0, 0.7],
                     ),
@@ -87,9 +89,9 @@ class SpBackground extends StatelessWidget {
                     gradient: RadialGradient(
                       center: Alignment.center,
                       colors: [
-                        const Color(0xFF4EDEA3)
+                        colors.mint
                             .withValues(alpha: _pulseAlpha(t2)),
-                        const Color(0xFF4EDEA3).withValues(alpha: 0.0),
+                        colors.mint.withValues(alpha: 0.0),
                       ],
                       stops: const [0.0, 0.7],
                     ),

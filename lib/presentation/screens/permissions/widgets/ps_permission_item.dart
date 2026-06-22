@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class PsPermissionItem extends StatelessWidget {
@@ -9,10 +10,11 @@ class PsPermissionItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: const Color(0xFF032515).withValues(alpha: 0.5),
+        color: colors.cardBg.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
       ),
@@ -23,24 +25,24 @@ class PsPermissionItem extends StatelessWidget {
             width: 40,
             height: 40,
             decoration: BoxDecoration(
-              color: const Color(0xFF10B981).withValues(alpha: 0.1),
+              color: colors.emerald.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(icon, size: 22, color: const Color(0xFF4EDEA3)),
+            child: Icon(icon, size: 22, color: colors.mint),
           ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text(title, style: const TextStyle(fontFamily: 'Sora', fontSize: 14, fontWeight: FontWeight.w500, color: Color(0xFFC6EBD1))),
+                Text(title, style: const TextStyle(fontFamily: 'Sora', fontSize: 14, fontWeight: FontWeight.w500, color: colors.textPrimary)),
                 const SizedBox(height: 2),
-                Text(hint, style: const TextStyle(fontFamily: 'Sora', fontSize: 12, fontWeight: FontWeight.w600, letterSpacing: 0.5, color: Color(0xFFBBCABF))),
+                Text(hint, style: const TextStyle(fontFamily: 'Sora', fontSize: 12, fontWeight: FontWeight.w600, letterSpacing: 0.5, color: colors.textMuted)),
               ],
             ),
           ),
           const SizedBox(width: 8),
-          const Icon(Icons.cancel_rounded, size: 20, color: Color(0xFFFFB4AB)),
+          const Icon(Icons.cancel_rounded, size: 20, color: colors.error),
         ],
       ),
     );

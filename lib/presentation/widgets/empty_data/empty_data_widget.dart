@@ -151,7 +151,7 @@ class EmptyDataWidget extends StatelessWidget {
       child: ElevatedButton(
         onPressed: action!.onTap,
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF00FF85),
+          backgroundColor: colors.neonGreen,
           foregroundColor: Colors.black,
           padding: const EdgeInsets.symmetric(vertical: 14),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

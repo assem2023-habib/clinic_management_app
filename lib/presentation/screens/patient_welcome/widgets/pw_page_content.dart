@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class PwPageContent extends StatelessWidget {
@@ -8,6 +9,7 @@ class PwPageContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
@@ -21,7 +23,7 @@ class PwPageContent extends StatelessWidget {
               fontWeight: FontWeight.w600,
               height: 1.2,
               letterSpacing: -0.01,
-              color: Color(0xFFC6EBD1),
+              color: colors.textPrimary,
             ),
           ),
           const SizedBox(height: 12),
@@ -33,7 +35,7 @@ class PwPageContent extends StatelessWidget {
               fontSize: 16,
               fontWeight: FontWeight.w400,
               height: 1.5,
-              color: const Color(0xFFBBCABF).withValues(alpha: 0.8),
+              color: colors.textMuted.withValues(alpha: 0.8),
             ),
           ),
         ],

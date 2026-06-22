@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class SfParticleData {
@@ -12,7 +13,7 @@ class SfParticlePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     for (final p in particles) {
       canvas.drawCircle(Offset(p.x, p.y), p.size, Paint()
-        ..color = const Color(0xFF4EDEA3).withValues(alpha: p.opacity));
+        ..color = AppColors.dark.mint.withValues(alpha: p.opacity));
     }
   }
   @override

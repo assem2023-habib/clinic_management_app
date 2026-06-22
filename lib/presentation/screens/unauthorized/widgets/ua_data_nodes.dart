@@ -32,7 +32,7 @@ class UaDataNodes extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 16, color: const Color(0xFF4EDEA3)),
+          Icon(icon, size: 16, color: colors.mint),
           const SizedBox(width: AppSpacing.bulletSize),
           Text(
             label,

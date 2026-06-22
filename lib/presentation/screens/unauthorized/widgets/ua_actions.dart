@@ -30,7 +30,7 @@ class UaActions extends StatelessWidget {
             label: const Text(AppStrings.uaLogin),
             style: ElevatedButton.styleFrom(
               backgroundColor: colors.vibrantGreen,
-              foregroundColor: const Color(0xFF00422B),
+              foregroundColor: colors.buttonTextDark,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(999),
               ),

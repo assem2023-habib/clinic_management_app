@@ -11,12 +11,12 @@ class UaContent extends StatelessWidget {
     final colors = AppColors.of(context);
     return Column(
       children: [
-        const Text(
+        Text(
           AppStrings.uaTitle,
           style: TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.w600,
-            color: Color(0xFF4EDEA3),
+            color: colors.mint,
           ),
           textAlign: TextAlign.center,
         ),

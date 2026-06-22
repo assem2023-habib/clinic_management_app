@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class PsParticleData {
@@ -15,7 +16,7 @@ class PsParticlePainter extends CustomPainter {
         Offset(p.x, p.y),
         p.size,
         Paint()..shader = RadialGradient(
-          colors: [const Color(0xFF10B981).withValues(alpha: p.opacity), Colors.transparent],
+          colors: [AppColors.dark.emerald.withValues(alpha: p.opacity), Colors.transparent],
         ).createShader(Rect.fromCircle(center: Offset(p.x, p.y), radius: p.size * 3)),
       );
     }
@@ -47,7 +48,7 @@ class PsPulseRingPainter extends CustomPainter {
       canvas.drawCircle(center, radius, Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = 1.5
-        ..color = const Color(0xFF10B981).withValues(alpha: alpha));
+        ..color = AppColors.dark.emerald.withValues(alpha: alpha));
     }
   }
   @override

@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class SeededRandom {
@@ -15,7 +16,7 @@ class UaParticlePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final rng = SeededRandom(42);
     final paint = Paint()
-      ..color = const Color(0xFF10B981).withValues(alpha: 0.25);
+      ..color = AppColors.dark.emerald.withValues(alpha: 0.25);
     for (var i = 0; i < 25; i++) {
       final x = rng.next() * size.width;
       final y = rng.next() * size.height;

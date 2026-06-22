@@ -207,12 +207,12 @@ class StateScreen extends StatelessWidget {
       child: ElevatedButton(
         onPressed: isEnabled ? primaryAction!.onTap : null,
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF00FF85),
+          backgroundColor: colors.neonGreen,
           foregroundColor: Colors.black,
           padding: const EdgeInsets.symmetric(vertical: 16),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           elevation: 0,
-          shadowColor: const Color(0xFF00FF85).withValues(alpha: 0.3),
+          shadowColor: colors.neonGreen.withValues(alpha: 0.3),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

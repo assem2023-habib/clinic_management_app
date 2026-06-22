@@ -22,12 +22,12 @@ class SpReasonCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             AppStrings.spReasonLabel,
             style: TextStyle(
               fontSize: AppSpacing.bodySmall,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF4EDEA3),
+              color: colors.mint,
               letterSpacing: 0.05,
             ),
           ),

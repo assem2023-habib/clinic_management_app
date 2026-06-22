@@ -364,7 +364,7 @@ class _ParticlePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final rng = _SeededRandom(42);
-    final paint = Paint()..color = const Color(0xFF10B981).withValues(alpha: 0.15);
+    final paint = Paint()..color = AppColors.dark.emerald.withValues(alpha: 0.15);
     for (var i = 0; i < 30; i++) {
       final x = rng.next() * size.width;
       final y = rng.next() * size.height;

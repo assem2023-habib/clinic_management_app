@@ -80,7 +80,7 @@ class _SuspendedScreenState extends State<SuspendedScreen>
                   particles: _particles,
                   size: size,
                 ),
-                _buildContent(),
+                _buildContent(colors),
               ],
             );
           },
@@ -89,10 +89,10 @@ class _SuspendedScreenState extends State<SuspendedScreen>
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(AppColorSet colors) {
     return Column(
       children: [
-        _buildAppBar(),
+        _buildAppBar(colors),
         Expanded(
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -118,7 +118,7 @@ class _SuspendedScreenState extends State<SuspendedScreen>
     );
   }
 
-  Widget _buildAppBar() {
+  Widget _buildAppBar(AppColorSet colors) {
     return Container(
       width: double.infinity,
       height: AppSpacing.appBarHeight,
@@ -134,9 +134,9 @@ class _SuspendedScreenState extends State<SuspendedScreen>
               width: AppSpacing.iconContainer,
               height: AppSpacing.iconContainer,
               alignment: Alignment.center,
-              child: const Icon(
+              child: Icon(
                 Icons.arrow_forward_rounded,
-                color: Color(0xFF4EDEA3),
+                color: colors.mint,
                 size: AppSpacing.iconSize,
               ),
             ),

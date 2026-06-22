@@ -34,12 +34,12 @@ class PwBottomActions extends StatelessWidget {
                 height: 8,
                 decoration: BoxDecoration(
                   color: isActive
-                      ? const Color(0xFF4EDEA3)
+                      ? colors.mint
                       : colors.textSecondary.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(4),
                   boxShadow: isActive
                       ? [BoxShadow(
-                          color: const Color(0xFF10B981).withValues(alpha: 0.5),
+                          color: colors.emerald.withValues(alpha: 0.5),
                           blurRadius: 8,
                         )]
                       : null,
@@ -53,14 +53,14 @@ class PwBottomActions extends StatelessWidget {
             child: ElevatedButton(
               onPressed: onStart,
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF10B981),
-                foregroundColor: const Color(0xFF003824),
+                backgroundColor: colors.emerald,
+                foregroundColor: colors.buttonBg,
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
                 elevation: 0,
-                shadowColor: const Color(0xFF10B981).withValues(alpha: 0.3),
+                shadowColor: colors.emerald.withValues(alpha: 0.3),
               ),
               child: Text(
                 startLabel,

@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
@@ -9,6 +10,7 @@ class NfActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
@@ -18,8 +20,8 @@ class NfActions extends StatelessWidget {
             child: ElevatedButton(
               onPressed: onRetry ?? () => Navigator.pop(context),
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF10B981),
-                foregroundColor: const Color(0xFF003824),
+                backgroundColor: colors.emerald,
+                foregroundColor: colors.buttonBg,
                 padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
                 elevation: 0,
@@ -44,7 +46,7 @@ class NfActions extends StatelessWidget {
               onPressed: onBack ?? () => Navigator.pop(context),
               child: const Text(
                 'العَوْدَةُ لِلإِشْعَارَاتِ',
-                style: TextStyle(fontFamily: 'Sora', fontSize: 15, fontWeight: FontWeight.w500, color: Color(0xFFBBCABF)),
+                style: TextStyle(fontFamily: 'Sora', fontSize: 15, fontWeight: FontWeight.w500, color: colors.textMuted),
               ),
             ),
           ),

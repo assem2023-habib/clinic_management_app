@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
@@ -14,6 +15,7 @@ class SpActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Column(
       children: [
         SizedBox(
@@ -24,8 +26,8 @@ class SpActions extends StatelessWidget {
             icon: const Icon(Icons.support_agent_rounded, size: 22),
             label: const Text(AppStrings.spContactSupport),
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF10B981),
-              foregroundColor: const Color(0xFF00422B),
+              backgroundColor: colors.emerald,
+              foregroundColor: colors.buttonTextDark,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
               ),
@@ -42,9 +44,9 @@ class SpActions extends StatelessWidget {
             icon: const Icon(Icons.logout_rounded, size: 22),
             label: const Text(AppStrings.spLogout),
             style: OutlinedButton.styleFrom(
-              foregroundColor: const Color(0xFF4EDEA3),
+              foregroundColor: colors.mint,
               side: BorderSide(
-                color: const Color(0xFF4EDEA3).withValues(alpha: 0.3),
+                color: colors.mint.withValues(alpha: 0.3),
               ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
@@ -53,12 +55,12 @@ class SpActions extends StatelessWidget {
           ),
         ),
         const SizedBox(height: AppSpacing.md),
-        const Text(
+        Text(
           AppStrings.spFooter,
           style: TextStyle(
             fontSize: AppSpacing.bodySmall,
             fontWeight: FontWeight.w600,
-            color: Color(0xFFBBCABF),
+            color: colors.textMuted,
           ),
           textAlign: TextAlign.center,
         ),

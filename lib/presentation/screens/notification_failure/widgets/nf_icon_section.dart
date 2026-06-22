@@ -18,10 +18,10 @@ class NfIconSection extends StatelessWidget {
             height: 192,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: const Color(0xFFFFB4AB).withValues(alpha: 0.15),
+              color: colors.error.withValues(alpha: 0.15),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFFFFB4AB).withValues(alpha: 0.15),
+                  color: colors.error.withValues(alpha: 0.15),
                   blurRadius: 60,
                   spreadRadius: 20,
                 ),
@@ -35,13 +35,13 @@ class NfIconSection extends StatelessWidget {
               shape: BoxShape.circle,
               color: colors.cardBg.withValues(alpha: 0.6),
               border: Border.all(
-                color: const Color(0xFFFFB4AB).withValues(alpha: 0.2),
+                color: colors.error.withValues(alpha: 0.2),
               ),
             ),
             child: const Icon(
               Icons.notifications_off_rounded,
               size: 64,
-              color: Color(0xFFFFB4AB),
+              color: colors.error,
             ),
           ),
         ],

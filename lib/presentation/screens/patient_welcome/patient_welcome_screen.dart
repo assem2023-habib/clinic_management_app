@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
@@ -68,8 +69,9 @@ class _PatientWelcomeScreenState extends State<PatientWelcomeScreen>
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Scaffold(
-      backgroundColor: const Color(0xFF00180B),
+      backgroundColor: colors.scaffoldBg,
       body: Stack(
         children: [
           LayoutBuilder(
@@ -89,14 +91,14 @@ class _PatientWelcomeScreenState extends State<PatientWelcomeScreen>
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.monitor_heart_rounded, size: 24, color: Color(0xFF4EDEA3)),
+                          const Icon(Icons.monitor_heart_rounded, size: 24, color: colors.mint),
                           const SizedBox(width: 6),
-                          const Text('Vitality', style: TextStyle(fontFamily: 'Sora', fontSize: 20, fontWeight: FontWeight.w700, color: Color(0xFF4EDEA3))),
+                          const Text('Vitality', style: TextStyle(fontFamily: 'Sora', fontSize: 20, fontWeight: FontWeight.w700, color: colors.mint)),
                         ],
                       ),
                       TextButton(
                         onPressed: _goToDashboard,
-                        child: const Text(AppStrings.pwSkip, style: TextStyle(fontFamily: 'Sora', fontSize: 14, fontWeight: FontWeight.w500, color: Color(0xFFBBCABF))),
+                        child: const Text(AppStrings.pwSkip, style: TextStyle(fontFamily: 'Sora', fontSize: 14, fontWeight: FontWeight.w500, color: colors.textMuted)),
                       ),
                     ],
                   ),

@@ -20,19 +20,19 @@ class OnboardingData {
   static List<OnboardingItem> get adminSteps => [
         const OnboardingItem(
           icon: Icons.admin_panel_settings_rounded,
-          iconColor: Color(0xFF80d8a6),
+          iconColor: AppColors.dark.primary,
           title: AppStrings.onboardingWelcomeTitle,
           subtitle: AppStrings.onboardingWelcomeSubtitle,
         ),
         const OnboardingItem(
           icon: Icons.calendar_month_rounded,
-          iconColor: Color(0xFF40e78c),
+          iconColor: AppColors.dark.secondary,
           title: AppStrings.onboardingScheduleTitle,
           subtitle: AppStrings.onboardingScheduleSubtitle,
         ),
         const OnboardingItem(
           icon: Icons.dashboard_customize_rounded,
-          iconColor: Color(0xFF93ecb8),
+          iconColor: AppColors.dark.primaryLight,
           title: AppStrings.onboardingDashboardTitle,
           subtitle: AppStrings.onboardingDashboardSubtitle,
         ),
@@ -41,19 +41,19 @@ class OnboardingData {
   static List<OnboardingItem> get doctorSteps => [
         const OnboardingItem(
           icon: Icons.local_hospital_rounded,
-          iconColor: Color(0xFF80d8a6),
+          iconColor: AppColors.dark.primary,
           title: AppStrings.onboardingDoctorWelcomeTitle,
           subtitle: AppStrings.onboardingDoctorWelcomeSubtitle,
         ),
         const OnboardingItem(
           icon: Icons.schedule_rounded,
-          iconColor: Color(0xFF40e78c),
+          iconColor: AppColors.dark.secondary,
           title: AppStrings.onboardingDoctorScheduleTitle,
           subtitle: AppStrings.onboardingDoctorScheduleSubtitle,
         ),
         const OnboardingItem(
           icon: Icons.connect_without_contact_rounded,
-          iconColor: Color(0xFF93ecb8),
+          iconColor: AppColors.dark.primaryLight,
           title: AppStrings.onboardingDoctorCommunicationTitle,
           subtitle: AppStrings.onboardingDoctorCommunicationSubtitle,
         ),
@@ -62,19 +62,19 @@ class OnboardingData {
   static List<OnboardingItem> get receptionistSteps => [
         const OnboardingItem(
           icon: Icons.assignment_ind_rounded,
-          iconColor: Color(0xFF80d8a6),
+          iconColor: AppColors.dark.primary,
           title: AppStrings.onboardingReceptionistTitle,
           subtitle: AppStrings.onboardingReceptionistSubtitle,
         ),
         const OnboardingItem(
           icon: Icons.calendar_month_rounded,
-          iconColor: Color(0xFF40e78c),
+          iconColor: AppColors.dark.secondary,
           title: AppStrings.onboardingReceptionistApptsTitle,
           subtitle: AppStrings.onboardingReceptionistApptsSubtitle,
         ),
         const OnboardingItem(
           icon: Icons.contact_phone_rounded,
-          iconColor: Color(0xFF93ecb8),
+          iconColor: AppColors.dark.primaryLight,
           title: AppStrings.onboardingReceptionistCoordTitle,
           subtitle: AppStrings.onboardingReceptionistCoordSubtitle,
         ),
@@ -83,19 +83,19 @@ class OnboardingData {
   static List<OnboardingItem> get patientSteps => [
         const OnboardingItem(
           icon: Icons.person_pin_rounded,
-          iconColor: Color(0xFF80d8a6),
+          iconColor: AppColors.dark.primary,
           title: AppStrings.onboardingPatientTitle,
           subtitle: AppStrings.onboardingPatientSubtitle,
         ),
         const OnboardingItem(
           icon: Icons.calendar_today_rounded,
-          iconColor: Color(0xFF40e78c),
+          iconColor: AppColors.dark.secondary,
           title: AppStrings.onboardingPatientApptsTitle,
           subtitle: AppStrings.onboardingPatientApptsSubtitle,
         ),
         const OnboardingItem(
           icon: Icons.health_and_safety_rounded,
-          iconColor: Color(0xFF93ecb8),
+          iconColor: AppColors.dark.primaryLight,
           title: AppStrings.onboardingPatientRecordsTitle,
           subtitle: AppStrings.onboardingPatientRecordsSubtitle,
         ),

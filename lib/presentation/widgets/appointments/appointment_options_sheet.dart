@@ -105,7 +105,7 @@ class AppointmentOptionsSheet extends StatelessWidget {
   void _confirmCancel(BuildContext context) {
     showDialog(
       context: context,
-      barrierColor: const Color(0xFF00180B).withValues(alpha: 0.85),
+      barrierColor: c.scaffoldBg.withValues(alpha: 0.85),
       builder: (ctx) => Dialog(
         backgroundColor: Colors.transparent,
         insetPadding: const EdgeInsets.symmetric(horizontal: 24),

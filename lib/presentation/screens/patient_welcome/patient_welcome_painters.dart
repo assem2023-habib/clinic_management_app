@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class PwParticleData {
@@ -22,7 +23,7 @@ class PwParticlePainter extends CustomPainter {
       canvas.drawCircle(
         Offset(p.x, p.y),
         p.size,
-        Paint()..color = const Color(0xFF4EDEA3).withValues(alpha: p.opacity),
+        Paint()..color = AppColors.dark.mint.withValues(alpha: p.opacity),
       );
     }
   }

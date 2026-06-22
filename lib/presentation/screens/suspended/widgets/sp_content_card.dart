@@ -20,28 +20,28 @@ class SpContentCard extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF4EDEA3).withValues(alpha: 0.05),
+            color: colors.mint.withValues(alpha: 0.05),
             blurRadius: 20,
           ),
         ],
       ),
       child: Column(
         children: [
-          const Text(
+          Text(
             AppStrings.spTitle,
             style: TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.w700,
-              color: Color(0xFF4EDEA3),
+              color: colors.mint,
             ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: AppSpacing.sm),
-          const Text(
+          Text(
             AppStrings.spMessage,
             style: TextStyle(
               fontSize: AppSpacing.bodyLarge,
-              color: Color(0xFFBBCABF),
+              color: colors.textMuted,
               height: 1.5,
             ),
             textAlign: TextAlign.center,

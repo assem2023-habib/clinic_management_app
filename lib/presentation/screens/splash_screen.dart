@@ -69,7 +69,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
             colors: [
               colors.primary,
               colors.primaryDark,
-              const Color(0xFF002E1A),
+              colors.splashBg,
             ],
             radius: 1.8,
             focal: const Alignment(0.0, -0.3),

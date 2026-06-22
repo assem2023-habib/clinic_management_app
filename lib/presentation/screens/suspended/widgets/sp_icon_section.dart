@@ -18,10 +18,10 @@ class SpIconSection extends StatelessWidget {
             height: 192,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: const Color(0xFF4EDEA3).withValues(alpha: 0.2),
+              color: colors.mint.withValues(alpha: 0.2),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFF4EDEA3).withValues(alpha: 0.2),
+                  color: colors.mint.withValues(alpha: 0.2),
                   blurRadius: 60,
                   spreadRadius: 20,
                 ),
@@ -35,19 +35,19 @@ class SpIconSection extends StatelessWidget {
               shape: BoxShape.circle,
               color: colors.cardBg.withValues(alpha: 0.6),
               border: Border.all(
-                color: const Color(0xFF4EDEA3).withValues(alpha: 0.2),
+                color: colors.mint.withValues(alpha: 0.2),
               ),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFF4EDEA3).withValues(alpha: 0.05),
+                  color: colors.mint.withValues(alpha: 0.05),
                   blurRadius: 20,
                 ),
               ],
             ),
-            child: const Icon(
+            child: Icon(
               Icons.gpp_maybe_rounded,
               size: 64,
-              color: Color(0xFF4EDEA3),
+              color: colors.mint,
             ),
           ),
         ],

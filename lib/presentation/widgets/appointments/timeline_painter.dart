@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
 
@@ -22,7 +23,7 @@ class TimelinePainter extends CustomPainter {
         ..shader = LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [const Color(0xFF006D44), const Color(0xFF006D44).withValues(alpha: 0.15)],
+          colors: [AppColors.dark.primaryDark, AppColors.dark.primaryDark.withValues(alpha: 0.15)],
         ).createShader(Rect.fromLTWH(lineX, dotY, 2, size.height - dotY))
         ..strokeWidth = 2
         ..style = PaintingStyle.stroke;
@@ -38,30 +39,30 @@ class TimelinePainter extends CustomPainter {
       case _UiStatus.confirmed:
         canvas.drawCircle(
           Offset(lineX, dotY), 7,
-          Paint()..color = const Color(0xFF80D8A6)..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4),
+          Paint()..color = AppColors.dark.primary..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4),
         );
-        canvas.drawCircle(Offset(lineX, dotY), 7, Paint()..color = const Color(0xFF80D8A6));
+        canvas.drawCircle(Offset(lineX, dotY), 7, Paint()..color = AppColors.dark.primary);
         canvas.drawCircle(
           Offset(lineX, dotY), 10,
-          Paint()..color = const Color(0xFF00180B)..style = PaintingStyle.stroke..strokeWidth = 3,
+          Paint()..color = AppColors.dark.scaffoldBg..style = PaintingStyle.stroke..strokeWidth = 3,
         );
 
       case _UiStatus.pending:
         canvas.drawCircle(
           Offset(lineX, dotY), 5,
-          Paint()..color = const Color(0xFF88938A),
+          Paint()..color = AppColors.dark.textLight,
         );
 
       case _UiStatus.completed:
         canvas.drawCircle(
           Offset(lineX, dotY), 4,
-          Paint()..color = const Color(0xFFBEC9BF).withValues(alpha: 0.6),
+          Paint()..color = AppColors.dark.divider.withValues(alpha: 0.6),
         );
 
       case _UiStatus.cancelled:
         canvas.drawCircle(
           Offset(lineX, dotY), 5,
-          Paint()..color = const Color(0xFFFFB4AB).withValues(alpha: 0.7),
+          Paint()..color = AppColors.dark.error.withValues(alpha: 0.7),
         );
     }
   }
@@ -95,11 +96,11 @@ extension AppointmentStatusUI on AppointmentStatus {
 
   Color get uiColor {
     return switch (this) {
-      AppointmentStatus.confirmed || AppointmentStatus.accepted || AppointmentStatus.set || AppointmentStatus.scheduled => const Color(0xFF80D8A6),
-      AppointmentStatus.pending || AppointmentStatus.requested => const Color(0xFFFFB3B1),
-      AppointmentStatus.completed => const Color(0xFF40E78C),
-      AppointmentStatus.cancelled || AppointmentStatus.rejected => const Color(0xFFFFB4AB),
-      AppointmentStatus.inProgress => const Color(0xFF80D8A6),
+      AppointmentStatus.confirmed || AppointmentStatus.accepted || AppointmentStatus.set || AppointmentStatus.scheduled => AppColors.dark.primary,
+      AppointmentStatus.pending || AppointmentStatus.requested => AppColors.dark.warning,
+      AppointmentStatus.completed => AppColors.dark.secondary,
+      AppointmentStatus.cancelled || AppointmentStatus.rejected => AppColors.dark.error,
+      AppointmentStatus.inProgress => AppColors.dark.primary,
     };
   }
 

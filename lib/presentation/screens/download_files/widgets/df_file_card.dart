@@ -124,8 +124,8 @@ class DfFileCard extends StatelessWidget {
   Color _statusColor(AppColorSet colors) {
     return switch (file.type.toUpperCase()) {
       'PDF' => colors.primary,
-      'JPG' || 'PNG' => const Color(0xFFF59E0B),
-      'DCM' => const Color(0xFF8B5CF6),
+      'JPG' || 'PNG' => colors.warning,
+      'DCM' => colors.purpleIcon,
       _ => colors.textLight,
     };
   }

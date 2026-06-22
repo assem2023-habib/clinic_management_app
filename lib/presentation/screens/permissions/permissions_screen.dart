@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/presentation/screens/permissions/permissions_painters.dart';
@@ -58,8 +59,9 @@ class _PermissionsScreenState extends State<PermissionsScreen>
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Scaffold(
-      backgroundColor: const Color(0xFF00180B),
+      backgroundColor: colors.scaffoldBg,
       body: Stack(
         children: [
           LayoutBuilder(
@@ -87,11 +89,11 @@ class _PermissionsScreenState extends State<PermissionsScreen>
                   child: Row(
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.arrow_back, color: Color(0xFF4EDEA3)),
+                        icon: const Icon(Icons.arrow_back, color: colors.mint),
                         onPressed: () => Navigator.pop(context),
                       ),
                       const Spacer(),
-                      const Text('Vitals Monitor', style: TextStyle(fontFamily: 'Sora', fontSize: 24, fontWeight: FontWeight.w700, color: Color(0xFF4EDEA3))),
+                      const Text('Vitals Monitor', style: TextStyle(fontFamily: 'Sora', fontSize: 24, fontWeight: FontWeight.w700, color: colors.mint)),
                       const SizedBox(width: 40),
                     ],
                   ),
@@ -103,9 +105,9 @@ class _PermissionsScreenState extends State<PermissionsScreen>
                   padding: const EdgeInsets.symmetric(horizontal: 32),
                   child: Column(
                     children: [
-                      const Text('الصَّلاحِيَاتُ المَطْلُوبَةُ', textAlign: TextAlign.center, style: TextStyle(fontFamily: 'Sora', fontSize: 28, fontWeight: FontWeight.w600, height: 1.2, color: Color(0xFFC6EBD1))),
+                      const Text('الصَّلاحِيَاتُ المَطْلُوبَةُ', textAlign: TextAlign.center, style: TextStyle(fontFamily: 'Sora', fontSize: 28, fontWeight: FontWeight.w600, height: 1.2, color: colors.textPrimary)),
                       const SizedBox(height: 12),
-                      const Text('لِلْحُصُولِ عَلَى أَفْضَلِ تَجْرِبَةٍ طِبِّيَّةٍ دَقِيقَةٍ، نَحْتَاجُ إِلَى الوُصُولِ لِبَعْضِ الصَّلاحِيَاتِ الأَسَاسِيَّةِ.', textAlign: TextAlign.center, style: TextStyle(fontFamily: 'Sora', fontSize: 16, fontWeight: FontWeight.w400, height: 1.5, color: Color(0xFFBBCABF))),
+                      const Text('لِلْحُصُولِ عَلَى أَفْضَلِ تَجْرِبَةٍ طِبِّيَّةٍ دَقِيقَةٍ، نَحْتَاجُ إِلَى الوُصُولِ لِبَعْضِ الصَّلاحِيَاتِ الأَسَاسِيَّةِ.', textAlign: TextAlign.center, style: TextStyle(fontFamily: 'Sora', fontSize: 16, fontWeight: FontWeight.w400, height: 1.5, color: colors.textMuted)),
                     ],
                   ),
                 ),

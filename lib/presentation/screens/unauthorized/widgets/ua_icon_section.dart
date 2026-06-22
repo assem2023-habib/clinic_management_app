@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -6,6 +7,7 @@ class UaIconSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return SizedBox(
       width: 160,
       height: 160,
@@ -17,7 +19,7 @@ class UaIconSection extends StatelessWidget {
             height: 200,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: const Color(0xFF4EDEA3).withValues(alpha: 0.05),
+              color: colors.mint.withValues(alpha: 0.05),
             ),
           ),
           Container(
@@ -25,15 +27,15 @@ class UaIconSection extends StatelessWidget {
             height: 128,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: const Color(0xFF0F301F).withValues(alpha: 0.4),
+              color: colors.surfaceDense.withValues(alpha: 0.4),
               border: Border.all(
                 color: Colors.white.withValues(alpha: 0.08),
               ),
             ),
-            child: const Icon(
+            child: Icon(
               Icons.lock_rounded,
               size: 64,
-              color: Color(0xFF4EDEA3),
+              color: colors.mint,
             ),
           ),
         ],

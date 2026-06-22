@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'dart:math';
 import 'dart:ui' show lerpDouble;
 import 'package:flutter/material.dart';
@@ -73,7 +74,7 @@ class _AmbientBgState extends State<AmbientBackground>
               return Positioned(
                 top: lerpDouble(-100, -30, t)!,
                 right: lerpDouble(-80, 20, t)!,
-                child: _Orb(size: 380, color: const Color(0xFF006D44)),
+                child: _Orb(size: 380, color: AppColors.dark.primaryDark),
               );
             }),
             AnimatedBuilder(animation: _orb2Ctrl, builder: (_, _) {
@@ -81,7 +82,7 @@ class _AmbientBgState extends State<AmbientBackground>
               return Positioned(
                 bottom: lerpDouble(-50, 30, t)!,
                 left: lerpDouble(-50, 20, t)!,
-                child: _Orb(size: 280, color: const Color(0xFF80D8A6)),
+                child: _Orb(size: 280, color: AppColors.dark.primary),
               );
             }),
             AnimatedBuilder(animation: _orb3Ctrl, builder: (_, _) {
@@ -91,7 +92,7 @@ class _AmbientBgState extends State<AmbientBackground>
               return Positioned(
                 top: lerpDouble(height * 0.35, height * 0.45, t)!,
                 left: lerpDouble(width * 0.25, width * 0.35, t)!,
-                child: const _Orb(size: 240, color: Color(0xFF40E78C), opacity: 0.08),
+                child: _Orb(size: 240, color: AppColors.dark.secondary, opacity: 0.08),
               );
             }),
             const _RisingParticles(count: 30),
@@ -205,7 +206,7 @@ class _RisingPainter extends CustomPainter {
       canvas.drawCircle(
         Offset(size.width * p.x, y),
         p.size / 2,
-        Paint()..color = const Color(0xFF80D8A6).withValues(alpha: op * 0.4),
+        Paint()..color = AppColors.dark.primary.withValues(alpha: op * 0.4),
       );
     }
   }
