@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class MrpConditionCard extends StatelessWidget {
@@ -16,10 +17,11 @@ class MrpConditionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFF012B17).withValues(alpha: 0.4),
+        color: colors.surfaceDark.withValues(alpha: 0.4),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
       ),
@@ -40,7 +42,7 @@ class MrpConditionCard extends StatelessWidget {
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: Color(0xFFC6EBD1),
+              color: colors.textPrimary,
             ),
           ),
         ],

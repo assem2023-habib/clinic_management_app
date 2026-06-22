@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 
@@ -17,6 +18,7 @@ class MrpTimelineItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return IntrinsicHeight(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,10 +31,10 @@ class MrpTimelineItem extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: isPrimary
-                      ? const Color(0xFF80D8A6)
-                      : const Color(0xFF88938A),
+                      ? colors.primary
+                      : colors.textLight,
                   border: Border.all(
-                    color: const Color(0xFF00180B),
+                    color: colors.scaffoldBg,
                     width: 4,
                   ),
                 ),
@@ -40,7 +42,7 @@ class MrpTimelineItem extends StatelessWidget {
               Expanded(
                 child: Container(
                   width: 1,
-                  color: const Color(0xFF3F4942).withValues(alpha: 0.3),
+                  color: colors.textSecondary.withValues(alpha: 0.3),
                 ),
               ),
             ],
@@ -51,7 +53,7 @@ class MrpTimelineItem extends StatelessWidget {
               margin: const EdgeInsets.only(bottom: 16),
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: const Color(0xFF012B17).withValues(alpha: 0.4),
+                color: colors.surfaceDark.withValues(alpha: 0.4),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
               ),
@@ -63,7 +65,7 @@ class MrpTimelineItem extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
-                      color: Color(0xFF80D8A6),
+                      color: colors.primary,
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -78,7 +80,7 @@ class MrpTimelineItem extends StatelessWidget {
                             style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFFC6EBD1),
+                              color: colors.textPrimary,
                             ),
                           ),
                           Text(
@@ -86,7 +88,7 @@ class MrpTimelineItem extends StatelessWidget {
                             style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
-                              color: Color(0xFFBEC9BF),
+                              color: colors.divider,
                             ),
                           ),
                         ],
@@ -97,7 +99,7 @@ class MrpTimelineItem extends StatelessWidget {
                           vertical: 4,
                         ),
                         decoration: BoxDecoration(
-                          color: const Color(0xFF1B3B29),
+                          color: colors.surfaceMedium,
                           borderRadius: BorderRadius.circular(999),
                         ),
                         child: Text(
@@ -105,7 +107,7 @@ class MrpTimelineItem extends StatelessWidget {
                           style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
-                            color: Color(0xFFBEC9BF),
+                            color: colors.divider,
                           ),
                         ),
                       ),

@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 
@@ -13,11 +14,12 @@ class MrpBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Container(
       height: 80,
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
       decoration: BoxDecoration(
-        color: const Color(0xFF032515).withValues(alpha: 0.4),
+        color: colors.cardBg.withValues(alpha: 0.4),
         borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
         border: Border(
           top: BorderSide(color: Colors.white.withValues(alpha: 0.05)),
@@ -46,8 +48,8 @@ class MrpBottomNav extends StatelessWidget {
             icon,
             size: 24,
             color: isActive
-                ? const Color(0xFF80D8A6)
-                : const Color(0xFFBEC9BF),
+                ? colors.primary
+                : colors.divider,
           ),
           const SizedBox(height: 4),
           Text(
@@ -56,8 +58,8 @@ class MrpBottomNav extends StatelessWidget {
               fontSize: 12,
               fontWeight: FontWeight.w500,
               color: isActive
-                  ? const Color(0xFF80D8A6)
-                  : const Color(0xFFBEC9BF),
+                  ? colors.primary
+                  : colors.divider,
             ),
           ),
         ],
@@ -71,20 +73,20 @@ class MrpBottomNav extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
         decoration: BoxDecoration(
-          color: const Color(0xFF00CA73),
+          color: colors.accent,
           borderRadius: BorderRadius.circular(999),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, size: 24, color: const Color(0xFF00391C)),
+            Icon(icon, size: 24, color: colors.timelineBg),
             const SizedBox(height: 4),
             Text(
               label,
               style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
-                color: Color(0xFF00391C),
+                color: colors.timelineBg,
               ),
             ),
           ],

@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
@@ -34,8 +35,9 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Scaffold(
-      backgroundColor: const Color(0xFF00180B),
+      backgroundColor: colors.scaffoldBg,
       body: SafeArea(
         child: Column(
           children: [
@@ -53,7 +55,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
       height: 64,
       padding: const EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
-        color: const Color(0xFF00180B).withValues(alpha: 0.4),
+        color: colors.scaffoldBg.withValues(alpha: 0.4),
       ),
       child: Row(
         children: [
@@ -68,7 +70,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
                 alignment: Alignment.center,
                 child: const Icon(
                   Icons.arrow_back_rounded,
-                  color: Color(0xFF80D8A6),
+                  color: colors.primary,
                   size: 24,
                 ),
               ),
@@ -80,14 +82,14 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF80D8A6),
+              color: colors.primary,
             ),
           ),
           const Spacer(),
           const Icon(
             Icons.lock_rounded,
             size: 24,
-            color: Color(0xFF80D8A6),
+            color: colors.primary,
           ),
         ],
       ),
@@ -135,7 +137,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
           if (diagnoses.isEmpty) {
             return const Padding(
               padding: EdgeInsets.symmetric(vertical: 8),
-              child: Text('لا توجد تشخيصات مسجلة', style: TextStyle(color: Color(0xFF88938A))),
+              child: Text('لا توجد تشخيصات مسجلة', style: TextStyle(color: colors.textLight)),
             );
           }
           return Column(
@@ -145,8 +147,8 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
                   padding: const EdgeInsets.only(bottom: 8),
                   child: MrpConditionCard(
                     icon: Icons.monitor_heart_rounded,
-                    iconBg: const Color(0xFF80D8A6),
-                    iconColor: const Color(0xFF80D8A6),
+                    iconBg: colors.primary,
+                    iconColor: colors.primary,
                     label: diagnosis,
                   ),
                 ),
@@ -168,7 +170,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
         if (medicines.isEmpty) {
           return const Padding(
             padding: EdgeInsets.symmetric(vertical: 8),
-            child: Text('لا توجد أدوية مسجلة', style: TextStyle(color: Color(0xFF88938A))),
+            child: Text('لا توجد أدوية مسجلة', style: TextStyle(color: colors.textLight)),
           );
         }
         return Column(
@@ -195,7 +197,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
         if (appointments.isEmpty) {
           return const Padding(
             padding: EdgeInsets.symmetric(vertical: 8),
-            child: Text('لا توجد مواعيد سابقة', style: TextStyle(color: Color(0xFF88938A))),
+            child: Text('لا توجد مواعيد سابقة', style: TextStyle(color: colors.textLight)),
           );
         }
         return Column(
@@ -232,7 +234,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
           style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.w600,
-            color: Color(0xFFC6EBD1),
+            color: colors.textPrimary,
           ),
         ),
         const Spacer(),
@@ -242,7 +244,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF80D8A6),
+              color: colors.primary,
             ),
           ),
       ],

@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class MrpMedicationCard extends StatelessWidget {
@@ -14,10 +15,11 @@ class MrpMedicationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: const Color(0xFF012B17).withValues(alpha: 0.4),
+        color: colors.surfaceDark.withValues(alpha: 0.4),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
       ),
@@ -28,9 +30,9 @@ class MrpMedicationCard extends StatelessWidget {
             height: 48,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: const Color(0xFF00CA73).withValues(alpha: 0.2),
+              color: colors.accent.withValues(alpha: 0.2),
             ),
-            child: Icon(icon, size: 24, color: const Color(0xFF40E78C)),
+            child: Icon(icon, size: 24, color: colors.secondary),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -42,7 +44,7 @@ class MrpMedicationCard extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFFC6EBD1),
+                    color: colors.textPrimary,
                   ),
                 ),
                 const SizedBox(height: 2),
@@ -51,7 +53,7 @@ class MrpMedicationCard extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
-                    color: Color(0xFFBEC9BF),
+                    color: colors.divider,
                   ),
                 ),
               ],
@@ -60,7 +62,7 @@ class MrpMedicationCard extends StatelessWidget {
           const Icon(
             Icons.chevron_left_rounded,
             size: 24,
-            color: Color(0xFFBEC9BF),
+            color: colors.divider,
           ),
         ],
       ),

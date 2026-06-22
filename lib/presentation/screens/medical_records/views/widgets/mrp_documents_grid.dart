@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
@@ -14,10 +15,11 @@ class MrpDocumentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Container(
       padding: const EdgeInsets.all(AppSpacing.md),
       decoration: BoxDecoration(
-        color: const Color(0xFF012B17).withValues(alpha: 0.4),
+        color: colors.surfaceDark.withValues(alpha: 0.4),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
       ),
@@ -27,14 +29,14 @@ class MrpDocumentCard extends StatelessWidget {
           Container(
             height: 96,
             decoration: BoxDecoration(
-              color: const Color(0xFF032515),
+              color: colors.cardBg,
               borderRadius: BorderRadius.circular(8),
             ),
             child: const Center(
               child: Icon(
                 Icons.description_rounded,
                 size: 48,
-                color: Color(0xFF1B3B29),
+                color: colors.surfaceMedium,
               ),
             ),
           ),
@@ -44,7 +46,7 @@ class MrpDocumentCard extends StatelessWidget {
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: Color(0xFFC6EBD1),
+              color: colors.textPrimary,
             ),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
@@ -54,7 +56,7 @@ class MrpDocumentCard extends StatelessWidget {
             style: const TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w500,
-              color: Color(0xFFBEC9BF),
+              color: colors.divider,
             ),
           ),
         ],
@@ -70,6 +72,7 @@ class MrpUploadButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return SizedBox(
       width: double.infinity,
       child: OutlinedButton(
@@ -89,7 +92,7 @@ class MrpUploadButton extends StatelessWidget {
             const Icon(
               Icons.upload_file_rounded,
               size: 32,
-              color: Color(0xFF80D8A6),
+              color: colors.primary,
             ),
             const SizedBox(height: 8),
             const Text(
@@ -97,7 +100,7 @@ class MrpUploadButton extends StatelessWidget {
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
-                color: Color(0xFFC6EBD1),
+                color: colors.textPrimary,
               ),
             ),
             const Text(
@@ -105,7 +108,7 @@ class MrpUploadButton extends StatelessWidget {
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
-                color: Color(0xFFBEC9BF),
+                color: colors.divider,
               ),
             ),
           ],
