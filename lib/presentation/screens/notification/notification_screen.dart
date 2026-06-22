@@ -8,6 +8,9 @@ import 'package:clinic_management_app/domain/entities/notification_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/notification/notification_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/notification/notification_event.dart';
 import 'package:clinic_management_app/presentation/blocs/notification/notification_state.dart';
+import 'package:clinic_management_app/presentation/screens/notification_failure/widgets/nf_actions.dart';
+import 'package:clinic_management_app/presentation/screens/notification_failure/widgets/nf_content_card.dart';
+import 'package:clinic_management_app/presentation/screens/notification_failure/widgets/nf_icon_section.dart';
 import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
 
 class NotificationScreen extends StatefulWidget {
@@ -46,6 +49,29 @@ class _NotificationScreenState extends State<NotificationScreen> {
           }
           if (state is NotificationLoaded) {
             return _buildContent(context, colors, state);
+          }
+          if (state is NotificationError) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const NfIconSection(),
+                    const SizedBox(height: 32),
+                    NfContentCard(
+                      title: 'فَشِلَ إِرْسَالُ الإِشْعَارِ',
+                      message: state.message,
+                    ),
+                    const SizedBox(height: 32),
+                    NfActions(
+                      onRetry: () => context.read<NotificationBloc>().add(const NotificationLoadAll()),
+                      onBack: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
+              ),
+            );
           }
           return const SizedBox.shrink();
         },

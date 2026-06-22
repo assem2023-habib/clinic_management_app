@@ -9,6 +9,9 @@ import 'package:clinic_management_app/presentation/blocs/doctor/doctor_bloc.dart
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_event.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_state.dart';
 import 'package:clinic_management_app/presentation/screens/search_doctors/widgets/sd_doctor_card.dart';
+import 'package:clinic_management_app/presentation/screens/search_failure/widgets/sf_icon_section.dart';
+import 'package:clinic_management_app/presentation/screens/search_failure/widgets/sf_content_card.dart';
+import 'package:clinic_management_app/presentation/screens/search_failure/widgets/sf_actions.dart';
 import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
 
 class SearchDoctorsScreen extends StatefulWidget {
@@ -113,9 +116,24 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
                   }
                   if (state is DoctorError) {
                     return Center(
-                      child: Text(
-                        state.message,
-                        style: TextStyle(color: colors.textPrimary),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const SfIconSection(),
+                            const SizedBox(height: 32),
+                            SfContentCard(
+                              title: 'فَشِلَتْ عَمَلِيَّةُ البَحْثِ',
+                              message: state.message,
+                            ),
+                            const SizedBox(height: 32),
+                            SfActions(
+                              onRetry: () => context.read<DoctorBloc>().add(DoctorLoadAll()),
+                              onBack: () => Navigator.pop(context),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   }
