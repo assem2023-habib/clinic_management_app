@@ -41,7 +41,7 @@ class ProfileReviewsSection extends StatelessWidget {
         Row(
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm + AppSpacing.xs),
               decoration: BoxDecoration(
                 color: colors.cardBg,
                 borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),

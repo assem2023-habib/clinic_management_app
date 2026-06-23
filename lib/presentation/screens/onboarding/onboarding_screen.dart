@@ -129,7 +129,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 backgroundColor: colors.primaryDark,
                 foregroundColor: colors.primaryLight,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14),
+                  borderRadius: BorderRadius.circular(AppSpacing.md - AppSpacing.xxs),
                 ),
                 elevation: 0,
               ),

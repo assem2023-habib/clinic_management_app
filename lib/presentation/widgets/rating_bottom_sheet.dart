@@ -135,7 +135,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
             height: 44,
             decoration: BoxDecoration(
               gradient: LinearGradient(colors: [colors.primaryDark, colors.accent]),
-              borderRadius: BorderRadius.circular(14),
+              borderRadius: BorderRadius.circular(AppSpacing.md - AppSpacing.xxs),
               boxShadow: [BoxShadow(color: colors.accent.withValues(alpha: 0.25), blurRadius: 10)],
             ),
             child: const Icon(Icons.star_rounded, color: Colors.white, size: AppSpacing.iconSize),
@@ -187,7 +187,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
               height: 52,
               decoration: BoxDecoration(
                 color: isActive ? Colors.amber.withValues(alpha: 0.12) : Colors.white.withValues(alpha: 0.04),
-                borderRadius: BorderRadius.circular(14),
+                borderRadius: BorderRadius.circular(AppSpacing.md - AppSpacing.xxs),
                 border: Border.all(
                   color: isActive ? Colors.amber.withValues(alpha: 0.3) : Colors.white.withValues(alpha: 0.06),
                 ),
@@ -219,7 +219,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white.withValues(alpha: 0.04),
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(AppSpacing.md - AppSpacing.xxs),
           border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
         ),
         child: TextField(

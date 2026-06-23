@@ -150,7 +150,7 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
         height: 46,
         decoration: BoxDecoration(
           color: c.cardBg.withValues(alpha: 0.5),
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(AppSpacing.md - AppSpacing.xxs),
           border: Border.all(color: Colors.white.withValues(alpha: 0.07)),
         ),
         child: TextField(

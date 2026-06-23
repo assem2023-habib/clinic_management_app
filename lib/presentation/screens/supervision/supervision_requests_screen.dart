@@ -437,7 +437,7 @@ class _SupervisionCard extends StatelessWidget {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
-                    borderRadius: BorderRadius.circular(14),
+                    borderRadius: BorderRadius.circular(AppSpacing.md - AppSpacing.xxs),
                   ),
                   child: Icon(icon, color: Colors.white, size: AppSpacing.iconSize),
                 ),
@@ -466,10 +466,10 @@ class _SupervisionCard extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.ten, vertical: AppSpacing.xs),
                   decoration: BoxDecoration(
                     color: statusColor.withValues(alpha: 0.12),
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(AppSpacing.lg - AppSpacing.xs),
                   ),
                   child: Text(
                     status == 'active' ? AppStrings.active : status,
@@ -563,7 +563,7 @@ class _RequestCard extends StatelessWidget {
                   height: 48,
                   decoration: BoxDecoration(
                     color: _statusColor().withValues(alpha: 0.12),
-                    borderRadius: BorderRadius.circular(14),
+                    borderRadius: BorderRadius.circular(AppSpacing.md - AppSpacing.xxs),
                   ),
                   child: Icon(icon, color: _statusColor(), size: AppSpacing.iconSize),
                 ),
@@ -592,10 +592,10 @@ class _RequestCard extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.ten, vertical: AppSpacing.xs),
                   decoration: BoxDecoration(
                     color: _statusColor().withValues(alpha: 0.12),
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(AppSpacing.lg - AppSpacing.xs),
                   ),
                   child: Text(
                     _statusLabel(),
@@ -641,7 +641,7 @@ class _ActionChip extends StatelessWidget {
         onTap: onPressed,
         borderRadius: BorderRadius.circular(AppSpacing.ten),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm + AppSpacing.xs, vertical: AppSpacing.sm),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [

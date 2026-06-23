@@ -39,7 +39,7 @@ class RhQueueCard extends StatelessWidget {
           children: [
             Container(width: 4, height: AppSpacing.xxl, decoration: BoxDecoration(
               color: accentColor,
-              borderRadius: BorderRadius.circular(2),
+              borderRadius: BorderRadius.circular(AppSpacing.xxs),
             )),
             const SizedBox(width: AppSpacing.md),
             CircleAvatar(

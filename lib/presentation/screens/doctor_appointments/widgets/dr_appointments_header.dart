@@ -61,7 +61,7 @@ class DrAppointmentsHeader extends StatelessWidget implements PreferredSizeWidge
               Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(AppSpacing.lg - AppSpacing.xs),
                   onTap: onNotificationTap,
                   child: Container(
                     width: 40,

@@ -101,7 +101,7 @@ class SpecializationPickerField extends StatelessWidget {
         return StatefulBuilder(
           builder: (ctx, setSheetState) {
             return Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
+              padding: const EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.sm, AppSpacing.md, AppSpacing.lg),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -109,7 +109,7 @@ class SpecializationPickerField extends StatelessWidget {
                     width: 40, height: 4,
                     decoration: BoxDecoration(
                       color: colors.divider,
-                      borderRadius: BorderRadius.circular(2),
+                      borderRadius: BorderRadius.circular(AppSpacing.xxs),
                     ),
                   ),
                   const SizedBox(height: AppSpacing.md),

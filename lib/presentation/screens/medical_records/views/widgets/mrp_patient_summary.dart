@@ -71,7 +71,7 @@ class MrpPatientSummary extends StatelessWidget {
 
   Widget _buildTag(String text, AppColorSet colors) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.xxs),
       decoration: BoxDecoration(
         color: colors.primaryDark.withValues(alpha: 0.2),
         borderRadius: BorderRadius.circular(AppSpacing.sm),

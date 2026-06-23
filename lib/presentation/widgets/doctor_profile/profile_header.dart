@@ -94,10 +94,10 @@ class ProfileHeader extends StatelessWidget {
                     Wrap(
                       spacing: 6,
                       children: doctor.languages.map((lang) => Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.ten, vertical: AppSpacing.xs),
                         decoration: BoxDecoration(
                           color: colors.chipBg,
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(AppSpacing.lg - AppSpacing.xs),
                         ),
                         child: Text(lang, style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.chipText)),
                       )).toList(),

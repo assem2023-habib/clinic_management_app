@@ -318,7 +318,7 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
 
   Widget _buildSignalMeter(AppColorSet colors) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
       decoration: BoxDecoration(
         color: colors.surface.withValues(alpha: 0.7),
       borderRadius: BorderRadius.circular(9999),
@@ -369,7 +369,7 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
       height: height,
       decoration: BoxDecoration(
         color: signalColor.withValues(alpha: opacity),
-        borderRadius: BorderRadius.circular(2),
+        borderRadius: BorderRadius.circular(AppSpacing.xxs),
       ),
     );
   }

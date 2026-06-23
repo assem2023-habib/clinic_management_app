@@ -183,7 +183,7 @@ class _PatientDoctorProfileViewState extends State<PatientDoctorProfileView> {
             style: OutlinedButton.styleFrom(
               foregroundColor: colors.primary,
               side: BorderSide(color: colors.primary, width: 1.5),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.md - AppSpacing.xxs)),
             ),
           ),
         );
@@ -241,7 +241,7 @@ class _SupervisionBadgeCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: 12),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(AppSpacing.md - AppSpacing.xxs),
         border: Border.all(color: color.withValues(alpha: 0.3), width: 1),
       ),
       child: Row(

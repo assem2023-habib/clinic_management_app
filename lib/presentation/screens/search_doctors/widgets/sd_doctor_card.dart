@@ -54,7 +54,7 @@ class SdDoctorCard extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.xxs),
                           decoration: BoxDecoration(
                             color: colors.surfaceDark,
                             borderRadius: BorderRadius.circular(AppSpacing.sm),

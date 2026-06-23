@@ -100,7 +100,7 @@ class StateScreen extends StatelessWidget {
             Material(
               color: Colors.transparent,
               child: InkWell(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(AppSpacing.lg - AppSpacing.xs),
                 onTap: () => Navigator.of(context).pop(),
                 child: Container(
                   width: 40,

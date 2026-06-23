@@ -95,7 +95,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 250),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(AppSpacing.lg - AppSpacing.xs),
                   boxShadow: _isHovered
                       ? [BoxShadow(
                           color: AppColors.of(context).primary.withValues(alpha: 0.12),
@@ -105,14 +105,14 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
                       : [],
                 ),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(AppSpacing.lg - AppSpacing.xs),
                   child: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
                     child: Container(
                       padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         color: colors.surfaceDark.withValues(alpha: 0.4),
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(AppSpacing.lg - AppSpacing.xs),
                         border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
                       ),
                       child: Column(
@@ -123,7 +123,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
                           _buildLocation(),
                           const SizedBox(height: AppSpacing.six),
                           _buildBio(),
-                          const SizedBox(height: 14),
+                          const SizedBox(height: AppSpacing.md - AppSpacing.xxs),
                           _buildActions(),
                         ],
                       ),
@@ -200,7 +200,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
       clipBehavior: Clip.none,
       children: [
         ClipRRect(
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(AppSpacing.md - AppSpacing.xxs),
           child: doctor.imageUrl != null
               ? Image.network(
                   doctor.imageUrl!,
@@ -230,7 +230,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
         gradient: LinearGradient(
           colors: [colors.primaryDark, colors.primaryDark],
         ),
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(AppSpacing.md - AppSpacing.xxs),
       ),
       child: Icon(Icons.person_rounded, size: 36, color: colors.primary),
     );

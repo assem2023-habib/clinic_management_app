@@ -63,9 +63,9 @@ class _SkeletonState extends State<AppointmentCardSkeleton> with SingleTickerPro
           const SizedBox(width: AppSpacing.ten),
           _box(64, 26, r: 999),
         ]),
-        const SizedBox(height: 14),
+        const SizedBox(height: AppSpacing.md - AppSpacing.xxs),
         _box(double.infinity, 1),
-        const SizedBox(height: 14),
+        const SizedBox(height: AppSpacing.md - AppSpacing.xxs),
         Row(children: [
           _box(36, 36, r: 10),
           const SizedBox(width: AppSpacing.ten),

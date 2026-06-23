@@ -84,7 +84,7 @@ class AppointmentOptionsSheet extends StatelessWidget {
             style: TextButton.styleFrom(
               backgroundColor: c.surface,
               padding: const EdgeInsets.symmetric(vertical: 15),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.md - AppSpacing.xxs)),
             ),
             child: Text(AppStrings.cancel, style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w700, color: c.textSecondary)),
           ),
@@ -137,7 +137,7 @@ class _SheetOption extends StatelessWidget {
           color: Colors.transparent,
           child: InkWell(
             onTap: onTap,
-            borderRadius: BorderRadius.circular(14),
+            borderRadius: BorderRadius.circular(AppSpacing.md - AppSpacing.xxs),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
               child: Row(children: [

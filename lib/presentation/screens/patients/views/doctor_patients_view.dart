@@ -175,7 +175,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
                 padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.xs),
                 decoration: BoxDecoration(
                   color: colors.primary.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(AppSpacing.lg - AppSpacing.xs),
                 ),
                 child: Text(
                   '$count ${AppStrings.dpPatient}',
@@ -225,7 +225,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
                   ),
                 ),
                 InkWell(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(AppSpacing.lg - AppSpacing.xs),
                   onTap: () => _searchController.clear(),
                   child: Icon(Icons.close_rounded, color: colors.textLight, size: AppSpacing.iconSmall),
                 ),
@@ -263,7 +263,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
         padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.xs + 2),
         decoration: BoxDecoration(
           color: isActive ? colors.primary.withValues(alpha: 0.15) : colors.cardBg.withValues(alpha: 0.2),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(AppSpacing.lg - AppSpacing.xs),
           border: Border.all(
             color: isActive ? colors.primary.withValues(alpha: 0.3) : colors.divider.withValues(alpha: 0.08),
           ),

@@ -270,7 +270,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                             height: 48,
                             decoration: BoxDecoration(
                               color: colors.surfaceDark,
-                              borderRadius: BorderRadius.circular(14),
+                              borderRadius: BorderRadius.circular(AppSpacing.md - AppSpacing.xxs),
                             ),
                             child: Center(
                               child: Text(
@@ -297,7 +297,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                             height: 48,
                             decoration: BoxDecoration(
                               color: colors.error.withValues(alpha: 0.13),
-                              borderRadius: BorderRadius.circular(14),
+                              borderRadius: BorderRadius.circular(AppSpacing.md - AppSpacing.xxs),
                               border: Border.all(color: colors.error.withValues(alpha: 0.28)),
                             ),
                             child: Center(
@@ -390,7 +390,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
           curve: Curves.easeOut,
           decoration: BoxDecoration(
             color: colors.surfaceDark.withValues(alpha: 0.65),
-            borderRadius: BorderRadius.circular(14),
+            borderRadius: BorderRadius.circular(AppSpacing.md - AppSpacing.xxs),
             border: Border.all(
               color: _isSearchFocused
                   ? colors.accent.withValues(alpha: 0.6)
@@ -478,7 +478,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                   color: isActive
                       ? colors.accent.withValues(alpha: 0.15)
                       : Colors.white.withValues(alpha: 0.04),
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(AppSpacing.lg - AppSpacing.xs),
                 border: Border.all(
                   color: isActive
                       ? colors.accent.withValues(alpha: 0.4)
@@ -579,7 +579,7 @@ class GlassSkeletonList extends StatelessWidget {
           height: 280,
           decoration: BoxDecoration(
             color: colors.surfaceDark.withValues(alpha: 0.3),
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(AppSpacing.lg - AppSpacing.xs),
             border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
           ),
           child: Padding(

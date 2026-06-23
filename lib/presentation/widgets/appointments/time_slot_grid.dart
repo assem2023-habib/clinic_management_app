@@ -75,7 +75,7 @@ class _TimeSlotGridState extends State<TimeSlotGrid> {
               backgroundColor: c.primaryDark,
               disabledBackgroundColor: c.cardBg,
               minimumSize: const Size(double.infinity, 48),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.md - AppSpacing.xxs)),
             ),
             child: Text(
               'تأكيد الموعد الجديد',

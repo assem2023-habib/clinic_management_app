@@ -71,7 +71,7 @@ class RecentAppointments extends StatelessWidget {
       _ => (colors.textLight, status),
     };
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.ten, vertical: AppSpacing.xs),
       decoration: BoxDecoration(color: color.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
       child: Text(label, style: TextStyle(color: color, fontSize: AppSpacing.bodySmall, fontWeight: FontWeight.w500)),
     );
