@@ -259,7 +259,7 @@ class _NotificationBadge extends StatelessWidget {
         final unread = state is NotificationLoaded ? state.unreadCount : 0;
         if (unread > 0) {
           return Badge(
-            label: Text(unread > 99 ? '99+' : '$unread', style: const TextStyle(fontSize: 10)),
+            label: Text(unread > 99 ? '99+' : '$unread', style: const TextStyle(fontSize: AppSpacing.ten)),
             child: Icon(icon, color: color, size: AppSpacing.iconMedium),
           );
         }

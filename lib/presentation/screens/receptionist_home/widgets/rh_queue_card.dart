@@ -85,7 +85,7 @@ class RhQueueCard extends StatelessWidget {
               ),
               child: Text(
                 statusLabel,
-                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: statusTextColor),
+                style: TextStyle(fontSize: AppSpacing.ten, fontWeight: FontWeight.w700, color: statusTextColor),
               ),
             ),
           ],
