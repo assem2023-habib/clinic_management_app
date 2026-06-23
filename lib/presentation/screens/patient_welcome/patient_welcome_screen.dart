@@ -3,12 +3,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/presentation/screens/patient_welcome/patient_welcome_painters.dart';
 import 'package:clinic_management_app/presentation/screens/patient_welcome/widgets/pw_background.dart';
 import 'package:clinic_management_app/presentation/screens/patient_welcome/widgets/pw_bottom_actions.dart';
 import 'package:clinic_management_app/presentation/screens/patient_welcome/widgets/pw_hero_section.dart';
 import 'package:clinic_management_app/presentation/screens/patient_welcome/widgets/pw_page_content.dart';
-import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class PatientWelcomeScreen extends StatefulWidget {
   const PatientWelcomeScreen({super.key});
@@ -94,7 +94,7 @@ class _PatientWelcomeScreenState extends State<PatientWelcomeScreen>
                         children: [
                           Icon(Icons.monitor_heart_rounded, size: AppSpacing.iconSize, color: colors.mint),
                           const SizedBox(width: AppSpacing.six),
-                          Text('Vitality', style: TextStyle(fontFamily: 'Sora', fontSize: 20, fontWeight: FontWeight.w700, color: colors.mint)),
+                          Text('Vitality', style: TextStyle(fontFamily: 'Sora', fontSize: AppSpacing.heading, fontWeight: FontWeight.w700, color: colors.mint)),
                         ],
                       ),
                       TextButton(

@@ -229,7 +229,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
             Text(
               '${months[selected.month - 1]}، ${toArabic(selected.year)}',
               style: TextStyle(
-                fontSize: 28,
+                fontSize: AppSpacing.headline,
                 fontWeight: FontWeight.w700,
                 color: colors.textPrimary,
               ),
@@ -307,7 +307,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
                 Text(
                   doctor.fullName.isNotEmpty ? 'د. ${doctor.fullName}' : '',
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: AppSpacing.heading,
                     fontWeight: FontWeight.w700,
                     color: colors.textPrimary,
                   ),
@@ -535,7 +535,7 @@ class _DateCard extends StatelessWidget {
             Text(
               dayNumber,
               style: TextStyle(
-                fontSize: 20,
+                fontSize: AppSpacing.heading,
                 fontWeight: FontWeight.w700,
                 color: isSelected ? colors.chipText : colors.textPrimary,
               ),
@@ -603,7 +603,7 @@ class _SlotCardState extends State<_SlotCard>
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           curve: Curves.easeInOut,
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm + AppSpacing.xs, vertical: 0),
           decoration: BoxDecoration(
             color: widget.isSelected
                 ? widget.colors.primaryDark

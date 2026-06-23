@@ -122,7 +122,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
   Widget _buildStatusBadge() {
     final badgeColors = AppColors.of(context);
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: AppSpacing.xs),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm + AppSpacing.xs, vertical: AppSpacing.xs),
       decoration: BoxDecoration(
         color: badgeColors.errorRed,
         borderRadius: BorderRadius.circular(9999),
@@ -249,7 +249,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
       AppStrings.ssTitle,
       style: TextStyle(
         fontFamily: 'Sora',
-        fontSize: 28,
+        fontSize: AppSpacing.headline,
         fontWeight: FontWeight.w600,
         color: colors.mint,
         height: 1.2,

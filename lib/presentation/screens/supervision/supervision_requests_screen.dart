@@ -70,7 +70,7 @@ class _SupervisionRequestsScreenState extends State<SupervisionRequestsScreen>
         elevation: 0,
         title: Text(
           AppStrings.supervisionRequests,
-          style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
+          style: const TextStyle(fontWeight: FontWeight.w700, fontSize: AppSpacing.heading),
         ),
         bottom: TabBar(
           controller: _tabController,

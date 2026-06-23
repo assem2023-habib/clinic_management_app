@@ -84,7 +84,7 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
       padding: const EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.xl, AppSpacing.md, 100),
       itemCount: 5,
       itemBuilder: (_, i) => Padding(
-        padding: EdgeInsets.only(top: i == 0 ? 0 : 12, bottom: 20),
+        padding: EdgeInsets.only(top: i == 0 ? 0 : AppSpacing.sm + AppSpacing.xs, bottom: AppSpacing.iconSmall),
         child: const AppointmentCardSkeleton(),
       ),
     );

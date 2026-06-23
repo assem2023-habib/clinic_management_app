@@ -53,7 +53,7 @@ class DrAppointmentsHeader extends StatelessWidget implements PreferredSizeWidge
                     ),
                     Text(
                       name,
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: colors.textPrimary),
+                      style: TextStyle(fontSize: AppSpacing.heading, fontWeight: FontWeight.w700, color: colors.textPrimary),
                     ),
                   ],
                 ),

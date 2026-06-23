@@ -143,7 +143,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
           const SizedBox(width: 14),
           Text(
             'أضف تقييمك',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: colors.textPrimary),
+            style: TextStyle(fontSize: AppSpacing.heading, fontWeight: FontWeight.w700, color: colors.textPrimary),
           ),
         ],
       ),

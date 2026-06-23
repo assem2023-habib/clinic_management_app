@@ -89,7 +89,7 @@ class TimeSlotGrid extends StatelessWidget {
           onTap: isBooked ? null : () => onSelectSlot(slot.id),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: AppSpacing.sm),
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm + AppSpacing.xs, vertical: AppSpacing.sm),
             decoration: BoxDecoration(
               color: isSelected
                   ? colors.primaryDark

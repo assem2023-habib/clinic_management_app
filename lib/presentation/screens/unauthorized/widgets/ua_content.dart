@@ -14,7 +14,7 @@ class UaContent extends StatelessWidget {
         Text(
           AppStrings.uaTitle,
           style: TextStyle(
-            fontSize: 28,
+            fontSize: AppSpacing.headline,
             fontWeight: FontWeight.w600,
             color: colors.mint,
           ),

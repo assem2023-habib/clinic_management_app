@@ -77,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           AppStrings.appName,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 28,
+                            fontSize: AppSpacing.headline,
                             fontWeight: FontWeight.bold,
                             color: colors.textPrimary,
                           ),

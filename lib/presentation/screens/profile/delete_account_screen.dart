@@ -66,7 +66,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                   Text(
                     AppStrings.warningPermanent,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: colors.textPrimary),
+                    style: TextStyle(fontSize: AppSpacing.heading, fontWeight: FontWeight.bold, color: colors.textPrimary),
                   ),
                   const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                   Text(

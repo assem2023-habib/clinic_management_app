@@ -30,7 +30,7 @@ class SpContentCard extends StatelessWidget {
           Text(
             AppStrings.spTitle,
             style: TextStyle(
-              fontSize: 28,
+              fontSize: AppSpacing.headline,
               fontWeight: FontWeight.w700,
               color: colors.mint,
             ),

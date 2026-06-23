@@ -183,7 +183,7 @@ class ForbiddenScreen extends StatelessWidget {
           Text(
             AppStrings.fbTitle,
             style: TextStyle(
-              fontSize: 28,
+              fontSize: AppSpacing.headline,
               fontWeight: FontWeight.w600,
               color: colors.textPrimary,
             ),

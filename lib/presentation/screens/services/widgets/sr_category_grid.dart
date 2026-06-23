@@ -18,7 +18,7 @@ class SrCategoryGrid extends StatelessWidget {
           children: [
 Text(
               AppStrings.srCategories,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: colors.textPrimary),
+              style: TextStyle(fontSize: AppSpacing.heading, fontWeight: FontWeight.w600, color: colors.textPrimary),
             ),
             TextButton(
               onPressed: () {},

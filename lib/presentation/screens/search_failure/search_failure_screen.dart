@@ -20,7 +20,7 @@ class SearchFailureScreen extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.iconSmall, vertical: AppSpacing.sm + AppSpacing.xs),
               child: Row(
                 children: [
                   IconButton(

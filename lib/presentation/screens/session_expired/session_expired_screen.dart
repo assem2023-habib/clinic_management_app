@@ -213,7 +213,7 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
           Text(
             AppStrings.sesTitle,
             style: TextStyle(
-              fontSize: 28,
+              fontSize: AppSpacing.headline,
               fontWeight: FontWeight.w600,
               color: colors.textPrimary,
             ),

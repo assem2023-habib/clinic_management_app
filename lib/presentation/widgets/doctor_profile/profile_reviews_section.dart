@@ -52,7 +52,7 @@ class ProfileReviewsSection extends StatelessWidget {
                 children: [
                   Text(
                     (averageRating?.toString() ?? '0.0'),
-                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: colors.textPrimary),
+                    style: TextStyle(fontSize: AppSpacing.headline, fontWeight: FontWeight.w800, color: colors.textPrimary),
                   ),
                   const SizedBox(width: AppSpacing.sm),
                   Column(

@@ -48,7 +48,7 @@ class GlassStatCard extends StatelessWidget {
                     Text(
                       value!,
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: AppSpacing.heading,
                         fontWeight: FontWeight.w800,
                         color: color,
                         height: 1.1,

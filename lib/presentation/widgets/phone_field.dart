@@ -116,7 +116,7 @@ class PhoneFieldState extends State<PhoneField> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(_selected.flag, style: const TextStyle(fontSize: 20)),
+                Text(_selected.flag, style: const TextStyle(fontSize: AppSpacing.heading)),
                 const SizedBox(width: AppSpacing.xs),
                 Text(
                   _selected.dialCode,

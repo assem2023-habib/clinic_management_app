@@ -67,7 +67,7 @@ class PwBottomActions extends StatelessWidget {
                 startLabel,
                 style: const TextStyle(
                   fontFamily: 'Sora',
-                  fontSize: 20,
+                  fontSize: AppSpacing.heading,
                   fontWeight: FontWeight.w600,
                 ),
               ),

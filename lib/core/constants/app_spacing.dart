@@ -29,8 +29,10 @@ class AppSpacing {
   static const double iconSmall = 20;
   static const double iconMedium = 22;
   static const double confirmationIconSize = 96;
+  static const double headline = 28;
   static const double titleLarge = 26;
   static const double titleError = 24;
+  static const double heading = 20;
   static const double titleMedium = 18;
   static const double bodyLarge = 16;
   static const double subtitle = 15;

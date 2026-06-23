@@ -20,7 +20,7 @@ class PwPageContent extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: 'Sora',
-              fontSize: 28,
+              fontSize: AppSpacing.headline,
               fontWeight: FontWeight.w600,
               height: 1.2,
               letterSpacing: -0.01,

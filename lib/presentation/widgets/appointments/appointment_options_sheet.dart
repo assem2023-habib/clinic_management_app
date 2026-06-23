@@ -139,7 +139,7 @@ class _SheetOption extends StatelessWidget {
             onTap: onTap,
             borderRadius: BorderRadius.circular(AppSpacing.md - AppSpacing.xxs),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm + AppSpacing.xs, vertical: AppSpacing.md - AppSpacing.xxs),
               child: Row(children: [
                 Icon(icon, size: AppSpacing.iconMedium, color: isDestructive ? colors.error : colors.textSecondary),
                 const SizedBox(width: 14),

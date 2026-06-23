@@ -116,7 +116,7 @@ class StateScreen extends StatelessWidget {
           Text(
             appBarTitle ?? '',
             style: TextStyle(
-              fontSize: 20,
+              fontSize: AppSpacing.heading,
               fontWeight: FontWeight.w700,
               color: colors.textPrimary,
             ),

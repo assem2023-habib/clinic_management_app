@@ -245,7 +245,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                   Text(
                     'تأكيد الحذف',
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: AppSpacing.heading,
                       fontWeight: FontWeight.w700,
                       color: colors.textPrimary,
                     ),
