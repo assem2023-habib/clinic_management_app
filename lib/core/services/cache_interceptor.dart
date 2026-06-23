@@ -2,16 +2,34 @@ import 'package:dio/dio.dart';
 import 'package:clinic_management_app/core/services/cache_service.dart';
 
 class CacheInterceptor extends Interceptor {
+  static const _excludedPrefixes = [
+    '/appointments',
+    '/booked-slots',
+    '/medical-records',
+    '/prescriptions',
+    '/medicines',
+    '/files',
+    '/supervision-requests',
+    '/available-doctors',
+  ];
+
   final _memoryCache = <String, Map<String, dynamic>>{};
+
+  bool _shouldCache(RequestOptions options) {
+    final path = Uri.parse(options.uri.toString()).path;
+    return !_excludedPrefixes.any((p) => path.contains(p));
+  }
 
   @override
   void onResponse(Response response, handler) {
     if (response.requestOptions.method == 'GET' && response.statusCode == 200 && response.data is Map) {
-      final key = _cacheKey(response.requestOptions);
-      final data = response.data as Map<String, dynamic>;
-      if (data.containsKey('data')) {
-        _memoryCache[key] = data;
-        try { CacheService.instance.put(key, data); } catch (_) {}
+      if (_shouldCache(response.requestOptions)) {
+        final key = _cacheKey(response.requestOptions);
+        final data = response.data as Map<String, dynamic>;
+        if (data.containsKey('data')) {
+          _memoryCache[key] = data;
+          try { CacheService.instance.put(key, data); } catch (_) {}
+        }
       }
     }
     handler.next(response);

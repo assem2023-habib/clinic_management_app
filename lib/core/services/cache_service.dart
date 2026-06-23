@@ -5,7 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 class CacheService {
   static const _boxName = 'api_cache';
   static const _maxEntries = 50;
-  static const _expiryHours = 1;
+  static const _expiryMinutes = 15;
   static CacheService? _instance;
 
   late Box<String> _box;
@@ -38,7 +38,7 @@ class CacheService {
       final timestamp = entry['t'] as int?;
       if (timestamp != null) {
         final age = DateTime.now().millisecondsSinceEpoch - timestamp;
-        if (age > _expiryHours * 3600000) {
+        if (age > _expiryMinutes * 60000) {
           _box.delete(key);
           return null;
         }
@@ -77,7 +77,7 @@ class CacheService {
       final raw = _box.get(key);
       if (raw == null) continue;
       final ts = _parseTimestamp(raw);
-      if (ts > 0 && now - ts > _expiryHours * 3600000) {
+      if (ts > 0 && now - ts > _expiryMinutes * 60000) {
         await _box.delete(key);
       }
     }
