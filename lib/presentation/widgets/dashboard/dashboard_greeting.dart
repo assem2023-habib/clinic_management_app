@@ -4,6 +4,7 @@ import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class DashboardGreeting extends StatelessWidget {
   const DashboardGreeting({super.key});
@@ -25,12 +26,12 @@ class DashboardGreeting extends StatelessWidget {
           children: [
             Text(
               '${AppStrings.greeting} ${state.userName ?? ''}',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: colors.textPrimary),
+              style: TextStyle(fontSize: AppSpacing.titleError, fontWeight: FontWeight.bold, color: colors.textPrimary),
             ),
             const SizedBox(height: 4),
             Text(
               roleLabel,
-              style: TextStyle(fontSize: 14, color: colors.primary, fontWeight: FontWeight.w600),
+              style: TextStyle(fontSize: AppSpacing.bodyMedium, color: colors.primary, fontWeight: FontWeight.w600),
             ),
           ],
         );
@@ -38,3 +39,4 @@ class DashboardGreeting extends StatelessWidget {
     );
   }
 }
+

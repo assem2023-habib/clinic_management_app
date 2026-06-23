@@ -168,7 +168,7 @@ class _RatingScreenState extends State<RatingScreen> {
                         ),
                         child: Text(
                           AppStrings.loadMoreReviews,
-                          style: TextStyle(color: colors.primary, fontSize: 14, fontWeight: FontWeight.w600),
+                          style: TextStyle(color: colors.primary, fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600),
                         ),
                       ),
                     ),

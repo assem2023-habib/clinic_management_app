@@ -56,7 +56,7 @@ class DfFileCard extends StatelessWidget {
                   children: [
                     Text(
                       file.name,
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: colors.textPrimary),
+                      style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600, color: colors.textPrimary),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -99,7 +99,7 @@ class DfFileCard extends StatelessWidget {
                 children: [
                   Icon(Icons.download_rounded, size: 16, color: colors.primary),
                   const SizedBox(width: 4),
-                  Text(AppStrings.dfDownload, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: colors.primary)),
+                  Text(AppStrings.dfDownload, style: TextStyle(fontSize: AppSpacing.bodySmall, fontWeight: FontWeight.w600, color: colors.primary)),
                 ],
               ),
             ),

@@ -127,7 +127,7 @@ class _ReceptionistAppointmentsViewState extends State<ReceptionistAppointmentsV
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(appt.patientName ?? '', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: colors.textPrimary)),
-                    Text('${AppStrings.doctorLabel}: ${appt.doctorName ?? ''}', style: TextStyle(fontSize: 12, color: colors.textLight)),
+                    Text('${AppStrings.doctorLabel}: ${appt.doctorName ?? ''}', style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textLight)),
                   ],
                 ),
               ),
@@ -141,13 +141,13 @@ class _ReceptionistAppointmentsViewState extends State<ReceptionistAppointmentsV
                 if (appt.date != null) ...[
                   Icon(Icons.calendar_today_rounded, size: 14, color: colors.textLight),
                   const SizedBox(width: 4),
-                  Text(appt.date!, style: TextStyle(fontSize: 12, color: colors.textLight)),
+                  Text(appt.date!, style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textLight)),
                 ],
                 if (appt.timeSlot != null) ...[
                   const SizedBox(width: AppSpacing.md),
                   Icon(Icons.schedule_rounded, size: 14, color: colors.textLight),
                   const SizedBox(width: 4),
-                  Text(appt.timeSlot!, style: TextStyle(fontSize: 12, color: colors.textLight)),
+                  Text(appt.timeSlot!, style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textLight)),
                 ],
               ],
             ),

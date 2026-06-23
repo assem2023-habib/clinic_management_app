@@ -158,12 +158,12 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
               children: [
                 Text(
                   AppStrings.dpMyPatients,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: colors.textPrimary),
+                  style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w700, color: colors.textPrimary),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   AppStrings.dpUnderCareOf(doctorName),
-                  style: TextStyle(fontSize: 12, color: colors.textSecondary),
+                  style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textSecondary),
                 ),
               ],
             ),
@@ -179,7 +179,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
                 ),
                 child: Text(
                   '$count ${AppStrings.dpPatient}',
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: colors.primary),
+                  style: TextStyle(fontSize: AppSpacing.bodySmall, fontWeight: FontWeight.w600, color: colors.primary),
                 ),
               );
             },
@@ -216,12 +216,12 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
                       },
                     decoration: InputDecoration(
                       hintText: AppStrings.dpSearchPatients,
-                      hintStyle: TextStyle(color: colors.textLight.withValues(alpha: 0.5), fontSize: 14),
+                      hintStyle: TextStyle(color: colors.textLight.withValues(alpha: 0.5), fontSize: AppSpacing.bodyMedium),
                       border: InputBorder.none,
                       isDense: true,
                       contentPadding: EdgeInsets.zero,
                     ),
-                    style: TextStyle(fontSize: 14, color: colors.textPrimary),
+                    style: TextStyle(fontSize: AppSpacing.bodyMedium, color: colors.textPrimary),
                   ),
                 ),
                 InkWell(

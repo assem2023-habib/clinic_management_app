@@ -4,6 +4,7 @@ import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class DoctorGlassCard extends StatefulWidget {
   final DoctorEntity doctor;
@@ -167,7 +168,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
               Text(
                 'د. ${doctor.name}',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: AppSpacing.titleMedium,
                   fontWeight: FontWeight.w700,
                   color: colors.textPrimary,
                   letterSpacing: -0.01,
@@ -246,7 +247,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
         Expanded(
           child: Text(
             doctor.clinicAddress ?? doctor.clinicName ?? '',
-            style: TextStyle(fontSize: 14, color: colors.textSecondary),
+            style: TextStyle(fontSize: AppSpacing.bodyMedium, color: colors.textSecondary),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
@@ -265,7 +266,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
     return Text(
       widget.doctor.bio!,
       style: TextStyle(
-        fontSize: 14,
+        fontSize: AppSpacing.bodyMedium,
         height: 1.65,
         color: colors.textSecondary.withValues(alpha: 0.75),
       ),
@@ -303,7 +304,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
                   child: Text(
                     AppStrings.sdBookAppointment,
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: AppSpacing.bodyLarge,
                       fontWeight: FontWeight.w700,
                       color: colors.primaryLight,
                     ),
@@ -484,3 +485,4 @@ class _PulsingDotState extends State<_PulsingDot>
     );
   }
 }
+

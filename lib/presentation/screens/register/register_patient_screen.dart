@@ -7,6 +7,7 @@ import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/presentation/widgets/phone_field.dart';
 import 'package:clinic_management_app/presentation/widgets/date_picker_field.dart';
 import 'package:clinic_management_app/presentation/widgets/country_city_picker_field.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class RegisterPatientScreen extends StatefulWidget {
   const RegisterPatientScreen({super.key});
@@ -144,7 +145,7 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                       ),
                       child: state.isLoading
                           ? SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: colors.surface))
-                          :  Text(AppStrings.register, style: TextStyle(fontSize: 16)),
+                          :  Text(AppStrings.register, style: TextStyle(fontSize: AppSpacing.bodyLarge)),
                     ),
                     const SizedBox(height: 16),
                     TextButton(
@@ -175,7 +176,7 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
       controller: controller,
       keyboardType: keyboardType,
       obscureText: obscureText,
-      style: TextStyle(color: colors.textPrimary, fontSize: 16),
+      style: TextStyle(color: colors.textPrimary, fontSize: AppSpacing.bodyLarge),
       decoration: InputDecoration(
         labelText: label,
         labelStyle: TextStyle(color: colors.textSecondary),
@@ -189,3 +190,4 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
     );
   }
 }
+

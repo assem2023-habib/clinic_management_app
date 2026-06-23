@@ -33,12 +33,12 @@ class RatingActionCard extends StatelessWidget {
           const SizedBox(height: AppSpacing.sm),
           Text(
             AppStrings.rating,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white),
+            style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600, color: Colors.white),
           ),
           const SizedBox(height: 4),
           Text(
             AppStrings.reviewPrompt,
-            style: TextStyle(fontSize: 12, color: Colors.white.withValues(alpha: 0.8)),
+            style: TextStyle(fontSize: AppSpacing.bodySmall, color: Colors.white.withValues(alpha: 0.8)),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: AppSpacing.sm),
@@ -53,7 +53,7 @@ class RatingActionCard extends StatelessWidget {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(999)),
                 elevation: 0,
               ),
-              child: Text(AppStrings.writeReview, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+              child: Text(AppStrings.writeReview, style: const TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600)),
             ),
           ),
         ],

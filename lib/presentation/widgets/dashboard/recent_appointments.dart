@@ -6,6 +6,7 @@ import 'package:clinic_management_app/presentation/blocs/appointment/appointment
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_state.dart';
 import 'package:clinic_management_app/presentation/widgets/empty_data/empty_data_widget.dart';
 import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class RecentAppointments extends StatelessWidget {
   final int limit;
@@ -72,7 +73,8 @@ class RecentAppointments extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(color: color.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(12)),
-      child: Text(label, style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w500)),
+      child: Text(label, style: TextStyle(color: color, fontSize: AppSpacing.bodySmall, fontWeight: FontWeight.w500)),
     );
   }
 }
+

@@ -21,7 +21,7 @@ class StatusBadge extends StatelessWidget {
         Icon(status.uiIcon, color: color, size: 14),
         const SizedBox(width: 5),
         Text(status.label,
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: color)),
+          style: TextStyle(fontSize: AppSpacing.bodySmall, fontWeight: FontWeight.w700, color: color)),
       ]),
     );
   }

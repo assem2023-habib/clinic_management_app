@@ -44,7 +44,7 @@ class MrpDocumentCard extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-              fontSize: 14,
+              fontSize: AppSpacing.bodyMedium,
               fontWeight: FontWeight.w600,
               color: colors.textPrimary,
             ),
@@ -54,7 +54,7 @@ class MrpDocumentCard extends StatelessWidget {
           Text(
             subtitle,
             style: TextStyle(
-              fontSize: 12,
+              fontSize: AppSpacing.bodySmall,
               fontWeight: FontWeight.w500,
               color: colors.divider,
             ),
@@ -98,7 +98,7 @@ class MrpUploadButton extends StatelessWidget {
             Text(
               AppStrings.mrUploadDocument,
               style: TextStyle(
-                fontSize: 14,
+                fontSize: AppSpacing.bodyMedium,
                 fontWeight: FontWeight.w600,
                 color: colors.textPrimary,
               ),
@@ -106,7 +106,7 @@ class MrpUploadButton extends StatelessWidget {
             Text(
               AppStrings.mrUploadHint,
               style: TextStyle(
-                fontSize: 12,
+                fontSize: AppSpacing.bodySmall,
                 fontWeight: FontWeight.w500,
                 color: colors.divider,
               ),

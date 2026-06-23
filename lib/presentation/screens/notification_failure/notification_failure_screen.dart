@@ -3,6 +3,7 @@ import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/presentation/screens/notification_failure/widgets/nf_actions.dart';
 import 'package:clinic_management_app/presentation/screens/notification_failure/widgets/nf_content_card.dart';
 import 'package:clinic_management_app/presentation/screens/notification_failure/widgets/nf_icon_section.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class NotificationFailureScreen extends StatelessWidget {
   final VoidCallback? onRetry;
@@ -29,7 +30,7 @@ class NotificationFailureScreen extends StatelessWidget {
                   const Spacer(),
                   Text(
                     'الإشْعَارَات',
-                    style: TextStyle(fontFamily: 'Sora', fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary),
+                    style: TextStyle(fontFamily: 'Sora', fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w600, color: colors.textPrimary),
                   ),
                   const SizedBox(width: 48),
                 ],
@@ -51,3 +52,4 @@ class NotificationFailureScreen extends StatelessWidget {
     );
   }
 }
+

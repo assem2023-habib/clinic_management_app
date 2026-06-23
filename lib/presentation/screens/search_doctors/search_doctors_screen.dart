@@ -215,7 +215,7 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
             child: Text(
               AppStrings.sdTitle,
               style: TextStyle(
-                fontSize: 24,
+                fontSize: AppSpacing.titleError,
                 fontWeight: FontWeight.w700,
                 color: colors.primary,
               ),
@@ -245,7 +245,7 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
             child: TextField(
               controller: _searchController,
               style: TextStyle(
-                fontSize: 16,
+                fontSize: AppSpacing.bodyLarge,
                 fontWeight: FontWeight.w400,
                 color: colors.textPrimary,
               ),
@@ -319,7 +319,7 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
                 child: Text(
                   filter,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: AppSpacing.bodyMedium,
                     fontWeight: FontWeight.w500,
                     color: isSelected
                         ? colors.primaryLight
@@ -338,7 +338,7 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
     return Text(
       '${AppStrings.sdResultsCount} $count ${AppStrings.sdDoctor}',
       style: TextStyle(
-        fontSize: 14,
+        fontSize: AppSpacing.bodyMedium,
         fontWeight: FontWeight.w500,
         color: colors.divider,
       ),
@@ -360,7 +360,7 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
             Text(
               'لم يتم العثور على أطباء',
               style: TextStyle(
-                fontSize: 16,
+                fontSize: AppSpacing.bodyLarge,
                 fontWeight: FontWeight.w500,
                 color: colors.textLight,
               ),

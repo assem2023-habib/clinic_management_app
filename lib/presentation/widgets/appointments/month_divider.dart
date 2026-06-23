@@ -25,7 +25,7 @@ class MonthDivider extends StatelessWidget {
                 borderRadius: BorderRadius.circular(999),
               ),
               child: Text(monthLabel,
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: c.textSecondary)),
+                style: TextStyle(fontSize: AppSpacing.bodySmall, fontWeight: FontWeight.w600, color: c.textSecondary)),
             ),
           ),
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class StatCard extends StatelessWidget {
   final String title;
@@ -29,7 +30,7 @@ class StatCard extends StatelessWidget {
               Icon(icon, size: 20, color: color),
               if (value != null) ...[
                 const SizedBox(height: 2),
-                Text(value!, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: color)),
+                Text(value!, style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.bold, color: color)),
               ],
               const SizedBox(height: 2),
               Text(title, textAlign: TextAlign.center, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: colors.textPrimary)),
@@ -40,3 +41,4 @@ class StatCard extends StatelessWidget {
     );
   }
 }
+

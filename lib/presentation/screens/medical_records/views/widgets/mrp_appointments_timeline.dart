@@ -1,6 +1,7 @@
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class MrpTimelineItem extends StatelessWidget {
   final bool isPrimary;
@@ -63,7 +64,7 @@ class MrpTimelineItem extends StatelessWidget {
                   Text(
                     date,
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: AppSpacing.bodySmall,
                       fontWeight: FontWeight.w600,
                       color: colors.primary,
                     ),
@@ -78,7 +79,7 @@ class MrpTimelineItem extends StatelessWidget {
                           Text(
                             doctorName,
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: AppSpacing.bodyMedium,
                               fontWeight: FontWeight.w600,
                               color: colors.textPrimary,
                             ),
@@ -86,7 +87,7 @@ class MrpTimelineItem extends StatelessWidget {
                           Text(
                             specialty,
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: AppSpacing.bodySmall,
                               fontWeight: FontWeight.w500,
                               color: colors.divider,
                             ),
@@ -105,7 +106,7 @@ class MrpTimelineItem extends StatelessWidget {
                         child: Text(
                           AppStrings.mrVisitDone,
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: AppSpacing.bodySmall,
                             fontWeight: FontWeight.w500,
                             color: colors.divider,
                           ),
@@ -122,3 +123,4 @@ class MrpTimelineItem extends StatelessWidget {
     );
   }
 }
+

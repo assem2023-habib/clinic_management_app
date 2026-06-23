@@ -6,6 +6,7 @@ import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/onboarding/onboarding_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -129,7 +130,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
             Text(
               AppStrings.systemTitle,
               style: TextStyle(
-                fontSize: 14,
+                fontSize: AppSpacing.bodyMedium,
                 color: Colors.white.withValues(alpha: 0.7),
                 fontWeight: FontWeight.w500,
                 letterSpacing: 0.5,
@@ -153,3 +154,4 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     );
   }
 }
+

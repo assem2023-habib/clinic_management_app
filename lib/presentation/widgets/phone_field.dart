@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class CountryCode {
   final String flag;
@@ -84,7 +85,7 @@ class PhoneFieldState extends State<PhoneField> {
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       validator: widget.validator,
       onChanged: _onChanged,
-      style: TextStyle(color: colors.textPrimary, fontSize: 16),
+      style: TextStyle(color: colors.textPrimary, fontSize: AppSpacing.bodyLarge),
       decoration: InputDecoration(
         hintText: widget.hintText ?? AppStrings.phone,
         hintStyle: TextStyle(color: colors.textLight),
@@ -122,7 +123,7 @@ class PhoneFieldState extends State<PhoneField> {
                   style: TextStyle(
                     color: colors.primary,
                     fontWeight: FontWeight.w600,
-                    fontSize: 14,
+                    fontSize: AppSpacing.bodyMedium,
                   ),
                 ),
                 Icon(Icons.arrow_drop_down_rounded, color: colors.textSecondary, size: 20),
@@ -167,7 +168,7 @@ class PhoneFieldState extends State<PhoneField> {
                   Text(
                     AppStrings.chooseCountry,
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: AppSpacing.bodyLarge,
                       fontWeight: FontWeight.bold,
                       color: colors.textPrimary,
                     ),
@@ -204,11 +205,11 @@ class PhoneFieldState extends State<PhoneField> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             ListTile(
-                              leading: Text(c.flag, style: const TextStyle(fontSize: 24)),
+                              leading: Text(c.flag, style: const TextStyle(fontSize: AppSpacing.titleError)),
                               title: Text(c.name, style: TextStyle(color: colors.textPrimary)),
                               subtitle: Text(
                                 '${c.code} ${c.dialCode}',
-                                style: TextStyle(color: colors.textSecondary, fontSize: 12),
+                                style: TextStyle(color: colors.textSecondary, fontSize: AppSpacing.bodySmall),
                               ),
                               trailing: isSelected
                                   ? Icon(Icons.check_circle_rounded, color: colors.primary, size: 22)
@@ -243,3 +244,4 @@ class PhoneFieldState extends State<PhoneField> {
     );
   }
 }
+

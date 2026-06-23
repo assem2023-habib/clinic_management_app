@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class RatingBottomSheet extends StatefulWidget {
   final DoctorEntity doctor;
@@ -225,10 +226,10 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
           controller: _commentCtrl,
           focusNode: _focusNode,
           maxLines: 3,
-          style: TextStyle(color: colors.textPrimary, fontSize: 14),
+          style: TextStyle(color: colors.textPrimary, fontSize: AppSpacing.bodyMedium),
           decoration: InputDecoration(
             hintText: 'اكتب تجربتك مع الدكتور...',
-            hintStyle: TextStyle(color: colors.textSecondary.withValues(alpha: 0.5), fontSize: 14),
+            hintStyle: TextStyle(color: colors.textSecondary.withValues(alpha: 0.5), fontSize: AppSpacing.bodyMedium),
             border: InputBorder.none,
             contentPadding: const EdgeInsets.all(16),
           ),
@@ -267,7 +268,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
               Text(
                 'إرسال التقييم',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: AppSpacing.bodyLarge,
                   fontWeight: FontWeight.w700,
                   color: canSend ? Colors.white : colors.textSecondary.withValues(alpha: 0.5),
                 ),
@@ -296,3 +297,4 @@ class _StarClipper extends CustomClipper<Rect> {
   @override
   bool shouldReclip(_StarClipper old) => old.fraction != fraction;
 }
+

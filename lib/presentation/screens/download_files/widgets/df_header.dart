@@ -53,12 +53,12 @@ class _DfHeaderState extends State<DfHeader> {
                   onChanged: (value) => context.read<DownloadFileBloc>().add(DownloadFileSearch(value)),
                   decoration: InputDecoration(
                     hintText: AppStrings.dfSearchHint,
-                    hintStyle: TextStyle(color: colors.textLight.withValues(alpha: 0.5), fontSize: 14),
+                    hintStyle: TextStyle(color: colors.textLight.withValues(alpha: 0.5), fontSize: AppSpacing.bodyMedium),
                     border: InputBorder.none,
                     isDense: true,
                     contentPadding: EdgeInsets.zero,
                   ),
-                  style: TextStyle(fontSize: 14, color: colors.textPrimary),
+                  style: TextStyle(fontSize: AppSpacing.bodyMedium, color: colors.textPrimary),
                 ),
               ),
               InkWell(

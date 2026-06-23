@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class SdDoctorCard extends StatelessWidget {
   final DoctorEntity doctor;
@@ -46,7 +47,7 @@ class SdDoctorCard extends StatelessWidget {
                           child: Text(
                             doctor.name,
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: AppSpacing.titleMedium,
                               fontWeight: FontWeight.w700,
                               color: colors.textPrimary,
                             ),
@@ -71,7 +72,7 @@ class SdDoctorCard extends StatelessWidget {
                               Text(
                                 (doctor.rating ?? 0).toStringAsFixed(1),
                                 style: TextStyle(
-                                  fontSize: 12,
+                                  fontSize: AppSpacing.bodySmall,
                                   fontWeight: FontWeight.w500,
                                   color: colors.textPrimary,
                                 ),
@@ -85,7 +86,7 @@ class SdDoctorCard extends StatelessWidget {
                     Text(
                       doctor.specialty,
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: AppSpacing.bodyMedium,
                         fontWeight: FontWeight.w500,
                         color: colors.primary,
                       ),
@@ -103,7 +104,7 @@ class SdDoctorCard extends StatelessWidget {
                           child: Text(
                             doctor.clinicAddress ?? doctor.clinicName ?? '',
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: AppSpacing.bodySmall,
                               fontWeight: FontWeight.w500,
                               color: colors.textLight,
                             ),
@@ -122,7 +123,7 @@ class SdDoctorCard extends StatelessWidget {
             Text(
               doctor.bio!,
               style: TextStyle(
-                fontSize: 16,
+                fontSize: AppSpacing.bodyLarge,
                 fontWeight: FontWeight.w400,
                 color: colors.textSecondary,
                 height: 1.5,
@@ -150,7 +151,7 @@ class SdDoctorCard extends StatelessWidget {
                     child: Text(
                       AppStrings.sdBookAppointment,
                       style: const TextStyle(
-                        fontSize: 14,
+                        fontSize: AppSpacing.bodyMedium,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -242,3 +243,4 @@ class SdDoctorCard extends StatelessWidget {
     );
   }
 }
+

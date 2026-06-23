@@ -172,7 +172,7 @@ class StateScreen extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-              fontSize: 24,
+              fontSize: AppSpacing.titleError,
               fontWeight: FontWeight.w700,
               color: colors.textPrimary,
             ),
@@ -223,7 +223,7 @@ class StateScreen extends StatelessWidget {
             ],
             Text(
               primaryAction!.label,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+              style: const TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w700),
             ),
           ],
         ),
@@ -250,7 +250,7 @@ class StateScreen extends StatelessWidget {
             ],
             Text(
               secondaryAction!.label,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              style: const TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600),
             ),
           ],
         ),
@@ -271,7 +271,7 @@ class StateScreen extends StatelessWidget {
             const SizedBox(width: 4),
             Text(
               chip.label,
-              style: TextStyle(fontSize: 12, color: colors.textLight.withValues(alpha: 0.4)),
+              style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textLight.withValues(alpha: 0.4)),
             ),
           ],
         );

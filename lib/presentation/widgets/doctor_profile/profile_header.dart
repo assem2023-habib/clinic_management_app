@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class ProfileHeader extends StatelessWidget {
   final DoctorEntity doctor;
@@ -40,7 +41,7 @@ class ProfileHeader extends StatelessWidget {
                         child: Text(
                           doctor.name,
                           style: TextStyle(
-                            fontSize: 24,
+                            fontSize: AppSpacing.titleError,
                             fontWeight: FontWeight.w700,
                             color: colors.textPrimary,
                           ),
@@ -55,7 +56,7 @@ class ProfileHeader extends StatelessWidget {
                   Text(
                     doctor.specialty,
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: AppSpacing.bodyMedium,
                       fontWeight: FontWeight.w600,
                       color: colors.primary,
                       letterSpacing: 0.5,
@@ -70,7 +71,7 @@ class ProfileHeader extends StatelessWidget {
                       const SizedBox(width: 4),
                       Text(
                         doctor.rating.toString(),
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: colors.textPrimary),
+                        style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600, color: colors.textPrimary),
                       ),
                       Text(
                         ' (${doctor.reviewsCount} ${AppStrings.rating})',
@@ -98,7 +99,7 @@ class ProfileHeader extends StatelessWidget {
                           color: colors.chipBg,
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: Text(lang, style: TextStyle(fontSize: 12, color: colors.chipText)),
+                        child: Text(lang, style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.chipText)),
                       )).toList(),
                     ),
                   ],
@@ -111,3 +112,4 @@ class ProfileHeader extends StatelessWidget {
     );
   }
 }
+

@@ -54,7 +54,7 @@ class _SrCategoryCardState extends State<SrCategoryCard> {
               Text(
                 widget.label,
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: AppSpacing.bodyMedium,
                   fontWeight: FontWeight.w600,
                   color: colors.textPrimary,
                 ),

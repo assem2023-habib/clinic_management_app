@@ -43,7 +43,7 @@ class PatientDashboardView extends StatelessWidget {
                   child: Center(
                     child: Text(
                       state.message,
-                      style: TextStyle(color: colors.error, fontSize: 14),
+                      style: TextStyle(color: colors.error, fontSize: AppSpacing.bodyMedium),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -74,7 +74,7 @@ class PatientDashboardView extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(AppStrings.quickActions, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+                      Text(AppStrings.quickActions, style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
                       const SizedBox(height: 12),
                       Row(children: [
                         Expanded(child: ActionButton(icon: Icons.calendar_month, label: AppStrings.myAppointments, color: colors.primary, onPressed: () => Navigator.pushNamed(context, AppRoutes.appointments))),
@@ -102,7 +102,7 @@ class PatientDashboardView extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(AppStrings.latestAppointments, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+                      Text(AppStrings.latestAppointments, style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
                       const SizedBox(height: 12),
                       const RecentAppointments(),
                     ],
@@ -123,7 +123,7 @@ class PatientDashboardView extends StatelessWidget {
       child: Text(
         title,
         style: TextStyle(
-          fontSize: 18,
+          fontSize: AppSpacing.titleMedium,
           fontWeight: FontWeight.w700,
           color: colors.textPrimary,
         ),

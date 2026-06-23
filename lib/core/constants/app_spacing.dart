@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 class AppSpacing {
   const AppSpacing._();
 
+  static const double xxs = 2;
   static const double xs = 4;
+  static const double six = 6;
   static const double sm = 8;
+  static const double ten = 10;
   static const double md = 16;
   static const double lg = 24;
   static const double xl = 32;
@@ -24,6 +27,7 @@ class AppSpacing {
   static const double avatarSmall = 18;
   static const double iconSize = 24;
   static const double iconSmall = 20;
+  static const double iconMedium = 22;
   static const double confirmationIconSize = 96;
   static const double titleLarge = 26;
   static const double titleError = 24;

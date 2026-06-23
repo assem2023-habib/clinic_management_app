@@ -6,6 +6,7 @@ import 'package:clinic_management_app/core/utils/app_toast.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/supervision/supervision_bloc.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class SupervisionRequestsScreen extends StatefulWidget {
   const SupervisionRequestsScreen({super.key});
@@ -84,7 +85,7 @@ class _SupervisionRequestsScreenState extends State<SupervisionRequestsScreen>
           indicatorWeight: 3,
           labelColor: Colors.white,
           unselectedLabelColor: Colors.white70,
-          labelStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+          labelStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: AppSpacing.bodyMedium),
           tabs: [
             Tab(text: isPatient ? AppStrings.supervisingDoctors : AppStrings.supervisedPatients),
             Tab(text: isPatient ? AppStrings.pendingRequests : AppStrings.incomingRequests),
@@ -448,7 +449,7 @@ class _SupervisionCard extends StatelessWidget {
                       Text(
                         title,
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: AppSpacing.bodyLarge,
                           fontWeight: FontWeight.w700,
                           color: colors.textPrimary,
                         ),
@@ -473,7 +474,7 @@ class _SupervisionCard extends StatelessWidget {
                   child: Text(
                     status == 'active' ? AppStrings.active : status,
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: AppSpacing.bodySmall,
                       fontWeight: FontWeight.w600,
                       color: statusColor,
                     ),
@@ -574,7 +575,7 @@ class _RequestCard extends StatelessWidget {
                       Text(
                         title,
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: AppSpacing.bodyLarge,
                           fontWeight: FontWeight.w700,
                           color: colors.textPrimary,
                         ),
@@ -583,7 +584,7 @@ class _RequestCard extends StatelessWidget {
                         Text(
                           createdAt!,
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: AppSpacing.bodySmall,
                             color: colors.textSecondary,
                           ),
                         ),
@@ -599,7 +600,7 @@ class _RequestCard extends StatelessWidget {
                   child: Text(
                     _statusLabel(),
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: AppSpacing.bodySmall,
                       fontWeight: FontWeight.w600,
                       color: _statusColor(),
                     ),
@@ -692,7 +693,7 @@ class _EmptyState extends StatelessWidget {
           Text(
             message,
             style: TextStyle(
-              fontSize: 16,
+              fontSize: AppSpacing.bodyLarge,
               fontWeight: FontWeight.w600,
               color: colors.textSecondary,
             ),
@@ -702,3 +703,4 @@ class _EmptyState extends StatelessWidget {
     );
   }
 }
+

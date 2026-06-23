@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class ProfileQualificationsSection extends StatelessWidget {
   final DoctorEntity doctor;
@@ -18,7 +19,7 @@ class ProfileQualificationsSection extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(AppStrings.qualifications, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+            Text(AppStrings.qualifications, style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
             const SizedBox(height: 12),
             ...(doctor.qualifications.isNotEmpty
                 ? doctor.qualifications
@@ -43,7 +44,7 @@ class ProfileQualificationsSection extends StatelessWidget {
                     child: Icon(Icons.school_rounded, color: colors.secondary, size: 20),
                   ),
                   const SizedBox(width: 12),
-                  Expanded(child: Text(qual, style: TextStyle(fontSize: 14, color: colors.textPrimary))),
+                  Expanded(child: Text(qual, style: TextStyle(fontSize: AppSpacing.bodyMedium, color: colors.textPrimary))),
                 ],
               ),
             )),
@@ -53,3 +54,4 @@ class ProfileQualificationsSection extends StatelessWidget {
     );
   }
 }
+

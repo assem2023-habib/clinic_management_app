@@ -44,12 +44,12 @@ class UfSecurityCard extends StatelessWidget {
               const SizedBox(height: AppSpacing.sm),
               Text(
                 AppStrings.ufSecurityTitle,
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600, color: colors.textPrimary),
+                style: TextStyle(fontSize: AppSpacing.titleError, fontWeight: FontWeight.w600, color: colors.textPrimary),
               ),
               const SizedBox(height: 4),
               Text(
                 AppStrings.ufSecurityMessage,
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: colors.textLight, height: 1.5),
+                style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w500, color: colors.textLight, height: 1.5),
               ),
             ],
           ),

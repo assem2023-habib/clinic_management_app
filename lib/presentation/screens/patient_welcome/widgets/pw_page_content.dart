@@ -1,5 +1,6 @@
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class PwPageContent extends StatelessWidget {
   final String title;
@@ -32,7 +33,7 @@ class PwPageContent extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: 'Sora',
-              fontSize: 16,
+              fontSize: AppSpacing.bodyLarge,
               fontWeight: FontWeight.w400,
               height: 1.5,
               color: colors.textMuted.withValues(alpha: 0.8),
@@ -43,3 +44,4 @@ class PwPageContent extends StatelessWidget {
     );
   }
 }
+

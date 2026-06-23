@@ -87,7 +87,7 @@ class DrStatsCards extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(label, style: TextStyle(fontSize: 12, color: colors.textLight)),
+              Text(label, style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textLight)),
               Icon(icon, color: colors.primary, size: 20),
             ],
           ),

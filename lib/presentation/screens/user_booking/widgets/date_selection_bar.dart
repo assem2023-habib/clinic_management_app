@@ -37,7 +37,7 @@ class DateSelectionBar extends StatelessWidget {
             Text(
               '${_monthName(selectedDate.month)}، ${selectedDate.year}',
               style: TextStyle(
-                fontSize: 22,
+                fontSize: AppSpacing.titleError - AppSpacing.xxs,
                 fontWeight: FontWeight.w700,
                 color: colors.textPrimary,
               ),
@@ -101,7 +101,7 @@ class DateSelectionBar extends StatelessWidget {
                       Text(
                         date.day.toString(),
                         style: TextStyle(
-                          fontSize: 22,
+                          fontSize: AppSpacing.titleError - AppSpacing.xxs,
                           fontWeight: FontWeight.w700,
                           color: isActive ? Colors.white : colors.textPrimary,
                         ),

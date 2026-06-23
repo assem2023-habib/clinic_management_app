@@ -3,6 +3,7 @@ import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/time_slot_entity.dart';
 import 'package:clinic_management_app/presentation/widgets/empty_data/empty_data_widget.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class ProfileScheduleSection extends StatelessWidget {
   final List<TimeSlotEntity> slots;
@@ -37,7 +38,7 @@ class ProfileScheduleSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(AppStrings.availableAppts, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+            Text(AppStrings.availableAppts, style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
             if (canManage)
               TextButton.icon(
                 onPressed: () {},
@@ -142,3 +143,4 @@ class ProfileScheduleSection extends StatelessWidget {
     );
   }
 }
+

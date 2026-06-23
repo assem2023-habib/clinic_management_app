@@ -6,6 +6,7 @@ import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/core/theme/theme_provider.dart';
 import 'package:clinic_management_app/presentation/blocs/language/language_cubit.dart';
 import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class SettingsScreen extends StatefulWidget {
   final ThemeProvider themeProvider;
@@ -69,7 +70,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           child: Text(
             title,
             style: TextStyle(
-              fontSize: 14,
+              fontSize: AppSpacing.bodyMedium,
               color: AppColors.of(context).primary,
               fontWeight: FontWeight.w600,
             ),
@@ -114,7 +115,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-              leading: const Text('🇸🇦', style: TextStyle(fontSize: 24)),
+              leading: const Text('🇸🇦', style: TextStyle(fontSize: AppSpacing.titleError)),
               title: const Text('العربية'),
               trailing: current == 'ar' ? Icon(Icons.check, color: AppColors.of(context).primary) : null,
               onTap: () {
@@ -123,7 +124,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             ListTile(
-              leading: const Text('🇬🇧', style: TextStyle(fontSize: 24)),
+              leading: const Text('🇬🇧', style: TextStyle(fontSize: AppSpacing.titleError)),
               title: const Text('English'),
               trailing: current == 'en' ? Icon(Icons.check, color: AppColors.of(context).primary) : null,
               onTap: () {
@@ -186,7 +187,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       child: Text(
         label,
-        style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w600),
+        style: TextStyle(color: color, fontSize: AppSpacing.bodySmall, fontWeight: FontWeight.w600),
       ),
     );
   }
@@ -235,3 +236,4 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 }
+

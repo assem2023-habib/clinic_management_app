@@ -5,6 +5,7 @@ import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/onboarding/onboarding_cubit.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class RoleSelectionScreen extends StatelessWidget {
   const RoleSelectionScreen({super.key});
@@ -41,7 +42,7 @@ class RoleSelectionScreen extends StatelessWidget {
                 AppStrings.roleSelectionSystemName,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: AppSpacing.titleError,
                   fontWeight: FontWeight.w800,
                   color: colors.textPrimary,
                 ),
@@ -51,7 +52,7 @@ class RoleSelectionScreen extends StatelessWidget {
                 AppStrings.chooseRoleToStart,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: AppSpacing.bodyMedium,
                   color: colors.textSecondary,
                 ),
               ),
@@ -179,3 +180,4 @@ class RoleSelectionScreen extends StatelessWidget {
     );
   }
 }
+

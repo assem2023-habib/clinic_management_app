@@ -118,7 +118,7 @@ class _UploadFilesScreenState extends State<UploadFilesScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(state.fileName, style: TextStyle(color: colors.textPrimary, fontSize: 16)),
+            Text(state.fileName, style: TextStyle(color: colors.textPrimary, fontSize: AppSpacing.bodyLarge)),
             const SizedBox(height: AppSpacing.md),
             ClipRRect(
               borderRadius: BorderRadius.circular(999),
@@ -156,7 +156,7 @@ class _UploadFilesScreenState extends State<UploadFilesScreen> {
                     const SizedBox(height: 80),
                     Icon(Icons.cloud_upload_rounded, size: 64, color: colors.textLight),
                     const SizedBox(height: AppSpacing.md),
-                    Text(AppStrings.dfNoFiles, style: TextStyle(color: colors.textPrimary, fontSize: 18)),
+                    Text(AppStrings.dfNoFiles, style: TextStyle(color: colors.textPrimary, fontSize: AppSpacing.titleMedium)),
                     const SizedBox(height: AppSpacing.sm),
                     Text(AppStrings.dfNoFilesHint, style: TextStyle(color: colors.textLight), textAlign: TextAlign.center),
                   ],

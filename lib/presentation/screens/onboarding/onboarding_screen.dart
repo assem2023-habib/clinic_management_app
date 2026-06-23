@@ -7,6 +7,7 @@ import 'package:clinic_management_app/presentation/screens/onboarding/onboarding
 import 'package:clinic_management_app/presentation/blocs/onboarding/onboarding_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/onboarding/onboarding_state.dart';
 import 'package:clinic_management_app/presentation/widgets/onboarding_page.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -85,14 +86,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             },
             child: Text(
               AppStrings.back,
-              style: TextStyle(color: colors.textSecondary, fontSize: 14),
+              style: TextStyle(color: colors.textSecondary, fontSize: AppSpacing.bodyMedium),
             ),
           ),
           TextButton(
             onPressed: _completeOnboarding,
             child: Text(
               AppStrings.skip, 
-              style: TextStyle(color: colors.textSecondary, fontSize: 14),
+              style: TextStyle(color: colors.textSecondary, fontSize: AppSpacing.bodyMedium),
             ),
           ),
         ],
@@ -140,12 +141,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     const SizedBox(width: 10),
                     Text(
                       AppStrings.enterApp,
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colors.primaryLight),
+                      style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600, color: colors.primaryLight),
                     ),
                   ] else ...[
                     Text(
                       AppStrings.next,
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colors.primaryLight),
+                      style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600, color: colors.primaryLight),
                     ),
                     const SizedBox(width: 10),
                     Icon(Icons.arrow_forward_rounded, color: colors.primaryLight),
@@ -165,7 +166,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               AppStrings.haveAccountLogin,
               style: TextStyle(
                 color: colors.primary,
-                fontSize: 14,
+                fontSize: AppSpacing.bodyMedium,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -200,3 +201,4 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     Navigator.pushReplacementNamed(context, AppRoutes.login);
   }
 }
+

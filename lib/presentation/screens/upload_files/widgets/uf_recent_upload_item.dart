@@ -48,14 +48,14 @@ class UfRecentUploadItem extends StatelessWidget {
                 children: [
                   Text(
                     fileName,
-                    style: TextStyle(fontSize: 16, color: colors.textPrimary),
+                    style: TextStyle(fontSize: AppSpacing.bodyLarge, color: colors.textPrimary),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 2),
                   Text(
                     subtitle,
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: colors.textLight),
+                    style: TextStyle(fontSize: AppSpacing.bodySmall, fontWeight: FontWeight.w600, color: colors.textLight),
                   ),
                 ],
               ),

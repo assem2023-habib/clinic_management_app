@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class UfSectionHeader extends StatelessWidget {
   final String label;
@@ -20,7 +21,7 @@ class UfSectionHeader extends StatelessWidget {
       children: [
         Text(
           label,
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: colors.textLight, letterSpacing: 0.05),
+          style: TextStyle(fontSize: AppSpacing.bodySmall, fontWeight: FontWeight.w600, color: colors.textLight, letterSpacing: 0.05),
         ),
         const Spacer(),
         if (actionLabel != null)
@@ -28,10 +29,11 @@ class UfSectionHeader extends StatelessWidget {
             onTap: onAction,
             child: Text(
               actionLabel!,
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: colors.primary),
+              style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w500, color: colors.primary),
             ),
           ),
       ],
     );
   }
 }
+

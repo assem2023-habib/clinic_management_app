@@ -80,7 +80,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
           Text(
             AppStrings.mrTitle,
             style: TextStyle(
-              fontSize: 24,
+              fontSize: AppSpacing.titleError,
               fontWeight: FontWeight.w600,
               color: colors.primary,
             ),
@@ -236,7 +236,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
         Text(
           title,
           style: TextStyle(
-            fontSize: 24,
+            fontSize: AppSpacing.titleError,
             fontWeight: FontWeight.w600,
             color: colors.textPrimary,
           ),
@@ -246,7 +246,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
           Text(
             action,
             style: TextStyle(
-              fontSize: 14,
+              fontSize: AppSpacing.bodyMedium,
               fontWeight: FontWeight.w600,
               color: colors.primary,
             ),

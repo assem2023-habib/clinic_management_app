@@ -266,7 +266,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
         AppStrings.ssMessage,
         style: TextStyle(
           fontFamily: 'Sora',
-          fontSize: 18,
+          fontSize: AppSpacing.titleMedium,
           fontWeight: FontWeight.w400,
           color: colors.textMuted,
           height: 1.5,

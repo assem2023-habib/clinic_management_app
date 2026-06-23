@@ -47,7 +47,7 @@ class DrQueueItem extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text('#$queueNumber',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: numberColor)),
+                    style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w700, color: numberColor)),
                 ),
               ),
               const SizedBox(width: AppSpacing.md),
@@ -56,10 +56,10 @@ class DrQueueItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(patientName,
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+                      style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
                     const SizedBox(height: 2),
                     Text(doctorName,
-                      style: TextStyle(fontSize: 12, color: colors.textLight)),
+                      style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textLight)),
                   ],
                 ),
               ),

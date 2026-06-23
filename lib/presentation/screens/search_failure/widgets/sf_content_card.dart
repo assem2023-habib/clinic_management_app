@@ -26,7 +26,7 @@ class SfContentCard extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: 'Sora',
-              fontSize: 22,
+              fontSize: AppSpacing.titleError - AppSpacing.xxs,
               fontWeight: FontWeight.w600,
               height: 1.3,
               color: colors.warning,

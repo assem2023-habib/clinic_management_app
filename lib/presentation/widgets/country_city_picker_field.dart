@@ -5,6 +5,7 @@ import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/country_entity.dart';
 import 'package:clinic_management_app/domain/entities/city_entity.dart';
 import 'package:clinic_management_app/domain/repositories/location_repository.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class CountryCityPickerField extends StatefulWidget {
   final String? cityId;
@@ -96,7 +97,7 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
                   Text(
                     AppStrings.chooseCountry,
                     style: TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.bold,
+                      fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.bold,
                       color: colors.textPrimary,
                     ),
                   ),
@@ -129,9 +130,9 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             ListTile(
-                              leading: Text(country.flag ?? '🌍', style: const TextStyle(fontSize: 24)),
+                              leading: Text(country.flag ?? '🌍', style: const TextStyle(fontSize: AppSpacing.titleError)),
                               title: Text(country.nameAr, style: TextStyle(color: colors.textPrimary)),
-                              subtitle: Text(country.nameEn, style: TextStyle(color: colors.textSecondary, fontSize: 12)),
+                              subtitle: Text(country.nameEn, style: TextStyle(color: colors.textSecondary, fontSize: AppSpacing.bodySmall)),
                               trailing: isSelected
                                   ? Icon(Icons.check_circle_rounded, color: colors.primary, size: 22)
                                   : null,
@@ -212,7 +213,7 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
                         child: Text(
                           AppStrings.chooseCity,
                           style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold,
+                            fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.bold,
                             color: colors.textPrimary,
                           ),
                           textAlign: TextAlign.center,
@@ -253,7 +254,7 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
                               leading: Icon(Icons.location_city_rounded,
                                   color: isSelected ? colors.primary : colors.textSecondary, size: 24),
                               title: Text(city.nameAr, style: TextStyle(color: colors.textPrimary)),
-                              subtitle: Text(city.nameEn, style: TextStyle(color: colors.textSecondary, fontSize: 12)),
+                              subtitle: Text(city.nameEn, style: TextStyle(color: colors.textSecondary, fontSize: AppSpacing.bodySmall)),
                               trailing: isSelected
                                   ? Icon(Icons.check_circle_rounded, color: colors.primary, size: 22)
                                   : null,
@@ -293,7 +294,7 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
 
     return TextFormField(
       readOnly: true,
-      style: TextStyle(color: colors.textPrimary, fontSize: 16),
+      style: TextStyle(color: colors.textPrimary, fontSize: AppSpacing.bodyLarge),
       decoration: InputDecoration(
         labelText: AppStrings.countryCity,
         labelStyle: TextStyle(color: colors.textSecondary),
@@ -316,3 +317,4 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
     );
   }
 }
+

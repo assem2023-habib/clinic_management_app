@@ -65,7 +65,7 @@ class AppDrawer extends StatelessWidget {
                 child: Text(
                   initials,
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: AppSpacing.titleError,
                     fontWeight: FontWeight.bold,
                     color: colors.primaryDark,
                   ),
@@ -75,7 +75,7 @@ class AppDrawer extends StatelessWidget {
               Text(
                 name,
                 style: const TextStyle(
-                  fontSize: 18,
+                  fontSize: AppSpacing.titleMedium,
                   fontWeight: FontWeight.w700,
                   color: Colors.white,
                 ),
@@ -89,7 +89,7 @@ class AppDrawer extends StatelessWidget {
                 ),
                 child: Text(
                   roleLabel,
-                  style: const TextStyle(fontSize: 12, color: Colors.white, fontWeight: FontWeight.w600),
+                  style: const TextStyle(fontSize: AppSpacing.bodySmall, color: Colors.white, fontWeight: FontWeight.w600),
                 ),
               ),
             ],
@@ -196,7 +196,7 @@ class AppDrawer extends StatelessWidget {
         ),
         trailing: Text(
           isEn ? '🇬🇧' : '🇸🇦',
-          style: const TextStyle(fontSize: 16),
+          style: const TextStyle(fontSize: AppSpacing.bodyLarge),
         ),
         onTap: () {
           context.read<LanguageCubit>().setLocale(isEn ? 'ar' : 'en');

@@ -46,7 +46,7 @@ class RatingFilterBar extends StatelessWidget {
               child: Text(
                 f.label,
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: AppSpacing.bodySmall,
                   fontWeight: FontWeight.w500,
                   color: isActive ? Colors.white : colors.textPrimary,
                 ),

@@ -6,6 +6,7 @@ import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/profile/profile_cubit.dart';
 import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
 import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -152,8 +153,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget _buildInfoTile(String label, String value, String fieldKey, AppColorSet colors) {
     return ListTile(
-      title: Text(value, style: TextStyle(fontSize: 16, color: colors.textPrimary)),
-      subtitle: Text(label, style: TextStyle(fontSize: 12, color: colors.textSecondary)),
+      title: Text(value, style: TextStyle(fontSize: AppSpacing.bodyLarge, color: colors.textPrimary)),
+      subtitle: Text(label, style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textSecondary)),
       trailing: Icon(Icons.edit_rounded, size: 18, color: colors.primaryLight),
       onTap: () => _showEditDialog(label, fieldKey, value),
       contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
@@ -219,3 +220,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
+

@@ -53,7 +53,7 @@ class SrFeaturedBanner extends StatelessWidget {
                    Text(
                     AppStrings.srBannerTitle,
                     style: TextStyle(
-                      fontSize: 22,
+                      fontSize: AppSpacing.titleError - AppSpacing.xxs,
                       fontWeight: FontWeight.w700,
                       color: Colors.white,
                     ),
@@ -62,7 +62,7 @@ class SrFeaturedBanner extends StatelessWidget {
 Text(
                     AppStrings.srBannerSubtitle,
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: AppSpacing.bodyMedium,
                       color: colors.textMuted,
                     ),
                     maxLines: 2,

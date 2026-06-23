@@ -41,7 +41,7 @@ class RhActiveQueue extends StatelessWidget {
               children: [
                 Text(
                   AppStrings.rhActiveQueue,
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: colors.textLight),
+                  style: TextStyle(fontSize: AppSpacing.bodySmall, fontWeight: FontWeight.w600, color: colors.textLight),
                 ),
                 Row(
                   children: [

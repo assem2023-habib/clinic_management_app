@@ -4,6 +4,7 @@ import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
 import 'package:clinic_management_app/presentation/widgets/appointments/timeline_painter.dart';
 import 'package:clinic_management_app/presentation/widgets/appointments/appointment_card.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class AppointmentTimelineRow extends StatelessWidget {
   final AppointmentEntity appointment;
@@ -108,7 +109,7 @@ class _DateLabel extends StatelessWidget {
       padding: const EdgeInsets.only(right: 2),
       child: Text(label,
         style: TextStyle(
-          fontSize: 12,
+          fontSize: AppSpacing.bodySmall,
           fontWeight: FontWeight.w600,
           color: isUpcoming ? c.primary : c.textSecondary,
         ),
@@ -126,3 +127,4 @@ class _DateLabel extends StatelessWidget {
     return months[m];
   }
 }
+

@@ -5,6 +5,7 @@ import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/presentation/blocs/profile/profile_cubit.dart';
 import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class DeleteAccountScreen extends StatefulWidget {
   const DeleteAccountScreen({super.key});
@@ -71,7 +72,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                   Text(
                     AppStrings.deleteAllDataWarning,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 14, color: colors.textSecondary),
+                    style: TextStyle(fontSize: AppSpacing.bodyMedium, color: colors.textSecondary),
                   ),
                   const SizedBox(height: 32),
                   TextFormField(
@@ -99,7 +100,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                     ),
                     child: state.isSaving
                         ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-                        :  Text(AppStrings.deleteAccountTitle, style: TextStyle(fontSize: 16)),
+                        :  Text(AppStrings.deleteAccountTitle, style: TextStyle(fontSize: AppSpacing.bodyLarge)),
                   ),
                 ],
               ),
@@ -110,3 +111,4 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
     );
   }
 }
+

@@ -1,6 +1,7 @@
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class MrpBottomNav extends StatelessWidget {
   final int activeIndex;
@@ -55,7 +56,7 @@ class MrpBottomNav extends StatelessWidget {
           Text(
             label,
             style: TextStyle(
-              fontSize: 12,
+              fontSize: AppSpacing.bodySmall,
               fontWeight: FontWeight.w500,
               color: isActive
                   ? colors.primary
@@ -84,7 +85,7 @@ class MrpBottomNav extends StatelessWidget {
             Text(
               label,
             style: TextStyle(
-                fontSize: 12,
+                fontSize: AppSpacing.bodySmall,
                 fontWeight: FontWeight.w500,
                 color: colors.timelineBg,
               ),
@@ -95,3 +96,4 @@ class MrpBottomNav extends StatelessWidget {
     );
   }
 }
+

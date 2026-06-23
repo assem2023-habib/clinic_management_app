@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class OnboardingPage extends StatelessWidget {
   final IconData icon;
@@ -66,7 +67,7 @@ class OnboardingPage extends StatelessWidget {
               title,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 24,
+                fontSize: AppSpacing.titleError,
                 fontWeight: FontWeight.bold,
                 color: colors.textPrimary,
                 height: 1.4,
@@ -91,3 +92,4 @@ class OnboardingPage extends StatelessWidget {
     );
   }
 }
+

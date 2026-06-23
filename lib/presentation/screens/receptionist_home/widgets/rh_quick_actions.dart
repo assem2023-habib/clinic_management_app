@@ -50,11 +50,11 @@ class RhQuickActions extends StatelessWidget {
                     children: [
                       Text(
                         AppStrings.rhNewAppointment,
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary),
+                        style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w600, color: colors.textPrimary),
                       ),
                       Text(
                         AppStrings.rhBookSlot,
-                        style: TextStyle(fontSize: 12, color: colors.textPrimary.withValues(alpha: 0.8)),
+                        style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textPrimary.withValues(alpha: 0.8)),
                       ),
                     ],
                   ),
@@ -114,7 +114,7 @@ class RhQuickActions extends StatelessWidget {
           children: [
             Icon(icon, color: color, size: 24),
             const SizedBox(height: AppSpacing.sm),
-            Text(label, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+            Text(label, style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
           ],
         ),
       ),

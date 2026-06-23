@@ -36,7 +36,7 @@ class RatingSummarySection extends StatelessWidget {
               children: [
                 Text(
                   AppStrings.rating,
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: colors.textSecondary, letterSpacing: 0.5),
+                  style: TextStyle(fontSize: AppSpacing.bodySmall, fontWeight: FontWeight.w600, color: colors.textSecondary, letterSpacing: 0.5),
                 ),
                 const SizedBox(height: AppSpacing.xs),
                 Row(
@@ -50,7 +50,7 @@ class RatingSummarySection extends StatelessWidget {
                     const SizedBox(width: AppSpacing.sm),
                     Text(
                       'من 5.0',
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: colors.textSecondary),
+                      style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600, color: colors.textSecondary),
                     ),
                   ],
                 ),
@@ -73,7 +73,7 @@ class RatingSummarySection extends StatelessWidget {
                 const SizedBox(height: AppSpacing.sm),
                 Text(
                   '${AppStrings.basedOnReviews} $totalReviews ${AppStrings.reviewsFromPatients}',
-                  style: TextStyle(fontSize: 12, color: colors.textSecondary),
+                  style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textSecondary),
                 ),
               ],
             ),
@@ -92,7 +92,7 @@ class RatingSummarySection extends StatelessWidget {
                       width: 16,
                       child: Text(
                         '${d.star}',
-                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: colors.textSecondary),
+                        style: TextStyle(fontSize: AppSpacing.bodySmall, fontWeight: FontWeight.w500, color: colors.textSecondary),
                       ),
                     ),
                     const SizedBox(width: AppSpacing.sm),

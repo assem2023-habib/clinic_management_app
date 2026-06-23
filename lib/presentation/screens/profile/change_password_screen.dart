@@ -4,6 +4,7 @@ import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/profile/profile_cubit.dart';
 import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});
@@ -109,7 +110,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       ),
                       child: state.isSaving
                           ? SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: colors.surface))
-                          :  Text(AppStrings.save, style: TextStyle(fontSize: 16)),
+                          :  Text(AppStrings.save, style: TextStyle(fontSize: AppSpacing.bodyLarge)),
                     ),
                   ],
                 ),
@@ -146,3 +147,4 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     );
   }
 }
+

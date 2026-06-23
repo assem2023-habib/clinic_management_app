@@ -60,7 +60,7 @@ class RhCalendarBar extends StatelessWidget {
                   Text(
                     date.day.toString(),
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: AppSpacing.titleMedium,
                       fontWeight: FontWeight.w700,
                       color: isActive ? colors.secondary : colors.textPrimary,
                     ),

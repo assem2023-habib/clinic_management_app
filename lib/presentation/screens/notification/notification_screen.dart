@@ -137,7 +137,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(label, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: isActive ? colors.neonGreen : colors.textSecondary)),
+              Text(label, style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600, color: isActive ? colors.neonGreen : colors.textSecondary)),
               if (count != null && count > 0) ...[
                 const SizedBox(width: 6),
                 Container(
@@ -184,9 +184,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
               child: Icon(Icons.notifications_none_rounded, size: 40, color: colors.primary.withValues(alpha: 0.5)),
             ),
             const SizedBox(height: AppSpacing.md),
-            Text(AppStrings.ntEmptyTitle, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+            Text(AppStrings.ntEmptyTitle, style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
             const SizedBox(height: AppSpacing.sm),
-            Text(AppStrings.ntEmptyHint, style: TextStyle(fontSize: 14, color: colors.textSecondary), textAlign: TextAlign.center),
+            Text(AppStrings.ntEmptyHint, style: TextStyle(fontSize: AppSpacing.bodyMedium, color: colors.textSecondary), textAlign: TextAlign.center),
           ],
         ),
       ),

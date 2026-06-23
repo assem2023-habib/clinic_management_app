@@ -49,7 +49,7 @@ class RhClinicPulse extends StatelessWidget {
                 const SizedBox(height: AppSpacing.xs),
                 Text(
                   label,
-                  style: TextStyle(fontSize: 12, color: colors.textSecondary),
+                  style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textSecondary),
                 ),
               ],
             ),

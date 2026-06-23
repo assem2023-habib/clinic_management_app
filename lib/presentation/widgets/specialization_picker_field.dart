@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/specialization_entity.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 final _fallbackSpecs = {
   'cardiology': AppStrings.specCardiology,
@@ -64,7 +65,7 @@ class SpecializationPickerField extends StatelessWidget {
 
     return TextFormField(
       readOnly: true,
-      style: TextStyle(color: colors.textPrimary, fontSize: 16),
+      style: TextStyle(color: colors.textPrimary, fontSize: AppSpacing.bodyLarge),
       decoration: InputDecoration(
         labelText: AppStrings.specialty,
         labelStyle: TextStyle(color: colors.textSecondary),
@@ -114,7 +115,7 @@ class SpecializationPickerField extends StatelessWidget {
                   const SizedBox(height: 16),
                   Text(
                     AppStrings.chooseSpecialty,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: colors.textPrimary),
+                    style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.bold, color: colors.textPrimary),
                   ),
                   const SizedBox(height: 12),
                   TextField(
@@ -155,7 +156,7 @@ class SpecializationPickerField extends StatelessWidget {
                                 leading: Icon(_specializationIcon(spec.slug),
                                     color: isSelected ? colors.primary : colors.textSecondary, size: 24),
                                 title: Text(spec.nameAr, style: TextStyle(color: colors.textPrimary)),
-                                subtitle: Text(spec.nameEn, style: TextStyle(color: colors.textSecondary, fontSize: 12)),
+                                subtitle: Text(spec.nameEn, style: TextStyle(color: colors.textSecondary, fontSize: AppSpacing.bodySmall)),
                                 trailing: isSelected
                                     ? Icon(Icons.check_circle_rounded, color: colors.primary, size: 22)
                                     : null,
@@ -241,3 +242,4 @@ IconData _specializationIcon(String key) {
     _ => Icons.medical_services_outlined,
   };
 }
+

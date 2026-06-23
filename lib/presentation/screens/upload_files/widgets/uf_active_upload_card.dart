@@ -59,7 +59,7 @@ class UfActiveUploadCard extends StatelessWidget {
                     Text(
                       fileName,
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: AppSpacing.titleError,
                         fontWeight: FontWeight.w600,
                         color: colors.textPrimary,
                       ),
@@ -70,7 +70,7 @@ class UfActiveUploadCard extends StatelessWidget {
                     Text(
                       '$fileSize • ${AppStrings.ufProcessing}',
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: AppSpacing.bodyMedium,
                         color: colors.textMuted,
                       ),
                     ),
@@ -85,7 +85,7 @@ class UfActiveUploadCard extends StatelessWidget {
               Text(
                 '${progress.round()}% ${AppStrings.ufProgressComplete}',
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: AppSpacing.bodySmall,
                   fontWeight: FontWeight.w700,
                   color: colors.mint,
                 ),
@@ -94,7 +94,7 @@ class UfActiveUploadCard extends StatelessWidget {
               Text(
                 '${AppStrings.ufRemaining} ${remainingSeconds}s',
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: AppSpacing.bodySmall,
                     color: colors.textMuted,
                   ),
               ),

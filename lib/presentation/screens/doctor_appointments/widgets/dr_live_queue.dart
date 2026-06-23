@@ -103,7 +103,7 @@ class _DrLiveQueueState extends State<DrLiveQueue> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(AppStrings.daLiveQueue,
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+                          style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
                         TextButton(
                           onPressed: () {},
                           child: Text(AppStrings.daViewAll, style: TextStyle(color: colors.primary, fontSize: 13)),
@@ -171,7 +171,7 @@ class _DrLiveQueueState extends State<DrLiveQueue> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('$greeting، $userName', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: colors.textPrimary)),
+                Text('$greeting، $userName', style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.bold, color: colors.textPrimary)),
                 Text('لديك $waitingCount مرضى ينتظرون', style: TextStyle(fontSize: 13, color: colors.textLight)),
               ],
             ),

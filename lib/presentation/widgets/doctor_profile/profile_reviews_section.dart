@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/review_entity.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class ProfileReviewsSection extends StatelessWidget {
   final List<ReviewEntity> reviews;
@@ -29,7 +30,7 @@ class ProfileReviewsSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(AppStrings.reviews, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+            Text(AppStrings.reviews, style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
             TextButton(
               onPressed: () {},
               child: Text(AppStrings.viewAll, style: TextStyle(color: colors.primary)),
@@ -102,7 +103,7 @@ class ProfileReviewsSection extends StatelessWidget {
                     backgroundColor: colors.primary.withValues(alpha: 0.15),
                     child: Text(
                       (review.patientName?.isNotEmpty == true ? review.patientName![0] : '?'),
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: colors.primary),
+                      style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600, color: colors.primary),
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -110,7 +111,7 @@ class ProfileReviewsSection extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(review.patientName ?? '', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+                        Text(review.patientName ?? '', style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
                         Row(
                           children: List.generate(5, (i) => Icon(
                             i < review.rating.round() ? Icons.star_rounded : Icons.star_outline_rounded,
@@ -135,7 +136,7 @@ class ProfileReviewsSection extends StatelessWidget {
                   children: [
                     Icon(Icons.thumb_up_rounded, size: 14, color: colors.textLight),
                     const SizedBox(width: 4),
-                    Text('${review.likesCount ?? 0}', style: TextStyle(fontSize: 12, color: colors.textLight)),
+                    Text('${review.likesCount ?? 0}', style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textLight)),
                   ],
                 ),
               ],
@@ -157,3 +158,4 @@ class ProfileReviewsSection extends StatelessWidget {
     return '${AppStrings.since} ${(diff.inDays / 30).round()} ${AppStrings.monthAgo}';
   }
 }
+

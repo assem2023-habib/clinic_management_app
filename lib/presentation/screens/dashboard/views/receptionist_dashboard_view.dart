@@ -82,13 +82,13 @@ class _ReceptionistDashboardViewState extends State<ReceptionistDashboardView> {
             children: [
               Text(
                 AppStrings.rhScheduleOverview,
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: colors.textLight),
+                style: TextStyle(fontSize: AppSpacing.bodySmall, fontWeight: FontWeight.w600, color: colors.textLight),
               ),
               GestureDetector(
                 onTap: () => Navigator.pushNamed(context, AppRoutes.appointments),
                 child: Text(
                   AppStrings.rhViewFull,
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: colors.secondary),
+                  style: TextStyle(fontSize: AppSpacing.bodySmall, fontWeight: FontWeight.w500, color: colors.secondary),
                 ),
               ),
             ],
@@ -106,7 +106,7 @@ class _ReceptionistDashboardViewState extends State<ReceptionistDashboardView> {
 
           Text(
             AppStrings.rhClinicPulse,
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: colors.textLight),
+            style: TextStyle(fontSize: AppSpacing.bodySmall, fontWeight: FontWeight.w600, color: colors.textLight),
           ),
           const SizedBox(height: AppSpacing.sm),
           BlocBuilder<AppointmentBloc, AppointmentState>(

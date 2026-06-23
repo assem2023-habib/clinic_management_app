@@ -7,6 +7,7 @@ import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/onboarding/onboarding_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/onboarding/onboarding_state.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -86,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           AppStrings.loginAsRole,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: AppSpacing.bodyMedium,
                             color: colors.textSecondary,
                           ),
                         ),
@@ -166,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     )
                                   :  Text(
                                       AppStrings.login,
-                                      style: TextStyle(fontSize: 16, color: Colors.white),
+                                      style: TextStyle(fontSize: AppSpacing.bodyLarge, color: Colors.white),
                                     ),
                             );
                           },
@@ -182,7 +183,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                             child: Text(
                               AppStrings.noAccountCreate,
-                              style: TextStyle(color: colors.primary, fontSize: 14, fontWeight: FontWeight.w600),
+                              style: TextStyle(color: colors.primary, fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600),
                             ),
                           ),
                         ],
@@ -209,3 +210,4 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+

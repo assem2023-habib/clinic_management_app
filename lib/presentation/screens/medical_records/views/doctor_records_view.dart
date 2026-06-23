@@ -8,6 +8,7 @@ import 'package:clinic_management_app/presentation/blocs/medical_record/medical_
 import 'package:clinic_management_app/presentation/widgets/animated_card.dart';
 import 'package:clinic_management_app/presentation/widgets/empty_data/empty_data_widget.dart';
 import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class DoctorRecordsView extends StatefulWidget {
   const DoctorRecordsView({super.key});
@@ -117,10 +118,11 @@ class _DoctorRecordsViewState extends State<DoctorRecordsView> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: TextStyle(fontSize: 12, color: colors.textLight, fontWeight: FontWeight.w500)),
+        Text(label, style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textLight, fontWeight: FontWeight.w500)),
         const SizedBox(height: 4),
-        Text(value, style: TextStyle(fontSize: 14, color: colors.textPrimary)),
+        Text(value, style: TextStyle(fontSize: AppSpacing.bodyMedium, color: colors.textPrimary)),
       ],
     );
   }
 }
+

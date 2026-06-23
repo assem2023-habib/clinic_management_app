@@ -10,6 +10,7 @@ import 'package:clinic_management_app/presentation/widgets/dashboard/dashboard_g
 import 'package:clinic_management_app/presentation/widgets/dashboard/recent_appointments.dart';
 import 'package:clinic_management_app/presentation/widgets/dashboard/stat_card.dart';
 import 'package:clinic_management_app/presentation/widgets/animated_card.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class AdminDashboardView extends StatelessWidget {
   const AdminDashboardView({super.key});
@@ -74,7 +75,7 @@ class AdminDashboardView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(AppStrings.quickActions, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+                Text(AppStrings.quickActions, style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
                 const SizedBox(height: 12),
                 Row(children: [
                   Expanded(child: ActionButton(icon: Icons.person_add, label: AppStrings.addDoctor, color: colors.primary, onPressed: () => Navigator.pushNamed(context, AppRoutes.doctors))),
@@ -96,7 +97,7 @@ class AdminDashboardView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(AppStrings.latestAppointments, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+                Text(AppStrings.latestAppointments, style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
                 const SizedBox(height: 12),
                 const RecentAppointments(),
               ],
@@ -115,7 +116,7 @@ class AdminDashboardView extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 12),
-            child: Text('المستخدمون', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+            child: Text('المستخدمون', style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600, color: colors.textPrimary)),
           ),
           GridView.count(
             shrinkWrap: true,
@@ -150,7 +151,7 @@ class AdminDashboardView extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 12),
-            child: Text(AppStrings.appointments, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+            child: Text(AppStrings.appointments, style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600, color: colors.textPrimary)),
           ),
           GridView.count(
             shrinkWrap: true,
@@ -183,7 +184,7 @@ class AdminDashboardView extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 12),
-            child: Text('العيادة', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+            child: Text('العيادة', style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600, color: colors.textPrimary)),
           ),
           GridView.count(
             shrinkWrap: true,
@@ -204,3 +205,4 @@ class AdminDashboardView extends StatelessWidget {
     );
   }
 }
+

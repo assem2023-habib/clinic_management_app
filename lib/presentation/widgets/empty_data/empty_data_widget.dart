@@ -47,7 +47,7 @@ class EmptyDataWidget extends StatelessWidget {
             const SizedBox(height: AppSpacing.md),
             Text(
               title,
-              style: TextStyle(fontSize: 16, color: colors.textSecondary),
+              style: TextStyle(fontSize: AppSpacing.bodyLarge, color: colors.textSecondary),
               textAlign: TextAlign.center,
             ),
             if (subtitle != null) ...[
@@ -107,7 +107,7 @@ class EmptyDataWidget extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700, color: colors.textPrimary),
+                      style: TextStyle(fontSize: AppSpacing.titleError, fontWeight: FontWeight.w700, color: colors.textPrimary),
                       textAlign: TextAlign.center,
                     ),
                     if (subtitle != null) ...[
@@ -164,7 +164,7 @@ class EmptyDataWidget extends StatelessWidget {
               Icon(action!.icon, size: 20),
               const SizedBox(width: AppSpacing.sm),
             ],
-            Text(action!.label, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+            Text(action!.label, style: const TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w700)),
           ],
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class DatePickerField extends StatelessWidget {
   final TextEditingController controller;
@@ -23,7 +24,7 @@ class DatePickerField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       readOnly: true,
-      style: TextStyle(color: colors.textPrimary, fontSize: 16),
+      style: TextStyle(color: colors.textPrimary, fontSize: AppSpacing.bodyLarge),
       decoration: InputDecoration(
         labelText: label,
         labelStyle: TextStyle(color: controller.text.isEmpty ? colors.textLight : colors.textSecondary),
@@ -68,3 +69,4 @@ class DatePickerField extends StatelessWidget {
     }
   }
 }
+

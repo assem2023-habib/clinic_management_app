@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class ProfileAboutSection extends StatelessWidget {
   final DoctorEntity doctor;
@@ -25,7 +26,7 @@ class ProfileAboutSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(AppStrings.aboutDoctor, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+            Text(AppStrings.aboutDoctor, style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
             if (isEditable)
               IconButton(
                 icon: Icon(Icons.edit_rounded, size: 20, color: colors.primary),
@@ -44,10 +45,11 @@ class ProfileAboutSection extends StatelessWidget {
           ),
           child: Text(
             doctor.bio ?? AppStrings.noInfoAvailable,
-            style: TextStyle(fontSize: 14, color: colors.textSecondary, height: 1.6),
+            style: TextStyle(fontSize: AppSpacing.bodyMedium, color: colors.textSecondary, height: 1.6),
           ),
         ),
       ],
     );
   }
 }
+

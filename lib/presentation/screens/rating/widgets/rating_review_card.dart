@@ -50,7 +50,7 @@ class RatingReviewCard extends StatelessWidget {
                 child: raterImage == null
                     ? Text(
                         raterName.isNotEmpty ? raterName[0] : '?',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colors.primary),
+                        style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600, color: colors.primary),
                       )
                     : null,
               ),
@@ -61,11 +61,11 @@ class RatingReviewCard extends StatelessWidget {
                   children: [
                     Text(
                       raterName,
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: colors.textPrimary),
+                      style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600, color: colors.textPrimary),
                     ),
                     Text(
                       timeAgo,
-                      style: TextStyle(fontSize: 12, color: colors.textSecondary),
+                      style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textSecondary),
                     ),
                   ],
                 ),
@@ -90,7 +90,7 @@ class RatingReviewCard extends StatelessWidget {
           const SizedBox(height: AppSpacing.sm),
           Text(
             review.comment ?? '',
-            style: TextStyle(fontSize: 14, color: colors.textSecondary, height: 1.6),
+            style: TextStyle(fontSize: AppSpacing.bodyMedium, color: colors.textSecondary, height: 1.6),
           ),
           if (showActions) ...[
             const SizedBox(height: AppSpacing.sm),

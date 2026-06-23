@@ -49,7 +49,7 @@ class DrAppointmentsHeader extends StatelessWidget implements PreferredSizeWidge
                   children: [
                     Text(
                       '$greeting،',
-                      style: TextStyle(fontSize: 12, color: colors.textSecondary),
+                      style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textSecondary),
                     ),
                     Text(
                       name,

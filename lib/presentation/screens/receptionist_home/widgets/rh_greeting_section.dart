@@ -24,7 +24,7 @@ class RhGreetingSection extends StatelessWidget {
             Text(
               '$greeting، $userName',
               style: TextStyle(
-                fontSize: 14,
+                fontSize: AppSpacing.bodyMedium,
                 fontWeight: FontWeight.w600,
                 color: colors.secondary,
               ),
@@ -33,7 +33,7 @@ class RhGreetingSection extends StatelessWidget {
             Text(
               AppStrings.rhClinicName,
               style: TextStyle(
-                fontSize: 24,
+                fontSize: AppSpacing.titleError,
                 fontWeight: FontWeight.w700,
                 color: colors.textPrimary,
               ),
@@ -53,7 +53,7 @@ class RhGreetingSection extends StatelessWidget {
                 Text(
                   '${AppStrings.rhSystemStatus} • ${AppStrings.rhReceptionDesk}',
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: AppSpacing.bodySmall,
                     color: colors.textSecondary,
                   ),
                 ),

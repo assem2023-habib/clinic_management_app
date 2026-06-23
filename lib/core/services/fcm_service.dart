@@ -74,7 +74,9 @@ class FcmService {
         final message = RemoteMessage(senderId: '', messageId: '', data: data);
         _messageStream.value = message;
         _tapStream.value = message;
-      } catch (_) {}
+      } catch (e) {
+        debugPrint('Failed to decode notification payload: $e');
+      }
     }
   }
 

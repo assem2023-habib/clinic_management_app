@@ -23,7 +23,7 @@ class DrQuickActions extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(AppStrings.daQuickActions,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+          style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
         const SizedBox(height: AppSpacing.md),
         Wrap(
           spacing: AppSpacing.md,

@@ -137,7 +137,7 @@ class _AppointmentCardState extends State<AppointmentCard> with SingleTickerProv
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(docName,
                   maxLines: 1, overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: c.textPrimary)),
+                  style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w700, color: c.textPrimary)),
                 const SizedBox(height: 3),
                 Text(specialty,
                   maxLines: 1, overflow: TextOverflow.ellipsis,
@@ -170,7 +170,7 @@ class _AppointmentCardState extends State<AppointmentCard> with SingleTickerProv
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(AppStrings.time, style: TextStyle(fontSize: 11, color: c.textSecondary)),
             const SizedBox(height: 2),
-            Text(timeStr, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: c.textPrimary)),
+            Text(timeStr, style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w700, color: c.textPrimary)),
           ]),
         ]),
         Material(

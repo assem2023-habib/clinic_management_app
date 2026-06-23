@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class ActionButton extends StatelessWidget {
   final IconData icon;
@@ -27,9 +28,10 @@ class ActionButton extends StatelessWidget {
         children: [
           Icon(icon, size: 20, color: Colors.white),
           const SizedBox(width: 8),
-          Text(label, style: const TextStyle(fontSize: 14, color: Colors.white)),
+          Text(label, style: const TextStyle(fontSize: AppSpacing.bodyMedium, color: Colors.white)),
         ],
       ),
     );
   }
 }
+

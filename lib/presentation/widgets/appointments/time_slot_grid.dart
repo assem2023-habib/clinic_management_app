@@ -36,7 +36,7 @@ class _TimeSlotGridState extends State<TimeSlotGrid> {
             borderRadius: BorderRadius.circular(999),
           ),
         )),
-        Text('اختر وقتاً جديداً', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: c.textPrimary)),
+        Text('اختر وقتاً جديداً', style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w700, color: c.textPrimary)),
         const SizedBox(height: 20),
         GridView.count(
           shrinkWrap: true,

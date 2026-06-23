@@ -8,6 +8,7 @@ import 'package:clinic_management_app/presentation/screens/patient_welcome/widge
 import 'package:clinic_management_app/presentation/screens/patient_welcome/widgets/pw_bottom_actions.dart';
 import 'package:clinic_management_app/presentation/screens/patient_welcome/widgets/pw_hero_section.dart';
 import 'package:clinic_management_app/presentation/screens/patient_welcome/widgets/pw_page_content.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class PatientWelcomeScreen extends StatefulWidget {
   const PatientWelcomeScreen({super.key});
@@ -98,7 +99,7 @@ class _PatientWelcomeScreenState extends State<PatientWelcomeScreen>
                       ),
                       TextButton(
                         onPressed: _goToDashboard,
-                        child: Text(AppStrings.pwSkip, style: TextStyle(fontFamily: 'Sora', fontSize: 14, fontWeight: FontWeight.w500, color: colors.textMuted)),
+                        child: Text(AppStrings.pwSkip, style: TextStyle(fontFamily: 'Sora', fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w500, color: colors.textMuted)),
                       ),
                     ],
                   ),
@@ -141,3 +142,4 @@ class _PageData {
   final String subtitle;
   const _PageData(this.icon, this.title, this.subtitle);
 }
+

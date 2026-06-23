@@ -1,5 +1,6 @@
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class MrpConditionCard extends StatelessWidget {
   final IconData icon;
@@ -40,7 +41,7 @@ class MrpConditionCard extends StatelessWidget {
           Text(
             label,
             style: TextStyle(
-              fontSize: 14,
+              fontSize: AppSpacing.bodyMedium,
               fontWeight: FontWeight.w600,
               color: colors.textPrimary,
             ),
@@ -50,3 +51,4 @@ class MrpConditionCard extends StatelessWidget {
     );
   }
 }
+

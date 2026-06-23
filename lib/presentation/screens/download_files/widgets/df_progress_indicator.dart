@@ -60,7 +60,7 @@ class DfProgressLabel extends StatelessWidget {
         const SizedBox(width: AppSpacing.sm),
         Text(
           displayStatus == DownloadStatus.downloading ? '$pct%' : '',
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: colors.primary),
+          style: TextStyle(fontSize: AppSpacing.bodySmall, fontWeight: FontWeight.w600, color: colors.primary),
         ),
       ],
     );

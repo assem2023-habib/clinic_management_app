@@ -1,6 +1,7 @@
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class MrpPatientSummary extends StatelessWidget {
   final String name;
@@ -50,7 +51,7 @@ class MrpPatientSummary extends StatelessWidget {
               Text(
                 name,
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: AppSpacing.titleError,
                   fontWeight: FontWeight.w600,
                   color: colors.textPrimary,
                 ),
@@ -78,7 +79,7 @@ class MrpPatientSummary extends StatelessWidget {
       child: Text(
         text,
         style: TextStyle(
-          fontSize: 12,
+          fontSize: AppSpacing.bodySmall,
           fontWeight: FontWeight.w600,
           color: colors.primary,
         ),
@@ -86,3 +87,4 @@ class MrpPatientSummary extends StatelessWidget {
     );
   }
 }
+

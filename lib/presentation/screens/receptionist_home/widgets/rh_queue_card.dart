@@ -47,7 +47,7 @@ class RhQueueCard extends StatelessWidget {
               backgroundColor: colors.divider.withValues(alpha: 0.15),
               child: Text(
                 (appointment.patientName?.isNotEmpty == true ? appointment.patientName![0] : '?'),
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colors.primary),
+                style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600, color: colors.primary),
               ),
             ),
             const SizedBox(width: 12),
@@ -60,18 +60,18 @@ class RhQueueCard extends StatelessWidget {
                     children: [
                       Text(
                         appointment.patientName ?? '',
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: colors.textPrimary),
+                        style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600, color: colors.textPrimary),
                       ),
                       Text(
                         appointment.timeSlot ?? '',
-                        style: TextStyle(fontSize: 12, color: accentColor),
+                        style: TextStyle(fontSize: AppSpacing.bodySmall, color: accentColor),
                       ),
                     ],
                   ),
                   const SizedBox(height: 2),
                   Text(
                     '${AppStrings.rhWithDoctorSub}${appointment.doctorName ?? ''}',
-                    style: TextStyle(fontSize: 12, color: colors.textSecondary),
+                    style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textSecondary),
                   ),
                 ],
               ),

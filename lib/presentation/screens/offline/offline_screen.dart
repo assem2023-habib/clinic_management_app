@@ -315,7 +315,7 @@ class _OfflineScreenState extends State<OfflineScreen>
                 Text(
                   AppStrings.olRetry,
                   style: const TextStyle(
-                    fontSize: 18,
+                    fontSize: AppSpacing.titleMedium,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
