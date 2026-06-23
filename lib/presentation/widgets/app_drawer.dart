@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
@@ -10,6 +10,7 @@ import 'package:clinic_management_app/presentation/blocs/language/language_cubit
 import 'package:clinic_management_app/presentation/blocs/notification/notification_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/notification/notification_state.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class AppDrawer extends StatelessWidget {
   final String? currentRoute;
@@ -103,16 +104,16 @@ class AppDrawer extends StatelessWidget {
     final role = context.watch<AuthCubit>().state.role;
     final patientsLabel = role == UserRole.doctor ? AppStrings.myPatients : AppStrings.patients;
     final allItems = [
-      _MenuItem(icon: Icons.dashboard_rounded, title: AppStrings.dashboard, route: AppRoutes.dashboard),
-      _MenuItem(icon: Icons.notifications_rounded, title: AppStrings.notifications, route: AppRoutes.notifications),
-      _MenuItem(icon: Icons.local_hospital_rounded, title: AppStrings.doctors, route: AppRoutes.doctors),
-      _MenuItem(icon: Icons.people_rounded, title: patientsLabel, route: AppRoutes.patients),
-      _MenuItem(icon: Icons.calendar_month_rounded, title: AppStrings.myAppointments, route: AppRoutes.myAppointments),
-      _MenuItem(icon: Icons.folder_rounded, title: AppStrings.medicalRecords, route: AppRoutes.medicalRecords),
-      _MenuItem(icon: Icons.settings_rounded, title: AppStrings.settings, route: AppRoutes.settings),
-      _MenuItem(icon: Icons.person_rounded, title: AppStrings.myProfile, route: AppRoutes.profile),
-      _MenuItem(icon: Icons.supervisor_account_rounded, title: AppStrings.supervisionRequests, route: AppRoutes.supervisionRequests),
-      _MenuItem(icon: Icons.star_rounded, title: AppStrings.appRatings, route: AppRoutes.rating, arguments: {'isAppRating': true}),
+      _MenuItem(icon: AppIcons.dashboard, title: AppStrings.dashboard, route: AppRoutes.dashboard),
+      _MenuItem(icon: AppIcons.notifications, title: AppStrings.notifications, route: AppRoutes.notifications),
+      _MenuItem(icon: AppIcons.localHospital, title: AppStrings.doctors, route: AppRoutes.doctors),
+      _MenuItem(icon: AppIcons.people, title: patientsLabel, route: AppRoutes.patients),
+      _MenuItem(icon: AppIcons.calendarMonth, title: AppStrings.myAppointments, route: AppRoutes.myAppointments),
+      _MenuItem(icon: AppIcons.folder, title: AppStrings.medicalRecords, route: AppRoutes.medicalRecords),
+      _MenuItem(icon: AppIcons.settings, title: AppStrings.settings, route: AppRoutes.settings),
+      _MenuItem(icon: AppIcons.person, title: AppStrings.myProfile, route: AppRoutes.profile),
+      _MenuItem(icon: AppIcons.supervisorAccount, title: AppStrings.supervisionRequests, route: AppRoutes.supervisionRequests),
+      _MenuItem(icon: AppIcons.star, title: AppStrings.appRatings, route: AppRoutes.rating, arguments: {'isAppRating': true}),
     ];
 
     final roleRoutes = <UserRole, Set<String>>{
@@ -169,7 +170,7 @@ class AppDrawer extends StatelessWidget {
             border: Border(top: BorderSide(color: colors.divider.withValues(alpha: 0.3))),
           ),
           child: ListTile(
-            leading: Icon(isDark ? Icons.dark_mode_rounded : Icons.light_mode_rounded, color: colors.primary, size: AppSpacing.iconMedium),
+            leading: Icon(isDark ? AppIcons.darkMode : AppIcons.lightMode, color: colors.primary, size: AppSpacing.iconMedium),
             title: Text(
               isDark ? AppStrings.darkMode : AppStrings.lightMode,
               style: TextStyle(fontSize: AppSpacing.subtitle, fontWeight: FontWeight.w500, color: colors.textPrimary),
@@ -189,7 +190,7 @@ class AppDrawer extends StatelessWidget {
         border: Border(top: BorderSide(color: colors.divider.withValues(alpha: 0.3))),
       ),
       child: ListTile(
-        leading: const Icon(Icons.language_rounded, size: AppSpacing.iconMedium),
+        leading: const Icon(AppIcons.language, size: AppSpacing.iconMedium),
         title: Text(
           isEn ? AppStrings.english : AppStrings.arabic,
           style: TextStyle(fontSize: AppSpacing.subtitle, fontWeight: FontWeight.w500, color: colors.textPrimary),
@@ -211,7 +212,7 @@ class AppDrawer extends StatelessWidget {
         border: Border(top: BorderSide(color: colors.divider.withValues(alpha: 0.3))),
       ),
       child: ListTile(
-        leading: Icon(Icons.logout_rounded, color: colors.error, size: AppSpacing.iconMedium),
+        leading: Icon(AppIcons.logout, color: colors.error, size: AppSpacing.iconMedium),
         title: Text(
           AppStrings.logout,
           style: TextStyle(

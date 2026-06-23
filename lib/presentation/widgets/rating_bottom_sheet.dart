@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -138,7 +139,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
               borderRadius: BorderRadius.circular(AppSpacing.md - AppSpacing.xxs),
               boxShadow: [BoxShadow(color: colors.accent.withValues(alpha: 0.25), blurRadius: 10)],
             ),
-            child: const Icon(Icons.star_rounded, color: Colors.white, size: AppSpacing.iconSize),
+            child: const Icon(AppIcons.star, color: Colors.white, size: AppSpacing.iconSize),
           ),
           const SizedBox(width: 14),
           Text(
@@ -197,10 +198,10 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
                   width: 28, height: 28,
                   child: Stack(
                     children: [
-                      Icon(Icons.star_outline_rounded, color: Colors.white38, size: 28),
+                      Icon(AppIcons.starOutline, color: Colors.white38, size: 28),
                       ClipRect(
                         clipper: _StarClipper(fraction),
-                        child: Icon(Icons.star_rounded, color: Colors.amber, size: 28),
+                        child: Icon(AppIcons.star, color: Colors.amber, size: 28),
                       ),
                     ],
                   ),
@@ -275,7 +276,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
               ),
               const SizedBox(width: AppSpacing.ten),
               Icon(
-                Icons.send_rounded,
+                AppIcons.send,
                 size: AppSpacing.iconSmall,
                 color: canSend ? Colors.white : colors.textSecondary.withValues(alpha: 0.5),
               ),

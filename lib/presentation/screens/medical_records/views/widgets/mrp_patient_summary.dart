@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
@@ -38,7 +39,7 @@ class MrpPatientSummary extends StatelessWidget {
             child: CircleAvatar(
               backgroundColor: colors.cardBg,
               child: Icon(
-                Icons.person_rounded,
+                AppIcons.person,
                 size: 32,
                 color: colors.primary,
               ),

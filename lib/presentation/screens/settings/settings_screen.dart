@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -32,9 +33,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             _buildSection(
               AppStrings.account,
               [
-                _buildTile(Icons.person, AppStrings.myProfile, AppStrings.manageProfile),
-                _buildTile(Icons.lock, AppStrings.changePassword, AppStrings.updatePassword),
-                _buildTile(Icons.notifications, AppStrings.notifications, AppStrings.manageNotifications),
+                _buildTile(AppIcons.person, AppStrings.myProfile, AppStrings.manageProfile),
+                _buildTile(AppIcons.lock, AppStrings.changePassword, AppStrings.updatePassword),
+                _buildTile(AppIcons.notifications, AppStrings.notifications, AppStrings.manageNotifications),
               ],
             ),
             const Divider(height: 32),
@@ -43,16 +44,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
               [
                 _buildThemeTile(themeProvider),
                 _buildLanguageTile(),
-                _buildTile(Icons.backup, AppStrings.backup, AppStrings.backupDescription),
+                _buildTile(AppIcons.upload, AppStrings.backup, AppStrings.backupDescription),
               ],
             ),
             const Divider(height: 32),
             _buildSection(
               AppStrings.about,
               [
-                _buildTile(Icons.info, AppStrings.version, AppStrings.versionNumber),
-                _buildTile(Icons.help, AppStrings.helpSupport, AppStrings.getHelp),
-                _buildTile(Icons.privacy_tip, AppStrings.privacyPolicy, AppStrings.viewPrivacyPolicy),
+                _buildTile(AppIcons.info, AppStrings.version, AppStrings.versionNumber),
+                _buildTile(AppIcons.help, AppStrings.helpSupport, AppStrings.getHelp),
+                _buildTile(AppIcons.privacyTip, AppStrings.privacyPolicy, AppStrings.viewPrivacyPolicy),
               ],
             ),
           ],
@@ -86,7 +87,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       leading: Icon(icon, color: AppColors.of(context).primary),
       title: Text(title),
       subtitle: Text(subtitle),
-      trailing: const Icon(Icons.chevron_right),
+      trailing: const Icon(AppIcons.chevronRight),
       onTap: onTap,
     );
   }
@@ -97,10 +98,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final subtitle = isEn ? AppStrings.english : AppStrings.arabic;
     final flag = isEn ? '🇬🇧' : '🇸🇦';
     return ListTile(
-      leading: Icon(Icons.language, color: AppColors.of(context).primary),
+      leading: Icon(AppIcons.language, color: AppColors.of(context).primary),
       title: Text(AppStrings.language),
       subtitle: Text('$subtitle  $flag'),
-      trailing: const Icon(Icons.chevron_right),
+      trailing: const Icon(AppIcons.chevronRight),
       onTap: () => _showLanguageDialog(context),
     );
   }
@@ -117,7 +118,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ListTile(
               leading: const Text('🇸🇦', style: TextStyle(fontSize: AppSpacing.titleError)),
               title: const Text('العربية'),
-              trailing: current == 'ar' ? Icon(Icons.check, color: AppColors.of(context).primary) : null,
+              trailing: current == 'ar' ? Icon(AppIcons.check, color: AppColors.of(context).primary) : null,
               onTap: () {
                 context.read<LanguageCubit>().setLocale('ar');
                 Navigator.pop(ctx);
@@ -126,7 +127,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ListTile(
               leading: const Text('🇬🇧', style: TextStyle(fontSize: AppSpacing.titleError)),
               title: const Text('English'),
-              trailing: current == 'en' ? Icon(Icons.check, color: AppColors.of(context).primary) : null,
+              trailing: current == 'en' ? Icon(AppIcons.check, color: AppColors.of(context).primary) : null,
               onTap: () {
                 context.read<LanguageCubit>().setLocale('en');
                 Navigator.pop(ctx);
@@ -141,7 +142,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget _buildThemeTile(ThemeProvider themeProvider) {
     return ListTile(
       leading: Icon(
-        themeProvider.isDarkMode ? Icons.dark_mode : Icons.light_mode,
+        themeProvider.isDarkMode ? AppIcons.darkMode : AppIcons.lightMode,
         color: AppColors.of(context).primary,
       ),
       title: const Text('الوَضْعُ الدَّاكِنُ'),
@@ -200,9 +201,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _buildThemeOption(context, themeProvider, ThemeMode.light, Icons.light_mode, 'Light Mode'),
-            _buildThemeOption(context, themeProvider, ThemeMode.dark, Icons.dark_mode, 'الوَضْعُ الدَّاكِنُ'),
-            _buildThemeOption(context, themeProvider, ThemeMode.system, Icons.brightness_auto, 'System Default'),
+            _buildThemeOption(context, themeProvider, ThemeMode.light, AppIcons.lightMode, 'Light Mode'),
+            _buildThemeOption(context, themeProvider, ThemeMode.dark, AppIcons.darkMode, 'الوَضْعُ الدَّاكِنُ'),
+            _buildThemeOption(context, themeProvider, ThemeMode.system, AppIcons.darkMode, 'System Default'),
           ],
         ),
         actions: [
@@ -227,7 +228,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       leading: Icon(icon, color: isSelected ? AppColors.of(context).primary : null),
       title: Text(label),
       trailing: isSelected
-          ? Icon(Icons.check, color: AppColors.of(context).primary)
+          ? Icon(AppIcons.check, color: AppColors.of(context).primary)
           : null,
       onTap: () {
         themeProvider.setThemeMode(mode);

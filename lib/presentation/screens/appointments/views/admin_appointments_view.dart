@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -53,7 +54,7 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
                   final d = a.date;
                   return d != null && d.startsWith(DateFormat('yyyy-MM-dd').format(_selectedDate));
                 }).toList();
-                if (filtered.isEmpty) return  EmptyDataWidget(icon: Icons.calendar_month_outlined, title: AppStrings.noData, compact: true);
+                if (filtered.isEmpty) return  EmptyDataWidget(icon: AppIcons.calendarMonth, title: AppStrings.noData, compact: true);
                 return ListView.separated(
                   padding: AppSpacing.screenPadding,
                   itemCount: filtered.length,
@@ -65,7 +66,7 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
                 );
               }
               if (state is AppointmentError) return Center(child: Text(state.message, style: TextStyle(color: colors.error)));
-              return  EmptyDataWidget(icon: Icons.calendar_month_outlined, title: AppStrings.noData, compact: true);
+              return  EmptyDataWidget(icon: AppIcons.calendarMonth, title: AppStrings.noData, compact: true);
             },
           ),
         ),
@@ -82,7 +83,7 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconButton(
-              icon: const Icon(Icons.chevron_left),
+              icon: const Icon(AppIcons.chevronLeft),
               color: colors.textPrimary,
               onPressed: () => setState(() => _selectedDate = _selectedDate.subtract(const Duration(days: 1))),
             ),
@@ -97,7 +98,7 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
               ),
             ),
             IconButton(
-              icon: const Icon(Icons.chevron_right),
+              icon: const Icon(AppIcons.chevronRight),
               color: colors.textPrimary,
               onPressed: () => setState(() => _selectedDate = _selectedDate.add(const Duration(days: 1))),
             ),
@@ -140,13 +141,13 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
             Row(
               children: [
                 if (appt.date != null) ...[
-                  Icon(Icons.calendar_today_rounded, size: 14, color: colors.textLight),
+                  Icon(AppIcons.calendarToday, size: 14, color: colors.textLight),
                   const SizedBox(width: AppSpacing.xs),
                   Text(appt.date!, style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textLight)),
                 ],
                 if (appt.timeSlot != null) ...[
                   const SizedBox(width: AppSpacing.md),
-                  Icon(Icons.schedule_rounded, size: 14, color: colors.textLight),
+                  Icon(AppIcons.schedule, size: 14, color: colors.textLight),
                   const SizedBox(width: AppSpacing.xs),
                   Text(appt.timeSlot!, style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textLight)),
                 ],
@@ -158,17 +159,17 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               if (statusValue != 'completed' && statusValue != 'cancelled') ...[
-                _smallAction(colors, AppStrings.complete, Icons.check_circle_rounded, colors.success, () {
+                _smallAction(colors, AppStrings.complete, AppIcons.checkCircle, colors.success, () {
                   context.read<AppointmentBloc>().add(AppointmentUpdateStatus(appt.id, AppointmentStatus.completed));
                 }),
                 const SizedBox(width: AppSpacing.sm),
-                _smallAction(colors, AppStrings.cancel, Icons.cancel_rounded, colors.error, () {
+                _smallAction(colors, AppStrings.cancel, AppIcons.cancel, colors.error, () {
                   context.read<AppointmentBloc>().add(AppointmentUpdateStatus(appt.id, AppointmentStatus.cancelled));
                 }),
               ],
               if (widget.isReceptionist) ...[
                 const SizedBox(width: AppSpacing.sm),
-                _smallAction(colors, AppStrings.edit, Icons.edit_rounded, colors.primary, () => _showEditForm(appt)),
+                _smallAction(colors, AppStrings.edit, AppIcons.edit, colors.primary, () => _showEditForm(appt)),
               ],
             ],
           ),
@@ -215,12 +216,12 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
 
   IconData _statusIcon(String status) {
     return switch (status) {
-      'set' || 'accepted' => Icons.event_available_rounded,
-      'completed' => Icons.check_circle_rounded,
-      'cancelled' => Icons.cancel_rounded,
-      'in_progress' => Icons.pending_actions_rounded,
-      'requested' => Icons.hourglass_empty_rounded,
-      _ => Icons.event_rounded,
+      'set' || 'accepted' => AppIcons.eventAvailable,
+      'completed' => AppIcons.checkCircle,
+      'cancelled' => AppIcons.cancel,
+      'in_progress' => AppIcons.pending,
+      'requested' => AppIcons.hourglassEmpty,
+      _ => AppIcons.event,
     };
   }
 

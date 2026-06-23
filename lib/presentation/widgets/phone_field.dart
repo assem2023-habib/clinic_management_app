@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -126,7 +127,7 @@ class PhoneFieldState extends State<PhoneField> {
                     fontSize: AppSpacing.bodyMedium,
                   ),
                 ),
-                Icon(Icons.arrow_drop_down_rounded, color: colors.textSecondary, size: AppSpacing.iconSmall),
+                Icon(AppIcons.arrowDropDown, color: colors.textSecondary, size: AppSpacing.iconSmall),
               ],
             ),
           ),
@@ -188,7 +189,7 @@ class PhoneFieldState extends State<PhoneField> {
                     decoration: InputDecoration(
                       hintText: AppStrings.search,
                       hintStyle: TextStyle(color: colors.textLight),
-                      prefixIcon: Icon(Icons.search_rounded, color: colors.textSecondary),
+                      prefixIcon: Icon(AppIcons.search, color: colors.textSecondary),
                       filled: true,
                       fillColor: colors.inputBg,
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
@@ -212,7 +213,7 @@ class PhoneFieldState extends State<PhoneField> {
                                 style: TextStyle(color: colors.textSecondary, fontSize: AppSpacing.bodySmall),
                               ),
                               trailing: isSelected
-                                  ? Icon(Icons.check_circle_rounded, color: colors.primary, size: AppSpacing.iconMedium)
+                                  ? Icon(AppIcons.checkCircle, color: colors.primary, size: AppSpacing.iconMedium)
                                   : null,
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.sm)),
                               selected: isSelected,

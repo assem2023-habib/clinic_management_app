@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
@@ -23,7 +24,7 @@ class SpActions extends StatelessWidget {
           height: AppSpacing.buttonHeight,
           child: ElevatedButton.icon(
             onPressed: onContactSupport,
-            icon: const Icon(Icons.support_agent_rounded, size: AppSpacing.iconMedium),
+            icon: const Icon(AppIcons.supportAgent, size: AppSpacing.iconMedium),
             label:  Text(AppStrings.spContactSupport),
             style: ElevatedButton.styleFrom(
               backgroundColor: colors.emerald,
@@ -41,7 +42,7 @@ class SpActions extends StatelessWidget {
           height: AppSpacing.buttonHeight,
           child: OutlinedButton.icon(
             onPressed: onLogout ?? () => Navigator.of(context).pop(),
-            icon: const Icon(Icons.logout_rounded, size: AppSpacing.iconMedium),
+            icon: const Icon(AppIcons.logout, size: AppSpacing.iconMedium),
             label:  Text(AppStrings.spLogout),
             style: OutlinedButton.styleFrom(
               foregroundColor: colors.mint,

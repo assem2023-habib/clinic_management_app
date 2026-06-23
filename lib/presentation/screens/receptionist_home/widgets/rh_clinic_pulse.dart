@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class RhClinicPulse extends StatelessWidget {
   final int totalAppts;
@@ -60,9 +61,9 @@ class RhClinicPulse extends StatelessWidget {
   }
 
   List<(IconData, String, String, Color)> _stats(AppColorSet colors) => [
-    (Icons.calendar_today_rounded, AppStrings.rhTotalAppts, totalAppts.toString().padLeft(2, '0'), colors.primary),
-    (Icons.check_circle_rounded, AppStrings.rhCheckedIn, checkedIn.toString().padLeft(2, '0'), colors.secondary),
-    (Icons.hourglass_empty_rounded, AppStrings.rhQueueInProgress, inProgress.toString().padLeft(2, '0'), colors.warning),
-    (Icons.pending_actions_rounded, AppStrings.rhQueuePending, pending.toString().padLeft(2, '0'), colors.textLight),
+    (AppIcons.calendarToday, AppStrings.rhTotalAppts, totalAppts.toString().padLeft(2, '0'), colors.primary),
+    (AppIcons.checkCircle, AppStrings.rhCheckedIn, checkedIn.toString().padLeft(2, '0'), colors.secondary),
+    (AppIcons.hourglassEmpty, AppStrings.rhQueueInProgress, inProgress.toString().padLeft(2, '0'), colors.warning),
+    (AppIcons.pending, AppStrings.rhQueuePending, pending.toString().padLeft(2, '0'), colors.textLight),
   ];
 }

@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class UaDataNodes extends StatelessWidget {
   const UaDataNodes({super.key});
@@ -14,9 +15,9 @@ class UaDataNodes extends StatelessWidget {
       runSpacing: AppSpacing.sm + AppSpacing.xs,
       alignment: WrapAlignment.center,
       children: [
-        _buildChip(colors, Icons.lock_open_rounded, AppStrings.uaEncryption),
-        _buildChip(colors, Icons.verified_user_rounded, AppStrings.uaDataProtection),
-        _buildChip(colors, Icons.security_rounded, AppStrings.uaSecureProtocol),
+        _buildChip(colors, AppIcons.lockOpen, AppStrings.uaEncryption),
+        _buildChip(colors, AppIcons.verifiedUser, AppStrings.uaDataProtection),
+        _buildChip(colors, AppIcons.security, AppStrings.uaSecureProtocol),
       ],
     );
   }

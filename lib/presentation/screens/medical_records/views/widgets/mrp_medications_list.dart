@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
@@ -61,7 +62,7 @@ class MrpMedicationCard extends StatelessWidget {
             ),
           ),
           Icon(
-            Icons.chevron_left_rounded,
+            AppIcons.chevronLeft,
             size: AppSpacing.iconSize,
             color: colors.divider,
           ),

@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -35,7 +36,7 @@ class RoleSelectionScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Icon(Icons.medical_services_rounded, size: 44, color: colors.primary),
+                child: Icon(AppIcons.medicalServices, size: 44, color: colors.primary),
               ),
               const SizedBox(height: AppSpacing.lg),
               Text(
@@ -64,7 +65,7 @@ class RoleSelectionScreen extends StatelessWidget {
                     children: [
                       _buildRoleCard(
                         context,
-                        icon: Icons.admin_panel_settings_rounded,
+                        icon: AppIcons.adminPanelSettings,
                         title: AppStrings.roleAdmin,
                         subtitle: AppStrings.adminSubtitle,
                         role: UserRole.admin,
@@ -73,7 +74,7 @@ class RoleSelectionScreen extends StatelessWidget {
                       const SizedBox(height: AppSpacing.md),
                       _buildRoleCard(
                         context,
-                        icon: Icons.local_hospital_rounded,
+                        icon: AppIcons.localHospital,
                         title: AppStrings.roleDoctor,
                         subtitle: AppStrings.doctorSubtitle,
                         role: UserRole.doctor,
@@ -82,7 +83,7 @@ class RoleSelectionScreen extends StatelessWidget {
                       const SizedBox(height: AppSpacing.md),
                       _buildRoleCard(
                         context,
-                        icon: Icons.assignment_ind_rounded,
+                        icon: AppIcons.assignmentInd,
                         title: AppStrings.roleReceptionist,
                         subtitle: AppStrings.receptionistSubtitle,
                         role: UserRole.receptionist,
@@ -91,7 +92,7 @@ class RoleSelectionScreen extends StatelessWidget {
                       const SizedBox(height: AppSpacing.md),
                       _buildRoleCard(
                         context,
-                        icon: Icons.person_pin_rounded,
+                        icon: AppIcons.personPin,
                         title: AppStrings.rolePatient,
                         subtitle: AppStrings.patientSubtitle,
                         role: UserRole.patient,
@@ -173,7 +174,7 @@ class RoleSelectionScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(Icons.arrow_back_ios_rounded, color: colors.textLight, size: 16),
+            Icon(AppIcons.back, color: colors.textLight, size: 16),
           ],
         ),
       ),

@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -133,7 +134,7 @@ class _PatientDoctorsTab extends StatelessWidget {
         if (state is PatientDoctorsLoaded) {
           if (state.doctors.isEmpty) {
             return _EmptyState(
-              icon: Icons.medical_services_outlined,
+              icon: AppIcons.medicalServices,
               message: AppStrings.noSupervisingDoctors,
               colors: colors,
             );
@@ -150,12 +151,12 @@ class _PatientDoctorsTab extends StatelessWidget {
                   subtitle: supervision.notes ?? '',
                   status: supervision.status,
                   statusColor: colors.success,
-                  icon: Icons.medical_services_rounded,
+                  icon: AppIcons.medicalServices,
                   colors: colors,
                   trailing: _ActionChip(
                     label: AppStrings.removeSupervision,
                     color: colors.error,
-                    icon: Icons.link_off_rounded,
+                    icon: AppIcons.linkOff,
                     onPressed: () {
                       final userId = context.read<AuthCubit>().state.userId ?? '';
                       context.read<SupervisionBloc>().add(
@@ -200,7 +201,7 @@ class _DoctorPatientsTab extends StatelessWidget {
         if (state is DoctorPatientsLoaded) {
           if (state.patients.isEmpty) {
             return _EmptyState(
-              icon: Icons.people_outline_rounded,
+              icon: AppIcons.peopleOutline,
               message: AppStrings.noSupervisedPatients,
               colors: colors,
             );
@@ -217,12 +218,12 @@ class _DoctorPatientsTab extends StatelessWidget {
                   subtitle: supervision.notes ?? '',
                   status: supervision.status,
                   statusColor: colors.success,
-                  icon: Icons.person_rounded,
+                  icon: AppIcons.person,
                   colors: colors,
                   trailing: _ActionChip(
                     label: AppStrings.removeSupervision,
                     color: colors.error,
-                    icon: Icons.link_off_rounded,
+                    icon: AppIcons.linkOff,
                     onPressed: () {
                       final userId = context.read<AuthCubit>().state.userId ?? '';
                       context.read<SupervisionBloc>().add(
@@ -267,7 +268,7 @@ class _PatientRequestsTab extends StatelessWidget {
         if (state is PatientRequestsLoaded) {
           if (state.requests.isEmpty) {
             return _EmptyState(
-              icon: Icons.hourglass_empty_rounded,
+              icon: AppIcons.hourglassEmpty,
               message: AppStrings.noPendingRequests,
               colors: colors,
             );
@@ -283,14 +284,14 @@ class _PatientRequestsTab extends StatelessWidget {
                   title: request.doctorName ?? 'طبيب',
                   status: request.status,
                   createdAt: request.createdAt,
-                  icon: Icons.medical_services_rounded,
+                  icon: AppIcons.medicalServices,
                   colors: colors,
                   actions: [
                     if (request.status == 'pending')
                       _ActionChip(
                         label: AppStrings.cancelRequest,
                         color: colors.warning,
-                        icon: Icons.cancel_outlined,
+                        icon: AppIcons.cancel,
                         onPressed: () {
                           context.read<SupervisionBloc>().add(CancelRequest(request.id));
                         },
@@ -333,7 +334,7 @@ class _DoctorRequestsTab extends StatelessWidget {
         if (state is DoctorRequestsLoaded) {
           if (state.requests.isEmpty) {
             return _EmptyState(
-              icon: Icons.inbox_rounded,
+              icon: AppIcons.inbox,
               message: AppStrings.noPendingRequests,
               colors: colors,
             );
@@ -349,14 +350,14 @@ class _DoctorRequestsTab extends StatelessWidget {
                   title: request.patientName ?? 'مريض',
                   status: request.status,
                   createdAt: request.createdAt,
-                  icon: Icons.person_rounded,
+                  icon: AppIcons.person,
                   colors: colors,
                   actions: [
                     if (request.status == 'pending') ...[
                       _ActionChip(
                         label: AppStrings.approveRequest,
                         color: colors.success,
-                        icon: Icons.check_circle_outline,
+                        icon: AppIcons.checkCircle,
                         onPressed: () {
                           context.read<SupervisionBloc>().add(ApproveRequest(request.id));
                         },
@@ -365,7 +366,7 @@ class _DoctorRequestsTab extends StatelessWidget {
                       _ActionChip(
                         label: AppStrings.rejectRequest,
                         color: colors.error,
-                        icon: Icons.cancel_outlined,
+                        icon: AppIcons.cancel,
                         onPressed: () {
                           context.read<SupervisionBloc>().add(RejectRequest(request.id));
                         },

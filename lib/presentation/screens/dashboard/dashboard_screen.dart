@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -17,6 +17,7 @@ import 'package:clinic_management_app/presentation/screens/dashboard/views/admin
 import 'package:clinic_management_app/presentation/screens/dashboard/views/doctor_dashboard_view.dart';
 import 'package:clinic_management_app/presentation/screens/dashboard/views/receptionist_dashboard_view.dart';
 import 'package:clinic_management_app/presentation/screens/dashboard/views/patient_dashboard_view.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class DashboardScreen extends StatefulWidget {
   final ThemeProvider? themeProvider;
@@ -56,7 +57,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           Stack(
             children: [
               IconButton(
-                icon: const Icon(Icons.notifications_outlined),
+                icon: const Icon(AppIcons.notificationsOutline),
                 onPressed: () => Navigator.pushNamed(context, AppRoutes.notifications),
               ),
               if (unreadCount > 0)
@@ -81,7 +82,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ],
           ),
           IconButton(
-            icon: const Icon(Icons.logout),
+            icon: const Icon(AppIcons.logout),
             onPressed: () {
               context.read<AuthCubit>().logout();
               Navigator.pushReplacementNamed(context, AppRoutes.login);

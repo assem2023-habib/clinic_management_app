@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
@@ -28,7 +29,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
         radius: 20,
         backgroundColor: colors.cardBg.withValues(alpha: 0.6),
         child: IconButton(
-          icon: Icon(Icons.notifications_outlined, color: colors.primary, size: AppSpacing.iconMedium),
+          icon: Icon(AppIcons.notificationsOutline, color: colors.primary, size: AppSpacing.iconMedium),
           onPressed: () => Navigator.pushNamed(context, AppRoutes.notifications),
           padding: EdgeInsets.zero,
           constraints: const BoxConstraints(),
@@ -53,10 +54,10 @@ class _ServicesScreenState extends State<ServicesScreen> {
           unselectedItemColor: colors.bottomNavUnselected,
           type: BottomNavigationBarType.fixed,
           items:  [
-            BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: AppStrings.srBottomHome),
-            BottomNavigationBarItem(icon: Icon(Icons.medical_services_rounded), label: AppStrings.srBottomServices),
-            BottomNavigationBarItem(icon: Icon(Icons.description_rounded), label: AppStrings.srBottomRecords),
-            BottomNavigationBarItem(icon: Icon(Icons.person_outline_rounded), label: AppStrings.srBottomAccount),
+            BottomNavigationBarItem(icon: Icon(AppIcons.home), label: AppStrings.srBottomHome),
+            BottomNavigationBarItem(icon: Icon(AppIcons.medicalServices), label: AppStrings.srBottomServices),
+            BottomNavigationBarItem(icon: Icon(AppIcons.description), label: AppStrings.srBottomRecords),
+            BottomNavigationBarItem(icon: Icon(AppIcons.personOutline), label: AppStrings.srBottomAccount),
           ],
         ),
       ),

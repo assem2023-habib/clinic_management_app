@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -137,7 +138,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   if (isLast) ...[
-                    Icon(Icons.check_circle_rounded, color: colors.primaryLight),
+                    Icon(AppIcons.checkCircle, color: colors.primaryLight),
                     const SizedBox(width: AppSpacing.ten),
                     Text(
                       AppStrings.enterApp,
@@ -149,7 +150,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600, color: colors.primaryLight),
                     ),
                     const SizedBox(width: AppSpacing.ten),
-                    Icon(Icons.arrow_forward_rounded, color: colors.primaryLight),
+                    Icon(AppIcons.forward, color: colors.primaryLight),
                   ],
                 ],
               ),

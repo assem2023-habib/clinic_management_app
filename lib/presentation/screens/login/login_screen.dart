@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -68,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Icon(
-                          Icons.medical_services_rounded,
+                          AppIcons.medicalServices,
                           size: 80,
                           color: colors.primary,
                         ),
@@ -114,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
                             labelText: AppStrings.email,
-                            prefixIcon: Icon(Icons.email_outlined, color: colors.textSecondary),
+                            prefixIcon: Icon(AppIcons.email, color: colors.textSecondary),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) return AppStrings.enterEmail;
@@ -127,9 +128,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           obscureText: _obscurePassword,
                           decoration: InputDecoration(
                             labelText: AppStrings.password,
-                            prefixIcon: Icon(Icons.lock_outlined, color: colors.textSecondary),
+                            prefixIcon: Icon(AppIcons.lock, color: colors.textSecondary),
                             suffixIcon: IconButton(
-                              icon: Icon(_obscurePassword ? Icons.visibility_rounded : Icons.visibility_off_rounded),
+                              icon: Icon(_obscurePassword ? AppIcons.visibility : AppIcons.visibilityOff),
                               onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
                             ),
                           ),

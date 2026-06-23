@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class DrQuickActions extends StatelessWidget {
   final VoidCallback? onRegisterPatient;
@@ -29,12 +30,12 @@ class DrQuickActions extends StatelessWidget {
           spacing: AppSpacing.md,
           runSpacing: AppSpacing.md,
           children: [
-            _buildActionButton(context, Icons.person_add_rounded, AppStrings.daRegisterPatient,
+            _buildActionButton(context, AppIcons.personAdd, AppStrings.daRegisterPatient,
                 colors.primaryDark, Colors.white, onRegisterPatient),
-            _buildActionButton(context, Icons.event_note_rounded, AppStrings.daAddAppointment,
+            _buildActionButton(context, AppIcons.eventNote, AppStrings.daAddAppointment,
                 colors.cardBg.withValues(alpha: 0.5), colors.textPrimary, onAddAppointment,
                 borderColor: colors.divider.withValues(alpha: 0.2)),
-            _buildActionButton(context, Icons.edit_calendar_rounded, AppStrings.daManageSchedule,
+            _buildActionButton(context, AppIcons.editCalendar, AppStrings.daManageSchedule,
                 colors.cardBg.withValues(alpha: 0.5), colors.textPrimary, onManageSchedule,
                 borderColor: colors.divider.withValues(alpha: 0.2)),
           ],

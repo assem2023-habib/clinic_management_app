@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
@@ -13,6 +13,7 @@ import 'package:clinic_management_app/presentation/screens/download_files/widget
 import 'package:clinic_management_app/presentation/widgets/animated_card.dart';
 import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
 import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class DownloadFilesScreen extends StatefulWidget {
   const DownloadFilesScreen({super.key});
@@ -90,13 +91,13 @@ class _DownloadFilesScreenState extends State<DownloadFilesScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.error_outline_rounded, size: 48, color: colors.error),
+                    Icon(AppIcons.errorOutline, size: 48, color: colors.error),
                     const SizedBox(height: AppSpacing.md),
                     Text(state.message, style: TextStyle(color: colors.error)),
                     const SizedBox(height: AppSpacing.md),
                     TextButton.icon(
                       onPressed: () => context.read<DownloadFileBloc>().add(const DownloadFileLoadAll()),
-                      icon: const Icon(Icons.refresh_rounded),
+                      icon: const Icon(AppIcons.refresh),
                       label: Text(AppStrings.retry),
                     ),
                   ],

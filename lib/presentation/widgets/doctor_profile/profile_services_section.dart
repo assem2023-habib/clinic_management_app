@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
@@ -31,7 +32,7 @@ class ProfileServicesSection extends StatelessWidget {
             Text(AppStrings.services, style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
             if (isEditable)
               IconButton(
-                icon: Icon(Icons.edit_rounded, size: AppSpacing.iconSmall, color: colors.primary),
+                icon: Icon(AppIcons.edit, size: AppSpacing.iconSmall, color: colors.primary),
                 onPressed: onEdit,
               ),
           ],
@@ -53,11 +54,11 @@ class ProfileServicesSection extends StatelessWidget {
                   color: colors.primary.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(AppSpacing.sm),
                 ),
-                child: Icon(Icons.medical_services_rounded, color: colors.primary, size: AppSpacing.iconSmall),
+                child: Icon(AppIcons.medicalServices, color: colors.primary, size: AppSpacing.iconSmall),
               ),
               const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
               Expanded(child: Text(service, style: TextStyle(fontSize: AppSpacing.bodyMedium, color: colors.textPrimary))),
-              Icon(Icons.chevron_left_rounded, color: colors.textLight, size: AppSpacing.iconSmall),
+              Icon(AppIcons.chevronLeft, color: colors.textLight, size: AppSpacing.iconSmall),
             ],
           ),
         )),

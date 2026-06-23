@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
@@ -35,7 +36,7 @@ class ConfirmationDetailsCard extends StatelessWidget {
                       ? NetworkImage(doctor.imageUrl!)
                       : null,
                   child: doctor.imageUrl == null
-                      ? Icon(Icons.person_rounded, size: AppSpacing.avatarMedium, color: colors.primary)
+                      ? Icon(AppIcons.person, size: AppSpacing.avatarMedium, color: colors.primary)
                       : null,
                 ),
               ),
@@ -63,21 +64,21 @@ class ConfirmationDetailsCard extends StatelessWidget {
           const SizedBox(height: AppSpacing.md),
           _buildDetailRow(
             context,
-            Icons.calendar_today_rounded,
+            AppIcons.calendarToday,
             AppStrings.historyLabel,
             _formatDate(data.date),
           ),
           const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
           _buildDetailRow(
             context,
-            Icons.schedule_rounded,
+            AppIcons.schedule,
             AppStrings.timeLabel,
             _formatTime(data.timeSlot),
           ),
           const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
           _buildDetailRow(
             context,
-            Icons.location_on_rounded,
+            AppIcons.locationOn,
             AppStrings.location,
             '${doctor.clinicName ?? AppStrings.clinic}\n${doctor.clinicAddress ?? ''}',
             isMultiLine: true,
@@ -96,14 +97,14 @@ class ConfirmationDetailsCard extends StatelessWidget {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  Icon(Icons.map_rounded, size: AppSpacing.xxl, color: colors.textLight.withValues(alpha: 0.3)),
+                  Icon(AppIcons.map, size: AppSpacing.xxl, color: colors.textLight.withValues(alpha: 0.3)),
                   Container(
                     padding: const EdgeInsets.all(AppSpacing.sm),
                     decoration: BoxDecoration(
                       color: colors.primary.withValues(alpha: 0.2),
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(Icons.location_on_rounded, color: colors.primary, size: AppSpacing.lg),
+                    child: Icon(AppIcons.locationOn, color: colors.primary, size: AppSpacing.lg),
                   ),
                 ],
               ),

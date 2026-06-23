@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'suspended_painters.dart';
@@ -7,6 +7,7 @@ import 'widgets/sp_icon_section.dart';
 import 'widgets/sp_content_card.dart';
 import 'widgets/sp_reason_card.dart';
 import 'widgets/sp_actions.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class SuspendedScreen extends StatefulWidget {
   final VoidCallback? onContactSupport;
@@ -135,7 +136,7 @@ class _SuspendedScreenState extends State<SuspendedScreen>
               height: AppSpacing.iconContainer,
               alignment: Alignment.center,
               child: Icon(
-                Icons.arrow_forward_rounded,
+                AppIcons.forward,
                 color: colors.mint,
                 size: AppSpacing.iconSize,
               ),

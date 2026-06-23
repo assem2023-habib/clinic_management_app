@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 const double _marginMobile = 20.0;
 const double _gutter = AppSpacing.md;
@@ -84,7 +85,7 @@ class ForbiddenScreen extends StatelessWidget {
                 width: AppSpacing.iconContainer,
                 height: AppSpacing.iconContainer,
                 alignment: Alignment.center,
-                child: Icon(Icons.arrow_forward_rounded, color: colors.primary, size: AppSpacing.iconSize),
+                child: Icon(AppIcons.forward, color: colors.primary, size: AppSpacing.iconSize),
               ),
             ),
           ),
@@ -107,7 +108,7 @@ class ForbiddenScreen extends StatelessWidget {
                 width: AppSpacing.iconContainer,
                 height: AppSpacing.iconContainer,
                 alignment: Alignment.center,
-                child: Icon(Icons.help_outline_rounded, color: colors.textLight, size: AppSpacing.iconSmall + 2),
+                child: Icon(AppIcons.help, color: colors.textLight, size: AppSpacing.iconSmall + 2),
               ),
             ),
           ),
@@ -139,7 +140,7 @@ class ForbiddenScreen extends StatelessWidget {
               ],
             ),
             child: Icon(
-              Icons.shield_rounded,
+              AppIcons.shield,
               size: 80,
               color: colors.primary,
             ),
@@ -221,7 +222,7 @@ class ForbiddenScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.home_rounded, size: AppSpacing.iconSmall + 2),
+                Icon(AppIcons.home, size: AppSpacing.iconSmall + 2),
                 const SizedBox(width: AppSpacing.sm),
                 Text(AppStrings.fbGoHome, style: const TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600)),
               ],
@@ -242,7 +243,7 @@ class ForbiddenScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.support_agent_rounded, size: AppSpacing.iconSmall + 2),
+                Icon(AppIcons.supportAgent, size: AppSpacing.iconSmall + 2),
                 const SizedBox(width: AppSpacing.sm),
                 Text(AppStrings.fbContactSupport, style: const TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600)),
               ],
@@ -261,12 +262,12 @@ class ForbiddenScreen extends StatelessWidget {
         runSpacing: _gutter,
         children: [
           _buildInfoCard(context, colors,
-            icon: Icons.lock_reset_rounded,
+            icon: AppIcons.lockReset,
             label: AppStrings.fbAccessIdLabel,
             value: AppStrings.fbAccessIdValue,
           ),
           _buildInfoCard(context, colors,
-            icon: Icons.verified_user_rounded,
+            icon: AppIcons.verifiedUser,
             label: AppStrings.fbSecurityLabel,
             value: AppStrings.fbSecurityValue,
           ),

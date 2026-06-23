@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class ConfirmationActions extends StatelessWidget {
   final UserRole role;
@@ -36,7 +37,7 @@ class ConfirmationActions extends StatelessWidget {
             height: AppSpacing.xxl,
             child: ElevatedButton.icon(
               onPressed: () => Navigator.pushNamed(context, primaryRoute),
-              icon: const Icon(Icons.event_note_rounded, size: AppSpacing.iconSmall),
+              icon: const Icon(AppIcons.eventNote, size: AppSpacing.iconSmall),
               label: Text(primaryLabel, style: const TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: colors.primary,
@@ -52,7 +53,7 @@ class ConfirmationActions extends StatelessWidget {
             height: AppSpacing.xxl,
             child: OutlinedButton.icon(
               onPressed: onAddToCalendar,
-              icon: Icon(Icons.calendar_today_rounded, size: AppSpacing.iconSmall, color: colors.primary),
+              icon: Icon(AppIcons.calendarToday, size: AppSpacing.iconSmall, color: colors.primary),
               label: Text(AppStrings.addToCalendar, style: TextStyle(fontSize: AppSpacing.bodyMedium, color: colors.primary)),
               style: OutlinedButton.styleFrom(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),

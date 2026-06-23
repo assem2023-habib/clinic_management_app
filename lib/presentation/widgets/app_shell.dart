@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/theme/theme_provider.dart';
 import 'package:clinic_management_app/presentation/widgets/app_drawer.dart';
 import 'package:clinic_management_app/presentation/widgets/glass_app_bar.dart';
 import 'package:clinic_management_app/presentation/widgets/particle_background.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class AppShell extends StatelessWidget {
   final Widget body;
@@ -108,7 +109,7 @@ class AppShell extends StatelessWidget {
                       title: Text(title ?? ''),
                       leading: showBackButton
                           ? IconButton(
-                              icon: const Icon(Icons.arrow_forward_rounded),
+                              icon: const Icon(AppIcons.forward),
                               onPressed: () => Navigator.pop(context),
                             )
                           : null,

@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -120,7 +121,7 @@ class _PatientDoctorProfileViewState extends State<PatientDoctorProfileView> {
               height: 52,
               child: ElevatedButton.icon(
                 onPressed: widget.onBookAppointment,
-                icon: const Icon(Icons.event_available_rounded, size: AppSpacing.iconMedium),
+                icon: const Icon(AppIcons.eventAvailable, size: AppSpacing.iconMedium),
                 label: Text(AppStrings.bookAppointment, style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600)),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: colors.primary,
@@ -140,12 +141,12 @@ class _PatientDoctorProfileViewState extends State<PatientDoctorProfileView> {
     switch (_supervisionStatus) {
       case _SupervisionStatus.supervised:
         return _SupervisionBadgeCard(
-          icon: Icons.verified_rounded,
+          icon: AppIcons.verified,
           label: AppStrings.mySupervisingDoctor,
           color: colors.success,
           colors: colors,
           actionLabel: AppStrings.removeSupervision,
-          actionIcon: Icons.link_off_rounded,
+          actionIcon: AppIcons.linkOff,
           onAction: () {
             final patientId = context.read<AuthCubit>().state.userId ?? '';
             context.read<SupervisionBloc>().add(
@@ -155,12 +156,12 @@ class _PatientDoctorProfileViewState extends State<PatientDoctorProfileView> {
         );
       case _SupervisionStatus.pending:
         return _SupervisionBadgeCard(
-          icon: Icons.hourglass_top_rounded,
+          icon: AppIcons.hourglassTop,
           label: AppStrings.pendingSupervisionRequest,
           color: colors.warning,
           colors: colors,
           actionLabel: AppStrings.cancelRequest,
-          actionIcon: Icons.cancel_outlined,
+          actionIcon: AppIcons.cancel,
           onAction: () {
             if (_pendingRequestId != null) {
               context.read<SupervisionBloc>().add(CancelRequest(_pendingRequestId!));
@@ -178,7 +179,7 @@ class _PatientDoctorProfileViewState extends State<PatientDoctorProfileView> {
                 CreateSupervisionRequestEvent(patientId, widget.profile.doctor.id),
               );
             },
-            icon: const Icon(Icons.supervisor_account_rounded, size: AppSpacing.iconSmall),
+            icon: const Icon(AppIcons.supervisorAccount, size: AppSpacing.iconSmall),
             label: Text(AppStrings.requestSupervision, style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600)),
             style: OutlinedButton.styleFrom(
               foregroundColor: colors.primary,

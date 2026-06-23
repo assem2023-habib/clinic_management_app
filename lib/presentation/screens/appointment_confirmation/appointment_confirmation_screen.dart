@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -24,7 +25,7 @@ class AppointmentConfirmationScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_forward_rounded),
+          icon: const Icon(AppIcons.forward),
           onPressed: () => Navigator.pop(context),
         ),
         title:  Text(AppStrings.confirmAppointment),
@@ -34,7 +35,7 @@ class AppointmentConfirmationScreen extends StatelessWidget {
             child: CircleAvatar(
               radius: AppSpacing.avatarSmall,
               backgroundColor: colors.primary.withValues(alpha: 0.15),
-              child: Icon(Icons.person_rounded, size: AppSpacing.iconSmall, color: colors.primary),
+              child: Icon(AppIcons.person, size: AppSpacing.iconSmall, color: colors.primary),
             ),
           ),
         ],

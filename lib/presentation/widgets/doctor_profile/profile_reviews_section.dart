@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
@@ -61,7 +62,7 @@ class ProfileReviewsSection extends StatelessWidget {
                     children: [
                       Row(
                         children: List.generate(5, (i) => Icon(
-                          i < (averageRating ?? 0).round() ? Icons.star_rounded : Icons.star_outline_rounded,
+                          i < (averageRating ?? 0).round() ? AppIcons.star : AppIcons.starOutline,
                           color: Colors.amber,
                           size: 16,
                         )),
@@ -76,7 +77,7 @@ class ProfileReviewsSection extends StatelessWidget {
             if (canAddReview)
               ElevatedButton.icon(
                 onPressed: onAddReview,
-                icon: const Icon(Icons.rate_review_rounded, size: 18),
+                icon: const Icon(AppIcons.rateReview, size: 18),
                 label: Text(AppStrings.rating),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.ten),
@@ -114,7 +115,7 @@ class ProfileReviewsSection extends StatelessWidget {
                         Text(review.patientName ?? '', style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
                         Row(
                           children: List.generate(5, (i) => Icon(
-                            i < review.rating.round() ? Icons.star_rounded : Icons.star_outline_rounded,
+                            i < review.rating.round() ? AppIcons.star : AppIcons.starOutline,
                             color: Colors.amber,
                             size: 14,
                           )),
@@ -134,7 +135,7 @@ class ProfileReviewsSection extends StatelessWidget {
                 const SizedBox(height: AppSpacing.sm),
                 Row(
                   children: [
-                    Icon(Icons.thumb_up_rounded, size: 14, color: colors.textLight),
+                    Icon(AppIcons.thumbUp, size: 14, color: colors.textLight),
                     const SizedBox(width: AppSpacing.xs),
                     Text('${review.likesCount ?? 0}', style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textLight)),
                   ],

@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
@@ -30,7 +31,7 @@ class ProfileHeader extends StatelessWidget {
                         ? NetworkImage(doctor.imageUrl!)
                         : null,
                     child: doctor.imageUrl == null
-                        ? Icon(Icons.person_rounded, size: 48, color: colors.primary)
+                        ? Icon(AppIcons.person, size: 48, color: colors.primary)
                         : null,
                   ),
                   const SizedBox(height: AppSpacing.md),
@@ -49,7 +50,7 @@ class ProfileHeader extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: AppSpacing.sm),
-                      Icon(Icons.verified_rounded, color: colors.secondary, size: AppSpacing.iconMedium),
+                      Icon(AppIcons.verified, color: colors.secondary, size: AppSpacing.iconMedium),
                     ],
                   ),
                   const SizedBox(height: AppSpacing.xs),
@@ -67,7 +68,7 @@ class ProfileHeader extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.star_rounded, color: Colors.amber, size: AppSpacing.iconSmall),
+                      Icon(AppIcons.star, color: Colors.amber, size: AppSpacing.iconSmall),
                       const SizedBox(width: AppSpacing.xs),
                       Text(
                         doctor.rating.toString(),
@@ -78,7 +79,7 @@ class ProfileHeader extends StatelessWidget {
                         style: TextStyle(fontSize: AppSpacing.caption, color: colors.textLight),
                       ),
                       const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
-                      Icon(Icons.location_on_rounded, size: 18, color: colors.textLight),
+                      Icon(AppIcons.locationOn, size: 18, color: colors.textLight),
                       const SizedBox(width: AppSpacing.xxs),
                       Flexible(
                         child: Text(

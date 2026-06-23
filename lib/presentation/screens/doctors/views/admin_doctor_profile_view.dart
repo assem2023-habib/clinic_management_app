@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
@@ -41,7 +42,7 @@ class AdminDoctorProfileView extends StatelessWidget {
               Expanded(
                 child: OutlinedButton.icon(
                   onPressed: onEditProfile,
-                  icon: Icon(Icons.edit_rounded, size: 18, color: colors.primary),
+                  icon: Icon(AppIcons.edit, size: 18, color: colors.primary),
                   label: Text(AppStrings.editProfile, style: TextStyle(color: colors.primary)),
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm + AppSpacing.xs),
@@ -54,7 +55,7 @@ class AdminDoctorProfileView extends StatelessWidget {
               Expanded(
                 child: OutlinedButton.icon(
                   onPressed: onDeleteDoctor,
-                  icon: Icon(Icons.delete_rounded, size: 18, color: colors.error),
+                  icon: Icon(AppIcons.delete, size: 18, color: colors.error),
                   label: Text(AppStrings.deleteDoctor, style: TextStyle(color: colors.error)),
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm + AppSpacing.xs),

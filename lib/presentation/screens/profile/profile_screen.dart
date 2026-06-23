@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -114,7 +115,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           radius: 56,
           backgroundColor: colors.primary.withValues(alpha: 0.15),
           backgroundImage: imageUrl != null ? NetworkImage(imageUrl) : null,
-          child: imageUrl == null ? Icon(Icons.person_rounded, size: 48, color: colors.primary) : null,
+          child: imageUrl == null ? Icon(AppIcons.person, size: 48, color: colors.primary) : null,
         ),
         Positioned(
           bottom: 0,
@@ -122,7 +123,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: CircleAvatar(
             radius: 18,
             backgroundColor: colors.primary,
-            child: Icon(Icons.camera_alt_rounded, size: 16, color: colors.surface),
+            child: Icon(AppIcons.camera, size: 16, color: colors.surface),
           ),
         ),
       ],
@@ -155,7 +156,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return ListTile(
       title: Text(value, style: TextStyle(fontSize: AppSpacing.bodyLarge, color: colors.textPrimary)),
       subtitle: Text(label, style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textSecondary)),
-      trailing: Icon(Icons.edit_rounded, size: 18, color: colors.primaryLight),
+      trailing: Icon(AppIcons.edit, size: 18, color: colors.primaryLight),
       onTap: () => _showEditDialog(label, fieldKey, value),
       contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: AppSpacing.xs),
     );
@@ -172,7 +173,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           width: double.infinity,
           child: ElevatedButton.icon(
             onPressed: () => Navigator.pushNamed(context, AppRoutes.changePassword),
-            icon: const Icon(Icons.lock_outline_rounded),
+            icon: const Icon(AppIcons.lockOutline),
             label:  Text(AppStrings.changePassword),
             style: ElevatedButton.styleFrom(
               backgroundColor: colors.surface,
@@ -206,7 +207,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Navigator.pushNamed(context, AppRoutes.deleteAccount);
               }
             },
-            icon: const Icon(Icons.delete_forever_rounded),
+            icon: const Icon(AppIcons.deleteForever),
             label:  Text(AppStrings.deleteAccount),
             style: ElevatedButton.styleFrom(
               backgroundColor: colors.error.withValues(alpha: 0.1),

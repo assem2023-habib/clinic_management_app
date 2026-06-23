@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -31,7 +32,7 @@ class DatePickerField extends StatelessWidget {
         filled: true,
         fillColor: colors.cardBg,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
-        suffixIcon: Icon(Icons.calendar_month_rounded, color: colors.primaryLight, size: AppSpacing.iconMedium),
+        suffixIcon: Icon(AppIcons.calendarMonth, color: colors.primaryLight, size: AppSpacing.iconMedium),
       ),
       onTap: () => _pickDate(context, colors),
     );

@@ -1,6 +1,7 @@
-import 'package:clinic_management_app/core/constants/app_colors.dart';
+﻿import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class NfActions extends StatelessWidget {
   final VoidCallback? onRetry;
@@ -29,7 +30,7 @@ class NfActions extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.refresh_rounded, size: AppSpacing.iconSmall),
+                  const Icon(AppIcons.refresh, size: AppSpacing.iconSmall),
                   const SizedBox(width: AppSpacing.sm),
                   const Text(
                     'إِعَادَةُ المُحَاوَلَةِ',

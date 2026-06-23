@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class OfflineScreen extends StatefulWidget {
   final VoidCallback? onRetry;
@@ -143,7 +144,7 @@ class _OfflineScreenState extends State<OfflineScreen>
       child: Row(
         children: [
           IconButton(
-            icon: const Icon(Icons.arrow_back_rounded),
+            icon: const Icon(AppIcons.back),
             color: colors.primary,
             onPressed: () => Navigator.of(context).pop(),
           ),
@@ -234,7 +235,7 @@ class _OfflineScreenState extends State<OfflineScreen>
         ],
       ),
       child: Icon(
-        Icons.signal_cellular_off_rounded,
+        AppIcons.signalCellularOff,
         size: 72,
         color: colors.neonGreen.withValues(alpha: 0.7),
       ),
@@ -310,7 +311,7 @@ class _OfflineScreenState extends State<OfflineScreen>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.refresh_rounded, size: AppSpacing.iconSmall),
+                const Icon(AppIcons.refresh, size: AppSpacing.iconSmall),
                 const SizedBox(width: AppSpacing.sm),
                 Text(
                   AppStrings.olRetry,
@@ -338,7 +339,7 @@ class _OfflineScreenState extends State<OfflineScreen>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.cached_rounded, size: AppSpacing.iconSmall),
+                const Icon(AppIcons.cached, size: AppSpacing.iconSmall),
                 const SizedBox(width: AppSpacing.sm),
                 Text(
                   AppStrings.olShowCached,
@@ -365,7 +366,7 @@ class _OfflineScreenState extends State<OfflineScreen>
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
-              Icons.wifi_off_rounded,
+              AppIcons.wifiOff,
               size: 16,
               color: colors.textSecondary.withValues(alpha: 0.4),
             ),
@@ -387,7 +388,7 @@ class _OfflineScreenState extends State<OfflineScreen>
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
-              Icons.dns_rounded,
+              AppIcons.dns,
               size: 16,
               color: colors.textSecondary.withValues(alpha: 0.4),
             ),

@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
 import 'package:clinic_management_app/presentation/widgets/appointments/time_slot_grid.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class AppointmentOptionsSheet extends StatelessWidget {
   final AppointmentEntity appointment;
@@ -43,7 +44,7 @@ class AppointmentOptionsSheet extends StatelessWidget {
             clipBehavior: Clip.antiAlias,
             child: imgUrl != null
                 ? Image.network(imgUrl, fit: BoxFit.cover)
-                : Icon(Icons.person, color: c.textSecondary),
+                : Icon(AppIcons.person, color: c.textSecondary),
           ),
           const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -53,25 +54,25 @@ class AppointmentOptionsSheet extends StatelessWidget {
         ]),
         const SizedBox(height: AppSpacing.md),
         _SheetOption(
-          icon: Icons.edit_calendar_outlined,
+          icon: AppIcons.editCalendarOutline,
           label: 'تعديل الموعد',
           colors: c,
           onTap: () { Navigator.pop(context); _openReschedule(context); },
         ),
         _SheetOption(
-          icon: Icons.notifications_outlined,
+          icon: AppIcons.notificationsOutline,
           label: 'تفعيل التذكير',
           colors: c,
           onTap: () => Navigator.pop(context),
         ),
         _SheetOption(
-          icon: Icons.info_outlined,
+          icon: AppIcons.info,
           label: 'تفاصيل الموعد',
           colors: c,
           onTap: () => Navigator.pop(context),
         ),
         _SheetOption(
-          icon: Icons.event_busy,
+          icon: AppIcons.eventBusy,
           label: 'إلغاء الموعد',
           isDestructive: true,
           colors: c,
@@ -187,7 +188,7 @@ class _CancelDialog extends StatelessWidget {
                 borderRadius: BorderRadius.circular(AppSpacing.md),
                 border: Border.all(color: c.error.withValues(alpha: 0.22)),
               ),
-              child: Icon(Icons.event_busy, color: c.error, size: 28),
+              child: Icon(AppIcons.eventBusy, color: c.error, size: 28),
             ),
             const SizedBox(height: AppSpacing.md),
             Text('إلغاء الموعد؟', style: TextStyle(fontSize: 19, fontWeight: FontWeight.w700, color: c.textPrimary)),

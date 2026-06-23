@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/presentation/screens/notification_failure/widgets/nf_actions.dart';
@@ -24,7 +25,7 @@ class NotificationFailureScreen extends StatelessWidget {
               child: Row(
                 children: [
                   IconButton(
-                    icon: Icon(Icons.arrow_back_rounded, color: colors.textMuted),
+                    icon: Icon(AppIcons.back, color: colors.textMuted),
                     onPressed: onBack ?? () => Navigator.pop(context),
                   ),
                   const Spacer(),

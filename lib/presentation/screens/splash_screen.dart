@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -106,7 +107,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                     color: Colors.white.withValues(alpha: 0.15),
                   ),
                   child: const Icon(
-                    Icons.local_hospital_rounded,
+                    AppIcons.localHospital,
                     size: 56,
                     color: Colors.white,
                   ),

@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -56,7 +57,7 @@ class _DoctorRecordsViewState extends State<DoctorRecordsView> {
         }
         if (state is MedicalRecordLoaded) {
           if (state.records.isEmpty) {
-            return  EmptyDataWidget(icon: Icons.folder_open_rounded, title: AppStrings.noRecords, compact: true);
+            return  EmptyDataWidget(icon: AppIcons.folderOpen, title: AppStrings.noRecords, compact: true);
           }
           return ListView.separated(
             controller: _scrollController,
@@ -80,7 +81,7 @@ class _DoctorRecordsViewState extends State<DoctorRecordsView> {
         if (state is MedicalRecordError) {
           return Center(child: Text(state.message, style: TextStyle(color: colors.error)));
         }
-        return  EmptyDataWidget(icon: Icons.folder_open_rounded, title: AppStrings.noRecords, compact: true);
+        return  EmptyDataWidget(icon: AppIcons.folderOpen, title: AppStrings.noRecords, compact: true);
       },
     );
   }
@@ -88,7 +89,7 @@ class _DoctorRecordsViewState extends State<DoctorRecordsView> {
   Widget _buildRecordCard(BuildContext context, MedicalRecordEntity record, AppColorSet colors) {
     return Card(
       child: ExpansionTile(
-        leading: CircleAvatar(child: Icon(Icons.description, color: colors.primary)),
+        leading: CircleAvatar(child: Icon(AppIcons.description, color: colors.primary)),
         title: Text(record.patientName ?? ''),
         subtitle: Text(record.visitDate != null ? DateFormat('yyyy-MM-dd').format(DateTime.parse(record.visitDate!)) : ''),
         children: [

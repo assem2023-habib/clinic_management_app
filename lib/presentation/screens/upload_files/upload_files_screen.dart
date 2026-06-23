@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -105,7 +106,7 @@ class _UploadFilesScreenState extends State<UploadFilesScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: _pickAndUpload,
         backgroundColor: colors.primary,
-        child: const Icon(Icons.add_rounded),
+        child: const Icon(AppIcons.add),
       ),
     );
   }
@@ -154,7 +155,7 @@ class _UploadFilesScreenState extends State<UploadFilesScreen> {
                 child: Column(
                   children: [
                     const SizedBox(height: 80),
-                    Icon(Icons.cloud_upload_rounded, size: 64, color: colors.textLight),
+                    Icon(AppIcons.upload, size: 64, color: colors.textLight),
                     const SizedBox(height: AppSpacing.md),
                     Text(AppStrings.dfNoFiles, style: TextStyle(color: colors.textPrimary, fontSize: AppSpacing.titleMedium)),
                     const SizedBox(height: AppSpacing.sm),
@@ -228,13 +229,13 @@ class _UploadFilesScreenState extends State<UploadFilesScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.error_outline_rounded, size: 48, color: colors.error),
+            Icon(AppIcons.errorOutline, size: 48, color: colors.error),
             const SizedBox(height: AppSpacing.md),
             Text(message, style: TextStyle(color: colors.error)),
             const SizedBox(height: AppSpacing.md),
             TextButton.icon(
               onPressed: () => context.read<FileBloc>().add(const FileLoadAll()),
-              icon: const Icon(Icons.refresh_rounded),
+              icon: const Icon(AppIcons.refresh),
               label: Text(AppStrings.retry),
             ),
           ],
@@ -244,11 +245,11 @@ class _UploadFilesScreenState extends State<UploadFilesScreen> {
   }
 
   IconData _iconForType(String mimeType) {
-    if (mimeType.contains('pdf')) return Icons.picture_as_pdf_rounded;
+    if (mimeType.contains('pdf')) return AppIcons.pdf;
     if (mimeType.contains('image') || mimeType.contains('jpg') || mimeType.contains('jpeg') || mimeType.contains('png')) {
-      return Icons.image_rounded;
+      return AppIcons.image;
     }
-    if (mimeType.contains('dicom') || mimeType.contains('dcm')) return Icons.medical_services_rounded;
-    return Icons.description_rounded;
+    if (mimeType.contains('dicom') || mimeType.contains('dcm')) return AppIcons.medicalServices;
+    return AppIcons.description;
   }
 }

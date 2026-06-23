@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
@@ -54,7 +55,7 @@ class DateSelectionBar extends StatelessWidget {
                     borderRadius: BorderRadius.circular(AppSpacing.lg),
                     border: Border.all(color: colors.divider.withValues(alpha: 0.3)),
                   ),
-                  child: Icon(Icons.calendar_month_rounded, color: colors.primary, size: AppSpacing.iconMedium),
+                  child: Icon(AppIcons.calendarMonth, color: colors.primary, size: AppSpacing.iconMedium),
                 ),
               ),
             ),

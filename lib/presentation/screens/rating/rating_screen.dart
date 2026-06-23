@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -116,7 +117,7 @@ class _RatingScreenState extends State<RatingScreen> {
                    SliverToBoxAdapter(
                     child: Padding(
                       padding: EdgeInsets.symmetric(vertical: AppSpacing.lg),
-                      child: EmptyDataWidget(icon: Icons.rate_review_outlined, title: AppStrings.noReviews, compact: true),
+                      child: EmptyDataWidget(icon: AppIcons.rateReview, title: AppStrings.noReviews, compact: true),
                     ),
                   )
                 else
@@ -153,7 +154,7 @@ class _RatingScreenState extends State<RatingScreen> {
                    SliverToBoxAdapter(
                     child: Padding(
                       padding: EdgeInsets.symmetric(vertical: AppSpacing.lg),
-                      child: EmptyDataWidget(icon: Icons.rate_review_outlined, title: AppStrings.noMoreReviews, compact: true),
+                      child: EmptyDataWidget(icon: AppIcons.rateReview, title: AppStrings.noMoreReviews, compact: true),
                     ),
                   ),
                 if (state.hasMore && !state.isLoadingMore)

@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class OnboardingItem {
   final IconData icon;
@@ -20,19 +21,19 @@ class OnboardingItem {
 class OnboardingData {
   static List<OnboardingItem> get adminSteps => [
         OnboardingItem(
-          icon: Icons.admin_panel_settings_rounded,
+          icon: AppIcons.adminPanelSettings,
           iconColor: AppColors.dark.primary,
           title: AppStrings.onboardingWelcomeTitle,
           subtitle: AppStrings.onboardingWelcomeSubtitle,
         ),
         OnboardingItem(
-          icon: Icons.calendar_month_rounded,
+          icon: AppIcons.calendarMonth,
           iconColor: AppColors.dark.secondary,
           title: AppStrings.onboardingScheduleTitle,
           subtitle: AppStrings.onboardingScheduleSubtitle,
         ),
         OnboardingItem(
-          icon: Icons.dashboard_customize_rounded,
+          icon: AppIcons.dashboardCustomize,
           iconColor: AppColors.dark.primaryLight,
           title: AppStrings.onboardingDashboardTitle,
           subtitle: AppStrings.onboardingDashboardSubtitle,
@@ -41,19 +42,19 @@ class OnboardingData {
 
   static List<OnboardingItem> get doctorSteps => [
         OnboardingItem(
-          icon: Icons.local_hospital_rounded,
+          icon: AppIcons.localHospital,
           iconColor: AppColors.dark.primary,
           title: AppStrings.onboardingDoctorWelcomeTitle,
           subtitle: AppStrings.onboardingDoctorWelcomeSubtitle,
         ),
         OnboardingItem(
-          icon: Icons.schedule_rounded,
+          icon: AppIcons.schedule,
           iconColor: AppColors.dark.secondary,
           title: AppStrings.onboardingDoctorScheduleTitle,
           subtitle: AppStrings.onboardingDoctorScheduleSubtitle,
         ),
         OnboardingItem(
-          icon: Icons.connect_without_contact_rounded,
+          icon: AppIcons.connectWithoutContact,
           iconColor: AppColors.dark.primaryLight,
           title: AppStrings.onboardingDoctorCommunicationTitle,
           subtitle: AppStrings.onboardingDoctorCommunicationSubtitle,
@@ -62,19 +63,19 @@ class OnboardingData {
 
   static List<OnboardingItem> get receptionistSteps => [
         OnboardingItem(
-          icon: Icons.assignment_ind_rounded,
+          icon: AppIcons.assignmentInd,
           iconColor: AppColors.dark.primary,
           title: AppStrings.onboardingReceptionistTitle,
           subtitle: AppStrings.onboardingReceptionistSubtitle,
         ),
         OnboardingItem(
-          icon: Icons.calendar_month_rounded,
+          icon: AppIcons.calendarMonth,
           iconColor: AppColors.dark.secondary,
           title: AppStrings.onboardingReceptionistApptsTitle,
           subtitle: AppStrings.onboardingReceptionistApptsSubtitle,
         ),
         OnboardingItem(
-          icon: Icons.contact_phone_rounded,
+          icon: AppIcons.contactPhone,
           iconColor: AppColors.dark.primaryLight,
           title: AppStrings.onboardingReceptionistCoordTitle,
           subtitle: AppStrings.onboardingReceptionistCoordSubtitle,
@@ -83,19 +84,19 @@ class OnboardingData {
 
   static List<OnboardingItem> get patientSteps => [
         OnboardingItem(
-          icon: Icons.person_pin_rounded,
+          icon: AppIcons.personPin,
           iconColor: AppColors.dark.primary,
           title: AppStrings.onboardingPatientTitle,
           subtitle: AppStrings.onboardingPatientSubtitle,
         ),
         OnboardingItem(
-          icon: Icons.calendar_today_rounded,
+          icon: AppIcons.calendarToday,
           iconColor: AppColors.dark.secondary,
           title: AppStrings.onboardingPatientApptsTitle,
           subtitle: AppStrings.onboardingPatientApptsSubtitle,
         ),
         OnboardingItem(
-          icon: Icons.health_and_safety_rounded,
+          icon: AppIcons.healthAndSafety,
           iconColor: AppColors.dark.primaryLight,
           title: AppStrings.onboardingPatientRecordsTitle,
           subtitle: AppStrings.onboardingPatientRecordsSubtitle,

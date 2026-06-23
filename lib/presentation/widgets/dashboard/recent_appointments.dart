@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -24,7 +25,7 @@ class RecentAppointments extends StatelessWidget {
         if (state is AppointmentLoaded) {
           final recent = state.appointments.take(limit).toList();
           if (recent.isEmpty) {
-            return  EmptyDataWidget(icon: Icons.event_busy_rounded, title: AppStrings.noAppointments, compact: true);
+            return  EmptyDataWidget(icon: AppIcons.eventBusy, title: AppStrings.noAppointments, compact: true);
           }
           return ListView.separated(
             shrinkWrap: true,
@@ -37,7 +38,7 @@ class RecentAppointments extends StatelessWidget {
                 child: ListTile(
                   leading: CircleAvatar(
                     backgroundColor: _statusColor(colors, a.status.toValue()),
-                    child: const Icon(Icons.event, color: Colors.white),
+                    child: const Icon(AppIcons.event, color: Colors.white),
                   ),
                   title: Text(a.patientName ?? ''),
                   subtitle: Text(a.doctorName ?? ''),
@@ -47,7 +48,7 @@ class RecentAppointments extends StatelessWidget {
             },
           );
         }
-        return  EmptyDataWidget(icon: Icons.event_busy_rounded, title: AppStrings.noAppointments, compact: true);
+        return  EmptyDataWidget(icon: AppIcons.eventBusy, title: AppStrings.noAppointments, compact: true);
       },
     );
   }

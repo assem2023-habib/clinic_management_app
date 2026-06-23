@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -61,7 +62,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Icon(Icons.warning_amber_rounded, size: 64, color: colors.error),
+                  Icon(AppIcons.warning, size: 64, color: colors.error),
                   const SizedBox(height: AppSpacing.lg),
                   Text(
                     AppStrings.warningPermanent,
@@ -84,7 +85,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                       fillColor: colors.cardBg,
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
                       suffixIcon: IconButton(
-                        icon: Icon(_obscure ? Icons.visibility_rounded : Icons.visibility_off_rounded),
+                        icon: Icon(_obscure ? AppIcons.visibility : AppIcons.visibilityOff),
                         onPressed: () => setState(() => _obscure = !_obscure),
                       ),
                     ),

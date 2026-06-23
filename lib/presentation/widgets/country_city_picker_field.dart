@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -113,7 +114,7 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
                     decoration: InputDecoration(
                       hintText: AppStrings.search,
                       hintStyle: TextStyle(color: colors.textLight),
-                      prefixIcon: Icon(Icons.search_rounded, color: colors.textSecondary),
+                      prefixIcon: Icon(AppIcons.search, color: colors.textSecondary),
                       filled: true,
                       fillColor: colors.inputBg,
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
@@ -134,7 +135,7 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
                               title: Text(country.nameAr, style: TextStyle(color: colors.textPrimary)),
                               subtitle: Text(country.nameEn, style: TextStyle(color: colors.textSecondary, fontSize: AppSpacing.bodySmall)),
                               trailing: isSelected
-                                  ? Icon(Icons.check_circle_rounded, color: colors.primary, size: AppSpacing.iconMedium)
+                                  ? Icon(AppIcons.checkCircle, color: colors.primary, size: AppSpacing.iconMedium)
                                   : null,
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.sm)),
                               selected: isSelected,
@@ -202,7 +203,7 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
                         },
                         child: Row(
                           children: [
-                            Icon(Icons.arrow_back_rounded, size: 18, color: colors.primary),
+                            Icon(AppIcons.back, size: 18, color: colors.primary),
                             const SizedBox(width: AppSpacing.xs),
                             Text(_selectedCountry?.nameAr ?? '', style: TextStyle(color: colors.primary, fontSize: AppSpacing.caption)),
                           ],
@@ -234,7 +235,7 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
                     decoration: InputDecoration(
                       hintText: AppStrings.search,
                       hintStyle: TextStyle(color: colors.textLight),
-                      prefixIcon: Icon(Icons.search_rounded, color: colors.textSecondary),
+                      prefixIcon: Icon(AppIcons.search, color: colors.textSecondary),
                       filled: true,
                       fillColor: colors.inputBg,
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
@@ -251,12 +252,12 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             ListTile(
-                              leading: Icon(Icons.location_city_rounded,
+                              leading: Icon(AppIcons.locationCity,
                                   color: isSelected ? colors.primary : colors.textSecondary, size: AppSpacing.iconSize),
                               title: Text(city.nameAr, style: TextStyle(color: colors.textPrimary)),
                               subtitle: Text(city.nameEn, style: TextStyle(color: colors.textSecondary, fontSize: AppSpacing.bodySmall)),
                               trailing: isSelected
-                                  ? Icon(Icons.check_circle_rounded, color: colors.primary, size: AppSpacing.iconMedium)
+                                  ? Icon(AppIcons.checkCircle, color: colors.primary, size: AppSpacing.iconMedium)
                                   : null,
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.sm)),
                               selected: isSelected,
@@ -300,13 +301,13 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
         labelStyle: TextStyle(color: colors.textSecondary),
         hintText: _isLoading ? AppStrings.loading : AppStrings.chooseCountryCity,
         hintStyle: TextStyle(color: colors.textLight),
-        prefixIcon: Icon(Icons.public_rounded, color: colors.textSecondary),
+        prefixIcon: Icon(AppIcons.public, color: colors.textSecondary),
         suffixIcon: _isLoading
             ? SizedBox(
                 width: 20, height: 20,
                 child: CircularProgressIndicator(strokeWidth: 2, color: colors.primary),
               )
-            : Icon(Icons.arrow_drop_down_rounded, color: colors.textSecondary, size: AppSpacing.iconMedium),
+            : Icon(AppIcons.arrowDropDown, color: colors.textSecondary, size: AppSpacing.iconMedium),
         filled: true,
         fillColor: colors.cardBg,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),

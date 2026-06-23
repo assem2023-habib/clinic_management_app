@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class StateAction {
   final String label;
@@ -106,7 +107,7 @@ class StateScreen extends StatelessWidget {
                   width: 40,
                   height: 40,
                   alignment: Alignment.center,
-                  child: Icon(Icons.arrow_back_rounded, color: colors.textPrimary, size: AppSpacing.iconSize),
+                  child: Icon(AppIcons.back, color: colors.textPrimary, size: AppSpacing.iconSize),
                 ),
               ),
             )
@@ -151,7 +152,7 @@ class StateScreen extends StatelessWidget {
         ],
       ),
       child: Icon(
-        icon ?? Icons.error_outline_rounded,
+        icon ?? AppIcons.errorOutline,
         size: size * 0.45,
         color: colors.secondary.withValues(alpha: 0.6),
       ),

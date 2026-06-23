@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class DrAppointmentsHeader extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? onNotificationTap;
@@ -40,7 +41,7 @@ class DrAppointmentsHeader extends StatelessWidget implements PreferredSizeWidge
                   border: Border.all(color: colors.primary.withValues(alpha: 0.2)),
                   color: colors.primary.withValues(alpha: 0.1),
                 ),
-                child: Icon(Icons.person_rounded, color: colors.primary, size: AppSpacing.iconMedium),
+                child: Icon(AppIcons.person, color: colors.primary, size: AppSpacing.iconMedium),
               ),
               const SizedBox(width: AppSpacing.md),
               Expanded(
@@ -70,7 +71,7 @@ class DrAppointmentsHeader extends StatelessWidget implements PreferredSizeWidge
                       shape: BoxShape.circle,
                       color: colors.cardBg.withValues(alpha: 0.5),
                     ),
-                    child: Icon(Icons.notifications_outlined, color: colors.textSecondary, size: AppSpacing.iconMedium),
+                    child: Icon(AppIcons.notificationsOutline, color: colors.textSecondary, size: AppSpacing.iconMedium),
                   ),
                 ),
               ),

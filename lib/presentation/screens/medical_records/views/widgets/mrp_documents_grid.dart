@@ -1,7 +1,8 @@
-import 'package:clinic_management_app/core/constants/app_colors.dart';
+﻿import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class MrpDocumentCard extends StatelessWidget {
   final String title;
@@ -34,7 +35,7 @@ class MrpDocumentCard extends StatelessWidget {
             ),
             child: Center(
               child: Icon(
-                Icons.description_rounded,
+                AppIcons.description,
                 size: 48,
                 color: colors.surfaceDark,
               ),
@@ -90,7 +91,7 @@ class MrpUploadButton extends StatelessWidget {
         child: Column(
           children: [
             Icon(
-              Icons.upload_file_rounded,
+              AppIcons.uploadFile,
               size: 32,
               color: colors.primary,
             ),

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
@@ -7,6 +7,7 @@ import 'widgets/ua_icon_section.dart';
 import 'widgets/ua_content.dart';
 import 'widgets/ua_actions.dart';
 import 'widgets/ua_data_nodes.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class UnauthorizedScreen extends StatelessWidget {
   final VoidCallback? onLogin;
@@ -63,7 +64,7 @@ class UnauthorizedScreen extends StatelessWidget {
               height: AppSpacing.iconContainer,
               alignment: Alignment.center,
               child: Icon(
-                Icons.arrow_forward_rounded,
+                AppIcons.forward,
                 color: colors.textPrimary,
                 size: AppSpacing.iconSize,
               ),

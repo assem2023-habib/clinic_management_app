@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class RhQuickActions extends StatelessWidget {
   final VoidCallback? onNewAppointment;
@@ -41,7 +42,7 @@ class RhQuickActions extends StatelessWidget {
                     color: colors.primaryLight.withValues(alpha: 0.2),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(Icons.person_add_rounded, color: colors.primaryLight, size: 26),
+                  child: Icon(AppIcons.personAdd, color: colors.primaryLight, size: 26),
                 ),
                 const SizedBox(width: AppSpacing.md),
                 Expanded(
@@ -59,7 +60,7 @@ class RhQuickActions extends StatelessWidget {
                     ],
                   ),
                 ),
-                Icon(Icons.arrow_forward_rounded, color: colors.primaryLight),
+                Icon(AppIcons.forward, color: colors.primaryLight),
               ],
             ),
           ),
@@ -70,7 +71,7 @@ class RhQuickActions extends StatelessWidget {
             Expanded(
               child: _buildSecondaryButton(
                 context,
-                Icons.how_to_reg_rounded,
+                AppIcons.howToReg,
                 AppStrings.rhRegisterPatient,
                 colors.secondary,
                 onRegisterPatient,
@@ -80,7 +81,7 @@ class RhQuickActions extends StatelessWidget {
             Expanded(
               child: _buildSecondaryButton(
                 context,
-                Icons.qr_code_scanner_rounded,
+                AppIcons.qrCodeScanner,
                 AppStrings.rhScanMedicalId,
                 colors.secondary,
                 onScanMedicalId,

@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -76,7 +77,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
               if (state is PatientLoading) return const SkeletonList();
               if (state is PatientLoaded) {
                 final filtered = _filterPatients(state.patients);
-                if (filtered.isEmpty) return  EmptyDataWidget(icon: Icons.people_outline_rounded, title: AppStrings.dpNoPatients, subtitle: AppStrings.dpNoPatientsHint, compact: true);
+                if (filtered.isEmpty) return  EmptyDataWidget(icon: AppIcons.peopleOutline, title: AppStrings.dpNoPatients, subtitle: AppStrings.dpNoPatientsHint, compact: true);
                 return RefreshIndicator(
                   onRefresh: () async => context.read<PatientBloc>().add(PatientLoadAll()),
                   child: ListView.separated(
@@ -109,13 +110,13 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.error_outline_rounded, size: 48, color: colors.error),
+                      Icon(AppIcons.errorOutline, size: 48, color: colors.error),
                       const SizedBox(height: AppSpacing.md),
                       Text(state.message, style: TextStyle(color: colors.error)),
                       const SizedBox(height: AppSpacing.md),
                       TextButton.icon(
                         onPressed: () => context.read<PatientBloc>().add(PatientLoadAll()),
-                        icon: const Icon(Icons.refresh_rounded),
+                        icon: const Icon(AppIcons.refresh),
                         label: Text(AppStrings.retry),
                       ),
                     ],
@@ -123,7 +124,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
                 ),
               );
               }
-              return  EmptyDataWidget(icon: Icons.people_outline_rounded, title: AppStrings.dpNoPatients, subtitle: AppStrings.dpNoPatientsHint, compact: true);
+              return  EmptyDataWidget(icon: AppIcons.peopleOutline, title: AppStrings.dpNoPatients, subtitle: AppStrings.dpNoPatientsHint, compact: true);
             },
           ),
         ),
@@ -149,7 +150,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
               border: Border.all(color: colors.primary.withValues(alpha: 0.2)),
               color: colors.primary.withValues(alpha: 0.1),
             ),
-            child: Icon(Icons.people_rounded, color: colors.primary, size: AppSpacing.iconMedium),
+            child: Icon(AppIcons.people, color: colors.primary, size: AppSpacing.iconMedium),
           ),
           const SizedBox(width: AppSpacing.md),
           Expanded(
@@ -203,7 +204,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
             ),
             child: Row(
               children: [
-                Icon(Icons.search_rounded, color: colors.textLight, size: AppSpacing.iconMedium),
+                Icon(AppIcons.search, color: colors.textLight, size: AppSpacing.iconMedium),
                 const SizedBox(width: AppSpacing.sm),
                 Expanded(
                     child: TextField(
@@ -227,7 +228,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
                 InkWell(
                   borderRadius: BorderRadius.circular(AppSpacing.lg - AppSpacing.xs),
                   onTap: () => _searchController.clear(),
-                  child: Icon(Icons.close_rounded, color: colors.textLight, size: AppSpacing.iconSmall),
+                  child: Icon(AppIcons.close, color: colors.textLight, size: AppSpacing.iconSmall),
                 ),
               ],
             ),
@@ -310,7 +311,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
                   : Colors.pink.withValues(alpha: 0.15),
             ),
             child: Icon(
-              patient.gender == 'male' ? Icons.male_rounded : Icons.female_rounded,
+              patient.gender == 'male' ? AppIcons.male : AppIcons.female,
               color: patient.gender == 'male' ? colors.primary : Colors.pink,
               size: 26,
             ),
@@ -331,15 +332,15 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
                 const SizedBox(height: AppSpacing.xs),
                 Row(
                   children: [
-                    _buildInfoChip(colors, Icons.calendar_today_rounded, '${_ageFromBirthday(patient.birthdayDate)} ${AppStrings.dpYear}'),
+                    _buildInfoChip(colors, AppIcons.calendarToday, '${_ageFromBirthday(patient.birthdayDate)} ${AppStrings.dpYear}'),
                     const SizedBox(width: AppSpacing.sm),
-                    _buildInfoChip(colors, Icons.phone_rounded, patient.phone ?? ''),
+                    _buildInfoChip(colors, AppIcons.phone, patient.phone ?? ''),
                   ],
                 ),
               ],
             ),
           ),
-          Icon(Icons.chevron_left_rounded, color: colors.textLight, size: AppSpacing.iconMedium),
+          Icon(AppIcons.chevronLeft, color: colors.textLight, size: AppSpacing.iconMedium),
         ],
       ),
     );

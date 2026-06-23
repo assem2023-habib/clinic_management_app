@@ -1,9 +1,10 @@
-import 'dart:async';
+﻿import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/screens/rate_limit/rate_limit_painters.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class RateLimitScreen extends StatefulWidget {
   final int? retryAfterSeconds;
@@ -245,7 +246,7 @@ class _RateLimitScreenState extends State<RateLimitScreen>
             ),
           ),
           Icon(
-            Icons.medical_services_rounded,
+            AppIcons.medicalServices,
             size: 72,
             color: colors.neonGreen.withValues(alpha: 0.8),
           ),
@@ -390,7 +391,7 @@ class _RateLimitScreenState extends State<RateLimitScreen>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.refresh_rounded,
+                  AppIcons.refresh,
                   size: AppSpacing.iconSmall,
                   color: _isReady
                       ? colors.surface

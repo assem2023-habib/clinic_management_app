@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class SfIconSection extends StatelessWidget {
   const SfIconSection({super.key});
@@ -39,7 +40,7 @@ class SfIconSection extends StatelessWidget {
               ),
             ),
             child: Icon(
-              Icons.search_off_rounded,
+              AppIcons.searchOff,
               size: 64,
               color: colors.warning,
             ),

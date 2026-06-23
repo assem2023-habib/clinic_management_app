@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
@@ -12,6 +12,7 @@ import 'package:clinic_management_app/presentation/screens/notification_failure/
 import 'package:clinic_management_app/presentation/screens/notification_failure/widgets/nf_content_card.dart';
 import 'package:clinic_management_app/presentation/screens/notification_failure/widgets/nf_icon_section.dart';
 import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -39,7 +40,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       glassActions: [
         GestureDetector(
           onTap: () => context.read<NotificationBloc>().add(const NotificationMarkAllRead()),
-          child: Icon(Icons.done_all_rounded, color: colors.primary, size: AppSpacing.iconMedium),
+          child: Icon(AppIcons.doneAll, color: colors.primary, size: AppSpacing.iconMedium),
         ),
       ],
       body: BlocBuilder<NotificationBloc, NotificationState>(
@@ -181,7 +182,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 shape: BoxShape.circle,
                 color: colors.primary.withValues(alpha: 0.08),
               ),
-              child: Icon(Icons.notifications_none_rounded, size: 40, color: colors.primary.withValues(alpha: 0.5)),
+              child: Icon(AppIcons.notificationsNone, size: 40, color: colors.primary.withValues(alpha: 0.5)),
             ),
             const SizedBox(height: AppSpacing.md),
             Text(AppStrings.ntEmptyTitle, style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
@@ -258,7 +259,7 @@ class _AnimatedNotificationCardState extends State<_AnimatedNotificationCard>
           color: Colors.red.withValues(alpha: 0.15),
           borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
         ),
-        child: const Icon(Icons.delete_outline_rounded, color: Colors.red),
+        child: const Icon(AppIcons.deleteOutline, color: Colors.red),
       ),
       onDismissed: (_) => widget.onDelete(),
       child: GestureDetector(
@@ -328,11 +329,11 @@ class _AnimatedNotificationCardState extends State<_AnimatedNotificationCard>
     final colors = AppColors.of(context);
     switch (type) {
       case NotificationType.appointment:
-        return (icon: Icons.calendar_today_rounded, color: colors.neonGreen);
+        return (icon: AppIcons.calendarToday, color: colors.neonGreen);
       case NotificationType.medical:
-        return (icon: Icons.medical_services_rounded, color: colors.sage);
+        return (icon: AppIcons.medicalServices, color: colors.sage);
       case NotificationType.system:
-        return (icon: Icons.settings_rounded, color: colors.iconGray);
+        return (icon: AppIcons.settings, color: colors.iconGray);
     }
   }
 

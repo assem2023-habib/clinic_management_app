@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
@@ -41,7 +42,7 @@ class ProfileQualificationsSection extends StatelessWidget {
                       color: colors.secondary.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(AppSpacing.sm),
                     ),
-                    child: Icon(Icons.school_rounded, color: colors.secondary, size: AppSpacing.iconSmall),
+                    child: Icon(AppIcons.school, color: colors.secondary, size: AppSpacing.iconSmall),
                   ),
                   const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
                   Expanded(child: Text(qual, style: TextStyle(fontSize: AppSpacing.bodyMedium, color: colors.textPrimary))),

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
@@ -8,6 +8,7 @@ import 'package:clinic_management_app/presentation/blocs/download_file/download_
 import 'package:clinic_management_app/presentation/blocs/download_file/download_file_event.dart';
 import 'package:clinic_management_app/presentation/screens/download_files/widgets/df_progress_indicator.dart';
 import 'package:intl/intl.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class DfFileCard extends StatelessWidget {
   final DownloadFileEntity file;
@@ -16,10 +17,10 @@ class DfFileCard extends StatelessWidget {
 
   IconData _fileIcon(String type) {
     return switch (type.toUpperCase()) {
-      'PDF' => Icons.picture_as_pdf_rounded,
-      'JPG' || 'PNG' => Icons.image_rounded,
-      'DCM' => Icons.medical_services_rounded,
-      _ => Icons.insert_drive_file_rounded,
+      'PDF' => AppIcons.pdf,
+      'JPG' || 'PNG' => AppIcons.image,
+      'DCM' => AppIcons.medicalServices,
+      _ => AppIcons.insertDriveFile,
     };
   }
 
@@ -97,7 +98,7 @@ class DfFileCard extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.download_rounded, size: 16, color: colors.primary),
+                  Icon(AppIcons.download, size: 16, color: colors.primary),
                   const SizedBox(width: AppSpacing.xs),
                   Text(AppStrings.dfDownload, style: TextStyle(fontSize: AppSpacing.bodySmall, fontWeight: FontWeight.w600, color: colors.primary)),
                 ],
@@ -109,13 +110,13 @@ class DfFileCard extends StatelessWidget {
         return Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.check_circle_rounded, size: 18, color: colors.success),
+            Icon(AppIcons.checkCircle, size: 18, color: colors.success),
             const SizedBox(width: AppSpacing.xs),
             Text(AppStrings.dfDownloaded, style: TextStyle(fontSize: AppSpacing.labelSmall, color: colors.success)),
           ],
         );
       case DownloadStatus.error:
-        return Icon(Icons.error_outline_rounded, size: AppSpacing.iconSmall, color: colors.error);
+        return Icon(AppIcons.errorOutline, size: AppSpacing.iconSmall, color: colors.error);
       default:
         return const SizedBox.shrink();
     }

@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
@@ -207,7 +208,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
               ],
             ),
             child: Icon(
-              Icons.cloud_off_rounded,
+              AppIcons.cloudOff,
               size: 80,
               color: colors.mint,
             ),
@@ -231,7 +232,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
                   ),
                 ),
                 child: Icon(
-                  Icons.construction_rounded,
+                  AppIcons.construction,
                   size: AppSpacing.iconSmall,
                   color: colors.error,
                 ),
@@ -286,7 +287,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
           height: 48,
           child: ElevatedButton.icon(
             onPressed: widget.onRetry,
-            icon: const Icon(Icons.refresh_rounded, size: AppSpacing.iconSmall),
+            icon: const Icon(AppIcons.refresh, size: AppSpacing.iconSmall),
             label:  Text(
               AppStrings.ssRetry,
               style: TextStyle(
@@ -312,7 +313,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
           child: OutlinedButton.icon(
             onPressed: () => Navigator.of(context)
                 .pushReplacementNamed(AppRoutes.dashboard),
-            icon: const Icon(Icons.home_rounded, size: AppSpacing.iconSmall),
+            icon: const Icon(AppIcons.home, size: AppSpacing.iconSmall),
             label:  Text(
               AppStrings.ssGoHome,
               style: TextStyle(

@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class ConfirmationHeader extends StatelessWidget {
   final UserRole role;
@@ -30,7 +31,7 @@ class ConfirmationHeader extends StatelessWidget {
             shape: BoxShape.circle,
             boxShadow: [BoxShadow(color: colors.warning.withValues(alpha: 0.3), blurRadius: AppSpacing.xxl)],
           ),
-          child: Icon(Icons.hourglass_top_rounded, color: Colors.white, size: AppSpacing.xxl),
+          child: Icon(AppIcons.hourglassTop, color: Colors.white, size: AppSpacing.xxl),
         ),
         const SizedBox(height: AppSpacing.lg),
         Text(

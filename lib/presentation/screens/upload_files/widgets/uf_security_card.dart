@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class UfSecurityCard extends StatelessWidget {
   const UfSecurityCard({super.key});
@@ -40,7 +41,7 @@ class UfSecurityCard extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.security_rounded, size: 32, color: colors.primary),
+              Icon(AppIcons.security, size: 32, color: colors.primary),
               const SizedBox(height: AppSpacing.sm),
               Text(
                 AppStrings.ufSecurityTitle,

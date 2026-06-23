@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
@@ -26,7 +27,7 @@ class UaActions extends StatelessWidget {
             onPressed: onLogin ??
                 () => Navigator.of(context)
                     .pushReplacementNamed(AppRoutes.login),
-            icon: Icon(Icons.login_rounded, size: AppSpacing.iconSmall + 2),
+            icon: Icon(AppIcons.login, size: AppSpacing.iconSmall + 2),
             label:  Text(AppStrings.uaLogin),
             style: ElevatedButton.styleFrom(
               backgroundColor: colors.neonGreen,
@@ -47,7 +48,7 @@ class UaActions extends StatelessWidget {
             onPressed: onGoHome ??
                 () => Navigator.of(context)
                     .pushReplacementNamed(AppRoutes.dashboard),
-            icon: Icon(Icons.home_rounded, size: AppSpacing.iconSmall + 2),
+            icon: Icon(AppIcons.home, size: AppSpacing.iconSmall + 2),
             label:  Text(AppStrings.uaGoHome),
             style: OutlinedButton.styleFrom(
               foregroundColor: colors.textPrimary,

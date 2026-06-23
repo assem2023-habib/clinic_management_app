@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
@@ -32,18 +33,18 @@ class TimeSlotGrid extends StatelessWidget {
     return Column(
       children: [
         if (morningSlots.isNotEmpty) ...[
-          _buildPeriodHeader(context, Icons.wb_sunny_rounded, AppStrings.bookingMorning),
+          _buildPeriodHeader(context, AppIcons.sunny, AppStrings.bookingMorning),
           const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
           _buildSlotGrid(context, morningSlots),
         ],
         if (eveningSlots.isNotEmpty) ...[
           const SizedBox(height: AppSpacing.lg),
-          _buildPeriodHeader(context, Icons.nights_stay_rounded, AppStrings.bookingEvening),
+          _buildPeriodHeader(context, AppIcons.nightsStay, AppStrings.bookingEvening),
           const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
           _buildSlotGrid(context, eveningSlots),
         ],
         if (slots.isEmpty)
-           EmptyDataWidget(icon: Icons.schedule_rounded, title: AppStrings.bookingNoSlots, compact: true),
+           EmptyDataWidget(icon: AppIcons.schedule, title: AppStrings.bookingNoSlots, compact: true),
       ],
     );
   }
@@ -106,7 +107,7 @@ class TimeSlotGrid extends StatelessWidget {
             child: Row(
               children: [
                 Icon(
-                  Icons.schedule_rounded,
+                  AppIcons.schedule,
                   size: 18,
                   color: isSelected
                       ? Colors.white
@@ -130,9 +131,9 @@ class TimeSlotGrid extends StatelessWidget {
                   ),
                 ),
                 if (isSelected)
-                  Icon(Icons.check_circle_rounded, size: 18, color: Colors.white)
+                  Icon(AppIcons.checkCircle, size: 18, color: Colors.white)
                 else if (isBooked)
-                  Icon(Icons.lock_rounded, size: AppSpacing.md, color: colors.textLight)
+                  Icon(AppIcons.lock, size: AppSpacing.md, color: colors.textLight)
                 else
                   Text(
                     AppStrings.bookingAvailable,

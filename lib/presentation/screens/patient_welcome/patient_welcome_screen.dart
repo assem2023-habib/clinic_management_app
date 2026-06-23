@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'dart:math';
 import 'package:flutter/material.dart';
@@ -25,9 +26,9 @@ class _PatientWelcomeScreenState extends State<PatientWelcomeScreen>
   int _currentPage = 0;
 
   static final _pageData = <_PageData>[
-    _PageData(Icons.monitor_heart_rounded, AppStrings.pwWelcomeTitle, AppStrings.pwWelcomeSubtitle),
-    _PageData(Icons.calendar_month_rounded, AppStrings.pwApptsTitle, AppStrings.pwApptsSubtitle),
-    _PageData(Icons.folder_rounded, AppStrings.pwRecordsTitle, AppStrings.pwRecordsSubtitle),
+    _PageData(AppIcons.monitorHeart, AppStrings.pwWelcomeTitle, AppStrings.pwWelcomeSubtitle),
+    _PageData(AppIcons.calendarMonth, AppStrings.pwApptsTitle, AppStrings.pwApptsSubtitle),
+    _PageData(AppIcons.folder, AppStrings.pwRecordsTitle, AppStrings.pwRecordsSubtitle),
   ];
 
   @override
@@ -92,7 +93,7 @@ class _PatientWelcomeScreenState extends State<PatientWelcomeScreen>
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.monitor_heart_rounded, size: AppSpacing.iconSize, color: colors.mint),
+                          Icon(AppIcons.monitorHeart, size: AppSpacing.iconSize, color: colors.mint),
                           const SizedBox(width: AppSpacing.six),
                           Text('Vitality', style: TextStyle(fontFamily: 'Sora', fontSize: AppSpacing.heading, fontWeight: FontWeight.w700, color: colors.mint)),
                         ],

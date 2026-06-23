@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -207,7 +208,7 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.pop(context),
-            icon: const Icon(Icons.arrow_back_rounded),
+            icon: const Icon(AppIcons.back),
             color: colors.primary,
           ),
           const SizedBox(width: AppSpacing.sm),
@@ -223,7 +224,7 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
           ),
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.more_vert_rounded),
+            icon: const Icon(AppIcons.more),
             color: colors.divider,
           ),
         ],
@@ -255,7 +256,7 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
                   color: colors.textLight,
                 ),
                 prefixIcon: Icon(
-                  Icons.search_rounded,
+                  AppIcons.search,
                   color: colors.textLight,
                 ),
                 border: InputBorder.none,
@@ -284,7 +285,7 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
           ),
           child: IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.filter_list_rounded),
+            icon: const Icon(AppIcons.filter),
             color: colors.primary,
           ),
         ),
@@ -352,7 +353,7 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
         child: Column(
           children: [
             Icon(
-              Icons.search_off_rounded,
+              AppIcons.searchOff,
               size: 64,
               color: colors.textLight.withValues(alpha: 0.5),
             ),

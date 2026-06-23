@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
@@ -16,6 +16,7 @@ import 'package:clinic_management_app/presentation/screens/appointments/views/do
 import 'package:clinic_management_app/presentation/screens/appointments/views/receptionist_appointments_view.dart';
 import 'package:clinic_management_app/presentation/screens/appointments/views/patient_appointments_view.dart';
 import 'package:clinic_management_app/presentation/screens/doctor_appointments/widgets/dr_appointments_header.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class AppointmentsScreen extends StatefulWidget {
   const AppointmentsScreen({super.key});
@@ -62,7 +63,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
               Navigator.pushNamed(context, AppRoutes.appointmentConfirmation, arguments: result);
             }
           },
-          child: const Icon(Icons.add),
+          child: const Icon(AppIcons.add),
         ),
         _ => null,
       },

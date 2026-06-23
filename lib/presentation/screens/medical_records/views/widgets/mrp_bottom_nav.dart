@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
@@ -29,10 +30,10 @@ class MrpBottomNav extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildTab(colors, 0, Icons.home_rounded, AppStrings.mrNavHome),
-          _buildActiveTab(colors, 1, Icons.history_rounded, AppStrings.mrNavRecords),
-          _buildTab(colors, 2, Icons.monitor_heart_rounded, AppStrings.mrNavVitals),
-          _buildTab(colors, 3, Icons.person_rounded, AppStrings.mrNavProfile),
+          _buildTab(colors, 0, AppIcons.home, AppStrings.mrNavHome),
+          _buildActiveTab(colors, 1, AppIcons.history, AppStrings.mrNavRecords),
+          _buildTab(colors, 2, AppIcons.monitorHeart, AppStrings.mrNavVitals),
+          _buildTab(colors, 3, AppIcons.person, AppStrings.mrNavProfile),
         ],
       ),
     );

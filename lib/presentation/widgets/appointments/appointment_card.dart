@@ -1,10 +1,11 @@
-import 'dart:ui';
+﻿import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
 import 'package:clinic_management_app/presentation/widgets/appointments/status_badge.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class AppointmentCard extends StatefulWidget {
   final AppointmentEntity appointment;
@@ -130,7 +131,7 @@ class _AppointmentCardState extends State<AppointmentCard> with SingleTickerProv
               clipBehavior: Clip.antiAlias,
               child: imgUrl != null
                   ? Image.network(imgUrl, fit: BoxFit.cover)
-                  : Icon(Icons.person_rounded, color: c.textSecondary, size: AppSpacing.iconSize),
+                  : Icon(AppIcons.person, color: c.textSecondary, size: AppSpacing.iconSize),
             ),
             const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
             Flexible(
@@ -164,7 +165,7 @@ class _AppointmentCardState extends State<AppointmentCard> with SingleTickerProv
               color: c.surface,
               borderRadius: BorderRadius.circular(AppSpacing.ten),
             ),
-            child: Icon(Icons.schedule, color: c.primary, size: AppSpacing.iconSmall),
+            child: Icon(AppIcons.schedule, color: c.primary, size: AppSpacing.iconSmall),
           ),
           const SizedBox(width: AppSpacing.ten),
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -185,7 +186,7 @@ class _AppointmentCardState extends State<AppointmentCard> with SingleTickerProv
                 borderRadius: BorderRadius.circular(19),
                 border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
               ),
-              child: Icon(Icons.more_vert, color: c.textSecondary, size: AppSpacing.iconSmall),
+              child: Icon(AppIcons.more, color: c.textSecondary, size: AppSpacing.iconSmall),
             ),
           ),
         ),

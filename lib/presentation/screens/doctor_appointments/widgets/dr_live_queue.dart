@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -119,7 +120,7 @@ class _DrLiveQueueState extends State<DrLiveQueue> {
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
-                  child:  EmptyDataWidget(icon: Icons.event_busy_rounded, title: AppStrings.daNoApptsToday, compact: true),
+                  child:  EmptyDataWidget(icon: AppIcons.eventBusy, title: AppStrings.daNoApptsToday, compact: true),
                 ),
               )
             else
@@ -164,7 +165,7 @@ class _DrLiveQueueState extends State<DrLiveQueue> {
           CircleAvatar(
             radius: 24,
             backgroundColor: colors.primary.withValues(alpha: 0.15),
-            child: Icon(Icons.person_rounded, color: colors.primary, size: 28),
+            child: Icon(AppIcons.person, color: colors.primary, size: 28),
           ),
           const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
           Expanded(

@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class SpIconSection extends StatelessWidget {
   const SpIconSection({super.key});
@@ -45,7 +46,7 @@ class SpIconSection extends StatelessWidget {
               ],
             ),
             child: Icon(
-              Icons.gpp_maybe_rounded,
+              AppIcons.gppMaybe,
               size: 64,
               color: colors.mint,
             ),

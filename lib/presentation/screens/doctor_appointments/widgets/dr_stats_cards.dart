@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class DrStatsCards extends StatelessWidget {
   final int totalToday;
@@ -27,7 +28,7 @@ class DrStatsCards extends StatelessWidget {
       children: [
         _buildCard(
           context,
-          icon: Icons.calendar_today_rounded,
+          icon: AppIcons.calendarToday,
           label: AppStrings.daTotalApptsToday,
           value: totalToday.toString().padLeft(2, '0'),
           valueColor: colors.primary,
@@ -37,7 +38,7 @@ class DrStatsCards extends StatelessWidget {
         const SizedBox(height: AppSpacing.md),
         _buildCard(
           context,
-          icon: Icons.group_rounded,
+          icon: AppIcons.group,
           label: AppStrings.daPatientsWaiting,
           value: waitingPatients.toString().padLeft(2, '0'),
           valueColor: colors.textPrimary,
@@ -48,7 +49,7 @@ class DrStatsCards extends StatelessWidget {
         const SizedBox(height: AppSpacing.md),
         _buildCard(
           context,
-          icon: Icons.medical_services_rounded,
+          icon: AppIcons.medicalServices,
           label: AppStrings.daAvailableDoctors,
           value: availableDoctors.toString().padLeft(2, '0'),
           valueColor: colors.primary,

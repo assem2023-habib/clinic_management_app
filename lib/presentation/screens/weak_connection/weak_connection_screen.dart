@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
@@ -209,7 +210,7 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
           ),
           child: Center(
             child: Icon(
-              Icons.wifi_off_rounded,
+              AppIcons.wifiOff,
               size: coreSize * 0.4,
               color: colors.neonGreen,
             ),
@@ -302,7 +303,7 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.refresh_rounded, size: AppSpacing.iconSmall),
+                Icon(AppIcons.refresh, size: AppSpacing.iconSmall),
                 const SizedBox(width: AppSpacing.sm),
                  Text(
                   AppStrings.wcRetry,

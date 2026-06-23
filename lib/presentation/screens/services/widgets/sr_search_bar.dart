@@ -1,7 +1,8 @@
-import 'package:clinic_management_app/core/constants/app_colors.dart';
+﻿import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class SrSearchBar extends StatefulWidget {
   final TextEditingController? controller;
@@ -47,7 +48,7 @@ class _SrSearchBarState extends State<SrSearchBar> {
       ),
       child: Row(
         children: [
-          Icon(Icons.search_rounded, color: colors.textMuted, size: AppSpacing.iconMedium),
+          Icon(AppIcons.search, color: colors.textMuted, size: AppSpacing.iconMedium),
           const SizedBox(width: AppSpacing.sm),
           Expanded(
             child: TextField(
@@ -68,7 +69,7 @@ hintStyle: TextStyle(
             ),
           ),
           const SizedBox(width: AppSpacing.sm),
-          Icon(Icons.tune_rounded, color: colors.primary, size: AppSpacing.iconMedium),
+          Icon(AppIcons.tune, color: colors.primary, size: AppSpacing.iconMedium),
         ],
       ),
     );

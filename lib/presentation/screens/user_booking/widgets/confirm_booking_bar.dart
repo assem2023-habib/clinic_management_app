@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class ConfirmBookingBar extends StatelessWidget {
   final bool isEnabled;
@@ -49,7 +50,7 @@ class ConfirmBookingBar extends StatelessWidget {
                     height: AppSpacing.iconSmall,
                     child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
                   )
-                : const Icon(Icons.event_available_rounded, size: AppSpacing.iconMedium),
+                : const Icon(AppIcons.eventAvailable, size: AppSpacing.iconMedium),
             label: Text(
               isLoading ? AppStrings.bookingConfirming : AppStrings.bookingConfirm,
               style: const TextStyle(fontSize: AppSpacing.md, fontWeight: FontWeight.w600),

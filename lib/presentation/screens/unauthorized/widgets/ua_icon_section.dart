@@ -1,6 +1,7 @@
-import 'package:clinic_management_app/core/constants/app_colors.dart';
+﻿import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class UaIconSection extends StatelessWidget {
   const UaIconSection({super.key});
@@ -33,7 +34,7 @@ class UaIconSection extends StatelessWidget {
               ),
             ),
             child: Icon(
-              Icons.lock_rounded,
+              AppIcons.lock,
               size: 64,
               color: colors.mint,
             ),

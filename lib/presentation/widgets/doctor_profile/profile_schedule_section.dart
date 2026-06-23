@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
@@ -42,7 +43,7 @@ class ProfileScheduleSection extends StatelessWidget {
             if (canManage)
               TextButton.icon(
                 onPressed: () {},
-                icon: Icon(Icons.edit_calendar_rounded, size: 18, color: colors.primary),
+                icon: Icon(AppIcons.editCalendar, size: 18, color: colors.primary),
                 label: Text(AppStrings.manageSchedule, style: TextStyle(color: colors.primary)),
               ),
           ],
@@ -138,7 +139,7 @@ class ProfileScheduleSection extends StatelessWidget {
           ),
         ],
         if (slots.isEmpty)
-           EmptyDataWidget(icon: Icons.event_available_rounded, title: AppStrings.noAvailableSlots, compact: true),
+           EmptyDataWidget(icon: AppIcons.eventAvailable, title: AppStrings.noAvailableSlots, compact: true),
       ],
     );
   }

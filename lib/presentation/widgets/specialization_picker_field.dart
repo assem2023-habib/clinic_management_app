@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
@@ -71,8 +72,8 @@ class SpecializationPickerField extends StatelessWidget {
         labelStyle: TextStyle(color: colors.textSecondary),
         hintText: AppStrings.chooseSpecialty,
         hintStyle: TextStyle(color: colors.textLight),
-        prefixIcon: Icon(value != null ? _specializationIcon(value!) : Icons.medical_services_outlined, color: colors.textSecondary),
-        suffixIcon: Icon(Icons.arrow_drop_down_rounded, color: colors.textSecondary, size: AppSpacing.iconMedium),
+        prefixIcon: Icon(value != null ? _specializationIcon(value!) : AppIcons.medicalServices, color: colors.textSecondary),
+        suffixIcon: Icon(AppIcons.arrowDropDown, color: colors.textSecondary, size: AppSpacing.iconMedium),
         filled: true,
         fillColor: colors.cardBg,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
@@ -136,7 +137,7 @@ class SpecializationPickerField extends StatelessWidget {
                     decoration: InputDecoration(
                       hintText: AppStrings.search,
                       hintStyle: TextStyle(color: colors.textLight),
-                      prefixIcon: Icon(Icons.search_rounded, color: colors.textSecondary),
+                      prefixIcon: Icon(AppIcons.search, color: colors.textSecondary),
                       filled: true, fillColor: colors.inputBg,
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
                     ),
@@ -158,7 +159,7 @@ class SpecializationPickerField extends StatelessWidget {
                                 title: Text(spec.nameAr, style: TextStyle(color: colors.textPrimary)),
                                 subtitle: Text(spec.nameEn, style: TextStyle(color: colors.textSecondary, fontSize: AppSpacing.bodySmall)),
                                 trailing: isSelected
-                                    ? Icon(Icons.check_circle_rounded, color: colors.primary, size: AppSpacing.iconMedium)
+                                    ? Icon(AppIcons.checkCircle, color: colors.primary, size: AppSpacing.iconMedium)
                                     : null,
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.sm)),
                                 selected: isSelected,
@@ -183,7 +184,7 @@ class SpecializationPickerField extends StatelessWidget {
                                   color: isSelected ? colors.primary : colors.textSecondary, size: AppSpacing.iconSize),
                               title: Text(e.value, style: TextStyle(color: colors.textPrimary)),
                               trailing: isSelected
-                                  ? Icon(Icons.check_circle_rounded, color: colors.primary, size: AppSpacing.iconMedium)
+                                  ? Icon(AppIcons.checkCircle, color: colors.primary, size: AppSpacing.iconMedium)
                                   : null,
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.sm)),
                               selected: isSelected,
@@ -212,34 +213,34 @@ class SpecializationPickerField extends StatelessWidget {
 
 IconData _specializationIcon(String key) {
   return switch (key) {
-    'cardiology' => Icons.favorite_rounded,
-    'dermatology' => Icons.face_rounded,
-    'neurology' => Icons.psychology_rounded,
-    'pediatrics' => Icons.child_care_rounded,
-    'orthopedics' => Icons.accessible_rounded,
-    'ophthalmology' => Icons.visibility_rounded,
-    'ent' => Icons.hearing_rounded,
-    'psychiatry' => Icons.psychology_alt_rounded,
-    'radiology' => Icons.image_outlined,
-    'surgery' => Icons.content_cut_rounded,
-    'internal_medicine' => Icons.biotech_rounded,
-    'obstetrics_gynecology' => Icons.pregnant_woman_rounded,
-    'emergency_medicine' => Icons.local_hospital_rounded,
-    'anesthesiology' => Icons.bedtime_rounded,
-    'pathology' => Icons.science_rounded,
-    'urology' => Icons.water_drop_rounded,
-    'gastroenterology' => Icons.restaurant_rounded,
-    'endocrinology' => Icons.monitor_heart_rounded,
-    'pulmonology' => Icons.air_rounded,
-    'rheumatology' => Icons.accessible_forward_rounded,
-    'nephrology' => Icons.water_rounded,
-    'hematology' => Icons.bloodtype_rounded,
-    'oncology' => Icons.coronavirus_rounded,
-    'infectious_disease' => Icons.bug_report_rounded,
-    'genetics' => Icons.science_rounded,
-    'immunology' => Icons.shield_rounded,
-    'sports_medicine' => Icons.sports_kabaddi_rounded,
-    _ => Icons.medical_services_outlined,
+    'cardiology' => AppIcons.favorite,
+    'dermatology' => AppIcons.face,
+    'neurology' => AppIcons.psychology,
+    'pediatrics' => AppIcons.childCare,
+    'orthopedics' => AppIcons.accessible,
+    'ophthalmology' => AppIcons.visibility,
+    'ent' => AppIcons.hearing,
+    'psychiatry' => AppIcons.psychologyAlt,
+    'radiology' => AppIcons.imageOutline,
+    'surgery' => AppIcons.contentCut,
+    'internal_medicine' => AppIcons.biotech,
+    'obstetrics_gynecology' => AppIcons.pregnantWoman,
+    'emergency_medicine' => AppIcons.localHospital,
+    'anesthesiology' => AppIcons.bedtime,
+    'pathology' => AppIcons.science,
+    'urology' => AppIcons.waterDrop,
+    'gastroenterology' => AppIcons.restaurant,
+    'endocrinology' => AppIcons.monitorHeart,
+    'pulmonology' => AppIcons.air,
+    'rheumatology' => AppIcons.accessibleForward,
+    'nephrology' => AppIcons.water,
+    'hematology' => AppIcons.bloodtype,
+    'oncology' => AppIcons.coronavirus,
+    'infectious_disease' => AppIcons.bugReport,
+    'genetics' => AppIcons.science,
+    'immunology' => AppIcons.shield,
+    'sports_medicine' => AppIcons.sportsKabaddi,
+    _ => AppIcons.medicalServices,
   };
 }
 

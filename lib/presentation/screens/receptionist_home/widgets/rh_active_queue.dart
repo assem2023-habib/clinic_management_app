@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -45,16 +46,16 @@ class RhActiveQueue extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Icon(Icons.filter_list_rounded, size: AppSpacing.iconSmall, color: colors.textLight),
+                    Icon(AppIcons.filter, size: AppSpacing.iconSmall, color: colors.textLight),
                     const SizedBox(width: AppSpacing.sm),
-                    Icon(Icons.search_rounded, size: AppSpacing.iconSmall, color: colors.textLight),
+                    Icon(AppIcons.search, size: AppSpacing.iconSmall, color: colors.textLight),
                   ],
                 ),
               ],
             ),
             const SizedBox(height: AppSpacing.md),
             if (todayAppts.isEmpty)
-               EmptyDataWidget(icon: Icons.event_busy_rounded, title: AppStrings.rhNoApptsToday, compact: true)
+               EmptyDataWidget(icon: AppIcons.eventBusy, title: AppStrings.rhNoApptsToday, compact: true)
             else
               ListView.builder(
                 shrinkWrap: true,

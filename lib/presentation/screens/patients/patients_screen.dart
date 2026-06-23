@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
@@ -11,6 +11,7 @@ import 'package:clinic_management_app/presentation/screens/patients/views/doctor
 import 'package:clinic_management_app/presentation/screens/patients/views/receptionist_patients_view.dart';
 import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
 import 'package:clinic_management_app/presentation/widgets/patient_form_dialog.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class PatientsScreen extends StatefulWidget {
   const PatientsScreen({super.key});
@@ -40,7 +41,7 @@ class _PatientsScreenState extends State<PatientsScreen> {
       floatingActionButton: isAdmin
           ? FloatingActionButton(
               onPressed: _showAddPatientDialog,
-              child: const Icon(Icons.add),
+              child: const Icon(AppIcons.add),
             )
           : null,
       body: switch (role) {

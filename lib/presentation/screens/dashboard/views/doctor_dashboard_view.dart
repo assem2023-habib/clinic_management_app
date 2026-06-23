@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -64,15 +65,15 @@ class DoctorDashboardView extends StatelessWidget {
                 Text(AppStrings.quickActions, style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
                 const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                 Row(children: [
-                  Expanded(child: ActionButton(icon: Icons.calendar_month, label: AppStrings.myAppointments, color: colors.primary, onPressed: () => Navigator.pushNamed(context, AppRoutes.appointments))),
+                  Expanded(child: ActionButton(icon: AppIcons.calendarMonth, label: AppStrings.myAppointments, color: colors.primary, onPressed: () => Navigator.pushNamed(context, AppRoutes.appointments))),
                   const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
-                  Expanded(child: ActionButton(icon: Icons.people, label: AppStrings.myPatients, color: colors.secondary, onPressed: () => Navigator.pushNamed(context, AppRoutes.patients))),
+                  Expanded(child: ActionButton(icon: AppIcons.people, label: AppStrings.myPatients, color: colors.secondary, onPressed: () => Navigator.pushNamed(context, AppRoutes.patients))),
                 ]),
                 const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                 Row(children: [
-                  Expanded(child: ActionButton(icon: Icons.folder, label: AppStrings.medicalRecords, color: colors.accent, onPressed: () => Navigator.pushNamed(context, AppRoutes.medicalRecords))),
+                  Expanded(child: ActionButton(icon: AppIcons.folder, label: AppStrings.medicalRecords, color: colors.accent, onPressed: () => Navigator.pushNamed(context, AppRoutes.medicalRecords))),
                   const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
-                  Expanded(child: ActionButton(icon: Icons.supervisor_account, label: AppStrings.supervisionRequests, color: colors.primaryDark, onPressed: () => Navigator.pushNamed(context, AppRoutes.supervisionRequests))),
+                  Expanded(child: ActionButton(icon: AppIcons.supervisorAccount, label: AppStrings.supervisionRequests, color: colors.primaryDark, onPressed: () => Navigator.pushNamed(context, AppRoutes.supervisionRequests))),
                 ]),
               ],
             ),
@@ -112,10 +113,10 @@ class DoctorDashboardView extends StatelessWidget {
             mainAxisSpacing: 12,
             childAspectRatio: 1.5,
             children: [
-              StatCard(title: AppStrings.totalPatients, icon: Icons.people, color: colors.primary, value: total?.toString()),
-              StatCard(title: AppStrings.newThisMonth, icon: Icons.fiber_new, color: colors.accent, value: newThisMonth?.toString()),
-              StatCard(title: AppStrings.registeredToday, icon: Icons.today, color: colors.warning, value: registeredToday?.toString()),
-              StatCard(title: AppStrings.newPatients, icon: Icons.person_add, color: colors.secondary, value: newThisMonth != null ? '$newThisMonth' : null),
+              StatCard(title: AppStrings.totalPatients, icon: AppIcons.people, color: colors.primary, value: total?.toString()),
+              StatCard(title: AppStrings.newThisMonth, icon: AppIcons.fiberNew, color: colors.accent, value: newThisMonth?.toString()),
+              StatCard(title: AppStrings.registeredToday, icon: AppIcons.today, color: colors.warning, value: registeredToday?.toString()),
+              StatCard(title: AppStrings.newPatients, icon: AppIcons.personAdd, color: colors.secondary, value: newThisMonth != null ? '$newThisMonth' : null),
             ],
           ),
         ],
@@ -141,12 +142,12 @@ class DoctorDashboardView extends StatelessWidget {
             mainAxisSpacing: 12,
             childAspectRatio: 1.5,
             children: [
-              StatCard(title: AppStrings.todayAppts, icon: Icons.today, color: colors.secondary, value: today?.toString()),
-              StatCard(title: AppStrings.thisWeekAppts, icon: Icons.date_range, color: colors.primary, value: thisWeek?.toString()),
-              StatCard(title: AppStrings.thisMonthAppts, icon: Icons.calendar_month, color: colors.warning, value: thisMonth?.toString()),
-              StatCard(title: AppStrings.pendingAppts, icon: Icons.pending_actions, color: colors.accent, value: pending?.toString()),
-              StatCard(title: AppStrings.confirmedAppts, icon: Icons.verified, color: colors.success, value: confirmed?.toString()),
-              StatCard(title: AppStrings.completedAppts, icon: Icons.check_circle, color: colors.primary, value: completed?.toString()),
+              StatCard(title: AppStrings.todayAppts, icon: AppIcons.today, color: colors.secondary, value: today?.toString()),
+              StatCard(title: AppStrings.thisWeekAppts, icon: AppIcons.dateRange, color: colors.primary, value: thisWeek?.toString()),
+              StatCard(title: AppStrings.thisMonthAppts, icon: AppIcons.calendarMonth, color: colors.warning, value: thisMonth?.toString()),
+              StatCard(title: AppStrings.pendingAppts, icon: AppIcons.pending, color: colors.accent, value: pending?.toString()),
+              StatCard(title: AppStrings.confirmedAppts, icon: AppIcons.verified, color: colors.success, value: confirmed?.toString()),
+              StatCard(title: AppStrings.completedAppts, icon: AppIcons.checkCircle, color: colors.primary, value: completed?.toString()),
             ],
           ),
         ],
@@ -172,8 +173,8 @@ class DoctorDashboardView extends StatelessWidget {
             mainAxisSpacing: 12,
             childAspectRatio: 1.5,
             children: [
-              StatCard(title: AppStrings.medicalRecords, icon: Icons.folder, color: colors.primary, value: medicalRecords?.toString()),
-              StatCard(title: AppStrings.totalPrescriptions, icon: Icons.description, color: colors.secondary, value: prescriptions?.toString()),
+              StatCard(title: AppStrings.medicalRecords, icon: AppIcons.folder, color: colors.primary, value: medicalRecords?.toString()),
+              StatCard(title: AppStrings.totalPrescriptions, icon: AppIcons.description, color: colors.secondary, value: prescriptions?.toString()),
             ],
           ),
         ],

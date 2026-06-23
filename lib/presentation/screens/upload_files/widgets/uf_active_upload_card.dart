@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
@@ -46,7 +47,7 @@ class UfActiveUploadCard extends StatelessWidget {
                   ),
                 ),
                 child: Icon(
-                  Icons.description_rounded,
+                  AppIcons.description,
                   size: 32,
                   color: colors.mint,
                 ),

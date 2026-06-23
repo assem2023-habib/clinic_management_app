@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -53,7 +54,7 @@ class DoctorProfileScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.error_outline_rounded, size: 48, color: AppColors.of(context).error),
+                    Icon(AppIcons.errorOutline, size: 48, color: AppColors.of(context).error),
                     const SizedBox(height: AppSpacing.md),
                     Text(state.message, style: TextStyle(fontSize: AppSpacing.bodyLarge)),
                   ],

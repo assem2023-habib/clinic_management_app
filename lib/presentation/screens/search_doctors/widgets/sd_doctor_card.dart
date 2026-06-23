@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
@@ -64,7 +65,7 @@ class SdDoctorCard extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Icon(
-                                Icons.star_rounded,
+                                AppIcons.star,
                                 size: 16,
                                 color: colors.secondary,
                               ),
@@ -95,7 +96,7 @@ class SdDoctorCard extends StatelessWidget {
                     Row(
                       children: [
                         Icon(
-                          Icons.location_on_rounded,
+                          AppIcons.locationOn,
                           size: 16,
                           color: colors.textLight,
                         ),
@@ -175,7 +176,7 @@ class SdDoctorCard extends StatelessWidget {
                     ),
                     padding: EdgeInsets.zero,
                   ),
-                  child: Icon(Icons.chat_rounded, size: AppSpacing.iconSmall, color: colors.primary),
+                  child: Icon(AppIcons.chat, size: AppSpacing.iconSmall, color: colors.primary),
                 ),
               ),
             ],
@@ -222,7 +223,7 @@ class SdDoctorCard extends StatelessWidget {
                 shape: BoxShape.circle,
               ),
               child: Icon(
-                Icons.verified_rounded,
+                AppIcons.verified,
                 size: 14,
                 color: colors.verifiedIconBg,
               ),
@@ -236,7 +237,7 @@ class SdDoctorCard extends StatelessWidget {
     return Container(
       color: colors.primaryDark.withValues(alpha: 0.2),
       child: Icon(
-        Icons.person_rounded,
+        AppIcons.person,
         size: 40,
         color: colors.primary,
       ),

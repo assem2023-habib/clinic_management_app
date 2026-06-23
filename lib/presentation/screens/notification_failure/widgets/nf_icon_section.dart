@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class NfIconSection extends StatelessWidget {
   const NfIconSection({super.key});
@@ -39,7 +40,7 @@ class NfIconSection extends StatelessWidget {
               ),
             ),
             child: Icon(
-              Icons.notifications_off_rounded,
+              AppIcons.notificationsOff,
               size: 64,
               color: colors.error,
             ),

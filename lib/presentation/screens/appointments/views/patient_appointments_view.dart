@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -130,7 +131,7 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.event_busy_rounded, size: AppSpacing.xxl,
+                      Icon(AppIcons.eventBusy, size: AppSpacing.xxl,
                         color: c.textLight.withValues(alpha: 0.5)),
                       const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                       Text(AppStrings.noAppointments, style: TextStyle(fontSize: AppSpacing.subtitle, color: c.textLight)),
@@ -166,11 +167,11 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
           decoration: InputDecoration(
             hintText: AppStrings.search,
             hintStyle: TextStyle(color: c.textLight.withValues(alpha: 0.7), fontSize: AppSpacing.bodyMedium),
-            prefixIcon: Icon(Icons.search_rounded, size: AppSpacing.iconSmall,
+            prefixIcon: Icon(AppIcons.search, size: AppSpacing.iconSmall,
               color: c.textLight.withValues(alpha: 0.7)),
             suffixIcon: _searchQuery.isNotEmpty
                 ? IconButton(
-                    icon: Icon(Icons.close, size: 18,
+                    icon: Icon(AppIcons.close, size: 18,
                       color: c.textLight.withValues(alpha: 0.7)),
                     onPressed: () { _searchCtrl.clear(); setState(() => _searchQuery = ''); },
                   )

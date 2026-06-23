@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/rating_entity.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class RatingReviewCard extends StatelessWidget {
   final RatingEntity review;
@@ -78,7 +79,7 @@ class RatingReviewCard extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.only(left: 1),
                     child: Icon(
-                      fill ? Icons.star_rounded : Icons.star_outline_rounded,
+                      fill ? AppIcons.star : AppIcons.starOutline,
                       color: colors.primary,
                       size: 16,
                     ),
@@ -108,7 +109,7 @@ class RatingReviewCard extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(
-                          isLiked ? Icons.thumb_up_rounded : Icons.thumb_up_outlined,
+                          isLiked ? AppIcons.thumbUp : AppIcons.thumbUpOutline,
                           size: 14,
                           color: isLiked ? colors.primary : colors.textSecondary,
                         ),
@@ -125,7 +126,7 @@ class RatingReviewCard extends StatelessWidget {
                       color: colors.divider.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(AppSpacing.sm),
                     ),
-                    child: Icon(Icons.flag_outlined, size: 14, color: colors.textSecondary),
+                    child: Icon(AppIcons.flag, size: 14, color: colors.textSecondary),
                   ),
                 ),
               ],

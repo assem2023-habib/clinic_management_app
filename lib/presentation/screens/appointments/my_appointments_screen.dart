@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
@@ -10,6 +10,7 @@ import 'package:clinic_management_app/presentation/blocs/doctor/doctor_event.dar
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_state.dart';
 import 'package:clinic_management_app/presentation/widgets/app_shell.dart';
 import 'package:clinic_management_app/presentation/widgets/doctor_glass_card.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class MyAppointmentsScreen extends StatefulWidget {
   const MyAppointmentsScreen({super.key});
@@ -56,7 +57,7 @@ class _MyAppointmentsScreenState extends State<MyAppointmentsScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.calendar_month_rounded, size: 64, color: colors.textSecondary.withValues(alpha: 0.3)),
+                    Icon(AppIcons.calendarMonth, size: 64, color: colors.textSecondary.withValues(alpha: 0.3)),
                     const SizedBox(height: AppSpacing.md),
                     Text(
                       'لا توجد مواعيد حالياً',

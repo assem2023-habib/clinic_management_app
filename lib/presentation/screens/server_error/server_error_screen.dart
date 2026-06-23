@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
@@ -13,12 +14,12 @@ class ServerErrorScreen extends StatelessWidget {
     return StateScreen(
       showAppBar: true,
       appBarTitle: AppStrings.appName,
-      icon: Icons.dns_rounded,
+      icon: AppIcons.dns,
       title: AppStrings.seTitle,
       message: AppStrings.seMessage,
       primaryAction: StateAction(
         label: AppStrings.seRetry,
-        icon: Icons.refresh_rounded,
+        icon: AppIcons.refresh,
         onTap: onRetry,
       ),
       secondaryAction: StateAction(
@@ -27,8 +28,8 @@ class ServerErrorScreen extends StatelessWidget {
         onTap: () => Navigator.of(context).pushReplacementNamed(AppRoutes.dashboard),
       ),
       statusChips:  [
-        StatusChip(icon: Icons.cloud_off_rounded, label: AppStrings.seServerBusy),
-        StatusChip(icon: Icons.refresh_rounded, label: AppStrings.seTryAgain),
+        StatusChip(icon: AppIcons.cloudOff, label: AppStrings.seServerBusy),
+        StatusChip(icon: AppIcons.refresh, label: AppStrings.seTryAgain),
       ],
     );
   }

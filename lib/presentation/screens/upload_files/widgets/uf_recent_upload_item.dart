@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class UfRecentUploadItem extends StatelessWidget {
   final IconData icon;
@@ -60,7 +61,7 @@ class UfRecentUploadItem extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(Icons.check_circle_rounded, size: AppSpacing.iconSize, color: colors.primary),
+            Icon(AppIcons.checkCircle, size: AppSpacing.iconSize, color: colors.primary),
           ],
         ),
       ),

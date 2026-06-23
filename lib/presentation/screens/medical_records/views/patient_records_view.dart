@@ -1,4 +1,4 @@
-import 'package:clinic_management_app/core/constants/app_colors.dart';
+﻿import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
@@ -15,6 +15,7 @@ import 'package:clinic_management_app/presentation/screens/medical_records/views
 import 'package:clinic_management_app/presentation/screens/medical_records/views/widgets/mrp_appointments_timeline.dart';
 import 'package:clinic_management_app/presentation/screens/medical_records/views/widgets/mrp_bottom_nav.dart';
 import 'package:clinic_management_app/presentation/widgets/skeleton/skeleton.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class PatientRecordsView extends StatefulWidget {
   const PatientRecordsView({super.key});
@@ -69,7 +70,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
                 height: 40,
                 alignment: Alignment.center,
                 child: Icon(
-                  Icons.arrow_back_rounded,
+                  AppIcons.back,
                   color: colors.primary,
                   size: AppSpacing.iconSize,
                 ),
@@ -87,7 +88,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
           ),
           const Spacer(),
           Icon(
-            Icons.lock_rounded,
+            AppIcons.lock,
             size: AppSpacing.iconSize,
             color: colors.primary,
           ),
@@ -147,7 +148,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: AppSpacing.sm),
                   child: MrpConditionCard(
-                    icon: Icons.monitor_heart_rounded,
+                    icon: AppIcons.monitorHeart,
                     iconBg: colors.primary,
                     iconColor: colors.primary,
                     label: diagnosis,
@@ -181,7 +182,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
               Padding(
                 padding: const EdgeInsets.only(bottom: AppSpacing.sm),
                 child: MrpMedicationCard(
-                  icon: Icons.medication_rounded,
+                  icon: AppIcons.medication,
                   name: med.nameAr,
                   dosage: med.manufacturer ?? '',
                 ),

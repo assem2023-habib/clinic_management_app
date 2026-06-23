@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -61,7 +62,7 @@ class _AdminPatientsViewState extends State<AdminPatientsView> {
             controller: _searchController,
             decoration: InputDecoration(
               hintText: AppStrings.search,
-              prefixIcon: Icon(Icons.search, color: colors.textLight),
+              prefixIcon: Icon(AppIcons.search, color: colors.textLight),
             ),
             onChanged: (value) => context.read<PatientBloc>().add(PatientSearch(value)),
           ),
@@ -71,7 +72,7 @@ class _AdminPatientsViewState extends State<AdminPatientsView> {
             builder: (context, state) {
               if (state is PatientLoading) return const SkeletonList();
               if (state is PatientLoaded) {
-                if (state.patients.isEmpty) return  EmptyDataWidget(icon: Icons.people_outline_rounded, title: AppStrings.noData, compact: true);
+                if (state.patients.isEmpty) return  EmptyDataWidget(icon: AppIcons.peopleOutline, title: AppStrings.noData, compact: true);
                 return ListView.separated(
                   controller: _scrollController,
                   padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm),
@@ -92,7 +93,7 @@ class _AdminPatientsViewState extends State<AdminPatientsView> {
                 );
               }
               if (state is PatientError) return Center(child: Text(state.message, style: TextStyle(color: colors.error)));
-              return  EmptyDataWidget(icon: Icons.people_outline_rounded, title: AppStrings.noData, compact: true);
+              return  EmptyDataWidget(icon: AppIcons.peopleOutline, title: AppStrings.noData, compact: true);
             },
           ),
         ),
@@ -116,7 +117,7 @@ class _AdminPatientsViewState extends State<AdminPatientsView> {
       child: ListTile(
         leading: CircleAvatar(
           backgroundColor: isMale ? colors.primary : Colors.pink,
-          child: Icon(isMale ? Icons.male : Icons.female, color: Colors.white),
+          child: Icon(isMale ? AppIcons.male : AppIcons.female, color: Colors.white),
         ),
         title: Text('${patient.firstName} ${patient.lastName}'),
         subtitle: Text('${_ageFromBirthday(patient.birthdayDate)} years - ${patient.gender.toUpperCase()}'),
@@ -126,8 +127,8 @@ class _AdminPatientsViewState extends State<AdminPatientsView> {
             if (value == 'delete') _deletePatient(context, patient.id);
           },
           itemBuilder: (context) => [
-             PopupMenuItem(value: 'edit', child: Row(children: [Icon(Icons.edit), SizedBox(width: AppSpacing.sm), Flexible(child: Text(AppStrings.edit, overflow: TextOverflow.ellipsis))])),
-             PopupMenuItem(value: 'delete', child: Row(children: [Icon(Icons.delete, color: Colors.red), SizedBox(width: AppSpacing.sm), Flexible(child: Text(AppStrings.delete, style: TextStyle(color: Colors.red), overflow: TextOverflow.ellipsis))])),
+             PopupMenuItem(value: 'edit', child: Row(children: [Icon(AppIcons.edit), SizedBox(width: AppSpacing.sm), Flexible(child: Text(AppStrings.edit, overflow: TextOverflow.ellipsis))])),
+             PopupMenuItem(value: 'delete', child: Row(children: [Icon(AppIcons.delete, color: Colors.red), SizedBox(width: AppSpacing.sm), Flexible(child: Text(AppStrings.delete, style: TextStyle(color: Colors.red), overflow: TextOverflow.ellipsis))])),
           ],
         ),
       ),

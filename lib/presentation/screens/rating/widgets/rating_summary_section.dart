@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/rating/rating_state.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class RatingSummarySection extends StatelessWidget {
   final double averageRating;
@@ -63,7 +64,7 @@ class RatingSummarySection extends StatelessWidget {
                     return Padding(
                       padding: const EdgeInsets.only(left: AppSpacing.xxs),
                       child: Icon(
-                        fill ? Icons.star_rounded : (half ? Icons.star_half_rounded : Icons.star_outline_rounded),
+                        fill ? AppIcons.star : (half ? AppIcons.starHalf : AppIcons.starOutline),
                         color: colors.primary,
                         size: AppSpacing.iconSize,
                       ),

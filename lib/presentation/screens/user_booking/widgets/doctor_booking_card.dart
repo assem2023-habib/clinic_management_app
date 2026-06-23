@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class DoctorBookingCard extends StatelessWidget {
   final DoctorEntity doctor;
@@ -30,7 +31,7 @@ class DoctorBookingCard extends StatelessWidget {
                     ? NetworkImage(doctor.imageUrl!)
                     : null,
                 child: doctor.imageUrl == null
-                    ? Icon(Icons.person_rounded, size: AppSpacing.xl, color: colors.primary)
+                    ? Icon(AppIcons.person, size: AppSpacing.xl, color: colors.primary)
                     : null,
               ),
               Positioned(
@@ -72,7 +73,7 @@ class DoctorBookingCard extends StatelessWidget {
               ],
             ),
           ),
-          Icon(Icons.verified_rounded, color: colors.primary, size: AppSpacing.lg),
+          Icon(AppIcons.verified, color: colors.primary, size: AppSpacing.lg),
         ],
       ),
     );

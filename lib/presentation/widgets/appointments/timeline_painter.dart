@@ -1,6 +1,7 @@
-import 'package:clinic_management_app/core/constants/app_colors.dart';
+﻿import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class TimelinePainter extends CustomPainter {
   final AppointmentStatus status;
@@ -106,11 +107,11 @@ extension AppointmentStatusUI on AppointmentStatus {
 
   IconData get uiIcon {
     return switch (this) {
-      AppointmentStatus.confirmed || AppointmentStatus.accepted || AppointmentStatus.set || AppointmentStatus.scheduled => Icons.check_circle,
-      AppointmentStatus.pending || AppointmentStatus.requested => Icons.schedule,
-      AppointmentStatus.completed => Icons.done_all,
-      AppointmentStatus.cancelled || AppointmentStatus.rejected => Icons.cancel,
-      AppointmentStatus.inProgress => Icons.check_circle,
+      AppointmentStatus.confirmed || AppointmentStatus.accepted || AppointmentStatus.set || AppointmentStatus.scheduled => AppIcons.checkCircle,
+      AppointmentStatus.pending || AppointmentStatus.requested => AppIcons.schedule,
+      AppointmentStatus.completed => AppIcons.doneAll,
+      AppointmentStatus.cancelled || AppointmentStatus.rejected => AppIcons.cancel,
+      AppointmentStatus.inProgress => AppIcons.checkCircle,
     };
   }
 }

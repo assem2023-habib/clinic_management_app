@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
@@ -12,6 +12,7 @@ import 'package:clinic_management_app/presentation/widgets/dashboard/glass_stat_
 import 'package:clinic_management_app/presentation/widgets/dashboard/recent_appointments.dart';
 import 'package:clinic_management_app/presentation/widgets/animated_card.dart';
 import 'package:clinic_management_app/presentation/widgets/skeleton/dashboard_skeleton.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class PatientDashboardView extends StatelessWidget {
   const PatientDashboardView({super.key});
@@ -77,21 +78,21 @@ class PatientDashboardView extends StatelessWidget {
                       Text(AppStrings.quickActions, style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
                       const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                       Row(children: [
-                        Expanded(child: ActionButton(icon: Icons.calendar_month, label: AppStrings.myAppointments, color: colors.primary, onPressed: () => Navigator.pushNamed(context, AppRoutes.appointments))),
+                        Expanded(child: ActionButton(icon: AppIcons.calendarMonth, label: AppStrings.myAppointments, color: colors.primary, onPressed: () => Navigator.pushNamed(context, AppRoutes.appointments))),
                         const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
-                        Expanded(child: ActionButton(icon: Icons.folder, label: AppStrings.myRecords, color: colors.secondary, onPressed: () => Navigator.pushNamed(context, AppRoutes.medicalRecords))),
+                        Expanded(child: ActionButton(icon: AppIcons.folder, label: AppStrings.myRecords, color: colors.secondary, onPressed: () => Navigator.pushNamed(context, AppRoutes.medicalRecords))),
                       ]),
                       const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                       Row(children: [
-                        Expanded(child: ActionButton(icon: Icons.person, label: AppStrings.myFile, color: colors.accent, onPressed: () => Navigator.pushNamed(context, AppRoutes.profile))),
+                        Expanded(child: ActionButton(icon: AppIcons.person, label: AppStrings.myFile, color: colors.accent, onPressed: () => Navigator.pushNamed(context, AppRoutes.profile))),
                         const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
-                        Expanded(child: ActionButton(icon: Icons.settings, label: AppStrings.settings, color: colors.primaryDark, onPressed: () => Navigator.pushNamed(context, AppRoutes.settings))),
+                        Expanded(child: ActionButton(icon: AppIcons.settings, label: AppStrings.settings, color: colors.primaryDark, onPressed: () => Navigator.pushNamed(context, AppRoutes.settings))),
                       ]),
                       const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                       Row(children: [
-                        Expanded(child: ActionButton(icon: Icons.supervisor_account, label: AppStrings.supervisionRequests, color: colors.success, onPressed: () => Navigator.pushNamed(context, AppRoutes.supervisionRequests))),
+                        Expanded(child: ActionButton(icon: AppIcons.supervisorAccount, label: AppStrings.supervisionRequests, color: colors.success, onPressed: () => Navigator.pushNamed(context, AppRoutes.supervisionRequests))),
                         const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
-                        Expanded(child: ActionButton(icon: Icons.file_download, label: AppStrings.dfTitle, color: colors.secondary, onPressed: () => Navigator.pushNamed(context, AppRoutes.downloadFiles))),
+                        Expanded(child: ActionButton(icon: AppIcons.download, label: AppStrings.dfTitle, color: colors.secondary, onPressed: () => Navigator.pushNamed(context, AppRoutes.downloadFiles))),
                       ]),
                     ],
                   ),
@@ -142,10 +143,10 @@ class PatientDashboardView extends StatelessWidget {
         mainAxisSpacing: 12,
         childAspectRatio: 1.4,
         children: [
-          GlassStatCard(index: 0, title: AppStrings.totalAppts, icon: Icons.event, color: colors.primary, value: total?.toString()),
-          GlassStatCard(index: 1, title: AppStrings.upcomingAppts, icon: Icons.schedule, color: colors.warning, value: upcoming?.toString()),
-          GlassStatCard(index: 2, title: AppStrings.completedAppts, icon: Icons.check_circle, color: colors.success, value: completed?.toString()),
-          GlassStatCard(index: 3, title: AppStrings.cancelledAppts, icon: Icons.cancel, color: colors.error, value: cancelled?.toString()),
+          GlassStatCard(index: 0, title: AppStrings.totalAppts, icon: AppIcons.event, color: colors.primary, value: total?.toString()),
+          GlassStatCard(index: 1, title: AppStrings.upcomingAppts, icon: AppIcons.schedule, color: colors.warning, value: upcoming?.toString()),
+          GlassStatCard(index: 2, title: AppStrings.completedAppts, icon: AppIcons.checkCircle, color: colors.success, value: completed?.toString()),
+          GlassStatCard(index: 3, title: AppStrings.cancelledAppts, icon: AppIcons.cancel, color: colors.error, value: cancelled?.toString()),
         ],
       ),
     );
@@ -162,9 +163,9 @@ class PatientDashboardView extends StatelessWidget {
         mainAxisSpacing: 12,
         childAspectRatio: 1.0,
         children: [
-          GlassStatCard(index: 4, title: AppStrings.totalDoctors, icon: Icons.medical_services, color: colors.primary, value: doctors?.toString()),
-          GlassStatCard(index: 5, title: AppStrings.medicalRecords, icon: Icons.folder, color: colors.accent, value: records?.toString()),
-          GlassStatCard(index: 6, title: AppStrings.totalPrescriptions, icon: Icons.description, color: colors.secondary, value: prescriptions?.toString()),
+          GlassStatCard(index: 4, title: AppStrings.totalDoctors, icon: AppIcons.medicalServices, color: colors.primary, value: doctors?.toString()),
+          GlassStatCard(index: 5, title: AppStrings.medicalRecords, icon: AppIcons.folder, color: colors.accent, value: records?.toString()),
+          GlassStatCard(index: 6, title: AppStrings.totalPrescriptions, icon: AppIcons.description, color: colors.secondary, value: prescriptions?.toString()),
         ],
       ),
     );

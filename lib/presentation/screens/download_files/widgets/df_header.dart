@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -45,7 +46,7 @@ class _DfHeaderState extends State<DfHeader> {
           ),
           child: Row(
             children: [
-              Icon(Icons.search_rounded, color: colors.textLight, size: AppSpacing.iconMedium),
+              Icon(AppIcons.search, color: colors.textLight, size: AppSpacing.iconMedium),
               const SizedBox(width: AppSpacing.sm),
               Expanded(
                 child: TextField(
@@ -67,7 +68,7 @@ class _DfHeaderState extends State<DfHeader> {
                   _searchController.clear();
                   context.read<DownloadFileBloc>().add(const DownloadFileSearch(''));
                 },
-                child: Icon(Icons.close_rounded, color: colors.textLight, size: AppSpacing.iconSmall),
+                child: Icon(AppIcons.close, color: colors.textLight, size: AppSpacing.iconSmall),
               ),
             ],
           ),

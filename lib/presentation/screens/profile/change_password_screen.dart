@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -140,7 +141,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         fillColor: colors.cardBg,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
         suffixIcon: IconButton(
-          icon: Icon(obscure ? Icons.visibility_rounded : Icons.visibility_off_rounded),
+          icon: Icon(obscure ? AppIcons.visibility : AppIcons.visibilityOff),
           onPressed: toggle,
         ),
       ),

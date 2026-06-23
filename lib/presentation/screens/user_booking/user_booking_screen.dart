@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -92,7 +93,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.lock_outline_rounded, size: 64, color: colors.textLight),
+                      Icon(AppIcons.lockOutline, size: 64, color: colors.textLight),
                       const SizedBox(height: AppSpacing.md),
                       Text(AppStrings.bookingPatientOnly, style: TextStyle(color: colors.textSecondary)),
                     ],
@@ -179,7 +180,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
                 child: Row(
                   children: [
                     _GlassIconButton(
-                      icon: Icons.arrow_forward,
+                      icon: AppIcons.forward,
                       onTap: () => Navigator.of(context).pop(),
                       colors: colors,
                     ),
@@ -235,7 +236,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
               ),
             ),
             _GlassIconButton(
-              icon: Icons.calendar_month,
+              icon: AppIcons.calendarMonth,
               onTap: () async {
                 final picked = await showDatePicker(
                   context: context,
@@ -284,7 +285,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
               CircleAvatar(
                 radius: 32,
                 backgroundColor: colors.chipBg,
-                child: Icon(Icons.person, color: colors.chipText),
+                child: Icon(AppIcons.person, color: colors.chipText),
               ),
               Positioned(
                 bottom: -4, left: -4,
@@ -323,7 +324,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
               ],
             ),
           ),
-          Icon(Icons.verified, color: colors.primary, size: AppSpacing.iconSize),
+          Icon(AppIcons.verified, color: colors.primary, size: AppSpacing.iconSize),
         ],
       ),
     );
@@ -341,9 +342,9 @@ class _UserBookingScreenState extends State<UserBookingScreen>
 
     return Column(
       children: [
-        _buildSlotGrid(colors, 'الفترة الصباحية', Icons.light_mode, morning, state.selectedSlotId, context),
+        _buildSlotGrid(colors, 'الفترة الصباحية', AppIcons.lightMode, morning, state.selectedSlotId, context),
         const SizedBox(height: AppSpacing.xl),
-        _buildSlotGrid(colors, 'الفترة المسائية', Icons.dark_mode, evening, state.selectedSlotId, context),
+        _buildSlotGrid(colors, 'الفترة المسائية', AppIcons.darkMode, evening, state.selectedSlotId, context),
       ],
     );
   }
@@ -470,7 +471,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
                             ),
                           ),
                           const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
-                          Icon(Icons.event_available, color: colors.primaryDark, size: AppSpacing.iconMedium),
+                          Icon(AppIcons.eventAvailable, color: colors.primaryDark, size: AppSpacing.iconMedium),
                         ],
                       ),
               ),
@@ -630,7 +631,7 @@ class _SlotCardState extends State<_SlotCard>
                 Row(
                   children: [
                     Icon(
-                      Icons.schedule,
+                      AppIcons.schedule,
                       size: 18,
                       color: widget.isSelected
                           ? widget.colors.chipText
@@ -650,9 +651,9 @@ class _SlotCardState extends State<_SlotCard>
                   ],
                 ),
                 if (widget.isBooked)
-                  Icon(Icons.lock, size: AppSpacing.md, color: widget.colors.textSecondary)
+                  Icon(AppIcons.lock, size: AppSpacing.md, color: widget.colors.textSecondary)
                 else if (widget.isSelected)
-                  Icon(Icons.check_circle, size: AppSpacing.md, color: widget.colors.chipText)
+                  Icon(AppIcons.checkCircle, size: AppSpacing.md, color: widget.colors.chipText)
                 else
                   Text(
                     'متاح',

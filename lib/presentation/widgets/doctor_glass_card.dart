@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -152,7 +153,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
             children: [
               Row(
                 children: [
-                  Icon(Icons.star_rounded, size: 18, color: colors.secondary),
+                  Icon(AppIcons.star, size: 18, color: colors.secondary),
                   const SizedBox(width: AppSpacing.xs),
                   Text(
                     doctor.rating?.toStringAsFixed(1) ?? '0.0',
@@ -232,7 +233,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
         ),
         borderRadius: BorderRadius.circular(AppSpacing.md - AppSpacing.xxs),
       ),
-      child: Icon(Icons.person_rounded, size: 36, color: colors.primary),
+      child: Icon(AppIcons.person, size: 36, color: colors.primary),
     );
   }
 
@@ -242,7 +243,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
 
     return Row(
       children: [
-        Icon(Icons.location_on_rounded, size: 18, color: colors.textLight),
+        Icon(AppIcons.locationOn, size: 18, color: colors.textLight),
         const SizedBox(width: AppSpacing.six),
         Expanded(
           child: Text(
@@ -324,7 +325,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
                     borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
                     border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
                   ),
-                  child: Icon(Icons.more_vert, color: colors.textPrimary),
+                  child: Icon(AppIcons.more, color: colors.textPrimary),
                 ),
               ),
             ],
@@ -398,10 +399,10 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
           children: [
             Icon(
               hasActiveRequest
-                  ? Icons.shield_rounded
+                  ? AppIcons.shield
                   : hasPendingRequest
-                      ? Icons.hourglass_top_rounded
-                      : Icons.person_add_alt_1_rounded,
+                      ? AppIcons.hourglassTop
+                      : AppIcons.personAddAlt1,
               size: 16,
               color: hasActiveRequest
                   ? colors.primary

@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
@@ -26,10 +27,10 @@ class UfBottomNav extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildTab(colors, 0, Icons.grid_view_rounded, AppStrings.ufNavDashboard),
-          _buildTab(colors, 1, Icons.description_rounded, AppStrings.ufNavRecords),
-          _buildActiveTab(colors, 2, Icons.cloud_upload_rounded, AppStrings.ufNavUpload),
-          _buildTab(colors, 3, Icons.account_circle_rounded, AppStrings.ufNavProfile),
+          _buildTab(colors, 0, AppIcons.gridView, AppStrings.ufNavDashboard),
+          _buildTab(colors, 1, AppIcons.description, AppStrings.ufNavRecords),
+          _buildActiveTab(colors, 2, AppIcons.upload, AppStrings.ufNavUpload),
+          _buildTab(colors, 3, AppIcons.accountCircle, AppStrings.ufNavProfile),
         ],
       ),
     );

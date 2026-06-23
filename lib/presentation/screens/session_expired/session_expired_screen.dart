@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'dart:math' show pi;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show SystemNavigator;
@@ -130,7 +131,7 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
               ],
             ),
             child: Icon(
-              Icons.timer_off_rounded,
+              AppIcons.timerOff,
               size: 64,
               color: colors.mint,
             ),
@@ -158,7 +159,7 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
                   color: colors.emerald,
                 ),
                 child: Icon(
-                  Icons.lock_rounded,
+                  AppIcons.lock,
                   size: AppSpacing.iconSmall,
                   color: colors.scaffoldBg,
                 ),

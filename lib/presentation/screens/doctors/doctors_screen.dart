@@ -1,4 +1,5 @@
-import 'dart:async';
+﻿import 'dart:async';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -101,7 +102,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                     ),
                     borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
                   ),
-                  child: const Icon(Icons.person, color: Colors.white),
+                  child: const Icon(AppIcons.person, color: Colors.white),
                 ),
                 const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
                 Column(
@@ -131,7 +132,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
           const SizedBox(height: AppSpacing.ten),
           _sheetOption(
             colors,
-            icon: Icons.visibility_rounded,
+            icon: AppIcons.visibility,
             label: 'عرض الملف',
             onTap: () {
               Navigator.pop(context);
@@ -140,7 +141,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
           ),
           _sheetOption(
             colors,
-            icon: Icons.edit_rounded,
+            icon: AppIcons.edit,
             label: AppStrings.edit,
             onTap: () {
               Navigator.pop(context);
@@ -149,7 +150,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
           ),
           _sheetOption(
             colors,
-            icon: Icons.delete_rounded,
+            icon: AppIcons.delete,
             label: AppStrings.delete,
             isDanger: true,
             onTap: () {
@@ -239,7 +240,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                       borderRadius: BorderRadius.circular(18),
                       border: Border.all(color: colors.error.withValues(alpha: 0.2)),
                     ),
-                    child: Icon(Icons.delete_forever_rounded, size: 30, color: colors.error),
+                    child: Icon(AppIcons.deleteForever, size: 30, color: colors.error),
                   ),
                   const SizedBox(height: 18),
                   Text(
@@ -374,7 +375,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
           ? FloatingActionButton(
               onPressed: () => _showDoctorForm(context),
               backgroundColor: colors.accent,
-              child: const Icon(Icons.add, color: Colors.white),
+              child: const Icon(AppIcons.add, color: Colors.white),
             )
           : null,
     );
@@ -423,7 +424,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
               prefixIcon: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 200),
                 child: Icon(
-                  _isSearchFocused ? Icons.search_rounded : Icons.search_rounded,
+                  _isSearchFocused ? AppIcons.search : AppIcons.search,
                   key: ValueKey(_isSearchFocused),
                   size: AppSpacing.iconMedium,
               color: _isSearchFocused
@@ -437,7 +438,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                         _searchController.clear();
                         context.read<DoctorBloc>().add(DoctorSearch(''));
                       },
-                      child: Icon(Icons.close_rounded, size: AppSpacing.iconSmall, color: colors.textSecondary),
+                      child: Icon(AppIcons.close, size: AppSpacing.iconSmall, color: colors.textSecondary),
                     )
                   : null,
               border: InputBorder.none,
@@ -540,7 +541,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.search_off_rounded, size: 56, color: colors.textSecondary.withValues(alpha: 0.4)),
+          Icon(AppIcons.searchOff, size: 56, color: colors.textSecondary.withValues(alpha: 0.4)),
           const SizedBox(height: AppSpacing.md),
           Text(
             AppStrings.noData,

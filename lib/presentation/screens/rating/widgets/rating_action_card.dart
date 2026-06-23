@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class RatingActionCard extends StatelessWidget {
   final VoidCallback? onWriteReview;
@@ -28,7 +29,7 @@ class RatingActionCard extends StatelessWidget {
               color: colors.primary.withValues(alpha: 0.2),
               shape: BoxShape.circle,
             ),
-            child: Icon(Icons.rate_review_rounded, color: colors.primaryLight, size: 28),
+            child: Icon(AppIcons.rateReview, color: colors.primaryLight, size: 28),
           ),
           const SizedBox(height: AppSpacing.sm),
           Text(

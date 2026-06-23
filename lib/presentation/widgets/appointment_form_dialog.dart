@@ -1,3 +1,4 @@
+﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -120,7 +121,7 @@ class _AppointmentFormDialogState extends State<AppointmentFormDialog> {
               const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
               TextFormField(
                 readOnly: true,
-                decoration:  InputDecoration(labelText: AppStrings.date, suffixIcon: Icon(Icons.calendar_today)),
+                decoration:  InputDecoration(labelText: AppStrings.date, suffixIcon: Icon(AppIcons.calendarToday)),
                 controller: TextEditingController(text: DateFormat('yyyy-MM-dd').format(_selectedDate)),
                 onTap: () async {
                   final date = await showDatePicker(context: context, initialDate: _selectedDate, firstDate: DateTime.now(), lastDate: DateTime.now().add(const Duration(days: 365)));
