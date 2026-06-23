@@ -185,7 +185,7 @@ class AppTheme {
       ),
       chipTheme: ChipThemeData(
         backgroundColor: colors.chipBg,
-        labelStyle: TextStyle(color: colors.chipText, fontSize: 13, fontWeight: FontWeight.w600),
+        labelStyle: TextStyle(color: colors.chipText, fontSize: AppSpacing.caption, fontWeight: FontWeight.w600),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.sm)),
         side: BorderSide.none,
         padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.xs),

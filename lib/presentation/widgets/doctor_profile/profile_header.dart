@@ -75,7 +75,7 @@ class ProfileHeader extends StatelessWidget {
                       ),
                       Text(
                         ' (${doctor.reviewsCount} ${AppStrings.rating})',
-                        style: TextStyle(fontSize: 13, color: colors.textLight),
+                        style: TextStyle(fontSize: AppSpacing.caption, color: colors.textLight),
                       ),
                       const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
                       Icon(Icons.location_on_rounded, size: 18, color: colors.textLight),
@@ -83,7 +83,7 @@ class ProfileHeader extends StatelessWidget {
                       Flexible(
                         child: Text(
                           doctor.clinicAddress ?? 'الرياض',
-                          style: TextStyle(fontSize: 13, color: colors.textLight),
+                          style: TextStyle(fontSize: AppSpacing.caption, color: colors.textLight),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),

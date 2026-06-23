@@ -22,7 +22,7 @@ Text(
             ),
             TextButton(
               onPressed: () {},
-              child: Text(AppStrings.srViewAll, style: TextStyle(color: colors.primary, fontSize: 13)),
+              child: Text(AppStrings.srViewAll, style: TextStyle(color: colors.primary, fontSize: AppSpacing.caption)),
             ),
           ],
         ),

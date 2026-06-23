@@ -141,7 +141,7 @@ class _AppointmentCardState extends State<AppointmentCard> with SingleTickerProv
                 const SizedBox(height: 3),
                 Text(specialty,
                   maxLines: 1, overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: 13, color: c.textSecondary)),
+                  style: TextStyle(fontSize: AppSpacing.caption, color: c.textSecondary)),
               ]),
             ),
           ]),

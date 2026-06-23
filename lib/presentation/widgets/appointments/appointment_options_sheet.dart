@@ -194,7 +194,7 @@ class _CancelDialog extends StatelessWidget {
             const SizedBox(height: AppSpacing.sm),
             Text('هل تريد إلغاء موعد\n$docName؟\nلا يمكن التراجع عن هذا الإجراء.',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 13, color: c.textSecondary, height: 1.7),
+              style: TextStyle(fontSize: AppSpacing.caption, color: c.textSecondary, height: 1.7),
             ),
             const SizedBox(height: 22),
             Row(children: [

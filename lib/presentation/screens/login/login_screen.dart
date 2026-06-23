@@ -195,7 +195,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                           child: Text(
                             AppStrings.backToRoleSelection,
-                            style: TextStyle(color: colors.textLight, fontSize: 13),
+                            style: TextStyle(color: colors.textLight, fontSize: AppSpacing.caption),
                           ),
                         ),
                       ],

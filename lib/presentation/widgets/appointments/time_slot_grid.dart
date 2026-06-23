@@ -59,7 +59,7 @@ class _TimeSlotGridState extends State<TimeSlotGrid> {
                 alignment: Alignment.center,
                 child: Text(slot,
                   style: TextStyle(
-                    fontSize: 13, fontWeight: FontWeight.w600,
+                    fontSize: AppSpacing.caption, fontWeight: FontWeight.w600,
                     color: selected ? c.primaryLight : c.textSecondary,
                   ),
                 ),

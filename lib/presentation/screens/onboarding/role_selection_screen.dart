@@ -166,7 +166,7 @@ class RoleSelectionScreen extends StatelessWidget {
                   Text(
                     subtitle,
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: AppSpacing.caption,
                       color: colors.textSecondary,
                     ),
                   ),

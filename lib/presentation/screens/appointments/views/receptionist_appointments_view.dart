@@ -89,7 +89,7 @@ class _ReceptionistAppointmentsViewState extends State<ReceptionistAppointmentsV
               onTap: _showDatePicker,
               child: Column(
                 children: [
-                  Text(DateFormat('EEEE').format(_selectedDate), style: TextStyle(fontSize: 13, color: colors.textLight)),
+                  Text(DateFormat('EEEE').format(_selectedDate), style: TextStyle(fontSize: AppSpacing.caption, color: colors.textLight)),
                   const SizedBox(height: AppSpacing.xxs),
                   Text(DateFormat('yyyy-MM-dd').format(_selectedDate), style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.bold, color: colors.textPrimary)),
                 ],

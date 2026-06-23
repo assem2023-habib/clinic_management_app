@@ -311,7 +311,7 @@ class _AnimatedNotificationCardState extends State<_AnimatedNotificationCard>
                   children: [
                     Text(widget.notification.title, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: colors.textPrimary)),
                     const SizedBox(height: AppSpacing.xs),
-                    Text(widget.notification.message, style: TextStyle(fontSize: 13, color: colors.textSecondary, height: 1.4), maxLines: 2, overflow: TextOverflow.ellipsis),
+                    Text(widget.notification.message, style: TextStyle(fontSize: AppSpacing.caption, color: colors.textSecondary, height: 1.4), maxLines: 2, overflow: TextOverflow.ellipsis),
                     const SizedBox(height: AppSpacing.six),
                     Text(_formatTimestamp(widget.notification.timestamp), style: TextStyle(fontSize: 11, color: colors.textLight.withValues(alpha: 0.5))),
                   ],

@@ -640,7 +640,7 @@ class _SlotCardState extends State<_SlotCard>
                     Text(
                       widget.time,
                       style: TextStyle(
-                        fontSize: 13,
+                        fontSize: AppSpacing.caption,
                         fontWeight: FontWeight.w600,
                         color: widget.isSelected
                             ? widget.colors.chipText
@@ -691,7 +691,7 @@ class _SectionHeader extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-            fontSize: 13,
+            fontSize: AppSpacing.caption,
             fontWeight: FontWeight.w600,
             letterSpacing: 0.5,
             color: colors.textSecondary,

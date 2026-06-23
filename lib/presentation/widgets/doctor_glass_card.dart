@@ -157,7 +157,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
                   Text(
                     doctor.rating?.toStringAsFixed(1) ?? '0.0',
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: AppSpacing.caption,
                       fontWeight: FontWeight.w700,
                       color: colors.secondary,
                     ),
@@ -178,11 +178,11 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
               ),
               const SizedBox(height: AppSpacing.xxs),
               Text(
-                doctor.specialty,
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                  color: colors.primary,
+                  doctor.specialty,
+                  style: TextStyle(
+                    fontSize: AppSpacing.caption,
+                    fontWeight: FontWeight.w600,
+                    color: colors.primary,
                 ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -413,7 +413,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
             Text(
               label,
               style: TextStyle(
-                fontSize: 13,
+                fontSize: AppSpacing.caption,
                 fontWeight: FontWeight.w600,
                 color: hasActiveRequest
                     ? colors.primary

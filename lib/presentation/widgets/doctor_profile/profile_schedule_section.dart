@@ -49,7 +49,7 @@ class ProfileScheduleSection extends StatelessWidget {
         ),
         const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
         if (morningSlots.isNotEmpty) ...[
-          Text(AppStrings.bookingMorning, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: colors.textSecondary)),
+          Text(AppStrings.bookingMorning, style: TextStyle(fontSize: AppSpacing.caption, fontWeight: FontWeight.w500, color: colors.textSecondary)),
           const SizedBox(height: AppSpacing.sm),
           Wrap(
             spacing: 8,
@@ -78,7 +78,7 @@ class ProfileScheduleSection extends StatelessWidget {
                 child: Text(
                   slot.time,
                   style: TextStyle(
-                    fontSize: 13,
+                    fontSize: AppSpacing.caption,
                     fontWeight: FontWeight.w600,
                     color: slot.isAvailable
                         ? (canManage ? colors.textPrimary : colors.primary)
@@ -94,7 +94,7 @@ class ProfileScheduleSection extends StatelessWidget {
         ],
         if (eveningSlots.isNotEmpty) ...[
           const SizedBox(height: AppSpacing.md),
-          Text(AppStrings.bookingEvening, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: colors.textSecondary)),
+          Text(AppStrings.bookingEvening, style: TextStyle(fontSize: AppSpacing.caption, fontWeight: FontWeight.w500, color: colors.textSecondary)),
           const SizedBox(height: AppSpacing.sm),
           Wrap(
             spacing: 8,
@@ -123,7 +123,7 @@ class ProfileScheduleSection extends StatelessWidget {
                 child: Text(
                   slot.time,
                   style: TextStyle(
-                    fontSize: 13,
+                    fontSize: AppSpacing.caption,
                     fontWeight: FontWeight.w600,
                     color: slot.isAvailable
                         ? (canManage ? colors.textPrimary : colors.primary)

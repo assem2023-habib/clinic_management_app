@@ -158,7 +158,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
           const SizedBox(width: 58),
           Text(
             'لد. ${widget.doctor.name}',
-            style: TextStyle(fontSize: 13, color: colors.textSecondary),
+            style: TextStyle(fontSize: AppSpacing.caption, color: colors.textSecondary),
           ),
         ],
       ),

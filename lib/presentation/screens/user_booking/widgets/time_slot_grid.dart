@@ -57,7 +57,7 @@ class TimeSlotGrid extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-            fontSize: 13,
+            fontSize: AppSpacing.caption,
             fontWeight: FontWeight.w600,
             color: colors.textSecondary,
             letterSpacing: 0.5,
@@ -119,7 +119,7 @@ class TimeSlotGrid extends StatelessWidget {
                   child: Text(
                     _formatTime(slot.time),
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: AppSpacing.caption,
                       fontWeight: FontWeight.w600,
                       color: isSelected
                           ? Colors.white

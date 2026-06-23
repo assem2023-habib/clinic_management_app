@@ -33,7 +33,7 @@ class StatCard extends StatelessWidget {
                 Text(value!, style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.bold, color: color)),
               ],
               const SizedBox(height: AppSpacing.xxs),
-              Text(title, textAlign: TextAlign.center, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: colors.textPrimary)),
+              Text(title, textAlign: TextAlign.center, style: TextStyle(fontSize: AppSpacing.caption, fontWeight: FontWeight.w500, color: colors.textPrimary)),
             ],
           ),
         ),

@@ -71,7 +71,7 @@ class DrQueueItem extends StatelessWidget {
                     style: TextStyle(fontSize: 11, color: colors.textLight)),
                   const SizedBox(height: AppSpacing.xxs),
                   Text(checkInTime,
-                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: timeColor)),
+                    style: TextStyle(fontSize: AppSpacing.caption, fontWeight: FontWeight.w600, color: timeColor)),
                 ],
               ),
             ],

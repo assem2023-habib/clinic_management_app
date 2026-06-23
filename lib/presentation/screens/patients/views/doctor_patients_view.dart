@@ -271,7 +271,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
         child: Text(
           label,
           style: TextStyle(
-            fontSize: 13,
+            fontSize: AppSpacing.caption,
             fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
             color: isActive ? colors.primary : colors.textSecondary,
           ),

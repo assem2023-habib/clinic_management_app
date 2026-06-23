@@ -458,7 +458,7 @@ class _SupervisionCard extends StatelessWidget {
                         Text(
                           subtitle,
                           style: TextStyle(
-                            fontSize: 13,
+                            fontSize: AppSpacing.caption,
                             color: colors.textSecondary,
                           ),
                         ),
@@ -650,7 +650,7 @@ class _ActionChip extends StatelessWidget {
               Text(
                 label,
                 style: TextStyle(
-                  fontSize: 13,
+                  fontSize: AppSpacing.caption,
                   fontWeight: FontWeight.w600,
                   color: color,
                 ),

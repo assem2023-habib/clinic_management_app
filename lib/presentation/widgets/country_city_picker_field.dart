@@ -204,7 +204,7 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
                           children: [
                             Icon(Icons.arrow_back_rounded, size: 18, color: colors.primary),
                             const SizedBox(width: AppSpacing.xs),
-                            Text(_selectedCountry?.nameAr ?? '', style: TextStyle(color: colors.primary, fontSize: 13)),
+                            Text(_selectedCountry?.nameAr ?? '', style: TextStyle(color: colors.primary, fontSize: AppSpacing.caption)),
                           ],
                         ),
                       ),

@@ -34,6 +34,7 @@ class AppSpacing {
   static const double titleMedium = 18;
   static const double bodyLarge = 16;
   static const double bodyMedium = 14;
+  static const double caption = 13;
   static const double bodySmall = 12;
   static const double bulletSize = 6;
   static const double bottomNavHeight = 100;

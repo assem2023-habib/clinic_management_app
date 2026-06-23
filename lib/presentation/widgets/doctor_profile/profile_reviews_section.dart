@@ -129,7 +129,7 @@ class ProfileReviewsSection extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: AppSpacing.ten),
-              Text(review.comment ?? '', style: TextStyle(fontSize: 13, color: colors.textSecondary, height: 1.5)),
+              Text(review.comment ?? '', style: TextStyle(fontSize: AppSpacing.caption, color: colors.textSecondary, height: 1.5)),
               if ((review.likesCount ?? 0) > 0) ...[
                 const SizedBox(height: AppSpacing.sm),
                 Row(

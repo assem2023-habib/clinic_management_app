@@ -257,7 +257,7 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
               ),
               child: Text(labels[i],
                 style: TextStyle(
-                  fontSize: 13, fontWeight: FontWeight.w600,
+                  fontSize: AppSpacing.caption, fontWeight: FontWeight.w600,
                   color: active ? c.primary : c.textSecondary,
                 ),
               ),

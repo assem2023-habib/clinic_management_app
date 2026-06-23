@@ -488,7 +488,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
               child: Text(
                 chip.label,
                 style: TextStyle(
-                  fontSize: 13,
+                  fontSize: AppSpacing.caption,
                   fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
                   color: isActive
                       ? colors.accent
@@ -549,7 +549,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
           const SizedBox(height: AppSpacing.bulletSize),
           Text(
             'جرّب البحث بكلمة مختلفة',
-            style: TextStyle(fontSize: 13, color: colors.textSecondary.withValues(alpha: 0.6)),
+            style: TextStyle(fontSize: AppSpacing.caption, color: colors.textSecondary.withValues(alpha: 0.6)),
           ),
         ],
       ),

@@ -103,7 +103,7 @@ class _AppToastOverlayState extends State<_AppToastOverlay>
                   child: Text(
                     widget.message,
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: AppSpacing.caption,
                       fontWeight: FontWeight.w600,
                       color: widget.colors.textPrimary,
                     ),
