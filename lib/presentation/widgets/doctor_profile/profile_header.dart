@@ -49,7 +49,7 @@ class ProfileHeader extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      Icon(Icons.verified_rounded, color: colors.secondary, size: 22),
+                      Icon(Icons.verified_rounded, color: colors.secondary, size: AppSpacing.iconMedium),
                     ],
                   ),
                   const SizedBox(height: 4),
@@ -67,7 +67,7 @@ class ProfileHeader extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.star_rounded, color: Colors.amber, size: 20),
+                      Icon(Icons.star_rounded, color: Colors.amber, size: AppSpacing.iconSmall),
                       const SizedBox(width: 4),
                       Text(
                         doctor.rating.toString(),

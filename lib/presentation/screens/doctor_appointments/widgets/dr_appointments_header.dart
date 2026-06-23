@@ -40,7 +40,7 @@ class DrAppointmentsHeader extends StatelessWidget implements PreferredSizeWidge
                   border: Border.all(color: colors.primary.withValues(alpha: 0.2)),
                   color: colors.primary.withValues(alpha: 0.1),
                 ),
-                child: Icon(Icons.person_rounded, color: colors.primary, size: 22),
+                child: Icon(Icons.person_rounded, color: colors.primary, size: AppSpacing.iconMedium),
               ),
               const SizedBox(width: AppSpacing.md),
               Expanded(
@@ -70,7 +70,7 @@ class DrAppointmentsHeader extends StatelessWidget implements PreferredSizeWidge
                       shape: BoxShape.circle,
                       color: colors.cardBg.withValues(alpha: 0.5),
                     ),
-                    child: Icon(Icons.notifications_outlined, color: colors.textSecondary, size: 22),
+                    child: Icon(Icons.notifications_outlined, color: colors.textSecondary, size: AppSpacing.iconMedium),
                   ),
                 ),
               ),

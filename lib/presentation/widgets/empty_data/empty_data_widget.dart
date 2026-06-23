@@ -161,7 +161,7 @@ class EmptyDataWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (action!.icon != null) ...[
-              Icon(action!.icon, size: 20),
+              Icon(action!.icon, size: AppSpacing.iconSmall),
               const SizedBox(width: AppSpacing.sm),
             ],
             Text(action!.label, style: const TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w700)),

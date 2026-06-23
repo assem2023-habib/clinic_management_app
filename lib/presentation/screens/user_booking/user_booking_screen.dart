@@ -470,7 +470,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
                             ),
                           ),
                           const SizedBox(width: 12),
-                          Icon(Icons.event_available, color: colors.primaryDark, size: 22),
+                          Icon(Icons.event_available, color: colors.primaryDark, size: AppSpacing.iconMedium),
                         ],
                       ),
               ),

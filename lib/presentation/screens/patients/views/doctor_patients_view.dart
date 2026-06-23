@@ -149,7 +149,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
               border: Border.all(color: colors.primary.withValues(alpha: 0.2)),
               color: colors.primary.withValues(alpha: 0.1),
             ),
-            child: Icon(Icons.people_rounded, color: colors.primary, size: 22),
+            child: Icon(Icons.people_rounded, color: colors.primary, size: AppSpacing.iconMedium),
           ),
           const SizedBox(width: AppSpacing.md),
           Expanded(
@@ -203,7 +203,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
             ),
             child: Row(
               children: [
-                Icon(Icons.search_rounded, color: colors.textLight, size: 22),
+                Icon(Icons.search_rounded, color: colors.textLight, size: AppSpacing.iconMedium),
                 const SizedBox(width: AppSpacing.sm),
                 Expanded(
                     child: TextField(
@@ -227,7 +227,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
                 InkWell(
                   borderRadius: BorderRadius.circular(20),
                   onTap: () => _searchController.clear(),
-                  child: Icon(Icons.close_rounded, color: colors.textLight, size: 20),
+                  child: Icon(Icons.close_rounded, color: colors.textLight, size: AppSpacing.iconSmall),
                 ),
               ],
             ),
@@ -339,7 +339,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
               ],
             ),
           ),
-          Icon(Icons.chevron_left_rounded, color: colors.textLight, size: 22),
+          Icon(Icons.chevron_left_rounded, color: colors.textLight, size: AppSpacing.iconMedium),
         ],
       ),
     );

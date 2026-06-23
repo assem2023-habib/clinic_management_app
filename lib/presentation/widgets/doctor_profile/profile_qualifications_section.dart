@@ -41,7 +41,7 @@ class ProfileQualificationsSection extends StatelessWidget {
                       color: colors.secondary.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Icon(Icons.school_rounded, color: colors.secondary, size: 20),
+                    child: Icon(Icons.school_rounded, color: colors.secondary, size: AppSpacing.iconSmall),
                   ),
                   const SizedBox(width: 12),
                   Expanded(child: Text(qual, style: TextStyle(fontSize: AppSpacing.bodyMedium, color: colors.textPrimary))),

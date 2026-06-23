@@ -49,7 +49,7 @@ class ConfirmBookingBar extends StatelessWidget {
                     height: AppSpacing.iconSmall,
                     child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
                   )
-                : const Icon(Icons.event_available_rounded, size: 22),
+                : const Icon(Icons.event_available_rounded, size: AppSpacing.iconMedium),
             label: Text(
               isLoading ? AppStrings.bookingConfirming : AppStrings.bookingConfirm,
               style: const TextStyle(fontSize: AppSpacing.md, fontWeight: FontWeight.w600),

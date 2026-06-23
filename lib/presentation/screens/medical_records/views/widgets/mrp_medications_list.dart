@@ -33,7 +33,7 @@ class MrpMedicationCard extends StatelessWidget {
               shape: BoxShape.circle,
               color: colors.accent.withValues(alpha: 0.2),
             ),
-            child: Icon(icon, size: 24, color: colors.secondary),
+            child: Icon(icon, size: AppSpacing.iconSize, color: colors.secondary),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -62,7 +62,7 @@ class MrpMedicationCard extends StatelessWidget {
           ),
           Icon(
             Icons.chevron_left_rounded,
-            size: 24,
+            size: AppSpacing.iconSize,
             color: colors.divider,
           ),
         ],

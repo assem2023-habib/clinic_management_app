@@ -45,7 +45,7 @@ class _DfHeaderState extends State<DfHeader> {
           ),
           child: Row(
             children: [
-              Icon(Icons.search_rounded, color: colors.textLight, size: 22),
+              Icon(Icons.search_rounded, color: colors.textLight, size: AppSpacing.iconMedium),
               const SizedBox(width: AppSpacing.sm),
               Expanded(
                 child: TextField(
@@ -67,7 +67,7 @@ class _DfHeaderState extends State<DfHeader> {
                   _searchController.clear();
                   context.read<DownloadFileBloc>().add(const DownloadFileSearch(''));
                 },
-                child: Icon(Icons.close_rounded, color: colors.textLight, size: 20),
+                child: Icon(Icons.close_rounded, color: colors.textLight, size: AppSpacing.iconSmall),
               ),
             ],
           ),

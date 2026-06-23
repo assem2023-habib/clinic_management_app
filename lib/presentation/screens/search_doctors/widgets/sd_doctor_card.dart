@@ -175,7 +175,7 @@ class SdDoctorCard extends StatelessWidget {
                     ),
                     padding: EdgeInsets.zero,
                   ),
-                  child: Icon(Icons.chat_rounded, size: 20, color: colors.primary),
+                  child: Icon(Icons.chat_rounded, size: AppSpacing.iconSmall, color: colors.primary),
                 ),
               ),
             ],

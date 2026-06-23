@@ -136,7 +136,7 @@ class AppDrawer extends StatelessWidget {
             tileColor: isActive ? colors.primary.withValues(alpha: 0.1) : null,
             leading: isNotification
                 ? _NotificationBadge(icon: item.icon, color: isActive ? colors.primary : colors.textSecondary)
-                : Icon(item.icon, color: isActive ? colors.primary : colors.textSecondary, size: 22),
+                : Icon(item.icon, color: isActive ? colors.primary : colors.textSecondary, size: AppSpacing.iconMedium),
             title: Text(
               item.title,
               style: TextStyle(
@@ -169,7 +169,7 @@ class AppDrawer extends StatelessWidget {
             border: Border(top: BorderSide(color: colors.divider.withValues(alpha: 0.3))),
           ),
           child: ListTile(
-            leading: Icon(isDark ? Icons.dark_mode_rounded : Icons.light_mode_rounded, color: colors.primary, size: 22),
+            leading: Icon(isDark ? Icons.dark_mode_rounded : Icons.light_mode_rounded, color: colors.primary, size: AppSpacing.iconMedium),
             title: Text(
               isDark ? AppStrings.darkMode : AppStrings.lightMode,
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: colors.textPrimary),
@@ -189,7 +189,7 @@ class AppDrawer extends StatelessWidget {
         border: Border(top: BorderSide(color: colors.divider.withValues(alpha: 0.3))),
       ),
       child: ListTile(
-        leading: const Icon(Icons.language_rounded, size: 22),
+        leading: const Icon(Icons.language_rounded, size: AppSpacing.iconMedium),
         title: Text(
           isEn ? AppStrings.english : AppStrings.arabic,
           style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: colors.textPrimary),
@@ -211,7 +211,7 @@ class AppDrawer extends StatelessWidget {
         border: Border(top: BorderSide(color: colors.divider.withValues(alpha: 0.3))),
       ),
       child: ListTile(
-        leading: Icon(Icons.logout_rounded, color: colors.error, size: 22),
+        leading: Icon(Icons.logout_rounded, color: colors.error, size: AppSpacing.iconMedium),
         title: Text(
           AppStrings.logout,
           style: TextStyle(
@@ -260,10 +260,10 @@ class _NotificationBadge extends StatelessWidget {
         if (unread > 0) {
           return Badge(
             label: Text(unread > 99 ? '99+' : '$unread', style: const TextStyle(fontSize: 10)),
-            child: Icon(icon, color: color, size: 22),
+            child: Icon(icon, color: color, size: AppSpacing.iconMedium),
           );
         }
-        return Icon(icon, color: color, size: 22);
+        return Icon(icon, color: color, size: AppSpacing.iconMedium);
       },
     );
   }

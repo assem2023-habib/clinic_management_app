@@ -47,7 +47,7 @@ class _SrSearchBarState extends State<SrSearchBar> {
       ),
       child: Row(
         children: [
-          Icon(Icons.search_rounded, color: colors.textMuted, size: 22),
+          Icon(Icons.search_rounded, color: colors.textMuted, size: AppSpacing.iconMedium),
           const SizedBox(width: AppSpacing.sm),
           Expanded(
             child: TextField(
@@ -68,7 +68,7 @@ hintStyle: TextStyle(
             ),
           ),
           const SizedBox(width: AppSpacing.sm),
-          Icon(Icons.tune_rounded, color: colors.primary, size: 22),
+          Icon(Icons.tune_rounded, color: colors.primary, size: AppSpacing.iconMedium),
         ],
       ),
     );

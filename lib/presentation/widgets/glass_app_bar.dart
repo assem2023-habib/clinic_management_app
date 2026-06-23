@@ -57,7 +57,7 @@ class GlassAppBar extends StatelessWidget {
                               borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
                               border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
                             ),
-                            child: const Icon(Icons.menu_rounded, color: Colors.white, size: 22),
+                            child: const Icon(Icons.menu_rounded, color: Colors.white, size: AppSpacing.iconMedium),
                           ),
                     ),
                   if (leading != null || onLeadingTap != null) SizedBox(width: AppSpacing.sm),

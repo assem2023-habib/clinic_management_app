@@ -72,7 +72,7 @@ class SpecializationPickerField extends StatelessWidget {
         hintText: AppStrings.chooseSpecialty,
         hintStyle: TextStyle(color: colors.textLight),
         prefixIcon: Icon(value != null ? _specializationIcon(value!) : Icons.medical_services_outlined, color: colors.textSecondary),
-        suffixIcon: Icon(Icons.arrow_drop_down_rounded, color: colors.textSecondary, size: 22),
+        suffixIcon: Icon(Icons.arrow_drop_down_rounded, color: colors.textSecondary, size: AppSpacing.iconMedium),
         filled: true,
         fillColor: colors.cardBg,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
@@ -154,11 +154,11 @@ class SpecializationPickerField extends StatelessWidget {
                             children: [
                               ListTile(
                                 leading: Icon(_specializationIcon(spec.slug),
-                                    color: isSelected ? colors.primary : colors.textSecondary, size: 24),
+                                    color: isSelected ? colors.primary : colors.textSecondary, size: AppSpacing.iconSize),
                                 title: Text(spec.nameAr, style: TextStyle(color: colors.textPrimary)),
                                 subtitle: Text(spec.nameEn, style: TextStyle(color: colors.textSecondary, fontSize: AppSpacing.bodySmall)),
                                 trailing: isSelected
-                                    ? Icon(Icons.check_circle_rounded, color: colors.primary, size: 22)
+                                    ? Icon(Icons.check_circle_rounded, color: colors.primary, size: AppSpacing.iconMedium)
                                     : null,
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                                 selected: isSelected,
@@ -180,10 +180,10 @@ class SpecializationPickerField extends StatelessWidget {
                           children: [
                             ListTile(
                               leading: Icon(_specializationIcon(e.key),
-                                  color: isSelected ? colors.primary : colors.textSecondary, size: 24),
+                                  color: isSelected ? colors.primary : colors.textSecondary, size: AppSpacing.iconSize),
                               title: Text(e.value, style: TextStyle(color: colors.textPrimary)),
                               trailing: isSelected
-                                  ? Icon(Icons.check_circle_rounded, color: colors.primary, size: 22)
+                                  ? Icon(Icons.check_circle_rounded, color: colors.primary, size: AppSpacing.iconMedium)
                                   : null,
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                               selected: isSelected,

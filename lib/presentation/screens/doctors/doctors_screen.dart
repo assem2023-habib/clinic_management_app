@@ -198,7 +198,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
         padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: 15),
         child: Row(
           children: [
-            Icon(icon, size: 22, color: isDanger ? colors.error : colors.textPrimary),
+            Icon(icon, size: AppSpacing.iconMedium, color: isDanger ? colors.error : colors.textPrimary),
             const SizedBox(width: AppSpacing.md),
             Text(
               label,
@@ -425,7 +425,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                 child: Icon(
                   _isSearchFocused ? Icons.search_rounded : Icons.search_rounded,
                   key: ValueKey(_isSearchFocused),
-                  size: 22,
+                  size: AppSpacing.iconMedium,
               color: _isSearchFocused
                   ? colors.accent
                   : colors.textSecondary.withValues(alpha: 0.6),

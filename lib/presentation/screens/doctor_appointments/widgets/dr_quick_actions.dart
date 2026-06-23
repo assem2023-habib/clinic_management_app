@@ -56,7 +56,7 @@ class DrQuickActions extends StatelessWidget {
       height: 48,
       child: ElevatedButton.icon(
         onPressed: onPressed,
-        icon: Icon(icon, size: 20),
+        icon: Icon(icon, size: AppSpacing.iconSmall),
         label: Text(label, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
         style: ElevatedButton.styleFrom(
           backgroundColor: bgColor,

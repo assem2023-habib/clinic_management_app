@@ -65,7 +65,7 @@ class RatingSummarySection extends StatelessWidget {
                       child: Icon(
                         fill ? Icons.star_rounded : (half ? Icons.star_half_rounded : Icons.star_outline_rounded),
                         color: colors.primary,
-                        size: 24,
+                        size: AppSpacing.iconSize,
                       ),
                     );
                   }),

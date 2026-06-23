@@ -47,7 +47,7 @@ class DfFileCard extends StatelessWidget {
                   color: _statusColor(colors).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(AppSpacing.sm),
                 ),
-                child: Icon(_fileIcon(file.type), color: _statusColor(colors), size: 22),
+                child: Icon(_fileIcon(file.type), color: _statusColor(colors), size: AppSpacing.iconMedium),
               ),
               const SizedBox(width: AppSpacing.md),
               Expanded(
@@ -115,7 +115,7 @@ class DfFileCard extends StatelessWidget {
           ],
         );
       case DownloadStatus.error:
-        return Icon(Icons.error_outline_rounded, size: 20, color: colors.error);
+        return Icon(Icons.error_outline_rounded, size: AppSpacing.iconSmall, color: colors.error);
       default:
         return const SizedBox.shrink();
     }

@@ -106,7 +106,7 @@ class StateScreen extends StatelessWidget {
                   width: 40,
                   height: 40,
                   alignment: Alignment.center,
-                  child: Icon(Icons.arrow_back_rounded, color: colors.textPrimary, size: 24),
+                  child: Icon(Icons.arrow_back_rounded, color: colors.textPrimary, size: AppSpacing.iconSize),
                 ),
               ),
             )
@@ -218,7 +218,7 @@ class StateScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (primaryAction!.icon != null) ...[
-              Icon(primaryAction!.icon, size: 22),
+              Icon(primaryAction!.icon, size: AppSpacing.iconMedium),
               const SizedBox(width: AppSpacing.sm),
             ],
             Text(
@@ -245,7 +245,7 @@ class StateScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (secondaryAction!.icon != null) ...[
-              Icon(secondaryAction!.icon, size: 22),
+              Icon(secondaryAction!.icon, size: AppSpacing.iconMedium),
               const SizedBox(width: AppSpacing.sm),
             ],
             Text(

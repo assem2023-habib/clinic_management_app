@@ -45,9 +45,9 @@ class RhActiveQueue extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Icon(Icons.filter_list_rounded, size: 20, color: colors.textLight),
+                    Icon(Icons.filter_list_rounded, size: AppSpacing.iconSmall, color: colors.textLight),
                     const SizedBox(width: AppSpacing.sm),
-                    Icon(Icons.search_rounded, size: 20, color: colors.textLight),
+                    Icon(Icons.search_rounded, size: AppSpacing.iconSmall, color: colors.textLight),
                   ],
                 ),
               ],

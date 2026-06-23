@@ -71,7 +71,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
                 child: Icon(
                   Icons.arrow_back_rounded,
                   color: colors.primary,
-                  size: 24,
+                  size: AppSpacing.iconSize,
                 ),
               ),
             ),
@@ -88,7 +88,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
           const Spacer(),
           Icon(
             Icons.lock_rounded,
-            size: 24,
+            size: AppSpacing.iconSize,
             color: colors.primary,
           ),
         ],

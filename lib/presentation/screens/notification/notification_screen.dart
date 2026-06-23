@@ -39,7 +39,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       glassActions: [
         GestureDetector(
           onTap: () => context.read<NotificationBloc>().add(const NotificationMarkAllRead()),
-          child: Icon(Icons.done_all_rounded, color: colors.primary, size: 22),
+          child: Icon(Icons.done_all_rounded, color: colors.primary, size: AppSpacing.iconMedium),
         ),
       ],
       body: BlocBuilder<NotificationBloc, NotificationState>(
@@ -282,7 +282,7 @@ class _AnimatedNotificationCardState extends State<_AnimatedNotificationCard>
                       shape: BoxShape.circle,
                       color: typeData.color.withValues(alpha: 0.15),
                     ),
-                    child: Icon(typeData.icon, size: 22, color: typeData.color),
+                    child: Icon(typeData.icon, size: AppSpacing.iconMedium, color: typeData.color),
                   ),
                   if (!widget.notification.isRead)
                     Positioned(

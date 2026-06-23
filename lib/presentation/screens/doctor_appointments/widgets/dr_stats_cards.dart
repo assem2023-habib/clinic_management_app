@@ -88,7 +88,7 @@ class DrStatsCards extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(label, style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textLight)),
-              Icon(icon, color: colors.primary, size: 20),
+              Icon(icon, color: colors.primary, size: AppSpacing.iconSmall),
             ],
           ),
           const SizedBox(height: AppSpacing.sm),

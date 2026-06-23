@@ -40,7 +40,7 @@ class RhClinicPulse extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(icon, color: color, size: 20),
+                Icon(icon, color: color, size: AppSpacing.iconSmall),
                 const Spacer(),
                 Text(
                   value,

@@ -112,7 +112,7 @@ class RhQuickActions extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(icon, color: color, size: 24),
+            Icon(icon, color: color, size: AppSpacing.iconSize),
             const SizedBox(height: AppSpacing.sm),
             Text(label, style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
           ],

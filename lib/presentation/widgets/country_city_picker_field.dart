@@ -134,7 +134,7 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
                               title: Text(country.nameAr, style: TextStyle(color: colors.textPrimary)),
                               subtitle: Text(country.nameEn, style: TextStyle(color: colors.textSecondary, fontSize: AppSpacing.bodySmall)),
                               trailing: isSelected
-                                  ? Icon(Icons.check_circle_rounded, color: colors.primary, size: 22)
+                                  ? Icon(Icons.check_circle_rounded, color: colors.primary, size: AppSpacing.iconMedium)
                                   : null,
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                               selected: isSelected,
@@ -252,11 +252,11 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
                           children: [
                             ListTile(
                               leading: Icon(Icons.location_city_rounded,
-                                  color: isSelected ? colors.primary : colors.textSecondary, size: 24),
+                                  color: isSelected ? colors.primary : colors.textSecondary, size: AppSpacing.iconSize),
                               title: Text(city.nameAr, style: TextStyle(color: colors.textPrimary)),
                               subtitle: Text(city.nameEn, style: TextStyle(color: colors.textSecondary, fontSize: AppSpacing.bodySmall)),
                               trailing: isSelected
-                                  ? Icon(Icons.check_circle_rounded, color: colors.primary, size: 22)
+                                  ? Icon(Icons.check_circle_rounded, color: colors.primary, size: AppSpacing.iconMedium)
                                   : null,
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                               selected: isSelected,
@@ -306,7 +306,7 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
                 width: 20, height: 20,
                 child: CircularProgressIndicator(strokeWidth: 2, color: colors.primary),
               )
-            : Icon(Icons.arrow_drop_down_rounded, color: colors.textSecondary, size: 22),
+            : Icon(Icons.arrow_drop_down_rounded, color: colors.textSecondary, size: AppSpacing.iconMedium),
         filled: true,
         fillColor: colors.cardBg,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),

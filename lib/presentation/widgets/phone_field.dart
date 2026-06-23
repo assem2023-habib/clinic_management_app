@@ -126,7 +126,7 @@ class PhoneFieldState extends State<PhoneField> {
                     fontSize: AppSpacing.bodyMedium,
                   ),
                 ),
-                Icon(Icons.arrow_drop_down_rounded, color: colors.textSecondary, size: 20),
+                Icon(Icons.arrow_drop_down_rounded, color: colors.textSecondary, size: AppSpacing.iconSmall),
               ],
             ),
           ),
@@ -212,7 +212,7 @@ class PhoneFieldState extends State<PhoneField> {
                                 style: TextStyle(color: colors.textSecondary, fontSize: AppSpacing.bodySmall),
                               ),
                               trailing: isSelected
-                                  ? Icon(Icons.check_circle_rounded, color: colors.primary, size: 22)
+                                  ? Icon(Icons.check_circle_rounded, color: colors.primary, size: AppSpacing.iconMedium)
                                   : null,
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                               selected: isSelected,

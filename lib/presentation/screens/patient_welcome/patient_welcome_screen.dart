@@ -92,7 +92,7 @@ class _PatientWelcomeScreenState extends State<PatientWelcomeScreen>
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.monitor_heart_rounded, size: 24, color: colors.mint),
+                          Icon(Icons.monitor_heart_rounded, size: AppSpacing.iconSize, color: colors.mint),
                           const SizedBox(width: 6),
                           Text('Vitality', style: TextStyle(fontFamily: 'Sora', fontSize: 20, fontWeight: FontWeight.w700, color: colors.mint)),
                         ],

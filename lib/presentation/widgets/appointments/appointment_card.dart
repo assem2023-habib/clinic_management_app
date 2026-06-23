@@ -164,7 +164,7 @@ class _AppointmentCardState extends State<AppointmentCard> with SingleTickerProv
               color: c.surface,
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Icon(Icons.schedule, color: c.primary, size: 20),
+            child: Icon(Icons.schedule, color: c.primary, size: AppSpacing.iconSmall),
           ),
           const SizedBox(width: 10),
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -185,7 +185,7 @@ class _AppointmentCardState extends State<AppointmentCard> with SingleTickerProv
                 borderRadius: BorderRadius.circular(19),
                 border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
               ),
-              child: Icon(Icons.more_vert, color: c.textSecondary, size: 20),
+              child: Icon(Icons.more_vert, color: c.textSecondary, size: AppSpacing.iconSmall),
             ),
           ),
         ),

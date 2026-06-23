@@ -120,7 +120,7 @@ class _PatientDoctorProfileViewState extends State<PatientDoctorProfileView> {
               height: 52,
               child: ElevatedButton.icon(
                 onPressed: widget.onBookAppointment,
-                icon: const Icon(Icons.event_available_rounded, size: 22),
+                icon: const Icon(Icons.event_available_rounded, size: AppSpacing.iconMedium),
                 label: Text(AppStrings.bookAppointment, style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600)),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: colors.primary,
@@ -246,7 +246,7 @@ class _SupervisionBadgeCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(icon, color: color, size: 22),
+          Icon(icon, color: color, size: AppSpacing.iconMedium),
           const SizedBox(width: 10),
           Expanded(
             child: Text(

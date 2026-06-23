@@ -28,7 +28,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
         radius: 20,
         backgroundColor: colors.cardBg.withValues(alpha: 0.6),
         child: IconButton(
-          icon: Icon(Icons.notifications_outlined, color: colors.primary, size: 22),
+          icon: Icon(Icons.notifications_outlined, color: colors.primary, size: AppSpacing.iconMedium),
           onPressed: () => Navigator.pushNamed(context, AppRoutes.notifications),
           padding: EdgeInsets.zero,
           constraints: const BoxConstraints(),

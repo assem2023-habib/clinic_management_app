@@ -138,7 +138,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
               borderRadius: BorderRadius.circular(14),
               boxShadow: [BoxShadow(color: colors.accent.withValues(alpha: 0.25), blurRadius: 10)],
             ),
-            child: const Icon(Icons.star_rounded, color: Colors.white, size: 24),
+            child: const Icon(Icons.star_rounded, color: Colors.white, size: AppSpacing.iconSize),
           ),
           const SizedBox(width: 14),
           Text(
@@ -276,7 +276,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
               const SizedBox(width: 10),
               Icon(
                 Icons.send_rounded,
-                size: 20,
+                size: AppSpacing.iconSmall,
                 color: canSend ? Colors.white : colors.textSecondary.withValues(alpha: 0.5),
               ),
             ],

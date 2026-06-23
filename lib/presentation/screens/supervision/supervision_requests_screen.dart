@@ -439,7 +439,7 @@ class _SupervisionCard extends StatelessWidget {
                     ),
                     borderRadius: BorderRadius.circular(14),
                   ),
-                  child: Icon(icon, color: Colors.white, size: 24),
+                  child: Icon(icon, color: Colors.white, size: AppSpacing.iconSize),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -565,7 +565,7 @@ class _RequestCard extends StatelessWidget {
                     color: _statusColor().withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(14),
                   ),
-                  child: Icon(icon, color: _statusColor(), size: 24),
+                  child: Icon(icon, color: _statusColor(), size: AppSpacing.iconSize),
                 ),
                 const SizedBox(width: 12),
                 Expanded(

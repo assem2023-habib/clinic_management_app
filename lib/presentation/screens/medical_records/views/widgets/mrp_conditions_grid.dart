@@ -35,7 +35,7 @@ class MrpConditionCard extends StatelessWidget {
               color: iconBg.withValues(alpha: 0.3),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(icon, size: 24, color: iconColor),
+            child: Icon(icon, size: AppSpacing.iconSize, color: iconColor),
           ),
           const SizedBox(width: 16),
           Text(

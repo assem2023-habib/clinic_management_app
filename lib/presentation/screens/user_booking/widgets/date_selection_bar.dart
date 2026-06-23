@@ -54,7 +54,7 @@ class DateSelectionBar extends StatelessWidget {
                     borderRadius: BorderRadius.circular(AppSpacing.lg),
                     border: Border.all(color: colors.divider.withValues(alpha: 0.3)),
                   ),
-                  child: Icon(Icons.calendar_month_rounded, color: colors.primary, size: 22),
+                  child: Icon(Icons.calendar_month_rounded, color: colors.primary, size: AppSpacing.iconMedium),
                 ),
               ),
             ),

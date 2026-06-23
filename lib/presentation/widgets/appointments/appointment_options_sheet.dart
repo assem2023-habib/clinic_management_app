@@ -141,7 +141,7 @@ class _SheetOption extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
               child: Row(children: [
-                Icon(icon, size: 22, color: isDestructive ? colors.error : colors.textSecondary),
+                Icon(icon, size: AppSpacing.iconMedium, color: isDestructive ? colors.error : colors.textSecondary),
                 const SizedBox(width: 14),
                 Text(label,
                   style: TextStyle(

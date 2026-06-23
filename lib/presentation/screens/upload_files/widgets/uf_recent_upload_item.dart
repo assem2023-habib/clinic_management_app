@@ -39,7 +39,7 @@ class UfRecentUploadItem extends StatelessWidget {
                 color: colors.cardBg,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(icon, size: 24, color: iconColor),
+              child: Icon(icon, size: AppSpacing.iconSize, color: iconColor),
             ),
             const SizedBox(width: AppSpacing.md),
             Expanded(
@@ -60,7 +60,7 @@ class UfRecentUploadItem extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(Icons.check_circle_rounded, size: 24, color: colors.primary),
+            Icon(Icons.check_circle_rounded, size: AppSpacing.iconSize, color: colors.primary),
           ],
         ),
       ),

@@ -27,7 +27,7 @@ class StatCard extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon, size: 20, color: color),
+              Icon(icon, size: AppSpacing.iconSmall, color: color),
               if (value != null) ...[
                 const SizedBox(height: 2),
                 Text(value!, style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.bold, color: color)),

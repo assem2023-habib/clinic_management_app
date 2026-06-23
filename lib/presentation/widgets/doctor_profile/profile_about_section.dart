@@ -29,7 +29,7 @@ class ProfileAboutSection extends StatelessWidget {
             Text(AppStrings.aboutDoctor, style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
             if (isEditable)
               IconButton(
-                icon: Icon(Icons.edit_rounded, size: 20, color: colors.primary),
+                icon: Icon(Icons.edit_rounded, size: AppSpacing.iconSmall, color: colors.primary),
                 onPressed: onEdit,
               ),
           ],

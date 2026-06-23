@@ -42,7 +42,7 @@ class GlassStatCard extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(icon, size: 22, color: color),
+                  Icon(icon, size: AppSpacing.iconMedium, color: color),
                   const SizedBox(height: 6),
                   if (value != null)
                     Text(

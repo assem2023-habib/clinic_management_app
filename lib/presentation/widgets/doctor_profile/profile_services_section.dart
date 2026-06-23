@@ -31,7 +31,7 @@ class ProfileServicesSection extends StatelessWidget {
             Text(AppStrings.services, style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
             if (isEditable)
               IconButton(
-                icon: Icon(Icons.edit_rounded, size: 20, color: colors.primary),
+                icon: Icon(Icons.edit_rounded, size: AppSpacing.iconSmall, color: colors.primary),
                 onPressed: onEdit,
               ),
           ],
@@ -53,11 +53,11 @@ class ProfileServicesSection extends StatelessWidget {
                   color: colors.primary.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(Icons.medical_services_rounded, color: colors.primary, size: 20),
+                child: Icon(Icons.medical_services_rounded, color: colors.primary, size: AppSpacing.iconSmall),
               ),
               const SizedBox(width: 12),
               Expanded(child: Text(service, style: TextStyle(fontSize: AppSpacing.bodyMedium, color: colors.textPrimary))),
-              Icon(Icons.chevron_left_rounded, color: colors.textLight, size: 20),
+              Icon(Icons.chevron_left_rounded, color: colors.textLight, size: AppSpacing.iconSmall),
             ],
           ),
         )),
