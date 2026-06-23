@@ -12,6 +12,8 @@ import 'package:clinic_management_app/core/theme/app_theme.dart';
 import 'package:clinic_management_app/core/theme/theme_provider.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/data/datasources/local/mock_datasource.dart';
+import 'package:clinic_management_app/presentation/blocs/notification/notification_bloc.dart';
+import 'package:clinic_management_app/presentation/blocs/notification/notification_event.dart';
 import 'package:clinic_management_app/presentation/blocs/language/language_cubit.dart';
 import 'package:clinic_management_app/presentation/screens/splash_screen.dart';
 import 'package:clinic_management_app/presentation/screens/login/login_screen.dart';
@@ -81,6 +83,54 @@ void main() async {
   runApp(const MyApp());
 }
 
+class _FcmWatcher extends StatefulWidget {
+  final Widget child;
+  final GlobalKey<NavigatorState> navigatorKey;
+  const _FcmWatcher({required this.child, required this.navigatorKey});
+
+  @override
+  State<_FcmWatcher> createState() => _FcmWatcherState();
+}
+
+class _FcmWatcherState extends State<_FcmWatcher> {
+  @override
+  void initState() {
+    super.initState();
+    FcmService().messageStream.addListener(_onNewMessage);
+    FcmService().tapStream.addListener(_onTap);
+  }
+
+  void _onNewMessage() {
+    if (!mounted) return;
+    context.read<NotificationBloc>().add(const NotificationLoadAll());
+  }
+
+  void _onTap() {
+    if (!mounted) return;
+    final message = FcmService().tapStream.value;
+    if (message == null) return;
+    final data = message.data;
+    final navigator = widget.navigatorKey.currentState;
+    if (navigator == null) return;
+    final type = data['topic'] ?? data['type'] ?? '';
+    if (type.contains('appointment')) {
+      navigator.pushNamed(AppRoutes.myAppointments);
+    } else {
+      navigator.pushNamed(AppRoutes.notifications);
+    }
+  }
+
+  @override
+  void dispose() {
+    FcmService().messageStream.removeListener(_onNewMessage);
+    FcmService().tapStream.removeListener(_onTap);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
+}
+
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -120,7 +170,9 @@ class _MyAppState extends State<MyApp> {
           ...AppProviders.blocProviders(context),
           BlocProvider(create: (_) => LanguageCubit()),
         ],
-        child: ListenableBuilder(
+        child: _FcmWatcher(
+          navigatorKey: _navigatorKey,
+          child: ListenableBuilder(
           listenable: _themeProvider,
           builder: (context, _) => BlocBuilder<LanguageCubit, Locale>(
             builder: (context, locale) => MaterialApp(
@@ -227,6 +279,7 @@ class _MyAppState extends State<MyApp> {
             },
           ),
         ),
+      ),
       ),
       ),
     );

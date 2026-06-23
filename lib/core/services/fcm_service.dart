@@ -24,6 +24,9 @@ class FcmService {
   final _messageStream = ValueNotifier<RemoteMessage?>(null);
   ValueNotifier<RemoteMessage?> get messageStream => _messageStream;
 
+  final _tapStream = ValueNotifier<RemoteMessage?>(null);
+  ValueNotifier<RemoteMessage?> get tapStream => _tapStream;
+
   final _tokenStreamController = StreamController<String>.broadcast();
   Stream<String> get onTokenRefresh => _tokenStreamController.stream;
 
@@ -67,12 +70,10 @@ class FcmService {
     debugPrint('Local notification tapped: ${response.payload}');
     if (response.payload != null) {
       try {
-        final data = jsonDecode(response.payload!);
-        _messageStream.value = RemoteMessage(
-          senderId: '',
-          messageId: '',
-          data: Map<String, String>.from(data),
-        );
+        final data = Map<String, String>.from(jsonDecode(response.payload!));
+        final message = RemoteMessage(senderId: '', messageId: '', data: data);
+        _messageStream.value = message;
+        _tapStream.value = message;
       } catch (_) {}
     }
   }
@@ -106,6 +107,7 @@ class FcmService {
     final message = await _messaging.getInitialMessage();
     if (message != null) {
       _messageStream.value = message;
+      _tapStream.value = message;
     }
   }
 
@@ -116,6 +118,7 @@ class FcmService {
 
   Future<void> _handleMessageOpenedApp(RemoteMessage message) async {
     _messageStream.value = message;
+    _tapStream.value = message;
   }
 
   Future<void> _showLocalNotification(RemoteMessage message) async {

@@ -7,6 +7,8 @@ import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/core/theme/theme_provider.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/language/language_cubit.dart';
+import 'package:clinic_management_app/presentation/blocs/notification/notification_bloc.dart';
+import 'package:clinic_management_app/presentation/blocs/notification/notification_state.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -102,6 +104,7 @@ class AppDrawer extends StatelessWidget {
     final patientsLabel = role == UserRole.doctor ? AppStrings.myPatients : AppStrings.patients;
     final allItems = [
       _MenuItem(icon: Icons.dashboard_rounded, title: AppStrings.dashboard, route: AppRoutes.dashboard),
+      _MenuItem(icon: Icons.notifications_rounded, title: AppStrings.notifications, route: AppRoutes.notifications),
       _MenuItem(icon: Icons.local_hospital_rounded, title: AppStrings.doctors, route: AppRoutes.doctors),
       _MenuItem(icon: Icons.people_rounded, title: patientsLabel, route: AppRoutes.patients),
       _MenuItem(icon: Icons.calendar_month_rounded, title: AppStrings.myAppointments, route: AppRoutes.myAppointments),
@@ -113,10 +116,10 @@ class AppDrawer extends StatelessWidget {
     ];
 
     final roleRoutes = <UserRole, Set<String>>{
-      UserRole.admin:        {AppRoutes.dashboard, AppRoutes.doctors, AppRoutes.patients, AppRoutes.appointments, AppRoutes.medicalRecords, AppRoutes.settings, AppRoutes.profile, AppRoutes.rating},
-      UserRole.doctor:       {AppRoutes.dashboard, AppRoutes.patients, AppRoutes.appointments, AppRoutes.medicalRecords, AppRoutes.settings, AppRoutes.profile, AppRoutes.supervisionRequests, AppRoutes.rating},
-      UserRole.receptionist: {AppRoutes.dashboard, AppRoutes.doctors, AppRoutes.patients, AppRoutes.appointments, AppRoutes.medicalRecords, AppRoutes.settings, AppRoutes.profile, AppRoutes.rating},
-      UserRole.patient:      {AppRoutes.dashboard, AppRoutes.doctors, AppRoutes.myAppointments, AppRoutes.medicalRecords, AppRoutes.settings, AppRoutes.profile, AppRoutes.supervisionRequests, AppRoutes.rating},
+      UserRole.admin:        {AppRoutes.dashboard, AppRoutes.notifications, AppRoutes.doctors, AppRoutes.patients, AppRoutes.appointments, AppRoutes.medicalRecords, AppRoutes.settings, AppRoutes.profile, AppRoutes.rating},
+      UserRole.doctor:       {AppRoutes.dashboard, AppRoutes.notifications, AppRoutes.patients, AppRoutes.appointments, AppRoutes.medicalRecords, AppRoutes.settings, AppRoutes.profile, AppRoutes.supervisionRequests, AppRoutes.rating},
+      UserRole.receptionist: {AppRoutes.dashboard, AppRoutes.notifications, AppRoutes.doctors, AppRoutes.patients, AppRoutes.appointments, AppRoutes.medicalRecords, AppRoutes.settings, AppRoutes.profile, AppRoutes.rating},
+      UserRole.patient:      {AppRoutes.dashboard, AppRoutes.notifications, AppRoutes.doctors, AppRoutes.myAppointments, AppRoutes.medicalRecords, AppRoutes.settings, AppRoutes.profile, AppRoutes.supervisionRequests, AppRoutes.rating},
     };
 
     final allowed = roleRoutes[role] ?? roleRoutes[UserRole.patient]!;
@@ -126,15 +129,14 @@ class AppDrawer extends StatelessWidget {
       padding: EdgeInsets.only(top: AppSpacing.sm),
       children: items.map((item) {
         final isActive = currentRoute == item.route;
+        final isNotification = item.route == AppRoutes.notifications;
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: 2),
           child: ListTile(
             tileColor: isActive ? colors.primary.withValues(alpha: 0.1) : null,
-            leading: Icon(
-              item.icon,
-              color: isActive ? colors.primary : colors.textSecondary,
-              size: 22,
-            ),
+            leading: isNotification
+                ? _NotificationBadge(icon: item.icon, color: isActive ? colors.primary : colors.textSecondary)
+                : Icon(item.icon, color: isActive ? colors.primary : colors.textSecondary, size: 22),
             title: Text(
               item.title,
               style: TextStyle(
@@ -243,4 +245,26 @@ class _MenuItem {
   final String route;
   final Object? arguments;
   const _MenuItem({required this.icon, required this.title, required this.route, this.arguments});
+}
+
+class _NotificationBadge extends StatelessWidget {
+  final IconData icon;
+  final Color color;
+  const _NotificationBadge({required this.icon, required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<NotificationBloc, NotificationState>(
+      builder: (context, state) {
+        final unread = state is NotificationLoaded ? state.unreadCount : 0;
+        if (unread > 0) {
+          return Badge(
+            label: Text(unread > 99 ? '99+' : '$unread', style: const TextStyle(fontSize: 10)),
+            child: Icon(icon, color: color, size: 22),
+          );
+        }
+        return Icon(icon, color: color, size: 22);
+      },
+    );
+  }
 }
