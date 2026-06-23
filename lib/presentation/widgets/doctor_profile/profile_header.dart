@@ -83,7 +83,7 @@ class ProfileHeader extends StatelessWidget {
                       const SizedBox(width: AppSpacing.xxs),
                       Flexible(
                         child: Text(
-                          doctor.clinicAddress ?? 'الرياض',
+                          doctor.clinicAddress ?? AppStrings.notSpecified,
                           style: TextStyle(fontSize: AppSpacing.caption, color: colors.textLight),
                           overflow: TextOverflow.ellipsis,
                         ),

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
 import 'package:clinic_management_app/domain/entities/user_entity.dart';
 import 'package:clinic_management_app/domain/entities/role_entity.dart';
@@ -160,10 +161,10 @@ class AuthCubit extends Cubit<AuthState> {
     if (email.isNotEmpty && password.isNotEmpty) {
       final userRole = role ?? UserRole.admin;
       final name = switch (userRole) {
-          UserRole.admin => 'Admin',
-          UserRole.doctor => 'Doctor',
-          UserRole.receptionist => 'Receptionist',
-          UserRole.patient => 'Patient',
+          UserRole.admin => AppStrings.roleNameAdmin,
+          UserRole.doctor => AppStrings.roleNameDoctor,
+          UserRole.receptionist => AppStrings.roleNameReceptionist,
+          UserRole.patient => AppStrings.roleNamePatient,
         };
       emit(AuthAuthenticated(userId: 'user1', userName: name, role: userRole));
     } else {

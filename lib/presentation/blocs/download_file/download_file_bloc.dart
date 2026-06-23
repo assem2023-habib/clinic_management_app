@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/download_file_entity.dart';
 import 'package:clinic_management_app/domain/entities/file_entity.dart';
 import 'package:clinic_management_app/domain/repositories/file_repository.dart';
@@ -31,7 +32,7 @@ class DownloadFileBloc extends Bloc<DownloadFileEvent, DownloadFileState> {
       final hasMore = files.length >= event.limit;
       emit(DownloadFileLoaded(_filtered(), activeCategory: _currentCategory, hasMore: hasMore, page: event.page));
     } catch (_) {
-      emit(DownloadFileError('Failed to load files'));
+      emit(DownloadFileError(AppStrings.opFailedToLoadFiles));
     }
   }
 

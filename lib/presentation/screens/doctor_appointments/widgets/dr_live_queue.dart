@@ -158,7 +158,7 @@ class _DrLiveQueueState extends State<DrLiveQueue> {
 
   Widget _buildGreeting(AppColorSet colors, String userName, int waitingCount) {
     final hour = DateTime.now().hour;
-    final greeting = hour < 12 ? 'صباح الخير' : hour < 18 ? 'مساء الخير' : 'مساء الخير';
+    final greeting = hour < 12 ? AppStrings.greetingMorning : AppStrings.greetingEvening;
     return GlassCard(
       child: Row(
         children: [
@@ -173,7 +173,7 @@ class _DrLiveQueueState extends State<DrLiveQueue> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('$greeting، $userName', style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.bold, color: colors.textPrimary)),
-                Text('لديك $waitingCount مرضى ينتظرون', style: TextStyle(fontSize: AppSpacing.caption, color: colors.textLight)),
+                Text('${AppStrings.greetingYouHave} $waitingCount ${AppStrings.patientsWaiting}', style: TextStyle(fontSize: AppSpacing.caption, color: colors.textLight)),
               ],
             ),
           ),

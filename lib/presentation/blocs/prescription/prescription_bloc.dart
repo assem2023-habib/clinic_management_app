@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/medicine_entity.dart';
 import 'package:clinic_management_app/domain/entities/prescription_entity.dart';
 import 'package:clinic_management_app/domain/entities/prescription_item_entity.dart';
@@ -158,7 +159,7 @@ class PrescriptionBloc extends Bloc<PrescriptionEvent, PrescriptionState> {
       if (medicine != null) {
         emit(MedicineLoaded(medicine));
       } else {
-        emit(PrescriptionError('Medicine not found'));
+        emit(PrescriptionError(AppStrings.opMedicineNotFound));
       }
     } catch (e) {
       emit(PrescriptionError(e.toString()));
@@ -212,7 +213,7 @@ class PrescriptionBloc extends Bloc<PrescriptionEvent, PrescriptionState> {
       if (prescription != null) {
         emit(PrescriptionDetailLoaded(prescription));
       } else {
-        emit(PrescriptionError('Prescription not found'));
+        emit(PrescriptionError(AppStrings.opPrescriptionNotFound));
       }
     } catch (e) {
       emit(PrescriptionError(e.toString()));
@@ -232,7 +233,7 @@ class PrescriptionBloc extends Bloc<PrescriptionEvent, PrescriptionState> {
   Future<void> _onUpdatePrescription(UpdatePrescription event, Emitter<PrescriptionState> emit) async {
     try {
       await repository.updatePrescription(event.prescription);
-      emit(PrescriptionOperationSuccess('Prescription updated'));
+      emit(PrescriptionOperationSuccess(AppStrings.opPrescriptionUpdated));
     } catch (e) {
       emit(PrescriptionError(e.toString()));
     }
@@ -241,7 +242,7 @@ class PrescriptionBloc extends Bloc<PrescriptionEvent, PrescriptionState> {
   Future<void> _onDeletePrescription(DeletePrescription event, Emitter<PrescriptionState> emit) async {
     try {
       await repository.deletePrescription(event.id);
-      emit(PrescriptionOperationSuccess('Prescription deleted'));
+      emit(PrescriptionOperationSuccess(AppStrings.opPrescriptionDeleted));
     } catch (e) {
       emit(PrescriptionError(e.toString()));
     }
@@ -270,7 +271,7 @@ class PrescriptionBloc extends Bloc<PrescriptionEvent, PrescriptionState> {
   Future<void> _onUpdatePrescriptionItem(UpdatePrescriptionItem event, Emitter<PrescriptionState> emit) async {
     try {
       await repository.updatePrescriptionItem(event.item);
-      emit(PrescriptionOperationSuccess('Item updated'));
+      emit(PrescriptionOperationSuccess(AppStrings.opItemUpdated));
     } catch (e) {
       emit(PrescriptionError(e.toString()));
     }
@@ -279,7 +280,7 @@ class PrescriptionBloc extends Bloc<PrescriptionEvent, PrescriptionState> {
   Future<void> _onDeletePrescriptionItem(DeletePrescriptionItem event, Emitter<PrescriptionState> emit) async {
     try {
       await repository.deletePrescriptionItem(event.id);
-      emit(PrescriptionOperationSuccess('Item deleted'));
+      emit(PrescriptionOperationSuccess(AppStrings.opItemDeleted));
     } catch (e) {
       emit(PrescriptionError(e.toString()));
     }

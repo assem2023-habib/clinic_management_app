@@ -109,7 +109,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'الخيارات المتاحة لـ',
+                      AppStrings.optionsAvailableFor,
                       style: TextStyle(
                         fontSize: AppSpacing.labelSmall,
                         color: colors.textSecondary,
@@ -133,7 +133,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
           _sheetOption(
             colors,
             icon: AppIcons.visibility,
-            label: 'عرض الملف',
+            label: AppStrings.viewProfile,
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, AppRoutes.doctorProfile, arguments: doctor.id);
@@ -244,7 +244,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                   ),
                   const SizedBox(height: 18),
                   Text(
-                    'تأكيد الحذف',
+                    AppStrings.confirmDeletion,
                     style: TextStyle(
                       fontSize: AppSpacing.heading,
                       fontWeight: FontWeight.w700,
@@ -342,7 +342,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
       showDrawer: true,
       extendBody: true,
       useGlassAppBar: true,
-      glassTitle: 'البحث عن طبيب',
+      glassTitle: AppStrings.searchDoctorHint,
       showParticleBg: true,
       body: Column(
         children: [
@@ -419,7 +419,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
               }
             },
             decoration: InputDecoration(
-              hintText: 'ابحث عن اسم الطبيب أو التخصص...',
+              hintText: AppStrings.searchDoctorHint,
               hintStyle: TextStyle(color: colors.textSecondary.withValues(alpha: 0.6), fontSize: AppSpacing.bodyMedium),
               prefixIcon: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 200),
@@ -549,7 +549,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
           ),
           const SizedBox(height: AppSpacing.bulletSize),
           Text(
-            'جرّب البحث بكلمة مختلفة',
+            AppStrings.searchDifferentWord,
             style: TextStyle(fontSize: AppSpacing.caption, color: colors.textSecondary.withValues(alpha: 0.6)),
           ),
         ],

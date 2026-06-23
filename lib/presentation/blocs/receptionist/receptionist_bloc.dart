@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/receptionist_entity.dart';
 import 'package:clinic_management_app/domain/repositories/receptionist_repository.dart';
 
@@ -88,7 +89,7 @@ class ReceptionistBloc extends Bloc<ReceptionistEvent, ReceptionistState> {
     emit(ReceptionistLoading());
     try {
       final r = await repository.getReceptionistById(event.id);
-      if (r != null) { emit(ReceptionistLoaded(r)); } else { emit(ReceptionistError('Not found')); }
+      if (r != null) { emit(ReceptionistLoaded(r)); } else { emit(ReceptionistError(AppStrings.opNotFound)); }
     } catch (e) {
       emit(ReceptionistError(e.toString()));
     }
@@ -107,7 +108,7 @@ class ReceptionistBloc extends Bloc<ReceptionistEvent, ReceptionistState> {
   Future<void> _onUpdate(UpdateReceptionistEvent event, Emitter<ReceptionistState> emit) async {
     try {
       await repository.updateReceptionist(event.receptionist);
-      emit(ReceptionistOperationSuccess('Updated'));
+      emit(ReceptionistOperationSuccess(AppStrings.opUpdated));
     } catch (e) {
       emit(ReceptionistError(e.toString()));
     }
@@ -126,7 +127,7 @@ class ReceptionistBloc extends Bloc<ReceptionistEvent, ReceptionistState> {
   Future<void> _onActivate(ActivateReceptionistAccount event, Emitter<ReceptionistState> emit) async {
     try {
       final active = await repository.activateAccount(event.id);
-      emit(ReceptionistOperationSuccess(active ? 'Activated' : 'Deactivated'));
+      emit(ReceptionistOperationSuccess(active ? AppStrings.opActivated : AppStrings.opDeactivated));
     } catch (e) {
       emit(ReceptionistError(e.toString()));
     }

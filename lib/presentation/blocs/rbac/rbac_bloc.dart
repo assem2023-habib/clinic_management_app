@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/role_entity.dart';
 import 'package:clinic_management_app/domain/entities/permission_entity.dart';
 import 'package:clinic_management_app/domain/repositories/rbac_repository.dart';
@@ -147,7 +148,7 @@ class RbacBloc extends Bloc<RbacEvent, RbacState> {
     emit(RbacLoading());
     try {
       final role = await repository.getRoleById(event.id);
-      if (role != null) { emit(RoleLoaded(role)); } else { emit(RbacError('Role not found')); }
+      if (role != null) { emit(RoleLoaded(role)); } else { emit(RbacError(AppStrings.opRoleNotFound)); }
     } catch (e) {
       emit(RbacError(e.toString()));
     }
@@ -166,7 +167,7 @@ class RbacBloc extends Bloc<RbacEvent, RbacState> {
   Future<void> _onUpdateRole(UpdateRoleEvent event, Emitter<RbacState> emit) async {
     try {
       await repository.updateRole(event.role);
-      emit(RbacOperationSuccess('Role updated'));
+      emit(RbacOperationSuccess(AppStrings.opRoleUpdated));
     } catch (e) {
       emit(RbacError(e.toString()));
     }
@@ -206,7 +207,7 @@ class RbacBloc extends Bloc<RbacEvent, RbacState> {
     emit(RbacLoading());
     try {
       final permission = await repository.getPermissionById(event.id);
-      if (permission != null) { emit(PermissionLoaded(permission)); } else { emit(RbacError('Permission not found')); }
+      if (permission != null) { emit(PermissionLoaded(permission)); } else { emit(RbacError(AppStrings.opPermissionNotFound)); }
     } catch (e) {
       emit(RbacError(e.toString()));
     }
@@ -225,7 +226,7 @@ class RbacBloc extends Bloc<RbacEvent, RbacState> {
   Future<void> _onUpdatePermission(UpdatePermissionEvent event, Emitter<RbacState> emit) async {
     try {
       await repository.updatePermission(event.permission);
-      emit(RbacOperationSuccess('Permission updated'));
+      emit(RbacOperationSuccess(AppStrings.opPermissionUpdated));
     } catch (e) {
       emit(RbacError(e.toString()));
     }

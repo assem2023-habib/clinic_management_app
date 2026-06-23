@@ -694,4 +694,180 @@ class AppStrings {
   static String get supervisionPending => _t('قَيْدُ المُرَاجَعَةِ', 'Under Review');
   static String get supervisionRejected => _t('تَمَّ الرَّفْضُ', 'Rejected');
   static String get requestAgain => _t('إِعَادَةُ الطَّلَبِ', 'Request Again');
+
+  // === BLoC operation messages ===
+  static String get opTimeSet => _t('تَمَّ تَعْيِينُ الوَقْتِ بِنَجَاحٍ', 'Time set successfully');
+  static String get opAppointmentAccepted => _t('تَمَّ قَبُولُ المَوْعِدِ', 'Appointment accepted');
+  static String get opAppointmentRejected => _t('تَمَّ رَفْضُ المَوْعِدِ', 'Appointment rejected');
+  static String get opMedicineNotFound => _t('الدَّوَاءُ غَيْرُ مَوْجُودٍ', 'Medicine not found');
+  static String get opPrescriptionNotFound => _t('الوَصْفَةُ غَيْرُ مَوْجُودَةٍ', 'Prescription not found');
+  static String get opPrescriptionUpdated => _t('تَمَّ تَحْدِيثُ الوَصْفَةِ', 'Prescription updated');
+  static String get opPrescriptionDeleted => _t('تَمَّ حَذْفُ الوَصْفَةِ', 'Prescription deleted');
+  static String get opItemUpdated => _t('تَمَّ تَحْدِيثُ العُنْصُرِ', 'Item updated');
+  static String get opItemDeleted => _t('تَمَّ حَذْفُ العُنْصُرِ', 'Item deleted');
+  static String get opPatientAssigned => _t('تَمَّ تَعْيِينُ المَرِيضِ', 'Patient assigned');
+  static String get opPatientsAssigned => _t('تَمَّ تَعْيِينُ المَرْضَى', 'Patients assigned');
+  static String get opPatientRemoved => _t('تَمَّ إِزَالَةُ المَرِيضِ', 'Patient removed');
+  static String get opDoctorRemoved => _t('تَمَّ إِزَالَةُ الطَّبِيبِ', 'Doctor removed');
+  static String get opRequestSent => _t('تَمَّ إِرْسَالُ الطَّلَبِ', 'Request sent');
+  static String get opRequestApproved => _t('تَمَّتِ المُوَافَقَةُ عَلَى الطَّلَبِ', 'Request approved');
+  static String get opRequestRejected => _t('تَمَّ رَفْضُ الطَّلَبِ', 'Request rejected');
+  static String get opRequestCancelled => _t('تَمَّ إِلْغَاءُ الطَّلَبِ', 'Request cancelled');
+  static String get opUserNotFound => _t('المُسْتَخْدِمُ غَيْرُ مَوْجُودٍ', 'User not found');
+  static String get opUserUpdated => _t('تَمَّ تَحْدِيثُ المُسْتَخْدِمِ', 'User updated');
+  static String get opUserActivated => _t('تَمَّ تَنْشِيطُ المُسْتَخْدِمِ', 'User activated');
+  static String get opUserDeactivated => _t('تَمَّ إِيقَافُ المُسْتَخْدِمِ', 'User deactivated');
+  static String get opUserDeleted => _t('تَمَّ حَذْفُ المُسْتَخْدِمِ', 'User deleted');
+  static String get opRoleNotFound => _t('الدَّوْرُ غَيْرُ مَوْجُودٍ', 'Role not found');
+  static String get opRoleUpdated => _t('تَمَّ تَحْدِيثُ الدَّوْرِ', 'Role updated');
+  static String get opPermissionNotFound => _t('الصَّلاحِيَةُ غَيْرُ مَوْجُودَةٍ', 'Permission not found');
+  static String get opPermissionUpdated => _t('تَمَّ تَحْدِيثُ الصَّلاحِيَةِ', 'Permission updated');
+  static String get opNotFound => _t('غَيْرُ مَوْجُودٍ', 'Not found');
+  static String get opUpdated => _t('تَمَّ التَّحْدِيثُ', 'Updated');
+  static String get opActivated => _t('تَمَّ التَّنْشِيطُ', 'Activated');
+  static String get opDeactivated => _t('تَمَّ الإِيقَافُ', 'Deactivated');
+  static String get opFailedToLoadFiles => _t('فَشِلَ تَحْمِيلُ المَلَفَّاتِ', 'Failed to load files');
+
+  // Auth role names
+  static String get roleNameAdmin => _t('مُدِير', 'Admin');
+  static String get roleNameDoctor => _t('طَبِيب', 'Doctor');
+  static String get roleNameReceptionist => _t('مَسْؤُولُ اسْتِقْبَالٍ', 'Receptionist');
+  static String get roleNamePatient => _t('مَرِيض', 'Patient');
+
+  // === Screen-level hardcoded strings ===
+
+  // Greetings
+  static String get greetingMorning => _t('صَبَاحُ الخَيْرِ', 'Good Morning');
+  static String get greetingEvening => _t('مَسَاءُ الخَيْرِ', 'Good Evening');
+  static String get greetingYouHave => _t('لَدَيْكَ', 'You have');
+  static String get patientsWaiting => _t('مَرْضَى يَنْتَظِرُونَ', 'patients waiting');
+
+  // Doctors Options Sheet
+  static String get optionsAvailableFor => _t('الخِيَارَاتُ المُتَاحَةُ لـ', 'Options available for');
+  static String get viewProfile => _t('عَرْضُ المِلَفِّ', 'View Profile');
+
+  // Appointment Status
+  static String get statusConfirmed => _t('مُؤَكَّدٌ', 'Confirmed');
+  static String get statusPending => _t('قَيْدُ الانْتِظَارِ', 'Pending');
+  static String get statusUnderReview => _t('قَيْدُ المُرَاجَعَةِ', 'Under Review');
+  static String get statusInProgress => _t('قَيْدُ التَّنْفِيذِ', 'In Progress');
+
+  // My Appointments Empty
+  static String get noAppointmentsNow => _t('لا تُوجَدُ مَوَاعِيدٌ حَالِيّاً', 'No appointments currently');
+  static String get bookWithOurDoctors => _t('احْجُزْ مَوْعِداً مَعَ أَحَدِ أَطِبَّائِنَا', 'Book an appointment with one of our doctors');
+
+  // Dashboard Section Headers
+  static String get sectionUsers => _t('المُسْتَخْدِمُونَ', 'Users');
+  static String get sectionAppointments => _t('المَوَاعِيدُ', 'Appointments');
+  static String get sectionStatistics => _t('الإِحْصَائِيَّاتُ', 'Statistics');
+  static String get sectionQuickActions => _t('إِجْرَاءَاتٌ سَرِيعَةٌ', 'Quick Actions');
+
+  // Settings
+  static String get arabicLabel => _t('العَرَبِيَّةُ', 'Arabic');
+  static String get englishLabel => _t('English', 'English');
+  static String get darkModeTitle => _t('الوَضْعُ الدَّاكِنُ', 'Dark Mode');
+  static String get themeLightActive => _t('الوَضْعُ الفَاتِحُ نَشِطٌ', 'Light mode active');
+  static String get themeDarkActive => _t('الوَضْعُ الدَّاكِنُ نَشِطٌ', 'Dark mode active');
+  static String get themeSystemActive => _t('يَتْبَعُ إِعْدَادَاتِ الجِهَازِ', 'Follows system settings');
+  static String get chipLight => _t('فَاتِحٌ', 'Light');
+  static String get chipDark => _t('دَاكِنٌ', 'Dark');
+  static String get chipAuto => _t('تِلْقَائِيٌّ', 'Auto');
+
+  // Timeline labels
+  static String get timelineConfirmed => _t('مُؤَكَّدٌ', 'Confirmed');
+  static String get timelinePending => _t('قَيْدُ الانْتِظَارِ', 'Pending');
+  static String get timelineCompleted => _t('مُكْتَمَلٌ', 'Completed');
+  static String get timelineCancelled => _t('مُلْغَىً', 'Cancelled');
+  static String get timelineInProgress => _t('قَيْدُ التَّنْفِيذِ', 'In Progress');
+  static String get tomorrow => _t('غَداً', 'Tomorrow');
+
+  // Patient Records Empty
+  static String get noDiagnosisYet => _t('لا يُوجَدُ تَشْخِيصٌ سَابِقٌ', 'No previous diagnosis');
+  static String get noMedicationsNow => _t('لا تُوجَدُ أَدْوِيَةٌ حَالِيَّةٌ', 'No current medications');
+  static String get noAppointmentsHistory => _t('لا تُوجَدُ مَوَاعِيدُ سَابِقَةٌ', 'No previous appointments');
+
+  // User Booking
+  static String get appointmentList => _t('قَائِمَةُ المَوَاعِيدِ', 'Appointment List');
+  static String get periodMorning => _t('الفَتْرَةُ الصَّبَاحِيَّةُ', 'Morning');
+  static String get periodEvening => _t('الفَتْرَةُ المَسَائِيَّةُ', 'Evening');
+  static String get noAppointmentsYet => _t('لَيْسَ لَدَيْكَ مَوَاعِيدُ', 'You have no appointments');
+  static String get whenYouBook => _t('عِنْدَمَا تَحْجُزُ مَوْعِداً سَيَظْهَرُ هُنَا', 'When you book an appointment it will appear here');
+  static String get slotUnavailable => _t('الوَقْتُ غَيْرُ مُتَاحٍ حَالِيّاً', 'Time not available currently');
+  static String get noSlotsToday => _t('لا تُوجَدُ مَوَاعِيدُ كَافِيَةٌ اليَوْمَ', 'Not enough slots today');
+
+  // Appointment Options Sheet
+  static String get editAppointment => _t('تَعْدِيلُ المَوْعِدِ', 'Edit Appointment');
+  static String get cancelAppointment => _t('إِلْغَاءُ المَوْعِدِ', 'Cancel Appointment');
+  static String get confirmAppointmentShort => _t('تَأْكِيدُ المَوْعِدِ', 'Confirm Appointment');
+  static String get confirmCancellation => _t('تَأْكِيدُ الإِلْغَاءِ', 'Confirm Cancellation');
+  static String get confirmCancellationMsg => _t('هَلْ أَنْتَ مُتَأَكِّدٌ مِنْ إِلْغَاءِ المَوْعِدِ؟', 'Are you sure you want to cancel?');
+  static String get appointmentCancelled => _t('تَمَّ إِلْغَاءُ المَوْعِدِ', 'Appointment cancelled');
+
+  // Doctors Screen
+  static String get editDoctorData => _t('تَعْدِيلُ بَيَانَاتِ الطَّبِيبِ', 'Edit Doctor Data');
+  static String get deleteDoctorTitle => _t('حَذْفُ الطَّبِيبِ', 'Delete Doctor');
+  static String get deleteDoctorMsg => _t('هَلْ أَنْتَ مُتَأَكِّدٌ مِنْ حَذْفِ الطَّبِيبِ؟ هَذَا الإِجْرَاءُ نِهَائِيٌّ.', 'Are you sure you want to delete this doctor? This action is irreversible.');
+  static String get pleaseSelect => _t('اخْتَرْ مِنْ فَضْلِكَ', 'Please select');
+  static String get searchDoctorHint => _t('ابْحَثْ عَنْ طَبِيب...', 'Search for doctor...');
+  static String get selectSpecialtyToSeeResults => _t('اخْتَرْ تَخَصُّصاً لِتَرَى النَّتَائِجَ', 'Select a specialty to see results');
+
+  // Doctor Form Dialog
+  static String get addNewDoctor => _t('إِضَافَةُ طَبِيبٍ جَدِيدٍ', 'Add New Doctor');
+  static String get fieldRequired => _t('حَقْلٌ مَطْلُوبٌ', 'Required');
+
+  // Profile
+  static String get clinicAddress => _t('عُنْوَانُ العِيَادَةِ', 'Clinic Address');
+  static String get notSpecified => _t('غَيْرُ مُحَدَّدٍ', 'Not specified');
+  static String get dr => _t('د.', 'Dr.');
+
+  // Rating
+  static String get outOf5 => _t('مِنْ 5.0', 'out of 5.0');
+  static String get ratingDoctor => _t('تَقْيِيم الطَّبِيب', 'Rate Doctor');
+  static String get writeCommentHint => _t('اكْتُبْ تَعْلِيقَكَ...', 'Write your comment...');
+  static String get submitRating => _t('إِرْسَالُ التَّقْيِيمِ', 'Submit Rating');
+
+  // Notification Failure
+  static String get ntEnablePermission => _t('تَفْعِيلُ الصَّلاحِيَةِ', 'Enable Permission');
+  static String get ntBackToHome => _t('العَوْدَةُ لِلرَّئِيسِيَّةِ', 'Back to Home');
+
+  // Search Failure
+  static String get sfBackToHome => _t('العَوْدَةُ لِلرَّئِيسِيَّةِ', 'Back to Home');
+  static String get sfEnableSearch => _t('تَفْعِيلُ البَحْثِ', 'Enable Search');
+
+  // Forbidden/Unauthorized shared
+  static String get backToHome => _t('العَوْدَةُ لِلرَّئِيسِيَّةِ', 'Back to Home');
+
+  // Offline
+  static String get cachedData => _t('عَرْضُ البَيَانَاتِ المُحَمَّلَةِ', 'Show cached data');
+
+  // Doctors Screen
+  static String get searchDoctorHintTitle => _t('البَحْثُ عَنْ طَبِيبٍ', 'Search for a doctor');
+  static String get searchDifferentWord => _t('جَرِّبِ البَحْثَ بِكَلِمَةٍ مُخْتَلِفَةٍ', 'Try searching with a different word');
+
+  // Font family names (will be moved to AppFonts if needed)
+  static String get fontSora => 'Sora';
+  static String get fontManrope => 'Manrope';
+  static String get fontJetBrainsMono => 'JetBrains Mono';
+
+  // Status labels used in appointment views
+  static String get statusSetToPending => _t('مُعَلَّقٌ', 'Pending');
+
+  // Pending appointment display status
+  static String get pendingLabel => _t('مُعَلَّقٌ', 'Pending');
+
+  // Appointment Options Sheet
+  static String get viewDetails => _t('تَفَاصِيلُ المَوْعِدِ', 'View Details');
+  static String get enableReminder => _t('تَفْعِيلُ التَّذْكِيرِ', 'Enable Reminder');
+
+  // Settings Dialogs
+  static String get chooseTheme => _t('اخْتَرِ الثِّيمَ', 'Choose Theme');
+  static String get themeSystemLabel => _t('إِعْدَادَاتُ الجِهَازِ', 'System Default');
+
+  // Doctor Form Dialog
+  static String get availableTitle => _t('مُتَاحٌ', 'Available');
+  static String get unavailableTitle => _t('غَيْرُ مُتَاحٍ', 'Unavailable');
+
+  // Rating
+  static String get ratingSentConfirmation => _t('تَمَّ إِرْسَالُ تَقْيِيمِكَ ✓', 'Your rating has been sent ✓');
+  static String get ratingHint => _t('اكْتُبْ تَجْرِبَتَكَ مَعَ الدُّكْتُورِ...', 'Write your experience with the doctor...');
 }

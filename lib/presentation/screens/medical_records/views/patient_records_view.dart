@@ -139,7 +139,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
           if (diagnoses.isEmpty) {
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
-              child: Text('لا توجد تشخيصات مسجلة', style: TextStyle(color: colors.textLight)),
+              child: Text(AppStrings.noDiagnosisYet, style: TextStyle(color: colors.textLight)),
             );
           }
           return Column(
@@ -173,7 +173,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
         if (medicines.isEmpty) {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
-            child: Text('لا توجد أدوية مسجلة', style: TextStyle(color: colors.textLight)),
+            child: Text(AppStrings.noMedicationsNow, style: TextStyle(color: colors.textLight)),
           );
         }
         return Column(
@@ -201,7 +201,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
         if (appointments.isEmpty) {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
-            child: Text('لا توجد مواعيد سابقة', style: TextStyle(color: colors.textLight)),
+            child: Text(AppStrings.noAppointmentsHistory, style: TextStyle(color: colors.textLight)),
           );
         }
         return Column(

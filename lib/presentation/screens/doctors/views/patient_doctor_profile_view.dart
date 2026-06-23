@@ -208,7 +208,7 @@ class _PatientDoctorProfileViewState extends State<PatientDoctorProfileView> {
             rating: rating,
             comment: comment.isNotEmpty ? comment : null,
           ));
-          showAppToast(context, 'تم إرسال تقييمك ✓');
+          showAppToast(context, AppStrings.ratingSentConfirmation);
         },
       ),
     );

@@ -117,7 +117,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           children: [
             ListTile(
               leading: const Text('🇸🇦', style: TextStyle(fontSize: AppSpacing.titleError)),
-              title: const Text('العربية'),
+              title: Text(AppStrings.arabicLabel),
               trailing: current == 'ar' ? Icon(AppIcons.check, color: AppColors.of(context).primary) : null,
               onTap: () {
                 context.read<LanguageCubit>().setLocale('ar');
@@ -126,7 +126,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             ListTile(
               leading: const Text('🇬🇧', style: TextStyle(fontSize: AppSpacing.titleError)),
-              title: const Text('English'),
+              title: Text(AppStrings.englishLabel),
               trailing: current == 'en' ? Icon(AppIcons.check, color: AppColors.of(context).primary) : null,
               onTap: () {
                 context.read<LanguageCubit>().setLocale('en');
@@ -145,7 +145,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         themeProvider.isDarkMode ? AppIcons.darkMode : AppIcons.lightMode,
         color: AppColors.of(context).primary,
       ),
-      title: const Text('الوَضْعُ الدَّاكِنُ'),
+      title: Text(AppStrings.darkModeTitle),
       subtitle: Text(_getThemeModeText(themeProvider.themeMode)),
       trailing: _buildThemeModeChip(themeProvider.themeMode),
       onTap: () => _showThemeDialog(context, themeProvider),
@@ -155,11 +155,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
   String _getThemeModeText(ThemeMode mode) {
     switch (mode) {
       case ThemeMode.light:
-        return 'الوَضْعُ الفَاتِحُ نَشِطٌ';
+        return AppStrings.themeLightActive;
       case ThemeMode.dark:
-        return 'الوَضْعُ الدَّاكِنُ نَشِطٌ';
+        return AppStrings.themeDarkActive;
       case ThemeMode.system:
-        return 'يَتْبَعُ إِعْدَادَاتِ الجِهَازِ';
+        return AppStrings.themeSystemActive;
     }
   }
 
@@ -169,15 +169,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
     switch (mode) {
       case ThemeMode.light:
         color = Colors.amber;
-        label = 'فَاتِحٌ';
+        label = AppStrings.chipLight;
         break;
       case ThemeMode.dark:
         color = Colors.deepPurple;
-        label = 'دَاكِنٌ';
+        label = AppStrings.chipDark;
         break;
       case ThemeMode.system:
         color = Colors.grey;
-        label = 'تِلْقَائِيٌّ';
+        label = AppStrings.chipAuto;
         break;
     }
     return Container(
@@ -197,13 +197,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Choose Theme'),
+        title: Text(AppStrings.chooseTheme),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _buildThemeOption(context, themeProvider, ThemeMode.light, AppIcons.lightMode, 'Light Mode'),
-            _buildThemeOption(context, themeProvider, ThemeMode.dark, AppIcons.darkMode, 'الوَضْعُ الدَّاكِنُ'),
-            _buildThemeOption(context, themeProvider, ThemeMode.system, AppIcons.darkMode, 'System Default'),
+            _buildThemeOption(context, themeProvider, ThemeMode.light, AppIcons.lightMode, AppStrings.lightMode),
+            _buildThemeOption(context, themeProvider, ThemeMode.dark, AppIcons.darkMode, AppStrings.darkMode),
+            _buildThemeOption(context, themeProvider, ThemeMode.system, AppIcons.darkMode, AppStrings.themeSystemLabel),
           ],
         ),
         actions: [

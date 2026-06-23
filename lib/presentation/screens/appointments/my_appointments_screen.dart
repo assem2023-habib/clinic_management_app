@@ -60,12 +60,12 @@ class _MyAppointmentsScreenState extends State<MyAppointmentsScreen> {
                     Icon(AppIcons.calendarMonth, size: 64, color: colors.textSecondary.withValues(alpha: 0.3)),
                     const SizedBox(height: AppSpacing.md),
                     Text(
-                      'لا توجد مواعيد حالياً',
+                      AppStrings.noAppointmentsNow,
                       style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: colors.textSecondary),
                     ),
                     const SizedBox(height: AppSpacing.sm),
                     Text(
-                      'احجز موعداً مع أحد أطبائنا',
+                      AppStrings.bookWithOurDoctors,
                       style: TextStyle(fontSize: AppSpacing.bodyMedium, color: colors.textSecondary.withValues(alpha: 0.6)),
                     ),
                   ],

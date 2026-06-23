@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/supervision_entity.dart';
 import 'package:clinic_management_app/domain/entities/supervision_request_entity.dart';
 import 'package:clinic_management_app/domain/repositories/supervision_repository.dart';
@@ -157,7 +158,7 @@ class SupervisionBloc extends Bloc<SupervisionEvent, SupervisionState> {
   Future<void> _onAssignPatientToDoctor(AssignPatientToDoctor event, Emitter<SupervisionState> emit) async {
     try {
       await repository.assignPatientToDoctor(event.doctorId, event.patientId, notes: event.notes);
-      emit(SupervisionOperationSuccess('Patient assigned'));
+      emit(SupervisionOperationSuccess(AppStrings.opPatientAssigned));
     } catch (e) {
       emit(SupervisionError(e.toString()));
     }
@@ -166,7 +167,7 @@ class SupervisionBloc extends Bloc<SupervisionEvent, SupervisionState> {
   Future<void> _onSelfAssignPatient(SelfAssignPatient event, Emitter<SupervisionState> emit) async {
     try {
       await repository.selfAssignPatient(event.doctorId, event.patientId, notes: event.notes);
-      emit(SupervisionOperationSuccess('Patient assigned'));
+      emit(SupervisionOperationSuccess(AppStrings.opPatientAssigned));
     } catch (e) {
       emit(SupervisionError(e.toString()));
     }
@@ -175,7 +176,7 @@ class SupervisionBloc extends Bloc<SupervisionEvent, SupervisionState> {
   Future<void> _onBulkAssignPatients(BulkAssignPatients event, Emitter<SupervisionState> emit) async {
     try {
       await repository.bulkAssignPatients(event.doctorId, event.patientIds);
-      emit(SupervisionOperationSuccess('Patients assigned'));
+      emit(SupervisionOperationSuccess(AppStrings.opPatientsAssigned));
     } catch (e) {
       emit(SupervisionError(e.toString()));
     }
@@ -184,7 +185,7 @@ class SupervisionBloc extends Bloc<SupervisionEvent, SupervisionState> {
   Future<void> _onRemovePatientFromDoctor(RemovePatientFromDoctor event, Emitter<SupervisionState> emit) async {
     try {
       await repository.removePatientFromDoctor(event.doctorId, event.patientId);
-      emit(SupervisionOperationSuccess('Patient removed'));
+      emit(SupervisionOperationSuccess(AppStrings.opPatientRemoved));
     } catch (e) {
       emit(SupervisionError(e.toString()));
     }
@@ -193,7 +194,7 @@ class SupervisionBloc extends Bloc<SupervisionEvent, SupervisionState> {
   Future<void> _onPatientRemoveDoctor(PatientRemoveDoctor event, Emitter<SupervisionState> emit) async {
     try {
       await repository.patientRemoveDoctor(event.patientId, event.doctorId);
-      emit(SupervisionOperationSuccess('Doctor removed'));
+      emit(SupervisionOperationSuccess(AppStrings.opDoctorRemoved));
     } catch (e) {
       emit(SupervisionError(e.toString()));
     }
@@ -203,7 +204,7 @@ class SupervisionBloc extends Bloc<SupervisionEvent, SupervisionState> {
     emit(SupervisionLoading());
     try {
       await repository.createSupervisionRequest(event.patientId, event.doctorId);
-      emit(SupervisionOperationSuccess('Request sent'));
+      emit(SupervisionOperationSuccess(AppStrings.opRequestSent));
     } catch (e) {
       emit(SupervisionError(e.toString()));
     }
@@ -232,7 +233,7 @@ class SupervisionBloc extends Bloc<SupervisionEvent, SupervisionState> {
   Future<void> _onApproveRequest(ApproveRequest event, Emitter<SupervisionState> emit) async {
     try {
       await repository.approveRequest(event.requestId);
-      emit(SupervisionOperationSuccess('Request approved'));
+      emit(SupervisionOperationSuccess(AppStrings.opRequestApproved));
     } catch (e) {
       emit(SupervisionError(e.toString()));
     }
@@ -241,7 +242,7 @@ class SupervisionBloc extends Bloc<SupervisionEvent, SupervisionState> {
   Future<void> _onRejectRequest(RejectRequest event, Emitter<SupervisionState> emit) async {
     try {
       await repository.rejectRequest(event.requestId);
-      emit(SupervisionOperationSuccess('Request rejected'));
+      emit(SupervisionOperationSuccess(AppStrings.opRequestRejected));
     } catch (e) {
       emit(SupervisionError(e.toString()));
     }
@@ -250,7 +251,7 @@ class SupervisionBloc extends Bloc<SupervisionEvent, SupervisionState> {
   Future<void> _onCancelRequest(CancelRequest event, Emitter<SupervisionState> emit) async {
     try {
       await repository.cancelRequest(event.requestId);
-      emit(SupervisionOperationSuccess('Request cancelled'));
+      emit(SupervisionOperationSuccess(AppStrings.opRequestCancelled));
     } catch (e) {
       emit(SupervisionError(e.toString()));
     }

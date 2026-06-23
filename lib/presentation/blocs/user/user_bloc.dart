@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/domain/entities/user_entity.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/repositories/user_repository.dart';
 
 abstract class UserEvent {}
@@ -84,7 +85,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     emit(UserLoading());
     try {
       final user = await repository.getUserById(event.id);
-      if (user != null) { emit(UserLoaded(user)); } else { emit(UserError('User not found')); }
+      if (user != null) { emit(UserLoaded(user)); } else { emit(UserError(AppStrings.opUserNotFound)); }
     } catch (e) {
       emit(UserError(e.toString()));
     }
@@ -93,7 +94,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   Future<void> _onUpdateUser(UpdateUser event, Emitter<UserState> emit) async {
     try {
       await repository.updateUser(event.id, event.data);
-      emit(UserOperationSuccess('User updated'));
+      emit(UserOperationSuccess(AppStrings.opUserUpdated));
     } catch (e) {
       emit(UserError(e.toString()));
     }
@@ -102,7 +103,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   Future<void> _onToggleActive(ToggleUserActive event, Emitter<UserState> emit) async {
     try {
       final isActive = await repository.toggleActive(event.id);
-      emit(UserOperationSuccess(isActive ? 'User activated' : 'User deactivated'));
+      emit(UserOperationSuccess(isActive ? AppStrings.opUserActivated : AppStrings.opUserDeactivated));
     } catch (e) {
       emit(UserError(e.toString()));
     }
@@ -111,7 +112,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   Future<void> _onDeleteUser(DeleteUser event, Emitter<UserState> emit) async {
     try {
       await repository.deleteUser(event.id);
-      emit(UserOperationSuccess('User deleted'));
+      emit(UserOperationSuccess(AppStrings.opUserDeleted));
     } catch (e) {
       emit(UserError(e.toString()));
     }

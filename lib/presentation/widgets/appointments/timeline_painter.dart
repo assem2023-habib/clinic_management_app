@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
 import 'package:clinic_management_app/core/constants/app_icons.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 
 class TimelinePainter extends CustomPainter {
   final AppointmentStatus status;
@@ -87,11 +88,11 @@ _UiStatus _uiStatus(AppointmentStatus s) {
 extension AppointmentStatusUI on AppointmentStatus {
   String get label {
     return switch (this) {
-      AppointmentStatus.confirmed || AppointmentStatus.accepted || AppointmentStatus.set || AppointmentStatus.scheduled => 'مؤكد',
-      AppointmentStatus.pending || AppointmentStatus.requested => 'قيد الانتظار',
-      AppointmentStatus.completed => 'مكتمل',
-      AppointmentStatus.cancelled || AppointmentStatus.rejected => 'ملغي',
-      AppointmentStatus.inProgress => 'قيد التنفيذ',
+      AppointmentStatus.confirmed || AppointmentStatus.accepted || AppointmentStatus.set || AppointmentStatus.scheduled => AppStrings.timelineConfirmed,
+      AppointmentStatus.pending || AppointmentStatus.requested => AppStrings.timelinePending,
+      AppointmentStatus.completed => AppStrings.timelineCompleted,
+      AppointmentStatus.cancelled || AppointmentStatus.rejected => AppStrings.timelineCancelled,
+      AppointmentStatus.inProgress => AppStrings.timelineInProgress,
     };
   }
 

@@ -87,7 +87,7 @@ class _DateLabel extends StatelessWidget {
         label = AppStrings.today;
         isUpcoming = true;
       } else if (diff == 1) {
-        label = 'غداً';
+        label = AppStrings.tomorrow;
         isUpcoming = true;
       } else if (diff < 7 && diff > 0) {
         final days = [

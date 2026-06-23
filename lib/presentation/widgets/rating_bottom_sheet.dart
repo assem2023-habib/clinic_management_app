@@ -1,4 +1,5 @@
-﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
+﻿import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
@@ -143,7 +144,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
           ),
           const SizedBox(width: 14),
           Text(
-            'أضف تقييمك',
+            AppStrings.addReview,
             style: TextStyle(fontSize: AppSpacing.heading, fontWeight: FontWeight.w700, color: colors.textPrimary),
           ),
         ],
@@ -158,7 +159,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
         children: [
           const SizedBox(width: 58),
           Text(
-            'لد. ${widget.doctor.name}',
+            '${AppStrings.dr} ${widget.doctor.name}',
             style: TextStyle(fontSize: AppSpacing.caption, color: colors.textSecondary),
           ),
         ],
@@ -229,7 +230,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
           maxLines: 3,
           style: TextStyle(color: colors.textPrimary, fontSize: AppSpacing.bodyMedium),
           decoration: InputDecoration(
-            hintText: 'اكتب تجربتك مع الدكتور...',
+            hintText: AppStrings.ratingHint,
             hintStyle: TextStyle(color: colors.textSecondary.withValues(alpha: 0.5), fontSize: AppSpacing.bodyMedium),
             border: InputBorder.none,
             contentPadding: const EdgeInsets.all(AppSpacing.md),
@@ -267,7 +268,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'إرسال التقييم',
+                AppStrings.submitRating,
                 style: TextStyle(
                   fontSize: AppSpacing.bodyLarge,
                   fontWeight: FontWeight.w700,

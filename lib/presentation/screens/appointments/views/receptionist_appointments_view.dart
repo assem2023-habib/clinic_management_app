@@ -206,7 +206,7 @@ class _ReceptionistAppointmentsViewState extends State<ReceptionistAppointmentsV
       'completed' => (colors.success, AppStrings.completed),
       'cancelled' => (colors.error, AppStrings.cancelled),
       'in_progress' => (colors.accent, AppStrings.inProgress),
-      'requested' => (colors.warning, 'قيد المراجعة'),
+      'requested' => (colors.warning, AppStrings.statusUnderReview),
       _ => (colors.textLight, status),
     };
   }

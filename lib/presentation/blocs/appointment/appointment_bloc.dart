@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/repositories/appointment_repository.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_event.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_state.dart';
@@ -122,7 +123,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
       final appointment = await repository.setAppointmentTime(
         event.appointmentId, event.date, event.startTime, event.endTime,
       );
-      emit(AppointmentWorkflowSuccess(appointment, message: 'Time set successfully'));
+      emit(AppointmentWorkflowSuccess(appointment, message: AppStrings.opTimeSet));
     } catch (e) {
       emit(AppointmentError(e.toString()));
     }
@@ -132,7 +133,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
     emit(AppointmentLoading());
     try {
       final appointment = await repository.respondToAppointment(event.appointmentId, event.response);
-      emit(AppointmentWorkflowSuccess(appointment, message: event.response == 'accepted' ? 'Appointment accepted' : 'Appointment rejected'));
+      emit(AppointmentWorkflowSuccess(appointment, message: event.response == 'accepted' ? AppStrings.opAppointmentAccepted : AppStrings.opAppointmentRejected));
     } catch (e) {
       emit(AppointmentError(e.toString()));
     }

@@ -117,7 +117,7 @@ class AdminDashboardView extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: AppSpacing.sm + AppSpacing.xs),
-            child: Text('المستخدمون', style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+            child: Text(AppStrings.sectionUsers, style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600, color: colors.textPrimary)),
           ),
           GridView.count(
             shrinkWrap: true,
@@ -185,7 +185,7 @@ class AdminDashboardView extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: AppSpacing.sm + AppSpacing.xs),
-            child: Text('العيادة', style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+            child: Text(AppStrings.clinic, style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600, color: colors.textPrimary)),
           ),
           GridView.count(
             shrinkWrap: true,
