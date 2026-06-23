@@ -31,6 +31,7 @@ dependencies:
   visibility_detector: ^0.4.0+2
   flutter_animate: ^4.5.2
   connectivity_plus: ^6.1.0
+  hive_flutter: ^1.1.0
 
 dev_dependencies:
   flutter_test:

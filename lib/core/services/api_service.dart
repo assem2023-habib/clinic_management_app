@@ -2,6 +2,7 @@ import 'dart:developer' as dev;
 
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:clinic_management_app/core/services/cache_interceptor.dart';
 
 class ApiService {
   late final Dio _dio;
@@ -15,6 +16,7 @@ class ApiService {
   static void Function()? onForbidden;
   static void Function()? onSuspended;
   static void Function()? onSessionExpired;
+  static CacheInterceptor? cacheInterceptor;
 
   ApiService({String baseUrl = 'http://localhost:8000/api/v1'}) {
     _dio = Dio(BaseOptions(
@@ -24,7 +26,10 @@ class ApiService {
       headers: {'Accept': 'application/json'},
     ));
 
+    final ci = CacheInterceptor();
+    cacheInterceptor = ci;
     _dio.interceptors.addAll([
+      ci,
       LogInterceptor(
         request: true,
         requestBody: true,
@@ -49,6 +54,10 @@ class ApiService {
         if (error.type == DioExceptionType.connectionError ||
             error.type == DioExceptionType.connectionTimeout ||
             error.type == DioExceptionType.receiveTimeout) {
+          if (error.requestOptions.method == 'GET') {
+            final cached = cacheInterceptor!.tryServeFromCache(error.requestOptions);
+            if (cached != null) { handler.resolve(cached); return; }
+          }
           onNetworkError?.call();
           handler.resolve(Response(requestOptions: error.requestOptions, statusCode: 0, data: {}));
           return;
@@ -97,6 +106,10 @@ class ApiService {
   Future<void> setRefreshToken(String token) => _storage.write(key: _refreshTokenKey, value: token);
 
   Future<String?> getRefreshToken() => _storage.read(key: _refreshTokenKey);
+
+  static Future<void> clearCache() async {
+    await cacheInterceptor?.clearAll();
+  }
 
   Future<void> clearTokens() async {
     await _storage.delete(key: _tokenKey);

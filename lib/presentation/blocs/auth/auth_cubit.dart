@@ -9,6 +9,7 @@ import 'package:clinic_management_app/data/models/auth/login_request.dart';
 import 'package:clinic_management_app/data/models/auth/register_patient_request.dart';
 import 'package:clinic_management_app/data/models/auth/register_doctor_request.dart';
 import 'package:clinic_management_app/data/models/auth/register_receptionist_request.dart';
+import 'package:clinic_management_app/core/services/api_service.dart';
 import 'package:clinic_management_app/core/services/fcm_service.dart';
 import 'package:clinic_management_app/core/services/firebase_auth_service.dart';
 
@@ -281,6 +282,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       await _authRepository?.logout();
     } catch (_) {}
+    await ApiService.clearCache();
     await FcmService().deleteToken();
     await FirebaseAuthService().signOut();
     emit(const AuthState(isAuthenticated: false));

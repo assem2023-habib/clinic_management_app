@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:clinic_management_app/core/services/api_service.dart';
 import 'package:clinic_management_app/core/config/api_config.dart';
 import 'package:clinic_management_app/core/services/fcm_service.dart';
+import 'package:clinic_management_app/core/services/cache_service.dart';
 import 'package:clinic_management_app/core/di/providers.dart';
 import 'package:clinic_management_app/core/theme/app_theme.dart';
 import 'package:clinic_management_app/core/theme/theme_provider.dart';
@@ -72,6 +74,8 @@ Route<dynamic> _buildRoute(Widget screen) {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  await CacheService.init();
   await Firebase.initializeApp();
   await FcmService().initialize();
   runApp(const MyApp());
