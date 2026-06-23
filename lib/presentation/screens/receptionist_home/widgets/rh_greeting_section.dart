@@ -29,7 +29,7 @@ class RhGreetingSection extends StatelessWidget {
                 color: colors.secondary,
               ),
             ),
-            const SizedBox(height: 2),
+            const SizedBox(height: AppSpacing.xxs),
             Text(
               AppStrings.rhClinicName,
               style: TextStyle(

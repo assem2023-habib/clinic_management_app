@@ -73,7 +73,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                    Text(AppStrings.failedToLoadProfile),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: AppSpacing.md),
                   ElevatedButton(onPressed: () => context.read<ProfileCubit>().loadProfile(), child:  Text(AppStrings.retry)),
                 ],
               ),
@@ -85,18 +85,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Column(
               children: [
                 _buildAvatar(user.imageUrl, colors),
-                const SizedBox(height: 24),
+                const SizedBox(height: AppSpacing.lg),
                 _buildInfoCard(user, colors),
-                const SizedBox(height: 24),
+                const SizedBox(height: AppSpacing.lg),
                 _buildActionButtons(colors),
                 if (state.isSaving)
                   const Padding(
-                    padding: EdgeInsets.only(top: 16),
+                    padding: EdgeInsets.only(top: AppSpacing.md),
                     child: LinearProgressIndicator(),
                   ),
                 if (state.error != null)
                   Padding(
-                    padding: const EdgeInsets.only(top: 16),
+                    padding: const EdgeInsets.only(top: AppSpacing.md),
                     child: Text(state.error!, style: TextStyle(color: colors.error), textAlign: TextAlign.center),
                   ),
               ],
@@ -132,7 +132,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _buildInfoCard(dynamic user, AppColorSet colors) {
     return Card(
       color: colors.cardBg,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.cardRadius)),
       child: Column(
         children: [
           _buildInfoTile(AppStrings.firstName, user.firstName, 'first_name', colors),
@@ -179,13 +179,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               foregroundColor: colors.textPrimary,
               padding: const EdgeInsets.symmetric(vertical: 14),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
                 side: BorderSide(color: colors.divider),
               ),
             ),
           ),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
         SizedBox(
           width: double.infinity,
           child: ElevatedButton.icon(
@@ -212,7 +212,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               backgroundColor: colors.error.withValues(alpha: 0.1),
               foregroundColor: colors.error,
               padding: const EdgeInsets.symmetric(vertical: 14),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
             ),
           ),
         ),

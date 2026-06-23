@@ -20,9 +20,9 @@ class UaContent extends StatelessWidget {
           ),
           textAlign: TextAlign.center,
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md + AppSpacing.xs),
           child: Text(
             AppStrings.uaMessage,
             style: TextStyle(

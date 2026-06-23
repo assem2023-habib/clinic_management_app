@@ -30,7 +30,7 @@ class DatePickerField extends StatelessWidget {
         labelStyle: TextStyle(color: controller.text.isEmpty ? colors.textLight : colors.textSecondary),
         filled: true,
         fillColor: colors.cardBg,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
         suffixIcon: Icon(Icons.calendar_month_rounded, color: colors.primaryLight, size: AppSpacing.iconMedium),
       ),
       onTap: () => _pickDate(context, colors),

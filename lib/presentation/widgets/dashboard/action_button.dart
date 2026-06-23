@@ -21,13 +21,13 @@ class ActionButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: color,
-        padding: const EdgeInsets.symmetric(vertical: 16),
+        padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(icon, size: AppSpacing.iconSmall, color: Colors.white),
-          const SizedBox(width: 8),
+          const SizedBox(width: AppSpacing.sm),
           Text(label, style: const TextStyle(fontSize: AppSpacing.bodyMedium, color: Colors.white)),
         ],
       ),

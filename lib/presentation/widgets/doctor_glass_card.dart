@@ -119,9 +119,9 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           _buildHeader(),
-                          const SizedBox(height: 12),
+                          const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                           _buildLocation(),
-                          const SizedBox(height: 6),
+                          const SizedBox(height: AppSpacing.six),
                           _buildBio(),
                           const SizedBox(height: 14),
                           _buildActions(),
@@ -153,7 +153,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
               Row(
                 children: [
                   Icon(Icons.star_rounded, size: 18, color: colors.secondary),
-                  const SizedBox(width: 4),
+                  const SizedBox(width: AppSpacing.xs),
                   Text(
                     doctor.rating?.toStringAsFixed(1) ?? '0.0',
                     style: TextStyle(
@@ -164,7 +164,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
                   ),
                 ],
               ),
-              const SizedBox(height: 2),
+              const SizedBox(height: AppSpacing.xxs),
               Text(
                 'د. ${doctor.name}',
                 style: TextStyle(
@@ -176,7 +176,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
-              const SizedBox(height: 2),
+              const SizedBox(height: AppSpacing.xxs),
               Text(
                 doctor.specialty,
                 style: TextStyle(
@@ -243,7 +243,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
     return Row(
       children: [
         Icon(Icons.location_on_rounded, size: 18, color: colors.textLight),
-        const SizedBox(width: 6),
+        const SizedBox(width: AppSpacing.six),
         Expanded(
           child: Text(
             doctor.clinicAddress ?? doctor.clinicName ?? '',
@@ -292,7 +292,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
                   height: 48,
                   decoration: BoxDecoration(
                     color: colors.primaryDark,
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
                     boxShadow: [
                       BoxShadow(
                         color: colors.primaryDark.withValues(alpha: 0.35),
@@ -313,7 +313,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
               ),
             ),
             if (widget.showMore) ...[
-              const SizedBox(width: 10),
+              const SizedBox(width: AppSpacing.ten),
               GestureDetector(
                 onTap: widget.onMore,
                 child: Container(
@@ -321,7 +321,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
                   height: 48,
                   decoration: BoxDecoration(
                     color: colors.cardBg.withValues(alpha: 0.45),
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
                     border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
                   ),
                   child: Icon(Icons.more_vert, color: colors.textPrimary),
@@ -331,7 +331,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
           ],
         ),
         if (widget.showSupervision) ...[
-          const SizedBox(height: 10),
+          const SizedBox(height: AppSpacing.ten),
           FadeTransition(
             opacity: _supervisionFade,
             child: ScaleTransition(
@@ -383,7 +383,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
         height: 42,
         decoration: BoxDecoration(
           color: bgColor,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
           border: Border.all(
             color: hasActiveRequest
                 ? colors.primary.withValues(alpha: 0.3)
@@ -409,7 +409,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
                       ? Colors.amber.shade300
                       : colors.textPrimary,
             ),
-            const SizedBox(width: 6),
+            const SizedBox(width: AppSpacing.six),
             Text(
               label,
               style: TextStyle(

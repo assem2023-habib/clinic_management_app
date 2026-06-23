@@ -5,6 +5,7 @@ import 'package:clinic_management_app/core/utils/helpers.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_event.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class DoctorFormDialog extends StatefulWidget {
   final DoctorEntity? doctor;
@@ -81,27 +82,27 @@ class _DoctorFormDialogState extends State<DoctorFormDialog> {
                 decoration:  InputDecoration(labelText: AppStrings.name),
                 validator: (v) => v!.isEmpty ? 'مَطْلُوبٌ' : null,
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
               TextFormField(
                 controller: _specialtyController,
                 decoration:  InputDecoration(labelText: AppStrings.specialty),
                 validator: (v) => v!.isEmpty ? 'مَطْلُوبٌ' : null,
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
               TextFormField(
                 controller: _phoneController,
                 decoration:  InputDecoration(labelText: AppStrings.phone),
                 keyboardType: TextInputType.phone,
                 validator: (v) => v!.isEmpty ? 'مَطْلُوبٌ' : null,
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
               TextFormField(
                 controller: _emailController,
                 decoration:  InputDecoration(labelText: AppStrings.email),
                 keyboardType: TextInputType.emailAddress,
                 validator: (v) => v!.isEmpty ? 'مَطْلُوبٌ' : null,
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
               SwitchListTile(
                 title: const Text('Available'),
                 value: _isAvailable,
@@ -118,3 +119,4 @@ class _DoctorFormDialogState extends State<DoctorFormDialog> {
     );
   }
 }
+

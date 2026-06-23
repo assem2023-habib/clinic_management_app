@@ -89,7 +89,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
                       final itemIdx = index - 1;
                       if (itemIdx >= filtered.length) {
                         return const Padding(
-                          padding: EdgeInsets.all(16),
+                          padding: EdgeInsets.all(AppSpacing.md),
                           child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
                         );
                       }
@@ -160,7 +160,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
                   AppStrings.dpMyPatients,
                   style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w700, color: colors.textPrimary),
                 ),
-                const SizedBox(height: 2),
+                const SizedBox(height: AppSpacing.xxs),
                 Text(
                   AppStrings.dpUnderCareOf(doctorName),
                   style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textSecondary),
@@ -328,7 +328,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
                     color: colors.textPrimary,
                   ),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: AppSpacing.xs),
                 Row(
                   children: [
                     _buildInfoChip(colors, Icons.calendar_today_rounded, '${_ageFromBirthday(patient.birthdayDate)} ${AppStrings.dpYear}'),

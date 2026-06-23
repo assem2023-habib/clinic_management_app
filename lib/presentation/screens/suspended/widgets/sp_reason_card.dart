@@ -31,7 +31,7 @@ class SpReasonCard extends StatelessWidget {
               letterSpacing: 0.05,
             ),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: AppSpacing.xs),
           Text(
             AppStrings.spReasonValue,
             style: TextStyle(

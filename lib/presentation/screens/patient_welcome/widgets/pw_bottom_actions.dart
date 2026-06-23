@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class PwBottomActions extends StatelessWidget {
   final int currentPage;
@@ -29,7 +30,7 @@ class PwBottomActions extends StatelessWidget {
               final isActive = i == currentPage;
               return AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
-                margin: const EdgeInsets.symmetric(horizontal: 4),
+                margin: const EdgeInsets.symmetric(horizontal: AppSpacing.xs),
                 width: isActive ? 32 : 8,
                 height: 8,
                 decoration: BoxDecoration(
@@ -47,7 +48,7 @@ class PwBottomActions extends StatelessWidget {
               );
             }),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppSpacing.lg),
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
@@ -55,9 +56,9 @@ class PwBottomActions extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: colors.emerald,
                 foregroundColor: colors.buttonBg,
-                padding: const EdgeInsets.symmetric(vertical: 16),
+                padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
                 ),
                 elevation: 0,
                 shadowColor: colors.emerald.withValues(alpha: 0.3),
@@ -77,3 +78,4 @@ class PwBottomActions extends StatelessWidget {
     );
   }
 }
+

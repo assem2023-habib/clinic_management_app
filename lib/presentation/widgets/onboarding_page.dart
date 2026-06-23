@@ -25,7 +25,7 @@ class OnboardingPage extends StatelessWidget {
 
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
         child: Column(
           children: [
             const Spacer(flex: 2),
@@ -74,7 +74,7 @@ class OnboardingPage extends StatelessWidget {
               ),
             ).animate().fadeIn(delay: 300.ms, duration: 500.ms, curve: Curves.easeOutCubic)
              .slideY(begin: 0.3, duration: 500.ms, curve: Curves.easeOutCubic),
-            const SizedBox(height: 16),
+            const SizedBox(height: AppSpacing.md),
             Text(
               subtitle,
               textAlign: TextAlign.center,

@@ -102,38 +102,38 @@ class _RegisterDoctorScreenState extends State<RegisterDoctorScreen> {
         child: BlocBuilder<AuthCubit, AuthState>(
           builder: (context, state) {
             return SingleChildScrollView(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.all(AppSpacing.lg),
               child: Form(
                 key: _formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     _buildTextField(controller: _firstNameController, label: AppStrings.firstName, prefixIcon: Icons.person_outline, validator: (v) => v?.isEmpty == true ? AppStrings.required : null),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: AppSpacing.md),
                     _buildTextField(controller: _lastNameController, label: AppStrings.lastName, prefixIcon: Icons.person_outline, validator: (v) => v?.isEmpty == true ? AppStrings.required : null),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: AppSpacing.md),
                     _buildTextField(controller: _emailController, label: AppStrings.email, prefixIcon: Icons.email_outlined, keyboardType: TextInputType.emailAddress, validator: (v) => v?.isEmpty == true ? AppStrings.required : null),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: AppSpacing.md),
                     PhoneField(key: _phoneState, hintText: AppStrings.phoneOptional),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: AppSpacing.md),
                     _buildTextField(controller: _addressController, label: AppStrings.addressOptional, prefixIcon: Icons.location_on_outlined),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: AppSpacing.md),
                     CountryCityPickerField(
                       cityId: _cityId,
                       onCityChanged: (v) => setState(() => _cityId = v),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: AppSpacing.md),
                     DatePickerField(
                       controller: _birthdayController,
                       label: AppStrings.dateOfBirthOptional,
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: AppSpacing.md),
                     DropdownButtonFormField<String>(
                       initialValue: _gender,
                       decoration: InputDecoration(
                         labelText: AppStrings.gender, filled: true,
                         fillColor: colors.cardBg,
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
                         prefixIcon: Icon(Icons.wc_rounded, color: colors.textSecondary),
                       ),
                       items:  [
@@ -142,36 +142,36 @@ class _RegisterDoctorScreenState extends State<RegisterDoctorScreen> {
                       ],
                       onChanged: (v) => setState(() => _gender = v ?? 'male'),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: AppSpacing.md),
                     SpecializationPickerField(
                       value: _specialization,
                       onChanged: (v) => setState(() => _specialization = v),
                       validator: (v) => v == null ? AppStrings.required : null,
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: AppSpacing.md),
                     _buildTextField(controller: _experienceController, label: AppStrings.experienceMonths, prefixIcon: Icons.work_history_outlined, keyboardType: TextInputType.number, validator: (v) {
                       if (v == null || v.isEmpty) return AppStrings.required;
                       final n = int.tryParse(v);
                       if (n == null || n < 0 || n > 1200) return AppStrings.between0and1200;
                       return null;
                     }),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: AppSpacing.md),
                     _buildTextField(controller: _passwordController, label: 'كَلِمَةُ السِّرِّ', prefixIcon: Icons.lock_outlined, obscureText: _obscurePassword, validator: (v) => (v?.length ?? 0) < 8 ? AppStrings.min8Chars : null, suffix: IconButton(icon: Icon(_obscurePassword ? Icons.visibility_rounded : Icons.visibility_off_rounded), onPressed: () => setState(() => _obscurePassword = !_obscurePassword))),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: AppSpacing.md),
                     _buildTextField(controller: _confirmPasswordController, label: AppStrings.confirmPassword, prefixIcon: Icons.lock_outlined, obscureText: _obscureConfirmPassword, suffix: IconButton(icon: Icon(_obscureConfirmPassword ? Icons.visibility_rounded : Icons.visibility_off_rounded), onPressed: () => setState(() => _obscureConfirmPassword = !_obscureConfirmPassword))),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: AppSpacing.lg),
                     ElevatedButton(
                       onPressed: state.isLoading ? null : _submit,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: colors.primary,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
                       ),
                       child: state.isLoading
                           ? SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: colors.surface))
                           :  Text(AppStrings.register, style: TextStyle(fontSize: AppSpacing.bodyLarge)),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: AppSpacing.md),
                     TextButton(
                       onPressed: () => Navigator.pushReplacementNamed(context, AppRoutes.login),
                       child:  Text(AppStrings.haveAccountLogin2),
@@ -208,7 +208,7 @@ class _RegisterDoctorScreenState extends State<RegisterDoctorScreen> {
         suffixIcon: suffix,
         filled: true,
         fillColor: colors.cardBg,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
       ),
       validator: validator,
     );

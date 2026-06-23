@@ -57,7 +57,7 @@ class DrQueueItem extends StatelessWidget {
                   children: [
                     Text(patientName,
                       style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
-                    const SizedBox(height: 2),
+                    const SizedBox(height: AppSpacing.xxs),
                     Text(doctorName,
                       style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textLight)),
                   ],
@@ -69,7 +69,7 @@ class DrQueueItem extends StatelessWidget {
                 children: [
                   Text(AppStrings.daCheckInTime,
                     style: TextStyle(fontSize: 11, color: colors.textLight)),
-                  const SizedBox(height: 2),
+                  const SizedBox(height: AppSpacing.xxs),
                   Text(checkInTime,
                     style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: timeColor)),
                 ],

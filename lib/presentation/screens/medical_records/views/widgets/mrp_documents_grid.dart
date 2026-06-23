@@ -20,7 +20,7 @@ class MrpDocumentCard extends StatelessWidget {
       padding: const EdgeInsets.all(AppSpacing.md),
       decoration: BoxDecoration(
         color: colors.surfaceDark.withValues(alpha: 0.4),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
         border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
       ),
       child: Column(
@@ -30,7 +30,7 @@ class MrpDocumentCard extends StatelessWidget {
             height: 96,
             decoration: BoxDecoration(
               color: colors.cardBg,
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(AppSpacing.sm),
             ),
             child: Center(
               child: Icon(
@@ -40,7 +40,7 @@ class MrpDocumentCard extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
           Text(
             title,
             style: TextStyle(
@@ -83,9 +83,9 @@ class MrpUploadButton extends StatelessWidget {
             width: 2,
           ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
           ),
-          padding: const EdgeInsets.symmetric(vertical: 24),
+          padding: const EdgeInsets.symmetric(vertical: AppSpacing.lg),
         ),
         child: Column(
           children: [
@@ -94,7 +94,7 @@ class MrpUploadButton extends StatelessWidget {
               size: 32,
               color: colors.primary,
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: AppSpacing.sm),
             Text(
               AppStrings.mrUploadDocument,
               style: TextStyle(

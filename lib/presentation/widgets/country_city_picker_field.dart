@@ -93,7 +93,7 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
                       borderRadius: BorderRadius.circular(2),
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: AppSpacing.md),
                   Text(
                     AppStrings.chooseCountry,
                     style: TextStyle(
@@ -101,7 +101,7 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
                       color: colors.textPrimary,
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                   TextField(
                     controller: searchCtrl,
                     onChanged: (v) {
@@ -116,10 +116,10 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
                       prefixIcon: Icon(Icons.search_rounded, color: colors.textSecondary),
                       filled: true,
                       fillColor: colors.inputBg,
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: AppSpacing.sm),
                   Flexible(
                     child: ListView.builder(
                       itemCount: filtered.length,
@@ -136,7 +136,7 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
                               trailing: isSelected
                                   ? Icon(Icons.check_circle_rounded, color: colors.primary, size: AppSpacing.iconMedium)
                                   : null,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.sm)),
                               selected: isSelected,
                               selectedTileColor: colors.primary.withValues(alpha: 0.08),
                               onTap: () {
@@ -192,7 +192,7 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
                       borderRadius: BorderRadius.circular(2),
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: AppSpacing.md),
                   Row(
                     children: [
                       GestureDetector(
@@ -203,12 +203,12 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
                         child: Row(
                           children: [
                             Icon(Icons.arrow_back_rounded, size: 18, color: colors.primary),
-                            const SizedBox(width: 4),
+                            const SizedBox(width: AppSpacing.xs),
                             Text(_selectedCountry?.nameAr ?? '', style: TextStyle(color: colors.primary, fontSize: 13)),
                           ],
                         ),
                       ),
-                      const SizedBox(width: 8),
+                      const SizedBox(width: AppSpacing.sm),
                       Expanded(
                         child: Text(
                           AppStrings.chooseCity,
@@ -222,7 +222,7 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
                       const SizedBox(width: 60),
                     ],
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                   TextField(
                     controller: searchCtrl,
                     onChanged: (v) {
@@ -237,10 +237,10 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
                       prefixIcon: Icon(Icons.search_rounded, color: colors.textSecondary),
                       filled: true,
                       fillColor: colors.inputBg,
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: AppSpacing.sm),
                   Flexible(
                     child: ListView.builder(
                       itemCount: filtered.length,
@@ -258,7 +258,7 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
                               trailing: isSelected
                                   ? Icon(Icons.check_circle_rounded, color: colors.primary, size: AppSpacing.iconMedium)
                                   : null,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.sm)),
                               selected: isSelected,
                               selectedTileColor: colors.primary.withValues(alpha: 0.08),
                               onTap: () {
@@ -309,7 +309,7 @@ class _CountryCityPickerFieldState extends State<CountryCityPickerField> {
             : Icon(Icons.arrow_drop_down_rounded, color: colors.textSecondary, size: AppSpacing.iconMedium),
         filled: true,
         fillColor: colors.cardBg,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
       ),
       controller: _label != null ? TextEditingController(text: _label) : null,
       validator: widget.validator != null ? (v) => widget.validator!(widget.cityId) : null,

@@ -77,7 +77,7 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
     return Padding(
       padding: AppSpacing.screenPadding,
       child: GlassCard(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(AppSpacing.sm + AppSpacing.xs),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -91,7 +91,7 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
               child: Column(
                 children: [
                   Text(DateFormat('EEEE').format(_selectedDate), style: TextStyle(fontSize: 13, color: colors.textLight)),
-                  const SizedBox(height: 2),
+                  const SizedBox(height: AppSpacing.xxs),
                   Text(DateFormat('yyyy-MM-dd').format(_selectedDate), style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.bold, color: colors.textPrimary)),
                 ],
               ),
@@ -122,7 +122,7 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
                 backgroundColor: statusColor.withValues(alpha: 0.2),
                 child: Icon(_statusIcon(statusValue), color: statusColor, size: AppSpacing.iconSmall),
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,24 +136,24 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
             ],
           ),
           if (appt.timeSlot != null || appt.date != null) ...[
-            const SizedBox(height: 10),
+            const SizedBox(height: AppSpacing.ten),
             Row(
               children: [
                 if (appt.date != null) ...[
                   Icon(Icons.calendar_today_rounded, size: 14, color: colors.textLight),
-                  const SizedBox(width: 4),
+                  const SizedBox(width: AppSpacing.xs),
                   Text(appt.date!, style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textLight)),
                 ],
                 if (appt.timeSlot != null) ...[
                   const SizedBox(width: AppSpacing.md),
                   Icon(Icons.schedule_rounded, size: 14, color: colors.textLight),
-                  const SizedBox(width: 4),
+                  const SizedBox(width: AppSpacing.xs),
                   Text(appt.timeSlot!, style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textLight)),
                 ],
               ],
             ),
           ],
-          const SizedBox(height: 10),
+          const SizedBox(height: AppSpacing.ten),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -161,13 +161,13 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
                 _smallAction(colors, AppStrings.complete, Icons.check_circle_rounded, colors.success, () {
                   context.read<AppointmentBloc>().add(AppointmentUpdateStatus(appt.id, AppointmentStatus.completed));
                 }),
-                const SizedBox(width: 8),
+                const SizedBox(width: AppSpacing.sm),
                 _smallAction(colors, AppStrings.cancel, Icons.cancel_rounded, colors.error, () {
                   context.read<AppointmentBloc>().add(AppointmentUpdateStatus(appt.id, AppointmentStatus.cancelled));
                 }),
               ],
               if (widget.isReceptionist) ...[
-                const SizedBox(width: 8),
+                const SizedBox(width: AppSpacing.sm),
                 _smallAction(colors, AppStrings.edit, Icons.edit_rounded, colors.primary, () => _showEditForm(appt)),
               ],
             ],
@@ -187,8 +187,8 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
         style: OutlinedButton.styleFrom(
           foregroundColor: color,
           side: BorderSide(color: color.withValues(alpha: 0.3)),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-          padding: const EdgeInsets.symmetric(horizontal: 8),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.six)),
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
         ),
       ),
     );
@@ -197,7 +197,7 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
   Widget _buildStatusBadge(AppColorSet colors, Color color, String label) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(color: color.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(12)),
+      decoration: BoxDecoration(color: color.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
       child: Text(label, style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600)),
     );
   }

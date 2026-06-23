@@ -15,7 +15,7 @@ class DashboardSkeleton extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SkeletonLine(width: 200, height: 18),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
           GridView.count(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -25,9 +25,9 @@ class DashboardSkeleton extends StatelessWidget {
             childAspectRatio: 1.4,
             children: List.generate(4, (_) => _statSkeleton(colors)),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppSpacing.lg),
           SkeletonLine(width: 160, height: 18),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
           GridView.count(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -37,17 +37,17 @@ class DashboardSkeleton extends StatelessWidget {
             childAspectRatio: 1.0,
             children: List.generate(3, (_) => _statSkeleton(colors)),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppSpacing.lg),
           _quickActionsSkeleton(colors),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppSpacing.lg),
           _cardSkeleton(
             colors,
             child: Column(
               children: [
                 SkeletonLine(width: 180, height: 18),
-                const SizedBox(height: 12),
+                const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                 ...List.generate(3, (_) => Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
+                  padding: const EdgeInsets.only(bottom: AppSpacing.sm),
                   child: _appointmentRowSkeleton(colors),
                 )),
               ],
@@ -75,15 +75,15 @@ class DashboardSkeleton extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: colors.skeletonBase.withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
       ),
       child: const Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SkeletonBox(width: 24, height: 24, borderRadius: 6),
-          SizedBox(height: 8),
+          SizedBox(height: AppSpacing.sm),
           SkeletonLine(width: 32, height: 20),
-          SizedBox(height: 4),
+          SizedBox(height: AppSpacing.xs),
           SkeletonLine(width: 60, height: 12),
         ],
       ),
@@ -97,22 +97,22 @@ class DashboardSkeleton extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SkeletonLine(width: 140, height: 18),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
           Row(children: [
             Expanded(child: _actionSkeleton(colors)),
-            const SizedBox(width: 12),
+            const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
             Expanded(child: _actionSkeleton(colors)),
           ]),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
           Row(children: [
             Expanded(child: _actionSkeleton(colors)),
-            const SizedBox(width: 12),
+            const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
             Expanded(child: _actionSkeleton(colors)),
           ]),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
           Row(children: [
             Expanded(child: _actionSkeleton(colors)),
-            const SizedBox(width: 12),
+            const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
             const Expanded(child: SizedBox()),
           ]),
         ],
@@ -128,18 +128,18 @@ class DashboardSkeleton extends StatelessWidget {
     return Row(
       children: [
         const SkeletonCircle(radius: 18),
-        const SizedBox(width: 12),
+        const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
         const Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SkeletonLine(width: double.infinity, height: 14),
-              SizedBox(height: 4),
+              SizedBox(height: AppSpacing.xs),
               SkeletonLine(width: 120, height: 12),
             ],
           ),
         ),
-        const SizedBox(width: 8),
+        const SizedBox(width: AppSpacing.sm),
         SkeletonBox(width: 60, height: 24, borderRadius: 12),
       ],
     );

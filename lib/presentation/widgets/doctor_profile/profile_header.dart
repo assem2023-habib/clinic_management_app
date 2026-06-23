@@ -33,7 +33,7 @@ class ProfileHeader extends StatelessWidget {
                         ? Icon(Icons.person_rounded, size: 48, color: colors.primary)
                         : null,
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: AppSpacing.md),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -48,11 +48,11 @@ class ProfileHeader extends StatelessWidget {
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      const SizedBox(width: 8),
+                      const SizedBox(width: AppSpacing.sm),
                       Icon(Icons.verified_rounded, color: colors.secondary, size: AppSpacing.iconMedium),
                     ],
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: AppSpacing.xs),
                   Text(
                     doctor.specialty,
                     style: TextStyle(
@@ -63,12 +63,12 @@ class ProfileHeader extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: AppSpacing.sm),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.star_rounded, color: Colors.amber, size: AppSpacing.iconSmall),
-                      const SizedBox(width: 4),
+                      const SizedBox(width: AppSpacing.xs),
                       Text(
                         doctor.rating.toString(),
                         style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600, color: colors.textPrimary),
@@ -77,9 +77,9 @@ class ProfileHeader extends StatelessWidget {
                         ' (${doctor.reviewsCount} ${AppStrings.rating})',
                         style: TextStyle(fontSize: 13, color: colors.textLight),
                       ),
-                      const SizedBox(width: 12),
+                      const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
                       Icon(Icons.location_on_rounded, size: 18, color: colors.textLight),
-                      const SizedBox(width: 2),
+                      const SizedBox(width: AppSpacing.xxs),
                       Flexible(
                         child: Text(
                           doctor.clinicAddress ?? 'الرياض',
@@ -90,7 +90,7 @@ class ProfileHeader extends StatelessWidget {
                     ],
                   ),
                   if (doctor.languages.isNotEmpty) ...[
-                    const SizedBox(height: 8),
+                    const SizedBox(height: AppSpacing.sm),
                     Wrap(
                       spacing: 6,
                       children: doctor.languages.map((lang) => Container(

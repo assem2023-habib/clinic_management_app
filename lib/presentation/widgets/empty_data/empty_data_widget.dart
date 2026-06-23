@@ -100,7 +100,7 @@ class EmptyDataWidget extends StatelessWidget {
                 padding: const EdgeInsets.all(AppSpacing.lg),
                 decoration: BoxDecoration(
                   color: colors.surface.withValues(alpha: 0.7),
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
                   border: Border.all(color: colors.divider.withValues(alpha: 0.15)),
                 ),
                 child: Column(
@@ -154,7 +154,7 @@ class EmptyDataWidget extends StatelessWidget {
           backgroundColor: colors.neonGreen,
           foregroundColor: Colors.black,
           padding: const EdgeInsets.symmetric(vertical: 14),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
           elevation: 0,
         ),
         child: Row(

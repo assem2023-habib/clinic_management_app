@@ -164,7 +164,7 @@ class StateScreen extends StatelessWidget {
       padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
         color: colors.surface.withValues(alpha: 0.7),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
         border: Border.all(color: colors.divider.withValues(alpha: 0.15)),
       ),
       child: Column(
@@ -209,8 +209,8 @@ class StateScreen extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: colors.neonGreen,
           foregroundColor: Colors.black,
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
           elevation: 0,
           shadowColor: colors.neonGreen.withValues(alpha: 0.3),
         ),
@@ -238,8 +238,8 @@ class StateScreen extends StatelessWidget {
         onPressed: secondaryAction!.onTap,
         style: TextButton.styleFrom(
           foregroundColor: colors.secondary,
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -268,7 +268,7 @@ class StateScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(chip.icon, size: 14, color: colors.textLight.withValues(alpha: 0.4)),
-            const SizedBox(width: 4),
+            const SizedBox(width: AppSpacing.xs),
             Text(
               chip.label,
               style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textLight.withValues(alpha: 0.4)),

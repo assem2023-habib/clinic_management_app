@@ -53,7 +53,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
     final colors = AppColors.of(context);
     return Container(
       height: 64,
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md + AppSpacing.xs),
       decoration: BoxDecoration(
         color: colors.scaffoldBg.withValues(alpha: 0.4),
       ),
@@ -76,7 +76,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
               ),
             ),
           ),
-          const SizedBox(width: 16),
+          const SizedBox(width: AppSpacing.md),
           Text(
             AppStrings.mrTitle,
             style: TextStyle(
@@ -99,7 +99,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
   Widget _buildBody() {
     final user = context.watch<AuthCubit>().state.user;
     return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -120,7 +120,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
           _buildSectionTitle(AppStrings.mrAppointmentsTitle, null),
           const SizedBox(height: AppSpacing.sm),
           _buildTimelineSection(),
-          const SizedBox(height: 32),
+          const SizedBox(height: AppSpacing.xl),
         ],
       ),
     );
@@ -137,7 +137,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
           final diagnoses = state.records.where((r) => r.diagnosis.isNotEmpty).map((r) => r.diagnosis).toSet().toList();
           if (diagnoses.isEmpty) {
             return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
               child: Text('لا توجد تشخيصات مسجلة', style: TextStyle(color: colors.textLight)),
             );
           }
@@ -145,7 +145,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
             children: [
               for (final diagnosis in diagnoses.take(2))
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
+                  padding: const EdgeInsets.only(bottom: AppSpacing.sm),
                   child: MrpConditionCard(
                     icon: Icons.monitor_heart_rounded,
                     iconBg: colors.primary,
@@ -171,7 +171,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
         };
         if (medicines.isEmpty) {
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
+            padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
             child: Text('لا توجد أدوية مسجلة', style: TextStyle(color: colors.textLight)),
           );
         }
@@ -179,7 +179,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
           children: [
             for (final med in medicines.take(3))
               Padding(
-                padding: const EdgeInsets.only(bottom: 8),
+                padding: const EdgeInsets.only(bottom: AppSpacing.sm),
                 child: MrpMedicationCard(
                   icon: Icons.medication_rounded,
                   name: med.nameAr,
@@ -199,7 +199,7 @@ class _PatientRecordsViewState extends State<PatientRecordsView> {
         final appointments = state is AppointmentLoaded ? state.appointments : <dynamic>[];
         if (appointments.isEmpty) {
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
+            padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
             child: Text('لا توجد مواعيد سابقة', style: TextStyle(color: colors.textLight)),
           );
         }

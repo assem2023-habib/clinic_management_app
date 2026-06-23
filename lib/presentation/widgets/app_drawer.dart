@@ -71,7 +71,7 @@ class AppDrawer extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
               Text(
                 name,
                 style: const TextStyle(
@@ -80,7 +80,7 @@ class AppDrawer extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              const SizedBox(height: 2),
+              const SizedBox(height: AppSpacing.xxs),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                 decoration: BoxDecoration(
@@ -145,7 +145,7 @@ class AppDrawer extends StatelessWidget {
                 color: isActive ? colors.primary : colors.textPrimary,
               ),
             ),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
             onTap: () {
               Navigator.pop(context);
               if (currentRoute != item.route) {

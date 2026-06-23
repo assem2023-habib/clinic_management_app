@@ -27,7 +27,7 @@ class PatientDashboardView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AnimatedCard(index: 0, child: const DashboardGreeting()),
-                const SizedBox(height: 24),
+                const SizedBox(height: AppSpacing.lg),
                 const DashboardSkeleton(),
               ],
             );
@@ -37,7 +37,7 @@ class PatientDashboardView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AnimatedCard(index: 0, child: const DashboardGreeting()),
-                const SizedBox(height: 24),
+                const SizedBox(height: AppSpacing.lg),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
                   child: Center(
@@ -58,52 +58,52 @@ class PatientDashboardView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AnimatedCard(index: 0, child: const DashboardGreeting()),
-                const SizedBox(height: 24),
+                const SizedBox(height: AppSpacing.lg),
                 _sectionTitle(colors, AppStrings.appointments),
-                const SizedBox(height: 12),
+                const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                 _buildAppointmentsGrid(colors, a.total, a.upcoming,
                     a.byStatus['completed'], a.byStatus['cancelled']),
-                const SizedBox(height: 24),
+                const SizedBox(height: AppSpacing.lg),
                 _sectionTitle(colors, AppStrings.myFile),
-                const SizedBox(height: 12),
+                const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                 _buildMedicalGrid(colors,
                     d.doctors?.total, d.totalMedicalRecords, d.totalPrescriptions),
-                const SizedBox(height: 24),
+                const SizedBox(height: AppSpacing.lg),
                 AnimatedCard(
                   index: 6,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(AppStrings.quickActions, style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                       Row(children: [
                         Expanded(child: ActionButton(icon: Icons.calendar_month, label: AppStrings.myAppointments, color: colors.primary, onPressed: () => Navigator.pushNamed(context, AppRoutes.appointments))),
-                        const SizedBox(width: 12),
+                        const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
                         Expanded(child: ActionButton(icon: Icons.folder, label: AppStrings.myRecords, color: colors.secondary, onPressed: () => Navigator.pushNamed(context, AppRoutes.medicalRecords))),
                       ]),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                       Row(children: [
                         Expanded(child: ActionButton(icon: Icons.person, label: AppStrings.myFile, color: colors.accent, onPressed: () => Navigator.pushNamed(context, AppRoutes.profile))),
-                        const SizedBox(width: 12),
+                        const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
                         Expanded(child: ActionButton(icon: Icons.settings, label: AppStrings.settings, color: colors.primaryDark, onPressed: () => Navigator.pushNamed(context, AppRoutes.settings))),
                       ]),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                       Row(children: [
                         Expanded(child: ActionButton(icon: Icons.supervisor_account, label: AppStrings.supervisionRequests, color: colors.success, onPressed: () => Navigator.pushNamed(context, AppRoutes.supervisionRequests))),
-                        const SizedBox(width: 12),
+                        const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
                         Expanded(child: ActionButton(icon: Icons.file_download, label: AppStrings.dfTitle, color: colors.secondary, onPressed: () => Navigator.pushNamed(context, AppRoutes.downloadFiles))),
                       ]),
                     ],
                   ),
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: AppSpacing.lg),
                 AnimatedCard(
                   index: 7,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(AppStrings.latestAppointments, style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                       const RecentAppointments(),
                     ],
                   ),

@@ -138,7 +138,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 children: [
                   if (isLast) ...[
                     Icon(Icons.check_circle_rounded, color: colors.primaryLight),
-                    const SizedBox(width: 10),
+                    const SizedBox(width: AppSpacing.ten),
                     Text(
                       AppStrings.enterApp,
                       style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600, color: colors.primaryLight),
@@ -148,14 +148,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       AppStrings.next,
                       style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600, color: colors.primaryLight),
                     ),
-                    const SizedBox(width: 10),
+                    const SizedBox(width: AppSpacing.ten),
                     Icon(Icons.arrow_forward_rounded, color: colors.primaryLight),
                   ],
                 ],
               ),
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: AppSpacing.md),
           TextButton(
             onPressed: () async {
               await context.read<OnboardingCubit>().completeOnboarding();
@@ -185,7 +185,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           duration: const Duration(milliseconds: 300),
           width: isActive ? 32 : 8,
           height: 8,
-          margin: const EdgeInsets.symmetric(horizontal: 4),
+          margin: const EdgeInsets.symmetric(horizontal: AppSpacing.xs),
           decoration: BoxDecoration(
             color: isActive ? colors.primary : colors.divider,
             borderRadius: BorderRadius.circular(4),

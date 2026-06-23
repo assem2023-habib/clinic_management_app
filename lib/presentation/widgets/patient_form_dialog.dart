@@ -5,6 +5,7 @@ import 'package:clinic_management_app/core/utils/helpers.dart';
 import 'package:clinic_management_app/domain/entities/patient_entity.dart';
 import 'package:clinic_management_app/presentation/blocs/patient/patient_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/patient/patient_event.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class PatientFormDialog extends StatefulWidget {
   final PatientEntity? patient;
@@ -85,20 +86,20 @@ class _PatientFormDialogState extends State<PatientFormDialog> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextFormField(controller: _firstNameController, decoration: const InputDecoration(labelText: 'First Name'), validator: (v) => v!.isEmpty ? AppStrings.required : null),
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
               TextFormField(controller: _lastNameController, decoration: const InputDecoration(labelText: 'Last Name'), validator: (v) => v!.isEmpty ? AppStrings.required : null),
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
               DropdownButtonFormField<String>(
                 initialValue: _gender,
                 decoration: const InputDecoration(labelText: 'Gender'),
                 items: const [DropdownMenuItem(value: 'male', child: Text('Male')), DropdownMenuItem(value: 'female', child: Text('Female'))],
                 onChanged: (v) => setState(() => _gender = v!),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
               TextFormField(controller: _phoneController, decoration:  InputDecoration(labelText: AppStrings.phone), keyboardType: TextInputType.phone, validator: (v) => v!.isEmpty ? AppStrings.required : null),
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
               TextFormField(controller: _emailController, decoration:  InputDecoration(labelText: AppStrings.email), keyboardType: TextInputType.emailAddress, validator: (v) => v!.isEmpty ? AppStrings.required : null),
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
               TextFormField(controller: _addressController, decoration:  InputDecoration(labelText: AppStrings.address)),
             ],
           ),
@@ -111,3 +112,4 @@ class _PatientFormDialogState extends State<PatientFormDialog> {
     );
   }
 }
+

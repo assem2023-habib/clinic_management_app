@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: SafeArea(
           child: Center(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.all(AppSpacing.lg),
               child: BlocBuilder<OnboardingCubit, OnboardingState>(
                 builder: (context, onboardingState) {
                   final role = onboardingState.selectedRole;
@@ -72,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           size: 80,
                           color: colors.primary,
                         ),
-                        const SizedBox(height: 24),
+                        const SizedBox(height: AppSpacing.lg),
                         Text(
                           AppStrings.appName,
                           textAlign: TextAlign.center,
@@ -82,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             color: colors.textPrimary,
                           ),
                         ),
-                        const SizedBox(height: 8),
+                        const SizedBox(height: AppSpacing.sm),
                         Text(
                           AppStrings.loginAsRole,
                           textAlign: TextAlign.center,
@@ -91,12 +91,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             color: colors.textSecondary,
                           ),
                         ),
-                        const SizedBox(height: 4),
+                        const SizedBox(height: AppSpacing.xs),
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                           decoration: BoxDecoration(
                             color: colors.primary.withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(AppSpacing.sm),
                           ),
                           child: Text(
                             roleLabel,
@@ -121,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             return null;
                           },
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: AppSpacing.md),
                         TextFormField(
                           controller: _passwordController,
                           obscureText: _obscurePassword,
@@ -138,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             return null;
                           },
                         ),
-                        const SizedBox(height: 32),
+                        const SizedBox(height: AppSpacing.xl),
                         BlocBuilder<AuthCubit, AuthState>(
                           builder: (context, state) {
                             return ElevatedButton(
@@ -154,7 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       }
                                     },
                               style: ElevatedButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(vertical: 16),
+                                padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
                               ),
                               child: state.isLoading
                                   ? SizedBox(
@@ -173,7 +173,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                         ),
                         if (role == UserRole.doctor || role == UserRole.patient) ...[
-                          const SizedBox(height: 4),
+                          const SizedBox(height: AppSpacing.xs),
                           TextButton(
                             onPressed: () {
                               final route = role == UserRole.doctor
@@ -187,7 +187,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ],
-                        const SizedBox(height: 4),
+                        const SizedBox(height: AppSpacing.xs),
                         TextButton(
                           onPressed: () {
                             context.read<OnboardingCubit>().resetOnboarding();

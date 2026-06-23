@@ -165,7 +165,7 @@ class _UploadFilesScreenState extends State<UploadFilesScreen> {
             ),
             const SizedBox(height: AppSpacing.md),
             const AnimatedCard(index: 1, child: UfSecurityCard()),
-            const SizedBox(height: 32),
+            const SizedBox(height: AppSpacing.xl),
           ],
         ),
       );
@@ -193,12 +193,12 @@ class _UploadFilesScreenState extends State<UploadFilesScreen> {
               children: [
                 if (isLoadingMore)
                   const Padding(
-                    padding: EdgeInsets.all(16),
+                    padding: EdgeInsets.all(AppSpacing.md),
                     child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
                   ),
                 const SizedBox(height: AppSpacing.md),
                 AnimatedCard(index: i, child: const UfSecurityCard()),
-                const SizedBox(height: 32),
+                const SizedBox(height: AppSpacing.xl),
               ],
             );
           }

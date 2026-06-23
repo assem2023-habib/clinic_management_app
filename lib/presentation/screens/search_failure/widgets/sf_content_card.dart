@@ -12,8 +12,8 @@ class SfContentCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 24),
-      padding: const EdgeInsets.all(24),
+      margin: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+      padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
         color: colors.cardBg.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
@@ -32,7 +32,7 @@ class SfContentCard extends StatelessWidget {
               color: colors.warning,
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
           Text(
             message,
             textAlign: TextAlign.center,

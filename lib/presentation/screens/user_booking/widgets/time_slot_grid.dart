@@ -33,13 +33,13 @@ class TimeSlotGrid extends StatelessWidget {
       children: [
         if (morningSlots.isNotEmpty) ...[
           _buildPeriodHeader(context, Icons.wb_sunny_rounded, AppStrings.bookingMorning),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
           _buildSlotGrid(context, morningSlots),
         ],
         if (eveningSlots.isNotEmpty) ...[
           const SizedBox(height: AppSpacing.lg),
           _buildPeriodHeader(context, Icons.nights_stay_rounded, AppStrings.bookingEvening),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
           _buildSlotGrid(context, eveningSlots),
         ],
         if (slots.isEmpty)
@@ -114,7 +114,7 @@ class TimeSlotGrid extends StatelessWidget {
                           ? colors.textLight
                           : colors.primary,
                 ),
-                const SizedBox(width: 6),
+                const SizedBox(width: AppSpacing.six),
                 Expanded(
                   child: Text(
                     _formatTime(slot.time),

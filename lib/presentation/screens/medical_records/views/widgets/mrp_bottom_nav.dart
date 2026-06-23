@@ -52,7 +52,7 @@ class MrpBottomNav extends StatelessWidget {
                 ? colors.primary
                 : colors.divider,
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: AppSpacing.xs),
           Text(
             label,
             style: TextStyle(
@@ -81,7 +81,7 @@ class MrpBottomNav extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(icon, size: AppSpacing.iconSize, color: colors.timelineBg),
-            const SizedBox(height: 4),
+            const SizedBox(height: AppSpacing.xs),
             Text(
               label,
             style: TextStyle(

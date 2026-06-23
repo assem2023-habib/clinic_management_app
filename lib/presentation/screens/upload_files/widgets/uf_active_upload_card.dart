@@ -26,7 +26,7 @@ class UfActiveUploadCard extends StatelessWidget {
       padding: const EdgeInsets.all(AppSpacing.md),
       decoration: BoxDecoration(
         color: colors.cardBg.withValues(alpha: 0.6),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
         border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
       ),
       child: Column(
@@ -40,7 +40,7 @@ class UfActiveUploadCard extends StatelessWidget {
                 height: 56,
                 decoration: BoxDecoration(
                   color: colors.cardBorder,
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(AppSpacing.sm),
                   border: Border.all(
                     color: colors.mint.withValues(alpha: 0.2),
                   ),
@@ -51,7 +51,7 @@ class UfActiveUploadCard extends StatelessWidget {
                   color: colors.mint,
                 ),
               ),
-              const SizedBox(width: 16),
+              const SizedBox(width: AppSpacing.md),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,7 +66,7 @@ class UfActiveUploadCard extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: AppSpacing.xs),
                     Text(
                       '$fileSize • ${AppStrings.ufProcessing}',
                       style: TextStyle(
@@ -100,7 +100,7 @@ class UfActiveUploadCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: AppSpacing.sm),
           ClipRRect(
             borderRadius: BorderRadius.circular(999),
             child: Container(

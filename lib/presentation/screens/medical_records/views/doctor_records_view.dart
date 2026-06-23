@@ -60,13 +60,13 @@ class _DoctorRecordsViewState extends State<DoctorRecordsView> {
           }
           return ListView.separated(
             controller: _scrollController,
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(AppSpacing.md),
             itemCount: state.records.length + (state.isLoadingMore ? 1 : 0),
-            separatorBuilder: (_, _) => const SizedBox(height: 12),
+            separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
             itemBuilder: (context, index) {
               if (index >= state.records.length) {
                 return const Padding(
-                  padding: EdgeInsets.all(16),
+                  padding: EdgeInsets.all(AppSpacing.md),
                   child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
                 );
               }
@@ -93,17 +93,17 @@ class _DoctorRecordsViewState extends State<DoctorRecordsView> {
         subtitle: Text(record.visitDate != null ? DateFormat('yyyy-MM-dd').format(DateTime.parse(record.visitDate!)) : ''),
         children: [
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(AppSpacing.md),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildInfoRow(AppStrings.doctorLabel, record.doctorName ?? '', colors),
-                const SizedBox(height: 12),
+                const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                 _buildInfoRow(AppStrings.diagnosis, record.diagnosis, colors),
-                const SizedBox(height: 12),
+                const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                 _buildInfoRow(AppStrings.prescription, record.prescription ?? '', colors),
                 if (record.notes != null) ...[
-                  const SizedBox(height: 12),
+                  const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                   _buildInfoRow(AppStrings.notesLabel, record.notes!, colors),
                 ],
               ],
@@ -119,7 +119,7 @@ class _DoctorRecordsViewState extends State<DoctorRecordsView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(label, style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textLight, fontWeight: FontWeight.w500)),
-        const SizedBox(height: 4),
+        const SizedBox(height: AppSpacing.xs),
         Text(value, style: TextStyle(fontSize: AppSpacing.bodyMedium, color: colors.textPrimary)),
       ],
     );

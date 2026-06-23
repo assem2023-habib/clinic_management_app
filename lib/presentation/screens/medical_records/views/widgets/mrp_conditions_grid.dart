@@ -20,10 +20,10 @@ class MrpConditionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(AppSpacing.md),
       decoration: BoxDecoration(
         color: colors.surfaceDark.withValues(alpha: 0.4),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
         border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
       ),
       child: Row(
@@ -33,11 +33,11 @@ class MrpConditionCard extends StatelessWidget {
             height: 40,
             decoration: BoxDecoration(
               color: iconBg.withValues(alpha: 0.3),
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(AppSpacing.sm),
             ),
             child: Icon(icon, size: AppSpacing.iconSize, color: iconColor),
           ),
-          const SizedBox(width: 16),
+          const SizedBox(width: AppSpacing.md),
           Text(
             label,
             style: TextStyle(

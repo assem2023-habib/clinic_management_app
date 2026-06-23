@@ -43,7 +43,7 @@ class GlassStatCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(icon, size: AppSpacing.iconMedium, color: color),
-                  const SizedBox(height: 6),
+                  const SizedBox(height: AppSpacing.six),
                   if (value != null)
                     Text(
                       value!,
@@ -54,7 +54,7 @@ class GlassStatCard extends StatelessWidget {
                         height: 1.1,
                       ),
                     ),
-                  const SizedBox(height: 2),
+                  const SizedBox(height: AppSpacing.xxs),
                   Text(
                     title,
                     textAlign: TextAlign.center,

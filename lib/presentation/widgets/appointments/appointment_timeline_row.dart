@@ -49,7 +49,7 @@ class AppointmentTimelineRow extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _DateLabel(appointment: appointment),
-                  const SizedBox(height: 6),
+                  const SizedBox(height: AppSpacing.six),
                   AppointmentCard(
                     appointment: appointment,
                     isFeatured: isFeatured,
@@ -106,7 +106,7 @@ class _DateLabel extends StatelessWidget {
     }
 
     return Padding(
-      padding: const EdgeInsets.only(right: 2),
+      padding: const EdgeInsets.only(right: AppSpacing.xxs),
       child: Text(label,
         style: TextStyle(
           fontSize: AppSpacing.bodySmall,

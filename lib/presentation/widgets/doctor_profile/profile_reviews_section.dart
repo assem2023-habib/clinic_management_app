@@ -37,14 +37,14 @@ class ProfileReviewsSection extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
         Row(
           children: [
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               decoration: BoxDecoration(
                 color: colors.cardBg,
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
                 border: Border.all(color: colors.divider.withValues(alpha: 0.2)),
               ),
               child: Row(
@@ -54,7 +54,7 @@ class ProfileReviewsSection extends StatelessWidget {
                     (averageRating?.toString() ?? '0.0'),
                     style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: colors.textPrimary),
                   ),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: AppSpacing.sm),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
@@ -84,13 +84,13 @@ class ProfileReviewsSection extends StatelessWidget {
               ),
           ],
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: AppSpacing.md),
         ...reviews.take(3).map((review) => Container(
-          margin: const EdgeInsets.only(bottom: 12),
-          padding: const EdgeInsets.all(16),
+          margin: const EdgeInsets.only(bottom: AppSpacing.sm + AppSpacing.xs),
+          padding: const EdgeInsets.all(AppSpacing.md),
           decoration: BoxDecoration(
             color: colors.cardBg,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
             border: Border.all(color: colors.divider.withValues(alpha: 0.2)),
           ),
           child: Column(
@@ -106,7 +106,7 @@ class ProfileReviewsSection extends StatelessWidget {
                       style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600, color: colors.primary),
                     ),
                   ),
-                  const SizedBox(width: 10),
+                  const SizedBox(width: AppSpacing.ten),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,14 +128,14 @@ class ProfileReviewsSection extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: AppSpacing.ten),
               Text(review.comment ?? '', style: TextStyle(fontSize: 13, color: colors.textSecondary, height: 1.5)),
               if ((review.likesCount ?? 0) > 0) ...[
-                const SizedBox(height: 8),
+                const SizedBox(height: AppSpacing.sm),
                 Row(
                   children: [
                     Icon(Icons.thumb_up_rounded, size: 14, color: colors.textLight),
-                    const SizedBox(width: 4),
+                    const SizedBox(width: AppSpacing.xs),
                     Text('${review.likesCount ?? 0}', style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textLight)),
                   ],
                 ),

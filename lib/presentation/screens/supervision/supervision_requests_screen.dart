@@ -141,7 +141,7 @@ class _PatientDoctorsTab extends StatelessWidget {
           return RefreshIndicator(
             onRefresh: () async => onRefresh(),
             child: ListView.builder(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(AppSpacing.md),
               itemCount: state.doctors.length,
               itemBuilder: (context, index) {
                 final supervision = state.doctors[index];
@@ -208,7 +208,7 @@ class _DoctorPatientsTab extends StatelessWidget {
           return RefreshIndicator(
             onRefresh: () async => onRefresh(),
             child: ListView.builder(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(AppSpacing.md),
               itemCount: state.patients.length,
               itemBuilder: (context, index) {
                 final supervision = state.patients[index];
@@ -275,7 +275,7 @@ class _PatientRequestsTab extends StatelessWidget {
           return RefreshIndicator(
             onRefresh: () async => onRefresh(),
             child: ListView.builder(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(AppSpacing.md),
               itemCount: state.requests.length,
               itemBuilder: (context, index) {
                 final request = state.requests[index];
@@ -341,7 +341,7 @@ class _DoctorRequestsTab extends StatelessWidget {
           return RefreshIndicator(
             onRefresh: () async => onRefresh(),
             child: ListView.builder(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(AppSpacing.md),
               itemCount: state.requests.length,
               itemBuilder: (context, index) {
                 final request = state.requests[index];
@@ -361,7 +361,7 @@ class _DoctorRequestsTab extends StatelessWidget {
                           context.read<SupervisionBloc>().add(ApproveRequest(request.id));
                         },
                       ),
-                      const SizedBox(width: 8),
+                      const SizedBox(width: AppSpacing.sm),
                       _ActionChip(
                         label: AppStrings.rejectRequest,
                         color: colors.error,
@@ -409,10 +409,10 @@ class _SupervisionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 12),
+      margin: const EdgeInsets.only(bottom: AppSpacing.sm + AppSpacing.xs),
       decoration: BoxDecoration(
         color: colors.cardBg,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
         boxShadow: [
           BoxShadow(
             color: colors.shadow.withValues(alpha: 0.08),
@@ -422,7 +422,7 @@ class _SupervisionCard extends StatelessWidget {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(AppSpacing.md),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -441,7 +441,7 @@ class _SupervisionCard extends StatelessWidget {
                   ),
                   child: Icon(icon, color: Colors.white, size: AppSpacing.iconSize),
                 ),
-                const SizedBox(width: 12),
+                const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -483,7 +483,7 @@ class _SupervisionCard extends StatelessWidget {
               ],
             ),
             if (trailing != null) ...[
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
               Align(alignment: Alignment.centerLeft, child: trailing!),
             ],
           ],
@@ -539,10 +539,10 @@ class _RequestCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 12),
+      margin: const EdgeInsets.only(bottom: AppSpacing.sm + AppSpacing.xs),
       decoration: BoxDecoration(
         color: colors.cardBg,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
         boxShadow: [
           BoxShadow(
             color: colors.shadow.withValues(alpha: 0.08),
@@ -552,7 +552,7 @@ class _RequestCard extends StatelessWidget {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(AppSpacing.md),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -567,7 +567,7 @@ class _RequestCard extends StatelessWidget {
                   ),
                   child: Icon(icon, color: _statusColor(), size: AppSpacing.iconSize),
                 ),
-                const SizedBox(width: 12),
+                const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -609,7 +609,7 @@ class _RequestCard extends StatelessWidget {
               ],
             ),
             if (actions.isNotEmpty) ...[
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
               Row(children: actions),
             ],
           ],
@@ -636,17 +636,17 @@ class _ActionChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: color.withValues(alpha: 0.1),
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(AppSpacing.ten),
       child: InkWell(
         onTap: onPressed,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(AppSpacing.ten),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(icon, size: 16, color: color),
-              const SizedBox(width: 6),
+              const SizedBox(width: AppSpacing.six),
               Text(
                 label,
                 style: TextStyle(
@@ -689,7 +689,7 @@ class _EmptyState extends StatelessWidget {
             ),
             child: Icon(icon, size: 40, color: colors.primary.withValues(alpha: 0.5)),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: AppSpacing.md),
           Text(
             message,
             style: TextStyle(

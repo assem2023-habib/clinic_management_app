@@ -114,7 +114,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
               ),
             ).animate().fadeIn(duration: 800.ms, curve: Curves.easeOutCubic)
              .scale(delay: 100.ms, duration: 700.ms, begin: const Offset(0.5, 0.5), curve: Curves.easeOutBack),
-            const SizedBox(height: 32),
+            const SizedBox(height: AppSpacing.xl),
             Text(
               AppStrings.splashTitle,
               style: TextStyle(
@@ -126,7 +126,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
               ),
             ).animate().fadeIn(delay: 500.ms, duration: 600.ms, curve: Curves.easeOutCubic)
              .slideY(begin: 0.4, duration: 600.ms, curve: Curves.easeOutCubic),
-            const SizedBox(height: 12),
+            const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
             Text(
               AppStrings.systemTitle,
               style: TextStyle(

@@ -103,7 +103,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                   ),
                   child: const Icon(Icons.person, color: Colors.white),
                 ),
-                const SizedBox(width: 12),
+                const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -128,7 +128,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
               ],
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: AppSpacing.ten),
           _sheetOption(
             colors,
             icon: Icons.visibility_rounded,
@@ -250,7 +250,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                       color: colors.textPrimary,
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: AppSpacing.ten),
                   Text(
                     'هل أنت متأكد من حذف ملف\nد. ${doctor.name}؟\nلا يمكن التراجع عن هذا الإجراء.',
                     textAlign: TextAlign.center,
@@ -285,7 +285,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 10),
+                      const SizedBox(width: AppSpacing.ten),
                       Expanded(
                         child: GestureDetector(
                           onTap: () {
@@ -605,7 +605,7 @@ class GlassSkeletonList extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                 SkeletonContainer(width: 180, height: 14),
                 const SizedBox(height: AppSpacing.sm),
                 SkeletonContainer(width: double.infinity, height: 14),

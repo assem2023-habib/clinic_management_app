@@ -45,7 +45,7 @@ class AppointmentOptionsSheet extends StatelessWidget {
                 ? Image.network(imgUrl, fit: BoxFit.cover)
                 : Icon(Icons.person, color: c.textSecondary),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text('الخيارات المتاحة لـ', style: TextStyle(fontSize: 11, color: c.textSecondary)),
             Text(docName, style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w700, color: c.textPrimary)),
@@ -109,7 +109,7 @@ class AppointmentOptionsSheet extends StatelessWidget {
       barrierColor: c.scaffoldBg.withValues(alpha: 0.85),
       builder: (ctx) => Dialog(
         backgroundColor: Colors.transparent,
-        insetPadding: const EdgeInsets.symmetric(horizontal: 24),
+        insetPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
         child: _CancelDialog(appointment: appointment),
       ),
     );
@@ -209,7 +209,7 @@ class _CancelDialog extends StatelessWidget {
                   child: Text('رجوع', style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w700, color: c.textSecondary)),
                 ),
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: AppSpacing.ten),
               Expanded(
                 child: TextButton(
                   onPressed: () {

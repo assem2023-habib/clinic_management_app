@@ -35,17 +35,17 @@ class ProfileStatsGrid extends StatelessWidget {
       itemBuilder: (context, index) {
         final stat = stats[index];
         return Container(
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.all(AppSpacing.sm + AppSpacing.xs),
           decoration: BoxDecoration(
             color: colors.cardBg,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
             border: Border.all(color: colors.divider.withValues(alpha: 0.2)),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(stat.icon, color: stat.color, size: 18),
-              const SizedBox(height: 4),
+              const SizedBox(height: AppSpacing.xs),
               Flexible(
                 child: FittedBox(
                   fit: BoxFit.scaleDown,

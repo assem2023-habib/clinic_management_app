@@ -247,7 +247,7 @@ class _SupervisionBadgeCard extends StatelessWidget {
       child: Row(
         children: [
           Icon(icon, color: color, size: AppSpacing.iconMedium),
-          const SizedBox(width: 10),
+          const SizedBox(width: AppSpacing.ten),
           Expanded(
             child: Text(
               label,
@@ -260,10 +260,10 @@ class _SupervisionBadgeCard extends StatelessWidget {
           ),
           Material(
             color: color.withValues(alpha: 0.12),
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(AppSpacing.sm),
             child: InkWell(
               onTap: onAction,
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(AppSpacing.sm),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                 child: Row(

@@ -35,7 +35,7 @@ class RatingActionCard extends StatelessWidget {
             AppStrings.rating,
             style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600, color: Colors.white),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: AppSpacing.xs),
           Text(
             AppStrings.reviewPrompt,
             style: TextStyle(fontSize: AppSpacing.bodySmall, color: Colors.white.withValues(alpha: 0.8)),
@@ -49,7 +49,7 @@ class RatingActionCard extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: colors.success,
                 foregroundColor: colors.textPrimary,
-                padding: const EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.symmetric(vertical: AppSpacing.ten),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(999)),
                 elevation: 0,
               ),

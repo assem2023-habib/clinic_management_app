@@ -44,20 +44,20 @@ class AdminDoctorProfileView extends StatelessWidget {
                   icon: Icon(Icons.edit_rounded, size: 18, color: colors.primary),
                   label: Text(AppStrings.editProfile, style: TextStyle(color: colors.primary)),
                   style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm + AppSpacing.xs),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
                     side: BorderSide(color: colors.primary.withValues(alpha: 0.3)),
                   ),
                 ),
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
               Expanded(
                 child: OutlinedButton.icon(
                   onPressed: onDeleteDoctor,
                   icon: Icon(Icons.delete_rounded, size: 18, color: colors.error),
                   label: Text(AppStrings.deleteDoctor, style: TextStyle(color: colors.error)),
                   style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm + AppSpacing.xs),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
                     side: BorderSide(color: colors.error.withValues(alpha: 0.3)),
                   ),

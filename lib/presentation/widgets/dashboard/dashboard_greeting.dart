@@ -28,7 +28,7 @@ class DashboardGreeting extends StatelessWidget {
               '${AppStrings.greeting} ${state.userName ?? ''}',
               style: TextStyle(fontSize: AppSpacing.titleError, fontWeight: FontWeight.bold, color: colors.textPrimary),
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: AppSpacing.xs),
             Text(
               roleLabel,
               style: TextStyle(fontSize: AppSpacing.bodyMedium, color: colors.primary, fontWeight: FontWeight.w600),

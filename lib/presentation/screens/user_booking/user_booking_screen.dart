@@ -257,7 +257,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: dates.length,
-            separatorBuilder: (_, _) => const SizedBox(width: 12),
+            separatorBuilder: (_, _) => const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
             itemBuilder: (context, i) => _DateCard(
               dayName: dates[i].dayName,
               dayNumber: dates[i].dayNumber,
@@ -469,7 +469,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
                               color: colors.primaryDark,
                             ),
                           ),
-                          const SizedBox(width: 12),
+                          const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
                           Icon(Icons.event_available, color: colors.primaryDark, size: AppSpacing.iconMedium),
                         ],
                       ),

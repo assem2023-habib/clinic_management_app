@@ -53,17 +53,17 @@ class _NotificationScreenState extends State<NotificationScreen> {
           if (state is NotificationError) {
             return Center(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const NfIconSection(),
-                    const SizedBox(height: 32),
+                    const SizedBox(height: AppSpacing.xl),
                     NfContentCard(
                       title: 'فَشِلَ إِرْسَالُ الإِشْعَارِ',
                       message: state.message,
                     ),
-                    const SizedBox(height: 32),
+                    const SizedBox(height: AppSpacing.xl),
                     NfActions(
                       onRetry: () => context.read<NotificationBloc>().add(const NotificationLoadAll()),
                       onBack: () => Navigator.pop(context),
@@ -139,7 +139,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             children: [
               Text(label, style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600, color: isActive ? colors.neonGreen : colors.textSecondary)),
               if (count != null && count > 0) ...[
-                const SizedBox(width: 6),
+                const SizedBox(width: AppSpacing.six),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(color: colors.neonGreen.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(9999)),
@@ -256,7 +256,7 @@ class _AnimatedNotificationCardState extends State<_AnimatedNotificationCard>
         padding: const EdgeInsets.only(right: AppSpacing.lg),
         decoration: BoxDecoration(
           color: Colors.red.withValues(alpha: 0.15),
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
         ),
         child: const Icon(Icons.delete_outline_rounded, color: Colors.red),
       ),
@@ -268,7 +268,7 @@ class _AnimatedNotificationCardState extends State<_AnimatedNotificationCard>
           padding: const EdgeInsets.all(AppSpacing.md),
           decoration: BoxDecoration(
             color: isRead ? colors.surface.withValues(alpha: 0.5) : colors.cardBg,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
             border: Border.all(color: isRead ? colors.divider.withValues(alpha: 0.05) : colors.divider.withValues(alpha: 0.12)),
           ),
           child: Row(
@@ -310,9 +310,9 @@ class _AnimatedNotificationCardState extends State<_AnimatedNotificationCard>
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(widget.notification.title, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: colors.textPrimary)),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: AppSpacing.xs),
                     Text(widget.notification.message, style: TextStyle(fontSize: 13, color: colors.textSecondary, height: 1.4), maxLines: 2, overflow: TextOverflow.ellipsis),
-                    const SizedBox(height: 6),
+                    const SizedBox(height: AppSpacing.six),
                     Text(_formatTimestamp(widget.notification.timestamp), style: TextStyle(fontSize: 11, color: colors.textLight.withValues(alpha: 0.5))),
                   ],
                 ),

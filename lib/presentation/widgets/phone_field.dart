@@ -91,7 +91,7 @@ class PhoneFieldState extends State<PhoneField> {
         hintStyle: TextStyle(color: colors.textLight),
         filled: true,
         fillColor: colors.cardBg,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
         prefixIcon: _buildCountryPicker(colors),
         prefixIconConstraints: const BoxConstraints(minWidth: 96, minHeight: 48),
       ),
@@ -104,10 +104,10 @@ class PhoneFieldState extends State<PhoneField> {
       child: Padding(
         padding: const EdgeInsetsDirectional.only(start: 4),
         child: InkWell(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(AppSpacing.sm),
           onTap: () => _showPicker(context, colors),
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
             decoration: BoxDecoration(
               border: Border(
                 right: BorderSide(color: colors.divider.withValues(alpha: 0.5)),
@@ -117,7 +117,7 @@ class PhoneFieldState extends State<PhoneField> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(_selected.flag, style: const TextStyle(fontSize: 20)),
-                const SizedBox(width: 4),
+                const SizedBox(width: AppSpacing.xs),
                 Text(
                   _selected.dialCode,
                   style: TextStyle(
@@ -164,7 +164,7 @@ class PhoneFieldState extends State<PhoneField> {
                       borderRadius: BorderRadius.circular(2),
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: AppSpacing.md),
                   Text(
                     AppStrings.chooseCountry,
                     style: TextStyle(
@@ -173,7 +173,7 @@ class PhoneFieldState extends State<PhoneField> {
                       color: colors.textPrimary,
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                   TextField(
                     controller: searchCtrl,
                     onChanged: (v) {
@@ -191,10 +191,10 @@ class PhoneFieldState extends State<PhoneField> {
                       prefixIcon: Icon(Icons.search_rounded, color: colors.textSecondary),
                       filled: true,
                       fillColor: colors.inputBg,
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: AppSpacing.sm),
                   Flexible(
                     child: ListView.builder(
                       itemCount: filtered.length,
@@ -214,7 +214,7 @@ class PhoneFieldState extends State<PhoneField> {
                               trailing: isSelected
                                   ? Icon(Icons.check_circle_rounded, color: colors.primary, size: AppSpacing.iconMedium)
                                   : null,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.sm)),
                               selected: isSelected,
                               selectedTileColor: colors.primary.withValues(alpha: 0.08),
                               onTap: () {

@@ -17,7 +17,7 @@ class RoleSelectionScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
           child: Column(
             children: [
               const SizedBox(height: 40),
@@ -37,7 +37,7 @@ class RoleSelectionScreen extends StatelessWidget {
                 ),
                 child: Icon(Icons.medical_services_rounded, size: 44, color: colors.primary),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: AppSpacing.lg),
               Text(
                 AppStrings.roleSelectionSystemName,
                 textAlign: TextAlign.center,
@@ -47,7 +47,7 @@ class RoleSelectionScreen extends StatelessWidget {
                   color: colors.textPrimary,
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: AppSpacing.sm),
               Text(
                 AppStrings.chooseRoleToStart,
                 textAlign: TextAlign.center,
@@ -56,10 +56,10 @@ class RoleSelectionScreen extends StatelessWidget {
                   color: colors.textSecondary,
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: AppSpacing.lg),
               Expanded(
                 child: SingleChildScrollView(
-                  padding: const EdgeInsets.only(bottom: 8),
+                  padding: const EdgeInsets.only(bottom: AppSpacing.sm),
                   child: Column(
                     children: [
                       _buildRoleCard(
@@ -70,7 +70,7 @@ class RoleSelectionScreen extends StatelessWidget {
                         role: UserRole.admin,
                         color: colors.primary,
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: AppSpacing.md),
                       _buildRoleCard(
                         context,
                         icon: Icons.local_hospital_rounded,
@@ -79,7 +79,7 @@ class RoleSelectionScreen extends StatelessWidget {
                         role: UserRole.doctor,
                         color: colors.secondary,
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: AppSpacing.md),
                       _buildRoleCard(
                         context,
                         icon: Icons.assignment_ind_rounded,
@@ -88,7 +88,7 @@ class RoleSelectionScreen extends StatelessWidget {
                         role: UserRole.receptionist,
                         color: colors.accent,
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: AppSpacing.md),
                       _buildRoleCard(
                         context,
                         icon: Icons.person_pin_rounded,
@@ -128,7 +128,7 @@ class RoleSelectionScreen extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: colors.cardBg,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
           border: Border.all(color: colors.divider.withValues(alpha: 0.3)),
           boxShadow: [
             BoxShadow(
@@ -145,11 +145,11 @@ class RoleSelectionScreen extends StatelessWidget {
               height: 56,
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
               ),
               child: Icon(icon, color: color, size: 28),
             ),
-            const SizedBox(width: 16),
+            const SizedBox(width: AppSpacing.md),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -162,7 +162,7 @@ class RoleSelectionScreen extends StatelessWidget {
                       color: colors.textPrimary,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: AppSpacing.xs),
                   Text(
                     subtitle,
                     style: TextStyle(

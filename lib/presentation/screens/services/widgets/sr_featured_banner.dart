@@ -17,7 +17,7 @@ class SrFeaturedBanner extends StatelessWidget {
         width: double.infinity,
         height: 160,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
           border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
         ),
         clipBehavior: Clip.antiAlias,

@@ -50,7 +50,7 @@ class RhQueueCard extends StatelessWidget {
                 style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600, color: colors.primary),
               ),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,7 +68,7 @@ class RhQueueCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 2),
+                  const SizedBox(height: AppSpacing.xxs),
                   Text(
                     '${AppStrings.rhWithDoctorSub}${appointment.doctorName ?? ''}',
                     style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textSecondary),

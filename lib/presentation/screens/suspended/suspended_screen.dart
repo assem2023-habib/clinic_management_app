@@ -95,7 +95,7 @@ class _SuspendedScreenState extends State<SuspendedScreen>
         _buildAppBar(colors),
         Expanded(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md + AppSpacing.xs),
             child: Column(
               children: [
                 const SizedBox(height: AppSpacing.appBarHeight),
@@ -109,7 +109,7 @@ class _SuspendedScreenState extends State<SuspendedScreen>
                   onContactSupport: widget.onContactSupport,
                   onLogout: widget.onLogout,
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: AppSpacing.xl),
               ],
             ),
           ),
@@ -122,7 +122,7 @@ class _SuspendedScreenState extends State<SuspendedScreen>
     return Container(
       width: double.infinity,
       height: AppSpacing.appBarHeight,
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md + AppSpacing.xs),
       child: Align(
         alignment: Alignment.centerRight,
         child: Material(

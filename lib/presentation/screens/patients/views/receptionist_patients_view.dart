@@ -76,11 +76,11 @@ class _ReceptionistPatientsViewState extends State<ReceptionistPatientsView> {
                   controller: _scrollController,
                   padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm),
                   itemCount: state.patients.length + (state.isLoadingMore ? 1 : 0),
-                  separatorBuilder: (_, _) => const SizedBox(height: 8),
+                  separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.sm),
                   itemBuilder: (context, index) {
                     if (index >= state.patients.length) {
                       return const Padding(
-                        padding: EdgeInsets.all(16),
+                        padding: EdgeInsets.all(AppSpacing.md),
                         child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
                       );
                     }
@@ -126,8 +126,8 @@ class _ReceptionistPatientsViewState extends State<ReceptionistPatientsView> {
             if (value == 'delete') _deletePatient(context, patient.id);
           },
           itemBuilder: (context) => [
-             PopupMenuItem(value: 'edit', child: Row(children: [Icon(Icons.edit), SizedBox(width: 8), Flexible(child: Text(AppStrings.edit, overflow: TextOverflow.ellipsis))])),
-             PopupMenuItem(value: 'delete', child: Row(children: [Icon(Icons.delete, color: Colors.red), SizedBox(width: 8), Flexible(child: Text(AppStrings.delete, style: TextStyle(color: Colors.red), overflow: TextOverflow.ellipsis))])),
+             PopupMenuItem(value: 'edit', child: Row(children: [Icon(Icons.edit), SizedBox(width: AppSpacing.sm), Flexible(child: Text(AppStrings.edit, overflow: TextOverflow.ellipsis))])),
+             PopupMenuItem(value: 'delete', child: Row(children: [Icon(Icons.delete, color: Colors.red), SizedBox(width: AppSpacing.sm), Flexible(child: Text(AppStrings.delete, style: TextStyle(color: Colors.red), overflow: TextOverflow.ellipsis))])),
           ],
         ),
       ),

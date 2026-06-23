@@ -49,7 +49,7 @@ class UfBottomNav extends StatelessWidget {
                 ? colors.mint
                 : colors.textMuted,
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: AppSpacing.xs),
           Text(
             label,
             style: TextStyle(
@@ -78,7 +78,7 @@ class UfBottomNav extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(icon, size: AppSpacing.iconSize, color: colors.iconGreen),
-            const SizedBox(height: 4),
+            const SizedBox(height: AppSpacing.xs),
             Text(
               label,
             style: TextStyle(

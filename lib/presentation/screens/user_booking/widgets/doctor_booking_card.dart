@@ -48,7 +48,7 @@ class DoctorBookingCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,7 +61,7 @@ class DoctorBookingCard extends StatelessWidget {
                     color: colors.textPrimary,
                   ),
                 ),
-                const SizedBox(height: 2),
+                const SizedBox(height: AppSpacing.xxs),
                 Text(
                   doctor.specialty,
                   style: TextStyle(

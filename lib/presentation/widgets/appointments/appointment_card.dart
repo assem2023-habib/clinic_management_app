@@ -132,7 +132,7 @@ class _AppointmentCardState extends State<AppointmentCard> with SingleTickerProv
                   ? Image.network(imgUrl, fit: BoxFit.cover)
                   : Icon(Icons.person_rounded, color: c.textSecondary, size: AppSpacing.iconSize),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
             Flexible(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(docName,
@@ -162,14 +162,14 @@ class _AppointmentCardState extends State<AppointmentCard> with SingleTickerProv
             width: 36, height: 36,
             decoration: BoxDecoration(
               color: c.surface,
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(AppSpacing.ten),
             ),
             child: Icon(Icons.schedule, color: c.primary, size: AppSpacing.iconSmall),
           ),
-          const SizedBox(width: 10),
+          const SizedBox(width: AppSpacing.ten),
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(AppStrings.time, style: TextStyle(fontSize: 11, color: c.textSecondary)),
-            const SizedBox(height: 2),
+            const SizedBox(height: AppSpacing.xxs),
             Text(timeStr, style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w700, color: c.textPrimary)),
           ]),
         ]),

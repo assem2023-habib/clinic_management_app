@@ -36,26 +36,26 @@ class ProfileServicesSection extends StatelessWidget {
               ),
           ],
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
         ...doctor.services.map((service) => Container(
-          margin: const EdgeInsets.only(bottom: 8),
+          margin: const EdgeInsets.only(bottom: AppSpacing.sm),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           decoration: BoxDecoration(
             color: colors.cardBg,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
             border: Border.all(color: colors.divider.withValues(alpha: 0.2)),
           ),
           child: Row(
             children: [
               Container(
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(AppSpacing.sm),
                 decoration: BoxDecoration(
                   color: colors.primary.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(AppSpacing.sm),
                 ),
                 child: Icon(Icons.medical_services_rounded, color: colors.primary, size: AppSpacing.iconSmall),
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
               Expanded(child: Text(service, style: TextStyle(fontSize: AppSpacing.bodyMedium, color: colors.textPrimary))),
               Icon(Icons.chevron_left_rounded, color: colors.textLight, size: AppSpacing.iconSmall),
             ],

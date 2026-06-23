@@ -61,7 +61,7 @@ class RatingSummarySection extends StatelessWidget {
                     final fill = starIndex <= averageRating.round();
                     final half = !fill && starIndex - 1 < averageRating;
                     return Padding(
-                      padding: const EdgeInsets.only(left: 2),
+                      padding: const EdgeInsets.only(left: AppSpacing.xxs),
                       child: Icon(
                         fill ? Icons.star_rounded : (half ? Icons.star_half_rounded : Icons.star_outline_rounded),
                         color: colors.primary,
@@ -85,7 +85,7 @@ class RatingSummarySection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: distribution.map((d) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 2),
+                padding: const EdgeInsets.symmetric(vertical: AppSpacing.xxs),
                 child: Row(
                   children: [
                     SizedBox(

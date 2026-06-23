@@ -47,10 +47,10 @@ class ProfileScheduleSection extends StatelessWidget {
               ),
           ],
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
         if (morningSlots.isNotEmpty) ...[
           Text(AppStrings.bookingMorning, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: colors.textSecondary)),
-          const SizedBox(height: 8),
+          const SizedBox(height: AppSpacing.sm),
           Wrap(
             spacing: 8,
             runSpacing: 8,
@@ -68,7 +68,7 @@ class ProfileScheduleSection extends StatelessWidget {
                   color: slot.isAvailable
                       ? (canManage ? colors.cardBg : colors.primary.withValues(alpha: 0.1))
                       : colors.cardBg,
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
                   border: Border.all(
                     color: slot.isAvailable
                         ? (canManage ? colors.divider : colors.primary)
@@ -93,9 +93,9 @@ class ProfileScheduleSection extends StatelessWidget {
           ),
         ],
         if (eveningSlots.isNotEmpty) ...[
-          const SizedBox(height: 16),
+          const SizedBox(height: AppSpacing.md),
           Text(AppStrings.bookingEvening, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: colors.textSecondary)),
-          const SizedBox(height: 8),
+          const SizedBox(height: AppSpacing.sm),
           Wrap(
             spacing: 8,
             runSpacing: 8,
@@ -113,7 +113,7 @@ class ProfileScheduleSection extends StatelessWidget {
                   color: slot.isAvailable
                       ? (canManage ? colors.cardBg : colors.primary.withValues(alpha: 0.1))
                       : colors.cardBg,
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
                   border: Border.all(
                     color: slot.isAvailable
                         ? (canManage ? colors.divider : colors.primary)

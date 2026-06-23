@@ -50,16 +50,16 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
                 Expanded(
                   child: SingleChildScrollView(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
                       child: Column(
                         children: [
                           const SizedBox(height: AppSpacing.xl),
                           _buildCentralElement(centralSize, colors),
-                          const SizedBox(height: 48),
+                          const SizedBox(height: AppSpacing.xxl),
                           _buildContent(colors),
-                          const SizedBox(height: 24),
+                          const SizedBox(height: AppSpacing.lg),
                           _buildActions(colors),
-                          const SizedBox(height: 24),
+                          const SizedBox(height: AppSpacing.lg),
                           _buildSignalMeter(colors),
                           const SizedBox(height: AppSpacing.xl),
                         ],
@@ -232,9 +232,9 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
           ),
           textAlign: TextAlign.center,
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md + AppSpacing.xs),
           child: Text(
             AppStrings.wcMessage,
             style: TextStyle(
@@ -346,7 +346,7 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
               ],
             ),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
           Text(
             AppStrings.wcSignalStrength,
             style: TextStyle(

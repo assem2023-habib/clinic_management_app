@@ -20,7 +20,7 @@ class UfSecurityCard extends StatelessWidget {
             Colors.transparent,
           ],
         ),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
         border: Border.all(color: colors.primary.withValues(alpha: 0.2)),
       ),
       child: Stack(
@@ -46,7 +46,7 @@ class UfSecurityCard extends StatelessWidget {
                 AppStrings.ufSecurityTitle,
                 style: TextStyle(fontSize: AppSpacing.titleError, fontWeight: FontWeight.w600, color: colors.textPrimary),
               ),
-              const SizedBox(height: 4),
+              const SizedBox(height: AppSpacing.xs),
               Text(
                 AppStrings.ufSecurityMessage,
                 style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w500, color: colors.textLight, height: 1.5),

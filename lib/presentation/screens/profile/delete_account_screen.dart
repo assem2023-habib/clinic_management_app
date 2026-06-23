@@ -57,24 +57,24 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
         child: BlocBuilder<ProfileCubit, ProfileState>(
           builder: (context, state) {
             return Padding(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.all(AppSpacing.lg),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Icon(Icons.warning_amber_rounded, size: 64, color: colors.error),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: AppSpacing.lg),
                   Text(
                     AppStrings.warningPermanent,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: colors.textPrimary),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                   Text(
                     AppStrings.deleteAllDataWarning,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: AppSpacing.bodyMedium, color: colors.textSecondary),
                   ),
-                  const SizedBox(height: 32),
+                  const SizedBox(height: AppSpacing.xl),
                   TextFormField(
                     controller: _passwordController,
                     obscureText: _obscure,
@@ -82,21 +82,21 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                       labelText: AppStrings.enterPasswordConfirm,
                       filled: true,
                       fillColor: colors.cardBg,
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
                       suffixIcon: IconButton(
                         icon: Icon(_obscure ? Icons.visibility_rounded : Icons.visibility_off_rounded),
                         onPressed: () => setState(() => _obscure = !_obscure),
                       ),
                     ),
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: AppSpacing.lg),
                   ElevatedButton(
                     onPressed: state.isSaving ? null : _submit,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: colors.error,
                       foregroundColor: colors.surface,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
                     ),
                     child: state.isSaving
                         ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))

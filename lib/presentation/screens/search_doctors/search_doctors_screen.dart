@@ -112,11 +112,11 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             _buildSearchSection(colors),
-                            const SizedBox(height: 12),
+                            const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                             _buildFilterChips(colors),
                             const SizedBox(height: AppSpacing.md),
                             _buildResultsCount(0, colors),
-                            const SizedBox(height: 12),
+                            const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                             _buildEmptyState(colors),
                           ],
                         ),
@@ -125,11 +125,11 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
                     return Column(
                       children: [
                         _buildSearchSection(colors),
-                        const SizedBox(height: 12),
+                        const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                         _buildFilterChips(colors),
                         const SizedBox(height: AppSpacing.md),
                         _buildResultsCount(filtered.length, colors),
-                        const SizedBox(height: 12),
+                        const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                         Expanded(
                           child: ListView.builder(
                             controller: _scrollController,
@@ -138,12 +138,12 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
                             itemBuilder: (context, index) {
                               if (index == filtered.length) {
                                 return const Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 16),
+                                  padding: EdgeInsets.symmetric(vertical: AppSpacing.md),
                                   child: Center(child: CircularProgressIndicator()),
                                 );
                               }
                               return Padding(
-                                padding: const EdgeInsets.only(bottom: 12),
+                                padding: const EdgeInsets.only(bottom: AppSpacing.sm + AppSpacing.xs),
                                 child: SdDoctorCard(
                                   doctor: filtered[index],
                                   onBook: () => Navigator.pushNamed(
@@ -163,17 +163,17 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
                   if (state is DoctorError) {
                     return Center(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             const SfIconSection(),
-                            const SizedBox(height: 32),
+                            const SizedBox(height: AppSpacing.xl),
                             SfContentCard(
                               title: 'فَشِلَتْ عَمَلِيَّةُ البَحْثِ',
                               message: state.message,
                             ),
-                            const SizedBox(height: 32),
+                            const SizedBox(height: AppSpacing.xl),
                             SfActions(
                               onRetry: () => context.read<DoctorBloc>().add(DoctorLoadAll()),
                               onBack: () => Navigator.pop(context),
@@ -195,7 +195,7 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
 
   Widget _buildHeader(AppColorSet colors) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
       height: 64,
       decoration: BoxDecoration(
         color: colors.scaffoldBg.withValues(alpha: 0.4),
@@ -210,7 +210,7 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
             icon: const Icon(Icons.arrow_back_rounded),
             color: colors.primary,
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: AppSpacing.sm),
           Expanded(
             child: Text(
               AppStrings.sdTitle,
@@ -239,7 +239,7 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
             height: 48,
             decoration: BoxDecoration(
               color: colors.surface,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
               border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
             ),
             child: TextField(
@@ -273,13 +273,13 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
             ),
           ),
         ),
-        const SizedBox(width: 12),
+        const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
         Container(
           width: 48,
           height: 48,
           decoration: BoxDecoration(
             color: colors.cardBg.withValues(alpha: 0.4),
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
             border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
           ),
           child: IconButton(
@@ -298,14 +298,14 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: _filters.length,
-        separatorBuilder: (_, _) => const SizedBox(width: 8),
+        separatorBuilder: (_, _) => const SizedBox(width: AppSpacing.sm),
         itemBuilder: (context, index) {
           final filter = _filters[index];
           final isSelected = _selectedFilter == filter;
           return GestureDetector(
             onTap: () => setState(() => _selectedFilter = filter),
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
               decoration: BoxDecoration(
                 color: isSelected
                     ? colors.primaryDark
@@ -356,7 +356,7 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
               size: 64,
               color: colors.textLight.withValues(alpha: 0.5),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: AppSpacing.md),
             Text(
               'لم يتم العثور على أطباء',
               style: TextStyle(

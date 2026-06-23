@@ -75,7 +75,7 @@ class SpecializationPickerField extends StatelessWidget {
         suffixIcon: Icon(Icons.arrow_drop_down_rounded, color: colors.textSecondary, size: AppSpacing.iconMedium),
         filled: true,
         fillColor: colors.cardBg,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
       ),
       controller: value != null ? TextEditingController(text: _label) : null,
       validator: validator != null ? (v) => validator!(value) : null,
@@ -112,12 +112,12 @@ class SpecializationPickerField extends StatelessWidget {
                       borderRadius: BorderRadius.circular(2),
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: AppSpacing.md),
                   Text(
                     AppStrings.chooseSpecialty,
                     style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.bold, color: colors.textPrimary),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                   TextField(
                     controller: searchCtrl,
                     onChanged: (v) {
@@ -138,10 +138,10 @@ class SpecializationPickerField extends StatelessWidget {
                       hintStyle: TextStyle(color: colors.textLight),
                       prefixIcon: Icon(Icons.search_rounded, color: colors.textSecondary),
                       filled: true, fillColor: colors.inputBg,
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: AppSpacing.sm),
                   Flexible(
                     child: ListView.builder(
                       itemCount: _useApiData ? filteredApi.length : filteredFallback.length,
@@ -160,7 +160,7 @@ class SpecializationPickerField extends StatelessWidget {
                                 trailing: isSelected
                                     ? Icon(Icons.check_circle_rounded, color: colors.primary, size: AppSpacing.iconMedium)
                                     : null,
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.sm)),
                                 selected: isSelected,
                                 selectedTileColor: colors.primary.withValues(alpha: 0.08),
                                 onTap: () {
@@ -185,7 +185,7 @@ class SpecializationPickerField extends StatelessWidget {
                               trailing: isSelected
                                   ? Icon(Icons.check_circle_rounded, color: colors.primary, size: AppSpacing.iconMedium)
                                   : null,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.sm)),
                               selected: isSelected,
                               selectedTileColor: colors.primary.withValues(alpha: 0.08),
                               onTap: () {

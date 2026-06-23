@@ -12,7 +12,7 @@ class PwPageContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       child: Column(
         children: [
           Text(
@@ -27,7 +27,7 @@ class PwPageContent extends StatelessWidget {
               color: colors.textPrimary,
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
           Text(
             subtitle,
             textAlign: TextAlign.center,

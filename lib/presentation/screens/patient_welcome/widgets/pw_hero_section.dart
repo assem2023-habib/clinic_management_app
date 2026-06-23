@@ -1,6 +1,7 @@
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class PwFloatingChip {
   final double top, left, delay;
@@ -100,14 +101,14 @@ class _FloatingChipWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.03),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(AppSpacing.sm),
         border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(width: 6, height: 6, decoration: BoxDecoration(shape: BoxShape.circle, color: colors.emerald)),
-          const SizedBox(width: 6),
+          const SizedBox(width: AppSpacing.six),
           Text(label, style: TextStyle(fontFamily: 'Sora', fontSize: 11, fontWeight: FontWeight.w600, letterSpacing: 0.5, color: colors.textPrimary)),
         ],
       ),
@@ -118,3 +119,4 @@ class _FloatingChipWidget extends StatelessWidget {
     );
   }
 }
+

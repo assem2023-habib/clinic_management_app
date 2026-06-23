@@ -94,15 +94,15 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   _dragHandle(colors),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: AppSpacing.md),
                   _header(colors),
-                  const SizedBox(height: 6),
+                  const SizedBox(height: AppSpacing.six),
                   _doctorName(colors),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: AppSpacing.lg),
                   _starsRow(),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: AppSpacing.lg),
                   _commentField(colors),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: AppSpacing.md),
                   _sendButton(colors),
                 ],
               ),
@@ -115,7 +115,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
 
   Widget _dragHandle(AppColorSet colors) {
     return Container(
-      margin: const EdgeInsets.only(top: 12),
+      margin: const EdgeInsets.only(top: AppSpacing.sm + AppSpacing.xs),
       width: 48,
       height: 5,
       decoration: BoxDecoration(
@@ -127,7 +127,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
 
   Widget _header(AppColorSet colors) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       child: Row(
         children: [
           Container(
@@ -152,7 +152,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
 
   Widget _doctorName(AppColorSet colors) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       child: Row(
         children: [
           const SizedBox(width: 58),
@@ -215,7 +215,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
 
   Widget _commentField(AppColorSet colors) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white.withValues(alpha: 0.04),
@@ -231,7 +231,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
             hintText: 'اكتب تجربتك مع الدكتور...',
             hintStyle: TextStyle(color: colors.textSecondary.withValues(alpha: 0.5), fontSize: AppSpacing.bodyMedium),
             border: InputBorder.none,
-            contentPadding: const EdgeInsets.all(16),
+            contentPadding: const EdgeInsets.all(AppSpacing.md),
           ),
         ),
       ),
@@ -241,7 +241,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
   Widget _sendButton(AppColorSet colors) {
     final canSend = _targetRating > 0;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       child: GestureDetector(
         onTap: canSend
             ? () {
@@ -257,7 +257,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
                 ? LinearGradient(colors: [colors.primaryDark, colors.accent])
                 : null,
             color: canSend ? null : Colors.white.withValues(alpha: 0.06),
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
             boxShadow: canSend
                 ? [BoxShadow(color: colors.accent.withValues(alpha: 0.3), blurRadius: 16)]
                 : [],
@@ -273,7 +273,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
                   color: canSend ? Colors.white : colors.textSecondary.withValues(alpha: 0.5),
                 ),
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: AppSpacing.ten),
               Icon(
                 Icons.send_rounded,
                 size: AppSpacing.iconSmall,

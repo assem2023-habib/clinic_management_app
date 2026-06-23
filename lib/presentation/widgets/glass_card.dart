@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class GlassCard extends StatelessWidget {
   final Widget child;
@@ -28,7 +29,7 @@ class GlassCard extends StatelessWidget {
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: blurSigma, sigmaY: blurSigma),
         child: Container(
-          padding: padding ?? const EdgeInsets.all(16),
+          padding: padding ?? const EdgeInsets.all(AppSpacing.md),
           decoration: BoxDecoration(
             color: color ?? colors.glassBorder,
             borderRadius: BorderRadius.circular(borderRadius),
@@ -40,3 +41,4 @@ class GlassCard extends StatelessWidget {
     );
   }
 }
+

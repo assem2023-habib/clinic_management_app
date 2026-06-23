@@ -36,7 +36,7 @@ class _SrCategoryCardState extends State<SrCategoryCard> {
           padding: const EdgeInsets.all(AppSpacing.lg),
           decoration: BoxDecoration(
             color: colors.cardBg.withValues(alpha: 0.4),
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
             border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
           ),
           child: Column(

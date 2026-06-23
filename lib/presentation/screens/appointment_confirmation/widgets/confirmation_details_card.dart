@@ -139,7 +139,7 @@ class ConfirmationDetailsCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(label, style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textLight)),
-            const SizedBox(height: 2),
+            const SizedBox(height: AppSpacing.xxs),
             isMultiLine
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

@@ -48,7 +48,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
             child: Center(
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md + AppSpacing.xs),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -58,13 +58,13 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
                       _buildIconComposition(),
                       const SizedBox(height: 40),
                       _buildTitle(),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                       _buildMessage(),
                       const SizedBox(height: 40),
                       _buildActions(),
                       const SizedBox(height: 40),
                       _buildErrorCode(),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: AppSpacing.lg),
                     ],
                   ),
                 ),
@@ -261,7 +261,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
   Widget _buildMessage() {
     final colors = AppColors.of(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm + AppSpacing.xs),
       child: Text(
         AppStrings.ssMessage,
         style: TextStyle(

@@ -73,7 +73,7 @@ class _DownloadFilesScreenState extends State<DownloadFilesScreen> {
                   final fileIdx = index - 1;
                   if (fileIdx >= state.files.length) {
                     return const Padding(
-                      padding: EdgeInsets.all(16),
+                      padding: EdgeInsets.all(AppSpacing.md),
                       child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
                     );
                   }

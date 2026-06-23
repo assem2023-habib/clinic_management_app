@@ -39,7 +39,7 @@ class UaActions extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
         SizedBox(
           width: 280,
           height: AppSpacing.buttonHeight,

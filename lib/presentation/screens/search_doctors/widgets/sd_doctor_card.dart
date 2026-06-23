@@ -22,10 +22,10 @@ class SdDoctorCard extends StatelessWidget {
     final showVerified = (doctor.rating ?? 0) >= 4.5;
 
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(AppSpacing.md),
       decoration: BoxDecoration(
         color: colors.cardBg.withValues(alpha: 0.4),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
         border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
       ),
       child: Column(
@@ -35,7 +35,7 @@ class SdDoctorCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildAvatar(showVerified, colors),
-              const SizedBox(width: 16),
+              const SizedBox(width: AppSpacing.md),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,7 +57,7 @@ class SdDoctorCard extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                           decoration: BoxDecoration(
                             color: colors.surfaceDark,
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(AppSpacing.sm),
                             border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
                           ),
                           child: Row(
@@ -68,7 +68,7 @@ class SdDoctorCard extends StatelessWidget {
                                 size: 16,
                                 color: colors.secondary,
                               ),
-                              const SizedBox(width: 2),
+                              const SizedBox(width: AppSpacing.xxs),
                               Text(
                                 (doctor.rating ?? 0).toStringAsFixed(1),
                                 style: TextStyle(
@@ -82,7 +82,7 @@ class SdDoctorCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: AppSpacing.xs),
                     Text(
                       doctor.specialty,
                       style: TextStyle(
@@ -91,7 +91,7 @@ class SdDoctorCard extends StatelessWidget {
                         color: colors.primary,
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: AppSpacing.xs),
                     Row(
                       children: [
                         Icon(
@@ -99,7 +99,7 @@ class SdDoctorCard extends StatelessWidget {
                           size: 16,
                           color: colors.textLight,
                         ),
-                        const SizedBox(width: 4),
+                        const SizedBox(width: AppSpacing.xs),
                         Expanded(
                           child: Text(
                             doctor.clinicAddress ?? doctor.clinicName ?? '',
@@ -119,7 +119,7 @@ class SdDoctorCard extends StatelessWidget {
             ],
           ),
           if (doctor.bio != null && doctor.bio!.isNotEmpty) ...[
-            const SizedBox(height: 12),
+            const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
             Text(
               doctor.bio!,
               style: TextStyle(
@@ -132,7 +132,7 @@ class SdDoctorCard extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
           ],
-          const SizedBox(height: 12),
+          const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
           Row(
             children: [
               Expanded(
@@ -145,7 +145,7 @@ class SdDoctorCard extends StatelessWidget {
                       foregroundColor: colors.primaryLight,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
                       ),
                     ),
                     child: Text(
@@ -158,7 +158,7 @@ class SdDoctorCard extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
               SizedBox(
                 width: 44,
                 height: 44,
@@ -171,7 +171,7 @@ class SdDoctorCard extends StatelessWidget {
                       color: colors.primary.withValues(alpha: 0.2),
                     ),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
                     ),
                     padding: EdgeInsets.zero,
                   ),
@@ -191,16 +191,16 @@ class SdDoctorCard extends StatelessWidget {
         Container(
           width: 80,
           height: 80,
-          padding: const EdgeInsets.all(2),
+          padding: const EdgeInsets.all(AppSpacing.xxs),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
             border: Border.all(
               color: colors.primaryDark,
               width: 2,
             ),
           ),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(AppSpacing.ten),
             child: doctor.imageUrl != null
                 ? Image.network(
                     doctor.imageUrl!,

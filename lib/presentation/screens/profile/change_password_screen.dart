@@ -69,7 +69,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         child: BlocBuilder<ProfileCubit, ProfileState>(
           builder: (context, state) {
             return SingleChildScrollView(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.all(AppSpacing.lg),
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -100,13 +100,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       toggle: () => setState(() => _obscureConfirm = !_obscureConfirm),
                       colors: colors,
                     ),
-                    const SizedBox(height: 32),
+                    const SizedBox(height: AppSpacing.xl),
                     ElevatedButton(
                       onPressed: state.isSaving ? null : _submit,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: colors.primary,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
                       ),
                       child: state.isSaving
                           ? SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: colors.surface))
@@ -138,7 +138,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         labelText: label,
         filled: true,
         fillColor: colors.cardBg,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
         suffixIcon: IconButton(
           icon: Icon(obscure ? Icons.visibility_rounded : Icons.visibility_off_rounded),
           onPressed: toggle,

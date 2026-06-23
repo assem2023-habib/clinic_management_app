@@ -38,7 +38,7 @@ class _SrSearchBarState extends State<SrSearchBar> {
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
       decoration: BoxDecoration(
         color: colors.cardBg.withValues(alpha: 0.4),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
         border: Border.all(
           color: _isFocused
               ? colors.primary.withValues(alpha: 0.5)

@@ -23,7 +23,7 @@ class DoctorDashboardView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AnimatedCard(index: 0, child: const DashboardGreeting()),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppSpacing.lg),
           BlocBuilder<DashboardBloc, DashboardState>(
             builder: (context, state) {
               if (state is DashboardLoaded) {
@@ -35,7 +35,7 @@ class DoctorDashboardView extends StatelessWidget {
                       d.patients?.newThisMonth,
                       d.patients?.registeredToday,
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: AppSpacing.md),
                     _buildAppointmentsGrid(colors,
                       d.appointments.today,
                       d.appointments.thisWeek,
@@ -44,7 +44,7 @@ class DoctorDashboardView extends StatelessWidget {
                       d.appointments.byStatus['confirmed'],
                       d.appointments.byStatus['completed'],
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: AppSpacing.md),
                     _buildRecordsGrid(colors,
                       d.totalMedicalRecords,
                       d.totalPrescriptions,
@@ -55,36 +55,36 @@ class DoctorDashboardView extends StatelessWidget {
               return _buildPatientsGrid(colors, null, null, null);
             },
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppSpacing.lg),
           AnimatedCard(
             index: 2,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(AppStrings.quickActions, style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
-                const SizedBox(height: 12),
+                const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                 Row(children: [
                   Expanded(child: ActionButton(icon: Icons.calendar_month, label: AppStrings.myAppointments, color: colors.primary, onPressed: () => Navigator.pushNamed(context, AppRoutes.appointments))),
-                  const SizedBox(width: 12),
+                  const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
                   Expanded(child: ActionButton(icon: Icons.people, label: AppStrings.myPatients, color: colors.secondary, onPressed: () => Navigator.pushNamed(context, AppRoutes.patients))),
                 ]),
-                const SizedBox(height: 12),
+                const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                 Row(children: [
                   Expanded(child: ActionButton(icon: Icons.folder, label: AppStrings.medicalRecords, color: colors.accent, onPressed: () => Navigator.pushNamed(context, AppRoutes.medicalRecords))),
-                  const SizedBox(width: 12),
+                  const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
                   Expanded(child: ActionButton(icon: Icons.supervisor_account, label: AppStrings.supervisionRequests, color: colors.primaryDark, onPressed: () => Navigator.pushNamed(context, AppRoutes.supervisionRequests))),
                 ]),
               ],
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppSpacing.lg),
           AnimatedCard(
             index: 3,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(AppStrings.latestAppointments, style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w600, color: colors.textPrimary)),
-                const SizedBox(height: 12),
+                const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                 const RecentAppointments(),
               ],
             ),
@@ -101,7 +101,7 @@ class DoctorDashboardView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 12),
+            padding: const EdgeInsets.only(bottom: AppSpacing.sm + AppSpacing.xs),
             child: Text(AppStrings.myPatientsV2, style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600, color: colors.textPrimary)),
           ),
           GridView.count(
@@ -130,7 +130,7 @@ class DoctorDashboardView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 12),
+            padding: const EdgeInsets.only(bottom: AppSpacing.sm + AppSpacing.xs),
             child: Text(AppStrings.appointments, style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600, color: colors.textPrimary)),
           ),
           GridView.count(
@@ -161,7 +161,7 @@ class DoctorDashboardView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 12),
+            padding: const EdgeInsets.only(bottom: AppSpacing.sm + AppSpacing.xs),
             child: Text(AppStrings.medicalRecords, style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600, color: colors.textPrimary)),
           ),
           GridView.count(

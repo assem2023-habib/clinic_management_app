@@ -59,7 +59,7 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
             _buildParticleBackground(),
             Center(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md + AppSpacing.xs),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

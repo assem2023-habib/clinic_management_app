@@ -53,14 +53,14 @@ class _SkeletonState extends State<AppointmentCardSkeleton> with SingleTickerPro
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         Row(children: [
           _box(AppSpacing.avatarSize, AppSpacing.avatarSize, r: AppSpacing.lg),
-          const SizedBox(width: 12),
+          const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
           Expanded(child: Column(
             crossAxisAlignment: CrossAxisAlignment.end, children: [
             _box(140, 18),
-            const SizedBox(height: 6),
+            const SizedBox(height: AppSpacing.six),
             _box(100, 13),
           ])),
-          const SizedBox(width: 10),
+          const SizedBox(width: AppSpacing.ten),
           _box(64, 26, r: 999),
         ]),
         const SizedBox(height: 14),
@@ -68,7 +68,7 @@ class _SkeletonState extends State<AppointmentCardSkeleton> with SingleTickerPro
         const SizedBox(height: 14),
         Row(children: [
           _box(36, 36, r: 10),
-          const SizedBox(width: 10),
+          const SizedBox(width: AppSpacing.ten),
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             _box(40, 11),
             const SizedBox(height: AppSpacing.xs + 1),

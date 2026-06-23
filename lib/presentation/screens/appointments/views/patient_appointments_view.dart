@@ -132,7 +132,7 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
                     children: [
                       Icon(Icons.event_busy_rounded, size: AppSpacing.xxl,
                         color: c.textLight.withValues(alpha: 0.5)),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                       Text(AppStrings.noAppointments, style: TextStyle(fontSize: 15, color: c.textLight)),
                     ],
                   ),
@@ -176,7 +176,7 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
                   )
                 : null,
             border: InputBorder.none,
-            contentPadding: const EdgeInsets.symmetric(vertical: 12),
+            contentPadding: const EdgeInsets.symmetric(vertical: AppSpacing.sm + AppSpacing.xs),
           ),
         ),
       ),
@@ -186,7 +186,7 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
   Widget _buildTabRow(AppColorSet c) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: 6),
-      padding: const EdgeInsets.all(2),
+      padding: const EdgeInsets.all(AppSpacing.xxs),
       decoration: BoxDecoration(
         color: c.cardBg.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
@@ -198,10 +198,10 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
               onTap: () => setState(() => _showUpcoming = true),
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 250),
-                padding: const EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.symmetric(vertical: AppSpacing.ten),
                 decoration: BoxDecoration(
                   color: _showUpcoming ? c.primaryDark : Colors.transparent,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(AppSpacing.ten),
                 ),
                 alignment: Alignment.center,
                 child: Text(AppStrings.upcomingAppts, style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600, color: c.textPrimary)),
@@ -213,10 +213,10 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
               onTap: () => setState(() => _showUpcoming = false),
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 250),
-                padding: const EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.symmetric(vertical: AppSpacing.ten),
                 decoration: BoxDecoration(
                   color: !_showUpcoming ? c.primaryDark : Colors.transparent,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(AppSpacing.ten),
                 ),
                 alignment: Alignment.center,
                 child: Text(AppStrings.previousVisits, style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600, color: c.textPrimary)),
@@ -234,7 +234,7 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
 
     return Container(
       height: 40,
-      margin: const EdgeInsets.symmetric(vertical: 6),
+      margin: const EdgeInsets.symmetric(vertical: AppSpacing.six),
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: AppSpacing.listPadding,
@@ -305,7 +305,7 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
       itemBuilder: (_, i) {
         if (i >= flat.length) {
           return const Padding(
-            padding: EdgeInsets.all(16),
+            padding: EdgeInsets.all(AppSpacing.md),
             child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
           );
         }

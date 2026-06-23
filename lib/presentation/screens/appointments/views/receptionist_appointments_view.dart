@@ -76,7 +76,7 @@ class _ReceptionistAppointmentsViewState extends State<ReceptionistAppointmentsV
     return Padding(
       padding: AppSpacing.screenPadding,
       child: GlassCard(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(AppSpacing.sm + AppSpacing.xs),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -90,7 +90,7 @@ class _ReceptionistAppointmentsViewState extends State<ReceptionistAppointmentsV
               child: Column(
                 children: [
                   Text(DateFormat('EEEE').format(_selectedDate), style: TextStyle(fontSize: 13, color: colors.textLight)),
-                  const SizedBox(height: 2),
+                  const SizedBox(height: AppSpacing.xxs),
                   Text(DateFormat('yyyy-MM-dd').format(_selectedDate), style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.bold, color: colors.textPrimary)),
                 ],
               ),
@@ -121,7 +121,7 @@ class _ReceptionistAppointmentsViewState extends State<ReceptionistAppointmentsV
                 backgroundColor: statusColor.withValues(alpha: 0.2),
                 child: Icon(_statusIcon(statusValue), color: statusColor, size: AppSpacing.iconSmall),
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -135,24 +135,24 @@ class _ReceptionistAppointmentsViewState extends State<ReceptionistAppointmentsV
             ],
           ),
           if (appt.timeSlot != null || appt.date != null) ...[
-            const SizedBox(height: 10),
+            const SizedBox(height: AppSpacing.ten),
             Row(
               children: [
                 if (appt.date != null) ...[
                   Icon(Icons.calendar_today_rounded, size: 14, color: colors.textLight),
-                  const SizedBox(width: 4),
+                  const SizedBox(width: AppSpacing.xs),
                   Text(appt.date!, style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textLight)),
                 ],
                 if (appt.timeSlot != null) ...[
                   const SizedBox(width: AppSpacing.md),
                   Icon(Icons.schedule_rounded, size: 14, color: colors.textLight),
-                  const SizedBox(width: 4),
+                  const SizedBox(width: AppSpacing.xs),
                   Text(appt.timeSlot!, style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textLight)),
                 ],
               ],
             ),
           ],
-          const SizedBox(height: 10),
+          const SizedBox(height: AppSpacing.ten),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -184,7 +184,7 @@ class _ReceptionistAppointmentsViewState extends State<ReceptionistAppointmentsV
         style: OutlinedButton.styleFrom(
           foregroundColor: color,
           side: BorderSide(color: color.withValues(alpha: 0.3)),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.six)),
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
         ),
       ),

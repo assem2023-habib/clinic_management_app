@@ -29,7 +29,7 @@ class MonthDivider extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(width: 12),
+        const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
         Expanded(
           child: Container(
             height: 1,

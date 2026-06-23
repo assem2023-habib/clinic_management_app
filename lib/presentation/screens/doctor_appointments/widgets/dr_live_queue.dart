@@ -166,7 +166,7 @@ class _DrLiveQueueState extends State<DrLiveQueue> {
             backgroundColor: colors.primary.withValues(alpha: 0.15),
             child: Icon(Icons.person_rounded, color: colors.primary, size: 28),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

@@ -60,7 +60,7 @@ class DfFileCard extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 2),
+                    const SizedBox(height: AppSpacing.xxs),
                     Text(
                       '${file.type.toUpperCase()}  •  ${file.sizeInMb.toStringAsFixed(1)} ${AppStrings.dfMb}  •  $dateStr',
                       style: TextStyle(fontSize: 11, color: colors.textSecondary),
@@ -98,7 +98,7 @@ class DfFileCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(Icons.download_rounded, size: 16, color: colors.primary),
-                  const SizedBox(width: 4),
+                  const SizedBox(width: AppSpacing.xs),
                   Text(AppStrings.dfDownload, style: TextStyle(fontSize: AppSpacing.bodySmall, fontWeight: FontWeight.w600, color: colors.primary)),
                 ],
               ),
@@ -110,7 +110,7 @@ class DfFileCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(Icons.check_circle_rounded, size: 18, color: colors.success),
-            const SizedBox(width: 4),
+            const SizedBox(width: AppSpacing.xs),
             Text(AppStrings.dfDownloaded, style: TextStyle(fontSize: 11, color: colors.success)),
           ],
         );

@@ -11,6 +11,7 @@ import 'package:clinic_management_app/presentation/blocs/patient/patient_state.d
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_event.dart';
 import 'package:clinic_management_app/presentation/screens/appointment_confirmation/confirmation_data.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class AppointmentFormDialog extends StatefulWidget {
   const AppointmentFormDialog({super.key});
@@ -101,7 +102,7 @@ class _AppointmentFormDialogState extends State<AppointmentFormDialog> {
                   return const SizedBox.shrink();
                 },
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
               BlocBuilder<PatientBloc, PatientState>(
                 builder: (context, state) {
                   if (state is PatientLoaded) {
@@ -116,7 +117,7 @@ class _AppointmentFormDialogState extends State<AppointmentFormDialog> {
                   return const SizedBox.shrink();
                 },
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
               TextFormField(
                 readOnly: true,
                 decoration:  InputDecoration(labelText: AppStrings.date, suffixIcon: Icon(Icons.calendar_today)),
@@ -126,7 +127,7 @@ class _AppointmentFormDialogState extends State<AppointmentFormDialog> {
                   if (date != null) setState(() => _selectedDate = date);
                 },
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
               DropdownButtonFormField<String>(
                 initialValue: _selectedTime,
                 decoration:  InputDecoration(labelText: AppStrings.time),
@@ -135,7 +136,7 @@ class _AppointmentFormDialogState extends State<AppointmentFormDialog> {
                     .toList(),
                 onChanged: (v) => setState(() => _selectedTime = v!),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
               TextFormField(controller: _notesController, decoration:  InputDecoration(labelText: AppStrings.notesLabel), maxLines: 2),
             ],
           ),
@@ -148,3 +149,4 @@ class _AppointmentFormDialogState extends State<AppointmentFormDialog> {
     );
   }
 }
+

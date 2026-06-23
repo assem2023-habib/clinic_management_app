@@ -50,7 +50,7 @@ class UnauthorizedScreen extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: AppSpacing.appBarHeight,
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md + AppSpacing.xs),
       child: Align(
         alignment: Alignment.centerRight,
         child: Material(
@@ -77,7 +77,7 @@ class UnauthorizedScreen extends StatelessWidget {
   Widget _buildContent() {
     return Center(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md + AppSpacing.xs),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
