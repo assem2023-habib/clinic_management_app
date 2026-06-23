@@ -59,7 +59,7 @@ class GlassStatCard extends StatelessWidget {
                     title,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 11,
+                      fontSize: AppSpacing.labelSmall,
                       fontWeight: FontWeight.w500,
                       color: colors.textSecondary,
                       height: 1.2,

@@ -60,7 +60,7 @@ class ProfileStatsGrid extends StatelessWidget {
                   fit: BoxFit.scaleDown,
                   child: Text(
                     stat.label,
-                    style: TextStyle(fontSize: 11, color: colors.textLight),
+                    style: TextStyle(fontSize: AppSpacing.labelSmall, color: colors.textLight),
                     textAlign: TextAlign.center,
                   ),
                 ),

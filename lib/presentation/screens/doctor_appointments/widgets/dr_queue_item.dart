@@ -68,7 +68,7 @@ class DrQueueItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(AppStrings.daCheckInTime,
-                    style: TextStyle(fontSize: 11, color: colors.textLight)),
+                    style: TextStyle(fontSize: AppSpacing.labelSmall, color: colors.textLight)),
                   const SizedBox(height: AppSpacing.xxs),
                   Text(checkInTime,
                     style: TextStyle(fontSize: AppSpacing.caption, fontWeight: FontWeight.w600, color: timeColor)),

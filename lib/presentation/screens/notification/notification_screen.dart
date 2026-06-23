@@ -143,7 +143,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: AppSpacing.six, vertical: AppSpacing.xxs),
                   decoration: BoxDecoration(color: colors.neonGreen.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(9999)),
-                  child: Text('$count', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: colors.neonGreen)),
+                  child: Text('$count', style: TextStyle(fontSize: AppSpacing.labelSmall, fontWeight: FontWeight.w700, color: colors.neonGreen)),
                 ),
               ],
             ],
@@ -309,11 +309,11 @@ class _AnimatedNotificationCardState extends State<_AnimatedNotificationCard>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(widget.notification.title, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+                    Text(widget.notification.title, style: TextStyle(fontSize: AppSpacing.subtitle, fontWeight: FontWeight.w600, color: colors.textPrimary)),
                     const SizedBox(height: AppSpacing.xs),
                     Text(widget.notification.message, style: TextStyle(fontSize: AppSpacing.caption, color: colors.textSecondary, height: 1.4), maxLines: 2, overflow: TextOverflow.ellipsis),
                     const SizedBox(height: AppSpacing.six),
-                    Text(_formatTimestamp(widget.notification.timestamp), style: TextStyle(fontSize: 11, color: colors.textLight.withValues(alpha: 0.5))),
+                    Text(_formatTimestamp(widget.notification.timestamp), style: TextStyle(fontSize: AppSpacing.labelSmall, color: colors.textLight.withValues(alpha: 0.5))),
                   ],
                 ),
               ),

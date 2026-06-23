@@ -47,7 +47,7 @@ class AppointmentOptionsSheet extends StatelessWidget {
           ),
           const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text('الخيارات المتاحة لـ', style: TextStyle(fontSize: 11, color: c.textSecondary)),
+            Text('الخيارات المتاحة لـ', style: TextStyle(fontSize: AppSpacing.labelSmall, color: c.textSecondary)),
             Text(docName, style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w700, color: c.textPrimary)),
           ]),
         ]),
@@ -145,7 +145,7 @@ class _SheetOption extends StatelessWidget {
                 const SizedBox(width: 14),
                 Text(label,
                   style: TextStyle(
-                    fontSize: 15, fontWeight: FontWeight.w500,
+                    fontSize: AppSpacing.subtitle, fontWeight: FontWeight.w500,
                     color: isDestructive ? colors.error : colors.textPrimary,
                   ),
                 ),

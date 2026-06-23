@@ -323,7 +323,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
                 Text(
                   '${patient.firstName} ${patient.lastName}',
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: AppSpacing.subtitle,
                     fontWeight: FontWeight.w600,
                     color: colors.textPrimary,
                   ),
@@ -353,7 +353,7 @@ class _DoctorPatientsViewState extends State<DoctorPatientsView> {
         const SizedBox(width: 3),
         Text(
           text,
-          style: TextStyle(fontSize: 11, color: colors.textSecondary),
+          style: TextStyle(fontSize: AppSpacing.labelSmall, color: colors.textSecondary),
         ),
       ],
     );

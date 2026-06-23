@@ -79,7 +79,7 @@ class OnboardingPage extends StatelessWidget {
               subtitle,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 15,
+                fontSize: AppSpacing.subtitle,
                 color: colors.textSecondary,
                 height: 1.6,
               ),

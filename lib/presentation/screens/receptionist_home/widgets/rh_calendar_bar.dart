@@ -51,7 +51,7 @@ class RhCalendarBar extends StatelessWidget {
                   Text(
                     _dayNamesEn[date.weekday - 1],
                     style: TextStyle(
-                      fontSize: 11,
+                      fontSize: AppSpacing.labelSmall,
                       fontWeight: FontWeight.w500,
                       color: isActive ? colors.secondary : colors.textSecondary,
                     ),

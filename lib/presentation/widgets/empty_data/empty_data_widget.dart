@@ -114,7 +114,7 @@ class EmptyDataWidget extends StatelessWidget {
                       const SizedBox(height: AppSpacing.md),
                       Text(
                         subtitle!,
-                        style: TextStyle(fontSize: 15, color: colors.textSecondary, height: 1.6),
+                        style: TextStyle(fontSize: AppSpacing.subtitle, color: colors.textSecondary, height: 1.6),
                         textAlign: TextAlign.center,
                       ),
                     ],

@@ -127,7 +127,7 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(appt.patientName ?? '', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: colors.textPrimary)),
+                    Text(appt.patientName ?? '', style: TextStyle(fontSize: AppSpacing.subtitle, fontWeight: FontWeight.w600, color: colors.textPrimary)),
                     Text('${AppStrings.doctorLabel}: ${appt.doctorName ?? ''}', style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textLight)),
                   ],
                 ),
@@ -183,7 +183,7 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
       child: OutlinedButton.icon(
         onPressed: onPressed,
         icon: Icon(icon, size: 14),
-        label: Text(label, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600)),
+        label: Text(label, style: TextStyle(fontSize: AppSpacing.labelSmall, fontWeight: FontWeight.w600)),
         style: OutlinedButton.styleFrom(
           foregroundColor: color,
           side: BorderSide(color: color.withValues(alpha: 0.3)),
@@ -198,7 +198,7 @@ class _AdminAppointmentsViewState extends State<AdminAppointmentsView> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.xs),
       decoration: BoxDecoration(color: color.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
-      child: Text(label, style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600)),
+      child: Text(label, style: TextStyle(color: color, fontSize: AppSpacing.labelSmall, fontWeight: FontWeight.w600)),
     );
   }
 

@@ -524,7 +524,7 @@ class _DateCard extends StatelessWidget {
             Text(
               dayName,
               style: TextStyle(
-                fontSize: 11,
+                fontSize: AppSpacing.labelSmall,
                 fontWeight: FontWeight.w500,
                 color: isSelected
                     ? colors.chipText.withValues(alpha: 0.8)
@@ -657,7 +657,7 @@ class _SlotCardState extends State<_SlotCard>
                   Text(
                     'متاح',
                     style: TextStyle(
-                      fontSize: 11,
+                      fontSize: AppSpacing.labelSmall,
                       fontWeight: FontWeight.w600,
                       color: widget.colors.primary,
                     ),

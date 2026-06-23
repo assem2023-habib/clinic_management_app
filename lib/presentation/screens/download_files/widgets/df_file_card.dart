@@ -63,7 +63,7 @@ class DfFileCard extends StatelessWidget {
                     const SizedBox(height: AppSpacing.xxs),
                     Text(
                       '${file.type.toUpperCase()}  •  ${file.sizeInMb.toStringAsFixed(1)} ${AppStrings.dfMb}  •  $dateStr',
-                      style: TextStyle(fontSize: 11, color: colors.textSecondary),
+                      style: TextStyle(fontSize: AppSpacing.labelSmall, color: colors.textSecondary),
                     ),
                   ],
                 ),
@@ -111,7 +111,7 @@ class DfFileCard extends StatelessWidget {
           children: [
             Icon(Icons.check_circle_rounded, size: 18, color: colors.success),
             const SizedBox(width: AppSpacing.xs),
-            Text(AppStrings.dfDownloaded, style: TextStyle(fontSize: 11, color: colors.success)),
+            Text(AppStrings.dfDownloaded, style: TextStyle(fontSize: AppSpacing.labelSmall, color: colors.success)),
           ],
         );
       case DownloadStatus.error:

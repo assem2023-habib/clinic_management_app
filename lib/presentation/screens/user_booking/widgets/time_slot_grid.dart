@@ -137,7 +137,7 @@ class TimeSlotGrid extends StatelessWidget {
                   Text(
                     AppStrings.bookingAvailable,
                     style: TextStyle(
-                      fontSize: 11,
+                      fontSize: AppSpacing.labelSmall,
                       color: colors.primary,
                     ),
                   ),

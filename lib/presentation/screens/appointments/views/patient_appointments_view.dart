@@ -133,7 +133,7 @@ class _PatientAppointmentsViewState extends State<PatientAppointmentsView> {
                       Icon(Icons.event_busy_rounded, size: AppSpacing.xxl,
                         color: c.textLight.withValues(alpha: 0.5)),
                       const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
-                      Text(AppStrings.noAppointments, style: TextStyle(fontSize: 15, color: c.textLight)),
+                      Text(AppStrings.noAppointments, style: TextStyle(fontSize: AppSpacing.subtitle, color: c.textLight)),
                     ],
                   ),
                 )

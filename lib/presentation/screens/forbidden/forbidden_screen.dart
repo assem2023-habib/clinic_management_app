@@ -301,7 +301,7 @@ class ForbiddenScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(label, style: TextStyle(fontSize: AppSpacing.bodySmall, fontWeight: FontWeight.w500, color: colors.textPrimary)),
-                Text(value, style: TextStyle(fontSize: 11, color: colors.textSecondary, fontFamily: 'monospace')),
+                Text(value, style: TextStyle(fontSize: AppSpacing.labelSmall, color: colors.textSecondary, fontFamily: 'monospace')),
               ],
             ),
           ),

@@ -102,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             roleLabel,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 15,
+                              fontSize: AppSpacing.subtitle,
                               fontWeight: FontWeight.bold,
                               color: colors.primary,
                             ),

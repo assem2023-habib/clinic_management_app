@@ -168,7 +168,7 @@ class _AppointmentCardState extends State<AppointmentCard> with SingleTickerProv
           ),
           const SizedBox(width: AppSpacing.ten),
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(AppStrings.time, style: TextStyle(fontSize: 11, color: c.textSecondary)),
+            Text(AppStrings.time, style: TextStyle(fontSize: AppSpacing.labelSmall, color: c.textSecondary)),
             const SizedBox(height: AppSpacing.xxs),
             Text(timeStr, style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w700, color: c.textPrimary)),
           ]),

@@ -80,7 +80,7 @@ class _TimeSlotGridState extends State<TimeSlotGrid> {
             child: Text(
               'تأكيد الموعد الجديد',
               style: TextStyle(
-                fontSize: 15, fontWeight: FontWeight.w700,
+                fontSize: AppSpacing.subtitle, fontWeight: FontWeight.w700,
                 color: _selectedTime != null ? c.primaryLight : c.textSecondary.withValues(alpha: 0.5),
               ),
             ),

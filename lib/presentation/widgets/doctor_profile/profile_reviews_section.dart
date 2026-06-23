@@ -66,7 +66,7 @@ class ProfileReviewsSection extends StatelessWidget {
                           size: 16,
                         )),
                       ),
-                      Text('${totalReviews ?? 0} ${AppStrings.rating}', style: TextStyle(fontSize: 11, color: colors.textLight)),
+                      Text('${totalReviews ?? 0} ${AppStrings.rating}', style: TextStyle(fontSize: AppSpacing.labelSmall, color: colors.textLight)),
                     ],
                   ),
                 ],
@@ -124,7 +124,7 @@ class ProfileReviewsSection extends StatelessWidget {
                   ),
                   Text(
                     _formatDate(review.date),
-                    style: TextStyle(fontSize: 11, color: colors.textLight),
+                    style: TextStyle(fontSize: AppSpacing.labelSmall, color: colors.textLight),
                   ),
                 ],
               ),

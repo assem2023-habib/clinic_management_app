@@ -92,7 +92,7 @@ class DateSelectionBar extends StatelessWidget {
                       Text(
                         _dayName(date),
                         style: TextStyle(
-                          fontSize: 11,
+                          fontSize: AppSpacing.labelSmall,
                           fontWeight: FontWeight.w500,
                           color: isActive ? colors.textLight : colors.textLight,
                         ),

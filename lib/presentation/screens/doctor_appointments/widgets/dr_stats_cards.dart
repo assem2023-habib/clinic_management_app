@@ -32,7 +32,7 @@ class DrStatsCards extends StatelessWidget {
           value: totalToday.toString().padLeft(2, '0'),
           valueColor: colors.primary,
           trailing: Text('+12% ${AppStrings.daFromYesterday}',
-            style: TextStyle(fontSize: 11, color: colors.secondary)),
+            style: TextStyle(fontSize: AppSpacing.labelSmall, color: colors.secondary)),
         ),
         const SizedBox(height: AppSpacing.md),
         _buildCard(
@@ -42,7 +42,7 @@ class DrStatsCards extends StatelessWidget {
           value: waitingPatients.toString().padLeft(2, '0'),
           valueColor: colors.textPrimary,
           trailing: Text('$emergencyCount ${AppStrings.daEmergencyCases}',
-            style: TextStyle(fontSize: 11, color: colors.error)),
+            style: TextStyle(fontSize: AppSpacing.labelSmall, color: colors.error)),
           highlightBorder: true,
         ),
         const SizedBox(height: AppSpacing.md),
@@ -53,7 +53,7 @@ class DrStatsCards extends StatelessWidget {
           value: availableDoctors.toString().padLeft(2, '0'),
           valueColor: colors.primary,
           trailing: Text('${AppStrings.daOutOf} $totalDoctors',
-            style: TextStyle(fontSize: 11, color: colors.textLight)),
+            style: TextStyle(fontSize: AppSpacing.labelSmall, color: colors.textLight)),
         ),
       ],
     );

@@ -140,7 +140,7 @@ class AppDrawer extends StatelessWidget {
             title: Text(
               item.title,
               style: TextStyle(
-                fontSize: 15,
+                fontSize: AppSpacing.subtitle,
                 fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
                 color: isActive ? colors.primary : colors.textPrimary,
               ),
@@ -172,7 +172,7 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(isDark ? Icons.dark_mode_rounded : Icons.light_mode_rounded, color: colors.primary, size: AppSpacing.iconMedium),
             title: Text(
               isDark ? AppStrings.darkMode : AppStrings.lightMode,
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: colors.textPrimary),
+              style: TextStyle(fontSize: AppSpacing.subtitle, fontWeight: FontWeight.w500, color: colors.textPrimary),
             ),
             onTap: () => themeProvider!.toggleTheme(),
           ),
@@ -192,7 +192,7 @@ class AppDrawer extends StatelessWidget {
         leading: const Icon(Icons.language_rounded, size: AppSpacing.iconMedium),
         title: Text(
           isEn ? AppStrings.english : AppStrings.arabic,
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: colors.textPrimary),
+          style: TextStyle(fontSize: AppSpacing.subtitle, fontWeight: FontWeight.w500, color: colors.textPrimary),
         ),
         trailing: Text(
           isEn ? '🇬🇧' : '🇸🇦',
@@ -215,7 +215,7 @@ class AppDrawer extends StatelessWidget {
         title: Text(
           AppStrings.logout,
           style: TextStyle(
-            fontSize: 15,
+            fontSize: AppSpacing.subtitle,
             fontWeight: FontWeight.w600,
             color: colors.error,
           ),

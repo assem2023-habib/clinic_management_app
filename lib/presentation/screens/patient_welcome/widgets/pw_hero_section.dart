@@ -109,7 +109,7 @@ class _FloatingChipWidget extends StatelessWidget {
         children: [
           Container(width: 6, height: 6, decoration: BoxDecoration(shape: BoxShape.circle, color: colors.emerald)),
           const SizedBox(width: AppSpacing.six),
-          Text(label, style: TextStyle(fontFamily: 'Sora', fontSize: 11, fontWeight: FontWeight.w600, letterSpacing: 0.5, color: colors.textPrimary)),
+          Text(label, style: TextStyle(fontFamily: 'Sora', fontSize: AppSpacing.labelSmall, fontWeight: FontWeight.w600, letterSpacing: 0.5, color: colors.textPrimary)),
         ],
       ),
     ).animate(delay: (delay * 1000).round().ms).shakeY(

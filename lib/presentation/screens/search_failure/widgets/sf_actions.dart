@@ -46,7 +46,7 @@ class SfActions extends StatelessWidget {
               onPressed: onBack ?? () => Navigator.pop(context),
               child: Text(
                 'العَوْدَةُ لِلْبَحْثِ',
-                style: TextStyle(fontFamily: 'Sora', fontSize: 15, fontWeight: FontWeight.w500, color: colors.textMuted),
+                style: TextStyle(fontFamily: 'Sora', fontSize: AppSpacing.subtitle, fontWeight: FontWeight.w500, color: colors.textMuted),
               ),
             ),
           ),

@@ -110,7 +110,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                     Text(
                       'الخيارات المتاحة لـ',
                       style: TextStyle(
-                        fontSize: 11,
+                        fontSize: AppSpacing.labelSmall,
                         color: colors.textSecondary,
                         fontWeight: FontWeight.w500,
                       ),
