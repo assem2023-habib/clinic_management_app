@@ -56,13 +56,13 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
                       _buildStatusBadge(),
                       const SizedBox(height: AppSpacing.lg),
                       _buildIconComposition(),
-                      const SizedBox(height: 40),
+                      const SizedBox(height: AppSpacing.iconContainer),
                       _buildTitle(),
                       const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
                       _buildMessage(),
-                      const SizedBox(height: 40),
+                      const SizedBox(height: AppSpacing.iconContainer),
                       _buildActions(),
-                      const SizedBox(height: 40),
+                      const SizedBox(height: AppSpacing.iconContainer),
                       _buildErrorCode(),
                       const SizedBox(height: AppSpacing.lg),
                     ],
@@ -122,7 +122,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
   Widget _buildStatusBadge() {
     final badgeColors = AppColors.of(context);
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: AppSpacing.xs),
       decoration: BoxDecoration(
         color: badgeColors.errorRed,
         borderRadius: BorderRadius.circular(9999),

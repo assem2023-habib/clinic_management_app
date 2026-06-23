@@ -685,7 +685,7 @@ class _EmptyState extends StatelessWidget {
             height: 80,
             decoration: BoxDecoration(
               color: colors.primary.withValues(alpha: 0.08),
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: BorderRadius.circular(AppSpacing.lg),
             ),
             child: Icon(icon, size: 40, color: colors.primary.withValues(alpha: 0.5)),
           ),

@@ -20,7 +20,7 @@ class PwBottomActions extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl, vertical: AppSpacing.lg),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -37,7 +37,7 @@ class PwBottomActions extends StatelessWidget {
                   color: isActive
                       ? colors.mint
                       : colors.textSecondary.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(4),
+                  borderRadius: BorderRadius.circular(AppSpacing.xs),
                   boxShadow: isActive
                       ? [BoxShadow(
                           color: colors.emerald.withValues(alpha: 0.5),

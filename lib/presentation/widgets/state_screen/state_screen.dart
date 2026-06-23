@@ -111,7 +111,7 @@ class StateScreen extends StatelessWidget {
               ),
             )
           else
-            const SizedBox(width: 40),
+            const SizedBox(width: AppSpacing.iconContainer),
           const Spacer(),
           Text(
             appBarTitle ?? '',
@@ -122,7 +122,7 @@ class StateScreen extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          const SizedBox(width: 40),
+          const SizedBox(width: AppSpacing.iconContainer),
         ],
       ),
     );

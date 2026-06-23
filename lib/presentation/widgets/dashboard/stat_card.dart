@@ -21,7 +21,7 @@ class StatCard extends StatelessWidget {
     final colors = AppColors.of(context);
     return Card(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.six),
         child: FittedBox(
           fit: BoxFit.scaleDown,
           child: Column(

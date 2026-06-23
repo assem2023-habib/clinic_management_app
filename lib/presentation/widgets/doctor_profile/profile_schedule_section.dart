@@ -63,7 +63,7 @@ class ProfileScheduleSection extends StatelessWidget {
                 }
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.ten),
                 decoration: BoxDecoration(
                   color: slot.isAvailable
                       ? (canManage ? colors.cardBg : colors.primary.withValues(alpha: 0.1))
@@ -108,7 +108,7 @@ class ProfileScheduleSection extends StatelessWidget {
                 }
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.ten),
                 decoration: BoxDecoration(
                   color: slot.isAvailable
                       ? (canManage ? colors.cardBg : colors.primary.withValues(alpha: 0.1))

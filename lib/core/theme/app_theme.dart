@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 class AppTheme {
   static ThemeData get lightTheme => _buildThemeData(AppColors.light, Brightness.light);
@@ -73,7 +74,7 @@ class AppTheme {
         elevation: 0,
         shadowColor: colors.shadow,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
           side: BorderSide(color: colors.divider.withValues(alpha: 0.2)),
         ),
       ),
@@ -82,9 +83,9 @@ class AppTheme {
           backgroundColor: colors.primary,
           foregroundColor: brightness == Brightness.light ? Colors.white : const Color(0xFF003921),
           elevation: 0,
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: 14),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
           ),
           textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
         ),
@@ -93,22 +94,22 @@ class AppTheme {
         filled: true,
         fillColor: colors.inputBg,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(AppSpacing.inputRadius),
           borderSide: BorderSide(color: colors.divider),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(AppSpacing.inputRadius),
           borderSide: BorderSide(color: colors.divider.withValues(alpha: 0.5)),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(AppSpacing.inputRadius),
           borderSide: BorderSide(color: colors.primary, width: 1.5),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(AppSpacing.inputRadius),
           borderSide: BorderSide(color: colors.error),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        contentPadding: const EdgeInsets.all(AppSpacing.md),
         hintStyle: TextStyle(color: colors.textLight, fontWeight: FontWeight.w400),
         labelStyle: TextStyle(color: colors.textSecondary, fontWeight: FontWeight.w500),
       ),
@@ -116,7 +117,7 @@ class AppTheme {
         backgroundColor: colors.primary,
         foregroundColor: brightness == Brightness.light ? Colors.white : const Color(0xFF003921),
         elevation: 4,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.cardRadius)),
       ),
       textTheme: TextTheme(
         headlineLarge: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: colors.textPrimary, letterSpacing: -0.02),
@@ -136,12 +137,12 @@ class AppTheme {
       listTileTheme: ListTileThemeData(
         iconColor: colors.textSecondary,
         textColor: colors.textPrimary,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.inputRadius)),
       ),
       popupMenuTheme: PopupMenuThemeData(
         color: colors.surface,
         elevation: 8,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.inputRadius)),
       ),
       dialogTheme: DialogThemeData(
         backgroundColor: colors.cardBg,
@@ -151,7 +152,7 @@ class AppTheme {
       ),
       snackBarTheme: SnackBarThemeData(
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.inputRadius)),
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: colors.bottomNavBg,
@@ -175,19 +176,19 @@ class AppTheme {
           if (states.contains(WidgetState.selected)) return colors.primary;
           return colors.primary.withValues(alpha: 0.2);
         }),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.xs)),
       ),
       expansionTileTheme: ExpansionTileThemeData(
         iconColor: colors.textSecondary,
         textColor: colors.textPrimary,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.inputRadius)),
       ),
       chipTheme: ChipThemeData(
         backgroundColor: colors.chipBg,
         labelStyle: TextStyle(color: colors.chipText, fontSize: 13, fontWeight: FontWeight.w600),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.sm)),
         side: BorderSide.none,
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.xs),
       ),
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: colors.bottomNavBg,

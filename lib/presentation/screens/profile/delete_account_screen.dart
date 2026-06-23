@@ -99,7 +99,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
                     ),
                     child: state.isSaving
-                        ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                        ? const SizedBox(height: AppSpacing.iconSmall, width: AppSpacing.iconSmall, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
                         :  Text(AppStrings.deleteAccountTitle, style: TextStyle(fontSize: AppSpacing.bodyLarge)),
                   ),
                 ],

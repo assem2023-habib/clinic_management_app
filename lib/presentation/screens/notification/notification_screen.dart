@@ -141,7 +141,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               if (count != null && count > 0) ...[
                 const SizedBox(width: AppSpacing.six),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.six, vertical: AppSpacing.xxs),
                   decoration: BoxDecoration(color: colors.neonGreen.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(9999)),
                   child: Text('$count', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: colors.neonGreen)),
                 ),

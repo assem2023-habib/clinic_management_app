@@ -129,7 +129,7 @@ class _PatientDoctorProfileViewState extends State<PatientDoctorProfileView> {
                 ),
               ),
             ),
-            const SizedBox(height: 100),
+            const SizedBox(height: AppSpacing.bottomNavHeight),
           ],
         ),
       ),
@@ -265,7 +265,7 @@ class _SupervisionBadgeCard extends StatelessWidget {
               onTap: onAction,
               borderRadius: BorderRadius.circular(AppSpacing.sm),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.ten, vertical: AppSpacing.six),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [

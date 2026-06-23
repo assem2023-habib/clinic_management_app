@@ -79,7 +79,7 @@ class ProfileReviewsSection extends StatelessWidget {
                 icon: const Icon(Icons.rate_review_rounded, size: 18),
                 label: Text(AppStrings.rating),
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.ten),
                 ),
               ),
           ],

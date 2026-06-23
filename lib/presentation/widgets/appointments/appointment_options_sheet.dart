@@ -22,7 +22,7 @@ class AppointmentOptionsSheet extends StatelessWidget {
         borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
         border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.08))),
       ),
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, AppSpacing.xl),
+      padding: const EdgeInsets.fromLTRB(AppSpacing.md, 0, AppSpacing.md, AppSpacing.xl),
       child: Column(mainAxisSize: MainAxisSize.min, children: [
         Center(child: Container(
           margin: const EdgeInsets.symmetric(vertical: 14),

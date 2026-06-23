@@ -347,7 +347,7 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
 
   Widget _buildEmptyState(AppColorSet colors) {
     return Padding(
-      padding: const EdgeInsets.only(top: 48),
+      padding: const EdgeInsets.only(top: AppSpacing.xxl),
       child: Center(
         child: Column(
           children: [

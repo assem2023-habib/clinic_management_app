@@ -168,7 +168,7 @@ class _RegisterDoctorScreenState extends State<RegisterDoctorScreen> {
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
                       ),
                       child: state.isLoading
-                          ? SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: colors.surface))
+                          ? SizedBox(height: AppSpacing.iconSmall, width: AppSpacing.iconSmall, child: CircularProgressIndicator(strokeWidth: 2, color: colors.surface))
                           :  Text(AppStrings.register, style: TextStyle(fontSize: AppSpacing.bodyLarge)),
                     ),
                     const SizedBox(height: AppSpacing.md),

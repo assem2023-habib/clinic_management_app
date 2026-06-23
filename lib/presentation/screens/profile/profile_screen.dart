@@ -157,7 +157,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       subtitle: Text(label, style: TextStyle(fontSize: AppSpacing.bodySmall, color: colors.textSecondary)),
       trailing: Icon(Icons.edit_rounded, size: 18, color: colors.primaryLight),
       onTap: () => _showEditDialog(label, fieldKey, value),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: AppSpacing.xs),
     );
   }
 

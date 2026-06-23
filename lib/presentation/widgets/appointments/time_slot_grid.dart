@@ -37,7 +37,7 @@ class _TimeSlotGridState extends State<TimeSlotGrid> {
           ),
         )),
         Text('اختر وقتاً جديداً', style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w700, color: c.textPrimary)),
-        const SizedBox(height: 20),
+        const SizedBox(height: AppSpacing.iconSmall),
         GridView.count(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
@@ -67,7 +67,7 @@ class _TimeSlotGridState extends State<TimeSlotGrid> {
             );
           }).toList(),
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: AppSpacing.iconSmall),
         SizedBox(width: double.infinity,
           child: ElevatedButton(
             onPressed: _selectedTime == null ? null : () => Navigator.pop(context, _selectedTime),

@@ -75,7 +75,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   Widget _buildTopBar(AppColorSet colors, OnboardingState state) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(24, 16, 24, 0),
+      padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.md, AppSpacing.lg, 0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -105,12 +105,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     final items = OnboardingData.getItems(state.selectedRole!);
 
     return Container(
-      padding: const EdgeInsets.fromLTRB(24, 16, 24, 32),
+      padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.md, AppSpacing.lg, AppSpacing.xl),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           _buildProgressDots(colors, items.length, state.currentPage),
-          const SizedBox(height: 28),
+          const SizedBox(height: AppSpacing.avatarMedium),
           SizedBox(
             width: double.infinity,
             height: 52,
@@ -188,7 +188,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           margin: const EdgeInsets.symmetric(horizontal: AppSpacing.xs),
           decoration: BoxDecoration(
             color: isActive ? colors.primary : colors.divider,
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(AppSpacing.xs),
           ),
         );
       }),

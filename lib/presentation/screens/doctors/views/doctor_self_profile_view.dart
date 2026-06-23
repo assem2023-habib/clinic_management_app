@@ -48,7 +48,7 @@ class DoctorSelfProfileView extends StatelessWidget {
             averageRating: doctor.rating,
             totalReviews: doctor.reviewsCount,
           ),
-          const SizedBox(height: 100),
+          const SizedBox(height: AppSpacing.bottomNavHeight),
         ],
       ),
     );

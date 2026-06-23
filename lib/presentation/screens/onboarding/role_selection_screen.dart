@@ -20,7 +20,7 @@ class RoleSelectionScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
           child: Column(
             children: [
-              const SizedBox(height: 40),
+              const SizedBox(height: AppSpacing.iconContainer),
               Container(
                 width: 88,
                 height: 88,

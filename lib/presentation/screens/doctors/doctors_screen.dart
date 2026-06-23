@@ -225,7 +225,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
               padding: const EdgeInsets.all(22),
               decoration: BoxDecoration(
                 color: colors.surfaceDark,
-                borderRadius: BorderRadius.circular(24),
+                borderRadius: BorderRadius.circular(AppSpacing.lg),
                 border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
               ),
               child: Column(
@@ -382,7 +382,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
 
   Widget _buildSearchBar(AppColorSet colors) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 14, 16, 6),
+      padding: const EdgeInsets.fromLTRB(AppSpacing.md, 14, AppSpacing.md, AppSpacing.six),
       child: Focus(
         onFocusChange: (focused) => setState(() => _isSearchFocused = focused),
         child: AnimatedContainer(
@@ -473,7 +473,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 250),
               curve: Curves.easeOut,
-              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: AppSpacing.sm),
               decoration: BoxDecoration(
                   color: isActive
                       ? colors.accent.withValues(alpha: 0.15)
@@ -508,7 +508,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
     final isPatient = role == UserRole.patient;
 
     return ListView.separated(
-      padding: const EdgeInsets.fromLTRB(16, 10, 16, 100),
+      padding: const EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.ten, AppSpacing.md, 100),
       itemCount: doctors.length,
       separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.md),
       itemBuilder: (_, i) {

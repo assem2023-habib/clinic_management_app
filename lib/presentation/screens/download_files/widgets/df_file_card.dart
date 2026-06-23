@@ -89,7 +89,7 @@ class DfFileCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
             onTap: () => context.read<DownloadFileBloc>().add(DownloadFileStart(file.id)),
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.xs + 2),
+              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.xs + AppSpacing.xxs),
               decoration: BoxDecoration(
                 color: colors.primary.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),

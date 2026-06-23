@@ -195,7 +195,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
                         ),
                       ),
                     ),
-                    const SizedBox(width: 40),
+                    const SizedBox(width: AppSpacing.iconContainer),
                   ],
                 ),
               ),

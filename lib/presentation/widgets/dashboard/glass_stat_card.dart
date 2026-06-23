@@ -36,7 +36,7 @@ class GlassStatCard extends StatelessWidget {
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.six, vertical: AppSpacing.sm),
             child: FittedBox(
               fit: BoxFit.scaleDown,
               child: Column(

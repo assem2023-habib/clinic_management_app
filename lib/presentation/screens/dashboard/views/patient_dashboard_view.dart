@@ -39,7 +39,7 @@ class PatientDashboardView extends StatelessWidget {
                 AnimatedCard(index: 0, child: const DashboardGreeting()),
                 const SizedBox(height: AppSpacing.lg),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
+                  padding: const EdgeInsets.symmetric(vertical: AppSpacing.xl, horizontal: AppSpacing.md),
                   child: Center(
                     child: Text(
                       state.message,

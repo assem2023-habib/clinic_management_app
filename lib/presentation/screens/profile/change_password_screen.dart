@@ -83,7 +83,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       colors: colors,
                       validator: (v) => v?.isEmpty == true ? AppStrings.required : null,
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: AppSpacing.iconSmall),
                     _buildPasswordField(
                       controller: _newPasswordController,
                       label: AppStrings.newPassword,
@@ -92,7 +92,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       colors: colors,
                       validator: (v) => (v?.length ?? 0) < 8 ? AppStrings.min8Chars : null,
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: AppSpacing.iconSmall),
                     _buildPasswordField(
                       controller: _confirmPasswordController,
                       label: AppStrings.confirmNewPassword,
@@ -109,7 +109,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.buttonRadius)),
                       ),
                       child: state.isSaving
-                          ? SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: colors.surface))
+                          ? SizedBox(height: AppSpacing.iconSmall, width: AppSpacing.iconSmall, child: CircularProgressIndicator(strokeWidth: 2, color: colors.surface))
                           :  Text(AppStrings.save, style: TextStyle(fontSize: AppSpacing.bodyLarge)),
                     ),
                   ],

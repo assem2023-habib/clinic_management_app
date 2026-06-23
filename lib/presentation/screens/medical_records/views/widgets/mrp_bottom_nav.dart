@@ -18,7 +18,7 @@ class MrpBottomNav extends StatelessWidget {
     final colors = AppColors.of(context);
     return Container(
       height: 80,
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+      padding: const EdgeInsets.fromLTRB(AppSpacing.md, 0, AppSpacing.md, AppSpacing.sm),
       decoration: BoxDecoration(
         color: colors.cardBg.withValues(alpha: 0.4),
         borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
@@ -72,7 +72,7 @@ class MrpBottomNav extends StatelessWidget {
     return GestureDetector(
       onTap: () => onTabSelected?.call(index),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.xs),
         decoration: BoxDecoration(
           color: colors.accent,
           borderRadius: BorderRadius.circular(999),

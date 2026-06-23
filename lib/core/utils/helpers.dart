@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:clinic_management_app/core/constants/app_spacing.dart';
 
 void showSnackBar(BuildContext context, String message, {bool isError = false}) {
   ScaffoldMessenger.of(context).showSnackBar(
@@ -6,7 +7,7 @@ void showSnackBar(BuildContext context, String message, {bool isError = false}) 
       content: Text(message),
       backgroundColor: isError ? Colors.red : Colors.green,
       behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.ten)),
     ),
   );
 }

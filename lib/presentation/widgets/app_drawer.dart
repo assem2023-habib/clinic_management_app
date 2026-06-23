@@ -82,7 +82,7 @@ class AppDrawer extends StatelessWidget {
               ),
               const SizedBox(height: AppSpacing.xxs),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.ten, vertical: 3),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(AppSpacing.lg - AppSpacing.xs),
@@ -131,7 +131,7 @@ class AppDrawer extends StatelessWidget {
         final isActive = currentRoute == item.route;
         final isNotification = item.route == AppRoutes.notifications;
         return Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: 2),
+          padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.xxs),
           child: ListTile(
             tileColor: isActive ? colors.primary.withValues(alpha: 0.1) : null,
             leading: isNotification

@@ -90,7 +90,7 @@ class _DfHeaderState extends State<DfHeader> {
                 },
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
-                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.xs + 2),
+                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.xs + AppSpacing.xxs),
                   decoration: BoxDecoration(
                     color: isActive ? colors.primary.withValues(alpha: 0.15) : colors.cardBg.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(AppSpacing.lg - AppSpacing.xs),
