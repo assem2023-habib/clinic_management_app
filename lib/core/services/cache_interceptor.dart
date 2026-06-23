@@ -36,8 +36,12 @@ class CacheInterceptor extends Interceptor {
   }
 
   String _cacheKey(RequestOptions options) {
-    final uri = options.uri.toString();
-    return uri;
+    final uri = Uri.parse(options.uri.toString());
+    final params = Map<String, dynamic>.from(uri.queryParameters);
+    params.remove('page');
+    params.remove('limit');
+    final cleaned = uri.replace(queryParameters: params.isNotEmpty ? params : null);
+    return cleaned.toString();
   }
 
   void invalidateByPrefix(String prefix) {
