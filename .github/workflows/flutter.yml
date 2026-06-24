@@ -37,6 +37,10 @@ jobs:
         with:
           channel: stable
 
+      - name: Inject Firebase config
+        run: |
+          echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > android/app/google-services.json
+
       - run: flutter pub get
 
       - run: flutter build apk --release
@@ -76,6 +80,10 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
+
+      - name: Inject Firebase config
+        run: |
+          echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > ios/Runner/GoogleService-Info.plist
 
       - run: flutter pub get
 
