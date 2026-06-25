@@ -117,7 +117,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                       ),
                     ),
                     Text(
-                      'د. ${doctor.name}',
+                      '${AppStrings.dr} ${doctor.name}',
                       style: TextStyle(
                         fontSize: AppSpacing.bodyLarge,
                         fontWeight: FontWeight.w700,
@@ -253,7 +253,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                   ),
                   const SizedBox(height: AppSpacing.ten),
                   Text(
-                    'هل أنت متأكد من حذف ملف\nد. ${doctor.name}؟\nلا يمكن التراجع عن هذا الإجراء.',
+                    AppStrings.deleteDoctorConfirm(doctor.name),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: AppSpacing.bodyMedium,

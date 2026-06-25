@@ -209,11 +209,11 @@ class _UserBookingScreenState extends State<UserBookingScreen>
 
   Widget _buildDateSection(AppColorSet colors, UserBookingLoaded state, BuildContext context) {
     final bloc = context.read<UserBookingBloc>();
-    const arabicDays = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+    final arabicDays = [AppStrings.daySunday, AppStrings.dayMonday, AppStrings.dayTuesday, AppStrings.dayWednesday, AppStrings.dayThursday, AppStrings.dayFriday, AppStrings.daySaturday];
     const arabicNums = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
     String toArabic(int n) => n.toString().split('').map((c) => arabicNums[int.parse(c)]).join();
 
-    const months = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+    final months = [AppStrings.monthJan, AppStrings.monthFeb, AppStrings.monthMar, AppStrings.monthApr, AppStrings.monthMay, AppStrings.monthJun, AppStrings.monthJul, AppStrings.monthAug, AppStrings.monthSep, AppStrings.monthOct, AppStrings.monthNov, AppStrings.monthDec];
 
     final selected = state.selectedDate;
     final dates = List.generate(7, (i) {
@@ -306,7 +306,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  doctor.fullName.isNotEmpty ? 'د. ${doctor.fullName}' : '',
+                  doctor.fullName.isNotEmpty ? '${AppStrings.dr} ${doctor.fullName}' : '',
                   style: TextStyle(
                     fontSize: AppSpacing.heading,
                     fontWeight: FontWeight.w700,
@@ -342,9 +342,9 @@ class _UserBookingScreenState extends State<UserBookingScreen>
 
     return Column(
       children: [
-        _buildSlotGrid(colors, 'الفترة الصباحية', AppIcons.lightMode, morning, state.selectedSlotId, context),
+        _buildSlotGrid(colors, AppStrings.periodMorning, AppIcons.lightMode, morning, state.selectedSlotId, context),
         const SizedBox(height: AppSpacing.xl),
-        _buildSlotGrid(colors, 'الفترة المسائية', AppIcons.darkMode, evening, state.selectedSlotId, context),
+        _buildSlotGrid(colors, AppStrings.periodEvening, AppIcons.darkMode, evening, state.selectedSlotId, context),
       ],
     );
   }
@@ -360,7 +360,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: AppSpacing.lg),
               child: Text(
-                'لا توجد مواعيد متاحة',
+                AppStrings.noSlotsAvailable,
                 style: TextStyle(color: colors.textSecondary, fontSize: AppSpacing.bodyMedium),
               ),
             ),
@@ -463,7 +463,7 @@ class _UserBookingScreenState extends State<UserBookingScreen>
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'تأكيد الحجز',
+                            AppStrings.bookingConfirm,
                             style: TextStyle(
                               fontSize: AppSpacing.titleMedium,
                               fontWeight: FontWeight.w700,
@@ -656,7 +656,7 @@ class _SlotCardState extends State<_SlotCard>
                   Icon(AppIcons.checkCircle, size: AppSpacing.md, color: widget.colors.chipText)
                 else
                   Text(
-                    'متاح',
+                    AppStrings.availableTitle,
                     style: TextStyle(
                       fontSize: AppSpacing.labelSmall,
                       fontWeight: FontWeight.w600,

@@ -58,10 +58,10 @@ class _DoctorFormDialogState extends State<DoctorFormDialog> {
 
       if (widget.doctor == null) {
         context.read<DoctorBloc>().add(DoctorAdd(doctor));
-        showSnackBar(context, 'Doctor added successfully');
+        showSnackBar(context, AppStrings.doctorAddedSuccess);
       } else {
         context.read<DoctorBloc>().add(DoctorUpdate(doctor));
-        showSnackBar(context, 'Doctor updated successfully');
+        showSnackBar(context, AppStrings.doctorUpdatedSuccess);
       }
       Navigator.pop(context);
     }

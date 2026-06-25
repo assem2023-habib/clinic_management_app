@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -129,8 +130,8 @@ class FcmService {
 
     final androidDetails = AndroidNotificationDetails(
       'clinic_channel',
-      'إشْعَارَات العِيَادَة',
-      channelDescription: 'إشْعَارَات حَجْز المَوَاعِيد وَتَذْكِيرَات العِلَاج',
+      AppStrings.fcmChannelAppointments,
+      channelDescription: AppStrings.fcmChannelDescription,
       importance: Importance.high,
       priority: Priority.high,
       icon: '@mipmap/ic_launcher',
@@ -140,7 +141,7 @@ class FcmService {
 
     await _localNotifications.show(
       id: notification.hashCode,
-      title: notification.title ?? 'إشْعَار جَدِيد',
+      title: notification.title ?? AppStrings.fcmChannelNew,
       body: notification.body ?? '',
       notificationDetails: NotificationDetails(
         android: androidDetails,

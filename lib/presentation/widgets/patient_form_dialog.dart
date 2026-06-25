@@ -66,10 +66,10 @@ class _PatientFormDialogState extends State<PatientFormDialog> {
 
       if (widget.patient == null) {
         context.read<PatientBloc>().add(PatientAdd(patient));
-        showSnackBar(context, 'Patient added successfully');
+        showSnackBar(context, AppStrings.patientAddedSuccess);
       } else {
         context.read<PatientBloc>().add(PatientUpdate(patient));
-        showSnackBar(context, 'Patient updated successfully');
+        showSnackBar(context, AppStrings.patientUpdatedSuccess);
       }
       Navigator.pop(context);
     }

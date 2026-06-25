@@ -5,6 +5,7 @@ import 'package:clinic_management_app/presentation/screens/notification_failure/
 import 'package:clinic_management_app/presentation/screens/notification_failure/widgets/nf_content_card.dart';
 import 'package:clinic_management_app/presentation/screens/notification_failure/widgets/nf_icon_section.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 
 class NotificationFailureScreen extends StatelessWidget {
   final VoidCallback? onRetry;
@@ -30,7 +31,7 @@ class NotificationFailureScreen extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                    'الإشْعَارَات',
+                    AppStrings.ntTitle,
                     style: TextStyle(fontFamily: 'Sora', fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w600, color: colors.textPrimary),
                   ),
                   const SizedBox(width: AppSpacing.xxl),
@@ -40,9 +41,9 @@ class NotificationFailureScreen extends StatelessWidget {
             const Spacer(flex: 2),
             const NfIconSection(),
             const SizedBox(height: AppSpacing.xl),
-            const NfContentCard(
-              title: 'فَشِلَ إِرْسَالُ الإِشْعَارِ',
-              message: 'تَعَذَّرَ إِرْسَالُ الإِشْعَارِ فِي هَذِهِ اللَّحْظَةِ. يُرجَى التَّحَقُّقُ مِنْ اتِّصَالِكَ بِالشَّبَكَةِ وَالمُحَاوَلَةِ مُجَدَّداً، أَوِ المُحَاوَلَةِ لَاحِقاً.',
+            NfContentCard(
+              title: AppStrings.notificationSendFailed,
+              message: AppStrings.notificationFailureMsg,
             ),
             const Spacer(flex: 3),
             NfActions(onRetry: onRetry, onBack: onBack),

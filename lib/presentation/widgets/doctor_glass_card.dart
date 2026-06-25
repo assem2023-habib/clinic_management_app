@@ -167,7 +167,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
               ),
               const SizedBox(height: AppSpacing.xxs),
               Text(
-                'د. ${doctor.name}',
+                '${AppStrings.dr} ${doctor.name}',
                 style: TextStyle(
                   fontSize: AppSpacing.titleMedium,
                   fontWeight: FontWeight.w700,

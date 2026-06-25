@@ -41,7 +41,7 @@ class AppDrawer extends StatelessWidget {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
         final name = state.userName ?? AppStrings.roleUser;
-        final initials = name.isNotEmpty ? name[0] : 'م';
+        final initials = name.isNotEmpty ? name[0] : AppStrings.defaultInitial; // fallback char
         final roleLabel = _roleLabel(state.role);
         return Container(
           decoration: BoxDecoration(

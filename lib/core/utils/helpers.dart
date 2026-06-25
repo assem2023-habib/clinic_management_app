@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 
 void showSnackBar(BuildContext context, String message, {bool isError = false}) {
   ScaffoldMessenger.of(context).showSnackBar(
@@ -16,17 +17,17 @@ Future<bool?> showDeleteDialog(BuildContext context) {
   return showDialog<bool>(
     context: context,
     builder: (context) => AlertDialog(
-      title: const Text('Confirm Delete'),
-      content: const Text('Are you sure you want to delete this item?'),
+      title: Text(AppStrings.confirmDeleteTitle),
+      content: Text(AppStrings.confirmDeleteItem),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context, false),
-          child: const Text('Cancel'),
+          child: Text(AppStrings.cancel),
         ),
         ElevatedButton(
           onPressed: () => Navigator.pop(context, true),
           style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-          child: const Text('Delete'),
+          child: Text(AppStrings.delete),
         ),
       ],
     ),

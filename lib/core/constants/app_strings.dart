@@ -836,6 +836,12 @@ class AppStrings {
 
   // Forbidden/Unauthorized shared
   static String get backToHome => _t('العَوْدَةُ لِلرَّئِيسِيَّةِ', 'Back to Home');
+  static String get defaultInitial => _t('م', 'U');
+  static String get backToNotifications => _t('العودة للإشعارات', 'Back to Notifications');
+  static String get backToSearch => _t('العودة للبحث', 'Back to Search');
+  static String get searchAgain => _t('إعادة البحث', 'Search Again');
+  static String get availableOptionsFor => _t('الخيارات المتاحة لـ', 'Available options for');
+  static String get sfTitle => _t('البحث', 'Search');
 
   // Offline
   static String get cachedData => _t('عَرْضُ البَيَانَاتِ المُحَمَّلَةِ', 'Show cached data');
@@ -870,4 +876,59 @@ class AppStrings {
   // Rating
   static String get ratingSentConfirmation => _t('تَمَّ إِرْسَالُ تَقْيِيمِكَ ✓', 'Your rating has been sent ✓');
   static String get ratingHint => _t('اكْتُبْ تَجْرِبَتَكَ مَعَ الدُّكْتُورِ...', 'Write your experience with the doctor...');
+
+  // === NEW ADDITIONS ===
+
+  // User Booking
+  static String get noSlotsAvailable => _t('لا توجد مواعيد متاحة', 'No available slots');
+  static String get selectNewTime => _t('اختر وقتاً جديداً', 'Select new time');
+  static String get confirmNewAppointment => _t('تأكيد الموعد الجديد', 'Confirm new appointment');
+
+  // Appointment Options Sheet
+  static String cancelAppointmentConfirm(String docName) => _t('هل تريد إلغاء موعد\n$docName؟\nلا يمكن التراجع عن هذا الإجراء.', 'Do you want to cancel\n$docName?\nThis cannot be undone.');
+  static String appointmentCancelledName(String docName) => _t('تم إلغاء موعد $docName', 'Appointment $docName cancelled');
+
+  // Doctors Screen
+  static String deleteDoctorConfirm(String doctorName) => _t('هل أنت متأكد من حذف ملف\nد. $doctorName؟\nلا يمكن التراجع عن هذا الإجراء.', 'Are you sure you want to delete\nDr. $doctorName?\nThis cannot be undone.');
+  static String get searchFailed => _t('فشلت عملية البحث', 'Search failed');
+  static String get noDoctorsFound => _t('لم يتم العثور على أطباء', 'No doctors found');
+
+  // Auth Cubit
+  static String get loginFailed => _t('فشلت عملية الدخول', 'Login failed');
+  static String get registrationFailed => _t('فشلت عملية التسجيل', 'Registration failed');
+
+  // FCM Service
+  static String get fcmChannelAppointments => _t('إشعارات العيادة', 'Clinic Notifications');
+  static String get fcmChannelDescription => _t('إشعارات حجز المواعيد وتذكيرات العلاج', 'Appointment booking notifications and treatment reminders');
+  static String get fcmChannelNew => _t('إشعار جديد', 'New Notification');
+
+  // Helpers dialog
+  static String get confirmDeleteItem => _t('هل أنت متأكد من حذف هذا العنصر؟', 'Are you sure you want to delete this item?');
+  static String get confirmDeleteTitle => _t('تأكيد الحذف', 'Confirm Delete');
+
+  // Doctor Form Dialog
+  static String get doctorAddedSuccess => _t('تم إضافة الطبيب بنجاح', 'Doctor added successfully');
+  static String get doctorUpdatedSuccess => _t('تم تحديث الطبيب بنجاح', 'Doctor updated successfully');
+
+  // Patient Form Dialog
+  static String get patientAddedSuccess => _t('تم إضافة المريض بنجاح', 'Patient added successfully');
+  static String get patientUpdatedSuccess => _t('تم تحديث المريض بنجاح', 'Patient updated successfully');
+
+  // Upload Files
+  static String get filePickerComingSoon => _t('قريباً: اختيار الملفات', 'File picker coming soon');
+
+  // Patient Welcome
+  static String get secureEncrypted => _t('آمن ومشفر', 'Secure & Encrypted');
+
+  // Notification Screen
+  static String get notificationSendFailed => _t('فشل إرسال الإشعار', 'Notification send failed');
+  static String get notificationFailureMsg => _t('تعذر إرسال الإشعار في هذه اللحظة. يرجى التحقق من اتصالك بالشبكة والمحاولة مجدداً.', 'Could not send notification. Please check your connection and try again.');
+  static String get searchFailureMsg => _t('لم نتمكن من إجراء البحث في هذه اللحظة. يرجى التحقق من صحة بيانات البحث.', 'Could not perform search. Please check your search data.');
+
+  // Supervisions fallback
+  static String get doctorFallback => _t('طبيب', 'Doctor');
+  static String get patientFallback => _t('مريض', 'Patient');
+
+  // Register Screens
+  static String get passwordTitle => _t('كلمة السر', 'Password');
 }

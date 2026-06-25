@@ -171,7 +171,7 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
                             const SfIconSection(),
                             const SizedBox(height: AppSpacing.xl),
                             SfContentCard(
-                              title: 'فَشِلَتْ عَمَلِيَّةُ البَحْثِ',
+                              title: AppStrings.searchFailed,
                               message: state.message,
                             ),
                             const SizedBox(height: AppSpacing.xl),
@@ -359,7 +359,7 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
             ),
             const SizedBox(height: AppSpacing.md),
             Text(
-              'لم يتم العثور على أطباء',
+              AppStrings.noDoctorsFound,
               style: TextStyle(
                 fontSize: AppSpacing.bodyLarge,
                 fontWeight: FontWeight.w500,

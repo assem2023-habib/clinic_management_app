@@ -55,7 +55,7 @@ class _UploadFilesScreenState extends State<UploadFilesScreen> {
   void _pickAndUpload() {
     // TODO: Integrate file_picker when added to dependencies
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('File picker coming soon')),
+      SnackBar(content: Text(AppStrings.filePickerComingSoon)),
     );
   }
 

@@ -48,7 +48,7 @@ class AppointmentOptionsSheet extends StatelessWidget {
           ),
           const SizedBox(width: AppSpacing.sm + AppSpacing.xs),
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text('الخيارات المتاحة لـ', style: TextStyle(fontSize: AppSpacing.labelSmall, color: c.textSecondary)),
+            Text(AppStrings.availableOptionsFor, style: TextStyle(fontSize: AppSpacing.labelSmall, color: c.textSecondary)),
             Text(docName, style: TextStyle(fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w700, color: c.textPrimary)),
           ]),
         ]),
@@ -191,9 +191,9 @@ class _CancelDialog extends StatelessWidget {
               child: Icon(AppIcons.eventBusy, color: c.error, size: 28),
             ),
             const SizedBox(height: AppSpacing.md),
-            Text('إلغاء الموعد؟', style: TextStyle(fontSize: 19, fontWeight: FontWeight.w700, color: c.textPrimary)),
+            Text(AppStrings.cancelAppointment, style: TextStyle(fontSize: 19, fontWeight: FontWeight.w700, color: c.textPrimary)),
             const SizedBox(height: AppSpacing.sm),
-            Text('هل تريد إلغاء موعد\n$docName؟\nلا يمكن التراجع عن هذا الإجراء.',
+            Text(AppStrings.cancelAppointmentConfirm(docName),
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: AppSpacing.caption, color: c.textSecondary, height: 1.7),
             ),
@@ -207,7 +207,7 @@ class _CancelDialog extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
                   ),
-                  child: Text('رجوع', style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w700, color: c.textSecondary)),
+                  child: Text(AppStrings.back, style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w700, color: c.textSecondary)),
                 ),
               ),
               const SizedBox(width: AppSpacing.ten),
@@ -217,7 +217,7 @@ class _CancelDialog extends StatelessWidget {
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text('تم إلغاء موعد $docName'),
+                        content: Text(AppStrings.appointmentCancelledName(docName)),
                         backgroundColor: c.surface,
                         behavior: SnackBarBehavior.floating,
                       ),
@@ -229,7 +229,7 @@ class _CancelDialog extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
                   ),
-                  child: Text('إلغاء الموعد', style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w700, color: c.error)),
+                  child: Text(AppStrings.cancelAppointment, style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w700, color: c.error)),
                 ),
               ),
             ]),

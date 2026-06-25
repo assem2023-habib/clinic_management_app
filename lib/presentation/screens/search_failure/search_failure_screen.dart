@@ -5,6 +5,7 @@ import 'package:clinic_management_app/presentation/screens/search_failure/widget
 import 'package:clinic_management_app/presentation/screens/search_failure/widgets/sf_content_card.dart';
 import 'package:clinic_management_app/presentation/screens/search_failure/widgets/sf_icon_section.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 
 class SearchFailureScreen extends StatelessWidget {
   final VoidCallback? onRetry;
@@ -30,7 +31,7 @@ class SearchFailureScreen extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                    'البَحْثُ',
+                    AppStrings.sfTitle,
                     style: TextStyle(fontFamily: 'Sora', fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w600, color: colors.textPrimary),
                   ),
                   const SizedBox(width: AppSpacing.xxl),
@@ -40,9 +41,9 @@ class SearchFailureScreen extends StatelessWidget {
             const Spacer(flex: 2),
             const SfIconSection(),
             const SizedBox(height: AppSpacing.xl),
-            const SfContentCard(
-              title: 'فَشِلَتْ عَمَلِيَّةُ البَحْثِ',
-              message: 'لَمْ نَتَمَكَّنْ مِنْ إِجْرَاءِ البَحْثِ فِي هَذِهِ اللَّحْظَةِ. يُرجَى التَّحَقُّقُ مِنْ صِحَّةِ بَيَانَاتِ البَحْثِ أَوِ المُحَاوَلَةِ لَاحِقاً.',
+            SfContentCard(
+              title: AppStrings.searchFailed,
+              message: AppStrings.searchFailureMsg,
             ),
             const Spacer(flex: 3),
             SfActions(onRetry: onRetry, onBack: onBack),

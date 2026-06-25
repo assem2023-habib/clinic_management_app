@@ -147,7 +147,7 @@ class _PatientDoctorsTab extends StatelessWidget {
               itemBuilder: (context, index) {
                 final supervision = state.doctors[index];
                 return _SupervisionCard(
-                  title: supervision.doctorName ?? 'طبيب',
+                  title: supervision.doctorName ?? AppStrings.doctorFallback,
                   subtitle: supervision.notes ?? '',
                   status: supervision.status,
                   statusColor: colors.success,
@@ -214,7 +214,7 @@ class _DoctorPatientsTab extends StatelessWidget {
               itemBuilder: (context, index) {
                 final supervision = state.patients[index];
                 return _SupervisionCard(
-                  title: supervision.patientName ?? 'مريض',
+                  title: supervision.patientName ?? AppStrings.patientFallback,
                   subtitle: supervision.notes ?? '',
                   status: supervision.status,
                   statusColor: colors.success,
@@ -281,7 +281,7 @@ class _PatientRequestsTab extends StatelessWidget {
               itemBuilder: (context, index) {
                 final request = state.requests[index];
                 return _RequestCard(
-                  title: request.doctorName ?? 'طبيب',
+                  title: request.doctorName ?? AppStrings.doctorFallback,
                   status: request.status,
                   createdAt: request.createdAt,
                   icon: AppIcons.medicalServices,
@@ -347,7 +347,7 @@ class _DoctorRequestsTab extends StatelessWidget {
               itemBuilder: (context, index) {
                 final request = state.requests[index];
                 return _RequestCard(
-                  title: request.patientName ?? 'مريض',
+                  title: request.patientName ?? AppStrings.patientFallback,
                   status: request.status,
                   createdAt: request.createdAt,
                   icon: AppIcons.person,

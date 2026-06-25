@@ -61,7 +61,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     const NfIconSection(),
                     const SizedBox(height: AppSpacing.xl),
                     NfContentCard(
-                      title: 'فَشِلَ إِرْسَالُ الإِشْعَارِ',
+                      title: AppStrings.notificationSendFailed,
                       message: state.message,
                     ),
                     const SizedBox(height: AppSpacing.xl),

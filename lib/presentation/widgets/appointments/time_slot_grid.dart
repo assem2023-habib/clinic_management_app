@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 
 class TimeSlotGrid extends StatefulWidget {
   const TimeSlotGrid({super.key});
@@ -12,10 +13,10 @@ class TimeSlotGrid extends StatefulWidget {
 class _TimeSlotGridState extends State<TimeSlotGrid> {
   String? _selectedTime;
 
-  static const _slots = [
-    '08:00 ص', '09:30 ص', '10:00 ص',
-    '11:30 ص', '01:00 م', '03:00 م',
-    '04:15 م', '05:30 م', '06:00 م',
+  static List<String> get _slots => [
+    '08:00 ${AppStrings.am}', '09:30 ${AppStrings.am}', '10:00 ${AppStrings.am}',
+    '11:30 ${AppStrings.am}', '01:00 ${AppStrings.pm}', '03:00 ${AppStrings.pm}',
+    '04:15 ${AppStrings.pm}', '05:30 ${AppStrings.pm}', '06:00 ${AppStrings.pm}',
   ];
 
   @override
@@ -36,7 +37,7 @@ class _TimeSlotGridState extends State<TimeSlotGrid> {
             borderRadius: BorderRadius.circular(999),
           ),
         )),
-        Text('اختر وقتاً جديداً', style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w700, color: c.textPrimary)),
+        Text(AppStrings.selectNewTime, style: TextStyle(fontSize: AppSpacing.titleMedium, fontWeight: FontWeight.w700, color: c.textPrimary)),
         const SizedBox(height: AppSpacing.iconSmall),
         GridView.count(
           shrinkWrap: true,
@@ -78,7 +79,7 @@ class _TimeSlotGridState extends State<TimeSlotGrid> {
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.md - AppSpacing.xxs)),
             ),
             child: Text(
-              'تأكيد الموعد الجديد',
+              AppStrings.confirmNewAppointment,
               style: TextStyle(
                 fontSize: AppSpacing.subtitle, fontWeight: FontWeight.w700,
                 color: _selectedTime != null ? c.primaryLight : c.textSecondary.withValues(alpha: 0.5),

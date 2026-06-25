@@ -149,7 +149,7 @@ class AuthCubit extends Cubit<AuthState> {
           await _registerDeviceToken(FcmService().deviceToken);
           await _initFirebaseAuth();
         } else {
-          emit(AuthError(response.message ?? 'فشلت عملية الدخول'));
+          emit(AuthError(response.message ?? AppStrings.loginFailed));
         }
         return;
       } catch (e) {
@@ -180,7 +180,7 @@ class AuthCubit extends Cubit<AuthState> {
   }) async {
     emit(const AuthLoading());
     if (_authRepository == null) {
-      emit(const AuthError('API غير متاح'));
+      emit(AuthError(AppStrings.apiNotAvailable));
       return;
     }
     try {
@@ -196,7 +196,7 @@ class AuthCubit extends Cubit<AuthState> {
         await _registerDeviceToken(FcmService().deviceToken);
         await _initFirebaseAuth();
       } else {
-        emit(AuthError(response.message ?? 'فشلت عملية التسجيل'));
+        emit(AuthError(response.message ?? AppStrings.registrationFailed));
       }
     } catch (e) {
       emit(AuthError(e.toString()));
@@ -212,7 +212,7 @@ class AuthCubit extends Cubit<AuthState> {
   }) async {
     emit(const AuthLoading());
     if (_authRepository == null) {
-      emit(const AuthError('API غير متاح'));
+      emit(AuthError(AppStrings.apiNotAvailable));
       return;
     }
     try {
@@ -245,7 +245,7 @@ class AuthCubit extends Cubit<AuthState> {
   }) async {
     emit(const AuthLoading());
     if (_authRepository == null) {
-      emit(const AuthError('API غير متاح'));
+      emit(AuthError(AppStrings.apiNotAvailable));
       return;
     }
     try {

@@ -133,7 +133,7 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                       onChanged: (v) => setState(() => _gender = v ?? 'male'),
                     ),
                     const SizedBox(height: AppSpacing.md),
-                    _buildTextField(controller: _passwordController, label: 'كَلِمَةُ السِّرِّ', prefixIcon: AppIcons.lock, obscureText: _obscurePassword, validator: (v) => (v?.length ?? 0) < 8 ? AppStrings.min8Chars : null, suffix: IconButton(icon: Icon(_obscurePassword ? AppIcons.visibility : AppIcons.visibilityOff), onPressed: () => setState(() => _obscurePassword = !_obscurePassword))),
+                    _buildTextField(controller: _passwordController, label: AppStrings.passwordTitle, prefixIcon: AppIcons.lock, obscureText: _obscurePassword, validator: (v) => (v?.length ?? 0) < 8 ? AppStrings.min8Chars : null, suffix: IconButton(icon: Icon(_obscurePassword ? AppIcons.visibility : AppIcons.visibilityOff), onPressed: () => setState(() => _obscurePassword = !_obscurePassword))),
                     const SizedBox(height: AppSpacing.md),
                     _buildTextField(controller: _confirmPasswordController, label: AppStrings.confirmPassword, prefixIcon: AppIcons.lock, obscureText: _obscureConfirmPassword, suffix: IconButton(icon: Icon(_obscureConfirmPassword ? AppIcons.visibility : AppIcons.visibilityOff), onPressed: () => setState(() => _obscureConfirmPassword = !_obscureConfirmPassword))),
                     const SizedBox(height: AppSpacing.lg),

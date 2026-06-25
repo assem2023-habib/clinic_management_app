@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_icons.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 
 class NfActions extends StatelessWidget {
   final VoidCallback? onRetry;
@@ -32,8 +33,8 @@ class NfActions extends StatelessWidget {
                 children: [
                   const Icon(AppIcons.refresh, size: AppSpacing.iconSmall),
                   const SizedBox(width: AppSpacing.sm),
-                  const Text(
-                    'إِعَادَةُ المُحَاوَلَةِ',
+                  Text(
+                    AppStrings.retry,
                     style: TextStyle(fontFamily: 'Sora', fontSize: AppSpacing.bodyLarge, fontWeight: FontWeight.w600),
                   ),
                 ],
@@ -46,7 +47,7 @@ class NfActions extends StatelessWidget {
             child: TextButton(
               onPressed: onBack ?? () => Navigator.pop(context),
               child: Text(
-                'العَوْدَةُ لِلإِشْعَارَاتِ',
+                AppStrings.backToNotifications,
                 style: TextStyle(fontFamily: 'Sora', fontSize: AppSpacing.subtitle, fontWeight: FontWeight.w500, color: colors.textMuted),
               ),
             ),

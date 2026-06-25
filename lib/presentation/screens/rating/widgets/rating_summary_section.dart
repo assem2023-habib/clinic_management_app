@@ -50,7 +50,7 @@ class RatingSummarySection extends StatelessWidget {
                     ),
                     const SizedBox(width: AppSpacing.sm),
                     Text(
-                      'من 5.0',
+                      AppStrings.outOf5,
                       style: TextStyle(fontSize: AppSpacing.bodyMedium, fontWeight: FontWeight.w600, color: colors.textSecondary),
                     ),
                   ],

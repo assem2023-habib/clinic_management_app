@@ -1,7 +1,7 @@
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
+import 'package:clinic_management_app/core/constants/app_strings.dart';
 
 class PwFloatingChip {
   final double top, left, delay;
@@ -10,17 +10,17 @@ class PwFloatingChip {
 }
 
 List<PwFloatingChip> chipsForPage(int page) {
-  const page1 = [
-    PwFloatingChip(top: 32, left: 16, label: '82 BPM', delay: 0),
-    PwFloatingChip(top: 220, left: 180, label: 'AI Scan Active', delay: 1),
+  final page1 = [
+    PwFloatingChip(top: 32, left: 16, label: AppStrings.pwChipBpm, delay: 0),
+    PwFloatingChip(top: 220, left: 180, label: AppStrings.pwChipAiScan, delay: 1),
   ];
-  const page2 = [
-    PwFloatingChip(top: 28, left: 24, label: 'تذكير ذكي', delay: 0),
-    PwFloatingChip(top: 210, left: 160, label: '3 مواعيد قادمة', delay: 1),
+  final page2 = [
+    PwFloatingChip(top: 28, left: 24, label: AppStrings.pwChipReminder, delay: 0),
+    PwFloatingChip(top: 210, left: 160, label: AppStrings.upcomingAppts, delay: 1),
   ];
-  const page3 = [
-    PwFloatingChip(top: 34, left: 12, label: 'تحليل AI', delay: 0),
-    PwFloatingChip(top: 200, left: 190, label: 'آمن ومشفر', delay: 1),
+  final page3 = [
+    PwFloatingChip(top: 34, left: 12, label: AppStrings.pwChipAnalysis, delay: 0),
+    PwFloatingChip(top: 200, left: 190, label: AppStrings.secureEncrypted, delay: 1),
   ];
   switch (page) {
     case 0: return page1;
@@ -89,33 +89,65 @@ class PwHeroSection extends StatelessWidget {
   }
 }
 
-class _FloatingChipWidget extends StatelessWidget {
+class _FloatingChipWidget extends StatefulWidget {
   final String label;
   final double delay;
   const _FloatingChipWidget({required this.label, required this.delay});
 
   @override
+  State<_FloatingChipWidget> createState() => _FloatingChipWidgetState();
+}
+
+class _FloatingChipWidgetState extends State<_FloatingChipWidget> with SingleTickerProviderStateMixin {
+  late AnimationController _ctrl;
+  late Animation<double> _opacity;
+  late Animation<Offset> _slide;
+
+  @override
+  void initState() {
+    super.initState();
+    _ctrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+    );
+    _opacity = CurvedAnimation(parent: _ctrl, curve: Curves.easeOut);
+    _slide = Tween<Offset>(begin: const Offset(0, 0.2), end: Offset.zero)
+        .animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeOutCubic));
+    Future.delayed(Duration(milliseconds: (widget.delay * 1000).round()), () {
+      if (mounted) _ctrl.forward();
+    });
+  }
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.ten, vertical: AppSpacing.xs),
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.03),
-        borderRadius: BorderRadius.circular(AppSpacing.sm),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+    return FadeTransition(
+      opacity: _opacity,
+      child: SlideTransition(
+        position: _slide,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.ten, vertical: AppSpacing.xs),
+          decoration: BoxDecoration(
+            color: Colors.white.withValues(alpha: 0.03),
+            borderRadius: BorderRadius.circular(AppSpacing.sm),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(width: 6, height: 6, decoration: BoxDecoration(shape: BoxShape.circle, color: colors.emerald)),
+              const SizedBox(width: AppSpacing.six),
+              Text(widget.label, style: TextStyle(fontFamily: 'Sora', fontSize: AppSpacing.labelSmall, fontWeight: FontWeight.w600, letterSpacing: 0.5, color: colors.textPrimary)),
+            ],
+          ),
+        ),
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(width: 6, height: 6, decoration: BoxDecoration(shape: BoxShape.circle, color: colors.emerald)),
-          const SizedBox(width: AppSpacing.six),
-          Text(label, style: TextStyle(fontFamily: 'Sora', fontSize: AppSpacing.labelSmall, fontWeight: FontWeight.w600, letterSpacing: 0.5, color: colors.textPrimary)),
-        ],
-      ),
-    ).animate(delay: (delay * 1000).round().ms).shakeY(
-      duration: 3.seconds,
-      amount: 3,
-      curve: Curves.easeInOut,
     );
   }
 }
