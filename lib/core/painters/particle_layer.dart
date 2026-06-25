@@ -25,19 +25,17 @@ class ParticleLayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned.fill(
-      child: IgnorePointer(
-        child: CustomPaint(
-          painter: ParticlePainter(
-            color: color,
-            particleCount: particleCount,
-            minRadius: minRadius,
-            maxRadius: maxRadius,
-            minAlpha: minAlpha,
-            maxAlpha: maxAlpha,
-            useBlur: useBlur,
-            seed: seed,
-          ),
+    return IgnorePointer(
+      child: CustomPaint(
+        painter: ParticlePainter(
+          color: color,
+          particleCount: particleCount,
+          minRadius: minRadius,
+          maxRadius: maxRadius,
+          minAlpha: minAlpha,
+          maxAlpha: maxAlpha,
+          useBlur: useBlur,
+          seed: seed,
         ),
       ),
     );

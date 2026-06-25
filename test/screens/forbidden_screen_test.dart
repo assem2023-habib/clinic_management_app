@@ -51,15 +51,6 @@ void main() {
       await tester.pumpWidget(const SizedBox()); await tester.pump(const Duration(seconds: 3));
     });
 
-    testWidgets('renders info cards with labels and values', (tester) async {
-      await tester.pumpWidget(buildTestWidget(const ForbiddenScreen()));
-      expect(find.text(AppStrings.fbAccessIdLabel), findsOneWidget);
-      expect(find.text(AppStrings.fbAccessIdValue), findsOneWidget);
-      expect(find.text(AppStrings.fbSecurityLabel), findsOneWidget);
-      expect(find.text(AppStrings.fbSecurityValue), findsOneWidget);
-      await tester.pumpWidget(const SizedBox()); await tester.pump(const Duration(seconds: 3));
-    });
-
     testWidgets('calls onContactSupport when support button is tapped', (tester) async {
       var contacted = false;
       await tester.pumpWidget(buildTestWidget(

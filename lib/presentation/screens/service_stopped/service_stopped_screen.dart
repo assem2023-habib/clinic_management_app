@@ -41,7 +41,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
       backgroundColor: colors.scaffoldBg,
       body: Stack(
         children: [
-          ParticleLayer(color: AppColors.dark.emerald, particleCount: 60, minRadius: 0.5, maxRadius: 3.5, minAlpha: 0.1, maxAlpha: 0.6, useBlur: true),
+          Positioned.fill(child: ParticleLayer(color: AppColors.dark.emerald, particleCount: 60, minRadius: 0.5, maxRadius: 3.5, minAlpha: 0.1, maxAlpha: 0.6, useBlur: true)),
           AnimatedBuilder(
             animation: _pulseController,
             builder: (context, _) => _buildPulsingCircles(colors),

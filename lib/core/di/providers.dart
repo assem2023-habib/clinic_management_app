@@ -60,6 +60,7 @@ import 'package:clinic_management_app/presentation/blocs/appointment/appointment
 import 'package:clinic_management_app/presentation/blocs/dashboard/dashboard_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/registration_cubit.dart';
+import 'package:clinic_management_app/presentation/blocs/token/token_cubit.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor/doctor_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/doctor_profile/doctor_profile_bloc.dart';
 import 'package:clinic_management_app/presentation/blocs/medical_record/medical_record_bloc.dart';
@@ -139,7 +140,8 @@ class AppProviders {
 
   static List<BlocProvider> blocProviders(BuildContext context) {
     return [
-      BlocProvider<AuthCubit>(create: (ctx) => AuthCubit(authRepository: RepositoryProvider.of<AuthRepository>(ctx))),
+      BlocProvider<TokenCubit>(create: (ctx) => TokenCubit(authRepository: RepositoryProvider.of<AuthRepository>(ctx))),
+      BlocProvider<AuthCubit>(create: (ctx) => AuthCubit(authRepository: RepositoryProvider.of<AuthRepository>(ctx), tokenCubit: ctx.read())),
       BlocProvider<RegistrationCubit>(create: (ctx) => RegistrationCubit(authRepository: RepositoryProvider.of<AuthRepository>(ctx))),
       BlocProvider<OnboardingCubit>(create: (_) => OnboardingCubit()),
       BlocProvider<DoctorBloc>(create: (ctx) => DoctorBloc(RepositoryProvider.of<DoctorRepository>(ctx))),

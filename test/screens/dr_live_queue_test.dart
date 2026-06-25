@@ -33,8 +33,6 @@ class StubAuthCubit extends Cubit<AuthState> implements AuthCubit {
   @override
   void emitAuthenticated(UserEntity user) {}
 
-  @override
-  Future<void> getFirebaseToken() async {}
 }
 
 AppointmentEntity _createAppointment({

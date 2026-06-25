@@ -145,7 +145,7 @@ void main() {
 
       expect(find.text(AppStrings.bookingTitle), findsOneWidget);
       expect(find.textContaining('خالد سليمان'), findsOneWidget);
-      expect(find.text('تأكيد الحجز'), findsOneWidget);
+      expect(find.text(AppStrings.bookingConfirm), findsOneWidget);
 
       _getBloc(tester).close();
       authCubit.close();
@@ -216,7 +216,7 @@ void main() {
 
       final bloc = _getBloc(tester);
 
-      await tester.tap(find.text('تأكيد الحجز'));
+      await tester.tap(find.text(AppStrings.bookingConfirm));
       await tester.pump();
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 500));
