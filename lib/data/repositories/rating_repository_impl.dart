@@ -1,11 +1,11 @@
-import 'package:clinic_management_app/data/datasources/data_source.dart';
+import 'package:clinic_management_app/data/datasources/rating_data_source.dart';
 import 'package:clinic_management_app/data/datasources/remote/rating_remote_datasource.dart';
 import 'package:clinic_management_app/data/models/rating_model.dart';
 import 'package:clinic_management_app/domain/entities/rating_entity.dart';
 import 'package:clinic_management_app/domain/repositories/rating_repository.dart';
 
 class RatingRepositoryImpl implements RatingRepository {
-  final DataSource? localDataSource;
+  final RatingDataSource? localDataSource;
   final RatingRemoteDataSource? remoteDataSource;
 
   RatingRepositoryImpl({this.localDataSource, this.remoteDataSource});

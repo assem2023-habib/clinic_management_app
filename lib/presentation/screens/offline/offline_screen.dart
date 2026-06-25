@@ -4,6 +4,7 @@ import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/core/constants/app_icons.dart';
+import 'package:clinic_management_app/core/painters/painters.dart';
 
 class OfflineScreen extends StatefulWidget {
   final VoidCallback? onRetry;
@@ -107,7 +108,7 @@ class _OfflineScreenState extends State<OfflineScreen>
     return Positioned.fill(
       child: IgnorePointer(
         child: CustomPaint(
-          painter: _ScanlinePainter(),
+          painter: ScanlinePainter(),
         ),
       ),
     );
@@ -118,7 +119,7 @@ class _OfflineScreenState extends State<OfflineScreen>
     return Positioned.fill(
       child: IgnorePointer(
         child: CustomPaint(
-          painter: _ParticlePainter(colors),
+          painter: ParticlePainter(color: colors.neonGreen, particleCount: 3, minRadius: 1.5, maxRadius: 3.0, minAlpha: 0.08, maxAlpha: 0.15),
         ),
       ),
     );
@@ -408,65 +409,4 @@ class _OfflineScreenState extends State<OfflineScreen>
       ],
     );
   }
-}
-
-class _ScanlinePainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    for (double y = 0; y < size.height; y += 4) {
-      canvas.drawLine(
-        Offset(0, y + 2),
-        Offset(size.width, y + 2),
-        Paint()..color = Colors.black.withValues(alpha: 0.04),
-      );
-    }
-
-    final rect = Offset.zero & size;
-    final gradient = LinearGradient(
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter,
-      colors: [
-        Colors.red.withValues(alpha: 0.005),
-        Colors.green.withValues(alpha: 0.003),
-        Colors.blue.withValues(alpha: 0.005),
-      ],
-    );
-    canvas.drawRect(
-      rect,
-      Paint()..shader = gradient.createShader(rect),
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
-
-class _ParticlePainter extends CustomPainter {
-  final AppColorSet colors;
-
-  const _ParticlePainter(this.colors);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = colors.neonGreen.withValues(alpha: 0.12);
-    canvas.drawCircle(
-      Offset(size.width * 0.2, size.height * 0.25),
-      2,
-      paint,
-    );
-    canvas.drawCircle(
-      Offset(size.width * 0.75, size.height * 0.7),
-      3,
-      paint..color = colors.sage.withValues(alpha: 0.08),
-    );
-    canvas.drawCircle(
-      Offset(size.width * 0.5, size.height * 0.85),
-      1.5,
-      paint..color = colors.neonGreen.withValues(alpha: 0.12),
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

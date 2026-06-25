@@ -1,4 +1,11 @@
-import 'package:clinic_management_app/data/datasources/data_source.dart';
+import 'package:clinic_management_app/data/datasources/doctor_data_source.dart';
+import 'package:clinic_management_app/data/datasources/patient_data_source.dart';
+import 'package:clinic_management_app/data/datasources/appointment_data_source.dart';
+import 'package:clinic_management_app/data/datasources/medical_record_data_source.dart';
+import 'package:clinic_management_app/data/datasources/location_data_source.dart';
+import 'package:clinic_management_app/data/datasources/review_data_source.dart';
+import 'package:clinic_management_app/data/datasources/rating_data_source.dart';
+import 'package:clinic_management_app/data/datasources/dashboard_data_source.dart';
 import 'package:clinic_management_app/data/models/doctor_model.dart';
 import 'package:clinic_management_app/data/models/patient_model.dart';
 import 'package:clinic_management_app/data/models/appointment_model.dart';
@@ -10,7 +17,15 @@ import 'package:clinic_management_app/data/models/doctor_schedule_model.dart';
 import 'package:clinic_management_app/data/models/rating_model.dart';
 import 'package:clinic_management_app/domain/entities/dashboard_data.dart';
 
-class MockDataSource implements DataSource {
+class MockDataSource implements
+    DoctorDataSource,
+    PatientDataSource,
+    AppointmentDataSource,
+    MedicalRecordDataSource,
+    LocationDataSource,
+    ReviewDataSource,
+    RatingDataSource,
+    DashboardDataSource {
   final List<CountryModel> _countries = [
     const CountryModel(id: 'sy', nameEn: 'Syria', nameAr: 'سُورِيَا', code: 'SY', flag: '🇸🇾'),
     const CountryModel(id: 'eg', nameEn: 'Egypt', nameAr: 'مِصْرُ', code: 'EG', flag: '🇪🇬'),
@@ -92,8 +107,6 @@ class MockDataSource implements DataSource {
   List<PatientModel> get allPatients => List.unmodifiable(_patients);
   @override
   List<AppointmentModel> get allAppointments => List.unmodifiable(_appointments);
-  @override
-  List<MedicalRecordModel> get allMedicalRecords => List.unmodifiable(_medicalRecords);
 
   @override
   DoctorModel? doctorById(String id) {

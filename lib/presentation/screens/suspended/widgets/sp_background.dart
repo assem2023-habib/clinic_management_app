@@ -1,4 +1,5 @@
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/utils/seeded_random.dart';
 import 'package:flutter/material.dart';
 import '../suspended_painters.dart';
 

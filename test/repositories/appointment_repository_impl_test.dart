@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:clinic_management_app/data/datasources/data_source.dart';
+import 'package:clinic_management_app/data/datasources/appointment_data_source.dart';
 import 'package:clinic_management_app/data/models/appointment_model.dart';
 import 'package:clinic_management_app/data/repositories/appointment_repository_impl.dart';
 import 'package:clinic_management_app/core/services/appointment_rtdb_service.dart';
 import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
 
-class MockDataSource extends Mock implements DataSource {}
+class MockDataSource extends Mock implements AppointmentDataSource {}
 
 class MockRtdbService extends Mock implements AppointmentRtdbService {}
 

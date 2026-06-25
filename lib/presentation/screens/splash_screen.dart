@@ -1,6 +1,5 @@
 ﻿import 'package:clinic_management_app/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
@@ -8,6 +7,7 @@ import 'package:clinic_management_app/presentation/blocs/onboarding/onboarding_c
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
+import 'package:clinic_management_app/core/animations/animations.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,27 +16,21 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
-  late AnimationController _pulseController;
+class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
     super.initState();
-    _pulseController = AnimationController(
-      vsync: this,
-      duration: 1.2.seconds,
-    )..repeat(reverse: true);
     _checkOnboardingStatus();
   }
 
   @override
   void dispose() {
-    _pulseController.dispose();
     super.dispose();
   }
 
   Future<void> _checkOnboardingStatus() async {
-    await Future.delayed(2.4.seconds);
+    await Future.delayed(AppDurations.dSlow + AppDurations.dSlow + AppDurations.dSlow);
     if (!mounted) return;
 
     final authCubit = context.read<AuthCubit>();
@@ -80,12 +74,10 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ScaleTransition(
-              scale: _pulseController.drive(
-                Tween<double>(begin: 0.95, end: 1.05).chain(
-                  CurveTween(curve: Curves.easeInOutSine),
-                ),
-              ),
+            PulseAnimation(
+              minScale: 0.95,
+              maxScale: 1.05,
+              curve: Curves.easeInOutSine,
               child: Container(
                 width: 130,
                 height: 130,
@@ -113,42 +105,54 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                   ),
                 ),
               ),
-            ).animate().fadeIn(duration: 800.ms, curve: Curves.easeOutCubic)
-             .scale(delay: 100.ms, duration: 700.ms, begin: const Offset(0.5, 0.5), curve: Curves.easeOutBack),
+            ),
             const SizedBox(height: AppSpacing.xl),
-            Text(
-              AppStrings.splashTitle,
-              style: TextStyle(
-                fontSize: 36,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                letterSpacing: 1.2,
-                height: 1.2,
-              ),
-            ).animate().fadeIn(delay: 500.ms, duration: 600.ms, curve: Curves.easeOutCubic)
-             .slideY(begin: 0.4, duration: 600.ms, curve: Curves.easeOutCubic),
-            const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
-            Text(
-              AppStrings.systemTitle,
-              style: TextStyle(
-                fontSize: AppSpacing.bodyMedium,
-                color: Colors.white.withValues(alpha: 0.7),
-                fontWeight: FontWeight.w500,
-                letterSpacing: 0.5,
-              ),
-            ).animate().fadeIn(delay: 700.ms, duration: 500.ms, curve: Curves.easeOutCubic)
-             .slideY(begin: 0.3, duration: 500.ms, curve: Curves.easeOutCubic),
-            const SizedBox(height: 60),
-            SizedBox(
-              width: 28,
-              height: 28,
-              child: CircularProgressIndicator(
-                strokeWidth: 2.5,
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  Colors.white.withValues(alpha: 0.6),
+            AnimatedEntrance(
+              type: EntranceType.fadeSlideUp,
+              delay: const Duration(milliseconds: 500),
+              duration: AppDurations.dSlow,
+              child: Text(
+                AppStrings.splashTitle,
+                style: TextStyle(
+                  fontSize: 36,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  letterSpacing: 1.2,
+                  height: 1.2,
                 ),
               ),
-            ).animate().fadeIn(delay: 1.seconds, duration: 400.ms),
+            ),
+            const SizedBox(height: AppSpacing.sm + AppSpacing.xs),
+            AnimatedEntrance(
+              type: EntranceType.fadeSlideUp,
+              delay: const Duration(milliseconds: 700),
+              duration: AppDurations.dFadeIn,
+              child: Text(
+                AppStrings.systemTitle,
+                style: TextStyle(
+                  fontSize: AppSpacing.bodyMedium,
+                  color: Colors.white.withValues(alpha: 0.7),
+                  fontWeight: FontWeight.w500,
+                  letterSpacing: 0.5,
+                ),
+              ),
+            ),
+            const SizedBox(height: 60),
+            AnimatedEntrance(
+              type: EntranceType.fade,
+              delay: const Duration(seconds: 1),
+              duration: AppDurations.dStaggered,
+              child: SizedBox(
+                width: 28,
+                height: 28,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2.5,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    Colors.white.withValues(alpha: 0.6),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

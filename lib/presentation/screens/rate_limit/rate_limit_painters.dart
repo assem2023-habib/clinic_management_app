@@ -122,35 +122,3 @@ class DashedCirclePainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
-
-class ParticlePainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final rng = SeededRandom(42);
-    for (var i = 0; i < 45; i++) {
-      final x = rng.next() * size.width;
-      final y = rng.next() * size.height;
-      final radius = rng.next() * 2.5 + 1.5;
-      canvas.drawCircle(
-        Offset(x, y),
-        radius,
-        Paint()
-          ..color = AppColors.dark.emerald
-              .withValues(alpha: 0.15 + rng.next() * 0.2),
-      );
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
-
-class SeededRandom {
-  int _seed;
-  SeededRandom(this._seed);
-
-  double next() {
-    _seed = (_seed * 1103515245 + 12345) & 0x7fffffff;
-    return _seed / 0x7fffffff;
-  }
-}

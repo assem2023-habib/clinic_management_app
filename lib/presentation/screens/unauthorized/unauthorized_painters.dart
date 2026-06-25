@@ -1,15 +1,6 @@
 import 'package:clinic_management_app/core/constants/app_colors.dart';
+import 'package:clinic_management_app/core/utils/seeded_random.dart';
 import 'package:flutter/material.dart';
-
-class SeededRandom {
-  int _seed;
-  SeededRandom(this._seed);
-
-  double next() {
-    _seed = (_seed * 1103515245 + 12345) & 0x7fffffff;
-    return _seed / 0x7fffffff;
-  }
-}
 
 class UaParticlePainter extends CustomPainter {
   @override

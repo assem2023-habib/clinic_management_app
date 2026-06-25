@@ -40,7 +40,7 @@ Widget buildTestWidget() {
     ),
     rating: 4.8,
   ));
-  final repository = DoctorRepositoryImpl(mockDataSource);
+  final repository = DoctorRepositoryImpl(mockDataSource, mockDataSource);
   return MultiRepositoryProvider(
     providers: [
       RepositoryProvider<DoctorRepository>.value(value: repository),

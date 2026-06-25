@@ -35,6 +35,7 @@ class StateScreen extends StatelessWidget {
   final bool showAppBar;
   final String? appBarTitle;
   final Widget? bottomWidget;
+  final Widget? background;
 
   const StateScreen({
     super.key,
@@ -48,6 +49,7 @@ class StateScreen extends StatelessWidget {
     this.showAppBar = true,
     this.appBarTitle,
     this.bottomWidget,
+    this.background,
   });
 
   @override
@@ -56,29 +58,35 @@ class StateScreen extends StatelessWidget {
 
     return Scaffold(
       body: SafeArea(
-        child: Column(
+        child: Stack(
           children: [
-            if (showAppBar) _buildAppBar(context, colors),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: AppSpacing.xl),
-                      _buildIllustration(context),
-                      const SizedBox(height: AppSpacing.xxl),
-                      _buildCard(context, colors),
-                      if (statusChips != null || bottomWidget != null) ...[
-                        const SizedBox(height: AppSpacing.xxl),
-                        if (statusChips != null) _buildStatusRow(colors),
-                        ?bottomWidget,
-                      ],
-                      const SizedBox(height: AppSpacing.lg),
-                    ],
+            if (background != null)
+              Positioned.fill(child: background!),
+            Column(
+              children: [
+                if (showAppBar) _buildAppBar(context, colors),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: AppSpacing.xl),
+                          _buildIllustration(context),
+                          const SizedBox(height: AppSpacing.xxl),
+                          _buildCard(context, colors),
+                          if (statusChips != null || bottomWidget != null) ...[
+                            const SizedBox(height: AppSpacing.xxl),
+                            if (statusChips != null) _buildStatusRow(colors),
+                            ?bottomWidget,
+                          ],
+                          const SizedBox(height: AppSpacing.lg),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
           ],
         ),

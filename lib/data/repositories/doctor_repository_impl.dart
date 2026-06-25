@@ -1,4 +1,5 @@
-import 'package:clinic_management_app/data/datasources/data_source.dart';
+import 'package:clinic_management_app/data/datasources/doctor_data_source.dart';
+import 'package:clinic_management_app/data/datasources/review_data_source.dart';
 import 'package:clinic_management_app/data/datasources/remote/doctor_remote_datasource.dart';
 import 'package:clinic_management_app/data/models/doctor_model.dart';
 import 'package:clinic_management_app/data/models/review_model.dart';
@@ -10,10 +11,11 @@ import 'package:clinic_management_app/domain/entities/time_slot_entity.dart';
 import 'package:clinic_management_app/domain/repositories/doctor_repository.dart';
 
 class DoctorRepositoryImpl implements DoctorRepository {
-  final DataSource dataSource;
+  final DoctorDataSource dataSource;
+  final ReviewDataSource reviewDataSource;
   final DoctorRemoteDataSource? remoteDataSource;
 
-  DoctorRepositoryImpl(this.dataSource, {this.remoteDataSource});
+  DoctorRepositoryImpl(this.dataSource, this.reviewDataSource, {this.remoteDataSource});
 
   @override
   Future<List<DoctorEntity>> getAllDoctors({String? search, String? specializationId, int page = 1, int limit = 20}) async {
@@ -124,9 +126,9 @@ class DoctorRepositoryImpl implements DoctorRepository {
         final doctor = await remoteDataSource!.getDoctorById(id);
         final reviews = doctor.recentReviews.isNotEmpty
             ? doctor.recentReviews
-            : dataSource.getDoctorReviews(id);
+            : reviewDataSource.getDoctorReviews(id);
         final now = DateTime.now();
-        final slots = dataSource.getDoctorSlots(id, DateTime(now.year, now.month));
+        final slots = reviewDataSource.getDoctorSlots(id, DateTime(now.year, now.month));
         return DoctorProfileEntity(
           doctor: doctor,
           reviews: reviews,
@@ -141,9 +143,9 @@ class DoctorRepositoryImpl implements DoctorRepository {
     }
     final doctor = dataSource.doctorById(id);
     if (doctor == null) throw Exception('Doctor not found');
-    final reviews = dataSource.getDoctorReviews(id);
+    final reviews = reviewDataSource.getDoctorReviews(id);
     final now = DateTime.now();
-    final slots = dataSource.getDoctorSlots(id, DateTime(now.year, now.month));
+    final slots = reviewDataSource.getDoctorSlots(id, DateTime(now.year, now.month));
     return DoctorProfileEntity(
       doctor: doctor,
       reviews: reviews,
@@ -158,7 +160,7 @@ class DoctorRepositoryImpl implements DoctorRepository {
 
   @override
   Future<List<ReviewEntity>> getDoctorReviews(String doctorId) async =>
-      dataSource.getDoctorReviews(doctorId);
+      reviewDataSource.getDoctorReviews(doctorId);
 
   @override
   Future<List<DoctorScheduleEntity>> getDoctorSlots(String doctorId, DateTime month) async {
@@ -167,16 +169,16 @@ class DoctorRepositoryImpl implements DoctorRepository {
         return await remoteDataSource!.getDoctorSchedules(doctorId, month);
       } catch (_) {}
     }
-    return dataSource.getDoctorSlots(doctorId, month);
+    return reviewDataSource.getDoctorSlots(doctorId, month);
   }
 
   @override
   Future<void> toggleSlotAvailability(String slotId) async =>
-      dataSource.toggleSlotAvailability(slotId);
+      reviewDataSource.toggleSlotAvailability(slotId);
 
   @override
   Future<void> addReview(String doctorId, ReviewEntity review) async {
-    dataSource.addReview(doctorId, ReviewModel(
+    reviewDataSource.addReview(doctorId, ReviewModel(
       id: review.id, rating: review.rating, comment: review.comment,
       rater: review.rater, type: review.type,
       rateableId: review.rateableId, rateableType: review.rateableType,

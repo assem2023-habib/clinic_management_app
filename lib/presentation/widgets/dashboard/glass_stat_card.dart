@@ -1,8 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
+import 'package:clinic_management_app/core/animations/animations.dart';
 
 class GlassStatCard extends StatelessWidget {
   final String title;
@@ -23,7 +23,6 @@ class GlassStatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = AppColors.of(context);
-    final delay = Duration(milliseconds: index * 120);
 
     final card = Container(
       decoration: BoxDecoration(
@@ -73,15 +72,11 @@ class GlassStatCard extends StatelessWidget {
       ),
     );
 
-    return card
-        .animate()
-        .fadeIn(duration: 400.ms, delay: delay, curve: Curves.easeOutCubic)
-        .scaleXY(
-          begin: 0.85,
-          end: 1.0,
-          duration: 500.ms,
-          delay: delay,
-          curve: Curves.easeOutBack,
-        );
+    return AnimatedEntrance(
+      type: EntranceType.fadeScaleIn,
+      index: index,
+      staggeredDelay: Duration(milliseconds: index * 120),
+      child: card,
+    );
   }
 }

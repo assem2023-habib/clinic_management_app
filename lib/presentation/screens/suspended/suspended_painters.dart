@@ -31,13 +31,3 @@ class MovingParticlePainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant MovingParticlePainter oldDelegate) => true;
 }
-
-class SeededRandom {
-  int _seed;
-  SeededRandom(this._seed);
-
-  double next() {
-    _seed = (_seed * 1103515245 + 12345) & 0x7fffffff;
-    return _seed / 0x7fffffff;
-  }
-}

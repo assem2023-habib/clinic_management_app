@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+import 'package:clinic_management_app/core/animations/animations.dart';
 
 class AnimatedCard extends StatelessWidget {
   final Widget child;
@@ -12,15 +12,17 @@ class AnimatedCard extends StatelessWidget {
     required this.child,
     this.index = 0,
     this.delay,
-    this.duration = const Duration(milliseconds: 400),
+    this.duration = AppDurations.dStaggered,
   });
 
   @override
   Widget build(BuildContext context) {
     final d = delay ?? Duration(milliseconds: index * 100);
-    return child
-        .animate()
-        .fadeIn(duration: duration, delay: d, curve: Curves.easeOutCubic)
-        .slideY(begin: 0.08, end: 0, duration: duration, delay: d, curve: Curves.easeOutCubic);
+    return AnimatedEntrance(
+      type: EntranceType.fadeSlideUp,
+      delay: d,
+      duration: duration,
+      child: child,
+    );
   }
 }

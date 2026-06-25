@@ -1,4 +1,4 @@
-import 'package:clinic_management_app/data/datasources/data_source.dart';
+import 'package:clinic_management_app/data/datasources/appointment_data_source.dart';
 import 'package:clinic_management_app/data/datasources/remote/appointment_remote_datasource.dart';
 import 'package:clinic_management_app/data/models/appointment_model.dart';
 import 'package:clinic_management_app/data/models/booked_slot_model.dart';
@@ -8,7 +8,7 @@ import 'package:clinic_management_app/domain/repositories/appointment_repository
 import 'package:clinic_management_app/core/services/appointment_rtdb_service.dart';
 
 class AppointmentRepositoryImpl implements AppointmentRepository {
-  final DataSource localDataSource;
+  final AppointmentDataSource localDataSource;
   final AppointmentRemoteDataSource? remoteDataSource;
   final AppointmentRtdbService? rtdbService;
 

@@ -4,6 +4,7 @@ import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/screens/rate_limit/rate_limit_painters.dart';
+import 'package:clinic_management_app/core/painters/painters.dart';
 import 'package:clinic_management_app/core/constants/app_icons.dart';
 
 class RateLimitScreen extends StatefulWidget {
@@ -202,7 +203,7 @@ class _RateLimitScreenState extends State<RateLimitScreen>
     return Positioned.fill(
       child: IgnorePointer(
         child: CustomPaint(
-          painter: ParticlePainter(),
+          painter: ParticlePainter(color: AppColors.dark.emerald, particleCount: 45, minRadius: 1.5, maxRadius: 4.0, minAlpha: 0.15, maxAlpha: 0.35),
         ),
       ),
     );

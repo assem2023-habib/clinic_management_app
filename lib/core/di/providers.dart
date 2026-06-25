@@ -80,7 +80,7 @@ class AppProviders {
     required MockDataSource mockDataSource,
   }) {
     return [
-      RepositoryProvider<DoctorRepository>(create: (_) => DoctorRepositoryImpl(mockDataSource,
+      RepositoryProvider<DoctorRepository>(create: (_) => DoctorRepositoryImpl(mockDataSource, mockDataSource,
         remoteDataSource: DoctorRemoteDataSource(apiService),
       )),
       RepositoryProvider<PatientRepository>(create: (_) => PatientRepositoryImpl(mockDataSource,

@@ -4,6 +4,7 @@ import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/core/painters/painters.dart';
 
 class ServiceStoppedScreen extends StatefulWidget {
   final VoidCallback? onRetry;
@@ -40,7 +41,7 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
       backgroundColor: colors.scaffoldBg,
       body: Stack(
         children: [
-          const _ParticleLayer(),
+          ParticleLayer(color: AppColors.dark.emerald, particleCount: 60, minRadius: 0.5, maxRadius: 3.5, minAlpha: 0.1, maxAlpha: 0.6, useBlur: true),
           AnimatedBuilder(
             animation: _pulseController,
             builder: (context, _) => _buildPulsingCircles(colors),
@@ -349,53 +350,5 @@ class _ServiceStoppedScreenState extends State<ServiceStoppedScreen>
         color: errorColors.textLight,
       ),
     );
-  }
-}
-
-class _ParticleLayer extends StatelessWidget {
-  const _ParticleLayer();
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned.fill(
-      child: IgnorePointer(
-        child: CustomPaint(
-          painter: _ServiceStoppedParticlePainter(),
-        ),
-      ),
-    );
-  }
-}
-
-class _ServiceStoppedParticlePainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final rng = _SeededRandom(42);
-    for (var i = 0; i < 60; i++) {
-      final x = rng.next() * size.width;
-      final y = rng.next() * size.height;
-      final radius = rng.next() * 3 + 0.5;
-      final alpha = rng.next() * 0.5 + 0.1;
-      canvas.drawCircle(
-        Offset(x, y),
-        radius,
-        Paint()
-          ..color = AppColors.dark.emerald.withValues(alpha: alpha)
-          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 2),
-      );
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
-
-class _SeededRandom {
-  int _seed;
-  _SeededRandom(this._seed);
-
-  double next() {
-    _seed = (_seed * 1103515245 + 12345) & 0x7fffffff;
-    return _seed / 0x7fffffff;
   }
 }

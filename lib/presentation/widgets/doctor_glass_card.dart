@@ -6,6 +6,7 @@ import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/doctor_entity.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
+import 'package:clinic_management_app/core/animations/animations.dart';
 
 class DoctorGlassCard extends StatefulWidget {
   final DoctorEntity doctor;
@@ -196,6 +197,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
   }
 
   Widget _buildAvatar() {
+    final colors = AppColors.of(context);
     final doctor = widget.doctor;
     return Stack(
       clipBehavior: Clip.none,
@@ -216,7 +218,7 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
           Positioned(
             top: -3,
             left: -3,
-            child: _PulsingDot(),
+            child: PulsingDot(color: colors.secondary),
           ),
       ],
     );
@@ -422,63 +424,6 @@ class _DoctorGlassCardState extends State<DoctorGlassCard>
                         ? Colors.amber.shade300
                         : colors.textPrimary,
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _PulsingDot extends StatefulWidget {
-  @override
-  State<_PulsingDot> createState() => _PulsingDotState();
-}
-
-class _PulsingDotState extends State<_PulsingDot>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _ctrl;
-  late Animation<double> _opacityAnim;
-
-  @override
-  void initState() {
-    super.initState();
-    _ctrl = AnimationController(vsync: this, duration: const Duration(seconds: 2));
-    _opacityAnim = TweenSequence([
-      TweenSequenceItem(
-        tween: Tween(begin: 1.0, end: 0.3).chain(CurveTween(curve: Curves.easeInOut)),
-        weight: 50,
-      ),
-      TweenSequenceItem(
-        tween: Tween(begin: 0.3, end: 1.0).chain(CurveTween(curve: Curves.easeInOut)),
-        weight: 50,
-      ),
-    ]).animate(_ctrl);
-    _ctrl.repeat();
-  }
-
-  @override
-  void dispose() {
-    _ctrl.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = AppColors.of(context);
-    return FadeTransition(
-      opacity: _opacityAnim,
-      child: Container(
-        width: 12,
-        height: 12,
-        decoration: BoxDecoration(
-          color: colors.secondary,
-          shape: BoxShape.circle,
-          border: Border.all(color: colors.scaffoldBg, width: 2),
-          boxShadow: [
-            BoxShadow(
-              color: colors.secondary.withValues(alpha: 0.5),
-              blurRadius: 6,
             ),
           ],
         ),

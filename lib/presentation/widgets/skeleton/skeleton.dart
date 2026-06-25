@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
+import 'package:clinic_management_app/core/animations/animations.dart';
 
 Widget _shimmer(Widget child, BuildContext context) {
-  final colors = AppColors.of(context);
-  return child.animate(
-    onInit: (controller) => controller.repeat(),
-  ).shimmer(duration: const Duration(milliseconds: 1500), color: colors.skeletonShimmer);
+  return ShimmerWidget(child: child);
 }
 
 class SkeletonBox extends StatelessWidget {

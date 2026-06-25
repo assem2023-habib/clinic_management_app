@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/core/painters/painters.dart';
 
 class WeakConnectionScreen extends StatefulWidget {
   final VoidCallback? onRetry;
@@ -80,7 +81,7 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
     return Positioned.fill(
       child: IgnorePointer(
         child: CustomPaint(
-          painter: _StarfieldPainter(),
+          painter: StarfieldPainter(color: AppColors.dark.emerald.withValues(alpha: 0.12)),
         ),
       ),
     );
@@ -373,33 +374,5 @@ class _WeakConnectionScreenState extends State<WeakConnectionScreen>
         borderRadius: BorderRadius.circular(AppSpacing.xxs),
       ),
     );
-  }
-}
-
-class _StarfieldPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final rng = _SeededRandom(42);
-    final paint = Paint()
-      ..color = AppColors.dark.emerald.withValues(alpha: 0.12);
-    for (var i = 0; i < 50; i++) {
-      final x = rng.next() * size.width;
-      final y = rng.next() * size.height;
-      final radius = rng.next() * 1.2 + 0.5;
-      canvas.drawCircle(Offset(x, y), radius, paint);
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
-
-class _SeededRandom {
-  int _seed;
-  _SeededRandom(this._seed);
-
-  double next() {
-    _seed = (_seed * 1103515245 + 12345) & 0x7fffffff;
-    return _seed / 0x7fffffff;
   }
 }

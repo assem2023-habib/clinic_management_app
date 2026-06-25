@@ -2,11 +2,12 @@
 import 'dart:math' show pi;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show SystemNavigator;
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_spacing.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
+import 'package:clinic_management_app/core/animations/animations.dart';
+import 'package:clinic_management_app/core/painters/painters.dart';
 
 class SessionExpiredScreen extends StatefulWidget {
   final VoidCallback? onLogin;
@@ -87,7 +88,7 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
     return Positioned.fill(
       child: IgnorePointer(
         child: CustomPaint(
-          painter: _SessionParticlePainter(),
+          painter: ParticlePainter(color: AppColors.dark.mint, particleCount: 40, minRadius: 1.0, maxRadius: 4.0, minAlpha: 0.2, maxAlpha: 0.4, useBlur: true),
         ),
       ),
     );
@@ -108,45 +109,33 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
             builder: (context, child) {
               return CustomPaint(
                 size: const Size(160, 160),
-                painter: _RotatingGlowPainter(
-                  _glowController.value * 2 * pi,
-                ),
+                painter: RotatingGlowPainter(_glowController.value * 2 * pi, color: colors.emerald),
               );
             },
           ),
-          Container(
-            width: 128,
-            height: 128,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: colors.surfaceDark.withValues(alpha: 0.4),
-              border: Border.all(
-                color: Colors.white.withValues(alpha: 0.08),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: colors.neonGreen.withValues(alpha: 0.03),
-                  blurRadius: 40,
+            FloatAnimation(
+              child: Container(
+                width: 128,
+                height: 128,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: colors.surfaceDark.withValues(alpha: 0.4),
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.08),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: colors.neonGreen.withValues(alpha: 0.03),
+                      blurRadius: 40,
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            child: Icon(
-              AppIcons.timerOff,
-              size: 64,
-              color: colors.mint,
-            ),
-          ).animate(onInit: (c) => c.repeat(reverse: true))
-            .scale(
-              duration: 3.seconds,
-              begin: const Offset(1.0, 1.0),
-              end: const Offset(1.05, 1.05),
-              curve: Curves.easeInOut,
-            )
-            .move(
-              duration: 3.seconds,
-              begin: const Offset(0, 0),
-              end: const Offset(0, -10),
-              curve: Curves.easeInOut,
+                child: Icon(
+                  AppIcons.timerOff,
+                  size: 64,
+                  color: colors.mint,
+                ),
+              ),
             ),
           Positioned(
             top: 0,
@@ -319,68 +308,5 @@ class _SessionExpiredScreenState extends State<SessionExpiredScreen>
       ),
       textAlign: TextAlign.center,
     );
-  }
-}
-
-class _RotatingGlowPainter extends CustomPainter {
-  final double rotationAngle;
-  _RotatingGlowPainter(this.rotationAngle);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final rect = Rect.fromLTWH(0, 0, size.width, size.height);
-    final paint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 3
-      ..shader = SweepGradient(
-        startAngle: rotationAngle,
-        endAngle: rotationAngle + 2 * pi,
-        colors: [
-          Colors.transparent,
-          AppColors.dark.emerald,
-          Colors.transparent,
-          AppColors.dark.emerald,
-          Colors.transparent,
-        ],
-        stops: [0.0, 0.25, 0.5, 0.75, 1.0],
-      ).createShader(rect);
-    canvas.drawCircle(
-      Offset(size.width / 2, size.height / 2),
-      size.width / 2,
-      paint,
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant _RotatingGlowPainter oldDelegate) =>
-      oldDelegate.rotationAngle != rotationAngle;
-}
-
-class _SessionParticlePainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final rng = _SeededRandom(42);
-    final paint = Paint()
-      ..color = AppColors.dark.mint.withValues(alpha: 0.3);
-
-    for (var i = 0; i < 40; i++) {
-      final x = rng.next() * size.width;
-      final y = rng.next() * size.height;
-      final radius = rng.next() * 3 + 1;
-      canvas.drawCircle(Offset(x, y), radius, paint);
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
-
-class _SeededRandom {
-  int _seed;
-  _SeededRandom(this._seed);
-
-  double next() {
-    _seed = (_seed * 1103515245 + 12345) & 0x7fffffff;
-    return _seed / 0x7fffffff;
   }
 }
