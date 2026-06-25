@@ -5,6 +5,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/appointment_entity.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
+import 'package:clinic_management_app/domain/entities/user_entity.dart';
 import 'package:clinic_management_app/domain/repositories/appointment_repository.dart';
 import 'package:clinic_management_app/domain/repositories/doctor_repository.dart';
 import 'package:clinic_management_app/presentation/blocs/appointment/appointment_bloc.dart';
@@ -30,50 +31,7 @@ class StubAuthCubit extends Cubit<AuthState> implements AuthCubit {
   Future<void> logout() async {}
 
   @override
-  Future<void> registerPatient({
-    required String firstName,
-    required String lastName,
-    required String username,
-    required String email,
-    required String password,
-    String? phone,
-    String? address,
-    required String gender,
-    String? birthdayDate,
-    String? cityId,
-  }) async {}
-
-  @override
-  Future<void> registerDoctor({
-    required String firstName,
-    required String lastName,
-    required String username,
-    required String email,
-    required String password,
-    String? phone,
-    String? address,
-    required String gender,
-    String? birthdayDate,
-    String? cityId,
-    required String specializationId,
-    required int experienceMonths,
-  }) async {}
-
-  @override
-  Future<void> registerReceptionist({
-    required String firstName,
-    required String lastName,
-    required String username,
-    required String email,
-    required String password,
-    String? phone,
-    String? address,
-    required String gender,
-    String? birthdayDate,
-    String? cityId,
-    String? shiftStart,
-    String? shiftEnd,
-  }) async {}
+  void emitAuthenticated(UserEntity user) {}
 
   @override
   Future<void> getFirebaseToken() async {}

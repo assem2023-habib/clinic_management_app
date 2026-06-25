@@ -1,15 +1,11 @@
 import 'package:clinic_management_app/domain/entities/user_entity.dart';
-import 'package:clinic_management_app/data/models/auth/login_request.dart';
-import 'package:clinic_management_app/data/models/auth/register_patient_request.dart';
-import 'package:clinic_management_app/data/models/auth/register_doctor_request.dart';
-import 'package:clinic_management_app/data/models/auth/register_receptionist_request.dart';
-import 'package:clinic_management_app/data/models/auth/auth_response.dart';
+import 'package:clinic_management_app/domain/entities/auth_entity.dart';
 
 abstract class AuthRepository {
-  Future<AuthResponse> login(LoginRequest request);
-  Future<AuthResponse> registerPatient(RegisterPatientRequest request);
-  Future<AuthResponse> registerDoctor(RegisterDoctorRequest request);
-  Future<AuthResponse> registerReceptionist(RegisterReceptionistRequest request);
+  Future<AuthResponseEntity> login(LoginRequestEntity request);
+  Future<AuthResponseEntity> registerPatient(RegisterPatientRequestEntity request);
+  Future<AuthResponseEntity> registerDoctor(RegisterDoctorRequestEntity request);
+  Future<AuthResponseEntity> registerReceptionist(RegisterReceptionistRequestEntity request);
   Future<void> logout();
   Future<UserEntity> getProfile();
   Future<UserEntity> updateProfile(Map<String, dynamic> data);

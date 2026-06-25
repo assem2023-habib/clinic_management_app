@@ -5,6 +5,7 @@ import 'package:clinic_management_app/core/constants/app_colors.dart';
 import 'package:clinic_management_app/core/constants/app_routes.dart';
 import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/presentation/blocs/auth/auth_cubit.dart';
+import 'package:clinic_management_app/presentation/blocs/auth/registration_cubit.dart';
 import 'package:clinic_management_app/presentation/widgets/phone_field.dart';
 import 'package:clinic_management_app/presentation/widgets/date_picker_field.dart';
 import 'package:clinic_management_app/presentation/widgets/country_city_picker_field.dart';
@@ -55,7 +56,7 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
 
     final phone = _phoneState.currentState;
     final email = _emailController.text;
-    context.read<AuthCubit>().registerPatient(
+    context.read<RegistrationCubit>().registerPatient(
       firstName: _firstNameController.text,
       lastName: _lastNameController.text,
       username: email.split('@').first,
@@ -78,18 +79,20 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
     final colors = AppColors.of(context);
     return Scaffold(
       appBar: AppBar(title:  Text(AppStrings.registerPatientTitle)),
-      body: BlocListener<AuthCubit, AuthState>(
+      body: BlocListener<RegistrationCubit, RegistrationState>(
         listener: (context, state) {
-          if (state.isAuthenticated) {
+          if (state.registeredUser != null) {
+            context.read<AuthCubit>().emitAuthenticated(state.registeredUser!);
             Navigator.pushReplacementNamed(context, AppRoutes.patientWelcome);
           }
           if (state.error != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.error!), backgroundColor: colors.error),
             );
+            context.read<RegistrationCubit>().reset();
           }
         },
-        child: BlocBuilder<AuthCubit, AuthState>(
+        child: BlocBuilder<RegistrationCubit, RegistrationState>(
           builder: (context, state) {
             return SingleChildScrollView(
               padding: const EdgeInsets.all(AppSpacing.lg),

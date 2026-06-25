@@ -5,11 +5,8 @@ import 'package:clinic_management_app/core/constants/app_strings.dart';
 import 'package:clinic_management_app/domain/entities/user_role.dart';
 import 'package:clinic_management_app/domain/entities/user_entity.dart';
 import 'package:clinic_management_app/domain/entities/role_entity.dart';
+import 'package:clinic_management_app/domain/entities/auth_entity.dart';
 import 'package:clinic_management_app/domain/repositories/auth_repository.dart';
-import 'package:clinic_management_app/data/models/auth/login_request.dart';
-import 'package:clinic_management_app/data/models/auth/register_patient_request.dart';
-import 'package:clinic_management_app/data/models/auth/register_doctor_request.dart';
-import 'package:clinic_management_app/data/models/auth/register_receptionist_request.dart';
 import 'package:clinic_management_app/core/services/api_service.dart';
 import 'package:clinic_management_app/core/services/fcm_service.dart';
 import 'package:clinic_management_app/core/services/firebase_auth_service.dart';
@@ -119,13 +116,7 @@ class AuthCubit extends Cubit<AuthState> {
     if (_authRepository == null) return;
     try {
       final user = await _authRepository.getProfile();
-      final userRole = _mapRole(user.roles);
-      emit(AuthAuthenticated(
-        userId: user.id,
-        userName: user.fullName,
-        role: userRole,
-        user: user,
-      ));
+      emitAuthenticated(user);
       await _registerDeviceToken(FcmService().deviceToken);
       await _initFirebaseAuth();
     } catch (_) {}
@@ -136,16 +127,10 @@ class AuthCubit extends Cubit<AuthState> {
 
     if (_authRepository != null) {
       try {
-        final request = LoginRequest(email: email, password: password);
+        final request = LoginRequestEntity(email: email, password: password);
         final response = await _authRepository.login(request);
         if (response.isAuthenticated && response.user != null) {
-          final userRole = _mapRole(response.user!.roles);
-          emit(AuthAuthenticated(
-            userId: response.user!.id,
-            userName: response.user!.fullName,
-            role: userRole,
-            user: response.user,
-          ));
+          emitAuthenticated(response.user!);
           await _registerDeviceToken(FcmService().deviceToken);
           await _initFirebaseAuth();
         } else {
@@ -172,104 +157,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> registerPatient({
-    required String firstName, required String lastName, required String username,
-    required String email, required String password, String? phone,
-    String? address, required String gender, String? birthdayDate,
-    String? cityId,
-  }) async {
-    emit(const AuthLoading());
-    if (_authRepository == null) {
-      emit(AuthError(AppStrings.apiNotAvailable));
-      return;
-    }
-    try {
-      final request = RegisterPatientRequest(
-        firstName: firstName, lastName: lastName, username: username,
-        email: email, password: password, phone: phone, address: address,
-        gender: gender, birthdayDate: birthdayDate,
-        cityId: cityId,
-      );
-      final response = await _authRepository.registerPatient(request);
-      if (response.isAuthenticated && response.user != null) {
-        _emitAuthenticated(response.user!);
-        await _registerDeviceToken(FcmService().deviceToken);
-        await _initFirebaseAuth();
-      } else {
-        emit(AuthError(response.message ?? AppStrings.registrationFailed));
-      }
-    } catch (e) {
-      emit(AuthError(e.toString()));
-    }
-  }
-
-  Future<void> registerDoctor({
-    required String firstName, required String lastName, required String username,
-    required String email, required String password, String? phone,
-    String? address, required String gender, String? birthdayDate,
-    String? cityId,
-    required String specializationId, required int experienceMonths,
-  }) async {
-    emit(const AuthLoading());
-    if (_authRepository == null) {
-      emit(AuthError(AppStrings.apiNotAvailable));
-      return;
-    }
-    try {
-      final request = RegisterDoctorRequest(
-        firstName: firstName, lastName: lastName, username: username,
-        email: email, password: password, phone: phone, address: address,
-        gender: gender, birthdayDate: birthdayDate,
-        cityId: cityId,
-        specializationId: specializationId, experienceMonths: experienceMonths,
-      );
-      final response = await _authRepository.registerDoctor(request);
-      if (response.isAuthenticated && response.user != null) {
-        _emitAuthenticated(response.user!);
-        await _registerDeviceToken(FcmService().deviceToken);
-        await _initFirebaseAuth();
-      } else {
-        emit(AuthState(pendingMessage: response.message));
-      }
-    } catch (e) {
-      emit(AuthError(e.toString()));
-    }
-  }
-
-  Future<void> registerReceptionist({
-    required String firstName, required String lastName, required String username,
-    required String email, required String password, String? phone,
-    String? address, required String gender, String? birthdayDate,
-    String? cityId,
-    String? shiftStart, String? shiftEnd,
-  }) async {
-    emit(const AuthLoading());
-    if (_authRepository == null) {
-      emit(AuthError(AppStrings.apiNotAvailable));
-      return;
-    }
-    try {
-      final request = RegisterReceptionistRequest(
-        firstName: firstName, lastName: lastName, username: username,
-        email: email, password: password, phone: phone, address: address,
-        gender: gender, birthdayDate: birthdayDate,
-        cityId: cityId,
-        shiftStart: shiftStart, shiftEnd: shiftEnd,
-      );
-      final response = await _authRepository.registerReceptionist(request);
-      if (response.isAuthenticated && response.user != null) {
-        _emitAuthenticated(response.user!);
-        await _registerDeviceToken(FcmService().deviceToken);
-        await _initFirebaseAuth();
-      } else {
-        emit(AuthState(pendingMessage: response.message));
-      }
-    } catch (e) {
-      emit(AuthError(e.toString()));
-    }
-  }
-
-  void _emitAuthenticated(UserEntity user) {
+  void emitAuthenticated(UserEntity user) {
     final userRole = _mapRole(user.roles);
     emit(AuthAuthenticated(
       userId: user.id,
